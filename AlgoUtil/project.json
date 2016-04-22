@@ -1,0 +1,23 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Utility library",
+  "authors": [
+    "milk"
+  ],
+  "tags": [
+    ""
+  ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "log4net": "2.0.3",
+    "Google.ProtocolBuffers": "2.4.1.555"
+  },
+  "frameworks": {
+    "net451": { }
+  },
+  "runtimes": {
+    "win-anycpu": { },
+    "win": { }
+  }
+}

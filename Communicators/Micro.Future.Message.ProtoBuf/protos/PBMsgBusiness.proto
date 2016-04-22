@@ -1,0 +1,168 @@
+package PBMsgBusiness;
+option java_package = "ProtoBufMessage";
+option java_outer_classname = "PBMsgBusiness";
+// 请求消息
+enum MsgIdBusinesscReq {
+	// 4.1.2 	登录
+	ID_BU_REQ_SYS_ACCOUNT_LOGIN = 20000;
+	// 4.1.2 	登出
+	ID_BU_REQ_SYS_ACCOUNT_LOGOUT = 20001;
+	// 4.2.2 	账户信息更新 
+	ID_BU_REQ_SYS_ACCOUNT_UPDATE = 20002;
+	// 4.1.1 	服务器信息查询
+	ID_BU_REQ_QYR_SERVER_INFO = 20003;
+	// 4.1.3 	协议列表查询
+	ID_BU_REQ_QYR_PROTOCOL = 20004;
+	// 4.2.1 	账户信息查询
+	ID_BU_REQ_QYR_ACCOUNT = 20005;
+	// 4.2.3 	历史登录信息查询
+	ID_BU_REQ_QYR_HIS_LOGIN = 20006;
+
+}
+// 响应请求消息
+enum MsgIdBusinesscRsp {
+	// 4.1.2 	登录
+	ID_BU_RSP_SYS_ACCOUNT_LOGIN = 20007;
+	// 4.1.2 	登出
+	ID_BU_RSP_SYS_ACCOUNT_LOGOUT = 20008;
+	// 4.2.2 	账户信息更新 
+	ID_BU_RSP_SYS_ACCOUNT_UPDATE = 20009;
+	// 4.1.1 	服务器信息查询
+	ID_BU_RSP_QYR_SERVER_INFO = 20010;
+	// 4.1.3 	协议列表查询
+	ID_BU_RSP_QYR_PROTOCOL = 20011;
+	// 4.2.1 	账户信息查询
+	ID_BU_RSP_QYR_ACCOUNT = 20012;
+	// 4.2.3 	历史登录信息查询
+	ID_BU_RSP_QYR_HIS_LOGIN = 20013;
+}
+// 4.1.2 	登录
+message PBMsgBusinessReqSysAccountLogin {
+	//Message Header
+	required int32 msg_id = 1;
+	//用户名
+	required string UserName = 2;
+	//密码
+	required string Password = 3;
+	//mac
+	required string mac = 4;
+}
+message PBMsgBusinessRspSysAccountLogin {
+	//Message Header
+	required int32 msg_id = 1;
+	//用户名
+	required string UserName = 2;
+	//登陆结果
+	required int32 Result = 3;
+	//消息
+	required bytes Message = 4;
+	//mac
+	required string mac = 5;
+}
+// 4.1.2 	登出
+message PBMsgBusinessReqSysAccountLogout {
+	//Message Header
+	required int32 msg_id = 1;
+	//用户名
+	required string UserName = 2;
+}
+message PBMsgBusinessRspSysAccountLogout {
+	//Message Header
+	required int32 msg_id = 1;
+	//用户名
+	required string UserName = 2;
+	//登出结果
+	required int32 Result = 3;
+	//消息
+	required string Message = 4;
+}
+// 4.2.2 	账户信息更新 
+message PBMsgBusinessReqSysAccountUpdate {
+	//Message Header
+	required int32 msg_id = 1;
+	//用户名
+	required string UserName = 2;
+	//密码
+	required string Password = 3;
+	//中文名
+	optional string UserNameCN = 4;
+	//电话
+	optional string Mobile = 5;
+	//邮件
+	optional string Mail = 6;
+	//公司
+	optional string Company = 7;
+	//地址
+	optional string Address = 8;
+}
+message PBMsgBusinessRspSysAccountUpdate {
+	//Message Header
+	required int32 msg_id = 1;
+	//用户名
+	required string UserName = 2;
+	//更新结果
+	required int32 Result = 3;
+	//消息
+	required string Message = 4;
+}
+
+// 4.1.1 	服务器信息查询
+message PBMsgBusinessReqServerInfo {
+	//Message Header
+	required int32 msg_id = 1;
+}
+message PBMsgBusinessRspServerInfo {
+	//Message Header
+	required int32 msg_id = 1;
+}
+// 4.1.3 	协议列表查询
+message PBMsgBusinessReqProtocolInfo {
+	//Message Header
+	required int32 msg_id = 1;
+}
+message PBMsgBusinessRspProtocolInfo {
+	//Message Header
+	required int32 msg_id = 1;
+}
+// 4.2.1 	账户信息查询
+message PBMsgBusinessReqSysAccount {
+	//Message Header
+	required int32 msg_id = 1;
+}
+message PBMsgBusinessRspSysAccount {
+	//Message Header
+	required int32 msg_id = 1;
+}
+// 4.2.3 	历史登录信息查询
+message PBMsgBusinessReqHisSysAccountLogin {
+	//Message Header
+	required int32 msg_id = 1;
+}
+message PBMsgBusinessRspHisSysAccountLogin {
+	//Message Header
+	required int32 msg_id = 1;
+}
+//////////////////////////////////////////////////////////////////////
+// 协议包定义 start
+//////////////////////////////////////////////////////////////////////	
+message PBMsgBusiness {
+	//Message Header	
+	required int32 msg_id = 1;
+	optional PBMsgBusinessReqSysAccountLogin msgLoginReq = 2;
+	optional PBMsgBusinessRspSysAccountLogin msgLoginRsp = 3;
+	optional PBMsgBusinessReqSysAccountLogout msgLogoutReq = 4;
+	optional PBMsgBusinessRspSysAccountLogout msgLogoutRsp = 5;
+	optional PBMsgBusinessReqSysAccountUpdate msgReqSysAccountUpdate = 6;
+	optional PBMsgBusinessReqSysAccountUpdate msgRspSysAccountUpdate = 7;
+	optional PBMsgBusinessReqServerInfo msgReqServerInfo = 8;
+	optional PBMsgBusinessRspServerInfo msgRspServerInfo = 9;
+	optional PBMsgBusinessReqProtocolInfo msgReqProtocolInfo = 10;
+	optional PBMsgBusinessRspProtocolInfo msgRspProtocolInfo = 11;
+	optional PBMsgBusinessReqSysAccount msgReqSysAccount = 12;
+	optional PBMsgBusinessRspSysAccount msgRspSysAccount = 13;
+	optional PBMsgBusinessReqHisSysAccountLogin msgReqHisSysAccountLogin = 14;
+	optional PBMsgBusinessRspHisSysAccountLogin msgRspHisSysAccountLogin = 15;
+}
+//////////////////////////////////////////////////////////////////////
+// 协议包定义 end
+//////////////////////////////////////////////////////////////////////	

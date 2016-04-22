@@ -1,0 +1,14 @@
+﻿<Application x:Class="TradingDeskUI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="OTCTradingDesk.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Micro.Future.WPFThemeLib;component/Styles/RibbonStyle.xaml"/>
+                <ResourceDictionary Source="/Micro.Future.WPFThemeLib;component/Themes/ExpressionDark.xaml" />
+                <ResourceDictionary Source="/Micro.Future.WPFThemeLib;component/Styles/MicroFutureStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

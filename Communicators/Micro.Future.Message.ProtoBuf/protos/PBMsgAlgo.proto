@@ -1,0 +1,62 @@
+package PBWrapMsgAlgo;
+
+option java_package = "ProtoBufMessage";
+option java_outer_classname = "PBWrapMsgAlgo";
+
+enum MessageType {
+	BATCH_NEW_ORDER = 1;
+	BATCH_RETRY_ORDER = 2;
+	BATCH_CANCEL_ORDER = 3;
+}
+
+message PBMsgAlgoOrder {
+//股票代码
+	required string symbol = 1;
+	//上海、深圳
+	required string euityMarket = 2;
+	//买卖
+	required string orderDirection = 3;
+	//价格类型，买一，卖一，市价等
+	required string priceType = 4;
+	//手数
+	required int32 size = 5;
+
+	required bool EqtOrFut = 6 [default = true];
+
+	optional string futureFlag = 7;
+
+	optional string futureAccountType = 8;
+}
+
+//批量下单
+message PBMsgAlgoOrderList {
+	//Message Header
+	required int32 messageId = 1;
+	required string messageService = 2;
+
+	//Message Body
+	required MessageType messageType = 3;
+	required string parentOrderId = 4;
+
+	//Batch Order
+	repeated PBMsgAlgoOrder batNewOrderList = 5;
+
+	optional double eqtBuyChangePercent = 6;
+	optional double eqtSellChangePercent = 7;
+
+	optional sint32 futBuyChangePoint = 8;
+	optional sint32 futSellChangePoint = 9;
+}
+
+message PBMsgCandle {
+	required string timestamp  = 1;
+	optional int32 open = 2;
+	optional int32 close = 3;
+	optional int32 high = 4;
+	optional int32 low = 5;
+}
+
+message PBMsgCandleQueue {
+	required string ric = 1;
+	repeated PBMsgCandle candles = 2;
+}

@@ -1,0 +1,131 @@
+package PBWrapMsgMC;
+
+option java_package = "ProtoBufMessage";
+option java_outer_classname = "PBWrapMsgMC";
+
+enum MessageType {
+	REGISTER = 1;
+	HEART_BEAT = 2;
+	STATUS_REPORT = 3;
+}
+
+enum CommandType {
+	RELOAD_AUTHENTICATION = 1;
+}
+
+message PBMsgMCBroAuth {
+	required string brokerName = 1;
+	required string destination = 2;
+	required string channel = 3;
+	repeated string IPList = 4;
+}
+
+message PBMsgMCMsgAuth {
+	required int32 messageId = 1;
+	required string messageClassName = 2;
+	//this service stands for which service this message is used for
+	required string service = 3;
+	//sourceService stands for which source this message is used in
+	optional string sourceService = 4;
+}
+
+message PBMsgMCAuthList {
+	//Message Header
+	required int32 messageId = 1;
+	required string messageService = 2;
+
+	//Message Body
+	//this service stands for which service this authentication message is for
+	required string service = 3;
+
+	repeated PBMsgMCBroAuth broAuthList = 4;
+
+	//msgAuthList is for Service-Message that needs validation on incoming and will send out
+	repeated PBMsgMCMsgAuth msgAuthList = 5;
+
+	//srcMsgAuthList is for Source-Message that needs no validation on incoming and will NOT send out
+	repeated PBMsgMCMsgAuth srcMsgAuthList = 6;
+}
+
+message PBMsgMCExch {
+	//Message Header
+	required int32 messageId = 1;
+	required string messageService = 2;
+
+	//Message Body
+	//service here stands for which service this message is from
+	required string service = 3;
+	required MessageType messageType = 4;
+	repeated string source = 5;
+	optional string status = 6;
+}
+
+message PBMsgMCSuperCmd {
+	//Message Header
+	required int32 messageId = 1;
+	required string messageService = 2;
+
+	//Message Body
+	required CommandType commandType = 3;
+}
+
+message PBMsgPair{
+	required string key = 1;
+	required string value = 2;
+}
+
+message PBMsgSimMap
+{
+	//Message Header
+	required int32 messageId = 1;
+	//algo name
+	required string messageService = 2;
+
+	//command name
+	required string name = 3;
+	repeated PBMsgPair node = 4;
+	optional string info = 5;
+}
+
+enum QueryType {
+	REQUEST = 1;
+	RETURN = 2;
+	STOREPROCEDURE = 3;
+	RESERVED = 4;
+}
+
+enum DataType {
+	IMAGE = 1;
+	UPDATE = 2;
+}
+
+message DBQuery
+{
+	//Message Header
+	required int32 messageId = 1;
+	required string messageService = 2;
+
+	//own
+	required QueryType queryType = 3;
+	required string name = 4;
+
+	optional string connection = 5;
+	//SQL or store procedure name
+	optional string SQL = 6;
+	optional int32 columnNum = 7;
+	repeated DBRow rows  = 8;
+
+	optional DataType dataType = 9;
+
+	//store procedure
+	repeated string parameter_name  =10;
+	repeated string parameter_value  =11;
+	repeated string parameter_type  =12;
+	repeated string parameter_size  =13;
+}
+
+message DBRow
+{
+	repeated string columns  = 1;
+}
+

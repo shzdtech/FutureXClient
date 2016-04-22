@@ -1,0 +1,21 @@
+﻿<Window x:Class="Micro.Future.UI.OTCContactWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:loc="clr-namespace:Micro"
+             xmlns:data="clr-namespace:Micro.Future.ViewModel"   
+             mc:Ignorable="d" Width="494.169" Height="278.607">
+    <DockPanel>
+        <ListView Name="tradingDeskLV" ItemsSource="{Binding TradingDeskVMCollection}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Trading Desk" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                    <GridViewColumn Header="Contact Number" DisplayMemberBinding="{Binding ContactNum}" Width="120" />
+                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" Width="160" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</Window>

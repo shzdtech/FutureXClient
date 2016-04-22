@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="Micro.Future.UI.QuoteGroupViewOTC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:s="clr-namespace:System;assembly=mscorlib"
+             xmlns:loc="clr-namespace:Micro.Future.UI;assembly=Micro.Future.UIObject"
+             xmlns:data="clr-namespace:Micro.Future.ViewModel"   
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1300">
+    <DockPanel>
+        <ListView Name="QuoteListView" ItemsSource="{Binding Path=QuoteCollection}" Margin="0,0,0,0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Exchange" DisplayMemberBinding="{Binding Exchange}"/>
+                    <GridViewColumn Header="Contract" DisplayMemberBinding="{Binding Contract}"/>
+                    <GridViewColumn Header="Bid Price">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock  Text="{Binding Value}" DataContext="{Binding BidPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Ask Price">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value}" DataContext="{Binding AskPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Q-OTC">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <xctk:IntegerUpDown x:Name="QOTCTextBox" Value="{Binding Quantity}"></xctk:IntegerUpDown>
+                                    <Button Content="更新" Command="{Binding UpdateQCommand}"></Button>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</UserControl>

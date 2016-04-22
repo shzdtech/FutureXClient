@@ -1,0 +1,151 @@
+﻿<RibbonWindow x:Class="Micro.Future.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:ribbon="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon"
+        xmlns:c="clr-namespace:Micro.Future.UI"
+        xmlns:data="clr-namespace:Micro.Future.ViewModel"
+        xmlns:d="clr-namespace:Micro.Future.ViewModel;assembly=Micro.Future.CustomizedControls"
+        Title="主界面" Height="850" Width="1440" Loaded="Window_Loaded" Unloaded="Window_Unloaded"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Ribbon Title="Ribbon" Background="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}">
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu SmallImageSource="/Micro.Future.ClientUI;component/Images/Annotation_New.png" KeyTip="F">
+                    <RibbonApplicationMenuItem DataContext="{x:Static data:RibbonModel.DomLogin}"/>
+                    <RibbonApplicationMenuItem DataContext="{x:Static data:RibbonModel.ExitTtisv1}" />
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
+            <!--<RibbonTab Header="行情">
+
+            </RibbonTab>-->
+            <RibbonTab Header="功能区">
+                <RibbonGroup Header="交易" >
+                    <RibbonButton  DataContext="{x:Static data:RibbonModel.DomLogin}" />
+                    <RibbonButton DataContext="{x:Static data:RibbonModel.AdvancedMakeOrder}" />
+                    <RibbonButton  DataContext="{x:Static data:RibbonModel.DomLogout}" IsEnabled="False" />
+                </RibbonGroup>
+                <RibbonGroup x:Name="Quote" Header="报价"  >
+                    <RibbonButton DataContext="{x:Static d:CommonRibbon.NewQuote}" />
+                        <RibbonButton DataContext="{x:Static data:RibbonModel.DeleteQuote}" />
+                        <RibbonButton DataContext="{x:Static data:RibbonModel.DeleteAllQuotes}" />
+                </RibbonGroup>
+                <RibbonGroup Header="报价组" >
+                    <!--<StackPanel Orientation="Horizontal">-->
+                        <RibbonButton DataContext="{x:Static data:RibbonModel.NewGroup}" />
+                        <RibbonTextBox Name="newQuoteGroupRibbonText"  Width="70" TextChanged="newQuoteGroupRibbonText_TextChanged" />
+          
+                    <!--</StackPanel>-->
+                    <RibbonComboBox  Name="FastAddGroupCombo" DataContext="{x:Static data:RibbonModel.FastAddGroup}" SelectionBoxWidth="70">
+                        <RibbonGallery DataContext="{x:Static data:RibbonModel.FontFaceGallery}" MaxColumnCount="1" />
+                    </RibbonComboBox>
+                    <RibbonButton DataContext="{x:Static data:RibbonModel.DeleteGroup}" />
+                </RibbonGroup>
+                <RibbonGroup Header="手动查询" >
+                    <RibbonButton DataContext="{x:Static data:RibbonModel.MarketQuery}" />
+                    <RibbonButton DataContext="{x:Static data:RibbonModel.InstrumentQuery}" />
+                    <RibbonButton DataContext="{x:Static data:RibbonModel.FundQuery}" />
+                    <RibbonButton DataContext="{x:Static data:RibbonModel.PositionQuery}" />
+                    <RibbonButton DataContext="{x:Static data:RibbonModel.OrderQuery}" />
+                    <RibbonButton DataContext="{x:Static data:RibbonModel.TradeQuery}" />
+                </RibbonGroup>
+                
+                <RibbonGroup Header="设置">
+                    <RibbonButton  DataContext="{x:Static data:RibbonModel.SystemSetting}" />
+
+                    <RibbonButton DataContext="{x:Static data:RibbonModel.OneButtonOrderSetting}" />
+                    <!--<RibbonButton DataContext="{x:Static data:RibbonModel.ThemeSetting}" />-->
+                    <!--<RibbonButton DataContext="{x:Static data:RibbonModel.PasswordSetting}" />-->
+                    <!--<RibbonButton DataContext="{x:Static data:RibbonModel.NewUser}" />-->
+                </RibbonGroup>
+                <RibbonGroup Header="布局">
+                    <RibbonButton  DataContext="{x:Static data:RibbonModel.SaveLayoutCtrl}" />
+                    <RibbonButton DataContext="{x:Static data:RibbonModel.LoadLayoutCtrl}" />
+                    <RibbonButton DataContext="{x:Static data:RibbonModel.LoadDefaultLayoutCtrl}" />
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+        
+        <StatusBar Grid.Row="2">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <TextBlock Name="UserTextStatus" />
+            <StatusBarItem Grid.Column="1">
+                <TextBlock Name="SemiStatusTextBlock"></TextBlock>
+            </StatusBarItem>            
+            <StatusBarItem Grid.Column="2">
+                <TextBlock Name="ProcessStatus"></TextBlock>
+            </StatusBarItem>
+            <!--<StatusBarItem Grid.Column="2" >
+                <TextBlock>Right Side</TextBlock>
+            </StatusBarItem>-->
+        </StatusBar>
+        <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" >
+            <avalonDock:DockingManager.Theme>
+                <avalonDock:AeroTheme/>
+            </avalonDock:DockingManager.Theme>
+            <avalonDock:LayoutRoot>
+                <avalonDock:LayoutPanel Orientation="Vertical">
+                    <avalonDock:LayoutDocumentPane >
+                    </avalonDock:LayoutDocumentPane>
+                    <avalonDock:LayoutPanel Orientation="Horizontal" DockHeight="350" >
+                        <avalonDock:LayoutPanel DockWidth="*" >
+                            <avalonDock:LayoutAnchorablePane >
+                                <avalonDock:LayoutAnchorable Title="快速下单">
+                                    <c:FastOrderWindow x:Name="FastOrderCtl"  />
+                                </avalonDock:LayoutAnchorable>
+                                <avalonDock:LayoutAnchorable Title="资金信息">
+                                    <Grid Name="FundGrid">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="20" />
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                            <TextBlock>用户：</TextBlock>
+                                            <TextBlock Text="{Binding AccountID}"></TextBlock>
+                                        </StackPanel>
+                                        <ListView Grid.Row="1" Name="AccountInfoListView" ItemsSource="{Binding Values}" >
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Key}" Width="120"/>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Value}" Width="120"/>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </Grid>
+                                </avalonDock:LayoutAnchorable>
+                            </avalonDock:LayoutAnchorablePane>
+                        </avalonDock:LayoutPanel>
+                        <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="4*">
+                            <avalonDock:LayoutAnchorablePane>
+                                <avalonDock:LayoutAnchorable Title="订单明细">
+                                    <c:ExecutionWindow x:Name="executionWindow"/>
+                                </avalonDock:LayoutAnchorable>
+                            </avalonDock:LayoutAnchorablePane>
+                            <avalonDock:LayoutAnchorablePane >
+                                <avalonDock:LayoutAnchorable Title="持仓头寸">
+                                    <c:PositionWindow x:Name="positionsWindow"/>
+                                </avalonDock:LayoutAnchorable>
+                            </avalonDock:LayoutAnchorablePane>
+                        </avalonDock:LayoutPanel>
+                    </avalonDock:LayoutPanel>
+                </avalonDock:LayoutPanel>
+            </avalonDock:LayoutRoot>
+        </avalonDock:DockingManager>
+    </Grid>
+</RibbonWindow>

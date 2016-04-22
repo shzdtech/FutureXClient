@@ -1,0 +1,24 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Micro.Future.Message.ProtoBuf Class Library",
+  "authors": [
+    "milk"
+  ],
+  "tags": [
+    ""
+  ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "CSharpTest.Net.Tools": "14.328.1301.1052",
+    "Google.ProtocolBuffers": "2.4.1.555",
+    "Micro.Future.Message": "1.0.0-*"
+  },
+  "frameworks": {
+    "net451": {}
+  },
+  "runtimes": {
+    "win-anycpu": {},
+    "win": {}
+  }
+}

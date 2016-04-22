@@ -1,0 +1,23 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "TradingDesk UI",
+  "authors": [
+    "milk"
+  ],
+  "tags": [
+    ""
+  ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "Extended.Wpf.Toolkit": "2.7",
+    "Google.ProtocolBuffers": "2.4.1.555"
+  },
+  "frameworks": {
+    "net451": {}
+  },
+  "runtimes": {
+    "win-anycpu": {},
+    "win": {}
+  }
+}
