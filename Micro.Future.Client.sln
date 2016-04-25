@@ -17,13 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFThemeLib", "WPFThemeLib\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTCClientUI", "ClientUI\OTCClientUI.csproj", "{B7396C44-1073-4C8E-BE3A-FD9C2329A220}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Communicators", "Communicators", "{B273C2B1-A738-454C-8466-323B57536DC6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTools", "WpfUI\WPFTools.csproj", "{F16AEF6A-4B81-4D04-9442-17438F6F6EFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.Message.ProtoBuf", "..\FutureXShare\Communicators\Micro.Future.Message.ProtoBuf\Micro.Future.Message.ProtoBuf.csproj", "{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.Message", "..\FutureXShare\Communicators\Micro.Future.Message\Micro.Future.Message.csproj", "{354935CE-AB35-4BC3-88DD-E6C3B1E0870C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.Message.ProtoBuf", "..\FutureXShare\Communicators\Micro.Future.Message.ProtoBuf\Micro.Future.Message.ProtoBuf.csproj", "{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -141,22 +139,6 @@ Global
 		{F16AEF6A-4B81-4D04-9442-17438F6F6EFA}.Release|Win32.Build.0 = Release|Any CPU
 		{F16AEF6A-4B81-4D04-9442-17438F6F6EFA}.Release|x86.ActiveCfg = Release|Any CPU
 		{F16AEF6A-4B81-4D04-9442-17438F6F6EFA}.Release|x86.Build.0 = Release|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|Win32.Build.0 = Debug|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|x86.Build.0 = Debug|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|Win32.ActiveCfg = Release|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|Win32.Build.0 = Release|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|x86.ActiveCfg = Release|Any CPU
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|x86.Build.0 = Release|Any CPU
 		{354935CE-AB35-4BC3-88DD-E6C3B1E0870C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{354935CE-AB35-4BC3-88DD-E6C3B1E0870C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{354935CE-AB35-4BC3-88DD-E6C3B1E0870C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -173,12 +155,25 @@ Global
 		{354935CE-AB35-4BC3-88DD-E6C3B1E0870C}.Release|Win32.Build.0 = Release|Any CPU
 		{354935CE-AB35-4BC3-88DD-E6C3B1E0870C}.Release|x86.ActiveCfg = Release|Any CPU
 		{354935CE-AB35-4BC3-88DD-E6C3B1E0870C}.Release|x86.Build.0 = Release|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|Win32.Build.0 = Debug|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Debug|x86.Build.0 = Debug|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|Win32.ActiveCfg = Release|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|Win32.Build.0 = Release|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|x86.ActiveCfg = Release|Any CPU
+		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B} = {B273C2B1-A738-454C-8466-323B57536DC6}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Ttisv1Client.vsmdi
