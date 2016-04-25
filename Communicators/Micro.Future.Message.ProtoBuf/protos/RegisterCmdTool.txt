@@ -1,3 +1,0 @@
-﻿http://help.csharptest.net/?CmdToolVisualStudio.html
-
-CmdTool.exe Register

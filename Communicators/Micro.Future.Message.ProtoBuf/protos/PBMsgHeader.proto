@@ -1,9 +1,0 @@
-package PBWrapMsgHeader;
-
-option java_package = "ProtoBufMessage";
-option java_outer_classname = "PBWrapMsgHeader";
-
-message PBMsgHeader {
-	required int32 messageId = 1;
-	required string messageService = 2;
-}
