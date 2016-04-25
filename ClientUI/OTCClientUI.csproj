@@ -276,17 +276,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AlgoUtil\Utility.csproj">
-      <Project>{A6A3AF60-A359-49C4-8747-C79B695489E2}</Project>
-      <Name>Utility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Communicators\Micro.Future.Message.ProtoBuf\Micro.Future.Message.ProtoBuf.csproj">
+    <ProjectReference Include="..\..\FutureXShare\Communicators\Micro.Future.Message.ProtoBuf\Micro.Future.Message.ProtoBuf.csproj">
       <Project>{c518b93e-4e53-45af-ad44-b5d1bd7eea8b}</Project>
       <Name>Micro.Future.Message.ProtoBuf</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Communicators\Micro.Future.Message\Micro.Future.Message.csproj">
+    <ProjectReference Include="..\..\FutureXShare\Communicators\Micro.Future.Message\Micro.Future.Message.csproj">
       <Project>{354935ce-ab35-4bc3-88dd-e6c3b1e0870c}</Project>
       <Name>Micro.Future.Message</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AlgoUtil\Utility.csproj">
+      <Project>{A6A3AF60-A359-49C4-8747-C79B695489E2}</Project>
+      <Name>Utility</Name>
     </ProjectReference>
     <ProjectReference Include="..\CustomizedControls\CustomizedControls.csproj">
       <Project>{6425aad0-3c33-4f14-ae8f-53ed07c203d6}</Project>
