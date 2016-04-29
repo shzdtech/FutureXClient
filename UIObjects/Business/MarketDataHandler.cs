@@ -172,6 +172,7 @@ namespace Micro.Future.Message
                                     quote.LowValue = md.LowValue;
                                     quote.UpperLimitPrice = md.HighLimit;
                                     quote.LowerLimitPrice = md.LowLimit;
+                                    
 
                                     break;
                                 }

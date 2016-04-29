@@ -193,8 +193,8 @@ namespace Micro.Future.ViewModel
 
         private void sendOrder(object directStr)
         {
-            this.Direction = directStr == "1" ? DirectionType.BUY : DirectionType.SELL;
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().CreateOrder(this);
+            this.Direction = (string)directStr == "1" ? DirectionType.BUY : DirectionType.SELL;
+            TraderExHandler.Instance.CreateOrder(this);
         }
 
         RelayCommand _sendOrderCommand;

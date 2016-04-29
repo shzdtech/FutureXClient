@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <TextBlock VerticalAlignment="Center" Text="合约" Width="35"></TextBlock>
-            <TextBox Name="FastOrderContractTxt" Width="100" TextAlignment="Right" Text="{Binding Contract}"></TextBox>
+            <TextBox Name="FastOrderContract" Width="100" TextAlignment="Right" Text="{Binding Contract}"></TextBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <TextBlock Width="35" Text="量:" VerticalAlignment="Center"></TextBlock>
@@ -55,10 +55,10 @@
         <StackPanel Grid.Row="3" Orientation="Horizontal" Height="50" VerticalAlignment="Bottom">
             <TextBlock Text="价格" VerticalAlignment="Center" Width="35"></TextBlock>
             <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment=".1" Value="{Binding LimitPrice}" />
-            <Label x:Name="label1" Content="{Binding UpperLimitPrice}" RenderTransformOrigin="0.233,1.385" FontSize="10.667" Margin="0,0,0,37" Width="30" MouseDown="label1_MouseDown" />
-            <Label x:Name="label" Content="Label" Margin="-30,0,0,24" FontSize="10.667" Height="12" VerticalAlignment="Bottom"/>
-            <Label x:Name="label2" Content="Label" Margin="-30,25,0,11" Height="12.5" FontSize="10.667"/>
-            <Label x:Name="label3" Content="{Binding LowerLimitPrice}" Margin="-30,0,0,0" FontSize="10.667" Height="12.5" VerticalAlignment="Bottom" MouseDown="label3_MouseDown"/>
+            <Label x:Name="LabelUpperPrice" Content="{Binding Path=UpperLimitPrice}" RenderTransformOrigin="0.233,1.385" FontSize="10.667" Width="30" MouseDown="labelupperprice_MouseDown" Margin="0,0,0,37" />
+            <Label x:Name="LabelBidPrice" Content="{Binding Path=BidPrice}" Margin="-30,0,0,24" FontSize="10.667" Height="12" VerticalAlignment="Bottom"/>
+            <Label x:Name="LabelAskPrice" Content="{Binding Path=AskPrice}" Margin="-30,25,0,11" Height="12.5" FontSize="10.667"/>
+            <Label x:Name="LabelLowerPrice" Content="{Binding Path=LowerLimitPrice}" Margin="-30,0,0,0" FontSize="10.667" Height="12.5" VerticalAlignment="Bottom" MouseDown="labellowerprice_MouseDown"/>
         </StackPanel>
 
         <Grid Grid.Row="4">

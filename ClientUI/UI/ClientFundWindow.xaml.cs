@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
+using System.Windows;
 
 namespace Micro.Future.UI
 {
@@ -24,6 +25,12 @@ namespace Micro.Future.UI
         public void ReloadData()
         {
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryAccountInfo();
+        }
+
+        private void MenuItemColumns_Click(object sender, RoutedEventArgs e)
+        {
+            ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
+            win.Show();
         }
     }
 }

@@ -63,9 +63,9 @@ namespace Micro.Future.Message
                 ((uint)BusinessMessageID.MSG_ID_ORDER_NEW, OnQueryOrder, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBOrderInfo, BizErrorMsg>
                 ((uint)BusinessMessageID.MSG_ID_ORDER_UPDATE, OnUpdateOrder, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBTradeNotification, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBTradeInfo, BizErrorMsg>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_TRADE, OnQueryTrade, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBTradeNotification, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBTradeInfo, BizErrorMsg>
                 ((uint)BusinessMessageID.MSG_ID_TRADE_RTN, OnReturnTrade, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBOrderInfo, BizErrorMsg>
                 ((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, OnCancel, ErrorMsgAction);
@@ -129,6 +129,8 @@ namespace Micro.Future.Message
                       CloseProfit=rsp.CloseProfit,
                       UseMargin=rsp.UseMargin,
                       HedgeFlag=(HedgeType)rsp.HedgeFlag,
+                      Contract=rsp.Contract,
+                      //TodayPosition=rsp.                     
                       //CancelTime=rsp.
 
                     });
@@ -220,6 +222,8 @@ namespace Micro.Future.Message
                                 UpdateTime=rsp.UpdateTime,
                                 CancelTime=rsp.CancelTime,                                
                                 Exchange = rsp.Exchange,
+                                Contract=rsp.Contract,
+                                
 
                             });
                         }
@@ -247,7 +251,7 @@ namespace Micro.Future.Message
                 }
             }
         }
-        private void OnQueryTrade(PBTradeNotification rsp)
+        private void OnQueryTrade(PBTradeInfo rsp)
         {
             if (TradeVMCollection != null)
             {
@@ -276,6 +280,11 @@ namespace Micro.Future.Message
                                     Price = rsp.Price,
                                     Volume = rsp.Volume,
                                     TradingType = (TradingType)rsp.TradeType,
+                                    TradeID=rsp.TradeID,
+                                    Contract=rsp.Contract,
+                                    TradeDate=rsp.TradeDate,
+                                    OpenClose=(OrderOffsetType)rsp.Openclose,
+                                    Commission=rsp.Commission,
                                     //InsertTime = rsp.,
                                     //UpdateTime = rsp.,
 
@@ -285,7 +294,7 @@ namespace Micro.Future.Message
                 }
             }
         }
-        private void OnReturnTrade(PBTradeNotification rsp)
+        private void OnReturnTrade(PBTradeInfo rsp)
         {
             if (TradeVMCollection != null)
             {
@@ -304,6 +313,7 @@ namespace Micro.Future.Message
                                     TradingType = (TradingType)rsp.TradeType,
                                     TradeDate=rsp.TradeDate,
                                     TradeTime=rsp.TradeTime,
+                                    OpenClose=(OrderOffsetType)rsp.Openclose
                                 });
                     }
                 );
@@ -357,8 +367,15 @@ namespace Micro.Future.Message
             var sendobjBld = PBOrderInfo.CreateBuilder();
             sendobjBld.Exchange = orderVM.Exchange;
             sendobjBld.Contract = orderVM.Contract;
+            sendobjBld.OrderID = orderVM.OrderID;
             sendobjBld.OrderSysID = orderVM.OrderSysID;
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, sendobjBld.Build());
+        }
+
+        public void ModifyOrder(OrderVM orderVM)
+        {
+            CancelOrder(orderVM);
+            CreateOrder(orderVM);
         }
 
     }

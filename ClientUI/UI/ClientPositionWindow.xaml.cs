@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
+using System;
 
 namespace Micro.Future.UI
 {
@@ -22,6 +23,9 @@ namespace Micro.Future.UI
             mColumns = ColumnObject.GetColumns(PositionListView);
         }
 
+        public event Action<PositionVM> OnPositionSelected;
+
+
         public void ReloadData()
         {
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryPosition();
@@ -31,6 +35,16 @@ namespace Micro.Future.UI
         {
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
             win.Show();
+        }
+
+
+        private void PositionListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (OnPositionSelected != null)
+            {
+                PositionVM positionVM = PositionListView.SelectedItem as PositionVM;
+                OnPositionSelected(positionVM);
+            }
         }
 
         //private void MenuItem_Click_1(object sender, RoutedEventArgs e)
@@ -45,5 +59,6 @@ namespace Micro.Future.UI
         //        MessageBox.Show("请选择持仓合约", "错误");
         //    }
         //}
+
     }
 }

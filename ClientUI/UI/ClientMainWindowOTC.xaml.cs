@@ -27,6 +27,11 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
+            // UI initialization
+            otcMarketDataLV.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
+            positionsWindow.OnPositionSelected += FastOrderCtl.OnPositionSelected;
+
+            //
             var msgWrapper = _otcClientSignIner.MessageWrapper;
 
             msgWrapper.MessageClient.OnDisconnected += OTCClient_OnDisconnected;

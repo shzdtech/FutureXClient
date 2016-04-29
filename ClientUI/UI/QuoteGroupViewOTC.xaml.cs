@@ -39,10 +39,21 @@ namespace Micro.Future.UI
                 = OTCQuoteVMCollection;
         }
 
+        public event Action<OTCQuoteVM> OnQuoteSelected;
+
         public void ReloadData()
         {
             OTCQuoteVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().SubMarketData();
+        }
+
+        private void QuoteListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (OnQuoteSelected != null)
+            {
+                OTCQuoteVM quote = QuoteListView.SelectedItem as OTCQuoteVM;
+                OnQuoteSelected(quote);
+            }
         }
     }
 }

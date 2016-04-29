@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Data;
-using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
 using System.Windows.Threading;
-using System.Threading;
 using System.Windows.Controls.Ribbon;
-using System.Collections.ObjectModel;
 using System.Xml.Serialization;
 using System.IO;
 using Micro.Future.ViewModel;
@@ -18,10 +14,6 @@ using System.Windows.Data;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using System.Windows.Input;
 using Micro.Future.Message;
-using Micro.Future.Message;
-using Micro.Future.Message.PBMessageHandler;
-using Micro.Future.Message.Business;
-using Micro.Future.Constant;
 using Micro.Future.Util;
 using Micro.Future.Properties;
 

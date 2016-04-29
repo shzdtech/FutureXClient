@@ -5,6 +5,16 @@ namespace Micro.Future.ViewModel
     //报价
     public class TradeVM : ContractNotifyPropertyChanged
     {
+        private ulong _tradeID;
+        public ulong TradeID
+        {
+            get { return _tradeID; }
+            set
+            {
+                _tradeID = value;
+                OnPropertyChanged("TradeID");
+            }
+        }
         private ulong _orderID;
         public ulong OrderID
         {
@@ -95,6 +105,29 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("TradeDate");
             }
         }
+
+        private OrderOffsetType _openClose;
+        public OrderOffsetType OpenClose
+        {
+            get { return _openClose; }
+            set
+            {
+                _openClose = value;
+                OnPropertyChanged("OpenClose");
+            }
+        }
+
+        private double _commission;
+        public double Commission
+        {
+            get { return _commission; }
+            set
+            {
+                _commission = value;
+                OnPropertyChanged("Commission");
+            }
+        }
+
 
 
     }

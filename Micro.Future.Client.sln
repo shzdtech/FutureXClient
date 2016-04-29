@@ -175,6 +175,42 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 11
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://microfuture.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = AlgoUtil\\Utility.csproj
+		SccProjectName1 = AlgoUtil
+		SccLocalPath1 = AlgoUtil
+		SccProjectUniqueName2 = Templates\\Templates.csproj
+		SccProjectName2 = Templates
+		SccLocalPath2 = Templates
+		SccProjectUniqueName3 = UIObjects\\UIObjects.csproj
+		SccProjectName3 = UIObjects
+		SccLocalPath3 = UIObjects
+		SccProjectUniqueName4 = TradingDeskUI\\TradingDeskUI.csproj
+		SccProjectName4 = TradingDeskUI
+		SccLocalPath4 = TradingDeskUI
+		SccProjectUniqueName5 = CustomizedControls\\CustomizedControls.csproj
+		SccProjectName5 = CustomizedControls
+		SccLocalPath5 = CustomizedControls
+		SccProjectUniqueName6 = WPFThemeLib\\WPFThemeLib.csproj
+		SccProjectName6 = WPFThemeLib
+		SccLocalPath6 = WPFThemeLib
+		SccProjectUniqueName7 = ClientUI\\OTCClientUI.csproj
+		SccProjectName7 = ClientUI
+		SccLocalPath7 = ClientUI
+		SccProjectUniqueName8 = ..\\FutureXShare\\Communicators\\Micro.Future.Message\\Micro.Future.Message.csproj
+		SccProjectName8 = ../FutureXShare/Communicators/Micro.Future.Message
+		SccLocalPath8 = ..\\FutureXShare\\Communicators\\Micro.Future.Message
+		SccProjectUniqueName9 = ..\\FutureXShare\\Communicators\\Micro.Future.Message.ProtoBuf\\Micro.Future.Message.ProtoBuf.csproj
+		SccProjectName9 = ../FutureXShare/Communicators/Micro.Future.Message.ProtoBuf
+		SccLocalPath9 = ..\\FutureXShare\\Communicators\\Micro.Future.Message.ProtoBuf
+		SccProjectUniqueName10 = WpfUI\\WPFTools.csproj
+		SccProjectName10 = WpfUI
+		SccLocalPath10 = WpfUI
+	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Ttisv1Client.vsmdi
 	EndGlobalSection

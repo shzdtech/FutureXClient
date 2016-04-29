@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
 using Micro.Future.ViewModel;
+using Micro.Future.Message;
 
 namespace Micro.Future.UI
 {
@@ -22,6 +23,28 @@ namespace Micro.Future.UI
             }
         }
 
+        public void OnQuoteSelected(QuoteViewModel quoteVM)
+        {
+            if (quoteVM != null)
+            {
+                LabelUpperPrice.DataContext = quoteVM;
+                LabelLowerPrice.DataContext = quoteVM;
+                LabelBidPrice.DataContext = quoteVM;
+                LabelAskPrice.DataContext = quoteVM;
+                OrderVM.Contract = quoteVM.Symbol;
+
+            }
+        }
+
+        public void OnPositionSelected(PositionVM positionVM)
+        {
+            if (positionVM != null)
+            {
+                OrderVM.Contract = positionVM.Contract;
+                OrderVM.OffsetFlag = OrderOffsetType.CLOSE;
+            }
+        }
+
         public OrderVM OrderVM
         {
             get;
@@ -35,14 +58,16 @@ namespace Micro.Future.UI
             DataContext = OrderVM;
         }
 
-        private void label1_MouseDown(object sender, MouseButtonEventArgs e)
+        private OrderVM _orderVM = new OrderVM();
+
+        private void labelupperprice_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            LimitTxt.Value =(double)label1.Content;
+            LimitTxt.Value = double.Parse(LabelUpperPrice.Content.ToString());
         }
 
-        private void label3_MouseDown(object sender, MouseButtonEventArgs e)
+        private void labellowerprice_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            LimitTxt.Value = (double)label3.Content;
+            LimitTxt.Value = double.Parse(LabelLowerPrice.Content.ToString());
         }
     }
 }
