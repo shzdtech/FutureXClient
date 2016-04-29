@@ -55,7 +55,8 @@
                     <GridViewColumn Header="成交数量" DisplayMemberBinding="{Binding VolumeTraded}"/>
                     <GridViewColumn Header="剩余数量" DisplayMemberBinding="{Binding VolumeRemain}"/>
                     <GridViewColumn Header="报单价格" DisplayMemberBinding="{Binding LimitPrice, StringFormat= {}{0:C}}" />
-                    <GridViewColumn Header="状态" DisplayMemberBinding="{Binding Path=Status, Converter={StaticResource enumItemsConverter}}" Width="200"/>
+                    <GridViewColumn Header="状态" DisplayMemberBinding="{Binding Path=Status, Converter={StaticResource enumItemsConverter}}"/>
+                    <GridViewColumn Header="状态信息" DisplayMemberBinding="{Binding Message}"/>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>

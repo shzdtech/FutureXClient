@@ -204,30 +204,30 @@ namespace Micro.Future.Message
                         OrderVMCollection.Dispatcher.Invoke(
                             () =>
                             {
-                                OrderVMCollection.Add(
-                                    new OrderVM()
-                                    {
-                                        OrderID = rsp.OrderID,
-                                        OrderSysID = rsp.OrderSysID,
-                                        Direction = (DirectionType)rsp.Direction,
-                                        LimitPrice = rsp.LimitPrice,
-                                        Volume = rsp.Volume,
-                                        VolumeTraded = rsp.VolumeTraded,
-                                        VolumeRemain = rsp.VolumeRemain,
-                                        ExecType = (OrderExecType)rsp.ExecType,
-                                        TIF = (OrderTIFType)rsp.Tif,
-                                        TradingType = (TradingType)rsp.TradingType,
-                                        Active = rsp.Active,
-                                        Status = (OrderStatus)rsp.OrderStatus,
-                                        OffsetFlag = (OrderOffsetType)rsp.Openclose,
-                                        InsertTime = rsp.InsertTime,
-                                        UpdateTime = rsp.UpdateTime,
-                                        CancelTime = rsp.CancelTime,
-                                        Exchange = rsp.Exchange,
-                                        Contract = rsp.Contract,
+                                var orderVM = new OrderVM()
+                                {
+                                    OrderID = rsp.OrderID,
+                                    OrderSysID = rsp.OrderSysID,
+                                    Direction = (DirectionType)rsp.Direction,
+                                    LimitPrice = rsp.LimitPrice,
+                                    Volume = rsp.Volume,
+                                    VolumeTraded = rsp.VolumeTraded,
+                                    VolumeRemain = rsp.VolumeRemain,
+                                    ExecType = (OrderExecType)rsp.ExecType,
+                                    TIF = (OrderTIFType)rsp.Tif,
+                                    TradingType = (TradingType)rsp.TradingType,
+                                    Active = rsp.Active,
+                                    Status = (OrderStatus)rsp.OrderStatus,
+                                    OffsetFlag = (OrderOffsetType)rsp.Openclose,
+                                    InsertTime = rsp.InsertTime,
+                                    UpdateTime = rsp.UpdateTime,
+                                    CancelTime = rsp.CancelTime,
+                                    Exchange = rsp.Exchange,
+                                    Contract = rsp.Contract,
+                                    Message = Encoding.UTF8.GetString(rsp.Message.ToByteArray()),
+                                };
 
-
-                                    });
+                                OrderVMCollection.Add(orderVM);
                             }
 
                     );
@@ -244,13 +244,17 @@ namespace Micro.Future.Message
         {
             if (OrderVMCollection != null)
             {
-                foreach (var order in OrderVMCollection)
+                lock (OrderVMCollection)
                 {
-                    if (order.OrderID == rsp.OrderID)
+                    foreach (var order in OrderVMCollection)
                     {
-                        order.Status = (OrderStatus)rsp.OrderStatus;
-                        order.OrderSysID = rsp.OrderSysID;
-                        order.UpdateTime = order.UpdateTime;
+                        if (order.OrderID == rsp.OrderID)
+                        {
+                            order.Status = (OrderStatus)rsp.OrderStatus;
+                            order.OrderSysID = rsp.OrderSysID;
+                            order.UpdateTime = order.UpdateTime;
+                            order.Message = Encoding.UTF8.GetString(rsp.Message.ToByteArray());
+                        }
                     }
                 }
             }
