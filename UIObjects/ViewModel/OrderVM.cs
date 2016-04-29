@@ -189,6 +189,17 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private string _message;
+        public string Message
+        {
+            get { return _message; }
+            set
+            {
+                _message = value;
+                OnPropertyChanged("Message");
+            }
+        }
+
 
 
         private void sendOrder(object directStr)
