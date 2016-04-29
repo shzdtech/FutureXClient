@@ -3,10 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Micro.Future.UI"
+             xmlns:local="clr-namespace:Micro.Future.UI;assembly=Micro.Future.UIObject"
              xmlns:view="clr-namespace:Micro.Future.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="800">
+             d:DesignHeight="200" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <local:EnumToFriendlyNameConverter x:Key="enumItemsConverter"/>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
@@ -17,7 +22,7 @@
             <RadioButton GroupName="executionClass"  Content="平仓记录" Checked="RadioButton_Checked_1" />
 
         </StackPanel>
-        <ListView Name="TradeTreeView" Grid.Row="1" GridViewColumnHeader.Click="TradeTreeView_Click" ItemsSource="{Binding TradeVMCollection}">         
+        <ListView Name="TradeTreeView" Grid.Row="1" GridViewColumnHeader.Click="TradeTreeView_Click" ItemsSource="{Binding TradeVMCollection}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn>
@@ -45,23 +50,25 @@
                     </GridViewColumn>
                     <GridViewColumn Header="成交编号" DisplayMemberBinding="{Binding TradeID}"/>
                     <GridViewColumn Header="合约" DisplayMemberBinding="{Binding Contract}"/>
-                    <GridViewColumn Header="买卖" DisplayMemberBinding="{Binding Direction}"/>
-                    <GridViewColumn Header="开平" DisplayMemberBinding="{Binding }"/>
+                    <GridViewColumn Header="买卖" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}"/>
+                    <GridViewColumn Header="开平" DisplayMemberBinding="{Binding Path=OpenClose, Converter={StaticResource enumItemsConverter}}"/>
                     <GridViewColumn Header="成交价格" DisplayMemberBinding="{Binding Price}"/>
                     <GridViewColumn Header="成交手数" DisplayMemberBinding="{Binding Volume}"/>
+                    <GridViewColumn Header="成交日期" DisplayMemberBinding="{Binding TradeDate}" />
                     <GridViewColumn Header="成交时间" DisplayMemberBinding="{Binding TradeTime}" />
                     <GridViewColumn Header="报单编号" DisplayMemberBinding="{Binding OrderSysID}" />
-                    <GridViewColumn Header="成交类型" DisplayMemberBinding="{Binding TradingType}"/>
-                    <GridViewColumn Header="投保" DisplayMemberBinding="{Binding }"/>
+                    <GridViewColumn Header="成交类型" DisplayMemberBinding="{Binding Path=TradingType, Converter={StaticResource enumItemsConverter}}"/>
+                    <GridViewColumn Header="投保" DisplayMemberBinding="{Binding Path=HedgeFlag, Converter={StaticResource enumItemsConverter}}"/>
+                    <GridViewColumn Header="手续费" DisplayMemberBinding="{Binding Commission}"/>
                     <GridViewColumn Header="交易所" DisplayMemberBinding="{Binding Exchange}"/>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
                 <ContextMenu StaysOpen="True">
                     <!--<MenuItem Header="修改订单" />-->
-                    <MenuItem Header="取消订单" Click="MenuItem_Click" />
+                    <MenuItem Header="取消订单" Click="MenuItem_Click_CancelOrder" />
                     <Separator />
-                    <MenuItem Header="列显示设置" Click="MenuItem_Click_1" />
+                    <MenuItem Header="列显示设置" Click="MenuItem_Click_Columns" />
                     <Separator></Separator>
                 </ContextMenu>
             </ListView.ContextMenu>

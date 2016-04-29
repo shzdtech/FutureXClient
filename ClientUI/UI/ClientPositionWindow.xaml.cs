@@ -31,7 +31,7 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryPosition();
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_Columns(object sender, RoutedEventArgs e)
         {
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
             win.Show();

@@ -99,9 +99,9 @@ namespace Micro.Future.Message
                 () =>
                 {
                     InstrumentVMCollection.Add(new InstrumentViewModel()
-                        {
-                            RawData = rsp
-                        });
+                    {
+                        RawData = rsp
+                    });
                 });
             }
         }
@@ -115,23 +115,23 @@ namespace Micro.Future.Message
                 {
                     PositionVMCollection.Add(new PositionVM()
                     {
-                      Direction=(DirectionType)rsp.Direction,
-                      Position=rsp.Position,
-                      YdPosition=rsp.YdPosition,
-                      PositionDate=rsp.PositionDate,
-                      OpenVolume=rsp.OpenVolume,
-                      CloseVolume=rsp.CloseVolume,
-                      OpenAmount=rsp.OpenAmount,
-                      CloseAmount=rsp.CloseAmount,
-                      Cost=rsp.Cost,
-                      OpenCost=rsp.OpenCost,
-                      Profit=rsp.Profit,
-                      CloseProfit=rsp.CloseProfit,
-                      UseMargin=rsp.UseMargin,
-                      HedgeFlag=(HedgeType)rsp.HedgeFlag,
-                      Contract=rsp.Contract,
-                      //TodayPosition=rsp.                     
-                      //CancelTime=rsp.
+                        Direction = (DirectionType)rsp.Direction,
+                        Position = rsp.Position,
+                        YdPosition = rsp.YdPosition,
+                        PositionDate = rsp.PositionDate,
+                        OpenVolume = rsp.OpenVolume,
+                        CloseVolume = rsp.CloseVolume,
+                        OpenAmount = rsp.OpenAmount,
+                        CloseAmount = rsp.CloseAmount,
+                        Cost = rsp.Cost,
+                        OpenCost = rsp.OpenCost,
+                        Profit = rsp.Profit,
+                        CloseProfit = rsp.CloseProfit,
+                        UseMargin = rsp.UseMargin,
+                        HedgeFlag = (HedgeType)rsp.HedgeFlag,
+                        Contract = rsp.Contract,
+                        //TodayPosition=rsp.                     
+                        //CancelTime=rsp.
 
                     });
                 });
@@ -186,48 +186,52 @@ namespace Micro.Future.Message
         {
             if (OrderVMCollection != null)
             {
-                bool found = false;
-
-                foreach (var order in OrderVMCollection)
+                lock (OrderVMCollection)
                 {
-                    if (order.OrderID == rsp.OrderID)
+                    bool found = false;
+
+                    foreach (var order in OrderVMCollection)
                     {
-                        found = true;
-                        break;
-                    }
-                }
-
-                if (!found)
-                {
-                    OrderVMCollection.Dispatcher.Invoke(
-                        () =>
+                        if (order.OrderID == rsp.OrderID)
                         {
-                            OrderVMCollection.Add(
-                                new OrderVM()
-                            {
-                                OrderID = rsp.OrderID,
-                                OrderSysID=rsp.OrderSysID,
-                                Direction=(DirectionType)rsp.Direction,
-                                LimitPrice=rsp.LimitPrice,
-                                Volume=rsp.Volume,
-                                VolumeTraded=rsp.VolumeTraded,
-                                VolumeRemain=rsp.VolumeRemain,
-                                ExecType=(OrderExecType)rsp.ExecType,
-                                TIF=(OrderTIFType)rsp.Tif,
-                                TradingType=(TradingType)rsp.TradingType,
-                                Active=rsp.Active,
-                                Status=(OrderStatus)rsp.OrderStatus,
-                                OffsetFlag=(OrderOffsetType)rsp.Openclose,
-                                InsertTime=rsp.InsertTime,
-                                UpdateTime=rsp.UpdateTime,
-                                CancelTime=rsp.CancelTime,                                
-                                Exchange = rsp.Exchange,
-                                Contract=rsp.Contract,
-                                
-
-                            });
+                            found = true;
+                            break;
                         }
+                    }
+
+                    if (!found)
+                    {
+                        OrderVMCollection.Dispatcher.Invoke(
+                            () =>
+                            {
+                                OrderVMCollection.Add(
+                                    new OrderVM()
+                                    {
+                                        OrderID = rsp.OrderID,
+                                        OrderSysID = rsp.OrderSysID,
+                                        Direction = (DirectionType)rsp.Direction,
+                                        LimitPrice = rsp.LimitPrice,
+                                        Volume = rsp.Volume,
+                                        VolumeTraded = rsp.VolumeTraded,
+                                        VolumeRemain = rsp.VolumeRemain,
+                                        ExecType = (OrderExecType)rsp.ExecType,
+                                        TIF = (OrderTIFType)rsp.Tif,
+                                        TradingType = (TradingType)rsp.TradingType,
+                                        Active = rsp.Active,
+                                        Status = (OrderStatus)rsp.OrderStatus,
+                                        OffsetFlag = (OrderOffsetType)rsp.Openclose,
+                                        InsertTime = rsp.InsertTime,
+                                        UpdateTime = rsp.UpdateTime,
+                                        CancelTime = rsp.CancelTime,
+                                        Exchange = rsp.Exchange,
+                                        Contract = rsp.Contract,
+
+
+                                    });
+                            }
+
                     );
+                    }
                 }
             }
         }
@@ -255,42 +259,45 @@ namespace Micro.Future.Message
         {
             if (TradeVMCollection != null)
             {
-                bool found = false;
-
-                foreach (var trade in OrderVMCollection)
+                lock (TradeVMCollection)
                 {
-                    if (trade.OrderID == rsp.OrderID)
+                    bool found = false;
+
+                    foreach (var trade in OrderVMCollection)
                     {
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found)
-                {
-                    TradeVMCollection.Dispatcher.Invoke(
-                        () =>
+                        if (trade.OrderID == rsp.OrderID)
                         {
-                            TradeVMCollection.Add(
-                                new TradeVM()
-                                {
-                                    OrderID = rsp.OrderID,
-                                    Exchange = rsp.Exchange,
-                                    OrderSysID = rsp.OrderSysID,
-                                    Direction = (DirectionType)rsp.Direction,
-                                    Price = rsp.Price,
-                                    Volume = rsp.Volume,
-                                    TradingType = (TradingType)rsp.TradeType,
-                                    TradeID=rsp.TradeID,
-                                    Contract=rsp.Contract,
-                                    TradeDate=rsp.TradeDate,
-                                    OpenClose=(OrderOffsetType)rsp.Openclose,
-                                    Commission=rsp.Commission,
-                                    //InsertTime = rsp.,
-                                    //UpdateTime = rsp.,
-
-                                });
+                            found = true;
+                            break;
                         }
-                    );
+                    }
+                    if (!found)
+                    {
+                        TradeVMCollection.Dispatcher.Invoke(
+                            () =>
+                            {
+                                TradeVMCollection.Add(
+                                    new TradeVM()
+                                    {
+                                        OrderID = rsp.OrderID,
+                                        Exchange = rsp.Exchange,
+                                        OrderSysID = rsp.OrderSysID,
+                                        Direction = (DirectionType)rsp.Direction,
+                                        Price = rsp.Price,
+                                        Volume = rsp.Volume,
+                                        TradingType = (TradingType)rsp.TradeType,
+                                        TradeID = rsp.TradeID,
+                                        Contract = rsp.Contract,
+                                        TradeDate = rsp.TradeDate,
+                                        OpenClose = (OrderOffsetType)rsp.Openclose,
+                                        Commission = rsp.Commission,
+                                        //InsertTime = rsp.,
+                                        //UpdateTime = rsp.,
+
+                                    });
+                            }
+                        );
+                    }
                 }
             }
         }
@@ -311,9 +318,9 @@ namespace Micro.Future.Message
                                     Price = rsp.Price,
                                     Volume = rsp.Volume,
                                     TradingType = (TradingType)rsp.TradeType,
-                                    TradeDate=rsp.TradeDate,
-                                    TradeTime=rsp.TradeTime,
-                                    OpenClose=(OrderOffsetType)rsp.Openclose
+                                    TradeDate = rsp.TradeDate,
+                                    TradeTime = rsp.TradeTime,
+                                    OpenClose = (OrderOffsetType)rsp.Openclose
                                 });
                     }
                 );

@@ -18,7 +18,7 @@
                 <Button Content="添加" Click="Button_Click_Add"/>
             </WrapPanel>
 
-            <ListView Name="quoteListView" Grid.Row="1">
+            <ListView Name="quoteListView" Grid.Row="1" SelectionChanged="quoteListView_SelectionChanged">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="合约" DisplayMemberBinding="{Binding Symbol}"/>
@@ -69,6 +69,9 @@
                 <ListView.ContextMenu>
                     <ContextMenu Name="QuoteContextMenu" StaysOpen="True">
                         <MenuItem Header="删除报价" Click="MenuItem_Click_Delete" />
+                        <Separator />
+                        <MenuItem Header="列显示设置" Click="MenuItem_Click_Columns" />
+                        <Separator></Separator>
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>

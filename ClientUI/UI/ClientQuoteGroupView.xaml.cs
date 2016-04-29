@@ -95,7 +95,7 @@ namespace Micro.Future.UI
             }
         }
 
-        private void MenuItem_Click1(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_Columns(object sender, RoutedEventArgs e)
         {
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
             win.Show();

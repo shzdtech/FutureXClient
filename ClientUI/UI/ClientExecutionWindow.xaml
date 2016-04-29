@@ -17,10 +17,10 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <RadioButton GroupName="executionClass"  IsChecked="True" Content="所有订单" Checked="RadioButton_Checked"/>
-            <RadioButton GroupName="executionClass"  Content="已成交单" Checked="RadioButton_Checked_1" />
-            <RadioButton GroupName="executionClass"  Content="已撤销单"  Checked="RadioButton_Checked_2"/>
-            <RadioButton GroupName="executionClass" Content="已拒绝单" Checked="RadioButton_Checked_3"/>
+            <RadioButton GroupName="executionClass"  IsChecked="True" Content="所有订单" Checked="RadioButton_Checked_AllOrder"/>
+            <RadioButton GroupName="executionClass"  Content="已成交单" Checked="RadioButton_Checked_TradedOrder" />
+            <RadioButton GroupName="executionClass"  Content="已撤销单"  Checked="RadioButton_Checked_CanceledOrder"/>
+            <RadioButton GroupName="executionClass" Content="已拒绝单" Checked="RadioButton_Checked_RejectedOrder"/>
         </StackPanel>
         <ListView Name="ExecutionTreeView" Grid.Row="1" GridViewColumnHeader.Click="ExecutionTreeView_Click" ItemsSource="{Binding OrderVMCollection}">         
             <ListView.View>
@@ -61,9 +61,9 @@
             <ListView.ContextMenu>
                 <ContextMenu StaysOpen="True">
                     <!--<MenuItem Header="修改订单" />-->
-                    <MenuItem Header="取消订单" Click="MenuItem_Click" />
+                    <MenuItem Header="取消订单" Click="MenuItem_Click_CancelOrder" />
                     <Separator />
-                    <MenuItem Header="列显示设置" Click="MenuItem_Click_1" />
+                    <MenuItem Header="列显示设置" Click="MenuItem_Click_Columns" />
                     <Separator></Separator>
                 </ContextMenu>
             </ListView.ContextMenu>

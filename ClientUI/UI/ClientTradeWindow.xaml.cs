@@ -127,7 +127,7 @@ namespace Micro.Future.UI
             }
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_CancelOrder(object sender, RoutedEventArgs e)
         {
             OrderVM item = TradeTreeView.SelectedItem as OrderVM;
             if ((item != null) && item.Active)
@@ -140,7 +140,7 @@ namespace Micro.Future.UI
             }
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_Columns(object sender, RoutedEventArgs e)
         {
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
             win.Show();

@@ -26,7 +26,7 @@ namespace Micro.Future.UI
             mColumns = ColumnObject.GetColumns(ExecutionTreeView);
         }
 
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        private void RadioButton_Checked_AllOrder(object sender, RoutedEventArgs e)
         {
             FilterByStatus(null);
         }
@@ -60,24 +60,24 @@ namespace Micro.Future.UI
             };
         }
 
-        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        private void RadioButton_Checked_TradedOrder(object sender, RoutedEventArgs e)
         {
             FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED });
         }
 
-        private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
+        private void RadioButton_Checked_CanceledOrder(object sender, RoutedEventArgs e)
         {
             FilterByStatus(new List<OrderStatus> { OrderStatus.CANCELED });
         }
 
-        private void RadioButton_Checked_3(object sender, RoutedEventArgs e)
+        private void RadioButton_Checked_RejectedOrder(object sender, RoutedEventArgs e)
         {
             FilterByStatus(new List<OrderStatus> { OrderStatus.OPEN_REJECTED,
                 OrderStatus.CANCEL_REJECTED,
                 OrderStatus.REJECTED });
         }
 
-        private void RadioButton_Checked_4(object sender, RoutedEventArgs e)
+        private void RadioButton_Checked_ActiveOrder(object sender, RoutedEventArgs e)
         {
 
             if (ExecutionTreeView == null)
@@ -155,7 +155,7 @@ namespace Micro.Future.UI
             }
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_CancelOrder(object sender, RoutedEventArgs e)
         {
             OrderVM item = ExecutionTreeView.SelectedItem as OrderVM;
             if ((item != null) && item.Active)
@@ -168,7 +168,7 @@ namespace Micro.Future.UI
             }
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_Columns(object sender, RoutedEventArgs e)
         {
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
             win.Show();
