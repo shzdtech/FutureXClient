@@ -13,9 +13,8 @@ namespace Micro.Future.UI
     public partial class LoginWindow : Window
     {
         private PBSignInManager _signInMgr;
-        private HashEncoder<MD5CryptoServiceProvider, HashEncoderOption>
-            _hashEncoder = new HashEncoder<MD5CryptoServiceProvider, HashEncoderOption>();
-        private HashEncoderOption _hashEncodeOption = new HashEncoderOption();
+        private HashEncoder<HashEncoderOption>
+            _hashEncoder = new HashEncoder<HashEncoderOption>(new MD5CryptoServiceProvider());
 
         public uint MD5Round
         {
@@ -91,8 +90,8 @@ namespace Micro.Future.UI
                 loginInfo.UserID = uid;
                 if (MD5Round > 0)
                 {
-                    _hashEncodeOption.Iteration = MD5Round;
-                    _hashEncoder.Encode(password, _hashEncodeOption);
+                    _hashEncoder.Option.Iteration = MD5Round;
+                    _hashEncoder.Encode(password);
                 }
                 else
                     loginInfo.Password = password;
