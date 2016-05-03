@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "AlgoUtil\Utility.csproj", "{A6A3AF60-A359-49C4-8747-C79B695489E2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Templates", "Templates\Templates.csproj", "{E600B6C2-8880-4ACA-AC21-6B0FEB727368}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIObjects", "UIObjects\UIObjects.csproj", "{4BD98165-B411-4890-B74A-30619059502B}"
 EndProject
@@ -47,18 +45,6 @@ Global
 		{A6A3AF60-A359-49C4-8747-C79B695489E2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A6A3AF60-A359-49C4-8747-C79B695489E2}.Release|Win32.ActiveCfg = Release|Any CPU
 		{A6A3AF60-A359-49C4-8747-C79B695489E2}.Release|x86.ActiveCfg = Release|Any CPU
-		{E600B6C2-8880-4ACA-AC21-6B0FEB727368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E600B6C2-8880-4ACA-AC21-6B0FEB727368}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E600B6C2-8880-4ACA-AC21-6B0FEB727368}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E600B6C2-8880-4ACA-AC21-6B0FEB727368}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{E600B6C2-8880-4ACA-AC21-6B0FEB727368}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{E600B6C2-8880-4ACA-AC21-6B0FEB727368}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E600B6C2-8880-4ACA-AC21-6B0FEB727368}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E600B6C2-8880-4ACA-AC21-6B0FEB727368}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E600B6C2-8880-4ACA-AC21-6B0FEB727368}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E600B6C2-8880-4ACA-AC21-6B0FEB727368}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{E600B6C2-8880-4ACA-AC21-6B0FEB727368}.Release|Win32.ActiveCfg = Release|Any CPU
-		{E600B6C2-8880-4ACA-AC21-6B0FEB727368}.Release|x86.ActiveCfg = Release|Any CPU
 		{4BD98165-B411-4890-B74A-30619059502B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4BD98165-B411-4890-B74A-30619059502B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BD98165-B411-4890-B74A-30619059502B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -174,42 +160,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 11
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://microfuture.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = AlgoUtil\\Utility.csproj
-		SccProjectName1 = AlgoUtil
-		SccLocalPath1 = AlgoUtil
-		SccProjectUniqueName2 = Templates\\Templates.csproj
-		SccProjectName2 = Templates
-		SccLocalPath2 = Templates
-		SccProjectUniqueName3 = UIObjects\\UIObjects.csproj
-		SccProjectName3 = UIObjects
-		SccLocalPath3 = UIObjects
-		SccProjectUniqueName4 = TradingDeskUI\\TradingDeskUI.csproj
-		SccProjectName4 = TradingDeskUI
-		SccLocalPath4 = TradingDeskUI
-		SccProjectUniqueName5 = CustomizedControls\\CustomizedControls.csproj
-		SccProjectName5 = CustomizedControls
-		SccLocalPath5 = CustomizedControls
-		SccProjectUniqueName6 = WPFThemeLib\\WPFThemeLib.csproj
-		SccProjectName6 = WPFThemeLib
-		SccLocalPath6 = WPFThemeLib
-		SccProjectUniqueName7 = ClientUI\\OTCClientUI.csproj
-		SccProjectName7 = ClientUI
-		SccLocalPath7 = ClientUI
-		SccProjectUniqueName8 = ..\\FutureXShare\\Communicators\\Micro.Future.Message\\Micro.Future.Message.csproj
-		SccProjectName8 = ../FutureXShare/Communicators/Micro.Future.Message
-		SccLocalPath8 = ..\\FutureXShare\\Communicators\\Micro.Future.Message
-		SccProjectUniqueName9 = ..\\FutureXShare\\Communicators\\Micro.Future.Message.ProtoBuf\\Micro.Future.Message.ProtoBuf.csproj
-		SccProjectName9 = ../FutureXShare/Communicators/Micro.Future.Message.ProtoBuf
-		SccLocalPath9 = ..\\FutureXShare\\Communicators\\Micro.Future.Message.ProtoBuf
-		SccProjectUniqueName10 = WpfUI\\WPFTools.csproj
-		SccProjectName10 = WpfUI
-		SccLocalPath10 = WpfUI
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Ttisv1Client.vsmdi

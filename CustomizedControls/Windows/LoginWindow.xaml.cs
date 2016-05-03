@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
 using Micro.Future.Util;
-using System.Threading;
 using Micro.Future.Message;
-using Micro.Future.Constant;
 using System.Collections;
+using System.Security.Cryptography;
 
 namespace Micro.Future.UI
 {
@@ -20,6 +13,9 @@ namespace Micro.Future.UI
     public partial class LoginWindow : Window
     {
         private PBSignInManager _signInMgr;
+        private HashEncoder<MD5CryptoServiceProvider, HashEncoderOption>
+            _hashEncoder = new HashEncoder<MD5CryptoServiceProvider, HashEncoderOption>();
+        private HashEncoderOption _hashEncodeOption = new HashEncoderOption();
 
         public uint MD5Round
         {
@@ -93,8 +89,13 @@ namespace Micro.Future.UI
                 loginInfo.FrontServer = frontserver;
                 loginInfo.BrokerID = brokerid;
                 loginInfo.UserID = uid;
-                loginInfo.Password =
-                    MD5Round > 0 ? Utility.GenMD5String(password, MD5Round) : password;
+                if (MD5Round > 0)
+                {
+                    _hashEncodeOption.Iteration = MD5Round;
+                    _hashEncoder.Encode(password, _hashEncodeOption);
+                }
+                else
+                    loginInfo.Password = password;
             }
 
             _signInMgr.SignIn();

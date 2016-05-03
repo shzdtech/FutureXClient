@@ -124,10 +124,6 @@
       <Project>{354935ce-ab35-4bc3-88dd-e6c3b1e0870c}</Project>
       <Name>Micro.Future.Message</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Templates\Templates.csproj">
-      <Project>{e600b6c2-8880-4aca-ac21-6b0feb727368}</Project>
-      <Name>Templates</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />

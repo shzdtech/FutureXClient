@@ -125,10 +125,6 @@
       <Project>{a6a3af60-a359-49c4-8747-c79b695489e2}</Project>
       <Name>Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Templates\Templates.csproj">
-      <Project>{e600b6c2-8880-4aca-ac21-6b0feb727368}</Project>
-      <Name>Templates</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UIObjects\UIObjects.csproj">
       <Project>{4bd98165-b411-4890-b74a-30619059502b}</Project>
       <Name>UIObjects</Name>

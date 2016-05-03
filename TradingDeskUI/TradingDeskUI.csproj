@@ -161,10 +161,6 @@
       <Project>{6425aad0-3c33-4f14-ae8f-53ed07c203d6}</Project>
       <Name>CustomizedControls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Templates\Templates.csproj">
-      <Project>{e600b6c2-8880-4aca-ac21-6b0feb727368}</Project>
-      <Name>Templates</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UIObjects\UIObjects.csproj">
       <Project>{4bd98165-b411-4890-b74a-30619059502b}</Project>
       <Name>UIObjects</Name>
