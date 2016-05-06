@@ -13,8 +13,16 @@ namespace Micro.Future.UI
     public partial class LoginWindow : Window
     {
         private PBSignInManager _signInMgr;
-        private HashEncoder<HashEncoderOption>
-            _hashEncoder = new HashEncoder<HashEncoderOption>(new MD5CryptoServiceProvider());
+
+        private static MD5 _md5 = MD5.Create();
+
+        private HashEncoder<HashEncoderOption> _hashEncoder = 
+            new HashEncoder<HashEncoderOption>(
+               (byteArray) =>
+               {
+                   return _md5.ComputeHash(byteArray);
+               }
+               );
 
         public uint MD5Round
         {

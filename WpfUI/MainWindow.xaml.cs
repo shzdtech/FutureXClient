@@ -9,8 +9,15 @@ namespace WpfUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private HashEncoder<HashEncoderOption>
-            _hashEncoder = new HashEncoder<HashEncoderOption>(new MD5CryptoServiceProvider());
+        private static MD5 _md5 = MD5.Create();
+
+        private HashEncoder<HashEncoderOption> _hashEncoder =
+            new HashEncoder<HashEncoderOption>(
+               (byteArray) =>
+               {
+                   return _md5.ComputeHash(byteArray);
+               }
+               );
         public MainWindow()
         {
             InitializeComponent();
@@ -27,7 +34,5 @@ namespace WpfUI
                 md5TextBox.Text = _hashEncoder.Encode(md5TextBox.Text);
             }
         }
-
-
     }
 }
