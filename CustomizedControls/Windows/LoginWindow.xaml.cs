@@ -14,13 +14,11 @@ namespace Micro.Future.UI
     {
         private PBSignInManager _signInMgr;
 
-        private static MD5 _md5 = MD5.Create();
-
         private HashEncoder<HashEncoderOption> _hashEncoder = 
-            new HashEncoder<HashEncoderOption>(
-               (byteArray) =>
+            new HashEncoder<HashEncoderOption>(MD5.Create(),
+               (md5, byteArray) =>
                {
-                   return _md5.ComputeHash(byteArray);
+                   return ((MD5)md5).ComputeHash(byteArray);
                }
                );
 
