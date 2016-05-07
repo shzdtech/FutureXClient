@@ -19,9 +19,9 @@ namespace Micro.Future.UI
         public ClientTradeWindow()
         {
             InitializeComponent();
-            var TradeVMCollection = new DispatchObservableCollection<TradeVM>(this);
-            TradeTreeView.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().TradeVMCollection =
-            TradeVMCollection;
+
+            TradeTreeView.ItemsSource = MessageHandlerContainer.
+                DefaultInstance.Get<TraderExHandler>().TradeVMCollection;
 
             mColumns = ColumnObject.GetColumns(TradeTreeView);
         }
@@ -153,6 +153,7 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
+            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().TradeVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryTrade();
         }
     }

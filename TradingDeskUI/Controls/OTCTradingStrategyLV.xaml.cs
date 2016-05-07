@@ -27,22 +27,17 @@ namespace Micro.Future.UI
 
     public partial class OTCTradingStrategyLV : UserControl, IReloadData
     {
-
-        public DispatchObservableCollection<StrategyVM> StrategyVMCollection { get; private set; }
-
         public OTCTradingStrategyLV()
         {
             InitializeComponent();
 
-            StrategyVMCollection = new DispatchObservableCollection<StrategyVM>(this);
-
-            OTCTradingLV.ItemsSource = StrategyVMCollection;
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().StrategyVMCollection = StrategyVMCollection;
+            OTCTradingLV.ItemsSource = MessageHandlerContainer.
+                DefaultInstance.Get<AbstractOTCMarketDataHandler>().StrategyVMCollection;
         }
 
         public void ReloadData()
         {
-            StrategyVMCollection.Clear();
+            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().StrategyVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().QueryStrategy();
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().SubMarketData();
         }

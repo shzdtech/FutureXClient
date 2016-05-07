@@ -56,7 +56,6 @@
     <Compile Include="Business\OTCMDTradingDeskHandler.cs" />
     <Compile Include="Business\TraderExHandler.cs" />
     <Compile Include="Constant\StringConst.cs" />
-    <Compile Include="Business\BusinessHandler.cs" />
     <Compile Include="Business\AbstractOTCMarketDataHandler.cs" />
     <Compile Include="EnumMap\Resource.Designer.cs">
       <DependentUpon>Resource.resx</DependentUpon>
@@ -84,6 +83,7 @@
     <Compile Include="ViewModel\ImageVM.cs" />
     <Compile Include="ViewModel\KeyboardOrderViewModel.cs" />
     <Compile Include="ViewModel\FundVM.cs" />
+    <Compile Include="ViewModel\ObservableCollectionExtention.cs" />
     <Compile Include="ViewModel\TradeVM.cs" />
     <Compile Include="ViewModel\PositionVM.cs" />
     <Compile Include="ViewModel\OrderVM.cs" />

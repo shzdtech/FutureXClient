@@ -23,27 +23,18 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class QuoteGroupViewOTC : UserControl, IReloadData
     {
-        public DispatchObservableCollection<OTCQuoteVM> OTCQuoteVMCollection
-        {
-            get;
-            private set;
-        }
-
         public QuoteGroupViewOTC()
         {
             InitializeComponent();
 
-            OTCQuoteVMCollection = new DispatchObservableCollection<OTCQuoteVM>(this);
-            QuoteListView.ItemsSource = OTCQuoteVMCollection;
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().OTCQuoteVMCollection
-                = OTCQuoteVMCollection;
+            QuoteListView.ItemsSource =
+                MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().OTCQuoteVMCollection;
         }
 
         public event Action<OTCQuoteVM> OnQuoteSelected;
 
         public void ReloadData()
         {
-            OTCQuoteVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().SubMarketData();
         }
 

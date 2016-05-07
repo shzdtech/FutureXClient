@@ -19,9 +19,9 @@ namespace Micro.Future.UI
         public ClientExecutionWindow()
         {
             InitializeComponent();
-            var OrderVMCollection = new DispatchObservableCollection<OrderVM>(this);
-            ExecutionTreeView.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection =
-            OrderVMCollection;
+
+            ExecutionTreeView.ItemsSource = MessageHandlerContainer.
+                DefaultInstance.Get<TraderExHandler>().OrderVMCollection;
 
             mColumns = ColumnObject.GetColumns(ExecutionTreeView);
         }
@@ -176,6 +176,7 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
+            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryOrder();
         }
     }

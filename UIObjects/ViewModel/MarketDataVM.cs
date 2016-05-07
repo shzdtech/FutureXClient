@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Micro.Future.ViewModel
 {
     //报价
-    public class QuoteViewModel : ViewModelBase
+    public class QuoteViewModel : ContractNotifyPropertyChanged
     {
         private string mSymbol;
         public string Symbol
@@ -17,6 +17,8 @@ namespace Micro.Future.ViewModel
             {
                 mSymbol = value;
                 OnPropertyChanged("Symbol");
+
+                Contract = value;
             }
         }
 

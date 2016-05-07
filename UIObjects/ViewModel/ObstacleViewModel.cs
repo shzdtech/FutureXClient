@@ -308,12 +308,8 @@ namespace Micro.Future.ViewModel
         }
     }
 
-    public class ExecutionCollection : DispatchObservableCollection<ExecutionViewModel>
+    public class ExecutionCollection : ObservableCollection<ExecutionViewModel>
     {
-        public ExecutionCollection() { }
-
-        public ExecutionCollection(DispatcherObject dispatcherObj) : base(dispatcherObj) { }
-
         public void Update(PBMsgOrderRtn pe, string exchange)
         {
             bool found = false;

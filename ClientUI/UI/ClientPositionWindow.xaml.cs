@@ -16,9 +16,9 @@ namespace Micro.Future.UI
         public ClientPositionWindow()
         {
             InitializeComponent();
-            var positionVMCollection = new DispatchObservableCollection<PositionVM>(this);
-            PositionListView.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection =
-            positionVMCollection;
+
+            PositionListView.ItemsSource = MessageHandlerContainer.
+                DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
 
             mColumns = ColumnObject.GetColumns(PositionListView);
         }
@@ -28,6 +28,7 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
+            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryPosition();
         }
 

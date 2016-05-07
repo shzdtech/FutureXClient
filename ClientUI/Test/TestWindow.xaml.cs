@@ -25,26 +25,17 @@ namespace Micro.Future.Test
         void _connectHelper_OnConnected(Exception obj)
         {
             if (obj != null)
-                Dispatcher.Invoke(() =>
-                {
-                    Title = obj.Message;
-                });
+                Title = obj.Message;
         }
 
         void _connectHelper_OnError(MessageException obj)
         {
-            Dispatcher.Invoke(() =>
-            {
-                Title = obj.Message;
-            });
+            Title = obj.Message;
         }
 
         void _connectHelper_OnLogged(UserInfo obj)
         {
-            Dispatcher.Invoke(() =>
-           {
-               Title = "登陆成功";
-           });
+            Title = "登陆成功";
         }
 
         private void testbtn_Click(object sender, RoutedEventArgs e)

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Collections.ObjectModel;
-using PBWrapMsgMDA;
-using Micro.Future.Util;
-using System.Windows.Threading;
 using Micro.Future.ViewModel;
-using Micro.Future.Message;
 using Micro.Future.Message.Business;
+using System.Collections.ObjectModel;
 
 namespace Micro.Future.Message
 {
@@ -19,15 +14,14 @@ namespace Micro.Future.Message
         {
             get { return mWatchList; }
         }
-        public DispatchObservableCollection<QuoteViewModel> QuoteVMCollection
+        public ObservableCollection<QuoteViewModel> QuoteVMCollection
         {
             get;
-            set;
-        }
+        } = new ObservableCollection<QuoteViewModel>();
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
-            MessageWrapper.RegisterAction<StringResponse, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBMarketDataList, BizErrorMsg>
             ((uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA, SubMDSuccessAction, ErrorMsgAction);
             MessageWrapper.RegisterAction<StringResponse, BizErrorMsg>
                 ((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, UnsubMDSuccessAction, ErrorMsgAction);
@@ -103,24 +97,19 @@ namespace Micro.Future.Message
             UnsubMarketData(this.WatchList);
         }
 
-        protected void SubMDSuccessAction(StringResponse strrsp)
+        protected void SubMDSuccessAction(PBMarketDataList marketList)
         {
             if (QuoteVMCollection != null)
             {
                 lock (QuoteVMCollection)
                 {
-                    var exists = (from q in QuoteVMCollection
-                                  where string.Compare(q.Symbol, strrsp.Value, true) == 0
-                                  select 1).Any();
-                    if (!exists)
+                    foreach (var md in marketList.MdListList)
                     {
-                        QuoteVMCollection.Dispatcher.Invoke(
-                            () =>
-                            {
-                                QuoteVMCollection.Add(new QuoteViewModel() { Symbol = strrsp.Value });
-                            });
+                        if (!QuoteVMCollection.Exist((quote) => string.Compare(quote.Symbol, md.Symbol, true) == 0))
+                        {
+                            QuoteVMCollection.Add(new QuoteViewModel() { Symbol = md.Symbol });
+                        }
                     }
-
                 }
             }
         }
@@ -135,12 +124,8 @@ namespace Micro.Future.Message
                               where string.Compare(q.Symbol, strrsp.Value, true) == 0
                               select q;
 
-                    QuoteVMCollection.Dispatcher.Invoke(
-                        () =>
-                        {
-                            foreach (var r in row)
-                                QuoteVMCollection.Remove(r);
-                        });
+                    foreach (var r in row)
+                        QuoteVMCollection.Remove(r);
 
                 }
             }
@@ -148,37 +133,25 @@ namespace Micro.Future.Message
 
         protected void RetMDSuccessAction(PBMarketDataList PB)
         {
-            if (QuoteVMCollection != null)
+            foreach (var md in PB.MdListList)
             {
-                QuoteVMCollection.Dispatcher.Invoke(
-                    () =>
-                    {
-                        foreach (var md in PB.MdListList)
-                        {
-                            foreach (QuoteViewModel quote in QuoteVMCollection)
-                            {
-                                if (string.Compare(quote.Symbol, md.Symbol, true) == 0)
-                                {
-                                    quote.TimeStamp = md.TimeStamp;
-                                    quote.MatchPrice = md.MatchPrice;
-                                    quote.BidPrice = md.BidPriceList[0];
-                                    quote.AskPrice = md.AskPriceList[0];
-                                    quote.BidSize = md.BidVolumeList[0];
-                                    quote.AskSize = md.AskVolumeList[0];
-                                    quote.Volume = md.Volume;
-                                    quote.OpenValue = md.OpenValue;
-                                    quote.PreCloseValue = md.PreCloseValue;
-                                    quote.HighValue = md.HighValue;
-                                    quote.LowValue = md.LowValue;
-                                    quote.UpperLimitPrice = md.HighLimit;
-                                    quote.LowerLimitPrice = md.LowLimit;
-                                    
-
-                                    break;
-                                }
-                            }
-                        }
-                    });
+                var quote = QuoteVMCollection.Find((pb) => string.Compare(pb.Symbol, md.Symbol, true) == 0);
+                if (quote != null)
+                {
+                    quote.TimeStamp = md.TimeStamp;
+                    quote.MatchPrice = md.MatchPrice;
+                    quote.BidPrice = md.BidPriceList[0];
+                    quote.AskPrice = md.AskPriceList[0];
+                    quote.BidSize = md.BidVolumeList[0];
+                    quote.AskSize = md.AskVolumeList[0];
+                    quote.Volume = md.Volume;
+                    quote.OpenValue = md.OpenValue;
+                    quote.PreCloseValue = md.PreCloseValue;
+                    quote.HighValue = md.HighValue;
+                    quote.LowValue = md.LowValue;
+                    quote.UpperLimitPrice = md.HighLimit;
+                    quote.LowerLimitPrice = md.LowLimit;
+                }
             }
         }
 

@@ -12,9 +12,9 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class LoginWindow : Window
     {
-        private PBSignInManager _signInMgr;
+        private AbstractSignInManager _signInMgr;
 
-        private HashEncoder<HashEncoderOption> _hashEncoder = 
+        private HashEncoder<HashEncoderOption> _hashEncoder =
             new HashEncoder<HashEncoderOption>(MD5.Create(),
                (md5, byteArray) =>
                {
@@ -41,7 +41,7 @@ namespace Micro.Future.UI
             }
         }
 
-        public LoginWindow(PBSignInManager signInMgr)
+        public LoginWindow(AbstractSignInManager signInMgr)
         {
             _signInMgr = signInMgr;
             _signInMgr.OnConnected += _signInMgr_OnConnected;
@@ -58,22 +58,14 @@ namespace Micro.Future.UI
 
         private void _signInMgr_OnSessionCreated()
         {
-            Dispatcher.Invoke(
-                    () =>
-                    {
-                        Close();
-                    });
+            Close();
         }
 
         void _signInMgr_OnConnected(Exception ex)
         {
             if (ex != null)
             {
-                Dispatcher.Invoke(
-                     () =>
-                     {
-                         Title = ex.Message;
-                     });
+                Title = ex.Message;
             }
         }
 
@@ -90,17 +82,16 @@ namespace Micro.Future.UI
                 _signInMgr.SignInOptions.UserID != uid ||
                 _signInMgr.SignInOptions.Password != password)
             {
-                SignInOptions loginInfo = _signInMgr.SignInOptions;
-                loginInfo.FrontServer = frontserver;
-                loginInfo.BrokerID = brokerid;
-                loginInfo.UserID = uid;
+                _signInMgr.SignInOptions.FrontServer = frontserver;
+                _signInMgr.SignInOptions.BrokerID = brokerid;
+                _signInMgr.SignInOptions.UserID = uid;
                 if (MD5Round > 0)
                 {
                     _hashEncoder.Option.Iteration = MD5Round;
-                    _hashEncoder.Encode(password);
+                    password = _hashEncoder.Encode(password);
                 }
-                else
-                    loginInfo.Password = password;
+
+                _signInMgr.SignInOptions.Password = password;
             }
 
             _signInMgr.SignIn();

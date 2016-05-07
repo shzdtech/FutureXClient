@@ -23,17 +23,12 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OTCMarketData : UserControl, IReloadData
     {
-        public DispatchObservableCollection<QuoteViewModel> QuoteVMCollection 
-        { get; private set; }
-
         public OTCMarketData()
         {
             InitializeComponent();
 
-            QuoteVMCollection = new DispatchObservableCollection<ViewModel.QuoteViewModel>(this);
             quoteListView.ItemsSource =
-                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection =
-                QuoteVMCollection;
+                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
 
         }
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -65,10 +60,12 @@ namespace Micro.Future.UI
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
             var quote = contractTextBox.Text;
-            var item = from q in QuoteVMCollection where quote == q.Symbol select q;
-            if (item.Any())
+            var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
+                       QuoteVMCollection.Find((obj) => string.Compare(obj.Symbol, quote, true) == 0);
+
+            if (item != null)
             {
-                quoteListView.SelectedItem = item.First();
+                quoteListView.SelectedItem = item;
             }
             else
             {

@@ -24,24 +24,20 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OTCTradingDeskContractParam : UserControl, IReloadData
     {
-        public DispatchObservableCollection<ContractParamVM> ContractParamVMCollection { get; set; }
-
         public OTCTradingDeskContractParam()
         {
             InitializeComponent();
 
-            ContractParamVMCollection = new DispatchObservableCollection<ContractParamVM>(this);
-
             OTCTradingContractParamListView.ItemsSource =
                MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().
-               ContractParamVMCollection = ContractParamVMCollection;
+               ContractParamVMCollection;
 
 
         }
 
         public void ReloadData()
         {
-            ContractParamVMCollection.Clear();
+            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().ContractParamVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().QueryContractParam();
         }
 

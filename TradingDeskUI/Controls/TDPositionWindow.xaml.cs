@@ -15,9 +15,8 @@ namespace Micro.Future.UI
         public TDPositionWindow()
         {
             InitializeComponent();
-            var positionVMCollection = new DispatchObservableCollection<PositionVM>(this);
-            PositionListView.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection =
-            positionVMCollection;
+            PositionListView.ItemsSource = MessageHandlerContainer.
+                DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
 
             mColumns = ColumnObject.GetColumns(PositionListView);
         }

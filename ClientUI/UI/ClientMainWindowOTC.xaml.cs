@@ -87,31 +87,17 @@ namespace Micro.Future.UI
 
         void _otcClientSignIner_OnLogged(UserInfo obj)
         {
-            Dispatcher.Invoke(
-                 () =>
-                 {
-                     RightDownStatus.Content = "欢迎" + obj.Name;
-                     //quoteGrpVwOTC.ReloadData();
-                 }
-             );
+            RightDownStatus.Content = "欢迎" + obj.Name;
         }
 
         private void OnErrorMessageRecv(MessageException errRsult)
         {
-            Dispatcher.Invoke(
-                () =>
-                {
-                    MessageBox.Show(this, errRsult.Message, "发生错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            );
+            MessageBox.Show(this, errRsult.Message, "发生错误", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         void OTCClient_OnDisconnected(Exception ex)
         {
-            this.Dispatcher.Invoke(() =>
-           {
-               MessageBox.Show(this, "请尝试重新登陆", "服务器连接已断开", MessageBoxButton.OK, MessageBoxImage.Information);
-           });
+            MessageBox.Show(this, "请尝试重新登陆", "服务器连接已断开", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
 
@@ -133,18 +119,12 @@ namespace Micro.Future.UI
 
         void MD_OnDisconnected(Exception ex)
         {
-            this.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show(this, "请点击状态栏中的连接按钮尝试重新连接", "行情服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
-            });
+            MessageBox.Show(this, "请点击状态栏中的连接按钮尝试重新连接", "行情服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         void TD_OnDisconnected(Exception ex)
         {
-            this.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show(this, "请点击状态栏中的连接按钮尝试重新连接", "Trading服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
-            });
+            MessageBox.Show(this, "请点击状态栏中的连接按钮尝试重新连接", "Trading服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void MDServerLogin()
