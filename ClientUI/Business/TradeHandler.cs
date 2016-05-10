@@ -851,7 +851,9 @@ namespace Micro.Future.Message
                 return false;
             }
 
-            var query1 = from row in MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection where row.Symbol == vm.SymbolID select row;
+            var query1 = from row in MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection
+                         where row.Contract == vm.SymbolID select row;
+
             QuoteViewModel quote = query1.ElementAt(0);
 
             if (setting.BidOrAskePrice == 0)

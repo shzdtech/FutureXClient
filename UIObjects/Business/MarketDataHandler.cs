@@ -60,7 +60,7 @@ namespace Micro.Future.Message
             int cnt = QuoteVMCollection.Count;
             for (int i = 0; i < cnt; i++)
             {
-                SubMarketData(QuoteVMCollection[i].Symbol);
+                SubMarketData(QuoteVMCollection[i].Contract);
             }
         }
 
@@ -70,7 +70,7 @@ namespace Micro.Future.Message
             foreach (var quoteVM in quoteCollection)
             {
                 QuoteVMCollection.Remove(quoteVM);
-                instrList.Add(quoteVM.Symbol);
+                instrList.Add(quoteVM.Contract);
             }
 
             UnsubMarketData(instrList);
@@ -105,9 +105,9 @@ namespace Micro.Future.Message
                 {
                     foreach (var md in marketList.MdListList)
                     {
-                        if (!QuoteVMCollection.Exist((quote) => string.Compare(quote.Symbol, md.Symbol, true) == 0))
+                        if (!QuoteVMCollection.Exist((quote) => string.Compare(quote.Contract, md.Contract, true) == 0))
                         {
-                            QuoteVMCollection.Add(new QuoteViewModel() { Symbol = md.Symbol });
+                            QuoteVMCollection.Add(new QuoteViewModel() { Contract = md.Contract });
                         }
                     }
                 }
@@ -121,7 +121,7 @@ namespace Micro.Future.Message
                 lock (QuoteVMCollection)
                 {
                     var row = from q in QuoteVMCollection
-                              where string.Compare(q.Symbol, strrsp.Value, true) == 0
+                              where string.Compare(q.Contract, strrsp.Value, true) == 0
                               select q;
 
                     foreach (var r in row)
@@ -135,10 +135,9 @@ namespace Micro.Future.Message
         {
             foreach (var md in PB.MdListList)
             {
-                var quote = QuoteVMCollection.Find((pb) => string.Compare(pb.Symbol, md.Symbol, true) == 0);
+                var quote = QuoteVMCollection.Find((pb) => string.Compare(pb.Contract, md.Contract, true) == 0);
                 if (quote != null)
                 {
-                    quote.TimeStamp = md.TimeStamp;
                     quote.MatchPrice = md.MatchPrice;
                     quote.BidPrice = md.BidPriceList[0];
                     quote.AskPrice = md.AskPriceList[0];

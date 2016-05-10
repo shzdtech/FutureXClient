@@ -61,7 +61,7 @@ namespace Micro.Future.UI
         {
             var quote = contractTextBox.Text;
             var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
-                       QuoteVMCollection.Find((obj) => string.Compare(obj.Symbol, quote, true) == 0);
+                       QuoteVMCollection.Find((obj) => string.Compare(obj.Contract, quote, true) == 0);
 
             if (item != null)
             {

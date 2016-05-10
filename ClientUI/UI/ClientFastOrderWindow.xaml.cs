@@ -31,7 +31,7 @@ namespace Micro.Future.UI
                 LabelLowerPrice.DataContext = quoteVM;
                 LabelBidPrice.DataContext = quoteVM;
                 LabelAskPrice.DataContext = quoteVM;
-                OrderVM.Contract = quoteVM.Symbol;
+                OrderVM.Contract = quoteVM.Contract;
 
             }
         }
