@@ -92,7 +92,7 @@ namespace Micro.Future.Message
                 {
                     TradingDeskVMCollection.Add(new TradingDeskVM()
                     {
-                        Name = userInfo.Name,
+                        Name = userInfo.LastName + " " + userInfo.FirstName,
                         ContactNum = userInfo.ContactNum,
                         Email = userInfo.Email
                     });

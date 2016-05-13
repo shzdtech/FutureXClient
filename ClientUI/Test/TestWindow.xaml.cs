@@ -33,7 +33,7 @@ namespace Micro.Future.Test
             Title = obj.Message;
         }
 
-        void _connectHelper_OnLogged(UserInfo obj)
+        void _connectHelper_OnLogged(IUserInfo obj)
         {
             Title = "登陆成功";
         }

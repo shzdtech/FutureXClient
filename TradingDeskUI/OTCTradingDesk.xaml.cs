@@ -53,9 +53,9 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().OnError += OnErrorMessageRecv;
         }
 
-        void OTC_OnLogged(UserInfo obj)
+        void OTC_OnLogged(IUserInfo obj)
         {
-            RightDownStatus.Content = "欢迎" + obj.Name;
+            RightDownStatus.Content = "欢迎" + obj.LastName + obj.FirstName;
             strategyListView.ReloadData();
             contractParamListView.ReloadData();
             otcMarketDataLV.ReloadData();

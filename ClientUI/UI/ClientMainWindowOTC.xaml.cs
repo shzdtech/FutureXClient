@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Threading;
 using System.Windows.Controls.Ribbon;
 using Micro.Future.Message;
 using Micro.Future.Util;
@@ -74,7 +73,7 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OnError += OnErrorMessageRecv;
         }
 
-        private void _ctpMdSignIner_OnLogged(UserInfo obj)
+        private void _ctpMdSignIner_OnLogged(IUserInfo obj)
         {
             clientFundLV.ReloadData();
             Thread.Sleep(1500);
@@ -85,9 +84,9 @@ namespace Micro.Future.UI
             executionWindow.ReloadData();
         }
 
-        void _otcClientSignIner_OnLogged(UserInfo obj)
+        void _otcClientSignIner_OnLogged(IUserInfo obj)
         {
-            RightDownStatus.Content = "欢迎" + obj.Name;
+            RightDownStatus.Content = "欢迎" + obj.LastName + obj.FirstName;
         }
 
         private void OnErrorMessageRecv(MessageException errRsult)
