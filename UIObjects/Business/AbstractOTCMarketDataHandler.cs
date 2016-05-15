@@ -39,9 +39,9 @@ namespace Micro.Future.Message
         {
 
             MessageWrapper.RegisterAction<PBPricingDataList, BizErrorMsg>
-                        ((uint)BusinessMessageID.MSG_ID_OTC_SUB_MARKETDATA, OnSubMarketDataSuccessAction, OnErrorAction);
+                        ((uint)BusinessMessageID.MSG_ID_SUB_PRICING, OnSubMarketDataSuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBPricingDataList, BizErrorMsg>
-                            ((uint)BusinessMessageID.MSG_ID_OTC_RET_MARKETDATA, OnReturningPricing, OnErrorAction);
+                            ((uint)BusinessMessageID.MSG_ID_RTN_PRICING, OnReturningPricing, OnErrorAction);
             MessageWrapper.RegisterAction<PBStrategyList, BizErrorMsg>
                         ((uint)BusinessMessageID.MSG_ID_QUERY_STRATEGY, OnQueryStrategySuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBContractParamList, BizErrorMsg>
@@ -230,7 +230,7 @@ namespace Micro.Future.Message
         public void SubMarketData()
         {
             var sst = SimpleStringTable.CreateBuilder();
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_OTC_SUB_MARKETDATA, sst.Build());
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_SUB_PRICING, sst.Build());
         }
 
         public void UnsubMarketData()
