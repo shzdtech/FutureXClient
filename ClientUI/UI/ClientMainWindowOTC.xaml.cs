@@ -5,6 +5,7 @@ using Micro.Future.Message;
 using Micro.Future.Util;
 using Micro.Future.Properties;
 using System.Threading;
+using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Micro.Future.UI
 {
@@ -169,5 +170,18 @@ namespace Micro.Future.UI
         {
             TradingServerLogin();
         }
+
+        private void MenuItem_Click_Trade(object sender, RoutedEventArgs e)
+        {
+            ClientTradeWindow win = new ClientTradeWindow();
+
+        }
+        private void MenuItem_Click_Position(object sender, RoutedEventArgs e)
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new ClientPositionWindow();
+            positionPane.Children.Add(ancable);
+        }
+
     }
 }

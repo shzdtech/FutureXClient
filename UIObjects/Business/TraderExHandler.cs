@@ -101,25 +101,29 @@ namespace Micro.Future.Message
 
             if (PositionVMCollection != null)
             {
-                PositionVMCollection.Add(new PositionVM()
+                PositionVMCollection.Dispatcher.Invoke(
+                () =>
                 {
-                    Direction = (DirectionType)rsp.Direction,
-                    Position = rsp.Position,
-                    YdPosition = rsp.YdPosition,
-                    PositionDate = rsp.PositionDate,
-                    OpenVolume = rsp.OpenVolume,
-                    CloseVolume = rsp.CloseVolume,
-                    OpenAmount = rsp.OpenAmount,
-                    CloseAmount = rsp.CloseAmount,
-                    Cost = rsp.Cost,
-                    OpenCost = rsp.OpenCost,
-                    Profit = rsp.Profit,
-                    CloseProfit = rsp.CloseProfit,
-                    UseMargin = rsp.UseMargin,
-                    HedgeFlag = (HedgeType)rsp.HedgeFlag,
-                    Contract = rsp.Contract,
-                    //TodayPosition=rsp.                     
-                    //CancelTime=rsp.
+                    PositionVMCollection.Add(new PositionVM()
+                    {
+                        Direction = (PositionDirectionType)rsp.Direction,
+                        Position = rsp.Position,
+                        YdPosition = rsp.YdPosition,
+                        PositionDate = rsp.PositionDate,
+                        OpenVolume = rsp.OpenVolume,
+                        CloseVolume = rsp.CloseVolume,
+                        OpenAmount = rsp.OpenAmount,
+                        CloseAmount = rsp.CloseAmount,
+                        Cost = rsp.Cost,
+                        OpenCost = rsp.OpenCost,
+                        Profit = rsp.Profit,
+                        CloseProfit = rsp.CloseProfit,
+                        UseMargin = rsp.UseMargin,
+                        HedgeFlag = (HedgeType)rsp.HedgeFlag,
+                        Contract = rsp.Contract,
+                        Exchange = rsp.Exchange,
+                        //TodayPosition=rsp.                     
+                        //CancelTime=rsp.
 
                 });
             }
@@ -331,6 +335,7 @@ namespace Micro.Future.Message
             pb.Volume = orderVM.Volume;
             pb.ExecType = (int)orderVM.ExecType;
             pb.Direction = (int)orderVM.Direction;
+            pb.Openclose = (int)orderVM.OffsetFlag;
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb.Build());
 

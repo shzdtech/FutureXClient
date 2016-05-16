@@ -38,13 +38,17 @@ namespace Micro.Future.Message
 
     public enum OrderExecType
     {
+        [LocalizableDescription(@"EXECTYPE_LIMIT", typeof(Resource))]
         LIMIT = 0,
+        [LocalizableDescription(@"EXECTYPE_MARKET", typeof(Resource))]
         MARKET = 1,
     };
 
     public enum OrderTIFType
     {
+        [LocalizableDescription(@"OrderTIFType_GFD", typeof(Resource))]
         GFD = 0,
+        [LocalizableDescription(@"OrderTIFType_IOC", typeof(Resource))]
         IOC = 1,
     };
 
@@ -97,4 +101,17 @@ namespace Micro.Future.Message
         [LocalizableDescription(@"HEDGETYPE_HEDGE", typeof(Resource))]
         HEDGETYPE_HEDGE = 2,
     };
+
+    public enum PositionDirectionType
+    {
+        [LocalizableDescription(@"DirectionType_NET", typeof(Resource))]
+        PD_NET = 0,
+
+        [LocalizableDescription(@"PositionDirectionType_LONG", typeof(Resource))]
+        PD_LONG = 1,
+
+        [LocalizableDescription(@"PositionDirectionType_SHORT", typeof(Resource))]
+        PD_SHORT = 2,
+    };
+
 }

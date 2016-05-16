@@ -29,6 +29,7 @@
                     <GridViewColumn Header="持仓盈亏" DisplayMemberBinding="{Binding Profit}" />
                     <GridViewColumn Header="平仓盈亏" DisplayMemberBinding="{Binding CloseProfit}" />
                     <GridViewColumn Header="占用保证金" DisplayMemberBinding="{Binding UseMargin}" />
+                    <GridViewColumn Header="交易所" DisplayMemberBinding="{Binding Exchange}" />
                     <!--<GridViewColumn Header="投机套保标志" DisplayMemberBinding="{Binding HedgeFlag}"/>-->
                     <GridViewColumn Header="多头冻结" DisplayMemberBinding="{Binding LongFrozen}" />
                     <GridViewColumn Header="多头金额" DisplayMemberBinding="{Binding LongFrozenAmount}" />
@@ -51,6 +52,7 @@
             </ListView.View>
             <ListView.ContextMenu>
                 <ContextMenu StaysOpen="True">
+                    <MenuItem Header="筛选配置" Click="MenuItem_Click_Settings" />
                     <Separator />
                     <MenuItem Header="列显示设置" Click="MenuItem_Click_Columns" />
                     <Separator></Separator>

@@ -198,4 +198,25 @@
   <data name="TRADINGTYPE_QUOTE" xml:space="preserve">
     <value>行情</value>
   </data>
+  <data name="DirectionType_NET" xml:space="preserve">
+    <value>净头寸</value>
+  </data>
+  <data name="PositionDirectionType_LONG" xml:space="preserve">
+    <value>多</value>
+  </data>
+  <data name="PositionDirectionType_SHORT" xml:space="preserve">
+    <value>空</value>
+  </data>
+  <data name="EXECTYPE_LIMIT" xml:space="preserve">
+    <value>限价单</value>
+  </data>
+  <data name="EXECTYPE_MARKET" xml:space="preserve">
+    <value>市场单</value>
+  </data>
+  <data name="OrderTIFType_GFD" xml:space="preserve">
+    <value>当日有效</value>
+  </data>
+  <data name="OrderTIFType_IOC" xml:space="preserve">
+    <value>立即完成，否则撤销</value>
+  </data>
 </root>

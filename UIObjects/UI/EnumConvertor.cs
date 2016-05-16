@@ -14,31 +14,32 @@ namespace Micro.Future.UI
 {
     public class EnumBooleanConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType,
+                              object parameter, CultureInfo culture)
         {
-            string parameterString = parameter as string;
-            if (parameterString == null)
-            {
-                return DependencyProperty.UnsetValue;
-            }
-            if (Enum.IsDefined(value.GetType(), value) == false)
-            {
-                return DependencyProperty.UnsetValue;
-            }
+            if (value == null || parameter == null)
+                return false;
 
-            object parameterValue = Enum.Parse(value.GetType(), parameterString, true);
-
-            return parameterValue.Equals(value);
+            string checkValue = value.ToString();
+            string targetValue = parameter.ToString();
+            return checkValue.Equals(targetValue,
+                     StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType,
+                                  object parameter, CultureInfo culture)
         {
-            string parameterString = parameter as string;
-            if (parameterString == null)
-                return DependencyProperty.UnsetValue;
+            if (value == null || parameter == null)
+                return null;
 
-            return Enum.Parse(targetType, parameterString, true);
+            bool useValue = (bool)value;
+            string targetValue = parameter.ToString();
+            if (useValue)
+                return Enum.Parse(targetType, targetValue);
+
+            return null;
         }
+
     }
 
 

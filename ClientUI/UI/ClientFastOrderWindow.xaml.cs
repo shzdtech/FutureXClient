@@ -10,6 +10,8 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class ClientFastOrderWindow : UserControl
     {
+        private string _currentContract; 
+
         private bool submitEnabled;
         public bool SubmitEnabled
         {
@@ -27,11 +29,9 @@ namespace Micro.Future.UI
         {
             if (quoteVM != null)
             {
-                LabelUpperPrice.DataContext = quoteVM;
-                LabelLowerPrice.DataContext = quoteVM;
-                LabelBidPrice.DataContext = quoteVM;
-                LabelAskPrice.DataContext = quoteVM;
-                OrderVM.Contract = quoteVM.Contract;
+                _currentContract = quoteVM.Symbol;
+                stackPanelPrices.DataContext = quoteVM;
+                OrderVM.Contract = quoteVM.Symbol;
 
             }
         }
@@ -42,6 +42,15 @@ namespace Micro.Future.UI
             {
                 OrderVM.Contract = positionVM.Contract;
                 OrderVM.OffsetFlag = OrderOffsetType.CLOSE;
+
+                if (positionVM.Direction == PositionDirectionType.PD_SHORT)
+                {
+                    OrderVM.Direction = DirectionType.BUY;
+                }
+                else
+                {
+                    OrderVM.Direction = DirectionType.SELL;
+                }
             }
         }
 
@@ -68,6 +77,16 @@ namespace Micro.Future.UI
         private void labellowerprice_MouseDown(object sender, MouseButtonEventArgs e)
         {
             LimitTxt.Value = double.Parse(LabelLowerPrice.Content.ToString());
+        }
+
+        private void FastOrderContract_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_currentContract != null && FastOrderContract.Text != _currentContract)
+                stackPanelPrices.DataContext = null;
+            //LabelUpperPrice.Content = string.Empty;
+            //LabelBidPrice.Content = string.Empty;
+            //LabelAskPrice.Content = string.Empty;
+            //LabelLowerPrice.Content = string.Empty;
         }
     }
 }

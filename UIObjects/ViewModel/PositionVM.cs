@@ -12,8 +12,8 @@ namespace Micro.Future.ViewModel
     public class PositionVM : ContractNotifyPropertyChanged
     {
         ///持仓多空方向
-        private DirectionType _direction;
-        public DirectionType Direction
+        private PositionDirectionType _direction;
+        public PositionDirectionType Direction
         {
             get { return _direction; }
             set
@@ -201,5 +201,6 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("CancelTime");
             }
         }
+
     }
 }

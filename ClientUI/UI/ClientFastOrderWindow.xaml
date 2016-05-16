@@ -7,6 +7,9 @@
     xmlns:local="clr-namespace:Micro.Future.UI;assembly=Micro.Future.UIObject"
     mc:Ignorable="d" 
     d:DesignHeight="200" d:DesignWidth="300" HorizontalAlignment="Left">
+    <UserControl.Resources>
+        <local:EnumBooleanConverter x:Key="enumBooleanConverter"/>
+    </UserControl.Resources>
     <Grid Name="FastOrderGrid">
         <Grid.Resources>
             <local:EnumBooleanConverter x:Key="enumBooleanConverter"/>
@@ -15,12 +18,13 @@
             <RowDefinition Height="4*" />
             <RowDefinition Height="4*" />
             <RowDefinition Height="3*" />
+            <RowDefinition Height="3*" />
             <RowDefinition Height="5*" />
-            <RowDefinition Height="4*" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <TextBlock VerticalAlignment="Center" Text="合约" Width="35"></TextBlock>
-            <TextBox Name="FastOrderContract" Width="100" TextAlignment="Right" Text="{Binding Contract}"></TextBox>
+            <TextBox Name="FastOrderContract" Width="100" TextAlignment="Right" Text="{Binding Contract}" TextChanged="FastOrderContract_TextChanged"></TextBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <TextBlock Width="35" Text="量:" VerticalAlignment="Center"></TextBlock>
@@ -52,22 +56,42 @@
             </Canvas>
         </Grid>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal" Height="50" VerticalAlignment="Bottom">
-            <TextBlock Text="价格" VerticalAlignment="Center" Width="35"></TextBlock>
-            <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment=".1" Value="{Binding LimitPrice}" />
-            <Label x:Name="LabelUpperPrice" Content="{Binding Path=UpperLimitPrice}" RenderTransformOrigin="0.233,1.385" FontSize="10.667" Width="30" MouseDown="labelupperprice_MouseDown" Margin="0,0,0,37" />
-            <Label x:Name="LabelBidPrice" Content="{Binding Path=BidPrice}" Margin="-30,0,0,24" FontSize="10.667" Height="12" VerticalAlignment="Bottom"/>
-            <Label x:Name="LabelAskPrice" Content="{Binding Path=AskPrice}" Margin="-30,25,0,11" Height="12.5" FontSize="10.667"/>
-            <Label x:Name="LabelLowerPrice" Content="{Binding Path=LowerLimitPrice}" Margin="-30,0,0,0" FontSize="10.667" Height="12.5" VerticalAlignment="Bottom" MouseDown="labellowerprice_MouseDown"/>
-        </StackPanel>
-
-        <Grid Grid.Row="4">
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Name="BuySummitButton" Content="买进" Grid.Column="0" Command="{Binding Path=SendOrderCommand}" CommandParameter="1" ></Button>
-            <Button Name="SellSummitButton" Content="卖出" Grid.Column="1" Command="{Binding Path=SendOrderCommand}" CommandParameter="0" ></Button>
+            <Canvas Grid.Column="0">
+                <RadioButton Name="radioButtonBuy" Content="买入" 
+                             IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=BUY}"
+                             VerticalAlignment="Center" GroupName="BuySellGroup" />
+            </Canvas>
+            <Canvas Grid.Column="1">
+                <RadioButton Name="radioButtonSell" Content="卖出"
+                             IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=SELL}" 
+                             VerticalAlignment="Center" GroupName="BuySellGroup" />
+            </Canvas>
+        </Grid>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Height="50" VerticalAlignment="Bottom">
+            <TextBlock Text="价格" VerticalAlignment="Center" Width="35"></TextBlock>
+            <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment=".1" Value="{Binding LimitPrice}" />
+            <StackPanel x:Name="stackPanelPrices" Height="50" VerticalAlignment="Bottom" >
+                <Label x:Name="LabelUpperPrice" Content="{Binding UpperLimitPrice}" MouseDown="labelupperprice_MouseDown" MinHeight="10" MinWidth="20" />
+                <Label x:Name="LabelBidPrice" Content="{Binding BidPrice}"  MinHeight="10" MinWidth="20"/>
+                <Label x:Name="LabelAskPrice" Content="{Binding AskPrice}"  MinHeight="10" MinWidth="20"/>
+                <Label x:Name="LabelLowerPrice" Content="{Binding LowerLimitPrice}" MouseDown="labellowerprice_MouseDown"  MinHeight="10" MinWidth="20"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Name="BuySummitButton" Content="下单" Grid.Column="0" Command="{Binding Path=SendOrderCommand}" ></Button>
+            <!--<RadioButton x:Name="radioButton" Content="买入"  IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=BUY}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="1,-148,0,0" GroupName="radiopd"/>-->
+            <!--<RadioButton x:Name="radioButtonSell" Content="卖出"  IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=SELL}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="84,-148,0,0" GroupName="radiopd"/>-->
         </Grid>
 
     </Grid>
