@@ -26,7 +26,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Row="0">
                     <TextBlock>合约</TextBlock>
-            <TextBox Name="FastOrderContractTxt" Width="150" TextAlignment="Right" Text="{Binding SymbolID}"></TextBox>
+            <TextBox Name="FastOrderContractTxt" Width="150" TextAlignment="Right" Text="{Binding Contract}"></TextBox>
                 </StackPanel>
                 <Grid Grid.Row="1" >
                     <Grid.ColumnDefinitions>

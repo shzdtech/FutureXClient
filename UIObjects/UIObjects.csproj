@@ -56,7 +56,6 @@
     <Compile Include="Business\OTCMDTradingDeskHandler.cs" />
     <Compile Include="Business\TraderExHandler.cs" />
     <Compile Include="Constant\StringConst.cs" />
-    <Compile Include="Business\BusinessHandler.cs" />
     <Compile Include="Business\AbstractOTCMarketDataHandler.cs" />
     <Compile Include="EnumMap\Resource.Designer.cs">
       <DependentUpon>Resource.resx</DependentUpon>
@@ -84,6 +83,7 @@
     <Compile Include="ViewModel\ImageVM.cs" />
     <Compile Include="ViewModel\KeyboardOrderViewModel.cs" />
     <Compile Include="ViewModel\FundVM.cs" />
+    <Compile Include="ViewModel\ObservableCollectionExtention.cs" />
     <Compile Include="ViewModel\TradeVM.cs" />
     <Compile Include="ViewModel\PositionVM.cs" />
     <Compile Include="ViewModel\OrderVM.cs" />
@@ -123,10 +123,6 @@
     <ProjectReference Include="..\..\FutureXShare\Communicators\Micro.Future.Message\Micro.Future.Message.csproj">
       <Project>{354935ce-ab35-4bc3-88dd-e6c3b1e0870c}</Project>
       <Name>Micro.Future.Message</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Templates\Templates.csproj">
-      <Project>{e600b6c2-8880-4aca-ac21-6b0feb727368}</Project>
-      <Name>Templates</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

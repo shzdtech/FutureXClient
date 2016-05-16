@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
 using Micro.Future.Util;
-using System.Threading;
 using Micro.Future.Message;
-using Micro.Future.Constant;
 using System.Collections;
+using System.Security.Cryptography;
 
 namespace Micro.Future.UI
 {
@@ -19,7 +12,15 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class LoginWindow : Window
     {
-        private PBSignInManager _signInMgr;
+        private AbstractSignInManager _signInMgr;
+
+        private HashEncoder<HashEncoderOption> _hashEncoder =
+            new HashEncoder<HashEncoderOption>(MD5.Create(),
+               (md5, byteArray) =>
+               {
+                   return ((MD5)md5).ComputeHash(byteArray);
+               }
+               );
 
         public uint MD5Round
         {
@@ -40,7 +41,7 @@ namespace Micro.Future.UI
             }
         }
 
-        public LoginWindow(PBSignInManager signInMgr)
+        public LoginWindow(AbstractSignInManager signInMgr)
         {
             _signInMgr = signInMgr;
             _signInMgr.OnConnected += _signInMgr_OnConnected;
@@ -57,22 +58,14 @@ namespace Micro.Future.UI
 
         private void _signInMgr_OnSessionCreated()
         {
-            Dispatcher.Invoke(
-                    () =>
-                    {
-                        Close();
-                    });
+            Close();
         }
 
         void _signInMgr_OnConnected(Exception ex)
         {
             if (ex != null)
             {
-                Dispatcher.Invoke(
-                     () =>
-                     {
-                         Title = ex.Message;
-                     });
+                Title = ex.Message;
             }
         }
 
@@ -89,12 +82,16 @@ namespace Micro.Future.UI
                 _signInMgr.SignInOptions.UserID != uid ||
                 _signInMgr.SignInOptions.Password != password)
             {
-                SignInOptions loginInfo = _signInMgr.SignInOptions;
-                loginInfo.FrontServer = frontserver;
-                loginInfo.BrokerID = brokerid;
-                loginInfo.UserID = uid;
-                loginInfo.Password =
-                    MD5Round > 0 ? Utility.GenMD5String(password, MD5Round) : password;
+                _signInMgr.SignInOptions.FrontServer = frontserver;
+                _signInMgr.SignInOptions.BrokerID = brokerid;
+                _signInMgr.SignInOptions.UserID = uid;
+                if (MD5Round > 0)
+                {
+                    _hashEncoder.Option.Iteration = MD5Round;
+                    password = _hashEncoder.Encode(password);
+                }
+
+                _signInMgr.SignInOptions.Password = password;
             }
 
             _signInMgr.SignIn();

@@ -49,7 +49,7 @@ namespace Micro.Future.UI
             {
                 //MainWindow.MyInstance.FastOrderCtl.FastOrderContractTxt.DataContext = quote;
                 MainWindow.MyInstance.FastOrderCtl.PricePanel.DataContext = quote;
-                MainWindow.MyInstance.FastOrderCtl.ViewModel.SymbolID = quote.Symbol;
+                MainWindow.MyInstance.FastOrderCtl.ViewModel.SymbolID = quote.Contract;
             }
         }
 
@@ -105,7 +105,7 @@ namespace Micro.Future.UI
             foreach (QuoteViewModel view in 
                 MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection)
             {
-                if (view.Symbol == symbol)
+                if (view.Contract == symbol)
                 {
                     quote = view;
                     

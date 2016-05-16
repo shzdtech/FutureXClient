@@ -22,22 +22,19 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OTCContactWindow : Window, IReloadData
     {
-        public DispatchObservableCollection<TradingDeskVM> TradingDeskVMCollection;
-
         public OTCContactWindow()
         {
             InitializeComponent();
 
-            TradingDeskVMCollection = new DispatchObservableCollection<TradingDeskVM>(this);
             tradingDeskLV.ItemsSource = MessageHandlerContainer.
                 DefaultInstance.Get<AbstractOTCMarketDataHandler>().
-                TradingDeskVMCollection = TradingDeskVMCollection;
+                TradingDeskVMCollection;
 
         }
 
         public void ReloadData()
         {
-            TradingDeskVMCollection.Clear();
+            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().TradingDeskVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().QueryTradingDesk();
         }
 

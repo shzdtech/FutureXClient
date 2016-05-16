@@ -1,20 +1,8 @@
 ﻿using Micro.Future.Util;
 using Micro.Future.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Micro.Future.Controls
 {
@@ -98,15 +86,13 @@ namespace Micro.Future.Controls
 
         public void OnLogged(object obj)
         {
-            Dispatcher.Invoke(
-                () => { Connected = true; });
+            Connected = true;
         }
         public void OnDisconnected(object obj)
         {
             if(obj != null)
             {
-                Dispatcher.Invoke(
-                () => { Connected = false; });
+                Connected = false;
             }
         }
     }

@@ -14,11 +14,11 @@
                 <GridView>
                     <GridViewColumn Header="多" DisplayMemberBinding="{Binding Unknown}" />
                     <GridViewColumn Header="空" DisplayMemberBinding="{Binding Unknown}"/>
-                    <GridViewColumn Header="合约" DisplayMemberBinding="{Binding Symbol}" Width="100"/>
+                    <GridViewColumn Header="合约" DisplayMemberBinding="{Binding Contract}" Width="100"/>
                     <GridViewColumn Header="高级下单" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Width="15" Height="15" Click="Button_Click" CommandParameter="{Binding Symbol}">
+                                <Button Width="15" Height="15" Click="Button_Click" CommandParameter="{Binding Contract}">
                                     <Button.Content>
                                         <Image Stretch="Fill" Source="Images/base_cursor.png" />
                                     </Button.Content>

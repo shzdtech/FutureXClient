@@ -52,7 +52,7 @@ namespace Micro.Future.UI
             _trd_connhelper.OnLoginError += _trd_connhelper_OnError;
         }
 
-        void _trd_connhelper_OnLogged(UserInfo obj)
+        void _trd_connhelper_OnLogged(IUserInfo obj)
         {
             IsSucceeded = true;
             Close();
@@ -68,7 +68,7 @@ namespace Micro.Future.UI
             this.Title = "行情服务器连接失败:" + mex.Message;
         }
 
-        void _md_connhelper_OnLogged(UserInfo obj)
+        void _md_connhelper_OnLogged(IUserInfo obj)
         {
             this.Title = "正在连接交易服务器...";
             _trd_connhelper.SignInOptions.BrokerID = brokerTxt.Text;

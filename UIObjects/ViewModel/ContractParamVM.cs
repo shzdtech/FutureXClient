@@ -10,8 +10,8 @@ namespace Micro.Future.ViewModel
 {
     public class ContractParamVM : ContractNotifyPropertyChanged
     {
-        private float _gamma;
-        public float Gamma
+        private double _gamma;
+        public double Gamma
         {
             set
             {

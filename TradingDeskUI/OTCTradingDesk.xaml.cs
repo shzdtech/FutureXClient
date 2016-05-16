@@ -53,43 +53,27 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().OnError += OnErrorMessageRecv;
         }
 
-        void OTC_OnLogged(UserInfo obj)
+        void OTC_OnLogged(IUserInfo obj)
         {
-            this.Dispatcher.Invoke(
-                () =>
-                {
-                    RightDownStatus.Content = "欢迎" + obj.Name;
-                    strategyListView.ReloadData();
-                    contractParamListView.ReloadData();
-                    otcMarketDataLV.ReloadData();
-                }
-            );
+            RightDownStatus.Content = "欢迎" + obj.LastName + obj.FirstName;
+            strategyListView.ReloadData();
+            contractParamListView.ReloadData();
+            otcMarketDataLV.ReloadData();
         }
 
         private void OnErrorMessageRecv(MessageException errRsult)
         {
-            Dispatcher.Invoke(
-                () =>
-                {
-                    MessageBox.Show(this, errRsult.Message, "发生错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            );
+            MessageBox.Show(this, errRsult.Message, "发生错误", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         void OTC_OnDisconnected(Exception ex)
         {
-            this.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show(this, "请尝试重新登陆", "服务器连接已断开", MessageBoxButton.OK, MessageBoxImage.Information);
-            });
+            MessageBox.Show(this, "请尝试重新登陆", "服务器连接已断开", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         void MD_OnDisconnected(Exception ex)
         {
-            this.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show(this, "请点击状态栏中的连接按钮尝试重新连接", "行情服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
-            });
+            MessageBox.Show(this, "请点击状态栏中的连接按钮尝试重新连接", "行情服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private bool Login()

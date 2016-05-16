@@ -97,8 +97,8 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private float _offset;
-        public float Offset
+        private double _offset;
+        public double Offset
         {
             get
             {
@@ -125,8 +125,8 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private float _spread;
-        public float Spread
+        private double _spread;
+        public double Spread
         {
             get
             {

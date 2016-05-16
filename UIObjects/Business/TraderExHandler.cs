@@ -7,45 +7,40 @@ using System.Windows.Threading;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
 using Micro.Future.Message.Business;
+using System.Collections.ObjectModel;
 
 namespace Micro.Future.Message
 {
     public class TraderExHandler : MessageHandlerTemplate<TraderExHandler>
     {
-        public DispatchObservableCollection<TradeVM> TradeVMCollection
+        public ObservableCollection<TradeVM> TradeVMCollection
         {
             get;
-            set;
-        }
+        } = new ObservableCollection<TradeVM>();
 
-        public DispatchObservableCollection<OrderVM> OrderVMCollection
+        public ObservableCollection<OrderVM> OrderVMCollection
         {
             get;
-            set;
-        }
-        public DispatchObservableCollection<InstrumentViewModel> InstrumentVMCollection
+        } = new ObservableCollection<OrderVM>();
+        public ObservableCollection<InstrumentViewModel> InstrumentVMCollection
         {
             get;
-            set;
-        }
+        } = new ObservableCollection<InstrumentViewModel>();
 
-        public DispatchObservableCollection<PositionVM> PositionVMCollection
+        public ObservableCollection<PositionVM> PositionVMCollection
         {
             get;
-            set;
-        }
+        } = new ObservableCollection<PositionVM>();
 
         public ExecutionCollection ExecutionVMCollection
         {
             get;
-            set;
-        }
+        } = new ExecutionCollection();
 
-        public DispatchObservableCollection<FundVM> FundVMCollection
+        public ObservableCollection<FundVM> FundVMCollection
         {
             get;
-            set;
-        }
+        } = new ObservableCollection<FundVM>();
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
@@ -95,13 +90,9 @@ namespace Micro.Future.Message
         {
             if (InstrumentVMCollection != null)
             {
-                InstrumentVMCollection.Dispatcher.Invoke(
-                () =>
+                InstrumentVMCollection.Add(new InstrumentViewModel()
                 {
-                    InstrumentVMCollection.Add(new InstrumentViewModel()
-                    {
-                        RawData = rsp
-                    });
+                    RawData = rsp
                 });
             }
         }
@@ -134,7 +125,6 @@ namespace Micro.Future.Message
                         //TodayPosition=rsp.                     
                         //CancelTime=rsp.
 
-                    });
                 });
             }
 
@@ -143,44 +133,38 @@ namespace Micro.Future.Message
         {
             if (FundVMCollection != null)
             {
-                FundVMCollection.Dispatcher.Invoke(
-                    () =>
-                    {
-                        FundVMCollection.Add(new FundVM()
-                        {
-                            BrokerID = rsp.BrokerID,
-                            AccountID = rsp.AccountID,
-                            PreMortgage = rsp.PreMortgage,
-                            PreCredit = rsp.PreCredit,
-                            PreDeposit = rsp.PreDeposit,
-                            PreBalance = rsp.PreBalance,
-                            PreMargin = rsp.PreMargin,
-                            InterestBase = rsp.InterestBase,
-                            Deposit = rsp.Deposit,
-                            Withdraw = rsp.Withdraw,
-                            FrozenMargin = rsp.FrozenMargin,
-                            FrozenCash = rsp.FrozenCash,
-                            FrozenCommission = rsp.FrozenCommission,
-                            CurrMargin = rsp.CurrMargin,
-                            CashIn = rsp.CashIn,
-                            CloseProfit = rsp.CloseProfit,
-                            PositionProfit = rsp.PositionProfit,
-                            Balance = rsp.Balance,
-                            Available = rsp.Available,
-                            WithdrawQuota = rsp.WithdrawQuota,
-                            Reserve = rsp.Reserve,
-                            TradingDay = rsp.TradingDay,
-                            SettlementID = rsp.SettlementID,
-                            Credit = rsp.Credit,
-                            Mortgage = rsp.Mortgage,
-                            ExchangeMargin = rsp.ExchangeMargin,
-                            DeliveryMargin = rsp.DeliveryMargin,
-                            ExchangeDeliveryMargin = rsp.ExchangeDeliveryMargin,
-                            ReserveBalance = rsp.ReserveBalance,
-
-
-                        });
-                    });
+                FundVMCollection.Add(new FundVM()
+                {
+                    BrokerID = rsp.BrokerID,
+                    AccountID = rsp.AccountID,
+                    PreMortgage = rsp.PreMortgage,
+                    PreCredit = rsp.PreCredit,
+                    PreDeposit = rsp.PreDeposit,
+                    PreBalance = rsp.PreBalance,
+                    PreMargin = rsp.PreMargin,
+                    InterestBase = rsp.InterestBase,
+                    Deposit = rsp.Deposit,
+                    Withdraw = rsp.Withdraw,
+                    FrozenMargin = rsp.FrozenMargin,
+                    FrozenCash = rsp.FrozenCash,
+                    FrozenCommission = rsp.FrozenCommission,
+                    CurrMargin = rsp.CurrMargin,
+                    CashIn = rsp.CashIn,
+                    CloseProfit = rsp.CloseProfit,
+                    PositionProfit = rsp.PositionProfit,
+                    Balance = rsp.Balance,
+                    Available = rsp.Available,
+                    WithdrawQuota = rsp.WithdrawQuota,
+                    Reserve = rsp.Reserve,
+                    TradingDay = rsp.TradingDay,
+                    SettlementID = rsp.SettlementID,
+                    Credit = rsp.Credit,
+                    Mortgage = rsp.Mortgage,
+                    ExchangeMargin = rsp.ExchangeMargin,
+                    DeliveryMargin = rsp.DeliveryMargin,
+                    ExchangeDeliveryMargin = rsp.ExchangeDeliveryMargin,
+                    ReserveBalance = rsp.ReserveBalance,
+                });
             }
         }
         private void OnQueryOrder(PBOrderInfo rsp)
@@ -202,36 +186,30 @@ namespace Micro.Future.Message
 
                     if (!found)
                     {
-                        OrderVMCollection.Dispatcher.Invoke(
-                            () =>
-                            {
-                                var orderVM = new OrderVM()
-                                {
-                                    OrderID = rsp.OrderID,
-                                    OrderSysID = rsp.OrderSysID,
-                                    Direction = (DirectionType)rsp.Direction,
-                                    LimitPrice = rsp.LimitPrice,
-                                    Volume = rsp.Volume,
-                                    VolumeTraded = rsp.VolumeTraded,
-                                    VolumeRemain = rsp.VolumeRemain,
-                                    ExecType = (OrderExecType)rsp.ExecType,
-                                    TIF = (OrderTIFType)rsp.Tif,
-                                    TradingType = (TradingType)rsp.TradingType,
-                                    Active = rsp.Active,
-                                    Status = (OrderStatus)rsp.OrderStatus,
-                                    OffsetFlag = (OrderOffsetType)rsp.Openclose,
-                                    InsertTime = rsp.InsertTime,
-                                    UpdateTime = rsp.UpdateTime,
-                                    CancelTime = rsp.CancelTime,
-                                    Exchange = rsp.Exchange,
-                                    Contract = rsp.Contract,
-                                    Message = Encoding.UTF8.GetString(rsp.Message.ToByteArray()),
-                                };
+                        var orderVM = new OrderVM()
+                        {
+                            OrderID = rsp.OrderID,
+                            OrderSysID = rsp.OrderSysID,
+                            Direction = (DirectionType)rsp.Direction,
+                            LimitPrice = rsp.LimitPrice,
+                            Volume = rsp.Volume,
+                            VolumeTraded = rsp.VolumeTraded,
+                            VolumeRemain = rsp.VolumeRemain,
+                            ExecType = (OrderExecType)rsp.ExecType,
+                            TIF = (OrderTIFType)rsp.Tif,
+                            TradingType = (TradingType)rsp.TradingType,
+                            Active = rsp.Active,
+                            Status = (OrderStatus)rsp.OrderStatus,
+                            OffsetFlag = (OrderOffsetType)rsp.Openclose,
+                            InsertTime = rsp.InsertTime,
+                            UpdateTime = rsp.UpdateTime,
+                            CancelTime = rsp.CancelTime,
+                            Exchange = rsp.Exchange,
+                            Contract = rsp.Contract,
+                            Message = Encoding.UTF8.GetString(rsp.Message.ToByteArray()),
+                        };
 
-                                OrderVMCollection.Add(orderVM);
-                            }
-
-                    );
+                        OrderVMCollection.Add(orderVM);
                     }
                 }
             }
@@ -278,10 +256,7 @@ namespace Micro.Future.Message
                     }
                     if (!found)
                     {
-                        TradeVMCollection.Dispatcher.Invoke(
-                            () =>
-                            {
-                                TradeVMCollection.Add(
+                        TradeVMCollection.Add(
                                     new TradeVM()
                                     {
                                         OrderID = rsp.OrderID,
@@ -298,10 +273,7 @@ namespace Micro.Future.Message
                                         Commission = rsp.Commission,
                                         //InsertTime = rsp.,
                                         //UpdateTime = rsp.,
-
                                     });
-                            }
-                        );
                     }
                 }
             }
@@ -310,10 +282,7 @@ namespace Micro.Future.Message
         {
             if (TradeVMCollection != null)
             {
-                TradeVMCollection.Dispatcher.Invoke(
-                    () =>
-                    {
-                        TradeVMCollection.Add(
+                TradeVMCollection.Add(
                                 new TradeVM()
                                 {
                                     OrderID = rsp.OrderID,
@@ -327,8 +296,6 @@ namespace Micro.Future.Message
                                     TradeTime = rsp.TradeTime,
                                     OpenClose = (OrderOffsetType)rsp.Openclose
                                 });
-                    }
-                );
             }
         }
 

@@ -15,15 +15,15 @@ namespace Micro.Future.UI
         public ClientFundWindow()
         {
             InitializeComponent();
-            var fundVMCollection = new DispatchObservableCollection<FundVM>(this);
-            FundListView.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().FundVMCollection =
-            fundVMCollection;
+            FundListView.ItemsSource = 
+                MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().FundVMCollection;
 
             mColumns = ColumnObject.GetColumns(FundListView);
         }
 
         public void ReloadData()
         {
+            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().FundVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryAccountInfo();
         }
 

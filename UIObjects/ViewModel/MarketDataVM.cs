@@ -7,30 +7,8 @@ using System.Threading.Tasks;
 namespace Micro.Future.ViewModel
 {
     //报价
-    public class QuoteViewModel : ViewModelBase
+    public class QuoteViewModel : ContractNotifyPropertyChanged
     {
-        private string mSymbol;
-        public string Symbol
-        {
-            get { return mSymbol; }
-            set
-            {
-                mSymbol = value;
-                OnPropertyChanged("Symbol");
-            }
-        }
-
-        private string mTimeStamp;
-        public string TimeStamp
-        {
-            get { return mTimeStamp; }
-            set
-            {
-                mTimeStamp = value;
-                OnPropertyChanged("TimeStamp");
-            }
-        }
-
         private double preCloseValue;
         public double PreCloseValue
         {

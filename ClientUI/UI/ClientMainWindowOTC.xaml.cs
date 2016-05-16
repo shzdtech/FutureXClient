@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Threading;
 using System.Windows.Controls.Ribbon;
 using Micro.Future.Message;
 using Micro.Future.Util;
@@ -75,7 +74,7 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OnError += OnErrorMessageRecv;
         }
 
-        private void _ctpMdSignIner_OnLogged(UserInfo obj)
+        private void _ctpMdSignIner_OnLogged(IUserInfo obj)
         {
             clientFundLV.ReloadData();
             Thread.Sleep(1500);
@@ -86,33 +85,19 @@ namespace Micro.Future.UI
             executionWindow.ReloadData();
         }
 
-        void _otcClientSignIner_OnLogged(UserInfo obj)
+        void _otcClientSignIner_OnLogged(IUserInfo obj)
         {
-            Dispatcher.Invoke(
-                 () =>
-                 {
-                     RightDownStatus.Content = "欢迎" + obj.Name;
-                     //quoteGrpVwOTC.ReloadData();
-                 }
-             );
+            RightDownStatus.Content = "欢迎" + obj.LastName + obj.FirstName;
         }
 
         private void OnErrorMessageRecv(MessageException errRsult)
         {
-            Dispatcher.Invoke(
-                () =>
-                {
-                    MessageBox.Show(this, errRsult.Message, "发生错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            );
+            MessageBox.Show(this, errRsult.Message, "发生错误", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         void OTCClient_OnDisconnected(Exception ex)
         {
-            this.Dispatcher.Invoke(() =>
-           {
-               MessageBox.Show(this, "请尝试重新登陆", "服务器连接已断开", MessageBoxButton.OK, MessageBoxImage.Information);
-           });
+            MessageBox.Show(this, "请尝试重新登陆", "服务器连接已断开", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
 
@@ -134,18 +119,12 @@ namespace Micro.Future.UI
 
         void MD_OnDisconnected(Exception ex)
         {
-            this.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show(this, "请点击状态栏中的连接按钮尝试重新连接", "行情服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
-            });
+            MessageBox.Show(this, "请点击状态栏中的连接按钮尝试重新连接", "行情服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         void TD_OnDisconnected(Exception ex)
         {
-            this.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show(this, "请点击状态栏中的连接按钮尝试重新连接", "Trading服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
-            });
+            MessageBox.Show(this, "请点击状态栏中的连接按钮尝试重新连接", "Trading服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void MDServerLogin()

@@ -11,12 +11,14 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Label Grid.Row="0">Please input here:</Label>
         <TextBox x:Name="md5TextBox" Grid.Row="1" VerticalAlignment="Center"/>
+        <Label Grid.Row="2">Select rounds</Label>
         <ComboBox x:Name="roundComboBox" Grid.Row="3" VerticalAlignment="Center" SelectedIndex="1">
             <ComboBoxItem Content="1"></ComboBoxItem>
             <ComboBoxItem Content="2"></ComboBoxItem>
             <ComboBoxItem Content="3"></ComboBoxItem>
         </ComboBox>
-        <Button Content="生成" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Click="Button_Click"/>
+        <Button Content="Gen" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Click="Button_Click"/>
     </Grid>
 </Window>

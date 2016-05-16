@@ -21,7 +21,7 @@
             <ListView Name="quoteListView" Grid.Row="1" SelectionChanged="quoteListView_SelectionChanged">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="合约" DisplayMemberBinding="{Binding Symbol}"/>
+                        <GridViewColumn Header="合约" DisplayMemberBinding="{Binding Contract}"/>
                         <GridViewColumn Header="成交量">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

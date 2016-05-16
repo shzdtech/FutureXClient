@@ -309,12 +309,13 @@ namespace Micro.Future.UI
                             MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().WatchList.Add(instrument.InstrumentID);
                             Logger.Debug("subscribed: " + instrument.InstrumentID);
 
-                            QuoteViewModel quote = new QuoteViewModel() { Symbol = instrument.InstrumentID };
+                            QuoteViewModel quote = new QuoteViewModel() { Contract = instrument.InstrumentID };
                             MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection.Add(quote);
                         }
 
                         //get real quote
-                        var query1 = from row in MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection where row.Symbol == instrument.InstrumentID select row;
+                        var query1 = from row in MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection
+                                     where row.Contract == instrument.InstrumentID select row;
                         if (query1.Count() > 0)
                         {
                             view.Quotes.Add(query1.ElementAt(0));
