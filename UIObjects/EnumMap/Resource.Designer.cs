@@ -79,11 +79,38 @@ namespace Micro.Future.EnumMap {
         }
         
         /// <summary>
+        ///   查找类似 净头寸 的本地化字符串。
+        /// </summary>
+        internal static string DirectionType_NET {
+            get {
+                return ResourceManager.GetString("DirectionType_NET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 卖 的本地化字符串。
         /// </summary>
         internal static string DirectionType_Sell {
             get {
                 return ResourceManager.GetString("DirectionType_Sell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 限价单 的本地化字符串。
+        /// </summary>
+        internal static string EXECTYPE_LIMIT {
+            get {
+                return ResourceManager.GetString("EXECTYPE_LIMIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 市场单 的本地化字符串。
+        /// </summary>
+        internal static string EXECTYPE_MARKET {
+            get {
+                return ResourceManager.GetString("EXECTYPE_MARKET", resourceCulture);
             }
         }
         
@@ -264,6 +291,42 @@ namespace Micro.Future.EnumMap {
         internal static string OrderStatus_UNDEFINED {
             get {
                 return ResourceManager.GetString("OrderStatus_UNDEFINED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 当日有效 的本地化字符串。
+        /// </summary>
+        internal static string OrderTIFType_GFD {
+            get {
+                return ResourceManager.GetString("OrderTIFType_GFD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 立即完成，否则撤销 的本地化字符串。
+        /// </summary>
+        internal static string OrderTIFType_IOC {
+            get {
+                return ResourceManager.GetString("OrderTIFType_IOC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 多 的本地化字符串。
+        /// </summary>
+        internal static string PositionDirectionType_LONG {
+            get {
+                return ResourceManager.GetString("PositionDirectionType_LONG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 空 的本地化字符串。
+        /// </summary>
+        internal static string PositionDirectionType_SHORT {
+            get {
+                return ResourceManager.GetString("PositionDirectionType_SHORT", resourceCulture);
             }
         }
         

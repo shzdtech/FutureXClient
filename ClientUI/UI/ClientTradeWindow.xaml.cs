@@ -36,7 +36,7 @@ namespace Micro.Future.UI
             FilterByStatus(null);
         }
 
-        private void FilterByStatus(IEnumerable<TradingType> statuses)
+        private void FilterByStatus(IEnumerable<OrderOffsetType> statuses)
         {
             if (TradeTreeView == null)
             {
@@ -51,7 +51,7 @@ namespace Micro.Future.UI
 
                 TradeVM tvm = o as TradeVM;
 
-                if (statuses.Contains(tvm.TradingType))
+                if (statuses.Contains(tvm.OpenClose))
                 {
                     return true;
                 }

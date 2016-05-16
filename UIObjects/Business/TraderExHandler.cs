@@ -115,7 +115,7 @@ namespace Micro.Future.Message
                 {
                     PositionVMCollection.Add(new PositionVM()
                     {
-                        Direction = (DirectionType)rsp.Direction,
+                        Direction = (PositionDirectionType)rsp.Direction,
                         Position = rsp.Position,
                         YdPosition = rsp.YdPosition,
                         PositionDate = rsp.PositionDate,
@@ -130,6 +130,7 @@ namespace Micro.Future.Message
                         UseMargin = rsp.UseMargin,
                         HedgeFlag = (HedgeType)rsp.HedgeFlag,
                         Contract = rsp.Contract,
+                        Exchange = rsp.Exchange,
                         //TodayPosition=rsp.                     
                         //CancelTime=rsp.
 
@@ -367,6 +368,7 @@ namespace Micro.Future.Message
             pb.Volume = orderVM.Volume;
             pb.ExecType = (int)orderVM.ExecType;
             pb.Direction = (int)orderVM.Direction;
+            pb.Openclose = (int)orderVM.OffsetFlag;
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb.Build());
 

@@ -49,14 +49,26 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="订单编号" DisplayMemberBinding="{Binding OrderID}"/>
-                    <GridViewColumn Header="合约代码" DisplayMemberBinding="{Binding Contract}"/>
+                    <GridViewColumn Header="合约" DisplayMemberBinding="{Binding Contract}"/>
+                    <GridViewColumn Header="报单编号" DisplayMemberBinding="{Binding OrderSysID}"/>
+                    <GridViewColumn Header="报单数量" DisplayMemberBinding="{Binding Volume}"/>
+                    <GridViewColumn Header="成交数量" DisplayMemberBinding="{Binding VolumeTraded}"/>
                     <GridViewColumn Header="买卖" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}"/>
                     <GridViewColumn Header="时间戳" DisplayMemberBinding="{Binding InsertTime}"/>
-                    <GridViewColumn Header="成交数量" DisplayMemberBinding="{Binding VolumeTraded}"/>
-                    <GridViewColumn Header="剩余数量" DisplayMemberBinding="{Binding VolumeRemain}"/>
+                    <GridViewColumn Header="开平" DisplayMemberBinding="{Binding OffsetFlag}"/>
+                    <GridViewColumn Header="插入时间" DisplayMemberBinding="{Binding InsertTime}"/>
+                    <GridViewColumn Header="最后修改时间" DisplayMemberBinding="{Binding UpdateTime}"/>
+                    <GridViewColumn Header="撤销时间" DisplayMemberBinding="{Binding CancelTime}"/>
+                    <GridViewColumn Header="未成交数量" DisplayMemberBinding="{Binding VolumeRemain}"/>
+                    <GridViewColumn Header="订单状态" DisplayMemberBinding="{Binding Status}"/>
+                    <GridViewColumn Header="执行类型" DisplayMemberBinding="{Binding ExecType}"/>
+                    <GridViewColumn Header="有效期类型" DisplayMemberBinding="{Binding TIF}"/>
+                    <GridViewColumn Header="交易类型" DisplayMemberBinding="{Binding TradingType}"/>
+                    <GridViewColumn Header="是否活跃" DisplayMemberBinding="{Binding Active}"/>
                     <GridViewColumn Header="报单价格" DisplayMemberBinding="{Binding LimitPrice, StringFormat= {}{0:C}}" />
                     <GridViewColumn Header="状态" DisplayMemberBinding="{Binding Path=Status, Converter={StaticResource enumItemsConverter}}"/>
                     <GridViewColumn Header="状态信息" DisplayMemberBinding="{Binding Message}"/>
+                    <GridViewColumn Header="交易所" DisplayMemberBinding="{Binding Exchange}"/>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>

@@ -29,6 +29,30 @@
                     <!--<RibbonButton DataContext="{x:Static data:RibbonModel.PasswordSetting}" />-->
                     <!--<RibbonButton DataContext="{x:Static data:RibbonModel.NewUser}" />-->
                 </RibbonGroup>
+                <RibbonGroup>
+                    <RibbonMenuButton Label="添加板块" LargeImageSource="/Images/Login_48x48.png">
+                        <!--<RibbonMenuItem Header="报价表">
+                            <RibbonMenuItem Header="自选合约" Click="MenuItem_Click_Contract"/>
+                            <RibbonMenuItem Header="中金期货" Click="MenuItem_Click_ZhongJin"/>
+                            <RibbonMenuItem Header="上海期货" Click="MenuItem_Click_ShangHai"/>
+                            <RibbonMenuItem Header="大连期货" Click="MenuItem_Click_DaLian"/>
+                            <RibbonMenuItem Header="郑州期货" Click="MenuItem_Click_ZhengZhou"/>
+                        </RibbonMenuItem> />
+                        <RibbonMenuItem Header="委托单">
+                            <RibbonMenuItem Header="所有委托单" Click="MenuItem_Click_Execution"/>
+                            <RibbonMenuItem Header="当前挂单" Click="MenuItem_Click_Opening"/>
+                            <RibbonMenuItem Header="已成交" Click="MenuItem_Click_Traded"/>
+                        </RibbonMenuItem> />
+                        <RibbonMenuItem Header="成交记录">
+                            <RibbonMenuItem Header="所有记录" Click="MenuItem_Click_Trade"/>
+                            <RibbonMenuItem Header="开仓记录" Click="MenuItem_Click_Open"/>
+                            <RibbonMenuItem Header="平仓记录" Click="MenuItem_Click_Close"/>
+                        </RibbonMenuItem> />-->
+                        <RibbonMenuItem Header="持仓">
+                            <RibbonMenuItem Header="持仓" Click="MenuItem_Click_Position"/>
+                        </RibbonMenuItem> />
+                    </RibbonMenuButton>
+                </RibbonGroup>
             </RibbonTab>
         </Ribbon>
 
@@ -110,7 +134,7 @@
                                         <c:ClientTradeWindow x:Name="tradeWindow"/>
                                     </avalonDock:LayoutAnchorable>
                                 </avalonDock:LayoutAnchorablePane>
-                                <avalonDock:LayoutAnchorablePane >
+                                <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
                                 <avalonDock:LayoutAnchorable Title="持仓头寸">
                                     <c:ClientPositionWindow x:Name="positionsWindow"/>
                                 </avalonDock:LayoutAnchorable>
