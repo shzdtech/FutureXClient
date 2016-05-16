@@ -68,6 +68,7 @@
     <Compile Include="UI\CheckBoxData.cs" />
     <Compile Include="UI\ComboBoxData.cs" />
     <Compile Include="UI\EnumConvertor.cs" />
+    <Compile Include="UI\WPFUtility.cs" />
     <Compile Include="ViewModel\AddOrderViewModel.cs" />
     <Compile Include="ViewModel\CommandViewModel.cs" />
     <Compile Include="UI\ContextualTabGroupData.cs" />
