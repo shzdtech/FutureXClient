@@ -70,6 +70,8 @@
                     <ContextMenu Name="QuoteContextMenu" StaysOpen="True">
                         <MenuItem Header="删除报价" Click="MenuItem_Click_Delete" />
                         <Separator />
+                        <MenuItem Header="筛选配置" Click="MenuItem_Click_Settings" />
+                        <Separator />
                         <MenuItem Header="列显示设置" Click="MenuItem_Click_Columns" />
                         <Separator></Separator>
                     </ContextMenu>

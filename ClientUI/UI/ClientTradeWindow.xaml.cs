@@ -6,6 +6,8 @@ using System.Windows.Data;
 using System.ComponentModel;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
+using Micro.Future.Windows;
+using System.Collections.ObjectModel;
 
 namespace Micro.Future.UI
 {
@@ -36,6 +38,19 @@ namespace Micro.Future.UI
             FilterByStatus(null);
         }
 
+        private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
+        {
+            TradeSettingsWindow win = new TradeSettingsWindow();
+            var tradeVMCollection = (ObservableCollection<TradeVM>)TradeTreeView.ItemsSource;
+            win.ExchangeCollection = (from p in tradeVMCollection select p.Exchange).Distinct();
+            if (win.ShowDialog() == true)
+            {
+                FilterByExchange(win.TradeExchange);
+                FilterByContract(win.TradeContract);
+                FilterByContract(win.TradeUnderlying);
+            }
+        }
+
         private void FilterByStatus(IEnumerable<OrderOffsetType> statuses)
         {
             if (TradeTreeView == null)
@@ -52,6 +67,54 @@ namespace Micro.Future.UI
                 TradeVM tvm = o as TradeVM;
 
                 if (statuses.Contains(tvm.OpenClose))
+                {
+                    return true;
+                }
+
+                return false;
+            };
+        }
+
+        private void FilterByExchange(string exchange)
+        {
+            if (TradeTreeView == null)
+            {
+                return;
+            }
+
+            ICollectionView view = CollectionViewSource.GetDefaultView(TradeTreeView.ItemsSource);
+            view.Filter = delegate (object o)
+            {
+                if (exchange == null)
+                    return true;
+
+                TradeVM tvm = o as TradeVM;
+
+                if (exchange.Contains(tvm.Exchange))
+                {
+                    return true;
+                }
+
+                return false;
+            };
+        }
+
+        private void FilterByContract(string contract)
+        {
+            if (TradeTreeView == null)
+            {
+                return;
+            }
+
+            ICollectionView view = CollectionViewSource.GetDefaultView(TradeTreeView.ItemsSource);
+            view.Filter = delegate (object o)
+            {
+                if (contract == null)
+                    return true;
+
+                TradeVM tvm = o as TradeVM;
+
+                if (contract.Contains(tvm.Contract))
                 {
                     return true;
                 }

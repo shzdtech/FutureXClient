@@ -101,7 +101,7 @@
             <avalonDock:LayoutRoot>
                 <avalonDock:LayoutPanel Orientation="Vertical">
                     <avalonDock:LayoutPanel DockWidth="4*" DockMinHeight="25" DockHeight="0.15*">
-                        <avalonDock:LayoutAnchorablePane>
+                        <avalonDock:LayoutAnchorablePane x:Name="fundPane">
                             <avalonDock:LayoutAnchorable Title="资金">
                                 <c:ClientFundWindow x:Name="clientFundLV"/>
                             </avalonDock:LayoutAnchorable>
@@ -109,7 +109,7 @@
                     </avalonDock:LayoutPanel>                    
                    <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="0.5*">
                         <avalonDock:LayoutPanel DockWidth="4*">
-                            <avalonDock:LayoutAnchorablePane>
+                            <avalonDock:LayoutAnchorablePane x:Name="quotePane">
                                 <avalonDock:LayoutAnchorable Title="行情">
                                     <c:ClientQuoteGroupView x:Name="otcMarketDataLV"/>
                                 </avalonDock:LayoutAnchorable>
@@ -117,19 +117,19 @@
                         </avalonDock:LayoutPanel>
                         <avalonDock:LayoutPanel Orientation="Horizontal" DockHeight="350" >
                         <avalonDock:LayoutPanel DockWidth="*" >
-                            <avalonDock:LayoutAnchorablePane >
+                            <avalonDock:LayoutAnchorablePane x:Name="fastorderPane" >
                                 <avalonDock:LayoutAnchorable Title="快速下单">
                                     <c:ClientFastOrderWindow x:Name="FastOrderCtl"  />
                                 </avalonDock:LayoutAnchorable>
                             </avalonDock:LayoutAnchorablePane>
                         </avalonDock:LayoutPanel>
                         <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="4*">
-                            <avalonDock:LayoutAnchorablePane>
+                            <avalonDock:LayoutAnchorablePane x:Name="executionPane">
                                 <avalonDock:LayoutAnchorable Title="订单明细">
                                     <c:ClientExecutionWindow x:Name="executionWindow"/>
                                 </avalonDock:LayoutAnchorable>
                             </avalonDock:LayoutAnchorablePane>
-                                <avalonDock:LayoutAnchorablePane>
+                                <avalonDock:LayoutAnchorablePane x:Name="tradePane">
                                     <avalonDock:LayoutAnchorable Title="成交记录">
                                         <c:ClientTradeWindow x:Name="tradeWindow"/>
                                     </avalonDock:LayoutAnchorable>
