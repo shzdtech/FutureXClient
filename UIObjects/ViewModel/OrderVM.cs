@@ -189,28 +189,6 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private string _exchange;
-        public string Exchange
-        {
-            get { return _exchange; }
-            set
-            {
-                _exchange = value;
-                OnPropertyChanged("Exchange");
-            }
-        }
-
-        private string _contract;
-        public string Contract
-        {
-            get { return _contract; }
-            set
-            {
-                _contract = value;
-                OnPropertyChanged("Contract");
-            }
-        }
-
         private string _message;
         public string Message
         {

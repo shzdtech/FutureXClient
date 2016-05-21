@@ -29,9 +29,9 @@ namespace Micro.Future.UI
         {
             if (quoteVM != null)
             {
-                _currentContract = quoteVM.Symbol;
+                _currentContract = quoteVM.Contract;
                 stackPanelPrices.DataContext = quoteVM;
-                OrderVM.Contract = quoteVM.Symbol;
+                OrderVM.Contract = quoteVM.Contract;
 
             }
         }

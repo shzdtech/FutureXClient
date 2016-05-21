@@ -113,10 +113,6 @@
     <Compile Include="ViewModel\ViewModelData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AlgoUtil\Utility.csproj">
-      <Project>{a6a3af60-a359-49c4-8747-c79b695489e2}</Project>
-      <Name>Utility</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\FutureXShare\Communicators\Micro.Future.Message.ProtoBuf\Micro.Future.Message.ProtoBuf.csproj">
       <Project>{c518b93e-4e53-45af-ad44-b5d1bd7eea8b}</Project>
       <Name>Micro.Future.Message.ProtoBuf</Name>
@@ -124,6 +120,10 @@
     <ProjectReference Include="..\..\FutureXShare\Communicators\Micro.Future.Message\Micro.Future.Message.csproj">
       <Project>{354935ce-ab35-4bc3-88dd-e6c3b1e0870c}</Project>
       <Name>Micro.Future.Message</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AlgoUtil\Utility.csproj">
+      <Project>{a6a3af60-a359-49c4-8747-c79b695489e2}</Project>
+      <Name>Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -434,6 +434,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties project_1json__JSONSchema="" />
+    </VisualStudio>
+  </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
