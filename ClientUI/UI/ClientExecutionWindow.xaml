@@ -76,6 +76,8 @@
                     <!--<MenuItem Header="修改订单" />-->
                     <MenuItem Header="取消订单" Click="MenuItem_Click_CancelOrder" />
                     <Separator />
+                    <MenuItem Header="筛选配置" Click="MenuItem_Click_Settings" />
+                    <Separator />
                     <MenuItem Header="列显示设置" Click="MenuItem_Click_Columns" />
                     <Separator></Separator>
                 </ContextMenu>

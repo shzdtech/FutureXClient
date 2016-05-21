@@ -171,17 +171,112 @@ namespace Micro.Future.UI
             TradingServerLogin();
         }
 
+        private void MenuItem_Click_Contract(object sender, RoutedEventArgs e)
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new ClientQuoteGroupView();
+            ancable.Title = "自选合约";
+            tradePane.Children.Add(ancable);
+        }
+
+        private void MenuItem_Click_ZhongJin(object sender, RoutedEventArgs e)
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            var quoteGrpVw = new ClientQuoteGroupView();
+            quoteGrpVw.FilterByExchange(null);
+            ancable.Content = quoteGrpVw;
+            ancable.Title = "中金期货";
+            tradePane.Children.Add(ancable);
+        }
+
+        private void MenuItem_Click_ShangHai(object sender, RoutedEventArgs e)
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new ClientQuoteGroupView();
+            ancable.Title = "上海期货";
+            tradePane.Children.Add(ancable);
+        }
+
+        private void MenuItem_Click_DaLian(object sender, RoutedEventArgs e)
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new ClientQuoteGroupView();
+            ancable.Title = "大连期货";
+            tradePane.Children.Add(ancable);
+        }
+
+        private void MenuItem_Click_ZhengZhou(object sender, RoutedEventArgs e)
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new ClientQuoteGroupView();
+            ancable.Title = "郑州期货";
+            tradePane.Children.Add(ancable);
+        }
+
+        private void MenuItem_Click_Execution(object sender, RoutedEventArgs e)
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new ClientExecutionWindow();
+            ancable.Title = "所有委托单";
+            tradePane.Children.Add(ancable);
+        }
+
+        private void MenuItem_Click_Opening(object sender, RoutedEventArgs e)
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new ClientExecutionWindow();
+            ancable.Title = "挂单";
+            tradePane.Children.Add(ancable);
+        }
+
+        private void MenuItem_Click_Traded(object sender, RoutedEventArgs e)
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new ClientExecutionWindow();
+            ancable.Title = "已成交";
+            tradePane.Children.Add(ancable);
+        }
+
         private void MenuItem_Click_Trade(object sender, RoutedEventArgs e)
         {
-            ClientTradeWindow win = new ClientTradeWindow();
-
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new ClientTradeWindow();
+            ancable.Title = "所有成交记录";
+            tradePane.Children.Add(ancable);
         }
+
+        private void MenuItem_Click_Open(object sender, RoutedEventArgs e)
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new ClientTradeWindow();
+            ancable.Title = "开仓记录";
+            tradePane.Children.Add(ancable);
+        }
+
+        private void MenuItem_Click_Close(object sender, RoutedEventArgs e)
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new ClientTradeWindow();
+            ancable.Title = "平仓记录";
+            tradePane.Children.Add(ancable);
+        }
+
         private void MenuItem_Click_Position(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
             ancable.Content = new ClientPositionWindow();
+            ancable.Title = "持仓";
             positionPane.Children.Add(ancable);
         }
 
+        private void MenuItem_Click_Exchange(string exchange, string title, )
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            var quoteGrpVw = new ClientQuoteGroupView();
+            quoteGrpVw.filter
+            ancable.Content = quoteGrpVw;
+            ancable.Title = "中金期货";
+            tradePane.Children.Add(ancable);
+        }
     }
 }

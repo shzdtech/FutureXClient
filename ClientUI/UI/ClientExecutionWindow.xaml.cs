@@ -6,6 +6,10 @@ using System.Windows.Data;
 using System.ComponentModel;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
+using Micro.Future.Windows;
+using System.Collections.ObjectModel;
+using Xceed.Wpf.AvalonDock.Layout;
+using Micro.Future.UI;
 
 namespace Micro.Future.UI
 {
@@ -34,6 +38,70 @@ namespace Micro.Future.UI
         public void Refresh()
         {
             FilterByStatus(null);
+        }
+
+        private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
+        {
+            ExecutionSettingsWindow win = new ExecutionSettingsWindow();
+            var orderVMCollection = (ObservableCollection<OrderVM>)ExecutionTreeView.ItemsSource;
+            win.ExchangeCollection = (from p in orderVMCollection select p.Exchange).Distinct();
+            if (win.ShowDialog() == true)
+            {
+                var layoutContent = WPFUtility.FindParent<LayoutContent>(this);
+                if (layoutContent != null)
+                    layoutContent.Title = win.ExecutionTitle;
+                FilterByExchange(win.ExecutionExchange);
+                FilterByContract(win.ExecutionContract);
+                FilterByContract(win.ExecutionUnderlying);
+            }
+        }
+
+        private void FilterByExchange(string exchange)
+        {
+            if (ExecutionTreeView == null)
+            {
+                return;
+            }
+
+            ICollectionView view = CollectionViewSource.GetDefaultView(ExecutionTreeView.ItemsSource);
+            view.Filter = delegate (object o)
+            {
+                if (exchange == null)
+                    return true;
+
+                OrderVM ovm = o as OrderVM;
+
+                if (exchange.Contains(ovm.Exchange))
+                {
+                    return true;
+                }
+
+                return false;
+            };
+        }
+
+        private void FilterByContract(string contract)
+        {
+            if (ExecutionTreeView == null)
+            {
+                return;
+            }
+
+            ICollectionView view = CollectionViewSource.GetDefaultView(ExecutionTreeView.ItemsSource);
+            view.Filter = delegate (object o)
+            {
+                if (contract == null)
+                    return true;
+
+                OrderVM ovm = o as OrderVM;
+
+                if (contract.Contains(ovm.Contract))
+                {
+                    return true;
+                }
+
+                return false;
+            };
         }
 
         private void FilterByStatus(IEnumerable<OrderStatus> statuses)
