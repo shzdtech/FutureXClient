@@ -6,6 +6,7 @@ using Micro.Future.Util;
 using Micro.Future.Properties;
 using System.Threading;
 using Xceed.Wpf.AvalonDock.Layout;
+using System.Collections.Generic;
 
 namespace Micro.Future.UI
 {
@@ -174,7 +175,8 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Contract(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            ancable.Content = new ClientQuoteGroupView();
+            var quoteGrpVw = new ClientQuoteGroupView();
+            ancable.Content = quoteGrpVw;
             ancable.Title = "自选合约";
             tradePane.Children.Add(ancable);
         }
@@ -183,7 +185,7 @@ namespace Micro.Future.UI
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
             var quoteGrpVw = new ClientQuoteGroupView();
-            quoteGrpVw.FilterByExchange(null);
+            quoteGrpVw.FilterByExchange("CFFEX");
             ancable.Content = quoteGrpVw;
             ancable.Title = "中金期货";
             tradePane.Children.Add(ancable);
@@ -192,7 +194,9 @@ namespace Micro.Future.UI
         private void MenuItem_Click_ShangHai(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            ancable.Content = new ClientQuoteGroupView();
+            var quoteGrpVw = new ClientQuoteGroupView();
+            quoteGrpVw.FilterByExchange("SHFE");
+            ancable.Content = quoteGrpVw;
             ancable.Title = "上海期货";
             tradePane.Children.Add(ancable);
         }
@@ -200,7 +204,9 @@ namespace Micro.Future.UI
         private void MenuItem_Click_DaLian(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            ancable.Content = new ClientQuoteGroupView();
+            var quoteGrpVw = new ClientQuoteGroupView();
+            quoteGrpVw.FilterByExchange("DCE");
+            ancable.Content = quoteGrpVw;
             ancable.Title = "大连期货";
             tradePane.Children.Add(ancable);
         }
@@ -208,7 +214,9 @@ namespace Micro.Future.UI
         private void MenuItem_Click_ZhengZhou(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            ancable.Content = new ClientQuoteGroupView();
+            var quoteGrpVw = new ClientQuoteGroupView();
+            quoteGrpVw.FilterByExchange("CZCE");
+            ancable.Content = quoteGrpVw;
             ancable.Title = "郑州期货";
             tradePane.Children.Add(ancable);
         }
@@ -216,7 +224,8 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Execution(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            ancable.Content = new ClientExecutionWindow();
+            var executionWin = new ClientExecutionWindow();
+            ancable.Content = executionWin;
             ancable.Title = "所有委托单";
             tradePane.Children.Add(ancable);
         }
@@ -224,7 +233,9 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Opening(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            ancable.Content = new ClientExecutionWindow();
+            var executionWin = new ClientExecutionWindow();
+            ancable.Content = executionWin;
+            executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENNING });
             ancable.Title = "挂单";
             tradePane.Children.Add(ancable);
         }
@@ -232,7 +243,9 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Traded(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            ancable.Content = new ClientExecutionWindow();
+            var executionWin = new ClientExecutionWindow();
+            ancable.Content = executionWin;
+            executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED});
             ancable.Title = "已成交";
             tradePane.Children.Add(ancable);
         }
@@ -248,7 +261,9 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Open(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            ancable.Content = new ClientTradeWindow();
+            var tradeWin = new ClientTradeWindow();
+            ancable.Content = tradeWin;
+            tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.OPEN });
             ancable.Title = "开仓记录";
             tradePane.Children.Add(ancable);
         }
@@ -256,7 +271,9 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Close(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            ancable.Content = new ClientTradeWindow();
+            var tradeWin = new ClientTradeWindow();
+            ancable.Content = tradeWin;
+            tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.CLOSE });
             ancable.Title = "平仓记录";
             tradePane.Children.Add(ancable);
         }
@@ -269,14 +286,5 @@ namespace Micro.Future.UI
             positionPane.Children.Add(ancable);
         }
 
-        private void MenuItem_Click_Exchange(string exchange, string title, )
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            var quoteGrpVw = new ClientQuoteGroupView();
-            quoteGrpVw.filter
-            ancable.Content = quoteGrpVw;
-            ancable.Title = "中金期货";
-            tradePane.Children.Add(ancable);
-        }
     }
 }
