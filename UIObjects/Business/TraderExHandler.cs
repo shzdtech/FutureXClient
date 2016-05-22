@@ -120,7 +120,6 @@ namespace Micro.Future.Message
                 //CancelTime=rsp.
 
             });
-
         }
         private void OnFund(PBAccountInfo rsp)
         {
