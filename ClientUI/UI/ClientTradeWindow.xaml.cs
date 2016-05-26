@@ -51,7 +51,7 @@ namespace Micro.Future.UI
             }
         }
 
-        private void FilterByStatus(IEnumerable<OrderOffsetType> statuses)
+        public void FilterByStatus(IEnumerable<OrderOffsetType> statuses)
         {
             if (TradeTreeView == null)
             {
@@ -75,7 +75,7 @@ namespace Micro.Future.UI
             };
         }
 
-        private void FilterByExchange(string exchange)
+        public void FilterByExchange(string exchange)
         {
             if (TradeTreeView == null)
             {
@@ -99,7 +99,7 @@ namespace Micro.Future.UI
             };
         }
 
-        private void FilterByContract(string contract)
+        public void FilterByContract(string contract)
         {
             if (TradeTreeView == null)
             {
@@ -125,7 +125,7 @@ namespace Micro.Future.UI
 
         private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
         {
-            //FilterByStatus(new List<TradingType> { TradingType.ALL_TRADED });
+            FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.OPEN });
         }
 
 

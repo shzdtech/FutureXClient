@@ -56,7 +56,7 @@ namespace Micro.Future.UI
             }
         }
 
-        private void FilterByExchange(string exchange)
+        public void FilterByExchange(string exchange)
         {
             if (ExecutionTreeView == null)
             {
@@ -80,7 +80,7 @@ namespace Micro.Future.UI
             };
         }
 
-        private void FilterByContract(string contract)
+        public void FilterByContract(string contract)
         {
             if (ExecutionTreeView == null)
             {
@@ -104,7 +104,7 @@ namespace Micro.Future.UI
             };
         }
 
-        private void FilterByStatus(IEnumerable<OrderStatus> statuses)
+        public void FilterByStatus(IEnumerable<OrderStatus> statuses)
         {
             if (ExecutionTreeView == null)
             {
