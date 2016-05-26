@@ -269,11 +269,11 @@ namespace Micro.Future.UI
             positionPane.Children.Add(ancable);
         }
 
-        private void MenuItem_Click_Exchange(string exchange, string title, )
+        private void MenuItem_Click_Exchange(string exchange, string title)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
             var quoteGrpVw = new ClientQuoteGroupView();
-            quoteGrpVw.filter
+            //quoteGrpVw.filter
             ancable.Content = quoteGrpVw;
             ancable.Title = "中金期货";
             tradePane.Children.Add(ancable);

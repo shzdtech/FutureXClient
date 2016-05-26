@@ -72,12 +72,12 @@ namespace Micro.Future.UI
 
         private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
         {
-            FilterByStatus(PBOrderStatus.ALL_FINISHED);
+            FilterByStatus(PBOrderStatus.AllFinished);
         }
 
         private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
         {
-            FilterByStatus(PBOrderStatus.TTIS_ORDER_CANCEL_SUCCESS);
+            FilterByStatus(PBOrderStatus.TtisOrderCancelSuccess);
         }
 
         private void RadioButton_Checked_3(object sender, RoutedEventArgs e)
@@ -98,9 +98,9 @@ namespace Micro.Future.UI
                         return true;
                     }
 
-                    if ((evm.Status == PBOrderStatus.TTIS_ORDER_INSERT_FAILED) ||
-                        (evm.Status == PBOrderStatus.TTIS_ORDER_CANCEL_FAILED) ||
-                        (evm.Status == PBOrderStatus.TTIS_ORDER_OTHER))
+                    if ((evm.Status == PBOrderStatus.TtisOrderCancelFailed) ||
+                        (evm.Status == PBOrderStatus.TtisOrderInsertFailed) ||
+                        (evm.Status == PBOrderStatus.TtisOrderOther))
                     {
                         return true;
                     }
@@ -173,7 +173,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             ExecutionViewModel item = ExecutionTreeView.SelectedItem as ExecutionViewModel;
-            if ((item != null) && item.IsOrderOrTrade && (item.Status == PBOrderStatus.PARTLY_FINISHED || item.Status == PBOrderStatus.TTIS_ORDER_INSERT_SUCCESS))
+            if ((item != null) && item.IsOrderOrTrade && (item.Status == PBOrderStatus.PartlyFinished || item.Status == PBOrderStatus.TtisOrderInsertSuccess))
             {
                 TradeHandler.Instance.CancelOrder(item);
             }

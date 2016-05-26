@@ -1,0 +1,377 @@
+syntax = "proto3";
+
+package PBWrapMsgOG;
+
+option java_package = "ProtoBufMessage";
+option java_outer_classname = "PBWrapMsgOG";
+
+enum MessageType {
+MessageType_0 = 0;
+	SEND_PENDING_ORDER = 1;
+	RETRIEVE_PENDING_ORDER = 2;
+	SEND_OMS_INFORMATION = 3;
+}
+
+enum OrderDirection {
+	OrderDirection_0 = 0;
+	BUY = 1;
+	SELL = 2;
+	//融资
+	Repo = 4;
+	//融券
+	reverseRepo = 5;
+	Unknown = 6;
+}
+
+enum OrderType {
+OrderType_0 = 0;
+	//下单
+	NEW = 1;
+	//撤单
+	CAN = 2;
+	//补单
+	RETRY = 3;
+}
+
+enum ExecuteType {
+ExecuteType_0 = 0;
+	//市价单
+	MARKET = 1;
+	//限价单
+	LIMIT = 2;
+	//止损
+	STOP =3;
+	//限价止损
+	STOPLIMIT = 4;
+}
+
+enum EquityMarket {
+EquityMarket_0 = 0;
+	SH = 1;
+	SZ = 2;
+}
+
+enum FutureFlag {
+FutureFlag_0 = 0;
+	//开仓
+	OPEN = 1;
+	//平仓
+	CLOSE = 2;
+	//平今
+	CLOSETODAY = 3;
+}
+
+enum FutureAccountType {
+FutureAccountType_0 = 0;
+	
+	//投机
+	SPECULATION = 1;
+	//套保
+	INVESTMENT = 2;
+	//套利
+	ARBITRAGE = 3;
+}
+
+//时效
+enum TimeType {
+TimeType_0 = 0;
+	//当日有效
+	WHOLEDAY = 1;
+	//有效直到取消
+	UNTILCANCEL = 2;
+}
+
+enum ReportService {
+ReportService_0 = 0;
+
+	EQUITY_ORDER_ACKNOWLEDGEMENT = 1;
+	FUTURE_ORDER_ACKNOWLEDGEMENT = 2;
+	EQUITY_EXECUTION = 3;
+	FUTURE_EXECUTION = 4;
+	EQUITY_ENTRUST = 5;
+	FUTURE_ENTRUST = 6;
+	EQUITY_QUERY = 7;
+	FUTURE_QUERY = 8;
+}
+
+enum ExecutionType {
+ExecutionType_0 = 0;
+
+	ORDER_ACKNOWLEDGEMENT = 1;
+	ORDER_REJECTION = 2;
+	CANCELLATION_ACKNOWLEDGEMENT = 3;
+	CANCELLATION_REJECTION = 4;
+	ORDER_EXECUTION = 5;
+	CANCELLATION_EXECUTION = 6;
+
+	//补单
+	RETRY_ACKNOWLEDGEMENT = 7;
+}
+
+//MC暂时没有，此message暂时还未用到，以后可以用于订单管理
+message PBMsgOGMC {
+	//Message Header
+	int32 messageId = 1;
+	string messageService = 2;
+
+	//Message Body
+	string service = 3;
+	MessageType messageType = 4;
+
+	string childOrderId = 5;
+	string parentOrderId = 6;
+	string strategy = 7;
+	string symbol = 8;
+	int32 pendingSize = 9;
+}
+
+//现货订单
+message PBMsgOGOrdEqt {
+	string symbol = 1;
+	OrderType orderType = 2;
+
+	//市场
+	EquityMarket equityMarket = 3;
+	//市价限价
+	ExecuteType executeType = 4;
+	//买卖
+	OrderDirection orderDirection = 5;
+	//价
+	double price = 6;
+	//量
+	int32 size = 7;
+	//子订单号
+	string childOrderId = 8;
+}
+
+message PBMsgOGOrdFut {
+	string symbol = 1;
+	OrderType orderType = 2;
+
+	//开平
+	FutureFlag futureFlag = 3;
+	
+	//市价限价
+	ExecuteType executeType = 4;
+	//多头空头
+	OrderDirection orderDirection = 5;
+	//投机套保
+	FutureAccountType futureAccountType = 6;
+	double price = 7;
+	int32 size = 8;
+	//子订单号
+	string childOrderId = 9;
+	//时效
+	TimeType timeType = 10;
+	double stopPrice = 11;
+}
+
+//OG -> APEX
+message PBMsgOGOrdEqtList {
+	//Message Header
+	int32 messageId = 1;
+	string messageService = 2;
+
+	//Message Body
+	//父订单号
+	string parentOrderId = 3;
+	//现货订单列表
+	repeated PBMsgOGOrdEqt ogOrdEqtList = 4;
+
+	bool batchOrder = 5;
+}
+
+//OG -> SunGuard
+message PBMsgOGOrdFutList {
+	//Message Header
+	int32 messageId = 1;
+	string messageService = 2;
+
+	//Message Body
+	//父订单号
+	string parentOrderId = 3;
+	//期货订单列表
+	repeated PBMsgOGOrdFut ogOrdFutList = 4;
+}
+
+//Strategy -> OG
+message PBMsgOGOrdList {
+	//Message Header
+	int32 messageId = 1;
+	string messageService = 2;
+
+
+	//Message Body
+	//父订单号
+	string parentOrderId = 3;
+	//现货订单列表
+	repeated PBMsgOGOrdEqt ogOrdEqtList = 4;
+	//期货订单列表
+	repeated PBMsgOGOrdFut ogOrdFutList = 5;
+	
+	bool batchOrder = 6;
+	OrderType orderListType = 7;
+}
+
+//成交回报
+message PBMsgExecution {
+	ExecutionType executionType = 1;
+
+	//子订单号
+	string childOrderId = 2;
+	
+	//父订单号
+	string parentOrderId = 3;
+	
+	//时间戳
+	string timeStamp = 4;
+	
+	//成交编号
+	string dealNo =  5;
+	
+	//客户号
+	string account = 6;
+	
+	//证券代码
+	string symbol = 7;
+	
+	//证券名称
+	bytes name = 8;
+	
+	//交易所编码
+	string venue = 9;
+	
+	//买卖标识
+	OrderDirection orderDirection = 10;
+	
+	//委托价格
+	double targetPrice = 11;
+	
+	//成交价格
+	double executePrice = 12;
+	
+	//成交数量
+	int32 executeSize = 13;
+		
+	//撤单数量
+	int32 cancelSize = 14;
+	
+	//开平仓标志
+	FutureFlag futureFlag = 15;
+	
+	//委托数量
+	int32 entrustSize = 16;
+	
+	//提示信息
+	bytes note = 17;
+	
+}
+
+//委托
+message PBMsgEntrust {
+	//子订单号
+	string childOrderId = 1;
+	//父订单号
+	string parentOrderId = 2;
+
+	//委托时间
+	string entrustTime = 3;
+	
+	//申报时间
+	string applyTime = 4;
+	
+	//委托状态
+	string status = 5;
+	
+	//撤单数量
+	int32 cancelSize = 6;
+	
+	//成交数量
+	int32 executeSize = 7;
+	
+	//成交均价
+	double executeAvgPrice = 8;
+		
+	//客户号
+	string account = 9;
+	
+	//证券代码
+	string symbol = 10;
+	
+	//证券名称
+	bytes name = 11;
+	
+	//交易所编码
+	string venue = 12;
+	
+	//买卖标识
+	OrderDirection orderDirection = 13;
+	
+	//开平仓标志
+	FutureFlag futureFlag = 14;
+	
+	//委托数量
+	int32 entrustSize = 15;
+	
+	//委托价格
+	double targetPrice = 16;
+		
+	//提示信息
+	bytes note = 17;
+
+	bytes statusCN = 18;
+}
+
+//帐户
+message PBMsgAccount {
+//帐户余额
+	string TotalCapital = 1;
+	//可用资金
+	string AvailableCapital = 2;
+	//多头盈利
+	string buyMargin = 3;
+	//空头盈利
+	string sellMargin = 4;
+}
+
+//持仓
+message PBMsgPosition {
+	string symbol = 1;
+	bytes name = 2;
+	//买持仓
+	string longPosition = 3;
+	//买均价
+	string longPrice = 4;
+	//卖持仓
+	string shortPosition = 5;
+	//卖均价
+	string shortPrice = 6;
+	//买持仓-卖持仓
+	int64 netPosition = 7;
+	//最新价
+	string latestPrice = 8;
+	//浮动盈亏
+	string profit = 9;
+}
+
+//OG -> Strategy
+message PBMsgOGRpt {
+	//Message Header
+	int32 messageId = 1;
+	string messageService = 2;
+
+	//Message Body
+	ReportService reportService = 3;
+
+	//Execution
+	repeated PBMsgExecution execution = 4;
+
+	//Account
+	PBMsgAccount account = 5;
+
+	//Position
+	repeated PBMsgPosition position = 6;
+
+	//委托
+	repeated PBMsgEntrust entrust = 7;
+}

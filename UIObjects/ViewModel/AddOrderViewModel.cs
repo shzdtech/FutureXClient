@@ -42,7 +42,7 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private OrderDirection mOrderDirection = OrderDirection.BUY;
+        private OrderDirection mOrderDirection = OrderDirection.Buy;
         public OrderDirection OrderDirection
         {
             get { return mOrderDirection; }
@@ -53,7 +53,7 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private ExecuteType mExecuteType = ExecuteType.LIMIT;
+        private ExecuteType mExecuteType = ExecuteType.Limit;
         public ExecuteType ExecutionType
         {
             get { return mExecuteType; }
@@ -101,7 +101,7 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private FutureFlag mFutureFlag = FutureFlag.OPEN;
+        private FutureFlag mFutureFlag = FutureFlag.Open;
         public FutureFlag FutureFlag
         {
             get { return mFutureFlag; }
@@ -123,7 +123,7 @@ namespace Micro.Future.ViewModel
                 if (_buyLimitCommand == null)
                 {
                     _buyLimitCommand = new RelayCommand(
-                        param => MakeOrder(PBWrapMsgOG.OrderDirection.BUY, PBWrapMsgOG.ExecuteType.LIMIT),
+                        param => MakeOrder(PBWrapMsgOG.OrderDirection.Buy, PBWrapMsgOG.ExecuteType.Limit),
                         param => View.SubmitEnabled
                         );
                 }
@@ -139,7 +139,7 @@ namespace Micro.Future.ViewModel
                 if (_sellLimitCommand == null)
                 {
                     _sellLimitCommand = new RelayCommand(
-                        param => MakeOrder(PBWrapMsgOG.OrderDirection.SELL, PBWrapMsgOG.ExecuteType.LIMIT),
+                        param => MakeOrder(PBWrapMsgOG.OrderDirection.Sell, PBWrapMsgOG.ExecuteType.Limit),
                         param => View.SubmitEnabled
                         );
                 }
@@ -155,7 +155,7 @@ namespace Micro.Future.ViewModel
                 if (_buyMarketCommand == null)
                 {
                     _buyMarketCommand = new RelayCommand(
-                        param => MakeOrder(PBWrapMsgOG.OrderDirection.BUY, PBWrapMsgOG.ExecuteType.MARKET),
+                        param => MakeOrder(PBWrapMsgOG.OrderDirection.Buy, PBWrapMsgOG.ExecuteType.Market),
                         param => CanExecuteMarket
                         );
                 }
@@ -171,7 +171,7 @@ namespace Micro.Future.ViewModel
                 if (_sellMarketCommand == null)
                 {
                     _sellMarketCommand = new RelayCommand(
-                        param => MakeOrder(PBWrapMsgOG.OrderDirection.SELL, PBWrapMsgOG.ExecuteType.MARKET),
+                        param => MakeOrder(PBWrapMsgOG.OrderDirection.Sell, PBWrapMsgOG.ExecuteType.Market),
                         param => CanExecuteMarket
                         );
                 }
@@ -212,16 +212,16 @@ namespace Micro.Future.ViewModel
 
             switch (mExecuteType)
             {
-                case ExecuteType.MARKET:
+                case ExecuteType.Market:
                     result &= false;
                     break;
-                case ExecuteType.LIMIT:
+                case ExecuteType.Limit:
                     result &= mLimitPrice > 0.0;
                     break;
-                case ExecuteType.STOP:
+                case ExecuteType.Stop:
                     result &= mStopPrice > 0.0;
                     break;
-                case ExecuteType.STOPLIMIT:
+                case ExecuteType.Stoplimit:
                     result &= (mLimitPrice > 0.0) && (mStopPrice > 0.0);
                     break;
                 default:
@@ -234,21 +234,21 @@ namespace Micro.Future.ViewModel
             return result;
         }
 
-        public PBMsgTrader.PBMsgOrderInsert.Builder CreateOrder(FutureFlag futureFlag)
+        public PBMsgTrader.PBMsgOrderInsert CreateOrder(FutureFlag futureFlag)
         {
-            PBMsgOrderInsert.Builder pb = PBMsgOrderInsert.CreateBuilder();
+            PBMsgOrderInsert pb = new PBMsgOrderInsert();
 
             //pb.SetMsgId((int)MsgIdOrder.ID_ORDER_REQ_NEW);
-            pb.SetInstrumentID(mSymbolID);
-            pb.SetVolumeTotalOriginal(mSize);
+            pb.InstrumentID = mSymbolID;
+            pb.VolumeTotalOriginal = mSize;
 
             switch (mOrderDirection)
             {
-                case OrderDirection.BUY:
-                    pb.SetDirection("0");
+                case OrderDirection.Buy:
+                    pb.Direction = "0";
                     break;
-                case OrderDirection.SELL:
-                    pb.SetDirection("1");
+                case OrderDirection.Sell:
+                    pb.Direction = "1";
                     break;
                 case OrderDirection.Unknown:
                     break;
@@ -258,16 +258,16 @@ namespace Micro.Future.ViewModel
 
             switch (mExecuteType)
             {
-                case ExecuteType.MARKET:
-                    pb.SetOrderPriceType("1");
-                    pb.SetContingentCondition("1");
-                    pb.SetTimeCondition("1");
+                case ExecuteType.Market:
+                    pb.OrderPriceType = ("1");
+                    pb.ContingentCondition = ("1");
+                    pb.TimeCondition = ("1");
                     LimitPrice = 0.0;
                     break;
-                case ExecuteType.LIMIT:
-                    pb.SetOrderPriceType("2");
-                    pb.SetContingentCondition("1");
-                    pb.SetTimeCondition("3");
+                case ExecuteType.Limit:
+                    pb.OrderPriceType = ("2");
+                    pb.ContingentCondition = ("1");
+                    pb.TimeCondition = ("3");
                     break;
                 //case ExecuteType.STOP:
                 //    pb.SetContingentCondition("2");
@@ -278,28 +278,28 @@ namespace Micro.Future.ViewModel
                 //    pb.SetContingentCondition("2");
                 //    break;
                 default:
-                    pb.SetOrderPriceType("4");
-                    pb.SetContingentCondition("1");
+                    pb.OrderPriceType = ("4");
+                    pb.ContingentCondition = ("1");
                     break;
             }
 
-            pb.SetStopPrice(StopPrice);
-            pb.SetLimitPrice(LimitPrice);
+            pb.StopPrice = (StopPrice);
+            pb.LimitPrice = (LimitPrice);
 
             //开平
             switch (futureFlag)
             {
-                case FutureFlag.OPEN:
-                    pb.SetCombOffsetFlag("0");
+                case FutureFlag.Open:
+                    pb.CombOffsetFlag=("0");
                     break;
-                case FutureFlag.CLOSE:
-                    pb.SetCombOffsetFlag("1");
+                case FutureFlag.Close:
+                    pb.CombOffsetFlag=("1");
                     break;
-                case FutureFlag.CLOSETODAY:
-                    pb.SetCombOffsetFlag("3");
+                case FutureFlag.Closetoday:
+                    pb.CombOffsetFlag=("3");
                     break;
                 default:
-                    pb.SetCombOffsetFlag("0");
+                    pb.CombOffsetFlag=("0");
                     break;
             }
 
@@ -333,7 +333,7 @@ namespace Micro.Future.ViewModel
             //{
             OrderDirection = direction;
             ExecutionType = iexecuteType;
-            PBMsgTrader.PBMsgOrderInsert.Builder pb = CreateOrder(mFutureFlag);
+            PBMsgTrader.PBMsgOrderInsert pb = CreateOrder(mFutureFlag);
             View.SendOrder(pb);
             //}
             //else
@@ -348,7 +348,7 @@ namespace Micro.Future.ViewModel
         {
             OrderDirection = direction;
             ExecutionType = iexecuteType;
-            PBMsgTrader.PBMsgOrderInsert.Builder pb = CreateOrder(mFutureFlag);
+            PBMsgTrader.PBMsgOrderInsert pb = CreateOrder(mFutureFlag);
             View.SendOrder(pb);
         }
 
@@ -368,14 +368,14 @@ namespace Micro.Future.ViewModel
                 Size = position;
                 if (longOrShort)
                 {
-                    OrderDirection = PBWrapMsgOG.OrderDirection.SELL;
+                    OrderDirection = PBWrapMsgOG.OrderDirection.Sell;
                 }
                 else
                 {
-                    OrderDirection = PBWrapMsgOG.OrderDirection.BUY;
+                    OrderDirection = PBWrapMsgOG.OrderDirection.Buy;
                 }
 
-                PBMsgTrader.PBMsgOrderInsert.Builder pb = CreateOrder(FutureFlag.CLOSE);
+                PBMsgTrader.PBMsgOrderInsert pb = CreateOrder(FutureFlag.Close);
                 View.SendOrder(pb);
             }
         }
@@ -385,7 +385,7 @@ namespace Micro.Future.ViewModel
     {
         //note:only for UI button not one key order
         bool SubmitEnabled { set; get; }
-        void SendOrder(PBMsgTrader.PBMsgOrderInsert.Builder pb);
+        void SendOrder(PBMsgTrader.PBMsgOrderInsert pb);
     }
 
     public class MockAddOrderView : AddOrderView
@@ -398,14 +398,14 @@ namespace Micro.Future.ViewModel
                 return submitEnabled;
             }
             set
-            { 
+            {
                 submitEnabled = value;
                 submitEnabledCount++;
             }
         }
         public int submitEnabledCount;
 
-        public void SendOrder(PBMsgTrader.PBMsgOrderInsert.Builder pb)
+        public void SendOrder(PBMsgTrader.PBMsgOrderInsert pb)
         {
         }
     }

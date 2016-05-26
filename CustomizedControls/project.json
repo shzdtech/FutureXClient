@@ -11,7 +11,7 @@
   "licenseUrl": "",
   "dependencies": {
     "Extended.Wpf.Toolkit": "2.8.0",
-    "Google.ProtocolBuffers": "2.4.1.555",
+    "Google.Protobuf": "3.0.0-beta3",
     "WpfLocalizeExtension": "2.3.2"
   },
   "frameworks": {

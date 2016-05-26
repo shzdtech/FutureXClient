@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using Micro.Future.Util;
 using System.Windows.Threading;
 using PBMsgTrader;
-using Google.ProtocolBuffers;
+using Google.Protobuf;
 using System.Threading;
 using Micro.Future.ViewModel;
 using System.Windows;
@@ -27,16 +27,16 @@ namespace Micro.Future.Message
         private string ogMsgService;
         // gzs add 20140109 start
         private Dictionary<string, PBMsgQueryRspInstrumentInfo> mInstrumentInfo = new Dictionary<string, PBMsgQueryRspInstrumentInfo>();
-        private Dictionary<string, PBMsgQueryRspPosition.Builder> mSPosition = new Dictionary<string, PBMsgQueryRspPosition.Builder>();
+        private Dictionary<string, PBMsgQueryRspPosition> mSPosition = new Dictionary<string, PBMsgQueryRspPosition>();
 
-        public Dictionary<string, PBMsgQueryRspPosition.Builder> SPosition
+        public Dictionary<string, PBMsgQueryRspPosition> SPosition
         {
             get { return mSPosition; }
             set { mSPosition = value; }
         }
-        private Dictionary<string, PBMsgQueryRspPosition.Builder> mLPosition = new Dictionary<string, PBMsgQueryRspPosition.Builder>();
+        private Dictionary<string, PBMsgQueryRspPosition> mLPosition = new Dictionary<string, PBMsgQueryRspPosition>();
 
-        public Dictionary<string, PBMsgQueryRspPosition.Builder> LPosition
+        public Dictionary<string, PBMsgQueryRspPosition> LPosition
         {
             get { return mLPosition; }
             set { mLPosition = value; }
@@ -110,31 +110,27 @@ namespace Micro.Future.Message
                 DispatcherPriority.Normal,
                 new Action<string>(MainWindow.MyInstance.PringToStatus),
                 "确认结算结果进行中...");
-            //PBMsgTrader.PBMsgTrader.Builder pbTrade = PBMsgTrader.PBMsgTrader.CreateBuilder();
+            //PBMsgTrader.PBMsgTrader pbTrade = PBMsgTrader.PBMsgTrader.CreateBuilder();
             //pbTrade.SetMsgId((int)MsgIdOther.ID_REQ_SETTLEMENTINFOCONFIRM);
 
-            //PBMsgSettlementInfoConfirm.Builder pb = PBMsgSettlementInfoConfirm.CreateBuilder();
-            //pb.SetMsgId((int)MsgIdOther.ID_REQ_SETTLEMENTINFOCONFIRM);
-            //pb.SetBrokerID(UserInfo.BrokerID);
-            //pb.SetInvestorID(UserInfo.UserID);
-            //pb.SetConfirmDate("");
-            //pb.SetConfirmTime("");
+            //PBMsgSettlementInfoConfirm pb = PBMsgSettlementInfoConfirm.CreateBuilder();
+            //pb.MsgId((int)MsgIdOther.ID_REQ_SETTLEMENTINFOCONFIRM);
+            //pb.BrokerID(UserInfo.BrokerID);
+            //pb.InvestorID(UserInfo.UserID);
+            //pb.ConfirmDate("");
+            //pb.ConfirmTime("");
 
-            var pb = SimpleStringTable.CreateBuilder();
+            var pb = new StringMap();
 
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.BROKER_ID).AddEntry(UserInfo.BrokerID));
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.USER_ID).AddEntry(UserInfo.UserID));
+            pb.Entry[FieldName.BROKER_ID] = (UserInfo.BrokerID);
+            pb.Entry[FieldName.USER_ID] = (UserInfo.UserID);
 
             //if (producerBeReady)
             //{
-            //sendMsgToBroker(pbTrade.Build().ToByteArray());
+            //sendMsgToBroker(pbTrade.ToByteArray());
             //}
             this.MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_SETTLEMENT_INFO_CONFIRM,
-                pb.Build());
+                pb);
 
 
             Logger.Debug("SettlementInfoConfirm");
@@ -146,24 +142,22 @@ namespace Micro.Future.Message
                 DispatcherPriority.Normal,
                 new Action<string>(MainWindow.MyInstance.PringToStatus),
                 "查询市场信息进行中...");
-            //PBMsgTrader.PBMsgTrader.Builder pbTrade = PBMsgTrader.PBMsgTrader.CreateBuilder();
+            //PBMsgTrader.PBMsgTrader pbTrade = PBMsgTrader.PBMsgTrader.CreateBuilder();
             //pbTrade.SetMsgId((int)MsgIdQueryReq.ID_QUERY_REQ_MARKET_INFO);
-            //PBMsgQueryReqMarketInfo.Builder pb = PBMsgQueryReqMarketInfo.CreateBuilder();
-            //pb.SetExchangeID("");
-            //pb.SetMsgId((int)MsgIdQueryReq.ID_QUERY_REQ_MARKET_INFO);
+            //PBMsgQueryReqMarketInfo pb = PBMsgQueryReqMarketInfo.CreateBuilder();
+            //pb.ExchangeID("");
+            //pb.MsgId((int)MsgIdQueryReq.ID_QUERY_REQ_MARKET_INFO);
             //pbTrade.SetMsgQueryReqMarketInfo(pb);
             //if (producerBeReady)
             //{
-            //    sendMsgToBroker(pbTrade.Build().ToByteArray());
+            //    sendMsgToBroker(pbTrade.ToByteArray());
             //}
-            var pb = SimpleStringTable.CreateBuilder();
+            var pb = new StringMap();
 
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.EXCHANGE_ID).AddEntry(string.Empty));
+            pb.Entry[FieldName.EXCHANGE_ID] = string.Empty;
 
             this.MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_EXCHANGE,
-                pb.Build());
+                pb);
 
             Logger.Debug("RequestMarketInfo");
         }
@@ -174,33 +168,25 @@ namespace Micro.Future.Message
                 DispatcherPriority.Normal,
                 new Action<string>(MainWindow.MyInstance.PringToStatus),
                 "查询合约进行中...");
-            //PBMsgTrader.PBMsgTrader.Builder pbTrade = PBMsgTrader.PBMsgTrader.CreateBuilder();
+            //PBMsgTrader.PBMsgTrader pbTrade = PBMsgTrader.PBMsgTrader.CreateBuilder();
             //pbTrade.SetMsgId((int)MsgIdQueryReq.ID_QUERY_REQ_INSTRUMENT_INFO);
 
-            //PBMsgQueryReqInstrumentInfo.Builder pb = PBMsgQueryReqInstrumentInfo.CreateBuilder();
+            //PBMsgQueryReqInstrumentInfo pb = PBMsgQueryReqInstrumentInfo.CreateBuilder();
 
-            var pb = SimpleStringTable.CreateBuilder();
+            var pb = new StringMap();
 
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.EXCHANGE_ID).AddEntry(string.Empty));
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.INSTRUMENT_ID).AddEntry(string.Empty));
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.EXCHANGE_INSTRUMENT_ID).AddEntry(string.Empty));
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.PRODUCT_ID).AddEntry(string.Empty));
+            pb.Entry[FieldName.EXCHANGE_ID] = string.Empty;
+            pb.Entry[FieldName.INSTRUMENT_ID] =string.Empty;
+            pb.Entry[FieldName.EXCHANGE_INSTRUMENT_ID]= string.Empty;
+            pb.Entry[FieldName.PRODUCT_ID] = string.Empty;
 
 
-            //pb.SetMsgId((int)MsgIdQueryReq.ID_QUERY_REQ_INSTRUMENT_INFO);
+            //pb.MsgId((int)MsgIdQueryReq.ID_QUERY_REQ_INSTRUMENT_INFO);
 
             //if (producerBeReady)
             //{
             this.MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_INSTRUMENT,
-                    pb.Build());
+                    pb);
             //}
 
             Logger.Debug("RequestInstrumentInfo");
@@ -212,32 +198,26 @@ namespace Micro.Future.Message
                 DispatcherPriority.Normal,
                 new Action<string>(MainWindow.MyInstance.PringToStatus),
                 "查询持仓进行中...");
-            //PBMsgTrader.PBMsgTrader.Builder pbTrade = PBMsgTrader.PBMsgTrader.CreateBuilder();
+            //PBMsgTrader.PBMsgTrader pbTrade = PBMsgTrader.PBMsgTrader.CreateBuilder();
             //pbTrade.SetMsgId((int)MsgIdQueryReq.ID_QUERY_REQ_POSITION);
 
-            //PBMsgQueryReqPosition.Builder pb = PBMsgQueryReqPosition.CreateBuilder();
-            //pb.SetBrokerID(UserInfo.BrokerID);
-            //pb.SetInvestorID(UserInfo.UserID);
-            //pb.SetInstrumentID("");
-            //pb.SetMsgId((int)MsgIdQueryReq.ID_QUERY_REQ_POSITION);
-            var pb = SimpleStringTable.CreateBuilder();
+            //PBMsgQueryReqPosition pb = PBMsgQueryReqPosition.CreateBuilder();
+            //pb.BrokerID(UserInfo.BrokerID);
+            //pb.InvestorID(UserInfo.UserID);
+            //pb.InstrumentID("");
+            //pb.MsgId((int)MsgIdQueryReq.ID_QUERY_REQ_POSITION);
+            var pb = new StringMap();
 
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.BROKER_ID).AddEntry(UserInfo.BrokerID));
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.USER_ID).AddEntry(UserInfo.UserID));
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.EXCHANGE_INSTRUMENT_ID).AddEntry(string.Empty));
+            pb.Entry[FieldName.BROKER_ID] = (UserInfo.BrokerID);
+            pb.Entry[FieldName.USER_ID] = (UserInfo.UserID);
+            pb.Entry[FieldName.EXCHANGE_INSTRUMENT_ID] = string.Empty;
 
             //if (producerBeReady)
             //{
-            //    sendMsgToBroker(pbTrade.Build().ToByteArray());
+            //    sendMsgToBroker(pbTrade.ToByteArray());
             //}
             this.MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_POSITION,
-                pb.Build());
+                pb);
 
 
             Logger.Debug("RequestPositionInfo");
@@ -249,29 +229,25 @@ namespace Micro.Future.Message
                 DispatcherPriority.Normal,
                 new Action<string>(MainWindow.MyInstance.PringToStatus),
                 "查询资金进行中...");
-            //PBMsgTrader.PBMsgTrader.Builder pbTrade = PBMsgTrader.PBMsgTrader.CreateBuilder();
+            //PBMsgTrader.PBMsgTrader pbTrade = PBMsgTrader.PBMsgTrader.CreateBuilder();
             //pbTrade.SetMsgId((int)MsgIdQueryReq.ID_QUERY_REQ_FUND);
 
-            //PBMsgQueryReqFund.Builder pb = PBMsgQueryReqFund.CreateBuilder();
-            //pb.SetBrokerID(UserInfo.BrokerID);
-            //pb.SetInvestorID(UserInfo.UserID);
-            //pb.SetMsgId((int)MsgIdQueryReq.ID_QUERY_REQ_FUND);
+            //PBMsgQueryReqFund pb = PBMsgQueryReqFund.CreateBuilder();
+            //pb.BrokerID(UserInfo.BrokerID);
+            //pb.InvestorID(UserInfo.UserID);
+            //pb.MsgId((int)MsgIdQueryReq.ID_QUERY_REQ_FUND);
 
-            var pb = SimpleStringTable.CreateBuilder();
+            var pb = new StringMap();
 
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.BROKER_ID).AddEntry(UserInfo.BrokerID));
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.USER_ID).AddEntry(UserInfo.UserID));
+            pb.Entry[FieldName.BROKER_ID] = (UserInfo.BrokerID);
+            pb.Entry[FieldName.USER_ID] = (UserInfo.UserID);
 
             //if (producerBeReady)
             //{
-            //sendMsgToBroker(pbTrade.Build().ToByteArray());
+            //sendMsgToBroker(pbTrade.ToByteArray());
             //}
             this.MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_ACCOUNT_INFO,
-                pb.Build());
+                pb);
 
 
             Logger.Debug("RequestFundInfo");
@@ -292,37 +268,33 @@ namespace Micro.Future.Message
                 DispatcherPriority.Normal,
                 new Action<string>(MainWindow.MyInstance.PringToStatus),
                 "查询订单进行中...");
-            //PBMsgTrader.PBMsgTrader.Builder pbTrade = PBMsgTrader.PBMsgTrader.CreateBuilder();
+            //PBMsgTrader.PBMsgTrader pbTrade = PBMsgTrader.PBMsgTrader.CreateBuilder();
             //pbTrade.SetMsgId((int)MsgIdQueryReq.ID_QUERY_REQ_ORDER);
 
-            //PBMsgQueryReqOrder.Builder pb = PBMsgQueryReqOrder.CreateBuilder();
-            //pb.SetBrokerID(UserInfo.BrokerID);
-            //pb.SetInvestorID(UserInfo.UserID);
-            //pb.SetInstrumentID("");
-            //pb.SetExchangeID("");
-            //pb.SetOrderSysID("");
-            //pb.SetInsertTimeStart("");
-            //pb.SetInsertTimeEnd("");
-            //pb.SetTradingDay("");
-            //pb.SetSettlementID(0);
-            //pb.SetMsgId((int)MsgIdQueryReq.ID_QUERY_REQ_ORDER);
+            //PBMsgQueryReqOrder pb = PBMsgQueryReqOrder.CreateBuilder();
+            //pb.BrokerID(UserInfo.BrokerID);
+            //pb.InvestorID(UserInfo.UserID);
+            //pb.InstrumentID("");
+            //pb.ExchangeID("");
+            //pb.OrderSysID("");
+            //pb.InsertTimeStart("");
+            //pb.InsertTimeEnd("");
+            //pb.TradingDay("");
+            //pb.SettlementID(0);
+            //pb.MsgId((int)MsgIdQueryReq.ID_QUERY_REQ_ORDER);
 
-            var pb = SimpleStringTable.CreateBuilder();
+            var pb = new StringMap();
 
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.BROKER_ID).AddEntry(UserInfo.BrokerID));
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.USER_ID).AddEntry(UserInfo.UserID));
+            pb.Entry[FieldName.BROKER_ID] = (UserInfo.BrokerID);
+            pb.Entry[FieldName.USER_ID] = (UserInfo.UserID);
 
 
             //if (producerBeReady)
             //{
-            //sendMsgToBroker(pbTrade.Build().ToByteArray());
+            //sendMsgToBroker(pbTrade.ToByteArray());
             //}
             this.MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_ORDER,
-                pb.Build());
+                pb);
 
 
             Logger.Debug("RequestOrders");
@@ -334,33 +306,29 @@ namespace Micro.Future.Message
                 DispatcherPriority.Normal,
                 new Action<string>(MainWindow.MyInstance.PringToStatus),
                 "查询成交进行中...");
-            //PBMsgTrader.PBMsgTrader.Builder pbTrade = PBMsgTrader.PBMsgTrader.CreateBuilder();
+            //PBMsgTrader.PBMsgTrader pbTrade = PBMsgTrader.PBMsgTrader.CreateBuilder();
             //pbTrade.SetMsgId((int)MsgIdQueryReq.ID_QUERY_REQ_TRADE);
 
-            //PBMsgQueryReqTrade.Builder pb = PBMsgQueryReqTrade.CreateBuilder();
-            //pb.SetBrokerID(UserInfo.BrokerID);
-            //pb.SetInvestorID(UserInfo.UserID);
-            //pb.SetInstrumentID("");
-            //pb.SetExchangeID("");
-            //pb.SetTradeID("");
-            //pb.SetTradeTimeStart("");
-            //pb.SetTradeTimeEnd("");
+            //PBMsgQueryReqTrade pb = PBMsgQueryReqTrade.CreateBuilder();
+            //pb.BrokerID(UserInfo.BrokerID);
+            //pb.InvestorID(UserInfo.UserID);
+            //pb.InstrumentID("");
+            //pb.ExchangeID("");
+            //pb.TradeID("");
+            //pb.TradeTimeStart("");
+            //pb.TradeTimeEnd("");
 
-            var pb = SimpleStringTable.CreateBuilder();
+            var pb = new StringMap();
 
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.BROKER_ID).AddEntry(UserInfo.BrokerID));
-            pb.AddColumns(
-                NamedStringVector.CreateBuilder().
-                SetName(FieldName.USER_ID).AddEntry(UserInfo.UserID));
+            pb.Entry[FieldName.BROKER_ID] = (UserInfo.BrokerID);
+            pb.Entry[FieldName.USER_ID] = (UserInfo.UserID);
 
             //if (producerBeReady)
             //{
-            //sendMsgToBroker(pbTrade.Build().ToByteArray());
+            //sendMsgToBroker(pbTrade.ToByteArray());
             //}
             this.MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_TRADE,
-                pb.Build());
+                pb);
 
 
             Logger.Debug("RequestTrades");
@@ -461,11 +429,11 @@ namespace Micro.Future.Message
         {
             if (rsp.PosiDirection == "2")
             {
-                mLPosition[rsp.InstrumentID] = rsp.ToBuilder();
+                mLPosition[rsp.InstrumentID] = rsp;
             }
             else
             {
-                mSPosition[rsp.InstrumentID] = rsp.ToBuilder();
+                mSPosition[rsp.InstrumentID] = rsp;
             }
 
             if (rsp.EOF > 0)
@@ -490,7 +458,7 @@ namespace Micro.Future.Message
 
             foreach (var pb in PBList)
             {
-                var pos = pb.Build();
+                var pos = pb;
                 PositionViewModel pi = new PositionViewModel(pos, mInstrumentInfo[pos.InstrumentID].ExchangeID);
                 MainWindow.MyInstance.Dispatcher.Invoke(
                     DispatcherPriority.Normal,
@@ -617,15 +585,15 @@ namespace Micro.Future.Message
         }
 
         // gzs add 20140109 start
-        public List<PBMsgOrderInsert.Builder> PreCreateOrder(PBMsgOrderInsert.Builder pb)
+        public List<PBMsgOrderInsert> PreCreateOrder(PBMsgOrderInsert pb)
         {
             // gzs add 20140109 start
-            List<PBMsgOrderInsert.Builder> orderlist = new List<PBMsgOrderInsert.Builder>();
+            List<PBMsgOrderInsert> orderlist = new List<PBMsgOrderInsert>();
 
             // 如果是平仓
             if (pb.CombOffsetFlag == "1")
             {
-                PBMsgQueryRspPosition.Builder position = null;
+                PBMsgQueryRspPosition position = null;
                 if (!(mLPosition.ContainsKey(pb.InstrumentID) && (pb.Direction == "1"))// THOST_FTDC_D_Sell
                     || (!(mSPosition.ContainsKey(pb.InstrumentID) && (pb.Direction == "0")))) // THOST_FTDC_D_Buy
                 {
@@ -647,8 +615,8 @@ namespace Micro.Future.Message
                 if (mInstrumentInfo[pb.InstrumentID].ExchangeID == "SHFE" ||
                     mInstrumentInfo[pb.InstrumentID].ExchangeID == "")
                 {
-                    PBMsgOrderInsert.Builder yPb = pb.Clone();
-                    PBMsgOrderInsert.Builder tPb = pb.Clone();
+                    PBMsgOrderInsert yPb = pb.Clone();
+                    PBMsgOrderInsert tPb = pb.Clone();
                     // 有昨仓
                     if (position.YdPosition > 0)
                     {
@@ -692,41 +660,39 @@ namespace Micro.Future.Message
             return orderlist;
         }
         // gzs add 20140109 end
-        public void CreateOrder(PBMsgOrderInsert.Builder pb)
+        public void CreateOrder(PBMsgOrderInsert pb)
         {
             // gzs mod 20140109 start
-            List<PBMsgOrderInsert.Builder> orderlist = PreCreateOrder(pb);
-            foreach (PBMsgOrderInsert.Builder newpb in orderlist)
+            List<PBMsgOrderInsert> orderlist = PreCreateOrder(pb);
+            foreach (PBMsgOrderInsert newpb in orderlist)
             {
-                newpb.SetBrokerID(UserInfo.BrokerID);
-                newpb.SetInvestorID(UserInfo.UserID);
-                newpb.SetUserID("");
-                //newpb.SetOrderRef("" + mOrderRefBase++);
-                newpb.SetOrderRef("");
-                newpb.SetBusinessUnit("");
-                newpb.SetGTDDate("");
-                newpb.SetRequestID(0);
-                newpb.SetUserForceClose(0);
-                newpb.SetIsSwapOrder(0);
+                newpb.BrokerID = (UserInfo.BrokerID);
+                newpb.InvestorID = (UserInfo.UserID);
+                //newpb.OrderRef("" + mOrderRefBase++);
+                newpb.OrderRef = ("");
+                newpb.BusinessUnit = ("");
+                newpb.RequestID = (0);
+                newpb.UserForceClose = (0);
+                newpb.IsSwapOrder = (0);
 
                 //??
-                newpb.SetMinVolume(1);
-                newpb.SetForceCloseReason("0");
-                newpb.SetIsAutoSuspend(0);
+                newpb.MinVolume = (1);
+                newpb.ForceCloseReason = ("0");
+                newpb.IsAutoSuspend = (0);
 
                 //任何数量
-                newpb.SetVolumeCondition("1");
+                newpb.VolumeCondition = ("1");
 
                 //套保
-                newpb.SetCombHedgeFlag("1");
+                newpb.CombHedgeFlag = ("1");
 
                 //Logger.Dump(newpb.AllFields);
 
                 //if (producerBeReady)
                 //{
-                //sendMsgToBroker(pbTrade.Build().ToByteArray());
+                //sendMsgToBroker(pbTrade.ToByteArray());
                 //}
-                this.MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb.Build());
+                this.MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb);
 
 
                 Logger.Debug("CreateOrder");
@@ -761,42 +727,42 @@ namespace Micro.Future.Message
 
         public void CancelOrder(ExecutionViewModel vm)
         {
-            PBMsgOrderAction.Builder pb = PBMsgOrderAction.CreateBuilder();
-            //pb.SetMsgId((int)MsgIdOrder.ID_ORDER_REQ_CAN);
-            pb.SetBrokerID(UserInfo.BrokerID);
-            pb.SetInvestorID(UserInfo.UserID);
-            pb.SetOrderActionRef(mOrderActionRef++);
-            pb.SetOrderRef(vm.OrderRef);
-            pb.SetRequestID(0);
-            pb.SetFrontID(UserInfo.FrontID ?? 0);
-            pb.SetSessionID(UserInfo.SessionID ?? 0);
-            pb.SetExchangeID(vm.Exchange);
-            pb.SetOrderSysID(vm.OrderSysID);
-            pb.SetActionFlag("0");
-            pb.SetLimitPrice(0.0);
-            pb.SetVolumeChange(0);
-            pb.SetActionDate("");
-            pb.SetActionTime("");
-            pb.SetTraderID("");
-            pb.SetInstallID(0);
-            pb.SetOrderLocalID("");
-            pb.SetActionLocalID("");
-            pb.SetParticipantID("");
-            pb.SetClientID("");
-            pb.SetBusinessUnit("");
-            pb.SetOrderActionStatus("");
-            pb.SetUserID(UserInfo.UserID);
-            pb.SetStatusMsg(ByteString.Empty);
-            pb.SetInstrumentID(vm.InstrumentID);
+            PBMsgOrderAction pb = new PBMsgOrderAction();
+            //pb.MsgId((int)MsgIdOrder.ID_ORDER_REQ_CAN);
+            pb.BrokerID=(UserInfo.BrokerID);
+            pb.InvestorID=(UserInfo.UserID);
+            pb.OrderActionRef=(mOrderActionRef++);
+            pb.OrderRef=(vm.OrderRef);
+            pb.RequestID=(0);
+            pb.FrontID=(UserInfo.FrontID ?? 0);
+            pb.SessionID=(UserInfo.SessionID ?? 0);
+            pb.ExchangeID=(vm.Exchange);
+            pb.OrderSysID=(vm.OrderSysID);
+            pb.ActionFlag=("0");
+            pb.LimitPrice=(0.0);
+            pb.VolumeChange=(0);
+            pb.ActionDate=("");
+            pb.ActionTime=("");
+            pb.TraderID=("");
+            pb.InstallID=(0);
+            pb.OrderLocalID=("");
+            pb.ActionLocalID=("");
+            pb.ParticipantID=("");
+            pb.ClientID=("");
+            pb.BusinessUnit=("");
+            pb.OrderActionStatus=("");
+            pb.UserID=(UserInfo.UserID);
+            pb.StatusMsg=(ByteString.Empty);
+            pb.InstrumentID=(vm.InstrumentID);
 
             //Logger.Dump(pb.AllFields);
 
             //if (producerBeReady)
             //{
-            //sendMsgToBroker(pbTrade.Build().ToByteArray());
+            //sendMsgToBroker(pbTrade.ToByteArray());
             //}
             this.MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL,
-                pb.Build());
+                pb);
 
 
             Logger.Debug("CancelOrder");
@@ -804,28 +770,28 @@ namespace Micro.Future.Message
 
         public void CloseMarketOrder(PositionViewModel vm)
         {
-            PBMsgOrderInsert.Builder pb = PBMsgOrderInsert.CreateBuilder();
-            //pb.SetMsgId((int)MsgIdOrder.ID_ORDER_REQ_NEW);
-            pb.SetInstrumentID(vm.RawData.InstrumentID);
-            pb.SetVolumeTotalOriginal(vm.RawData.Position);
+            PBMsgOrderInsert pb = new PBMsgOrderInsert();
+            //pb.MsgId=(=(int)MsgIdOrder.ID_ORDER_REQ_NEW);
+            pb.InstrumentID=(vm.RawData.InstrumentID);
+            pb.VolumeTotalOriginal=(vm.RawData.Position);
 
             if (vm.PosiDirection == "多")
             {
-                pb.SetDirection("1");
+                pb.Direction=("1");
             }
             else
             {
-                pb.SetDirection("0");
+                pb.Direction=("0");
             }
 
             //市价
-            pb.SetOrderPriceType("1");
-            pb.SetContingentCondition("1");
-            pb.SetTimeCondition("1");
+            pb.OrderPriceType=("1");
+            pb.ContingentCondition=("1");
+            pb.TimeCondition=("1");
 
-            pb.SetStopPrice(0.0);
-            pb.SetLimitPrice(0.0);
-            pb.SetCombOffsetFlag("1");
+            pb.StopPrice=(0.0);
+            pb.LimitPrice=(0.0);
+            pb.CombOffsetFlag=("1");
 
             Logger.Debug("CloseMarketOrder");
             CreateOrder(pb);
@@ -868,14 +834,14 @@ namespace Micro.Future.Message
             switch ((ActionChoiceType)setting.ActionChoice)
             {
                 case ActionChoiceType.Buy:
-                    if (vm.FutureFlag == PBWrapMsgOG.FutureFlag.OPEN)
+                    if (vm.FutureFlag == PBWrapMsgOG.FutureFlag.Open)
                     {
                         if (globalvm.OpenOnlyOneOrder)
                         {
                             //挂单
                             var query = from row in ExecutionViewModel
                                         where (row.InstrumentID == vm.SymbolID) && (row.VolumeTotal > 0) &&
-                                        row.IsOrderOrTrade && ((row.Status == PBOrderStatus.PARTLY_FINISHED || row.Status == PBOrderStatus.TTIS_ORDER_INSERT_SUCCESS))
+                                        row.IsOrderOrTrade && ((row.Status == PBOrderStatus.PartlyFinished || row.Status == PBOrderStatus.TtisOrderInsertSuccess))
                                         select row;
                             if (query.Count() > 0)
                             {
@@ -888,7 +854,7 @@ namespace Micro.Future.Message
                             //挂单
                             var query = from row in ExecutionViewModel
                                         where (row.InstrumentID == vm.SymbolID) && (row.VolumeTotal > 0) && (row.Direction == "卖") &&
-                                        row.IsOrderOrTrade && ((row.Status == PBOrderStatus.PARTLY_FINISHED || row.Status == PBOrderStatus.TTIS_ORDER_INSERT_SUCCESS))
+                                        row.IsOrderOrTrade && ((row.Status == PBOrderStatus.PartlyFinished || row.Status == PBOrderStatus.TtisOrderInsertSuccess))
                                         select row;
                             if (query.Count() > 0)
                             {
@@ -897,7 +863,7 @@ namespace Micro.Future.Message
                             }
                         }
 
-                        vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.BUY, PBWrapMsgOG.ExecuteType.LIMIT);
+                        vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.Buy, PBWrapMsgOG.ExecuteType.Limit);
                         return true;
                     }
                     else
@@ -908,7 +874,7 @@ namespace Micro.Future.Message
                         {
                             case CloseChoiceType.All:
                                 vm.Size = shortPosition;
-                                vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.BUY, PBWrapMsgOG.ExecuteType.LIMIT);
+                                vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.Buy, PBWrapMsgOG.ExecuteType.Limit);
                                 break;
                             case CloseChoiceType.IgnorePlus:
                                 if (vm.Size > shortPosition)
@@ -917,7 +883,7 @@ namespace Micro.Future.Message
                                     vm.Size = shortPosition;
                                 }
 
-                                vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.BUY, PBWrapMsgOG.ExecuteType.LIMIT);
+                                vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.Buy, PBWrapMsgOG.ExecuteType.Limit);
                                 break;
                             case CloseChoiceType.PlusOpen:
                                 if (vm.Size > shortPosition)
@@ -927,20 +893,20 @@ namespace Micro.Future.Message
                                     if (shortPosition > 0)
                                     {
                                         vm.Size = shortPosition;
-                                        vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.BUY, PBWrapMsgOG.ExecuteType.LIMIT);
+                                        vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.Buy, PBWrapMsgOG.ExecuteType.Limit);
                                     }
 
                                     //反向开仓
                                     if (position > 0)
                                     {
-                                        vm.FutureFlag = PBWrapMsgOG.FutureFlag.OPEN;
+                                        vm.FutureFlag = PBWrapMsgOG.FutureFlag.Open;
                                         vm.Size = position;
-                                        vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.SELL, PBWrapMsgOG.ExecuteType.LIMIT);
+                                        vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.Sell, PBWrapMsgOG.ExecuteType.Limit);
                                     }
                                 }
                                 else
                                 {
-                                    vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.BUY, PBWrapMsgOG.ExecuteType.LIMIT);
+                                    vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.Buy, PBWrapMsgOG.ExecuteType.Limit);
                                 }
                                 break;
                             default:
@@ -950,14 +916,14 @@ namespace Micro.Future.Message
                         return true;
                     }
                 case ActionChoiceType.Sell:
-                    if (vm.FutureFlag == PBWrapMsgOG.FutureFlag.OPEN)
+                    if (vm.FutureFlag == PBWrapMsgOG.FutureFlag.Open)
                     {
                         if (globalvm.OpenOnlyOneOrder)
                         {
                             //挂单
                             var query = from row in ExecutionViewModel
                                         where (row.InstrumentID == vm.SymbolID) && (row.VolumeTotal > 0) &&
-                                        row.IsOrderOrTrade && ((row.Status == PBOrderStatus.PARTLY_FINISHED || row.Status == PBOrderStatus.TTIS_ORDER_INSERT_SUCCESS))
+                                        row.IsOrderOrTrade && ((row.Status == PBOrderStatus.PartlyFinished || row.Status == PBOrderStatus.TtisOrderInsertSuccess))
                                         select row;
                             if (query.Count() > 0)
                             {
@@ -970,7 +936,7 @@ namespace Micro.Future.Message
                             //挂单
                             var query = from row in ExecutionViewModel
                                         where (row.InstrumentID == vm.SymbolID) && (row.VolumeTotal > 0) && (row.Direction == "买") &&
-                                        row.IsOrderOrTrade && ((row.Status == PBOrderStatus.PARTLY_FINISHED || row.Status == PBOrderStatus.TTIS_ORDER_INSERT_SUCCESS))
+                                        row.IsOrderOrTrade && ((row.Status == PBOrderStatus.PartlyFinished || row.Status == PBOrderStatus.TtisOrderInsertSuccess))
                                         select row;
                             if (query.Count() > 0)
                             {
@@ -979,7 +945,7 @@ namespace Micro.Future.Message
                             }
                         }
 
-                        vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.SELL, PBWrapMsgOG.ExecuteType.LIMIT);
+                        vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.Sell, PBWrapMsgOG.ExecuteType.Limit);
                         return true;
                     }
                     else
@@ -990,7 +956,7 @@ namespace Micro.Future.Message
                         {
                             case CloseChoiceType.All:
                                 vm.Size = longPosition;
-                                vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.SELL, PBWrapMsgOG.ExecuteType.LIMIT);
+                                vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.Sell, PBWrapMsgOG.ExecuteType.Limit);
                                 break;
                             case CloseChoiceType.IgnorePlus:
                                 if (vm.Size > longPosition)
@@ -999,7 +965,7 @@ namespace Micro.Future.Message
                                     vm.Size = longPosition;
                                 }
 
-                                vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.SELL, PBWrapMsgOG.ExecuteType.LIMIT);
+                                vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.Sell, PBWrapMsgOG.ExecuteType.Limit);
                                 break;
                             case CloseChoiceType.PlusOpen:
                                 if (vm.Size > longPosition)
@@ -1009,19 +975,19 @@ namespace Micro.Future.Message
                                     if (longPosition > 0)
                                     {
                                         vm.Size = longPosition;
-                                        vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.SELL, PBWrapMsgOG.ExecuteType.LIMIT);
+                                        vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.Sell, PBWrapMsgOG.ExecuteType.Limit);
                                     }
                                     //反向开仓
                                     if (position > 0)
                                     {
-                                        vm.FutureFlag = PBWrapMsgOG.FutureFlag.OPEN;
+                                        vm.FutureFlag = PBWrapMsgOG.FutureFlag.Open;
                                         vm.Size = position;
-                                        vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.BUY, PBWrapMsgOG.ExecuteType.LIMIT);
+                                        vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.Buy, PBWrapMsgOG.ExecuteType.Limit);
                                     }
                                 }
                                 else
                                 {
-                                    vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.SELL, PBWrapMsgOG.ExecuteType.LIMIT);
+                                    vm.DirectMakeOrder(PBWrapMsgOG.OrderDirection.Sell, PBWrapMsgOG.ExecuteType.Limit);
                                 }
 
                                 break;

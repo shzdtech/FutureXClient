@@ -47,7 +47,7 @@ namespace Micro.Future.UI
             InitializeComponent();
         }
 
-        public void SendOrder(PBMsgTrader.PBMsgOrderInsert.Builder pb)
+        public void SendOrder(PBMsgTrader.PBMsgOrderInsert pb)
         {
             try
             {
@@ -70,25 +70,25 @@ namespace Micro.Future.UI
             }
         }
 
-        private string GetDumpString(PBMsgOrderInsert.Builder pb)
+        private string GetDumpString(PBMsgOrderInsert pb)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (Google.ProtocolBuffers.Descriptors.FieldDescriptor fd in pb.AllFields.Keys)
-            {
-                if (pb.AllFields[fd].GetType().ToString() == "Google.ProtocolBuffers.ByteString")
-                {
-                    string decodedFieldValue = ((Google.ProtocolBuffers.ByteString)pb.AllFields[fd]).ToString(Encoding.GetEncoding("gb2312"));
-                    sb.Append(string.Format("{0}: {1} ,", fd.Name, decodedFieldValue));
-                }
-                else if (pb.AllFields[fd].GetType().ToString() == "Google.ProtocolBuffers.Descriptors.EnumValueDescriptor")
-                {
-                    sb.Append(string.Format("{0}: {1} ,", fd.Name, ((Google.ProtocolBuffers.Descriptors.EnumValueDescriptor)pb.AllFields[fd]).Number));
-                }
-                else
-                {
-                    sb.Append(string.Format("{0}: {1} ,", fd.Name, pb.AllFields[fd]));
-                }
-            }
+            //foreach (Google.Protobuf.Descriptors.FieldDescriptor fd in pb.AllFields.Keys)
+            //{
+            //    if (pb.AllFields[fd].GetType().ToString() == "Google.Protobuf.ByteString")
+            //    {
+            //        string decodedFieldValue = ((Google.Protobuf.ByteString)pb.AllFields[fd]).ToString(Encoding.GetEncoding("gb2312"));
+            //        sb.Append(string.Format("{0}: {1} ,", fd.Name, decodedFieldValue));
+            //    }
+            //    else if (pb.AllFields[fd].GetType().ToString() == "Google.Protobuf.Descriptors.EnumValueDescriptor")
+            //    {
+            //        sb.Append(string.Format("{0}: {1} ,", fd.Name, ((Google.Protobuf.Descriptors.EnumValueDescriptor)pb.AllFields[fd]).Number));
+            //    }
+            //    else
+            //    {
+            //        sb.Append(string.Format("{0}: {1} ,", fd.Name, pb.AllFields[fd]));
+            //    }
+            //}
             return sb.ToString();
         }
 
@@ -113,16 +113,16 @@ namespace Micro.Future.UI
             int index = 0;
             switch ((ExecuteType)value)
             {
-                case ExecuteType.MARKET:
+                case ExecuteType.Market:
                     index = 0;
                     break;
-                case ExecuteType.LIMIT:
+                case ExecuteType.Limit:
                     index = 1;
                     break;
-                case ExecuteType.STOP:
+                case ExecuteType.Stop:
                     index = 2;
                     break;
-                case ExecuteType.STOPLIMIT:
+                case ExecuteType.Stoplimit:
                     index = 3;
                     break;
                 default:
@@ -142,22 +142,22 @@ namespace Micro.Future.UI
             int index = (int)value;
             if (index == 0)
             {
-                return ExecuteType.MARKET;
+                return ExecuteType.Market;
             }
 
             if (index == 1)
             {
-                return ExecuteType.LIMIT;
+                return ExecuteType.Limit;
             }
 
             if (index == 2)
             {
-                return ExecuteType.STOP;
+                return ExecuteType.Stop;
             }
 
             if (index == 3)
             {
-                return ExecuteType.STOPLIMIT;
+                return ExecuteType.Stoplimit;
             }
 
             return null;

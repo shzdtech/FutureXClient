@@ -293,34 +293,34 @@ namespace Micro.Future.Message
 
         public void QueryAccountInfo()
         {
-            var sst = SimpleStringTable.CreateBuilder();
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_ACCOUNT_INFO, sst.Build());
+            var sst = new StringMap();
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_ACCOUNT_INFO, sst);
 
         }
 
         public void QueryPosition()
         {
-            var sst = SimpleStringTable.CreateBuilder();
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_POSITION, sst.Build());
+            var sst = new StringMap();
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_POSITION, sst);
 
         }
 
         public void QueryOrder()
         {
-            var sst = SimpleStringTable.CreateBuilder();
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_ORDER, sst.Build());
+            var sst = new StringMap();
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_ORDER, sst);
 
         }
 
         public void QueryTrade()
         {
-            var sst = SimpleStringTable.CreateBuilder();
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_TRADE, sst.Build());
+            var sst = new StringMap();
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_TRADE, sst);
 
         }
         public void CreateOrder(OrderVM orderVM)
         {
-            var pb = PBOrderInfo.CreateBuilder();
+            var pb = new PBOrderInfo();
             pb.Contract = orderVM.Contract;
             pb.LimitPrice = orderVM.LimitPrice;
             pb.Tif = (int)orderVM.TIF;
@@ -329,19 +329,19 @@ namespace Micro.Future.Message
             pb.Direction = (int)orderVM.Direction;
             pb.Openclose = (int)orderVM.OffsetFlag;
 
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb.Build());
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb);
 
         }
 
 
         public void CancelOrder(OrderVM orderVM)
         {
-            var sendobjBld = PBOrderInfo.CreateBuilder();
+            var sendobjBld = new PBOrderInfo();
             sendobjBld.Exchange = orderVM.Exchange;
             sendobjBld.Contract = orderVM.Contract;
             sendobjBld.OrderID = orderVM.OrderID;
             sendobjBld.OrderSysID = orderVM.OrderSysID;
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, sendobjBld.Build());
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, sendobjBld);
         }
 
         public void ModifyOrder(OrderVM orderVM)

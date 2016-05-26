@@ -11,11 +11,13 @@
   "licenseUrl": "",
   "dependencies": {
     "Extended.Wpf.Toolkit": "2.8.0",
-    "Google.ProtocolBuffers": "2.4.1.555",
+    "Google.Protobuf": "3.0.0-beta3",
     "WpfLocalizeExtension": "2.3.2"
   },
   "frameworks": {
-    "net451": {}
+    "net451": {
+      "imports": "portable-net45+netcore45+wpa81+wp8"
+    }
   },
   "runtimes": {
     "win-anycpu": {},

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package PBWrapMsgHeader;
+
+option java_package = "ProtoBufMessage";
+option java_outer_classname = "PBWrapMsgHeader";
+
+message PBMsgHeader {
+	int32 messageId = 1;
+	string messageService = 2;
+}

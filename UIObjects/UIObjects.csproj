@@ -62,6 +62,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="protos\PBMsgAlgo.cs" />
+    <Compile Include="protos\PBMsgBusiness.cs" />
+    <Compile Include="protos\PBMsgHeader.cs" />
+    <Compile Include="protos\PBMsgMC.cs" />
+    <Compile Include="protos\PBMsgMDA.cs" />
+    <Compile Include="protos\PBMsgOG.cs" />
+    <Compile Include="protos\PBMsgTrader.cs" />
     <Compile Include="UI\ApplicationMenuItemData.cs" />
     <Compile Include="UI\ApplicationSplitMenuItemData.cs" />
     <Compile Include="UI\ButtonData.cs" />
@@ -128,6 +135,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
+    <None Include="protos\PBMsgAlgo.proto">
+      <Generator>CmdTool</Generator>
+    </None>
+    <None Include="protos\PBMsgBusiness.proto">
+      <Generator>CmdTool</Generator>
+    </None>
+    <None Include="protos\PBMsgHeader.proto">
+      <Generator>CmdTool</Generator>
+    </None>
+    <None Include="protos\PBMsgMC.proto">
+      <Generator>CmdTool</Generator>
+    </None>
+    <None Include="protos\PBMsgMDA.proto">
+      <Generator>CmdTool</Generator>
+    </None>
+    <None Include="protos\PBMsgOG.proto">
+      <Generator>CmdTool</Generator>
+    </None>
+    <None Include="protos\PBMsgTrader.proto">
+      <Generator>CmdTool</Generator>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\042b_AddCategory_64x64_72.png" />
@@ -400,6 +428,7 @@
     <Resource Include="Images\PublishPlan_16x16.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="protos\RegisterCmdTool.txt" />
     <Resource Include="Images\Contact_48x48.png" />
     <Content Include="Images\README.html" />
     <Resource Include="Images\VPN.png" />

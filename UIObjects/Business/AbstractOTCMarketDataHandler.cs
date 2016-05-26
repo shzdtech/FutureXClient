@@ -61,7 +61,7 @@ namespace Micro.Future.Message
         {
             if (StrategyVMCollection != null)
             {
-                foreach (var strategy in PB.StrategyList)
+                foreach (var strategy in PB.Strategy)
                 {
                     var strategyVM = StrategyVMCollection.FindContract(strategy.Exchange, strategy.Contract);
                     if (strategyVM != null)
@@ -80,15 +80,15 @@ namespace Micro.Future.Message
 
         public void QueryTradingDesk()
         {
-            var sst = SimpleStringTable.CreateBuilder();
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_TRADINGDESK, sst.Build());
+            var sst = new StringMap();
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_TRADINGDESK, sst);
         }
 
         protected void OnQueryTradingDeskSuccessAction(PBUserInfoList obj)
         {
             if (TradingDeskVMCollection != null)
             {
-                foreach (var userInfo in obj.UserInfoList)
+                foreach (var userInfo in obj.UserInfo)
                 {
                     TradingDeskVMCollection.Add(new TradingDeskVM()
                     {
@@ -102,7 +102,7 @@ namespace Micro.Future.Message
 
         public void UpdateStrategy(StrategyVM sVM)
         {
-            var strategy = PBStrategy.CreateBuilder();
+            var strategy = new PBStrategy();
             strategy.Exchange = sVM.Exchange;
             strategy.Contract = sVM.Contract;
             strategy.Offset = (float)sVM.Offset;
@@ -111,30 +111,32 @@ namespace Micro.Future.Message
             strategy.Quantity = sVM.Quantity;
             strategy.AllowTrading = sVM.IsTradingAllowed;
             strategy.Enabled = sVM.Enabled;
-            var strategyListBd = PBStrategyList.CreateBuilder();
-            strategyListBd.AddStrategy(strategy);
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategyListBd.Build());
+            var strategyListBd = new PBStrategyList();
+            strategyListBd.Strategy.Add(strategy);
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategyListBd);
         }
 
         public void UpdateQuantity(string exchange, string contract, int quantity)
         {
-            var userParamBd = PBOTCUserParam.CreateBuilder();
+            var userParamBd = new PBOTCUserParam();
             userParamBd.Exchange = exchange;
             userParamBd.Contract = contract;
             userParamBd.Quantity = quantity;
-            var userParamListBd = PBOTCUserParamList.CreateBuilder().AddParams(userParamBd);
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_USER_PARAM, userParamListBd.Build());
+            var userParamListBd = new PBOTCUserParamList();
+            userParamListBd.Params.Add(userParamBd);
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_USER_PARAM, userParamListBd);
         }
 
         public void UpdateContractParam(ContractParamVM cpVM)
         {
-            var cpBd = PBContractParam.CreateBuilder();
+            var cpBd = new PBContractParam();
             cpBd.Exchange = cpVM.Exchange;
             cpBd.Contract = cpVM.Contract;
             cpBd.DepthVol = cpVM.DepthVol;
             cpBd.Gamma = cpVM.Gamma;
-            var cpLstBd = PBContractParamList.CreateBuilder().AddParams(cpBd);
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_CONTRACT_PARAM, cpLstBd.Build());
+            var cpLstBd = new PBContractParamList();
+            cpLstBd.Params.Add(cpBd);
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_CONTRACT_PARAM, cpLstBd);
         }
 
         protected void OnUpdateSuccessAction(Result result)
@@ -144,15 +146,15 @@ namespace Micro.Future.Message
 
         public void QueryStrategy()
         {
-            var sst = SimpleStringTable.CreateBuilder();
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_STRATEGY, sst.Build());
+            var sst = new StringMap();
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_STRATEGY, sst);
         }
 
         protected void OnQueryStrategySuccessAction(PBStrategyList PB)
         {
             if (StrategyVMCollection != null)
             {
-                foreach (var strategy in PB.StrategyList)
+                foreach (var strategy in PB.Strategy)
                 {
 
                     var strategyVM = StrategyVMCollection.FindContract(strategy.Exchange, strategy.Contract);
@@ -174,7 +176,7 @@ namespace Micro.Future.Message
                     strategyVM.Enabled = strategy.Enabled;
                     strategyVM.Quantity = strategy.Quantity;
 
-                    foreach (var param in strategy.ParamsList)
+                    foreach (var param in strategy.Params)
                     {
                         strategyVM.Params.Add(
                             new NamedParamVM()
@@ -184,7 +186,7 @@ namespace Micro.Future.Message
                             });
                     }
 
-                    foreach (var wtContract in strategy.WeightContractList)
+                    foreach (var wtContract in strategy.WeightContract)
                     {
                         strategyVM.BaseContractParams.Add(
                             new BaseContractParamVM()
@@ -200,15 +202,15 @@ namespace Micro.Future.Message
 
         public void QueryContractParam()
         {
-            var sst = SimpleStringTable.CreateBuilder();
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_CONTRACT_PARAM, sst.Build());
+            var sst = new StringMap();
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_CONTRACT_PARAM, sst);
         }
 
         protected void OnQueryContractParamSuccessAction(PBContractParamList PB)
         {
             if (ContractParamVMCollection != null)
             {
-                foreach (var param in PB.ParamsList)
+                foreach (var param in PB.Params)
                 {
                     var contractParamVM = ContractParamVMCollection.
                         FindContract(param.Exchange, param.Contract);
@@ -229,21 +231,21 @@ namespace Micro.Future.Message
 
         public void SubMarketData()
         {
-            var sst = SimpleStringTable.CreateBuilder();
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_SUB_PRICING, sst.Build());
+            var sst = new SimpleStringTable();
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_SUB_PRICING, sst);
         }
 
         public void UnsubMarketData()
         {
-            var sst = SimpleStringTable.CreateBuilder();
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, sst.Build());
+            var sst = new SimpleStringTable();
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, sst);
         }
 
         protected void OnSubMarketDataSuccessAction(PBPricingDataList PB)
         {
             if (OTCQuoteVMCollection != null)
             {
-                foreach (var md in PB.PricingList)
+                foreach (var md in PB.Pricing)
                 {
                     OTCQuoteVMCollection.Add(new OTCQuoteVM()
                     {
@@ -259,7 +261,7 @@ namespace Micro.Future.Message
         {
             if (OTCQuoteVMCollection != null)
             {
-                foreach (var md in PB.PricingList)
+                foreach (var md in PB.Pricing)
                 {
                     var quote = OTCQuoteVMCollection.FindContract(md.Exchange, md.Contract);
                     if (quote != null)

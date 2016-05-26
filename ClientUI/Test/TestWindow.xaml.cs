@@ -40,7 +40,7 @@ namespace Micro.Future.Test
 
         private void testbtn_Click(object sender, RoutedEventArgs e)
         {
-            var pb = PBOrderInfo.CreateBuilder();
+            var pb = new PBOrderInfo();
             pb.Exchange = textBox_Exchange.Text;
             pb.Contract = textBox_Contract.Text;
             pb.LimitPrice = double.Parse(textBox_Price.Text);
@@ -48,7 +48,7 @@ namespace Micro.Future.Test
             pb.Volume = 1;
             pb.ExecType = (int)OrderExecType.LIMIT;
             pb.Direction = (int)DirectionType.BUY;
-            _connectHelper.MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb.Build());
+            _connectHelper.MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb);
 
         }
 
@@ -108,24 +108,24 @@ namespace Micro.Future.Test
             var sendobj = _orderInfo;
             if (tbOrderSysID.Text.Length > 0)
             {
-                var sendobjBld = PBOrderInfo.CreateBuilder();
+                var sendobjBld = new PBOrderInfo();
                 sendobjBld.Exchange = "SHFE";
                 sendobjBld.Contract = textBox_Contract.Text;
                 sendobjBld.OrderSysID = ulong.Parse(tbOrderSysID.Text);
-                sendobj = sendobjBld.Build();
+                sendobj = sendobjBld;
             }
             _connectHelper.MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, sendobj);
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            var pb = PBStrategy.CreateBuilder();
+            var pb = new PBStrategy();
             pb.Exchange = "shfe";
             pb.Contract = textBox_Contract.Text;
             pb.Enabled = true;
             pb.AllowTrading = true;
 
-            _connectHelper.MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, pb.Build());
+            _connectHelper.MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, pb);
         }
     }
 }

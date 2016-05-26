@@ -81,7 +81,7 @@ namespace Micro.Future.ViewModel
 
             Values.Clear();
 
-            var dict = PBUtility.ParseProperties(rsp.AllFields, "gb2312");
+            IDictionary<string, string> dict = null; // PBUtility.ParseProperties(rsp.AllFields, "gb2312");
 
             foreach (var keyvalue in dict)
             {
@@ -231,11 +231,11 @@ namespace Micro.Future.ViewModel
 
             if (VolumeTotal == 0)
             {
-                Status = PBOrderStatus.ALL_FINISHED;
+                Status = PBOrderStatus.AllFinished;
             }
             else if ((VolumeOriginal > VolumeTraded) && (VolumeTraded > 0))
             {
-                Status = PBOrderStatus.PARTLY_FINISHED;
+                Status = PBOrderStatus.PartlyFinished;
             }
             else
             {
@@ -374,7 +374,7 @@ namespace Micro.Future.ViewModel
 
         public IDictionary<string, string> GetDetails()
         {
-            var dict = PBUtility.ParseProperties(RawData.AllFields, "gb2312");
+            IDictionary<string, string> dict = null; //PBUtility.ParseProperties(RawData.AllFields, "gb2312");
 
             dict["ProductClass"] = ProductClass;
 

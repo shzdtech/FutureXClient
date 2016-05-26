@@ -23,7 +23,7 @@ namespace Micro.Future.Message
         {
             MessageWrapper.RegisterAction<PBMarketDataList, BizErrorMsg>
             ((uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA, SubMDSuccessAction, ErrorMsgAction);
-            MessageWrapper.RegisterAction<StringResponse, BizErrorMsg>
+            MessageWrapper.RegisterAction<SimpleStringTable, BizErrorMsg>
                 ((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, UnsubMDSuccessAction, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBMarketDataList, BizErrorMsg>
                 ((uint)BusinessMessageID.MSG_ID_RET_MARKETDATA, RetMDSuccessAction, ErrorMsgAction);
@@ -36,18 +36,18 @@ namespace Micro.Future.Message
 
         public void SubMarketData(IEnumerable<string> instrIDList)
         {
-            var instr = NamedStringVector.CreateBuilder();
-            instr.SetName(FieldName.INSTRUMENT_ID);
+            var instr = new NamedStringVector();
+            instr.Name = (FieldName.INSTRUMENT_ID);
 
             foreach (string instrID in instrIDList)
             {
-                instr.AddEntry(instrID);
+                instr.Entry.Add(instrID);
             }
 
-            var sst = SimpleStringTable.CreateBuilder();
-            sst.AddColumns(instr);
+            var sst = new SimpleStringTable();
+            sst.Columns.Add(instr);
 
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA, sst.Build());
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA, sst);
         }
 
         public void SubMarketData()
@@ -78,18 +78,18 @@ namespace Micro.Future.Message
 
         public void UnsubMarketData(IEnumerable<string> instrIDList)
         {
-            var instr = NamedStringVector.CreateBuilder();
-            instr.SetName(FieldName.INSTRUMENT_ID);
+            var instr = new NamedStringVector();
+            instr.Name = (FieldName.INSTRUMENT_ID);
 
             foreach (string instrID in instrIDList)
             {
-                instr.AddEntry(instrID);
+                instr.Entry.Add(instrID);
             }
 
-            var sst = SimpleStringTable.CreateBuilder();
-            sst.AddColumns(instr);
+            var sst = new SimpleStringTable();
+            sst.Columns.Add(instr);
 
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, sst.Build());
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, sst);
         }
 
         public void UnsubMarketData()
@@ -103,7 +103,7 @@ namespace Micro.Future.Message
             {
                 lock (QuoteVMCollection)
                 {
-                    foreach (var md in marketList.MdListList)
+                    foreach (var md in marketList.MdList)
                     {
                         if (!QuoteVMCollection.Exist((quote) => string.Compare(quote.Contract, md.Contract, true) == 0))
                         {
@@ -114,35 +114,34 @@ namespace Micro.Future.Message
             }
         }
 
-        protected void UnsubMDSuccessAction(StringResponse strrsp)
+        protected void UnsubMDSuccessAction(SimpleStringTable strTbl)
         {
             if (QuoteVMCollection != null)
             {
                 lock (QuoteVMCollection)
                 {
-                    var row = from q in QuoteVMCollection
-                              where string.Compare(q.Contract, strrsp.Value, true) == 0
-                              select q;
-
-                    foreach (var r in row)
-                        QuoteVMCollection.Remove(r);
-
+                    foreach (var contract in strTbl.Columns[0].Entry)
+                    {
+                        var quote = QuoteVMCollection.Find((pb) => string.Compare(pb.Contract, contract, true) == 0);
+                        if (quote != null)
+                            QuoteVMCollection.Remove(quote);
+                    }
                 }
             }
         }
 
         protected void RetMDSuccessAction(PBMarketDataList PB)
         {
-            foreach (var md in PB.MdListList)
+            foreach (var md in PB.MdList)
             {
                 var quote = QuoteVMCollection.Find((pb) => string.Compare(pb.Contract, md.Contract, true) == 0);
                 if (quote != null)
                 {
                     quote.MatchPrice = md.MatchPrice;
-                    quote.BidPrice = md.BidPriceList[0];
-                    quote.AskPrice = md.AskPriceList[0];
-                    quote.BidSize = md.BidVolumeList[0];
-                    quote.AskSize = md.AskVolumeList[0];
+                    quote.BidPrice = md.BidPrice[0];
+                    quote.AskPrice = md.AskPrice[0];
+                    quote.BidSize = md.BidVolume[0];
+                    quote.AskSize = md.AskVolume[0];
                     quote.Volume = md.Volume;
                     quote.OpenValue = md.OpenValue;
                     quote.PreCloseValue = md.PreCloseValue;

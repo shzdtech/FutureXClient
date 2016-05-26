@@ -1,0 +1,172 @@
+syntax = "proto3";
+
+package PBMsgBusiness;
+option java_package = "ProtoBufMessage";
+option java_outer_classname = "PBMsgBusiness";
+// 请求消息
+enum MsgIdBusinesscReq {
+	ID_BU_REQ_DUMMY_ZERO = 0;
+	// 4.1.2 	登录
+	ID_BU_REQ_SYS_ACCOUNT_LOGIN = 20000;
+	// 4.1.2 	登出
+	ID_BU_REQ_SYS_ACCOUNT_LOGOUT = 20001;
+	// 4.2.2 	账户信息更新 
+	ID_BU_REQ_SYS_ACCOUNT_UPDATE = 20002;
+	// 4.1.1 	服务器信息查询
+	ID_BU_REQ_QYR_SERVER_INFO = 20003;
+	// 4.1.3 	协议列表查询
+	ID_BU_REQ_QYR_PROTOCOL = 20004;
+	// 4.2.1 	账户信息查询
+	ID_BU_REQ_QYR_ACCOUNT = 20005;
+	// 4.2.3 	历史登录信息查询
+	ID_BU_REQ_QYR_HIS_LOGIN = 20006;
+
+}
+// 响应请求消息
+enum MsgIdBusinesscRsp {
+	ID_BU_RSP_DUMMY_ZERO = 0;
+	// 4.1.2 	登录
+	ID_BU_RSP_SYS_ACCOUNT_LOGIN = 20007;
+	// 4.1.2 	登出
+	ID_BU_RSP_SYS_ACCOUNT_LOGOUT = 20008;
+	// 4.2.2 	账户信息更新 
+	ID_BU_RSP_SYS_ACCOUNT_UPDATE = 20009;
+	// 4.1.1 	服务器信息查询
+	ID_BU_RSP_QYR_SERVER_INFO = 20010;
+	// 4.1.3 	协议列表查询
+	ID_BU_RSP_QYR_PROTOCOL = 20011;
+	// 4.2.1 	账户信息查询
+	ID_BU_RSP_QYR_ACCOUNT = 20012;
+	// 4.2.3 	历史登录信息查询
+	ID_BU_RSP_QYR_HIS_LOGIN = 20013;
+}
+// 4.1.2 	登录
+message PBMsgBusinessReqSysAccountLogin {
+	//Message Header
+	int32 msg_id = 1;
+	//用户名
+	string UserName = 2;
+	//密码
+	string Password = 3;
+	//mac
+	string mac = 4;
+}
+message PBMsgBusinessRspSysAccountLogin {
+	//Message Header
+	int32 msg_id = 1;
+	//用户名
+	string UserName = 2;
+	//登陆结果
+	int32 Result = 3;
+	//消息
+	bytes Message = 4;
+	//mac
+	string mac = 5;
+}
+// 4.1.2 	登出
+message PBMsgBusinessReqSysAccountLogout {
+	//Message Header
+	int32 msg_id = 1;
+	//用户名
+	string UserName = 2;
+}
+message PBMsgBusinessRspSysAccountLogout {
+	//Message Header
+	int32 msg_id = 1;
+	//用户名
+	string UserName = 2;
+	//登出结果
+	int32 Result = 3;
+	//消息
+	string Message = 4;
+}
+// 4.2.2 	账户信息更新 
+message PBMsgBusinessReqSysAccountUpdate {
+	//Message Header
+	int32 msg_id = 1;
+	//用户名
+	string UserName = 2;
+	//密码
+	string Password = 3;
+	//中文名
+	string UserNameCN = 4;
+	//电话
+	string Mobile = 5;
+	//邮件
+	string Mail = 6;
+	//公司
+	string Company = 7;
+	//地址
+	string Address = 8;
+}
+message PBMsgBusinessRspSysAccountUpdate {
+	//Message Header
+	int32 msg_id = 1;
+	//用户名
+	string UserName = 2;
+	//更新结果
+	int32 Result = 3;
+	//消息
+	string Message = 4;
+}
+
+// 4.1.1 	服务器信息查询
+message PBMsgBusinessReqServerInfo {
+	//Message Header
+	int32 msg_id = 1;
+}
+message PBMsgBusinessRspServerInfo {
+	//Message Header
+	int32 msg_id = 1;
+}
+// 4.1.3 	协议列表查询
+message PBMsgBusinessReqProtocolInfo {
+	//Message Header
+	int32 msg_id = 1;
+}
+message PBMsgBusinessRspProtocolInfo {
+	//Message Header
+	int32 msg_id = 1;
+}
+// 4.2.1 	账户信息查询
+message PBMsgBusinessReqSysAccount {
+	//Message Header
+	int32 msg_id = 1;
+}
+message PBMsgBusinessRspSysAccount {
+	//Message Header
+	int32 msg_id = 1;
+}
+// 4.2.3 	历史登录信息查询
+message PBMsgBusinessReqHisSysAccountLogin {
+	//Message Header
+	int32 msg_id = 1;
+}
+message PBMsgBusinessRspHisSysAccountLogin {
+	//Message Header
+	int32 msg_id = 1;
+}
+//////////////////////////////////////////////////////////////////////
+// 协议包定义 start
+//////////////////////////////////////////////////////////////////////	
+message PBMsgBusiness {
+	//Message Header	
+	int32 msg_id = 1;
+	PBMsgBusinessReqSysAccountLogin msgLoginReq = 2;
+	PBMsgBusinessRspSysAccountLogin msgLoginRsp = 3;
+	PBMsgBusinessReqSysAccountLogout msgLogoutReq = 4;
+	PBMsgBusinessRspSysAccountLogout msgLogoutRsp = 5;
+	PBMsgBusinessReqSysAccountUpdate msgReqSysAccountUpdate = 6;
+	PBMsgBusinessReqSysAccountUpdate msgRspSysAccountUpdate = 7;
+	PBMsgBusinessReqServerInfo msgReqServerInfo = 8;
+	PBMsgBusinessRspServerInfo msgRspServerInfo = 9;
+	PBMsgBusinessReqProtocolInfo msgReqProtocolInfo = 10;
+	PBMsgBusinessRspProtocolInfo msgRspProtocolInfo = 11;
+	PBMsgBusinessReqSysAccount msgReqSysAccount = 12;
+	PBMsgBusinessRspSysAccount msgRspSysAccount = 13;
+	PBMsgBusinessReqHisSysAccountLogin msgReqHisSysAccountLogin = 14;
+	PBMsgBusinessRspHisSysAccountLogin msgRspHisSysAccountLogin = 15;
+}
+//////////////////////////////////////////////////////////////////////
+// 协议包定义 end
+//////////////////////////////////////////////////////////////////////	
