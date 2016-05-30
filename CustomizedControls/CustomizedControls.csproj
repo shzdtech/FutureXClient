@@ -56,6 +56,16 @@
     <Compile Include="Controls\LoginStatus.xaml.cs">
       <DependentUpon>LoginStatus.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourcesLanguage\ResourceEN.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceEN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ResourcesLanguage\ResourceCN.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceCN.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\CityViewModel.cs" />
     <Compile Include="ViewModel\CountryViewModel.cs" />
     <Compile Include="ViewModel\RegionViewModel.cs" />
@@ -139,6 +149,14 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResourcesLanguage\ResourceEN.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceEN.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResourcesLanguage\ResourceCN.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceCN.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="project.json" />
     <None Include="Properties\Settings.settings">

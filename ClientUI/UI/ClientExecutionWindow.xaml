@@ -56,11 +56,9 @@
                     <GridViewColumn Header="买卖" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}"/>
                     <GridViewColumn Header="时间戳" DisplayMemberBinding="{Binding InsertTime}"/>
                     <GridViewColumn Header="开平" DisplayMemberBinding="{Binding OffsetFlag}"/>
-                    <GridViewColumn Header="插入时间" DisplayMemberBinding="{Binding InsertTime}"/>
                     <GridViewColumn Header="最后修改时间" DisplayMemberBinding="{Binding UpdateTime}"/>
                     <GridViewColumn Header="撤销时间" DisplayMemberBinding="{Binding CancelTime}"/>
                     <GridViewColumn Header="未成交数量" DisplayMemberBinding="{Binding VolumeRemain}"/>
-                    <GridViewColumn Header="订单状态" DisplayMemberBinding="{Binding Status}"/>
                     <GridViewColumn Header="执行类型" DisplayMemberBinding="{Binding ExecType}"/>
                     <GridViewColumn Header="有效期类型" DisplayMemberBinding="{Binding TIF}"/>
                     <GridViewColumn Header="交易类型" DisplayMemberBinding="{Binding TradingType}"/>

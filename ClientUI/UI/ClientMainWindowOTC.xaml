@@ -4,7 +4,12 @@
         xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:ribbon="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon"
         xmlns:c="clr-namespace:Micro.Future.UI"
-        xmlns:data="clr-namespace:Micro.Future.ViewModel"      
+        xmlns:data="clr-namespace:Micro.Future.ViewModel"  
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:LocalizeDictionary.OutputMissingKeys="True"
+        lex:ResxLocalizationProvider.DefaultAssembly="WPFLocalizationExtensionDemoApplication"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
         Icon="/Images/Calculator.png">
     <Grid>
@@ -13,7 +18,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Ribbon x:Name="ribbonMenu" Grid.Column="0" Title="OTC行情客户端">
+        <Ribbon x:Name="ribbonMenu" Grid.Column="0" Title="交易客户端">
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu Visibility="Collapsed" >
                 </RibbonApplicationMenu>
@@ -31,7 +36,7 @@
                 </RibbonGroup>
                 <RibbonGroup>
                     <RibbonMenuButton Label="添加板块" LargeImageSource="/Images/Login_48x48.png">
-                        <!--<RibbonMenuItem Header="报价表">
+                        <RibbonMenuItem Header="报价表">
                             <RibbonMenuItem Header="自选合约" Click="MenuItem_Click_Contract"/>
                             <RibbonMenuItem Header="中金期货" Click="MenuItem_Click_ZhongJin"/>
                             <RibbonMenuItem Header="上海期货" Click="MenuItem_Click_ShangHai"/>
@@ -47,7 +52,7 @@
                             <RibbonMenuItem Header="所有记录" Click="MenuItem_Click_Trade"/>
                             <RibbonMenuItem Header="开仓记录" Click="MenuItem_Click_Open"/>
                             <RibbonMenuItem Header="平仓记录" Click="MenuItem_Click_Close"/>
-                        </RibbonMenuItem> />-->
+                        </RibbonMenuItem> />
                         <RibbonMenuItem Header="持仓">
                             <RibbonMenuItem Header="持仓" Click="MenuItem_Click_Position"/>
                         </RibbonMenuItem> />

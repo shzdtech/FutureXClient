@@ -4,8 +4,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" x:Class="Micro.Future.UI.LoginWindow"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+    lex:LocalizeDictionary.DesignCulture="en"
+    lex:LocalizeDictionary.OutputMissingKeys="True"
+    lex:ResxLocalizationProvider.DefaultAssembly="WPFLocalizationExtensionDemoApplication"
+    lex:ResxLocalizationProvider.DefaultDictionary="Strings"
     Style="{StaticResource {x:Type Window}}"
-    WindowStartupLocation="CenterScreen" Topmost="True" Width="250" Height="220">
+    WindowStartupLocation="CenterScreen" Topmost="True" Width="250" Height="248">
     <StackPanel>
         <Label Content="服务器"/>
         <ComboBox x:Name="LoginCombo" SelectedIndex="0" IsEditable="True"/>
@@ -16,5 +21,9 @@
         <Label Content="密码"/>
         <PasswordBox x:Name="passwordTxt"/>
         <Button Content="登录" Click="Button_Click" IsDefault="True"/>
+        <Label Content="语言/Language"/>
+        <ComboBox ItemsSource="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=MergedAvailableCultures}"
+        SelectedItem="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=Culture}" 
+        DisplayMemberPath="NativeName" Margin="0" VerticalAlignment="Bottom" />
     </StackPanel>
 </Window>

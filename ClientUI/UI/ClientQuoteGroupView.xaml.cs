@@ -130,7 +130,7 @@ namespace Micro.Future.UI
 
                 QuoteViewModel qvm = o as QuoteViewModel;
 
-                if (exchange.Contains(qvm.Exchange))
+                if (exchange.Contains(qvm.Exchange ?? string.Empty))
                 {
                     return true;
                 }
