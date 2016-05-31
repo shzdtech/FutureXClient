@@ -500,7 +500,7 @@ namespace Micro.Future.ViewModel
             {
                 lock (_lockObject)
                 {
-                    string Str = "联系信息";
+                    string Str = "{lex:Loc Key=ContactInfo}";
 
                     if (!_dataCollection.ContainsKey(Str))
                     {

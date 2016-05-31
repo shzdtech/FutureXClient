@@ -6,10 +6,10 @@
         xmlns:c="clr-namespace:Micro.Future.UI"
         xmlns:data="clr-namespace:Micro.Future.ViewModel"  
         xmlns:lex="http://wpflocalizeextension.codeplex.com"    
-        lex:LocalizeDictionary.DesignCulture="en"
+        lex:LocalizeDictionary.DesignCulture="zh_CN"
         lex:LocalizeDictionary.OutputMissingKeys="True"
-        lex:ResxLocalizationProvider.DefaultAssembly="WPFLocalizationExtensionDemoApplication"
-        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
+        lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.CustomizedControls"
+        lex:ResxLocalizationProvider.DefaultDictionary="Resource"
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
         Icon="/Images/Calculator.png">
     <Grid>
@@ -18,15 +18,15 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Ribbon x:Name="ribbonMenu" Grid.Column="0" Title="交易客户端">
+        <Ribbon x:Name="ribbonMenu" Grid.Column="0" Title="{lex:Loc Key=UserClient}">
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu Visibility="Collapsed" >
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
 
-            <RibbonTab Header="功能区">
+            <RibbonTab Header="{lex:Loc Key=FunctionArea}">
                 <RibbonGroup>
-                    <RibbonButton Label="登陆" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogin_Click" />
+                    <RibbonButton Label="{lex:Loc Key=LogIN}" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogin_Click" />
                 </RibbonGroup>
                 <RibbonGroup>
                     <RibbonButton  DataContext="{x:Static data:RibbonModel.OTCContactCtrl}" />
@@ -35,26 +35,26 @@
                     <!--<RibbonButton DataContext="{x:Static data:RibbonModel.NewUser}" />-->
                 </RibbonGroup>
                 <RibbonGroup>
-                    <RibbonMenuButton Label="添加板块" LargeImageSource="/Images/Login_48x48.png">
-                        <RibbonMenuItem Header="报价表">
-                            <RibbonMenuItem Header="自选合约" Click="MenuItem_Click_Contract"/>
-                            <RibbonMenuItem Header="中金期货" Click="MenuItem_Click_ZhongJin"/>
-                            <RibbonMenuItem Header="上海期货" Click="MenuItem_Click_ShangHai"/>
-                            <RibbonMenuItem Header="大连期货" Click="MenuItem_Click_DaLian"/>
-                            <RibbonMenuItem Header="郑州期货" Click="MenuItem_Click_ZhengZhou"/>
+                    <RibbonMenuButton Label="{lex:Loc Key=AddWindow}" LargeImageSource="/Images/Login_48x48.png">
+                        <RibbonMenuItem Header="{lex:Loc Key=QuoteWindow}">
+                            <RibbonMenuItem Header="{lex:Loc Key=Optional}" Click="MenuItem_Click_Contract"/>
+                            <RibbonMenuItem Header="{lex:Loc Key=CFFEX}" Click="MenuItem_Click_ZhongJin"/>
+                            <RibbonMenuItem Header="{lex:Loc Key=SHFE}" Click="MenuItem_Click_ShangHai"/>
+                            <RibbonMenuItem Header="{lex:Loc Key=DCE}" Click="MenuItem_Click_DaLian"/>
+                            <RibbonMenuItem Header="{lex:Loc Key=CZCE}" Click="MenuItem_Click_ZhengZhou"/>
                         </RibbonMenuItem> />
-                        <RibbonMenuItem Header="委托单">
-                            <RibbonMenuItem Header="所有委托单" Click="MenuItem_Click_Execution"/>
-                            <RibbonMenuItem Header="当前挂单" Click="MenuItem_Click_Opening"/>
-                            <RibbonMenuItem Header="已成交" Click="MenuItem_Click_Traded"/>
+                        <RibbonMenuItem Header="{lex:Loc Key=ExecutionWindow}">
+                            <RibbonMenuItem Header="{lex:Loc Key=AllExecution}" Click="MenuItem_Click_Execution"/>
+                            <RibbonMenuItem Header="{lex:Loc Key=Opening}" Click="MenuItem_Click_Opening"/>
+                            <RibbonMenuItem Header="{lex:Loc Key=Traded}" Click="MenuItem_Click_Traded"/>
                         </RibbonMenuItem> />
-                        <RibbonMenuItem Header="成交记录">
-                            <RibbonMenuItem Header="所有记录" Click="MenuItem_Click_Trade"/>
-                            <RibbonMenuItem Header="开仓记录" Click="MenuItem_Click_Open"/>
-                            <RibbonMenuItem Header="平仓记录" Click="MenuItem_Click_Close"/>
+                        <RibbonMenuItem Header="{lex:Loc Key=TradedWindow}">
+                            <RibbonMenuItem Header="{lex:Loc Key=AllTraded}" Click="MenuItem_Click_Trade"/>
+                            <RibbonMenuItem Header="{lex:Loc Key=Traded_Open}" Click="MenuItem_Click_Open"/>
+                            <RibbonMenuItem Header="{lex:Loc Key=Traded_Close}" Click="MenuItem_Click_Close"/>
                         </RibbonMenuItem> />
-                        <RibbonMenuItem Header="持仓">
-                            <RibbonMenuItem Header="持仓" Click="MenuItem_Click_Position"/>
+                        <RibbonMenuItem Header="{lex:Loc Key=PositionWindow}">
+                            <RibbonMenuItem Header="Position" Click="MenuItem_Click_Position"/>
                         </RibbonMenuItem> />
                     </RibbonMenuButton>
                 </RibbonGroup>
@@ -78,13 +78,13 @@
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
             <StatusBarItem Grid.Column="0">
-                <Controls:LoginStatus x:Name="loginStatus" ConnectedPrompt="服务器已连接" DisconnectedPrompt="服务器未连接" Connected="False" OnConnButtonClick="loginStatus_OnConnButtonClick"/>
+                <Controls:LoginStatus x:Name="loginStatus" ConnectedPrompt="{lex:Loc Key=Server_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_Unconnected}" Connected="False" OnConnButtonClick="loginStatus_OnConnButtonClick"/>
             </StatusBarItem>
             <StatusBarItem Grid.Column="1">
-                <Controls:LoginStatus x:Name="ctpLoginStatus" ConnectedPrompt="服务器已连接" DisconnectedPrompt="服务器未连接" Connected="False" OnConnButtonClick="ctpLoginStatus_OnConnButtonClick"/>
+                <Controls:LoginStatus x:Name="ctpLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_Unconnected}" Connected="False" OnConnButtonClick="ctpLoginStatus_OnConnButtonClick"/>
             </StatusBarItem>
             <StatusBarItem Grid.Column="2">
-                <Controls:LoginStatus x:Name="ctpTradeLoginStatus" ConnectedPrompt="服务器已连接" DisconnectedPrompt="服务器未连接" Connected="False" OnConnButtonClick="ctpTradingLoginStatus_OnConnButtonClick"/>
+                <Controls:LoginStatus x:Name="ctpTradeLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_Unconnected}" Connected="False" OnConnButtonClick="ctpTradingLoginStatus_OnConnButtonClick"/>
             </StatusBarItem>
             <StatusBarItem Grid.Column="3">
                 <Label Name="SemiStatusTextBlock"></Label>
@@ -107,7 +107,7 @@
                 <avalonDock:LayoutPanel Orientation="Vertical">
                     <avalonDock:LayoutPanel DockWidth="4*" DockMinHeight="25" DockHeight="0.15*">
                         <avalonDock:LayoutAnchorablePane x:Name="fundPane">
-                            <avalonDock:LayoutAnchorable Title="资金">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Fund}">
                                 <c:ClientFundWindow x:Name="clientFundLV"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
@@ -115,7 +115,7 @@
                    <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="0.5*">
                         <avalonDock:LayoutPanel DockWidth="4*">
                             <avalonDock:LayoutAnchorablePane x:Name="quotePane">
-                                <avalonDock:LayoutAnchorable Title="行情">
+                                <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Quote}">
                                     <c:ClientQuoteGroupView x:Name="otcMarketDataLV"/>
                                 </avalonDock:LayoutAnchorable>
                             </avalonDock:LayoutAnchorablePane>
@@ -123,24 +123,24 @@
                         <avalonDock:LayoutPanel Orientation="Horizontal" DockHeight="350" >
                         <avalonDock:LayoutPanel DockWidth="*" >
                             <avalonDock:LayoutAnchorablePane x:Name="fastorderPane" >
-                                <avalonDock:LayoutAnchorable Title="快速下单">
+                                    <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}">
                                     <c:ClientFastOrderWindow x:Name="FastOrderCtl"  />
                                 </avalonDock:LayoutAnchorable>
                             </avalonDock:LayoutAnchorablePane>
                         </avalonDock:LayoutPanel>
                         <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="4*">
                             <avalonDock:LayoutAnchorablePane x:Name="executionPane">
-                                <avalonDock:LayoutAnchorable Title="订单明细">
+                                    <avalonDock:LayoutAnchorable Title="{lex:Loc Key=ExecutionWindow}">
                                     <c:ClientExecutionWindow x:Name="executionWindow"/>
                                 </avalonDock:LayoutAnchorable>
                             </avalonDock:LayoutAnchorablePane>
                                 <avalonDock:LayoutAnchorablePane x:Name="tradePane">
-                                    <avalonDock:LayoutAnchorable Title="成交记录">
+                                    <avalonDock:LayoutAnchorable Title="{lex:Loc Key=TradeWindow}">
                                         <c:ClientTradeWindow x:Name="tradeWindow"/>
                                     </avalonDock:LayoutAnchorable>
                                 </avalonDock:LayoutAnchorablePane>
                                 <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
-                                <avalonDock:LayoutAnchorable Title="持仓头寸">
+                                    <avalonDock:LayoutAnchorable Title="{lex:Loc Key=PositionWindow}">
                                     <c:ClientPositionWindow x:Name="positionsWindow"/>
                                 </avalonDock:LayoutAnchorable>
                             </avalonDock:LayoutAnchorablePane>

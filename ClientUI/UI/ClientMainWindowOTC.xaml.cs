@@ -7,6 +7,7 @@ using Micro.Future.Properties;
 using System.Threading;
 using Xceed.Wpf.AvalonDock.Layout;
 using System.Collections.Generic;
+using WPFLocalizeExtension;
 
 namespace Micro.Future.UI
 {
@@ -178,7 +179,7 @@ namespace Micro.Future.UI
             var quoteGrpVw = new ClientQuoteGroupView();
             ancable.Content = quoteGrpVw;
             ancable.Title = "自选合约";
-            tradePane.Children.Add(ancable);
+            quotePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_ZhongJin(object sender, RoutedEventArgs e)
@@ -188,7 +189,7 @@ namespace Micro.Future.UI
             quoteGrpVw.FilterByExchange("CFFEX");
             ancable.Content = quoteGrpVw;
             ancable.Title = "中金期货";
-            tradePane.Children.Add(ancable);
+            quotePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_ShangHai(object sender, RoutedEventArgs e)
@@ -198,7 +199,7 @@ namespace Micro.Future.UI
             quoteGrpVw.FilterByExchange("SHFE");
             ancable.Content = quoteGrpVw;
             ancable.Title = "上海期货";
-            tradePane.Children.Add(ancable);
+            quotePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_DaLian(object sender, RoutedEventArgs e)
@@ -208,7 +209,7 @@ namespace Micro.Future.UI
             quoteGrpVw.FilterByExchange("DCE");
             ancable.Content = quoteGrpVw;
             ancable.Title = "大连期货";
-            tradePane.Children.Add(ancable);
+            quotePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_ZhengZhou(object sender, RoutedEventArgs e)
@@ -218,7 +219,7 @@ namespace Micro.Future.UI
             quoteGrpVw.FilterByExchange("CZCE");
             ancable.Content = quoteGrpVw;
             ancable.Title = "郑州期货";
-            tradePane.Children.Add(ancable);
+            quotePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Execution(object sender, RoutedEventArgs e)
@@ -227,7 +228,7 @@ namespace Micro.Future.UI
             var executionWin = new ClientExecutionWindow();
             ancable.Content = executionWin;
             ancable.Title = "所有委托单";
-            tradePane.Children.Add(ancable);
+            executionPane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Opening(object sender, RoutedEventArgs e)
@@ -237,7 +238,7 @@ namespace Micro.Future.UI
             ancable.Content = executionWin;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENNING });
             ancable.Title = "挂单";
-            tradePane.Children.Add(ancable);
+            executionPane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Traded(object sender, RoutedEventArgs e)
@@ -247,7 +248,7 @@ namespace Micro.Future.UI
             ancable.Content = executionWin;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED});
             ancable.Title = "已成交";
-            tradePane.Children.Add(ancable);
+            executionPane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Trade(object sender, RoutedEventArgs e)

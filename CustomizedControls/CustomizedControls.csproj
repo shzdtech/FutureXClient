@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -56,15 +56,20 @@
     <Compile Include="Controls\LoginStatus.xaml.cs">
       <DependentUpon>LoginStatus.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ResourcesLanguage\ResourceEN.Designer.cs">
+    <Compile Include="Resources\Resource.zh_CN.Designer.cs">
+      <DependentUpon>Resource.zh_CN.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ResourceEN.resx</DependentUpon>
     </Compile>
-    <Compile Include="ResourcesLanguage\ResourceCN.Designer.cs">
+    <Compile Include="Resources\Resource.en.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ResourceCN.resx</DependentUpon>
+      <DependentUpon>Resource.en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\CityViewModel.cs" />
     <Compile Include="ViewModel\CountryViewModel.cs" />
@@ -150,13 +155,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResourcesLanguage\ResourceEN.resx">
+    <EmbeddedResource Include="Resources\Resource.zh_CN.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ResourceEN.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resource.zh_CN.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResourcesLanguage\ResourceCN.resx">
+    <EmbeddedResource Include="Resources\Resource.en.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ResourceCN.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resource.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="project.json" />
     <None Include="Properties\Settings.settings">

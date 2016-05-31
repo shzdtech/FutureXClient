@@ -38,7 +38,7 @@ namespace Micro.Future.Windows
         {
             get
             {
-                return exchangecombo.Text;
+                return exchangeCombo.Text;
             }
         }
 
@@ -67,7 +67,7 @@ namespace Micro.Future.Windows
         {
             set
             {
-                exchangecombo.ItemsSource = value;
+                exchangeCombo.ItemsSource = value;
             }
         }
     }

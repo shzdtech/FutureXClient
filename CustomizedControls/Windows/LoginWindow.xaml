@@ -5,22 +5,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" x:Class="Micro.Future.UI.LoginWindow"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"    
-    lex:LocalizeDictionary.DesignCulture="en"
+    lex:LocalizeDictionary.DesignCulture="zh_CN"
     lex:LocalizeDictionary.OutputMissingKeys="True"
-    lex:ResxLocalizationProvider.DefaultAssembly="WPFLocalizationExtensionDemoApplication"
-    lex:ResxLocalizationProvider.DefaultDictionary="Strings"
+    lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.CustomizedControls"
+    lex:ResxLocalizationProvider.DefaultDictionary="Resource"
     Style="{StaticResource {x:Type Window}}"
     WindowStartupLocation="CenterScreen" Topmost="True" Width="250" Height="248">
     <StackPanel>
-        <Label Content="服务器"/>
+        <Label Content="{lex:Loc Key=Login_Server}"/>
         <ComboBox x:Name="LoginCombo" SelectedIndex="0" IsEditable="True"/>
-        <Label Content="期货公司代码"/>
+        <Label Content="{lex:Loc Key=BrokerID}"/>
         <TextBox x:Name="brokerTxt"/>
-        <Label Content="用户名"/>
+        <Label Content="{lex:Loc Key=UserName}"/>
         <TextBox x:Name="userTxt"/>
-        <Label Content="密码"/>
+        <Label Content="{lex:Loc Key=PassWord}"/>
         <PasswordBox x:Name="passwordTxt"/>
-        <Button Content="登录" Click="Button_Click" IsDefault="True"/>
+        <Button Content="{lex:Loc Key=LogIn}" Click="Button_Click" IsDefault="True"/>
         <Label Content="语言/Language"/>
         <ComboBox ItemsSource="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=MergedAvailableCultures}"
         SelectedItem="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=Culture}" 

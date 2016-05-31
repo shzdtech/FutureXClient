@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Micro.Future.ResourcesLanguage {
+namespace Micro.Future.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Micro.Future.ResourcesLanguage {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ResourceEN {
+    internal class Resource_zh_CN {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ResourceEN() {
+        internal Resource_zh_CN() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Micro.Future.ResourcesLanguage {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Micro.Future.ResourcesLanguage.ResourceEN", typeof(ResourceEN).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Micro.Future.Resources.Resource.zh_CN", typeof(Resource_zh_CN).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Active 的本地化字符串。
+        ///   查找类似 是否活跃 的本地化字符串。
         /// </summary>
         internal static string Active {
             get {
@@ -70,7 +70,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Add 的本地化字符串。
+        ///   查找类似 添加 的本地化字符串。
         /// </summary>
         internal static string Add {
             get {
@@ -79,7 +79,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 AddWindow 的本地化字符串。
+        ///   查找类似 添加板块 的本地化字符串。
         /// </summary>
         internal static string AddWindow {
             get {
@@ -88,7 +88,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 All Position 的本地化字符串。
+        ///   查找类似 所有持仓 的本地化字符串。
         /// </summary>
         internal static string All_Position {
             get {
@@ -97,7 +97,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 AllExecution 的本地化字符串。
+        ///   查找类似 所有委托单 的本地化字符串。
         /// </summary>
         internal static string AllExecution {
             get {
@@ -106,7 +106,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 AllTraded 的本地化字符串。
+        ///   查找类似 所有成交 的本地化字符串。
         /// </summary>
         internal static string AllTraded {
             get {
@@ -115,7 +115,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 AskPrice 的本地化字符串。
+        ///   查找类似 卖价 的本地化字符串。
         /// </summary>
         internal static string AskPrice {
             get {
@@ -124,7 +124,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 AskSize 的本地化字符串。
+        ///   查找类似 卖量 的本地化字符串。
         /// </summary>
         internal static string AskSize {
             get {
@@ -133,7 +133,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 BidPrice 的本地化字符串。
+        ///   查找类似 买价 的本地化字符串。
         /// </summary>
         internal static string BidPrice {
             get {
@@ -142,7 +142,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 BidSize 的本地化字符串。
+        ///   查找类似 买量 的本地化字符串。
         /// </summary>
         internal static string BidSize {
             get {
@@ -151,7 +151,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 BrokerID 的本地化字符串。
+        ///   查找类似 期货公司代码 的本地化字符串。
         /// </summary>
         internal static string BrokerID {
             get {
@@ -160,7 +160,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 CancelOrder 的本地化字符串。
+        ///   查找类似 取消订单 的本地化字符串。
         /// </summary>
         internal static string CancelOrder {
             get {
@@ -169,7 +169,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 CancelTime 的本地化字符串。
+        ///   查找类似 撤销时间 的本地化字符串。
         /// </summary>
         internal static string CancelTime {
             get {
@@ -178,7 +178,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 CFFEX 的本地化字符串。
+        ///   查找类似 中金期货 的本地化字符串。
         /// </summary>
         internal static string CFFEX {
             get {
@@ -187,7 +187,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 CloseAmount 的本地化字符串。
+        ///   查找类似 平仓金额 的本地化字符串。
         /// </summary>
         internal static string CloseAmount {
             get {
@@ -196,7 +196,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 CloseProfit 的本地化字符串。
+        ///   查找类似 平仓盈亏 的本地化字符串。
         /// </summary>
         internal static string CloseProfit {
             get {
@@ -205,7 +205,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 CloseVolume 的本地化字符串。
+        ///   查找类似 平仓量 的本地化字符串。
         /// </summary>
         internal static string CloseVolume {
             get {
@@ -214,7 +214,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 ColumnSettings 的本地化字符串。
+        ///   查找类似 列设置 的本地化字符串。
         /// </summary>
         internal static string ColumnSettings {
             get {
@@ -223,7 +223,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Commission 的本地化字符串。
+        ///   查找类似 手续费 的本地化字符串。
         /// </summary>
         internal static string Commission {
             get {
@@ -232,7 +232,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 ContactInfo 的本地化字符串。
+        ///   查找类似 联系人信息 的本地化字符串。
         /// </summary>
         internal static string ContactInfo {
             get {
@@ -241,7 +241,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Contract 的本地化字符串。
+        ///   查找类似 合约 的本地化字符串。
         /// </summary>
         internal static string Contract {
             get {
@@ -250,7 +250,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 CZCE 的本地化字符串。
+        ///   查找类似 郑州期货 的本地化字符串。
         /// </summary>
         internal static string CZCE {
             get {
@@ -259,7 +259,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 DCE 的本地化字符串。
+        ///   查找类似 大连期货 的本地化字符串。
         /// </summary>
         internal static string DCE {
             get {
@@ -268,7 +268,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 DeleteOrder 的本地化字符串。
+        ///   查找类似 删除报价 的本地化字符串。
         /// </summary>
         internal static string DeleteOrder {
             get {
@@ -277,7 +277,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Direction 的本地化字符串。
+        ///   查找类似 买卖 的本地化字符串。
         /// </summary>
         internal static string Direction {
             get {
@@ -286,7 +286,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Enter 的本地化字符串。
+        ///   查找类似 确定 的本地化字符串。
         /// </summary>
         internal static string Enter {
             get {
@@ -295,7 +295,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Exchange 的本地化字符串。
+        ///   查找类似 交易所 的本地化字符串。
         /// </summary>
         internal static string Exchange {
             get {
@@ -304,7 +304,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 ExecutionType 的本地化字符串。
+        ///   查找类似 执行类型 的本地化字符串。
         /// </summary>
         internal static string ExecType {
             get {
@@ -313,7 +313,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 ExecutionDetail 的本地化字符串。
+        ///   查找类似 订单明细 的本地化字符串。
         /// </summary>
         internal static string ExecutionDetail {
             get {
@@ -322,7 +322,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 ExecutionWindow 的本地化字符串。
+        ///   查找类似 委托单板块 的本地化字符串。
         /// </summary>
         internal static string ExecutionWindow {
             get {
@@ -331,7 +331,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 FastOrder 的本地化字符串。
+        ///   查找类似 快速下单 的本地化字符串。
         /// </summary>
         internal static string FastOrder {
             get {
@@ -340,7 +340,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 FilterSettings 的本地化字符串。
+        ///   查找类似 筛选配置 的本地化字符串。
         /// </summary>
         internal static string FilterSettings {
             get {
@@ -349,7 +349,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 FunctionArea 的本地化字符串。
+        ///   查找类似 功能区 的本地化字符串。
         /// </summary>
         internal static string FunctionArea {
             get {
@@ -358,7 +358,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Fund 的本地化字符串。
+        ///   查找类似 资金 的本地化字符串。
         /// </summary>
         internal static string Fund {
             get {
@@ -367,7 +367,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 HedgeFlag 的本地化字符串。
+        ///   查找类似 投保 的本地化字符串。
         /// </summary>
         internal static string HedgeFlag {
             get {
@@ -376,7 +376,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 InsertTime 的本地化字符串。
+        ///   查找类似 挂单时间 的本地化字符串。
         /// </summary>
         internal static string InsertTime {
             get {
@@ -385,7 +385,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 LimitPrice 的本地化字符串。
+        ///   查找类似 保单价格 的本地化字符串。
         /// </summary>
         internal static string LimitPrice {
             get {
@@ -394,7 +394,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 LogIn 的本地化字符串。
+        ///   查找类似 登陆 的本地化字符串。
         /// </summary>
         internal static string LogIn {
             get {
@@ -403,7 +403,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Server 的本地化字符串。
+        ///   查找类似 服务器 的本地化字符串。
         /// </summary>
         internal static string Login_Server {
             get {
@@ -412,7 +412,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 LongFrozen 的本地化字符串。
+        ///   查找类似 多头冻结 的本地化字符串。
         /// </summary>
         internal static string LongFrozen {
             get {
@@ -421,7 +421,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 LongFrozenAmount 的本地化字符串。
+        ///   查找类似 多头金额 的本地化字符串。
         /// </summary>
         internal static string LongFrozenAmount {
             get {
@@ -430,7 +430,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 MatchPrice 的本地化字符串。
+        ///   查找类似 成交价 的本地化字符串。
         /// </summary>
         internal static string MatchPrice {
             get {
@@ -439,7 +439,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Message 的本地化字符串。
+        ///   查找类似 状态信息 的本地化字符串。
         /// </summary>
         internal static string Message {
             get {
@@ -448,7 +448,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 OffsetFlag 的本地化字符串。
+        ///   查找类似 开平 的本地化字符串。
         /// </summary>
         internal static string OffsetFlag {
             get {
@@ -457,7 +457,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 OpenAmount 的本地化字符串。
+        ///   查找类似 开仓金额 的本地化字符串。
         /// </summary>
         internal static string OpenAmount {
             get {
@@ -466,7 +466,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 OpenClose 的本地化字符串。
+        ///   查找类似 开平 的本地化字符串。
         /// </summary>
         internal static string OpenClose {
             get {
@@ -475,7 +475,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 OpenCost 的本地化字符串。
+        ///   查找类似 开仓成本 的本地化字符串。
         /// </summary>
         internal static string OpenCost {
             get {
@@ -484,7 +484,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Opening 的本地化字符串。
+        ///   查找类似 当前挂单 的本地化字符串。
         /// </summary>
         internal static string Opening {
             get {
@@ -493,7 +493,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 OpenVolume 的本地化字符串。
+        ///   查找类似 开仓量 的本地化字符串。
         /// </summary>
         internal static string OpenVolume {
             get {
@@ -502,7 +502,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Optional 的本地化字符串。
+        ///   查找类似 自选合约 的本地化字符串。
         /// </summary>
         internal static string Optional {
             get {
@@ -511,7 +511,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 OrderID 的本地化字符串。
+        ///   查找类似 订单编号 的本地化字符串。
         /// </summary>
         internal static string OrderID {
             get {
@@ -520,7 +520,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 OrderSysID 的本地化字符串。
+        ///   查找类似 报单编号 的本地化字符串。
         /// </summary>
         internal static string OrderSysID {
             get {
@@ -529,7 +529,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 PassWord 的本地化字符串。
+        ///   查找类似 密码 的本地化字符串。
         /// </summary>
         internal static string PassWord {
             get {
@@ -538,7 +538,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Position 的本地化字符串。
+        ///   查找类似 持仓 的本地化字符串。
         /// </summary>
         internal static string Position {
             get {
@@ -547,7 +547,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Cost 的本地化字符串。
+        ///   查找类似 持仓成本 的本地化字符串。
         /// </summary>
         internal static string PositionCost {
             get {
@@ -556,7 +556,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Direction 的本地化字符串。
+        ///   查找类似 多空 的本地化字符串。
         /// </summary>
         internal static string PositionDirection {
             get {
@@ -565,7 +565,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Porfit 的本地化字符串。
+        ///   查找类似 持仓盈亏 的本地化字符串。
         /// </summary>
         internal static string PositionProfit {
             get {
@@ -574,7 +574,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 PositionWindow 的本地化字符串。
+        ///   查找类似 持仓板块 的本地化字符串。
         /// </summary>
         internal static string PositionWindow {
             get {
@@ -583,7 +583,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Quote 的本地化字符串。
+        ///   查找类似 行情 的本地化字符串。
         /// </summary>
         internal static string Quote {
             get {
@@ -592,7 +592,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Volume 的本地化字符串。
+        ///   查找类似 成交量 的本地化字符串。
         /// </summary>
         internal static string QuoteVolume {
             get {
@@ -601,7 +601,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 QuoteWindow 的本地化字符串。
+        ///   查找类似 报价表 的本地化字符串。
         /// </summary>
         internal static string QuoteWindow {
             get {
@@ -610,7 +610,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Server Connected 的本地化字符串。
+        ///   查找类似 服务器已连接 的本地化字符串。
         /// </summary>
         internal static string Server_Connected {
             get {
@@ -619,7 +619,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Server Unconnected 的本地化字符串。
+        ///   查找类似 服务器未连接 的本地化字符串。
         /// </summary>
         internal static string Server_Unconnected {
             get {
@@ -628,7 +628,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 SHFE 的本地化字符串。
+        ///   查找类似 上海期货 的本地化字符串。
         /// </summary>
         internal static string SHFE {
             get {
@@ -637,7 +637,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 ShortFrozen 的本地化字符串。
+        ///   查找类似 空头冻结 的本地化字符串。
         /// </summary>
         internal static string ShortFrozen {
             get {
@@ -646,7 +646,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 ShortFrozenAmount 的本地化字符串。
+        ///   查找类似 空头金额 的本地化字符串。
         /// </summary>
         internal static string ShortFrozenAmount {
             get {
@@ -655,7 +655,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Status 的本地化字符串。
+        ///   查找类似 订单状态 的本地化字符串。
         /// </summary>
         internal static string Status {
             get {
@@ -664,7 +664,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 TIF 的本地化字符串。
+        ///   查找类似 有效期类型 的本地化字符串。
         /// </summary>
         internal static string TIF {
             get {
@@ -673,7 +673,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 TitleText 的本地化字符串。
+        ///   查找类似 标题 的本地化字符串。
         /// </summary>
         internal static string TitleText {
             get {
@@ -682,7 +682,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 TodayPosition 的本地化字符串。
+        ///   查找类似 今日持仓 的本地化字符串。
         /// </summary>
         internal static string TodayPosition {
             get {
@@ -691,7 +691,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Traded 的本地化字符串。
+        ///   查找类似 已成交 的本地化字符串。
         /// </summary>
         internal static string Traded {
             get {
@@ -700,7 +700,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Traded Close 的本地化字符串。
+        ///   查找类似 平仓记录 的本地化字符串。
         /// </summary>
         internal static string Traded_Close {
             get {
@@ -709,7 +709,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Traded Open 的本地化字符串。
+        ///   查找类似 开仓记录 的本地化字符串。
         /// </summary>
         internal static string Traded_Open {
             get {
@@ -718,7 +718,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 TradeDate 的本地化字符串。
+        ///   查找类似 成交日期 的本地化字符串。
         /// </summary>
         internal static string TradeDate {
             get {
@@ -727,7 +727,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 TradeDetail 的本地化字符串。
+        ///   查找类似 成交明细 的本地化字符串。
         /// </summary>
         internal static string TradeDetail {
             get {
@@ -736,7 +736,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 TradedWindow 的本地化字符串。
+        ///   查找类似 成交板块 的本地化字符串。
         /// </summary>
         internal static string TradedWindow {
             get {
@@ -745,7 +745,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 TradeID 的本地化字符串。
+        ///   查找类似 成交编号 的本地化字符串。
         /// </summary>
         internal static string TradeID {
             get {
@@ -754,7 +754,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Price 的本地化字符串。
+        ///   查找类似 成交价格 的本地化字符串。
         /// </summary>
         internal static string TradePrice {
             get {
@@ -763,7 +763,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 TradeTime 的本地化字符串。
+        ///   查找类似 成交时间 的本地化字符串。
         /// </summary>
         internal static string TradeTime {
             get {
@@ -772,7 +772,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Volume 的本地化字符串。
+        ///   查找类似 成交量 的本地化字符串。
         /// </summary>
         internal static string TradeVolume {
             get {
@@ -781,7 +781,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 TradingType 的本地化字符串。
+        ///   查找类似 交易类型 的本地化字符串。
         /// </summary>
         internal static string TradingType {
             get {
@@ -790,7 +790,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 UpdateTime 的本地化字符串。
+        ///   查找类似 最后修改时间 的本地化字符串。
         /// </summary>
         internal static string UpdateTime {
             get {
@@ -799,7 +799,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 UseMargin 的本地化字符串。
+        ///   查找类似 占用保证金 的本地化字符串。
         /// </summary>
         internal static string UseMargin {
             get {
@@ -808,7 +808,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 UserClient 的本地化字符串。
+        ///   查找类似 客户端 的本地化字符串。
         /// </summary>
         internal static string UserClient {
             get {
@@ -817,7 +817,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 UserName 的本地化字符串。
+        ///   查找类似 用户名 的本地化字符串。
         /// </summary>
         internal static string UserName {
             get {
@@ -826,7 +826,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 Volume 的本地化字符串。
+        ///   查找类似 报单数量 的本地化字符串。
         /// </summary>
         internal static string Volume {
             get {
@@ -835,7 +835,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 VolumeRemain 的本地化字符串。
+        ///   查找类似 未成交数量 的本地化字符串。
         /// </summary>
         internal static string VolumeRemain {
             get {
@@ -844,7 +844,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 VolumeTraded 的本地化字符串。
+        ///   查找类似 成交数量 的本地化字符串。
         /// </summary>
         internal static string VolumeTraded {
             get {
@@ -853,7 +853,7 @@ namespace Micro.Future.ResourcesLanguage {
         }
         
         /// <summary>
-        ///   查找类似 YesterdayPosition 的本地化字符串。
+        ///   查找类似 昨日持仓 的本地化字符串。
         /// </summary>
         internal static string YdPosition {
             get {

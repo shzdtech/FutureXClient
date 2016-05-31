@@ -4,7 +4,12 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:loc="clr-namespace:Micro"
-        Title="列设置" Height="300" Width="200" WindowStartupLocation="CenterScreen" Topmost="True">
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+        lex:LocalizeDictionary.DesignCulture="zh_CN"
+        lex:LocalizeDictionary.OutputMissingKeys="True"
+        lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.CustomizedControls"
+        lex:ResxLocalizationProvider.DefaultDictionary="Resource"
+        Title="{lex:Loc Key=ColumnSettings}" Height="300" Width="200" WindowStartupLocation="CenterScreen" Topmost="True">
     <StackPanel Name="ColumnSettingsPanel">
         <!-- 列管理代码 -->
         <!-- loc命名空间是ColumnObject的CLR命名空间 -->

@@ -3,6 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+             lex:LocalizeDictionary.DesignCulture="zh_CN"
+             lex:LocalizeDictionary.OutputMissingKeys="True"
+             lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.CustomizedControls"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resource"
              xmlns:local="clr-namespace:Micro.Future.UI;assembly=Micro.Future.UIObject"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="800">
@@ -15,26 +20,26 @@
         <ListView Name="PositionListView" ItemsSource="{Binding PositionVMCollection}" SelectionChanged="PositionListView_SelectionChanged" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="合约" DisplayMemberBinding="{Binding Contract}" />
-                    <GridViewColumn Header="多空" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}" />
-                    <GridViewColumn Header="当前持仓" DisplayMemberBinding="{Binding Position}" />
-                    <GridViewColumn Header="今日持仓" DisplayMemberBinding="{Binding TodayPosition}" />
-                    <GridViewColumn Header="上日持仓" DisplayMemberBinding="{Binding YdPosition}"/>
-                    <GridViewColumn Header="开仓量" DisplayMemberBinding="{Binding OpenVolume}"/>
-                    <GridViewColumn Header="平仓量" DisplayMemberBinding="{Binding CloseVolume}"/>
-                    <GridViewColumn Header="开仓金额" DisplayMemberBinding="{Binding OpenAmount}"/>
-                    <GridViewColumn Header="平仓金额" DisplayMemberBinding="{Binding CloseAmount}"/>
-                    <GridViewColumn Header="持仓成本" DisplayMemberBinding="{Binding Cost}" />
-                    <GridViewColumn Header="开仓成本" DisplayMemberBinding="{Binding OpenCost}" />
-                    <GridViewColumn Header="持仓盈亏" DisplayMemberBinding="{Binding Profit}" />
-                    <GridViewColumn Header="平仓盈亏" DisplayMemberBinding="{Binding CloseProfit}" />
-                    <GridViewColumn Header="占用保证金" DisplayMemberBinding="{Binding UseMargin}" />
-                    <GridViewColumn Header="交易所" DisplayMemberBinding="{Binding Exchange}" />
+                    <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" />
+                    <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}" />
+                    <GridViewColumn Header="{lex:Loc Key=Position}" DisplayMemberBinding="{Binding Position}" />
+                    <GridViewColumn Header="{lex:Loc Key=TodayPosition}" DisplayMemberBinding="{Binding TodayPosition}" />
+                    <GridViewColumn Header="{lex:Loc Key=YdPosition}" DisplayMemberBinding="{Binding YdPosition}"/>
+                    <GridViewColumn Header="{lex:Loc Key=OpenVolume}" DisplayMemberBinding="{Binding OpenVolume}"/>
+                    <GridViewColumn Header="{lex:Loc Key=CloseVolume}" DisplayMemberBinding="{Binding CloseVolume}"/>
+                    <GridViewColumn Header="{lex:Loc Key=OpenAmount}" DisplayMemberBinding="{Binding OpenAmount}"/>
+                    <GridViewColumn Header="{lex:Loc Key=CloseAmount}" DisplayMemberBinding="{Binding CloseAmount}"/>
+                    <GridViewColumn Header="{lex:Loc Key=PositionCost}" DisplayMemberBinding="{Binding Cost}" />
+                    <GridViewColumn Header="{lex:Loc Key=OpenCost}" DisplayMemberBinding="{Binding OpenCost}" />
+                    <GridViewColumn Header="{lex:Loc Key=PositionProfit}" DisplayMemberBinding="{Binding Profit}" />
+                    <GridViewColumn Header="{lex:Loc Key=CloseProfit}" DisplayMemberBinding="{Binding CloseProfit}" />
+                    <GridViewColumn Header="{lex:Loc Key=UseMargin}" DisplayMemberBinding="{Binding UseMargin}" />
+                    <GridViewColumn Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" />
                     <!--<GridViewColumn Header="投机套保标志" DisplayMemberBinding="{Binding HedgeFlag}"/>-->
-                    <GridViewColumn Header="多头冻结" DisplayMemberBinding="{Binding LongFrozen}" />
-                    <GridViewColumn Header="多头金额" DisplayMemberBinding="{Binding LongFrozenAmount}" />
-                    <GridViewColumn Header="空头冻结" DisplayMemberBinding="{Binding ShortFrozen}" />
-                    <GridViewColumn Header="空头金额" DisplayMemberBinding="{Binding ShortFrozenAmount}" />
+                    <GridViewColumn Header="{lex:Loc Key=LongFrozen}" DisplayMemberBinding="{Binding LongFrozen}" />
+                    <GridViewColumn Header="{lex:Loc Key=LongFrozenAmount}" DisplayMemberBinding="{Binding LongFrozenAmount}" />
+                    <GridViewColumn Header="{lex:Loc Key=ShortFrozen}" DisplayMemberBinding="{Binding ShortFrozen}" />
+                    <GridViewColumn Header="{lex:Loc Key=ShortFrozenAmount}" DisplayMemberBinding="{Binding ShortFrozenAmount}" />
                     <!--<GridViewColumn Header="上次占用保证金" DisplayMemberBinding="{Binding PreMargin}" />-->
                     <!--<GridViewColumn Header="冻结保证金" DisplayMemberBinding="{Binding FrozenMargin}" />
                     <GridViewColumn Header="冻结资金" DisplayMemberBinding="{Binding FrozenCash}" />
@@ -52,9 +57,9 @@
             </ListView.View>
             <ListView.ContextMenu>
                 <ContextMenu StaysOpen="True">
-                    <MenuItem Header="筛选配置" Click="MenuItem_Click_Settings" />
+                    <MenuItem Header="{lex:Loc Key=FilterSettings}" Click="MenuItem_Click_Settings" />
                     <Separator />
-                    <MenuItem Header="列显示设置" Click="MenuItem_Click_Columns" />
+                    <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItem_Click_Columns" />
                     <Separator></Separator>
                 </ContextMenu>
             </ListView.ContextMenu>

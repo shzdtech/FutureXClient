@@ -81,7 +81,7 @@ namespace Micro.Future.UI
 
                 PositionVM pvm = o as PositionVM;
 
-                if (exchange.Contains(pvm.Exchange))
+                if (exchange.Contains(pvm.Exchange ?? string.Empty))
                 {
                     return true;
                 }
@@ -105,7 +105,7 @@ namespace Micro.Future.UI
 
                 PositionVM pvm = o as PositionVM;
 
-                if (contract.Contains(pvm.Contract))
+                if (pvm.Contract.Contains(contract))
                 {
                     return true;
                 }

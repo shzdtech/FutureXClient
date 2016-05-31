@@ -90,7 +90,7 @@ namespace Micro.Future.UI
 
                 TradeVM tvm = o as TradeVM;
 
-                if (exchange.Contains(tvm.Exchange))
+                if (exchange.Contains(tvm.Exchange ?? string.Empty))
                 {
                     return true;
                 }
@@ -114,7 +114,7 @@ namespace Micro.Future.UI
 
                 TradeVM tvm = o as TradeVM;
 
-                if (contract.Contains(tvm.Contract))
+                if (tvm.Contract.Contains(contract))
                 {
                     return true;
                 }

@@ -71,7 +71,7 @@ namespace Micro.Future.UI
 
                 OrderVM ovm = o as OrderVM;
 
-                if (exchange.Contains(ovm.Exchange))
+                if (exchange.Contains(ovm.Exchange ?? string.Empty))
                 {
                     return true;
                 }
@@ -95,7 +95,7 @@ namespace Micro.Future.UI
 
                 OrderVM ovm = o as OrderVM;
 
-                if (contract.Contains(ovm.Contract))
+                if (ovm.Contract.Contains(contract))
                 {
                     return true;
                 }

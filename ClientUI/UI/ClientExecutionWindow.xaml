@@ -5,6 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Micro.Future.UI;assembly=Micro.Future.UIObject"
              xmlns:view="clr-namespace:Micro.Future.ViewModel"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+             lex:LocalizeDictionary.DesignCulture="zh_CN"
+             lex:LocalizeDictionary.OutputMissingKeys="True"
+             lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.CustomizedControls"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resource"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="800">
     <UserControl.Resources>
@@ -48,25 +53,25 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="订单编号" DisplayMemberBinding="{Binding OrderID}"/>
-                    <GridViewColumn Header="合约" DisplayMemberBinding="{Binding Contract}"/>
-                    <GridViewColumn Header="报单编号" DisplayMemberBinding="{Binding OrderSysID}"/>
-                    <GridViewColumn Header="报单数量" DisplayMemberBinding="{Binding Volume}"/>
-                    <GridViewColumn Header="成交数量" DisplayMemberBinding="{Binding VolumeTraded}"/>
-                    <GridViewColumn Header="买卖" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}"/>
-                    <GridViewColumn Header="时间戳" DisplayMemberBinding="{Binding InsertTime}"/>
-                    <GridViewColumn Header="开平" DisplayMemberBinding="{Binding OffsetFlag}"/>
-                    <GridViewColumn Header="最后修改时间" DisplayMemberBinding="{Binding UpdateTime}"/>
-                    <GridViewColumn Header="撤销时间" DisplayMemberBinding="{Binding CancelTime}"/>
-                    <GridViewColumn Header="未成交数量" DisplayMemberBinding="{Binding VolumeRemain}"/>
-                    <GridViewColumn Header="执行类型" DisplayMemberBinding="{Binding ExecType}"/>
-                    <GridViewColumn Header="有效期类型" DisplayMemberBinding="{Binding TIF}"/>
-                    <GridViewColumn Header="交易类型" DisplayMemberBinding="{Binding TradingType}"/>
-                    <GridViewColumn Header="是否活跃" DisplayMemberBinding="{Binding Active}"/>
-                    <GridViewColumn Header="报单价格" DisplayMemberBinding="{Binding LimitPrice, StringFormat= {}{0:C}}" />
-                    <GridViewColumn Header="状态" DisplayMemberBinding="{Binding Path=Status, Converter={StaticResource enumItemsConverter}}"/>
-                    <GridViewColumn Header="状态信息" DisplayMemberBinding="{Binding Message}"/>
-                    <GridViewColumn Header="交易所" DisplayMemberBinding="{Binding Exchange}"/>
+                    <GridViewColumn Header="{lex:Loc Key=OrderID}" DisplayMemberBinding="{Binding OrderID}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
+                    <GridViewColumn Header="{lex:Loc Key=OrderSysID}" DisplayMemberBinding="{Binding OrderSysID}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Volume}" DisplayMemberBinding="{Binding Volume}"/>
+                    <GridViewColumn Header="{lex:Loc Key=VolumeTraded}" DisplayMemberBinding="{Binding VolumeTraded}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}"/>
+                    <GridViewColumn Header="{lex:Loc Key=InsertTime}" DisplayMemberBinding="{Binding InsertTime}"/>
+                    <GridViewColumn Header="{lex:Loc Key=OffsetFlag}" DisplayMemberBinding="{Binding OffsetFlag}"/>
+                    <GridViewColumn Header="{lex:Loc Key=UpdateTime}" DisplayMemberBinding="{Binding UpdateTime}"/>
+                    <GridViewColumn Header="{lex:Loc Key=CancelTime}" DisplayMemberBinding="{Binding CancelTime}"/>
+                    <GridViewColumn Header="{lex:Loc Key=VolumeRemain}" DisplayMemberBinding="{Binding VolumeRemain}"/>
+                    <GridViewColumn Header="{lex:Loc Key=ExecType}" DisplayMemberBinding="{Binding ExecType}"/>
+                    <GridViewColumn Header="{lex:Loc Key=TIF}" DisplayMemberBinding="{Binding TIF}"/>
+                    <GridViewColumn Header="{lex:Loc Key=TradingType}" DisplayMemberBinding="{Binding TradingType}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Active}" DisplayMemberBinding="{Binding Active}"/>
+                    <GridViewColumn Header="{lex:Loc Key=LimitPrice}" DisplayMemberBinding="{Binding LimitPrice, StringFormat= {}{0:C}}" />
+                    <GridViewColumn Header="{lex:Loc Key=Status}" DisplayMemberBinding="{Binding Path=Status, Converter={StaticResource enumItemsConverter}}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Message}" DisplayMemberBinding="{Binding Message}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}"/>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>

@@ -118,270 +118,309 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Active" xml:space="preserve">
-    <value>Active</value>
+    <value>是否活跃</value>
   </data>
   <data name="Add" xml:space="preserve">
-    <value>Add</value>
+    <value>添加</value>
   </data>
   <data name="AddWindow" xml:space="preserve">
-    <value>AddWindow</value>
+    <value>添加板块</value>
   </data>
   <data name="AllExecution" xml:space="preserve">
-    <value>AllExecution</value>
+    <value>所有委托单</value>
   </data>
   <data name="AllTraded" xml:space="preserve">
-    <value>AllTraded</value>
+    <value>所有成交</value>
   </data>
   <data name="All_Position" xml:space="preserve">
-    <value>All Position</value>
+    <value>所有持仓</value>
   </data>
   <data name="AskPrice" xml:space="preserve">
-    <value>AskPrice</value>
+    <value>卖价</value>
   </data>
   <data name="AskSize" xml:space="preserve">
-    <value>AskSize</value>
+    <value>卖量</value>
   </data>
   <data name="BidPrice" xml:space="preserve">
-    <value>BidPrice</value>
+    <value>买价</value>
   </data>
   <data name="BidSize" xml:space="preserve">
-    <value>BidSize</value>
+    <value>买量</value>
   </data>
   <data name="BrokerID" xml:space="preserve">
-    <value>BrokerID</value>
+    <value>期货公司代码</value>
   </data>
   <data name="CancelOrder" xml:space="preserve">
-    <value>CancelOrder</value>
+    <value>取消订单</value>
   </data>
   <data name="CancelTime" xml:space="preserve">
-    <value>CancelTime</value>
+    <value>撤销时间</value>
   </data>
   <data name="CFFEX" xml:space="preserve">
-    <value>CFFEX</value>
+    <value>中金期货</value>
   </data>
   <data name="CloseAmount" xml:space="preserve">
-    <value>CloseAmount</value>
+    <value>平仓金额</value>
   </data>
   <data name="CloseProfit" xml:space="preserve">
-    <value>CloseProfit</value>
+    <value>平仓盈亏</value>
   </data>
   <data name="CloseVolume" xml:space="preserve">
-    <value>CloseVolume</value>
+    <value>平仓量</value>
   </data>
   <data name="ColumnSettings" xml:space="preserve">
-    <value>ColumnSettings</value>
+    <value>列设置</value>
   </data>
   <data name="Commission" xml:space="preserve">
-    <value>Commission</value>
+    <value>手续费</value>
   </data>
   <data name="ContactInfo" xml:space="preserve">
-    <value>ContactInfo</value>
+    <value>联系人信息</value>
   </data>
   <data name="Contract" xml:space="preserve">
-    <value>Contract</value>
+    <value>合约</value>
   </data>
   <data name="CZCE" xml:space="preserve">
-    <value>CZCE</value>
+    <value>郑州期货</value>
   </data>
   <data name="DCE" xml:space="preserve">
-    <value>DCE</value>
+    <value>大连期货</value>
   </data>
   <data name="DeleteOrder" xml:space="preserve">
-    <value>DeleteOrder</value>
+    <value>删除报价</value>
   </data>
   <data name="Direction" xml:space="preserve">
-    <value>Direction</value>
+    <value>买卖</value>
   </data>
   <data name="Enter" xml:space="preserve">
-    <value>Enter</value>
+    <value>确定</value>
   </data>
   <data name="Exchange" xml:space="preserve">
-    <value>Exchange</value>
+    <value>交易所</value>
   </data>
   <data name="ExecType" xml:space="preserve">
-    <value>ExecutionType</value>
+    <value>执行类型</value>
   </data>
   <data name="ExecutionDetail" xml:space="preserve">
-    <value>ExecutionDetail</value>
+    <value>订单明细</value>
   </data>
   <data name="ExecutionWindow" xml:space="preserve">
-    <value>ExecutionWindow</value>
+    <value>委托单板块</value>
   </data>
   <data name="FastOrder" xml:space="preserve">
-    <value>FastOrder</value>
+    <value>快速下单</value>
   </data>
   <data name="FilterSettings" xml:space="preserve">
-    <value>FilterSettings</value>
+    <value>筛选配置</value>
   </data>
   <data name="FunctionArea" xml:space="preserve">
-    <value>FunctionArea</value>
+    <value>功能区</value>
   </data>
   <data name="Fund" xml:space="preserve">
-    <value>Fund</value>
+    <value>资金</value>
   </data>
   <data name="HedgeFlag" xml:space="preserve">
-    <value>HedgeFlag</value>
+    <value>投保</value>
   </data>
   <data name="InsertTime" xml:space="preserve">
-    <value>InsertTime</value>
+    <value>挂单时间</value>
   </data>
   <data name="LimitPrice" xml:space="preserve">
-    <value>LimitPrice</value>
+    <value>保单价格</value>
   </data>
   <data name="LogIn" xml:space="preserve">
-    <value>LogIn</value>
+    <value>登陆</value>
   </data>
   <data name="Login_Server" xml:space="preserve">
-    <value>Server</value>
+    <value>服务器</value>
   </data>
   <data name="LongFrozen" xml:space="preserve">
-    <value>LongFrozen</value>
+    <value>多头冻结</value>
   </data>
   <data name="LongFrozenAmount" xml:space="preserve">
-    <value>LongFrozenAmount</value>
+    <value>多头金额</value>
   </data>
   <data name="MatchPrice" xml:space="preserve">
-    <value>MatchPrice</value>
+    <value>成交价</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value>Message</value>
+    <value>状态信息</value>
   </data>
   <data name="OffsetFlag" xml:space="preserve">
-    <value>OffsetFlag</value>
+    <value>开平</value>
   </data>
   <data name="OpenAmount" xml:space="preserve">
-    <value>OpenAmount</value>
+    <value>开仓金额</value>
   </data>
   <data name="OpenClose" xml:space="preserve">
-    <value>OpenClose</value>
+    <value>开平</value>
   </data>
   <data name="OpenCost" xml:space="preserve">
-    <value>OpenCost</value>
+    <value>开仓成本</value>
   </data>
   <data name="Opening" xml:space="preserve">
-    <value>Opening</value>
+    <value>当前挂单</value>
   </data>
   <data name="OpenVolume" xml:space="preserve">
-    <value>OpenVolume</value>
+    <value>开仓量</value>
   </data>
   <data name="Optional" xml:space="preserve">
-    <value>Optional</value>
+    <value>自选合约</value>
   </data>
   <data name="OrderID" xml:space="preserve">
-    <value>OrderID</value>
+    <value>订单编号</value>
   </data>
   <data name="OrderSysID" xml:space="preserve">
-    <value>OrderSysID</value>
+    <value>报单编号</value>
   </data>
   <data name="PassWord" xml:space="preserve">
-    <value>PassWord</value>
+    <value>密码</value>
   </data>
   <data name="Position" xml:space="preserve">
-    <value>Position</value>
+    <value>持仓</value>
   </data>
   <data name="PositionCost" xml:space="preserve">
-    <value>Cost</value>
+    <value>持仓成本</value>
   </data>
   <data name="PositionDirection" xml:space="preserve">
-    <value>Direction</value>
+    <value>多空</value>
   </data>
   <data name="PositionProfit" xml:space="preserve">
-    <value>Porfit</value>
+    <value>持仓盈亏</value>
   </data>
   <data name="PositionWindow" xml:space="preserve">
-    <value>PositionWindow</value>
+    <value>持仓板块</value>
   </data>
   <data name="Quote" xml:space="preserve">
-    <value>Quote</value>
+    <value>行情</value>
   </data>
   <data name="QuoteVolume" xml:space="preserve">
-    <value>Volume</value>
+    <value>成交量</value>
   </data>
   <data name="QuoteWindow" xml:space="preserve">
-    <value>QuoteWindow</value>
+    <value>报价表</value>
   </data>
   <data name="Server_Connected" xml:space="preserve">
-    <value>Server Connected</value>
+    <value>服务器已连接</value>
   </data>
   <data name="Server_Unconnected" xml:space="preserve">
-    <value>Server Unconnected</value>
+    <value>服务器未连接</value>
   </data>
   <data name="SHFE" xml:space="preserve">
-    <value>SHFE</value>
+    <value>上海期货</value>
   </data>
   <data name="ShortFrozen" xml:space="preserve">
-    <value>ShortFrozen</value>
+    <value>空头冻结</value>
   </data>
   <data name="ShortFrozenAmount" xml:space="preserve">
-    <value>ShortFrozenAmount</value>
+    <value>空头金额</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>Status</value>
+    <value>订单状态</value>
   </data>
   <data name="TIF" xml:space="preserve">
-    <value>TIF</value>
+    <value>有效期类型</value>
   </data>
   <data name="TitleText" xml:space="preserve">
-    <value>TitleText</value>
+    <value>标题</value>
   </data>
   <data name="TodayPosition" xml:space="preserve">
-    <value>TodayPosition</value>
+    <value>今日持仓</value>
   </data>
   <data name="Traded" xml:space="preserve">
-    <value>Traded</value>
+    <value>已成交</value>
   </data>
   <data name="TradeDate" xml:space="preserve">
-    <value>TradeDate</value>
+    <value>成交日期</value>
   </data>
   <data name="TradeDetail" xml:space="preserve">
-    <value>TradeDetail</value>
+    <value>成交明细</value>
   </data>
   <data name="TradedWindow" xml:space="preserve">
-    <value>TradedWindow</value>
+    <value>成交板块</value>
   </data>
   <data name="Traded_Close" xml:space="preserve">
-    <value>Traded Close</value>
+    <value>平仓记录</value>
   </data>
   <data name="Traded_Open" xml:space="preserve">
-    <value>Traded Open</value>
+    <value>开仓记录</value>
   </data>
   <data name="TradeID" xml:space="preserve">
-    <value>TradeID</value>
+    <value>成交编号</value>
   </data>
   <data name="TradePrice" xml:space="preserve">
-    <value>Price</value>
+    <value>成交价格</value>
   </data>
   <data name="TradeTime" xml:space="preserve">
-    <value>TradeTime</value>
+    <value>成交时间</value>
   </data>
   <data name="TradeVolume" xml:space="preserve">
-    <value>Volume</value>
+    <value>成交量</value>
   </data>
   <data name="TradingType" xml:space="preserve">
-    <value>TradingType</value>
+    <value>交易类型</value>
   </data>
   <data name="UpdateTime" xml:space="preserve">
-    <value>UpdateTime</value>
+    <value>最后修改时间</value>
   </data>
   <data name="UseMargin" xml:space="preserve">
-    <value>UseMargin</value>
+    <value>占用保证金</value>
   </data>
   <data name="UserClient" xml:space="preserve">
-    <value>UserClient</value>
+    <value>客户端</value>
   </data>
   <data name="UserName" xml:space="preserve">
-    <value>UserName</value>
+    <value>用户名</value>
   </data>
   <data name="Volume" xml:space="preserve">
-    <value>Volume</value>
+    <value>报单数量</value>
   </data>
   <data name="VolumeRemain" xml:space="preserve">
-    <value>VolumeRemain</value>
+    <value>未成交数量</value>
   </data>
   <data name="VolumeTraded" xml:space="preserve">
-    <value>VolumeTraded</value>
+    <value>成交数量</value>
   </data>
   <data name="YdPosition" xml:space="preserve">
-    <value>YesterdayPosition</value>
+    <value>昨日持仓</value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>买入</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>平仓</value>
+  </data>
+  <data name="CloseToday" xml:space="preserve">
+    <value>平今</value>
+  </data>
+  <data name="GFD" xml:space="preserve">
+    <value>当日有效</value>
+  </data>
+  <data name="GTC" xml:space="preserve">
+    <value>直到取消</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>开仓</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>下单</value>
+  </data>
+  <data name="OrderVolume" xml:space="preserve">
+    <value>量</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>价格</value>
+  </data>
+  <data name="Sell" xml:space="preserve">
+    <value>卖出</value>
+  </data>
+  <data name="TimeCondition" xml:space="preserve">
+    <value>有效期</value>
+  </data>
+  <data name="Underlying" xml:space="preserve">
+    <value>产品种类</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>板块标题</value>
   </data>
 </root>

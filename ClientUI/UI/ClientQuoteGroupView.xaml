@@ -4,6 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"  
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+             lex:LocalizeDictionary.DesignCulture="zh_CN"
+             lex:LocalizeDictionary.OutputMissingKeys="True"
+             lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.CustomizedControls"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resource"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1300">
     <DockPanel>
@@ -13,51 +18,51 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <WrapPanel Grid.Row="0">
-                <Label Content="合约："></Label>
+                <Label Content="{lex:Loc Key=Contract}"></Label>
                 <TextBox Name="contractTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" />
-                <Button Content="添加" Click="Button_Click_Add"/>
+                <Button Content="{lex:Loc Key=Add}" Click="Button_Click_Add"/>
             </WrapPanel>
 
             <ListView Name="quoteListView" Grid.Row="1" SelectionChanged="quoteListView_SelectionChanged">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="合约" DisplayMemberBinding="{Binding Contract}"/>
-                        <GridViewColumn Header="成交量">
+                        <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
+                        <GridViewColumn Header="{lex:Loc Key=QuoteVolume}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Volume}" TextAlignment="Right"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="成交价">
+                        <GridViewColumn Header="{lex:Loc Key=MatchPrice}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Value}" DataContext="{Binding MatchPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="买价">
+                        <GridViewColumn Header="{lex:Loc Key=BidPrice}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Value}" DataContext="{Binding BidPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="买量">
+                        <GridViewColumn Header="{lex:Loc Key=BidSize}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding BidSize}" TextAlignment="Right"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="卖价">
+                        <GridViewColumn Header="{lex:Loc Key=AskPrice}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Value}" DataContext="{Binding AskPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="卖量">
+                        <GridViewColumn Header="{lex:Loc Key=AskSize}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding AskSize}" TextAlignment="Right"/>
@@ -68,11 +73,11 @@
                 </ListView.View>
                 <ListView.ContextMenu>
                     <ContextMenu Name="QuoteContextMenu" StaysOpen="True">
-                        <MenuItem Header="删除报价" Click="MenuItem_Click_Delete" />
+                        <MenuItem Header="{lex:Loc Key=DeleteOrder}" Click="MenuItem_Click_Delete" />
                         <Separator />
-                        <MenuItem Header="筛选配置" Click="MenuItem_Click_Settings" />
+                        <MenuItem Header="{lex:Loc Key=FilterSettings}" Click="MenuItem_Click_Settings" />
                         <Separator />
-                        <MenuItem Header="列显示设置" Click="MenuItem_Click_Columns" />
+                        <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItem_Click_Columns" />
                         <Separator></Separator>
                     </ContextMenu>
                 </ListView.ContextMenu>

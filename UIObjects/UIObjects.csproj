@@ -57,6 +57,11 @@
     <Compile Include="Business\TraderExHandler.cs" />
     <Compile Include="Constant\StringConst.cs" />
     <Compile Include="Business\AbstractOTCMarketDataHandler.cs" />
+    <Compile Include="EnumMap\Resource.en.Designer.cs">
+      <DependentUpon>Resource.en.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="EnumMap\Resource.Designer.cs">
       <DependentUpon>Resource.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -457,6 +462,10 @@
     <Resource Include="Images\RefreshArrow_32x32.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="EnumMap\Resource.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="EnumMap\Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>

@@ -106,7 +106,7 @@ namespace Micro.Future.UI
         {
             QuoteSettingsWindow win = new QuoteSettingsWindow();
             var quoteVMCollection = (ObservableCollection<QuoteViewModel>)quoteListView.ItemsSource;
-            win.ExchangeCollection = (from p in quoteVMCollection select p.Exchange).Distinct();
+            win.ExchangeCollection = (from p in quoteVMCollection select p.Exchange).Distinct().ToList();
             if (win.ShowDialog() == true)
             {
                 FilterByExchange(win.QuoteExchange);
@@ -154,7 +154,7 @@ namespace Micro.Future.UI
 
                 QuoteViewModel qvm = o as QuoteViewModel;
 
-                if (contract.Contains(qvm.Contract))
+                if (qvm.Contract.Contains(contract))
                 {
                     return true;
                 }

@@ -107,7 +107,11 @@ namespace Micro.Future.Message
                     {
                         if (!QuoteVMCollection.Exist((quote) => string.Compare(quote.Contract, md.Contract, true) == 0))
                         {
-                            QuoteVMCollection.Add(new QuoteViewModel() { Contract = md.Contract });
+                            QuoteVMCollection.Add(new QuoteViewModel()
+                            {
+                                Exchange = md.Exhange,
+                                Contract = md.Contract
+                            });
                         }
                     }
                 }

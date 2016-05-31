@@ -99,5 +99,10 @@ namespace Micro.Future.UI
             if (_signInMgr.IsSessionCreated)
                 Close();
         }
+
+        private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

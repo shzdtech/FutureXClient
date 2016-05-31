@@ -5,6 +5,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:local="clr-namespace:Micro.Future.UI;assembly=Micro.Future.UIObject"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+    lex:LocalizeDictionary.DesignCulture="zh_CN"
+    lex:LocalizeDictionary.OutputMissingKeys="True"
+    lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.CustomizedControls"
+    lex:ResxLocalizationProvider.DefaultDictionary="Resource"         
     mc:Ignorable="d" 
     d:DesignHeight="200" d:DesignWidth="300" HorizontalAlignment="Left">
     <UserControl.Resources>
@@ -23,16 +28,16 @@
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <TextBlock VerticalAlignment="Center" Text="合约" Width="35"></TextBlock>
+            <TextBlock VerticalAlignment="Center" Text="{lex:Loc Key=Contract}" Width="35"></TextBlock>
             <TextBox Name="FastOrderContract" Width="100" TextAlignment="Right" Text="{Binding Contract}" TextChanged="FastOrderContract_TextChanged"></TextBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <TextBlock Width="35" Text="量:" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Width="35" Text="{lex:Loc Key=OrderVolume}" VerticalAlignment="Center"></TextBlock>
             <xctk:IntegerUpDown Width="100" FormatString="N0" x:Name="SizeTxt" Value="{Binding Volume}"/>
-            <TextBlock Text="时效：" Width="35" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Text="{lex:Loc Key=TIF}" Width="35" VerticalAlignment="Center"></TextBlock>
             <ComboBox Name="TimeTypeCombo" SelectedIndex="0" Grid.ColumnSpan="2" Width="100">
-                <ComboBoxItem>当日有效</ComboBoxItem>
-                <ComboBoxItem>直到取消</ComboBoxItem>
+                <ComboBoxItem>GFD</ComboBoxItem>
+                <ComboBoxItem>GTC</ComboBoxItem>
             </ComboBox>
         </StackPanel>
 
@@ -43,15 +48,15 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Canvas Grid.Column="0">
-                <RadioButton Name="RadioA" GroupName="orderType"  Content="开仓" 
+                <RadioButton Name="RadioA" GroupName="orderType"  Content="{lex:Loc Key=Open}" 
                              IsChecked="{Binding Path=OffsetFlag,Converter={StaticResource enumBooleanConverter}, ConverterParameter=OPEN}" VerticalAlignment="Center" />
             </Canvas>
             <Canvas Grid.Column="1">
-                <RadioButton Name="RadioB" GroupName="orderType" Content="平仓"
+                <RadioButton Name="RadioB" GroupName="orderType" Content="{lex:Loc Key=Close}"
                              IsChecked="{Binding Path=OffsetFlag,Converter={StaticResource enumBooleanConverter}, ConverterParameter=CLOSE}" VerticalAlignment="Center" />
             </Canvas>
             <Canvas Grid.Column="2">
-                <RadioButton Name="RadioC"  GroupName="orderType" Content="平今" 
+                <RadioButton Name="RadioC"  GroupName="orderType" Content="{lex:Loc Key=CloseToday}" 
                              IsChecked="{Binding Path=OffsetFlag,Converter={StaticResource enumBooleanConverter}, ConverterParameter=CLOSETODAY}" VerticalAlignment="Center" />
             </Canvas>
         </Grid>
@@ -62,19 +67,19 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Canvas Grid.Column="0">
-                <RadioButton Name="radioButtonBuy" Content="买入" 
+                <RadioButton Name="radioButtonBuy" Content="{lex:Loc Key=Buy}" 
                              IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=BUY}"
                              VerticalAlignment="Center" GroupName="BuySellGroup" />
             </Canvas>
             <Canvas Grid.Column="1">
-                <RadioButton Name="radioButtonSell" Content="卖出"
+                <RadioButton Name="radioButtonSell" Content="{lex:Loc Key=Sell}"
                              IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=SELL}" 
                              VerticalAlignment="Center" GroupName="BuySellGroup" />
             </Canvas>
         </Grid>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Height="50" VerticalAlignment="Bottom">
-            <TextBlock Text="价格" VerticalAlignment="Center" Width="35"></TextBlock>
+            <TextBlock Text="{lex:Loc Key=Price}" VerticalAlignment="Center" Width="35"></TextBlock>
             <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment=".1" Value="{Binding LimitPrice}" />
             <StackPanel x:Name="stackPanelPrices" Height="50" VerticalAlignment="Bottom" >
                 <Label x:Name="LabelUpperPrice" Content="{Binding UpperLimitPrice}" MouseDown="labelupperprice_MouseDown" MinHeight="10" MinWidth="20" />
@@ -89,7 +94,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Name="BuySummitButton" Content="下单" Grid.Column="0" Command="{Binding Path=SendOrderCommand}" ></Button>
+            <Button Name="BuySummitButton" Content="{lex:Loc Key=Order}" Grid.Column="0" Command="{Binding Path=SendOrderCommand}" ></Button>
             <!--<RadioButton x:Name="radioButton" Content="买入"  IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=BUY}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="1,-148,0,0" GroupName="radiopd"/>-->
             <!--<RadioButton x:Name="radioButtonSell" Content="卖出"  IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=SELL}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="84,-148,0,0" GroupName="radiopd"/>-->
         </Grid>
