@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using WPFLocalizeExtension.Extensions;
 
 namespace Micro.Future.UI
 {
@@ -22,6 +24,17 @@ namespace Micro.Future.UI
                 return parent;
             else
                 return FindParent<T>(parentObject);
+        }
+
+        public static string GetLocalizedString(string key, string resources = "Resources", string assembly = null)
+        {
+            return GetLocalizedValue<string>(key, resources, assembly);
+        }
+
+        public static T GetLocalizedValue<T>(string key, string resources = "Resources", string assembly = null)
+        {
+            if (assembly == null) assembly = Assembly.GetCallingAssembly().GetName().Name;
+            return LocExtension.GetLocalizedValue<T>(assembly + ":" + resources + ":" + key);
         }
     }
 }
