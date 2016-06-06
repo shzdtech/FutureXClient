@@ -1,14 +1,19 @@
-﻿using System.Windows.Controls;
-using System.Windows.Input;
-using Micro.Future.ViewModel;
+﻿using System;
+using System.Windows;
+using Micro.Future.Util;
 using Micro.Future.Message;
+using System.Collections;
+using System.Security.Cryptography;
+using Micro.Future.ViewModel;
+using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace Micro.Future.UI
 {
     /// <summary>
-    /// FastOrder.xaml 的交互逻辑
+    /// Login.xaml 的交互逻辑
     /// </summary>
-    public partial class ClientFastOrderWindow : UserControl
+    public partial class FastOrderWin : Window
     {
         private string _currentContract;
 
@@ -60,7 +65,7 @@ namespace Micro.Future.UI
             private set;
         }
 
-        public ClientFastOrderWindow()
+        public FastOrderWin()
         {
             OrderVM = new OrderVM();
             InitializeComponent();

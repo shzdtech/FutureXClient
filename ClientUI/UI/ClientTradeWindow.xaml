@@ -19,14 +19,14 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <!--<RowDefinition Height="20"/>-->
             <RowDefinition />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
+        <!--<StackPanel Orientation="Horizontal">
             <RadioButton GroupName="executionClass"  IsChecked="True" Content="成交记录" Checked="RadioButton_Checked"/>
             <RadioButton GroupName="executionClass"  Content="平仓记录" Checked="RadioButton_Checked_1" />
 
-        </StackPanel>
+        </StackPanel>-->
         <ListView Name="TradeTreeView" Grid.Row="1" GridViewColumnHeader.Click="TradeTreeView_Click" ItemsSource="{Binding TradeVMCollection}">
             <ListView.View>
                 <GridView>

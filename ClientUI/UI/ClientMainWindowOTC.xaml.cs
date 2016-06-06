@@ -8,6 +8,7 @@ using System.Threading;
 using Xceed.Wpf.AvalonDock.Layout;
 using System.Collections.Generic;
 using WPFLocalizeExtension;
+using Micro.Future.UI;
 
 namespace Micro.Future.UI
 {
@@ -29,11 +30,7 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
-            // UI initialization
-            otcMarketDataLV.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
-            positionsWindow.OnPositionSelected += FastOrderCtl.OnPositionSelected;
 
-            //
             var msgWrapper = _otcClientSignIner.MessageWrapper;
 
             msgWrapper.MessageClient.OnDisconnected += OTCClient_OnDisconnected;
@@ -94,12 +91,12 @@ namespace Micro.Future.UI
 
         private void OnErrorMessageRecv(MessageException errRsult)
         {
-            MessageBox.Show(this, errRsult.Message, "发生错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(this, errRsult.Message, WPFUtility.GetLocalizedString("Error", "Resource"), MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         void OTCClient_OnDisconnected(Exception ex)
         {
-            MessageBox.Show(this, "请尝试重新登陆", "服务器连接已断开", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(this, WPFUtility.GetLocalizedString("ReConnect", "Resource"), "服务器连接已断开", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
 
@@ -287,5 +284,13 @@ namespace Micro.Future.UI
             positionPane.Children.Add(ancable);
         }
 
+
+        private void FastOrder_Click(object sender, RoutedEventArgs e)
+        {
+            FastOrderWin fastOrderWindow = new FastOrderWin();
+            fastOrderWindow.Show();
+            otcMarketDataLV.OnQuoteSelected += fastOrderWindow.OnQuoteSelected;
+            positionsWindow.OnPositionSelected += fastOrderWindow.OnPositionSelected;
+        }
     }
 }

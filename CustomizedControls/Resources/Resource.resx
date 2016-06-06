@@ -423,4 +423,88 @@
   <data name="WindowTitle" xml:space="preserve">
     <value>板块标题</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="OrderWindow" xml:space="preserve">
+    <value>下单板</value>
+  </data>
+  <data name="OTCContactInfo" xml:space="preserve">
+    <value>OTC联系信息</value>
+  </data>
+  <data name="ReConnect" xml:space="preserve">
+    <value>请重新连接</value>
+  </data>
+  <data name="AccountID" xml:space="preserve">
+    <value>投资者账户</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>可用资金</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>期货结算准备金</value>
+  </data>
+  <data name="CashIn" xml:space="preserve">
+    <value>资金差额</value>
+  </data>
+  <data name="Credit" xml:space="preserve">
+    <value>信用额度</value>
+  </data>
+  <data name="CurrMargin" xml:space="preserve">
+    <value>当前保证金总额</value>
+  </data>
+  <data name="Deposit" xml:space="preserve">
+    <value>入金金额</value>
+  </data>
+  <data name="ExchangeMargin" xml:space="preserve">
+    <value>交易所保证金</value>
+  </data>
+  <data name="FrozenCash" xml:space="preserve">
+    <value>冻结的资金</value>
+  </data>
+  <data name="FrozenCommission" xml:space="preserve">
+    <value>冻结的手续费</value>
+  </data>
+  <data name="FrozenMargin" xml:space="preserve">
+    <value>冻结的保证金</value>
+  </data>
+  <data name="InterestBase" xml:space="preserve">
+    <value>利息基数</value>
+  </data>
+  <data name="Mortgage" xml:space="preserve">
+    <value>质押金额</value>
+  </data>
+  <data name="PreBalance" xml:space="preserve">
+    <value>上次结算准备金</value>
+  </data>
+  <data name="PreCredit" xml:space="preserve">
+    <value>上次信用额度</value>
+  </data>
+  <data name="PreDeposit" xml:space="preserve">
+    <value>上次存款额</value>
+  </data>
+  <data name="PreMargin" xml:space="preserve">
+    <value>上次占用保证金</value>
+  </data>
+  <data name="PreMortgage" xml:space="preserve">
+    <value>上次质押金额</value>
+  </data>
+  <data name="Reserve" xml:space="preserve">
+    <value>基本准备金</value>
+  </data>
+  <data name="SettlementID" xml:space="preserve">
+    <value>结算编号</value>
+  </data>
+  <data name="TradeWindow" xml:space="preserve">
+    <value>成交板块</value>
+  </data>
+  <data name="TradingDay" xml:space="preserve">
+    <value>交易日</value>
+  </data>
+  <data name="Withdraw" xml:space="preserve">
+    <value>出金金额</value>
+  </data>
+  <data name="WithdrawQuota" xml:space="preserve">
+    <value>可取资金</value>
+  </data>
 </root>

@@ -4,6 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Micro.Future.UI"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+             lex:LocalizeDictionary.DesignCulture="zh_CN"
+             lex:LocalizeDictionary.OutputMissingKeys="True"
+             lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.CustomizedControls"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resource"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1300">
     <Grid>
@@ -67,39 +72,39 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>-->
-                    <GridViewColumn Header="经纪公司代码" DisplayMemberBinding="{Binding BrokerID}"/>
-                    <GridViewColumn Header="投资者账号" DisplayMemberBinding="{Binding AccountID}"/>
-                    <GridViewColumn Header="上次质押金额" DisplayMemberBinding="{Binding PreMortgage}"/>
-                    <GridViewColumn Header="上次信用额度" DisplayMemberBinding="{Binding PreCredit}"/>
-                    <GridViewColumn Header="上次存款额" DisplayMemberBinding="{Binding PreDeposit}"/>
-                    <GridViewColumn Header="上次结算准备金" DisplayMemberBinding="{Binding PreBalance}"/>
-                    <GridViewColumn Header="上次占用保证金" DisplayMemberBinding="{Binding PreMargin}"/>
-                    <GridViewColumn Header="利息基数" DisplayMemberBinding="{Binding InterestBase}"/>
-                    <GridViewColumn Header="入金金额" DisplayMemberBinding="{Binding Deposit}"/>
-                    <GridViewColumn Header="出金金额" DisplayMemberBinding="{Binding Withdraw}"/>
-                    <GridViewColumn Header="冻结的保证金" DisplayMemberBinding="{Binding FrozenMargin}"/>
-                    <GridViewColumn Header="冻结的资金" DisplayMemberBinding="{Binding FrozenCash}"/>
-                    <GridViewColumn Header="冻结的手续费" DisplayMemberBinding="{Binding FrozenCommission}"/>
-                    <GridViewColumn Header="当前保证金总额" DisplayMemberBinding="{Binding CurrMargin}"/>
-                    <GridViewColumn Header="资金差额" DisplayMemberBinding="{Binding CashIn}"/>
-                    <GridViewColumn Header="平仓盈亏" DisplayMemberBinding="{Binding CloseProfit}"/>
-                    <GridViewColumn Header="持仓盈亏" DisplayMemberBinding="{Binding PositionProfit}"/>
-                    <GridViewColumn Header="期货结算准备金" DisplayMemberBinding="{Binding Balance}"/>
-                    <GridViewColumn Header="可用资金" DisplayMemberBinding="{Binding Available}"/>
-                    <GridViewColumn Header="可取资金" DisplayMemberBinding="{Binding WithdrawQuota}"/>
-                    <GridViewColumn Header="基本准备金" DisplayMemberBinding="{Binding Reserve}"/>
-                    <GridViewColumn Header="交易日" DisplayMemberBinding="{Binding TradingDay}"/>
-                    <GridViewColumn Header="结算编号" DisplayMemberBinding="{Binding SettlementID}"/>
-                    <GridViewColumn Header="信用额度" DisplayMemberBinding="{Binding Credit}"/>
-                    <GridViewColumn Header="质押金额" DisplayMemberBinding="{Binding Mortgage}"/>
-                    <GridViewColumn Header="交易所保证金" DisplayMemberBinding="{Binding ExchangeMargin}"/>
+                    <GridViewColumn Header="{lex:Loc Key=BrokerID}" DisplayMemberBinding="{Binding BrokerID}"/>
+                    <GridViewColumn Header="{lex:Loc Key=AccountID}" DisplayMemberBinding="{Binding AccountID}"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreMortgage}" DisplayMemberBinding="{Binding PreMortgage}"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreCredit}" DisplayMemberBinding="{Binding PreCredit}"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreDeposit}" DisplayMemberBinding="{Binding PreDeposit}"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreBalance}" DisplayMemberBinding="{Binding PreBalance}"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreMargin}" DisplayMemberBinding="{Binding PreMargin}"/>
+                    <GridViewColumn Header="{lex:Loc Key=InterestBase}" DisplayMemberBinding="{Binding InterestBase}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Deposit}" DisplayMemberBinding="{Binding Deposit}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Withdraw}" DisplayMemberBinding="{Binding Withdraw}"/>
+                    <GridViewColumn Header="{lex:Loc Key=FrozenMargin}" DisplayMemberBinding="{Binding FrozenMargin}"/>
+                    <GridViewColumn Header="{lex:Loc Key=FrozenCash}" DisplayMemberBinding="{Binding FrozenCash}"/>
+                    <GridViewColumn Header="{lex:Loc Key=FrozenCommission}" DisplayMemberBinding="{Binding FrozenCommission}"/>
+                    <GridViewColumn Header="{lex:Loc Key=CurrMargin}" DisplayMemberBinding="{Binding CurrMargin}"/>
+                    <GridViewColumn Header="{lex:Loc Key=CashIn}" DisplayMemberBinding="{Binding CashIn}"/>
+                    <GridViewColumn Header="{lex:Loc Key=CloseProfit}" DisplayMemberBinding="{Binding CloseProfit}"/>
+                    <GridViewColumn Header="{lex:Loc Key=PositionProfit}" DisplayMemberBinding="{Binding PositionProfit}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Balance}" DisplayMemberBinding="{Binding Balance}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Available}" DisplayMemberBinding="{Binding Available}"/>
+                    <GridViewColumn Header="{lex:Loc Key=WithdrawQuota}" DisplayMemberBinding="{Binding WithdrawQuota}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Reserve}" DisplayMemberBinding="{Binding Reserve}"/>
+                    <GridViewColumn Header="{lex:Loc Key=TradingDay}" DisplayMemberBinding="{Binding TradingDay}"/>
+                    <GridViewColumn Header="{lex:Loc Key=SettlementID}" DisplayMemberBinding="{Binding SettlementID}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Credit}" DisplayMemberBinding="{Binding Credit}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Mortgage}" DisplayMemberBinding="{Binding Mortgage}"/>
+                    <GridViewColumn Header="{lex:Loc Key=ExchangeMargin}" DisplayMemberBinding="{Binding ExchangeMargin}"/>
 
 
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
                 <ContextMenu StaysOpen="True">
-                    <MenuItem Header="列显示设置" Click="MenuItemColumns_Click" />
+                    <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItemColumns_Click" />
                 </ContextMenu>
             </ListView.ContextMenu>
         </ListView>

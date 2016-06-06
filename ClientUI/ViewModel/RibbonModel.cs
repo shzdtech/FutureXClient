@@ -500,7 +500,7 @@ namespace Micro.Future.ViewModel
             {
                 lock (_lockObject)
                 {
-                    string Str = "{lex:Loc Key=ContactInfo}";
+                    string Str = WPFUtility.GetLocalizedString("ContactInfo","Resource");
 
                     if (!_dataCollection.ContainsKey(Str))
                     {
@@ -509,8 +509,8 @@ namespace Micro.Future.ViewModel
                             Label = Str,
                             LargeImage = new Uri("/" + ResourceAssembly + ";component/Images/Contact_48x48.png", UriKind.Relative),
                             Command = new DelegateCommand(LoadOTCContact, DefaultCanExecute),
-                            ToolTipDescription = "OTC联系信息",
-                            ToolTipTitle = "联系信息",
+                            ToolTipDescription = WPFUtility.GetLocalizedString("ContactInfo", "Resource"),
+                            ToolTipTitle = WPFUtility.GetLocalizedString("ContactInfo", "Resource"),
                         };
                         _dataCollection[Str] = menuItemData;
                     }

@@ -18,15 +18,15 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <!--<RowDefinition Height="20"/>-->
             <RowDefinition />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
+        <!--<StackPanel Orientation="Horizontal">
             <RadioButton GroupName="executionClass"  IsChecked="True" Content="所有订单" Checked="RadioButton_Checked_AllOrder"/>
             <RadioButton GroupName="executionClass"  Content="已成交单" Checked="RadioButton_Checked_TradedOrder" />
             <RadioButton GroupName="executionClass"  Content="已撤销单"  Checked="RadioButton_Checked_CanceledOrder"/>
             <RadioButton GroupName="executionClass" Content="已拒绝单" Checked="RadioButton_Checked_RejectedOrder"/>
-        </StackPanel>
+        </StackPanel>-->
         <ListView Name="ExecutionTreeView" Grid.Row="1" GridViewColumnHeader.Click="ExecutionTreeView_Click" ItemsSource="{Binding OrderVMCollection}">         
             <ListView.View>
                 <GridView>
@@ -77,11 +77,11 @@
             <ListView.ContextMenu>
                 <ContextMenu StaysOpen="True">
                     <!--<MenuItem Header="修改订单" />-->
-                    <MenuItem Header="取消订单" Click="MenuItem_Click_CancelOrder" />
+                    <MenuItem Header="{lex:Loc Key=CancelOrder}" Click="MenuItem_Click_CancelOrder" />
                     <Separator />
-                    <MenuItem Header="筛选配置" Click="MenuItem_Click_Settings" />
+                    <MenuItem Header="{lex:Loc Key=FilterSettings}" Click="MenuItem_Click_Settings" />
                     <Separator />
-                    <MenuItem Header="列显示设置" Click="MenuItem_Click_Columns" />
+                    <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItem_Click_Columns" />
                     <Separator></Separator>
                 </ContextMenu>
             </ListView.ContextMenu>

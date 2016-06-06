@@ -13,12 +13,16 @@
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
         Icon="/Images/Calculator.png">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="157*"/>
+            <ColumnDefinition Width="604*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="110"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Ribbon x:Name="ribbonMenu" Grid.Column="0" Title="{lex:Loc Key=UserClient}">
+        <Ribbon x:Name="ribbonMenu" Grid.Column="0" Title="{lex:Loc Key=UserClient}" Grid.ColumnSpan="2">
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu Visibility="Collapsed" >
                 </RibbonApplicationMenu>
@@ -28,12 +32,12 @@
                 <RibbonGroup>
                     <RibbonButton Label="{lex:Loc Key=LogIN}" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogin_Click" />
                 </RibbonGroup>
-                <RibbonGroup>
-                    <RibbonButton  DataContext="{x:Static data:RibbonModel.OTCContactCtrl}" />
-                    <!--<RibbonButton DataContext="{x:Static data:RibbonModel.ThemeSetting}" />-->
-                    <!--<RibbonButton DataContext="{x:Static data:RibbonModel.PasswordSetting}" />-->
-                    <!--<RibbonButton DataContext="{x:Static data:RibbonModel.NewUser}" />-->
-                </RibbonGroup>
+                <!--<RibbonGroup>
+                    <RibbonButton  DataContext="{x:Static data:RibbonModel.OTCContactCtrl}" />-->
+                <!--<RibbonButton DataContext="{x:Static data:RibbonModel.ThemeSetting}" />-->
+                <!--<RibbonButton DataContext="{x:Static data:RibbonModel.PasswordSetting}" />-->
+                <!--<RibbonButton DataContext="{x:Static data:RibbonModel.NewUser}" />-->
+                <!--</RibbonGroup>-->
                 <RibbonGroup>
                     <RibbonMenuButton Label="{lex:Loc Key=AddWindow}" LargeImageSource="/Images/Login_48x48.png">
                         <RibbonMenuItem Header="{lex:Loc Key=QuoteWindow}">
@@ -58,10 +62,13 @@
                         </RibbonMenuItem> />
                     </RibbonMenuButton>
                 </RibbonGroup>
+                <RibbonGroup>
+                    <RibbonButton Label="{lex:Loc Key=OrderWindow}" LargeImageSource="/Images/Login_48x48.png" Click="FastOrder_Click" />
+                </RibbonGroup>
             </RibbonTab>
         </Ribbon>
 
-        <StatusBar Grid.Row="2">
+        <StatusBar Grid.Row="2" Grid.ColumnSpan="2">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>
@@ -99,54 +106,55 @@
                 <Label Name="RightDownStatus"></Label>
             </StatusBarItem>
         </StatusBar>
-        <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" >
+        <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" Grid.ColumnSpan="2" >
             <avalonDock:DockingManager.Theme>
                 <avalonDock:GenericTheme/>
             </avalonDock:DockingManager.Theme>
             <avalonDock:LayoutRoot>
-                <avalonDock:LayoutPanel Orientation="Vertical">
-                    <avalonDock:LayoutPanel DockWidth="4*" DockMinHeight="25" DockHeight="0.15*">
+                <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*">
+                    <avalonDock:LayoutPanel DockWidth="4*" DockHeight="0.15*" DockMinHeight="0">
                         <avalonDock:LayoutAnchorablePane x:Name="fundPane">
                             <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Fund}">
                                 <c:ClientFundWindow x:Name="clientFundLV"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
-                    </avalonDock:LayoutPanel>                    
-                   <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="0.5*">
-                        <avalonDock:LayoutPanel DockWidth="4*">
+                    </avalonDock:LayoutPanel>
+                    <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*" >
+                        <avalonDock:LayoutPanel DockWidth="4*" DockHeight="0.35*">
                             <avalonDock:LayoutAnchorablePane x:Name="quotePane">
                                 <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Quote}">
                                     <c:ClientQuoteGroupView x:Name="otcMarketDataLV"/>
                                 </avalonDock:LayoutAnchorable>
                             </avalonDock:LayoutAnchorablePane>
                         </avalonDock:LayoutPanel>
-                        <avalonDock:LayoutPanel Orientation="Horizontal" DockHeight="350" >
-                        <avalonDock:LayoutPanel DockWidth="*" >
-                            <avalonDock:LayoutAnchorablePane x:Name="fastorderPane" >
+                            <!--<avalonDock:LayoutPanel DockWidth="*" >
+                                <avalonDock:LayoutAnchorablePane x:Name="fastorderPane" >
                                     <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}">
-                                    <c:ClientFastOrderWindow x:Name="FastOrderCtl"  />
-                                </avalonDock:LayoutAnchorable>
-                            </avalonDock:LayoutAnchorablePane>
-                        </avalonDock:LayoutPanel>
-                        <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="4*">
-                            <avalonDock:LayoutAnchorablePane x:Name="executionPane">
+                                        <c:ClientFastOrderWindow x:Name="FastOrderCtl"  />
+                                    </avalonDock:LayoutAnchorable>
+                                </avalonDock:LayoutAnchorablePane>
+                            </avalonDock:LayoutPanel>-->
+                            <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="350">
+                                <avalonDock:LayoutAnchorablePane x:Name="executionPane">
                                     <avalonDock:LayoutAnchorable Title="{lex:Loc Key=ExecutionWindow}">
-                                    <c:ClientExecutionWindow x:Name="executionWindow"/>
-                                </avalonDock:LayoutAnchorable>
-                            </avalonDock:LayoutAnchorablePane>
-                                <avalonDock:LayoutAnchorablePane x:Name="tradePane">
+                                        <c:ClientExecutionWindow x:Name="executionWindow"/>
+                                    </avalonDock:LayoutAnchorable>
+                                </avalonDock:LayoutAnchorablePane>
+                            </avalonDock:LayoutPanel>
+                            <avalonDock:LayoutPanel Orientation="Horizontal" DockWidth="10*">                            
+                            <avalonDock:LayoutAnchorablePane x:Name="tradePane">
                                     <avalonDock:LayoutAnchorable Title="{lex:Loc Key=TradeWindow}">
                                         <c:ClientTradeWindow x:Name="tradeWindow"/>
                                     </avalonDock:LayoutAnchorable>
                                 </avalonDock:LayoutAnchorablePane>
                                 <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
                                     <avalonDock:LayoutAnchorable Title="{lex:Loc Key=PositionWindow}">
-                                    <c:ClientPositionWindow x:Name="positionsWindow"/>
-                                </avalonDock:LayoutAnchorable>
-                            </avalonDock:LayoutAnchorablePane>
-                        </avalonDock:LayoutPanel>
+                                        <c:ClientPositionWindow x:Name="positionsWindow"/>
+                                    </avalonDock:LayoutAnchorable>
+                                </avalonDock:LayoutAnchorablePane>
+                            </avalonDock:LayoutPanel>
+
                     </avalonDock:LayoutPanel>
-                </avalonDock:LayoutPanel>
                 </avalonDock:LayoutPanel>
             </avalonDock:LayoutRoot>
         </avalonDock:DockingManager>

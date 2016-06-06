@@ -423,4 +423,88 @@
   <data name="WindowTitle" xml:space="preserve">
     <value>WindowTitle</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="OrderWindow" xml:space="preserve">
+    <value>OrderWindow</value>
+  </data>
+  <data name="OTCContactInfo" xml:space="preserve">
+    <value>OTCContactInfo</value>
+  </data>
+  <data name="ReConnect" xml:space="preserve">
+    <value>Please ReConnect</value>
+  </data>
+  <data name="AccountID" xml:space="preserve">
+    <value>AccountID</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Balance</value>
+  </data>
+  <data name="CashIn" xml:space="preserve">
+    <value>CashIn</value>
+  </data>
+  <data name="Credit" xml:space="preserve">
+    <value>Credit</value>
+  </data>
+  <data name="CurrMargin" xml:space="preserve">
+    <value>CurrentMargin</value>
+  </data>
+  <data name="Deposit" xml:space="preserve">
+    <value>Deposit</value>
+  </data>
+  <data name="ExchangeMargin" xml:space="preserve">
+    <value>ExchangeMargin</value>
+  </data>
+  <data name="FrozenCash" xml:space="preserve">
+    <value>FrozenCash</value>
+  </data>
+  <data name="FrozenCommission" xml:space="preserve">
+    <value>FrozenCommission</value>
+  </data>
+  <data name="FrozenMargin" xml:space="preserve">
+    <value>FrozenMargin</value>
+  </data>
+  <data name="InterestBase" xml:space="preserve">
+    <value>InterestBase</value>
+  </data>
+  <data name="Mortgage" xml:space="preserve">
+    <value>Mortgage</value>
+  </data>
+  <data name="PreBalance" xml:space="preserve">
+    <value>PreBalance</value>
+  </data>
+  <data name="PreCredit" xml:space="preserve">
+    <value>PreCredit</value>
+  </data>
+  <data name="PreDeposit" xml:space="preserve">
+    <value>PreDeposit</value>
+  </data>
+  <data name="PreMargin" xml:space="preserve">
+    <value>PreMargin</value>
+  </data>
+  <data name="PreMortgage" xml:space="preserve">
+    <value>PreMortgage</value>
+  </data>
+  <data name="Reserve" xml:space="preserve">
+    <value>Reserve</value>
+  </data>
+  <data name="SettlementID" xml:space="preserve">
+    <value>SettlementID</value>
+  </data>
+  <data name="TradeWindow" xml:space="preserve">
+    <value>TradeWindow</value>
+  </data>
+  <data name="TradingDay" xml:space="preserve">
+    <value>TradingDay</value>
+  </data>
+  <data name="Withdraw" xml:space="preserve">
+    <value>Withdraw</value>
+  </data>
+  <data name="WithdrawQuota" xml:space="preserve">
+    <value>WithdrawQuota</value>
+  </data>
 </root>

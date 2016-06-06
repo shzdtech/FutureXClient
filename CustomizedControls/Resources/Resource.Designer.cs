@@ -61,6 +61,15 @@ namespace Micro.Future.Resources {
         }
         
         /// <summary>
+        ///   查找类似 投资者账户 的本地化字符串。
+        /// </summary>
+        internal static string AccountID {
+            get {
+                return ResourceManager.GetString("AccountID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 是否活跃 的本地化字符串。
         /// </summary>
         internal static string Active {
@@ -133,6 +142,24 @@ namespace Micro.Future.Resources {
         }
         
         /// <summary>
+        ///   查找类似 可用资金 的本地化字符串。
+        /// </summary>
+        internal static string Available {
+            get {
+                return ResourceManager.GetString("Available", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 期货结算准备金 的本地化字符串。
+        /// </summary>
+        internal static string Balance {
+            get {
+                return ResourceManager.GetString("Balance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 买价 的本地化字符串。
         /// </summary>
         internal static string BidPrice {
@@ -183,6 +210,15 @@ namespace Micro.Future.Resources {
         internal static string CancelTime {
             get {
                 return ResourceManager.GetString("CancelTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 资金差额 的本地化字符串。
+        /// </summary>
+        internal static string CashIn {
+            get {
+                return ResourceManager.GetString("CashIn", resourceCulture);
             }
         }
         
@@ -277,6 +313,24 @@ namespace Micro.Future.Resources {
         }
         
         /// <summary>
+        ///   查找类似 信用额度 的本地化字符串。
+        /// </summary>
+        internal static string Credit {
+            get {
+                return ResourceManager.GetString("Credit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 当前保证金总额 的本地化字符串。
+        /// </summary>
+        internal static string CurrMargin {
+            get {
+                return ResourceManager.GetString("CurrMargin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 郑州期货 的本地化字符串。
         /// </summary>
         internal static string CZCE {
@@ -304,6 +358,15 @@ namespace Micro.Future.Resources {
         }
         
         /// <summary>
+        ///   查找类似 入金金额 的本地化字符串。
+        /// </summary>
+        internal static string Deposit {
+            get {
+                return ResourceManager.GetString("Deposit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 买卖 的本地化字符串。
         /// </summary>
         internal static string Direction {
@@ -322,11 +385,29 @@ namespace Micro.Future.Resources {
         }
         
         /// <summary>
+        ///   查找类似 错误 的本地化字符串。
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 交易所 的本地化字符串。
         /// </summary>
         internal static string Exchange {
             get {
                 return ResourceManager.GetString("Exchange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 交易所保证金 的本地化字符串。
+        /// </summary>
+        internal static string ExchangeMargin {
+            get {
+                return ResourceManager.GetString("ExchangeMargin", resourceCulture);
             }
         }
         
@@ -372,6 +453,33 @@ namespace Micro.Future.Resources {
         internal static string FilterSettings {
             get {
                 return ResourceManager.GetString("FilterSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 冻结的资金 的本地化字符串。
+        /// </summary>
+        internal static string FrozenCash {
+            get {
+                return ResourceManager.GetString("FrozenCash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 冻结的手续费 的本地化字符串。
+        /// </summary>
+        internal static string FrozenCommission {
+            get {
+                return ResourceManager.GetString("FrozenCommission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 冻结的保证金 的本地化字符串。
+        /// </summary>
+        internal static string FrozenMargin {
+            get {
+                return ResourceManager.GetString("FrozenMargin", resourceCulture);
             }
         }
         
@@ -426,6 +534,15 @@ namespace Micro.Future.Resources {
         internal static string InsertTime {
             get {
                 return ResourceManager.GetString("InsertTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 利息基数 的本地化字符串。
+        /// </summary>
+        internal static string InterestBase {
+            get {
+                return ResourceManager.GetString("InterestBase", resourceCulture);
             }
         }
         
@@ -489,6 +606,15 @@ namespace Micro.Future.Resources {
         internal static string Message {
             get {
                 return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 质押金额 的本地化字符串。
+        /// </summary>
+        internal static string Mortgage {
+            get {
+                return ResourceManager.GetString("Mortgage", resourceCulture);
             }
         }
         
@@ -601,6 +727,24 @@ namespace Micro.Future.Resources {
         }
         
         /// <summary>
+        ///   查找类似 下单板 的本地化字符串。
+        /// </summary>
+        internal static string OrderWindow {
+            get {
+                return ResourceManager.GetString("OrderWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTC联系信息 的本地化字符串。
+        /// </summary>
+        internal static string OTCContactInfo {
+            get {
+                return ResourceManager.GetString("OTCContactInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 密码 的本地化字符串。
         /// </summary>
         internal static string PassWord {
@@ -655,6 +799,51 @@ namespace Micro.Future.Resources {
         }
         
         /// <summary>
+        ///   查找类似 上次结算准备金 的本地化字符串。
+        /// </summary>
+        internal static string PreBalance {
+            get {
+                return ResourceManager.GetString("PreBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 上次信用额度 的本地化字符串。
+        /// </summary>
+        internal static string PreCredit {
+            get {
+                return ResourceManager.GetString("PreCredit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 上次存款额 的本地化字符串。
+        /// </summary>
+        internal static string PreDeposit {
+            get {
+                return ResourceManager.GetString("PreDeposit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 上次占用保证金 的本地化字符串。
+        /// </summary>
+        internal static string PreMargin {
+            get {
+                return ResourceManager.GetString("PreMargin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 上次质押金额 的本地化字符串。
+        /// </summary>
+        internal static string PreMortgage {
+            get {
+                return ResourceManager.GetString("PreMortgage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 价格 的本地化字符串。
         /// </summary>
         internal static string Price {
@@ -691,6 +880,24 @@ namespace Micro.Future.Resources {
         }
         
         /// <summary>
+        ///   查找类似 请重新连接 的本地化字符串。
+        /// </summary>
+        internal static string ReConnect {
+            get {
+                return ResourceManager.GetString("ReConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 基本准备金 的本地化字符串。
+        /// </summary>
+        internal static string Reserve {
+            get {
+                return ResourceManager.GetString("Reserve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 卖出 的本地化字符串。
         /// </summary>
         internal static string Sell {
@@ -714,6 +921,15 @@ namespace Micro.Future.Resources {
         internal static string Server_Unconnected {
             get {
                 return ResourceManager.GetString("Server_Unconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 结算编号 的本地化字符串。
+        /// </summary>
+        internal static string SettlementID {
+            get {
+                return ResourceManager.GetString("SettlementID", resourceCulture);
             }
         }
         
@@ -880,6 +1096,24 @@ namespace Micro.Future.Resources {
         }
         
         /// <summary>
+        ///   查找类似 成交板块 的本地化字符串。
+        /// </summary>
+        internal static string TradeWindow {
+            get {
+                return ResourceManager.GetString("TradeWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 交易日 的本地化字符串。
+        /// </summary>
+        internal static string TradingDay {
+            get {
+                return ResourceManager.GetString("TradingDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 交易类型 的本地化字符串。
         /// </summary>
         internal static string TradingType {
@@ -966,6 +1200,24 @@ namespace Micro.Future.Resources {
         internal static string WindowTitle {
             get {
                 return ResourceManager.GetString("WindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 出金金额 的本地化字符串。
+        /// </summary>
+        internal static string Withdraw {
+            get {
+                return ResourceManager.GetString("Withdraw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 可取资金 的本地化字符串。
+        /// </summary>
+        internal static string WithdrawQuota {
+            get {
+                return ResourceManager.GetString("WithdrawQuota", resourceCulture);
             }
         }
         
