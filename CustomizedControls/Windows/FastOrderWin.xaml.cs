@@ -93,5 +93,15 @@ namespace Micro.Future.UI
             //LabelAskPrice.Content = string.Empty;
             //LabelLowerPrice.Content = string.Empty;
         }
+
+        private void labelbidprice_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            LimitTxt.Value = double.Parse(LabelBidPrice.Content.ToString());
+        }
+
+        private void labelaskprice_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
+        }
     }
 }

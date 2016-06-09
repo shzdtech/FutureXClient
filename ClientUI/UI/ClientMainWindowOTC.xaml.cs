@@ -175,7 +175,7 @@ namespace Micro.Future.UI
             LayoutAnchorable ancable = new LayoutAnchorable();
             var quoteGrpVw = new ClientQuoteGroupView();
             ancable.Content = quoteGrpVw;
-            ancable.Title = "自选合约";
+            ancable.Title = WPFUtility.GetLocalizedString("Optional", "Resource");
             quotePane.Children.Add(ancable);
         }
 
@@ -185,7 +185,7 @@ namespace Micro.Future.UI
             var quoteGrpVw = new ClientQuoteGroupView();
             quoteGrpVw.FilterByExchange("CFFEX");
             ancable.Content = quoteGrpVw;
-            ancable.Title = "中金期货";
+            ancable.Title = WPFUtility.GetLocalizedString("CFFEX", "Resource");
             quotePane.Children.Add(ancable);
         }
 
@@ -195,7 +195,7 @@ namespace Micro.Future.UI
             var quoteGrpVw = new ClientQuoteGroupView();
             quoteGrpVw.FilterByExchange("SHFE");
             ancable.Content = quoteGrpVw;
-            ancable.Title = "上海期货";
+            ancable.Title = WPFUtility.GetLocalizedString("SHFE", "Resource");
             quotePane.Children.Add(ancable);
         }
 
@@ -205,7 +205,7 @@ namespace Micro.Future.UI
             var quoteGrpVw = new ClientQuoteGroupView();
             quoteGrpVw.FilterByExchange("DCE");
             ancable.Content = quoteGrpVw;
-            ancable.Title = "大连期货";
+            ancable.Title = WPFUtility.GetLocalizedString("DCE", "Resource");
             quotePane.Children.Add(ancable);
         }
 
@@ -215,7 +215,7 @@ namespace Micro.Future.UI
             var quoteGrpVw = new ClientQuoteGroupView();
             quoteGrpVw.FilterByExchange("CZCE");
             ancable.Content = quoteGrpVw;
-            ancable.Title = "郑州期货";
+            ancable.Title = WPFUtility.GetLocalizedString("CZCE", "Resource");
             quotePane.Children.Add(ancable);
         }
 
@@ -224,7 +224,7 @@ namespace Micro.Future.UI
             LayoutAnchorable ancable = new LayoutAnchorable();
             var executionWin = new ClientExecutionWindow();
             ancable.Content = executionWin;
-            ancable.Title = "所有委托单";
+            ancable.Title = WPFUtility.GetLocalizedString("AllExecution", "Resource");
             executionPane.Children.Add(ancable);
         }
 
@@ -234,7 +234,7 @@ namespace Micro.Future.UI
             var executionWin = new ClientExecutionWindow();
             ancable.Content = executionWin;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENNING });
-            ancable.Title = "挂单";
+            ancable.Title = WPFUtility.GetLocalizedString("Opening", "Resource");
             executionPane.Children.Add(ancable);
         }
 
@@ -244,7 +244,7 @@ namespace Micro.Future.UI
             var executionWin = new ClientExecutionWindow();
             ancable.Content = executionWin;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED});
-            ancable.Title = "已成交";
+            ancable.Title = WPFUtility.GetLocalizedString("Traded", "Resource");
             executionPane.Children.Add(ancable);
         }
 
@@ -252,7 +252,7 @@ namespace Micro.Future.UI
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
             ancable.Content = new ClientTradeWindow();
-            ancable.Title = "所有成交记录";
+            ancable.Title = WPFUtility.GetLocalizedString("AllTraded", "Resource");
             tradePane.Children.Add(ancable);
         }
 
@@ -262,7 +262,7 @@ namespace Micro.Future.UI
             var tradeWin = new ClientTradeWindow();
             ancable.Content = tradeWin;
             tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.OPEN });
-            ancable.Title = "开仓记录";
+            ancable.Title = WPFUtility.GetLocalizedString("Open", "Resource");
             tradePane.Children.Add(ancable);
         }
 
@@ -272,7 +272,7 @@ namespace Micro.Future.UI
             var tradeWin = new ClientTradeWindow();
             ancable.Content = tradeWin;
             tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.CLOSE });
-            ancable.Title = "平仓记录";
+            ancable.Title = WPFUtility.GetLocalizedString("Close", "Resource");
             tradePane.Children.Add(ancable);
         }
 
@@ -280,7 +280,7 @@ namespace Micro.Future.UI
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
             ancable.Content = new ClientPositionWindow();
-            ancable.Title = "持仓";
+            ancable.Title = WPFUtility.GetLocalizedString("Position", "Resource");
             positionPane.Children.Add(ancable);
         }
 

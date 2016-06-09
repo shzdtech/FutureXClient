@@ -48,6 +48,7 @@ namespace Micro.Future.UI
                 FilterByExchange(win.TradeExchange);
                 FilterByContract(win.TradeContract);
                 FilterByContract(win.TradeUnderlying);
+
             }
         }
 

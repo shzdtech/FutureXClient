@@ -20,7 +20,7 @@
             <WrapPanel Grid.Row="0">
                 <Label Content="{lex:Loc Key=Contract}"></Label>
                 <TextBox Name="contractTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" />
-                <Button Content="{lex:Loc Key=Add}" Click="Button_Click_Add"/>
+                <Button Content="{lex:Loc Key=Add}" Click="Button_Click_Add" IsDefault="True"/>
             </WrapPanel>
 
             <ListView Name="quoteListView" Grid.Row="1" SelectionChanged="quoteListView_SelectionChanged">

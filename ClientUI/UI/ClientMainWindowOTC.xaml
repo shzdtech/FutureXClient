@@ -120,7 +120,7 @@
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>
                     <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*" >
-                        <avalonDock:LayoutPanel DockWidth="4*" DockHeight="0.35*">
+                        <avalonDock:LayoutPanel DockWidth="4*" DockHeight="0.75*">
                             <avalonDock:LayoutAnchorablePane x:Name="quotePane">
                                 <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Quote}">
                                     <c:ClientQuoteGroupView x:Name="otcMarketDataLV"/>
@@ -134,8 +134,8 @@
                                     </avalonDock:LayoutAnchorable>
                                 </avalonDock:LayoutAnchorablePane>
                             </avalonDock:LayoutPanel>-->
-                            <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="350">
-                                <avalonDock:LayoutAnchorablePane x:Name="executionPane">
+                        <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="350" DockHeight="*">
+                                <avalonDock:LayoutAnchorablePane x:Name="executionPane" DockMinHeight="0">
                                     <avalonDock:LayoutAnchorable Title="{lex:Loc Key=ExecutionWindow}">
                                         <c:ClientExecutionWindow x:Name="executionWindow"/>
                                     </avalonDock:LayoutAnchorable>
