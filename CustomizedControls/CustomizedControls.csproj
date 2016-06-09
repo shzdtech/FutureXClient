@@ -182,11 +182,11 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\FutureXShare\Communicators\Micro.Future.Message.ProtoBuf\Micro.Future.Message.ProtoBuf.csproj">
+    <ProjectReference Include="..\..\FutureXShare\src\Micro.Future.Message.ProtoBuf\Micro.Future.Message.ProtoBuf.csproj">
       <Project>{c518b93e-4e53-45af-ad44-b5d1bd7eea8b}</Project>
       <Name>Micro.Future.Message.ProtoBuf</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\FutureXShare\Communicators\Micro.Future.Message\Micro.Future.Message.csproj">
+    <ProjectReference Include="..\..\FutureXShare\src\Micro.Future.Message\Micro.Future.Message.csproj">
       <Project>{354935ce-ab35-4bc3-88dd-e6c3b1e0870c}</Project>
       <Name>Micro.Future.Message</Name>
     </ProjectReference>
