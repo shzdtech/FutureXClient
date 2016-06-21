@@ -84,17 +84,14 @@
     <Compile Include="Windows\SearchQuoteWindow.xaml.cs">
       <DependentUpon>SearchQuoteWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\PositionSettingsWindow.xaml.cs">
-      <DependentUpon>PositionSettingsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\ExecutionSettingsWindow.xaml.cs">
       <DependentUpon>ExecutionSettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\TradeSettingsWindow.xaml.cs">
       <DependentUpon>TradeSettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
+    <Compile Include="Windows\PositionSettingsWindow.xaml.cs">
+      <DependentUpon>PositionSettingsWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\LoginStatus.xaml">
       <SubType>Designer</SubType>
@@ -127,10 +124,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\PositionSettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\ExecutionSettingsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -139,7 +132,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\Window1.xaml">
+    <Page Include="Windows\PositionSettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

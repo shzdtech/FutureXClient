@@ -173,7 +173,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Contract(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            var quoteGrpVw = new ClientQuoteGroupView();
+            var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("Optional", "Resource");
             quotePane.Children.Add(ancable);
@@ -182,8 +182,8 @@ namespace Micro.Future.UI
         private void MenuItem_Click_ZhongJin(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            var quoteGrpVw = new ClientQuoteGroupView();
-            quoteGrpVw.FilterByExchange("CFFEX");
+            var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
+            quoteGrpVw.Filter( "CFFEX","","" );
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("CFFEX", "Resource");
             quotePane.Children.Add(ancable);
@@ -192,8 +192,8 @@ namespace Micro.Future.UI
         private void MenuItem_Click_ShangHai(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            var quoteGrpVw = new ClientQuoteGroupView();
-            quoteGrpVw.FilterByExchange("SHFE");
+            var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
+            quoteGrpVw.Filter("SHFE","","");
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("SHFE", "Resource");
             quotePane.Children.Add(ancable);
@@ -202,8 +202,8 @@ namespace Micro.Future.UI
         private void MenuItem_Click_DaLian(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            var quoteGrpVw = new ClientQuoteGroupView();
-            quoteGrpVw.FilterByExchange("DCE");
+            var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
+            quoteGrpVw.Filter("DCE","","");
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("DCE", "Resource");
             quotePane.Children.Add(ancable);
@@ -212,8 +212,8 @@ namespace Micro.Future.UI
         private void MenuItem_Click_ZhengZhou(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            var quoteGrpVw = new ClientQuoteGroupView();
-            quoteGrpVw.FilterByExchange("CZCE");
+            var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
+            quoteGrpVw.Filter("CZCE","","");
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("CZCE", "Resource");
             quotePane.Children.Add(ancable);
@@ -222,7 +222,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Execution(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            var executionWin = new ClientExecutionWindow();
+            var executionWin = new ClientExecutionWindow() { LayoutContent = ancable };
             ancable.Content = executionWin;
             ancable.Title = WPFUtility.GetLocalizedString("AllExecution", "Resource");
             executionPane.Children.Add(ancable);
@@ -231,7 +231,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Opening(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            var executionWin = new ClientExecutionWindow();
+            var executionWin = new ClientExecutionWindow() { LayoutContent = ancable };
             ancable.Content = executionWin;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENNING });
             ancable.Title = WPFUtility.GetLocalizedString("Opening", "Resource");
@@ -241,7 +241,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Traded(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            var executionWin = new ClientExecutionWindow();
+            var executionWin = new ClientExecutionWindow() { LayoutContent = ancable };
             ancable.Content = executionWin;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED});
             ancable.Title = WPFUtility.GetLocalizedString("Traded", "Resource");
@@ -251,7 +251,8 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Trade(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            ancable.Content = new ClientTradeWindow();
+            var tradeWin = new ClientTradeWindow() { LayoutContent = ancable };
+            ancable.Content =tradeWin;
             ancable.Title = WPFUtility.GetLocalizedString("AllTraded", "Resource");
             tradePane.Children.Add(ancable);
         }
@@ -259,7 +260,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Open(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            var tradeWin = new ClientTradeWindow();
+            var tradeWin = new ClientTradeWindow() { LayoutContent = ancable };
             ancable.Content = tradeWin;
             tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.OPEN });
             ancable.Title = WPFUtility.GetLocalizedString("Open", "Resource");
@@ -269,7 +270,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Close(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            var tradeWin = new ClientTradeWindow();
+            var tradeWin = new ClientTradeWindow() { LayoutContent = ancable };
             ancable.Content = tradeWin;
             tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.CLOSE });
             ancable.Title = WPFUtility.GetLocalizedString("Close", "Resource");
@@ -279,7 +280,8 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Position(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
-            ancable.Content = new ClientPositionWindow();
+            var positionWin = new ClientPositionWindow() { LayoutContent = ancable };
+            ancable.Content = positionWin;
             ancable.Title = WPFUtility.GetLocalizedString("Position", "Resource");
             positionPane.Children.Add(ancable);
         }

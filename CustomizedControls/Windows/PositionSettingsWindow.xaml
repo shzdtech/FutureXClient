@@ -4,12 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Micro.Future.Windows"
+        mc:Ignorable="d"
         xmlns:lex="http://wpflocalizeextension.codeplex.com"    
         lex:LocalizeDictionary.DesignCulture="zh_CN"
         lex:LocalizeDictionary.OutputMissingKeys="True"
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.CustomizedControls"
         lex:ResxLocalizationProvider.DefaultDictionary="Resource"
-        mc:Ignorable="d"
         Title="{lex:Loc Key=FilterSettings}" Height="218" Width="300">
     <Grid>
         <StackPanel>

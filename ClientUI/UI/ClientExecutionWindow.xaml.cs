@@ -16,16 +16,22 @@ namespace Micro.Future.UI
     /// <summary>
     /// OrderDetail.xaml 的交互逻辑
     /// </summary>
-    public partial class ClientExecutionWindow : UserControl,IReloadData
+    public partial class ClientExecutionWindow : UserControl, IReloadData
     {
         private ColumnObject[] mColumns;
+
+        private CollectionViewSource _viewSource = new CollectionViewSource();
+
+        public LayoutContent LayoutContent { get; set; }
 
         public ClientExecutionWindow()
         {
             InitializeComponent();
 
-            ExecutionTreeView.ItemsSource = MessageHandlerContainer.
-                DefaultInstance.Get<TraderExHandler>().OrderVMCollection;
+            _viewSource.Source = MessageHandlerContainer.DefaultInstance
+                .Get<TraderExHandler>().OrderVMCollection;
+
+            ExecutionTreeView.ItemsSource = _viewSource.View;
 
             mColumns = ColumnObject.GetColumns(ExecutionTreeView);
         }
@@ -42,36 +48,38 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
         {
-            ExecutionSettingsWindow win = new ExecutionSettingsWindow();
-            var orderVMCollection = (ObservableCollection<OrderVM>)ExecutionTreeView.ItemsSource;
-            win.ExchangeCollection = (from p in orderVMCollection select p.Exchange).Distinct();
+            ExecutionSettingsWindow win = new ExecutionSettingsWindow()
+            {
+                ExchangeCollection = (from p in (IEnumerable<OrderVM>)_viewSource.Source
+                                          select p.Exchange).Distinct()
+            };
             if (win.ShowDialog() == true)
             {
-                var layoutContent = WPFUtility.FindParent<LayoutContent>(this);
-                if (layoutContent != null)
-                    layoutContent.Title = win.ExecutionTitle;
-                FilterByExchange(win.ExecutionExchange);
-                FilterByContract(win.ExecutionContract);
-                FilterByContract(win.ExecutionUnderlying);
+                if (LayoutContent != null)
+                    LayoutContent.Title = win.ExecutionTitle;
+                Filter(win.ExecutionExchange, win.ExecutionContract, win.ExecutionUnderlying);
+
             }
         }
 
-        public void FilterByExchange(string exchange)
+        public void Filter(string exchange, string underlying, string contract)
         {
             if (ExecutionTreeView == null)
             {
                 return;
             }
 
-            ICollectionView view = CollectionViewSource.GetDefaultView(ExecutionTreeView.ItemsSource);
+            ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
             {
-                if (exchange == null)
+                if (contract == null)
                     return true;
 
                 OrderVM ovm = o as OrderVM;
 
-                if (exchange.Contains(ovm.Exchange ?? string.Empty))
+                if ((string.IsNullOrEmpty(exchange) || ovm.Exchange.Contains(exchange)) &&
+                (string.IsNullOrEmpty(contract) || ovm.Contract.Contains(contract)) &&
+                (string.IsNullOrEmpty(underlying) || ovm.Contract.Contains(underlying)))
                 {
                     return true;
                 }

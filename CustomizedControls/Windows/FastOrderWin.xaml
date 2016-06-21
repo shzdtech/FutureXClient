@@ -81,7 +81,7 @@
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Height="50" VerticalAlignment="Bottom">
             <TextBlock Text="{lex:Loc Key=Price}" VerticalAlignment="Center" Width="35"></TextBlock>
-            <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment=".1" Value="{Binding LimitPrice}" />
+            <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment=".1" Value="{Binding LimitPrice}" Margin="0,10,0,0" />
             <StackPanel x:Name="stackPanelPrices" Height="50" VerticalAlignment="Bottom" MouseDown="labelaskprice_MouseDown" >
                 <Label x:Name="LabelUpperPrice" Content="{Binding UpperLimitPrice}" MouseDown="labelupperprice_MouseDown" MinHeight="10" MinWidth="20" />
                 <Label x:Name="LabelBidPrice" Content="{Binding BidPrice}"  MinHeight="10" MinWidth="20" MouseDown="labelbidprice_MouseDown"/>
@@ -95,7 +95,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Name="BuySummitButton" Content="{lex:Loc Key=Buy}" Grid.Column="0" Command="{Binding Path=SendOrderCommand}" ></Button>
+            <Button Name="BuySummitButton" Content="{lex:Loc Key=Order}" Grid.Column="0" Command="{Binding Path=SendOrderCommand}" ></Button>
             <!--<RadioButton x:Name="radioButton" Content="买入"  IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=BUY}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="1,-148,0,0" GroupName="radiopd"/>-->
             <!--<RadioButton x:Name="radioButtonSell" Content="卖出"  IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=SELL}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="84,-148,0,0" GroupName="radiopd"/>-->
         </Grid>

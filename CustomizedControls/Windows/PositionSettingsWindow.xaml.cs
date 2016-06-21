@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace Micro.Future.Windows
         {
             InitializeComponent();
         }
+
 
         public string PositionTitle
         {
@@ -59,6 +61,14 @@ namespace Micro.Future.Windows
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
+        }
+
+        public IEnumerable ExchangeCollection
+        {
+            set
+            {
+                exchangecombo.ItemsSource = value;
+            }
         }
     }
 }

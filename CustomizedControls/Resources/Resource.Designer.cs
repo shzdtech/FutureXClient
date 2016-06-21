@@ -655,6 +655,69 @@ namespace Micro.Future.Resources {
         }
         
         /// <summary>
+        ///   查找类似 平仓 的本地化字符串。
+        /// </summary>
+        internal static string OpenClose_CLOSE {
+            get {
+                return ResourceManager.GetString("OpenClose_CLOSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 平今 的本地化字符串。
+        /// </summary>
+        internal static string OpenClose_CLOSETODAY {
+            get {
+                return ResourceManager.GetString("OpenClose_CLOSETODAY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 平昨 的本地化字符串。
+        /// </summary>
+        internal static string OpenClose_CLOSEYESTERDAY {
+            get {
+                return ResourceManager.GetString("OpenClose_CLOSEYESTERDAY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 强平 的本地化字符串。
+        /// </summary>
+        internal static string OpenClose_FORCECLOSE {
+            get {
+                return ResourceManager.GetString("OpenClose_FORCECLOSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 强减 的本地化字符串。
+        /// </summary>
+        internal static string OpenClose_FORCEOFF {
+            get {
+                return ResourceManager.GetString("OpenClose_FORCEOFF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 本地强平 的本地化字符串。
+        /// </summary>
+        internal static string OpenClose_LOCALFORCECLOSE {
+            get {
+                return ResourceManager.GetString("OpenClose_LOCALFORCECLOSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 开仓 的本地化字符串。
+        /// </summary>
+        internal static string OpenClose_OPEN {
+            get {
+                return ResourceManager.GetString("OpenClose_OPEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 开仓成本 的本地化字符串。
         /// </summary>
         internal static string OpenCost {

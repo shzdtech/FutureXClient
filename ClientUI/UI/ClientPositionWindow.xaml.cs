@@ -6,8 +6,9 @@ using System;
 using System.ComponentModel;
 using System.Windows.Data;
 using Micro.Future.Windows;
-using System.Collections.ObjectModel;
 using System.Linq;
+using System.Collections.Generic;
+using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Micro.Future.UI
 {
@@ -17,13 +18,18 @@ namespace Micro.Future.UI
     public partial class ClientPositionWindow : UserControl, IReloadData
     {
         private ColumnObject[] mColumns;
+        private CollectionViewSource _viewSource = new CollectionViewSource();
+
+        public LayoutContent LayoutContent { get; set; }
 
         public ClientPositionWindow()
         {
             InitializeComponent();
 
-            PositionListView.ItemsSource = MessageHandlerContainer.
-                DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
+            _viewSource.Source = MessageHandlerContainer.DefaultInstance
+                .Get<TraderExHandler>().PositionVMCollection;
+
+            PositionListView.ItemsSource = _viewSource.View;
 
             mColumns = ColumnObject.GetColumns(PositionListView);
         }
@@ -45,14 +51,16 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
         {
-            Window1 win = new Window1();
-            var positionVMCollection = (ObservableCollection<PositionVM>)PositionListView.ItemsSource;
-            win.ExchangeCollection = (from p in positionVMCollection select p.Exchange).Distinct();
+            PositionSettingsWindow win = new PositionSettingsWindow()
+            {
+                ExchangeCollection = (from p in (IEnumerable<PositionVM>)_viewSource.Source
+                                      select p.Exchange).Distinct()
+            };
             if (win.ShowDialog() == true)
             {
-                FilterByExchange(win.PositionExchange);
-                FilterByContract(win.PositionContract);
-                FilterByContract(win.PositionUnderlying);
+                if (LayoutContent != null)
+                    LayoutContent.Title = win.PositionTitle;
+                Filter(win.PositionExchange, win.PositionContract, win.PositionUnderlying);
             }
         }
 
@@ -66,38 +74,14 @@ namespace Micro.Future.UI
             }
         }
 
-        private void FilterByExchange(string exchange)
+        public void Filter(string exchange, string underlying, string contract)
         {
             if (PositionListView == null)
             {
                 return;
             }
 
-            ICollectionView view = CollectionViewSource.GetDefaultView(PositionListView.ItemsSource);
-            view.Filter = delegate (object o)
-            {
-                if (exchange == null)
-                    return true;
-
-                PositionVM pvm = o as PositionVM;
-
-                if (exchange.Contains(pvm.Exchange ?? string.Empty))
-                {
-                    return true;
-                }
-
-                return false;
-            };
-        }
-
-        private void FilterByContract(string contract)
-        {
-            if (PositionListView == null)
-            {
-                return;
-            }
-
-            ICollectionView view = CollectionViewSource.GetDefaultView(PositionListView.ItemsSource);
+            ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
             {
                 if (contract == null)
@@ -105,7 +89,9 @@ namespace Micro.Future.UI
 
                 PositionVM pvm = o as PositionVM;
 
-                if (pvm.Contract.Contains(contract))
+                if ((string.IsNullOrEmpty(exchange) || pvm.Exchange.Contains(exchange)) &&
+                (string.IsNullOrEmpty(contract) || pvm.Contract.Contains(contract)) &&
+                (string.IsNullOrEmpty(underlying) || pvm.Contract.Contains(underlying)))
                 {
                     return true;
                 }
@@ -121,7 +107,7 @@ namespace Micro.Future.UI
                 return;
             }
 
-            ICollectionView view = CollectionViewSource.GetDefaultView(PositionListView.ItemsSource);
+            ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
             {
                 if (direction == null)
@@ -129,7 +115,7 @@ namespace Micro.Future.UI
 
                 PositionVM pvm = o as PositionVM;
 
-                if (direction==pvm.Direction)
+                if (direction == pvm.Direction)
                 {
                     return true;
                 }
