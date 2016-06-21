@@ -507,4 +507,25 @@
   <data name="WithdrawQuota" xml:space="preserve">
     <value>可取资金</value>
   </data>
+  <data name="OpenClose_CLOSE" xml:space="preserve">
+    <value>平仓</value>
+  </data>
+  <data name="OpenClose_CLOSETODAY" xml:space="preserve">
+    <value>平今</value>
+  </data>
+  <data name="OpenClose_CLOSEYESTERDAY" xml:space="preserve">
+    <value>平昨</value>
+  </data>
+  <data name="OpenClose_FORCECLOSE" xml:space="preserve">
+    <value>强平</value>
+  </data>
+  <data name="OpenClose_FORCEOFF" xml:space="preserve">
+    <value>强减</value>
+  </data>
+  <data name="OpenClose_LOCALFORCECLOSE" xml:space="preserve">
+    <value>本地强平</value>
+  </data>
+  <data name="OpenClose_OPEN" xml:space="preserve">
+    <value>开仓</value>
+  </data>
 </root>

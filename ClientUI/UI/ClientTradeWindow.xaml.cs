@@ -8,6 +8,7 @@ using Micro.Future.ViewModel;
 using Micro.Future.Message;
 using Micro.Future.Windows;
 using System.Collections.ObjectModel;
+using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Micro.Future.UI
 {
@@ -17,13 +18,18 @@ namespace Micro.Future.UI
     public partial class ClientTradeWindow : UserControl,IReloadData
     {
         private ColumnObject[] mColumns;
+        private CollectionViewSource _viewSource = new CollectionViewSource();
+
+        public LayoutContent LayoutContent { get; set; }
 
         public ClientTradeWindow()
         {
             InitializeComponent();
 
-            TradeTreeView.ItemsSource = MessageHandlerContainer.
-                DefaultInstance.Get<TraderExHandler>().TradeVMCollection;
+            _viewSource.Source = MessageHandlerContainer.DefaultInstance
+                .Get<TraderExHandler>().TradeVMCollection;
+
+            TradeTreeView.ItemsSource = _viewSource.View;
 
             mColumns = ColumnObject.GetColumns(TradeTreeView);
         }
@@ -40,14 +46,17 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
         {
-            TradeSettingsWindow win = new TradeSettingsWindow();
-            var tradeVMCollection = (ObservableCollection<TradeVM>)TradeTreeView.ItemsSource;
-            win.ExchangeCollection = (from p in tradeVMCollection select p.Exchange).Distinct();
+            TradeSettingsWindow win = new TradeSettingsWindow()
+            {
+                ExchangeCollection = (from p in (IEnumerable<TradeVM>)_viewSource.Source
+                                      select p.Exchange).Distinct()
+            };
+
             if (win.ShowDialog() == true)
             {
-                FilterByExchange(win.TradeExchange);
-                FilterByContract(win.TradeContract);
-                FilterByContract(win.TradeUnderlying);
+                if (LayoutContent != null)
+                    LayoutContent.Title = win.TradeTitle;
+                Filter(win.TradeExchange, win.TradeContract, win.TradeUnderlying);
 
             }
         }
@@ -59,7 +68,9 @@ namespace Micro.Future.UI
                 return;
             }
 
-            ICollectionView view = CollectionViewSource.GetDefaultView(TradeTreeView.ItemsSource);
+            CollectionViewSource viewSource = new CollectionViewSource();
+            viewSource.Source = TradeTreeView.ItemsSource;
+            ICollectionView view = viewSource.View;
             view.Filter = delegate (object o)
             {
                 if (statuses == null)
@@ -76,22 +87,24 @@ namespace Micro.Future.UI
             };
         }
 
-        public void FilterByExchange(string exchange)
+        public void Filter(string exchange, string underlying, string contract)
         {
             if (TradeTreeView == null)
             {
                 return;
             }
 
-            ICollectionView view = CollectionViewSource.GetDefaultView(TradeTreeView.ItemsSource);
+            ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
             {
-                if (exchange == null)
+                if (contract == null)
                     return true;
 
                 TradeVM tvm = o as TradeVM;
 
-                if (exchange.Contains(tvm.Exchange ?? string.Empty))
+                if ((string.IsNullOrEmpty(exchange) || tvm.Exchange.Contains(exchange)) &&
+                (string.IsNullOrEmpty(contract) || tvm.Contract.Contains(contract)) &&
+                (string.IsNullOrEmpty(underlying) || tvm.Contract.Contains(underlying)))
                 {
                     return true;
                 }

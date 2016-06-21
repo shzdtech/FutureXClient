@@ -507,4 +507,25 @@
   <data name="WithdrawQuota" xml:space="preserve">
     <value>WithdrawQuota</value>
   </data>
+  <data name="OpenClose_CLOSE" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="OpenClose_CLOSETODAY" xml:space="preserve">
+    <value>CloseToday</value>
+  </data>
+  <data name="OpenClose_CLOSEYESTERDAY" xml:space="preserve">
+    <value>CloseYesterday</value>
+  </data>
+  <data name="OpenClose_FORCECLOSE" xml:space="preserve">
+    <value>ForceClose</value>
+  </data>
+  <data name="OpenClose_FORCEOFF" xml:space="preserve">
+    <value>ForceOff</value>
+  </data>
+  <data name="OpenClose_LOCALFORCECLOSE" xml:space="preserve">
+    <value>LocalForceClose</value>
+  </data>
+  <data name="OpenClose_OPEN" xml:space="preserve">
+    <value>Open</value>
+  </data>
 </root>

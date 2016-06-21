@@ -26,15 +26,15 @@ namespace Micro.Future.UI
     public partial class ClientQuoteGroupView : UserControl, IReloadData
     {
         private ColumnObject[] mColumns;
+        private CollectionViewSource _viewSource = new CollectionViewSource();
+        public LayoutContent LayoutContent { get; set; }
 
 
         public ClientQuoteGroupView()
         {
             InitializeComponent();
-
-            quoteListView.ItemsSource = 
-                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
-            mColumns = ColumnObject.GetColumns(quoteListView);
+            _viewSource.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
+            quoteListView.ItemsSource = _viewSource.View;
 
 
         }
@@ -104,33 +104,38 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
         {
-            QuoteSettingsWindow win = new QuoteSettingsWindow();
-            var quoteVMCollection = (ObservableCollection<QuoteViewModel>)quoteListView.ItemsSource;
-            win.ExchangeCollection = (from p in quoteVMCollection select p.Exchange).Distinct().ToList();
+            QuoteSettingsWindow win = new QuoteSettingsWindow()
+            {
+                ExchangeCollection = (from p in (IEnumerable<QuoteViewModel>)_viewSource.Source
+                                      select p.Exchange).Distinct()
+            };
+                 
             if (win.ShowDialog() == true)
             {
-                FilterByExchange(win.QuoteExchange);
-                FilterByContract(win.QuoteContract);
-                FilterByContract(win.QuoteUnderlying);
+                if (LayoutContent != null)
+                    LayoutContent.Title = win.QuoteTitle;
+                Filter(win.QuoteExchange, win.QuoteContract, win.QuoteUnderlying);
             }
         }
 
-        public void FilterByExchange(string exchange)
+        public void Filter(string exchange, string underlying, string contract)
         {
             if (quoteListView == null)
             {
                 return;
             }
 
-            ICollectionView view = CollectionViewSource.GetDefaultView(quoteListView.ItemsSource);
+            ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
             {
-                if (exchange == null)
+                if (contract == null)
                     return true;
 
                 QuoteViewModel qvm = o as QuoteViewModel;
 
-                if (exchange.Contains(qvm.Exchange ?? string.Empty))
+                if ((string.IsNullOrEmpty(exchange) || qvm.Exchange.Contains(exchange)) &&
+                (string.IsNullOrEmpty(contract) || qvm.Contract.Contains(contract)) &&
+                (string.IsNullOrEmpty(underlying) || qvm.Contract.Contains(underlying)))
                 {
                     return true;
                 }
