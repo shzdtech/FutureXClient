@@ -75,6 +75,7 @@ namespace Micro.Future.UI
 
         private void _ctpMdSignIner_OnLogged(IUserInfo obj)
         {
+            Thread.Sleep(1500);
             clientFundLV.ReloadData();
             Thread.Sleep(1500);
             positionsWindow.ReloadData();

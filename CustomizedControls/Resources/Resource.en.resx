@@ -300,12 +300,6 @@
   <data name="QuoteWindow" xml:space="preserve">
     <value>QuoteWindow</value>
   </data>
-  <data name="Server_Connected" xml:space="preserve">
-    <value>Server Connected</value>
-  </data>
-  <data name="Server_Unconnected" xml:space="preserve">
-    <value>Server Unconnected</value>
-  </data>
   <data name="SHFE" xml:space="preserve">
     <value>SHFE</value>
   </data>
@@ -527,5 +521,23 @@
   </data>
   <data name="OpenClose_OPEN" xml:space="preserve">
     <value>Open</value>
+  </data>
+  <data name="Server_CTP_MD_Connected" xml:space="preserve">
+    <value>CTP Market Data Server</value>
+  </data>
+  <data name="Server_CTP_MD_Unconnected" xml:space="preserve">
+    <value>CTP Market Data Server</value>
+  </data>
+  <data name="Server_CTP_TD_Connected" xml:space="preserve">
+    <value>CTP Trading Server</value>
+  </data>
+  <data name="Server_CTP_TD_Unconnected" xml:space="preserve">
+    <value>CTP Trading Server</value>
+  </data>
+  <data name="Server_OTC_Connected" xml:space="preserve">
+    <value>OTC Server</value>
+  </data>
+  <data name="Server_OTC_Unconnected" xml:space="preserve">
+    <value>OTC Server</value>
   </data>
 </root>

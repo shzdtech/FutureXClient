@@ -970,20 +970,56 @@ namespace Micro.Future.Resources {
         }
         
         /// <summary>
-        ///   查找类似 服务器已连接 的本地化字符串。
+        ///   查找类似 CTP行情服务器已连接 的本地化字符串。
         /// </summary>
-        internal static string Server_Connected {
+        internal static string Server_CTP_MD_Connected {
             get {
-                return ResourceManager.GetString("Server_Connected", resourceCulture);
+                return ResourceManager.GetString("Server_CTP_MD_Connected", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 服务器未连接 的本地化字符串。
+        ///   查找类似 CTP行情服务器未连接 的本地化字符串。
         /// </summary>
-        internal static string Server_Unconnected {
+        internal static string Server_CTP_MD_Unconnected {
             get {
-                return ResourceManager.GetString("Server_Unconnected", resourceCulture);
+                return ResourceManager.GetString("Server_CTP_MD_Unconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CTP交易服务器已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_CTP_TD_Connected {
+            get {
+                return ResourceManager.GetString("Server_CTP_TD_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CTP交易服务器未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_CTP_TD_Unconnected {
+            get {
+                return ResourceManager.GetString("Server_CTP_TD_Unconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTC服务器已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTC_Connected {
+            get {
+                return ResourceManager.GetString("Server_OTC_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTC服务器未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTC_Unconnected {
+            get {
+                return ResourceManager.GetString("Server_OTC_Unconnected", resourceCulture);
             }
         }
         
