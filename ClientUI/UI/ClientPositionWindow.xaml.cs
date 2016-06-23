@@ -20,6 +20,7 @@ namespace Micro.Future.UI
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
+        private PositionSettingsWindow _positionSettingsWin = new PositionSettingsWindow();
 
         public LayoutContent LayoutContent { get; set; }
 
@@ -30,9 +31,18 @@ namespace Micro.Future.UI
             _viewSource.Source = MessageHandlerContainer.DefaultInstance
                 .Get<TraderExHandler>().PositionVMCollection;
 
+            _positionSettingsWin.OnFiltering += _positionSettingsWin_OnFiltering;
+
             PositionListView.ItemsSource = _viewSource.View;
 
             mColumns = ColumnObject.GetColumns(PositionListView);
+        }
+
+        private void _positionSettingsWin_OnFiltering(string exchange, string underlying, string contract)
+        {
+            if (LayoutContent != null)
+                LayoutContent.Title = _positionSettingsWin.PositionTitle;
+            Filter(exchange, underlying, contract);
         }
 
         public event Action<PositionVM> OnPositionSelected;
@@ -55,17 +65,9 @@ namespace Micro.Future.UI
             var exchangeList = new List<string> { string.Empty };
             exchangeList.AddRange((from p in (IEnumerable<PositionVM>)_viewSource.Source
                                    select p.Exchange).Distinct());
-            PositionSettingsWindow win = new PositionSettingsWindow()
-            {
-                ExchangeCollection = exchangeList
-            };
+            _positionSettingsWin.ExchangeCollection = exchangeList;
 
-            if (win.ShowDialog() == true)
-            {
-                if (LayoutContent != null)
-                    LayoutContent.Title = win.PositionTitle;                
-                Filter(win.PositionExchange, win.PositionContract, win.PositionUnderlying);
-            }
+            _positionSettingsWin.Show();
         }
 
 

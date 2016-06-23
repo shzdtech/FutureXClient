@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace Micro.Future.Windows
     /// </summary>
     public partial class PositionSettingsWindow : Window
     {
+        public event Action<string, string, string> OnFiltering;
         public PositionSettingsWindow()
         {
             InitializeComponent();
@@ -48,6 +50,7 @@ namespace Micro.Future.Windows
             {
                 return underlyingTxt.Text;
             }
+            set { underlyingTxt.Text = value; }
         }
 
         public string PositionContract
@@ -60,7 +63,15 @@ namespace Micro.Future.Windows
 
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            Hide();
+            OnFiltering?.Invoke(PositionExchange, PositionUnderlying, PositionContract);
+        }
+
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            e.Cancel = true;
+            base.OnClosing(e);
         }
 
         public IEnumerable ExchangeCollection
