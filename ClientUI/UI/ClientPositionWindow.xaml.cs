@@ -9,6 +9,7 @@ using Micro.Future.Windows;
 using System.Linq;
 using System.Collections.Generic;
 using Xceed.Wpf.AvalonDock.Layout;
+using Micro.Future.Util;
 
 namespace Micro.Future.UI
 {
@@ -51,11 +52,14 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
         {
+            var exchangeList = new List<string> { string.Empty };
+            exchangeList.AddRange((from p in (IEnumerable<PositionVM>)_viewSource.Source
+                                   select p.Exchange).Distinct());
             PositionSettingsWindow win = new PositionSettingsWindow()
             {
-                ExchangeCollection = (from p in (IEnumerable<PositionVM>)_viewSource.Source
-                                      select p.Exchange).Distinct()
+                ExchangeCollection = exchangeList
             };
+
             if (win.ShowDialog() == true)
             {
                 if (LayoutContent != null)
@@ -89,9 +93,9 @@ namespace Micro.Future.UI
 
                 PositionVM pvm = o as PositionVM;
 
-                if ((string.IsNullOrEmpty(exchange) || pvm.Exchange.Contains(exchange)) &&
-                (string.IsNullOrEmpty(contract) || pvm.Contract.Contains(contract)) &&
-                (string.IsNullOrEmpty(underlying) || pvm.Contract.Contains(underlying)))
+                if (pvm.Exchange.ContainsAny(exchange) &&
+                    pvm.Contract.ContainsAny(contract) &&
+                    pvm.Contract.ContainsAny(underlying))
                 {
                     return true;
                 }
