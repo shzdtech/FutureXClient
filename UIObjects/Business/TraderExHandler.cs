@@ -64,6 +64,8 @@ namespace Micro.Future.Message
                 ((uint)BusinessMessageID.MSG_ID_TRADE_RTN, OnReturnTrade, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBOrderInfo, BizErrorMsg>
                 ((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, OnCancel, ErrorMsgAction);
+            //MessageWrapper.RegisterAction<PBOptionInfo, BizErrorMsg>
+            //    ((uint)BusinessMessageID.MSG_ID_OPTION_UPDATE, OnUpdateOption, ErrorMsgAction);
         }
 
         private void OnCancel(PBOrderInfo rsp)

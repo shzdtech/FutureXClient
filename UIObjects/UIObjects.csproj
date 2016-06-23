@@ -35,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="OxyPlot">
+      <HintPath>..\..\..\Users\11\.nuget\packages\OxyPlot.Core\1.0.0-unstable2100\lib\net45\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf">
+      <HintPath>..\..\..\Users\11\.nuget\packages\OxyPlot.Wpf\1.0.0-unstable2100\lib\net45\OxyPlot.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -82,6 +88,7 @@
     <Compile Include="UI\EnumConvertor.cs" />
     <Compile Include="UI\WPFUtility.cs" />
     <Compile Include="ViewModel\AddOrderViewModel.cs" />
+    <Compile Include="ViewModel\OptionVM.cs" />
     <Compile Include="ViewModel\CommandViewModel.cs" />
     <Compile Include="UI\ContextualTabGroupData.cs" />
     <Compile Include="ViewModel\ContractNotifyPropertyChanged.cs" />

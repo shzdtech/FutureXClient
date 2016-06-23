@@ -59,7 +59,7 @@ namespace Micro.Future.UI
             if (win.ShowDialog() == true)
             {
                 if (LayoutContent != null)
-                    LayoutContent.Title = win.PositionTitle;
+                    LayoutContent.Title = win.PositionTitle;                
                 Filter(win.PositionExchange, win.PositionContract, win.PositionUnderlying);
             }
         }
