@@ -76,8 +76,7 @@ namespace Micro.Future.UI
             string uid = userTxt.Text;
             string password = passwordTxt.Password;
 
-            if (!_signInMgr.MessageWrapper.HasSignIn ||
-                _signInMgr.SignInOptions.FrontServer != frontserver ||
+            if (_signInMgr.SignInOptions.FrontServer != frontserver ||
                 _signInMgr.SignInOptions.BrokerID != brokerid ||
                 _signInMgr.SignInOptions.UserID != uid ||
                 _signInMgr.SignInOptions.Password != password)
@@ -98,11 +97,6 @@ namespace Micro.Future.UI
 
             if (_signInMgr.IsSessionCreated)
                 Close();
-        }
-
-        private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

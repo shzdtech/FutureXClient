@@ -9,6 +9,7 @@ using Xceed.Wpf.AvalonDock.Layout;
 using System.Collections.Generic;
 using WPFLocalizeExtension;
 using Micro.Future.UI;
+using System.Threading.Tasks;
 
 namespace Micro.Future.UI
 {
@@ -19,8 +20,8 @@ namespace Micro.Future.UI
     {
         private Config _config = new Config(Settings.Default.ConfigFile);
         private PBSignInManager _otcClientSignIner = new PBSignInManager();
-        private PBSignInManager _ctpMdSignIner = new PBSignInManager();
         private PBSignInManager _ctpTradeSignIner = new PBSignInManager();
+        private PBSignInManager _ctpMdSignIner = new PBSignInManager();
         public ClientMainWindowOTC()
         {
             InitializeComponent();
@@ -50,8 +51,6 @@ namespace Micro.Future.UI
             msgWrapper.MessageClient.OnDisconnected += MD_OnDisconnected;
 
             _ctpMdSignIner.OnLoginError += OnErrorMessageRecv;
-            _ctpMdSignIner.OnLogged += _ctpMdSignIner_OnLogged;
-
             _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
             _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += ctpLoginStatus.OnDisconnected;
@@ -64,7 +63,7 @@ namespace Micro.Future.UI
             msgWrapper.MessageClient.OnDisconnected += TD_OnDisconnected;
 
             _ctpTradeSignIner.OnLoginError += OnErrorMessageRecv;
-
+            _ctpTradeSignIner.OnLogged += _ctpTradeSignIner_OnLogged;
             _ctpTradeSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
             _ctpTradeSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
@@ -73,8 +72,9 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OnError += OnErrorMessageRecv;
         }
 
-        private void _ctpMdSignIner_OnLogged(IUserInfo obj)
+        private void _ctpTradeSignIner_OnLogged(IUserInfo obj)
         {
+            Thread.Sleep(1500);
             clientFundLV.ReloadData();
             Thread.Sleep(1500);
             positionsWindow.ReloadData();
@@ -108,9 +108,9 @@ namespace Micro.Future.UI
                 AddressCollection = _config.Content["OTCSERVER.ADDRESS"].Values
             };
             loginWindow.ShowDialog();
-
+            Thread.Sleep(1000);
             MDServerLogin();
-
+            Thread.Sleep(1000);
             TradingServerLogin();
 
             return true;
@@ -135,7 +135,7 @@ namespace Micro.Future.UI
             _ctpMdSignIner.SignInOptions.Password = mdCfg["PASSWORD"];
             _ctpMdSignIner.SignIn();
 
-            ctpLoginStatus.Prompt = "正在连接CTP Market服务器...";
+            ctpLoginStatus.Prompt = "正在连接CTP行情服务器...";
         }
 
         private void TradingServerLogin()
@@ -147,7 +147,7 @@ namespace Micro.Future.UI
             _ctpTradeSignIner.SignInOptions.Password = mdCfg["PASSWORD"];
             _ctpTradeSignIner.SignIn();
 
-            ctpLoginStatus.Prompt = "正在连接CTP Trading服务器...";
+            ctpTradeLoginStatus.Prompt = "正在连接CTP交易服务器...";
         }
 
         private void RibbonLogin_Click(object sender, RoutedEventArgs e)

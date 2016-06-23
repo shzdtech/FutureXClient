@@ -36,7 +36,7 @@ namespace Micro.Future.UI
             _viewSource.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
             quoteListView.ItemsSource = _viewSource.View;
 
-
+						mColumns = ColumnObject.GetColumns(quoteListView);
         }
 
         public event Action<QuoteViewModel> OnQuoteSelected;

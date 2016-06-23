@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -89,12 +89,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\ClientUI\UI\ClientMainWindowOTC.xaml.cs">
-      <Link>ClientMainWindowOTC.xaml.cs</Link>
-    </Compile>
-    <Compile Include="..\ClientUI\UI\ClientQuoteGroupView.xaml.cs">
-      <Link>ClientQuoteGroupView.xaml.cs</Link>
-    </Compile>
     <Compile Include="Business\TradeHandler.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Test\TestWindow.xaml.cs">

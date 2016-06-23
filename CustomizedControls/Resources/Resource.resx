@@ -300,11 +300,11 @@
   <data name="QuoteWindow" xml:space="preserve">
     <value>报价表</value>
   </data>
-  <data name="Server_Connected" xml:space="preserve">
-    <value>服务器已连接</value>
+  <data name="Server_CTP_MD_Connected" xml:space="preserve">
+    <value>CTP行情服务器已连接</value>
   </data>
-  <data name="Server_Unconnected" xml:space="preserve">
-    <value>服务器未连接</value>
+  <data name="Server_CTP_MD_Unconnected" xml:space="preserve">
+    <value>CTP行情服务器未连接</value>
   </data>
   <data name="SHFE" xml:space="preserve">
     <value>上海期货</value>
@@ -527,5 +527,17 @@
   </data>
   <data name="OpenClose_OPEN" xml:space="preserve">
     <value>开仓</value>
+  </data>
+  <data name="Server_CTP_TD_Connected" xml:space="preserve">
+    <value>CTP交易服务器已连接</value>
+  </data>
+  <data name="Server_CTP_TD_Unconnected" xml:space="preserve">
+    <value>CTP交易服务器未连接</value>
+  </data>
+  <data name="Server_OTC_Connected" xml:space="preserve">
+    <value>OTC服务器已连接</value>
+  </data>
+  <data name="Server_OTC_Unconnected" xml:space="preserve">
+    <value>OTC服务器未连接</value>
   </data>
 </root>
