@@ -9,6 +9,7 @@ using Micro.Future.Message;
 using Micro.Future.Windows;
 using System.Collections.ObjectModel;
 using Xceed.Wpf.AvalonDock.Layout;
+using Micro.Future.Util;
 
 namespace Micro.Future.UI
 {
@@ -19,6 +20,8 @@ namespace Micro.Future.UI
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
+        private TradeSettingsWindow _tradeSettingsWin = new TradeSettingsWindow();
+
 
         public LayoutContent LayoutContent { get; set; }
 
@@ -29,9 +32,19 @@ namespace Micro.Future.UI
             _viewSource.Source = MessageHandlerContainer.DefaultInstance
                 .Get<TraderExHandler>().TradeVMCollection;
 
+            _tradeSettingsWin.OnFiltering += _tradeSettingsWin_OnFiltering;
+
+
             TradeTreeView.ItemsSource = _viewSource.View;
 
             mColumns = ColumnObject.GetColumns(TradeTreeView);
+        }
+
+        private void _tradeSettingsWin_OnFiltering(string exchange, string underlying, string contract)
+        {
+            if (LayoutContent != null)
+                LayoutContent.Title = _tradeSettingsWin.TradeTitle;
+            Filter(exchange, underlying, contract);
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -46,19 +59,12 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
         {
-            TradeSettingsWindow win = new TradeSettingsWindow()
-            {
-                ExchangeCollection = (from p in (IEnumerable<TradeVM>)_viewSource.Source
-                                      select p.Exchange).Distinct()
-            };
+            var exchangeList = new List<string> { string.Empty };
+            exchangeList.AddRange((from p in (IEnumerable<TradeVM>)_viewSource.Source
+                                   select p.Exchange).Distinct());
+            _tradeSettingsWin.ExchangeCollection = exchangeList;
 
-            if (win.ShowDialog() == true)
-            {
-                if (LayoutContent != null)
-                    LayoutContent.Title = win.TradeTitle;
-                Filter(win.TradeExchange, win.TradeContract, win.TradeUnderlying);
-
-            }
+            _tradeSettingsWin.Show();
         }
 
         public void FilterByStatus(IEnumerable<OrderOffsetType> statuses)
@@ -68,9 +74,7 @@ namespace Micro.Future.UI
                 return;
             }
 
-            CollectionViewSource viewSource = new CollectionViewSource();
-            viewSource.Source = TradeTreeView.ItemsSource;
-            ICollectionView view = viewSource.View;
+            ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
             {
                 if (statuses == null)
@@ -102,9 +106,9 @@ namespace Micro.Future.UI
 
                 TradeVM tvm = o as TradeVM;
 
-                if ((string.IsNullOrEmpty(exchange) || tvm.Exchange.Contains(exchange)) &&
-                (string.IsNullOrEmpty(contract) || tvm.Contract.Contains(contract)) &&
-                (string.IsNullOrEmpty(underlying) || tvm.Contract.Contains(underlying)))
+                if (tvm.Exchange.ContainsAny(exchange) &&
+                    tvm.Contract.ContainsAny(contract) &&
+                    tvm.Contract.ContainsAny(underlying))
                 {
                     return true;
                 }

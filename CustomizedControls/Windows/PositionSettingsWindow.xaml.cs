@@ -42,6 +42,7 @@ namespace Micro.Future.Windows
             {
                 return exchangecombo.Text;
             }
+            set { exchangecombo.Text = value; }
         }
 
         public string PositionUnderlying
@@ -59,6 +60,7 @@ namespace Micro.Future.Windows
             {
                 return contractTxt.Text;
             }
+            set { contractTxt.Text = value; }
         }
 
         private void OkBtn_Click(object sender, RoutedEventArgs e)
@@ -73,7 +75,7 @@ namespace Micro.Future.Windows
             e.Cancel = true;
             base.OnClosing(e);
         }
-
+        
         public IEnumerable ExchangeCollection
         {
             set

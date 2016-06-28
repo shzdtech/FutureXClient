@@ -17,6 +17,7 @@ using Micro.Future.ViewModel;
 using Micro.Future.Message;
 using System.ComponentModel;
 using Micro.Future.Windows;
+using Micro.Future.Util;
 
 namespace Micro.Future.UI
 {
@@ -27,6 +28,8 @@ namespace Micro.Future.UI
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
+        private QuoteSettingsWindow _quoteSettingsWin = new QuoteSettingsWindow();
+
         public LayoutContent LayoutContent { get; set; }
 
 
@@ -34,9 +37,17 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             _viewSource.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
+            _quoteSettingsWin.OnFiltering += _quoteSettingsWin_OnFiltering;
             quoteListView.ItemsSource = _viewSource.View;
 
 						mColumns = ColumnObject.GetColumns(quoteListView);
+        }
+
+        private void _quoteSettingsWin_OnFiltering(string exchange, string underlying, string contract)
+        {
+            if (LayoutContent != null)
+                LayoutContent.Title = _quoteSettingsWin.QuoteTitle;
+            Filter(exchange, underlying, contract);
         }
 
         public event Action<QuoteViewModel> OnQuoteSelected;
@@ -104,18 +115,12 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
         {
-            QuoteSettingsWindow win = new QuoteSettingsWindow()
-            {
-                ExchangeCollection = (from p in (IEnumerable<QuoteViewModel>)_viewSource.Source
-                                      select p.Exchange).Distinct()
-            };
-                 
-            if (win.ShowDialog() == true)
-            {
-                if (LayoutContent != null)
-                    LayoutContent.Title = win.QuoteTitle;
-                Filter(win.QuoteExchange, win.QuoteContract, win.QuoteUnderlying);
-            }
+            var exchangeList = new List<string> { string.Empty };
+            exchangeList.AddRange((from p in (IEnumerable<QuoteViewModel>)_viewSource.Source
+                                   select p.Exchange).Distinct());
+            _quoteSettingsWin.ExchangeCollection = exchangeList;
+
+            _quoteSettingsWin.Show();
         }
 
         public void Filter(string exchange, string underlying, string contract)
@@ -133,9 +138,9 @@ namespace Micro.Future.UI
 
                 QuoteViewModel qvm = o as QuoteViewModel;
 
-                if ((string.IsNullOrEmpty(exchange) || qvm.Exchange.Contains(exchange)) &&
-                (string.IsNullOrEmpty(contract) || qvm.Contract.Contains(contract)) &&
-                (string.IsNullOrEmpty(underlying) || qvm.Contract.Contains(underlying)))
+                if (qvm.Exchange.ContainsAny(exchange) &&
+                    qvm.Contract.ContainsAny(contract) &&
+                    qvm.Contract.ContainsAny(underlying))
                 {
                     return true;
                 }
