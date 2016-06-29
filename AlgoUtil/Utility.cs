@@ -18,9 +18,10 @@ namespace Micro.Future.Util
             if (string.IsNullOrWhiteSpace(findStr))
                 return true;
 
-            var strArray = findStr.Split(seperator);
+            var strArray = findStr.Split(seperator, StringSplitOptions.RemoveEmptyEntries);
             foreach (var str in strArray)
-                if (thisString.IndexOf(str.Trim(), StringComparison.InvariantCultureIgnoreCase) >= 0)
+                if (!string.IsNullOrWhiteSpace(str) &&
+                    thisString.IndexOf(str.Trim(), StringComparison.InvariantCultureIgnoreCase) >= 0)
                     return true;
 
             return false;
