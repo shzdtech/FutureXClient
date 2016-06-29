@@ -42,10 +42,10 @@
                     <RibbonMenuButton Label="{lex:Loc Key=AddWindow}" LargeImageSource="/Images/Login_48x48.png">
                         <RibbonMenuItem Header="{lex:Loc Key=QuoteWindow}">
                             <RibbonMenuItem Header="{lex:Loc Key=Optional}" Click="MenuItem_Click_Contract"/>
-                            <RibbonMenuItem Header="{lex:Loc Key=CFFEX}" Click="MenuItem_Click_ZhongJin"/>
+                            <!--<RibbonMenuItem Header="{lex:Loc Key=CFFEX}" Click="MenuItem_Click_ZhongJin"/>
                             <RibbonMenuItem Header="{lex:Loc Key=SHFE}" Click="MenuItem_Click_ShangHai"/>
                             <RibbonMenuItem Header="{lex:Loc Key=DCE}" Click="MenuItem_Click_DaLian"/>
-                            <RibbonMenuItem Header="{lex:Loc Key=CZCE}" Click="MenuItem_Click_ZhengZhou"/>
+                            <RibbonMenuItem Header="{lex:Loc Key=CZCE}" Click="MenuItem_Click_ZhengZhou"/>-->
                         </RibbonMenuItem> />
                         <RibbonMenuItem Header="{lex:Loc Key=ExecutionWindow}">
                             <RibbonMenuItem Header="{lex:Loc Key=AllExecution}" Click="MenuItem_Click_Execution"/>

@@ -10,6 +10,7 @@ using Micro.Future.Windows;
 using System.Collections.ObjectModel;
 using Xceed.Wpf.AvalonDock.Layout;
 using Micro.Future.UI;
+using Micro.Future.Util;
 
 namespace Micro.Future.UI
 {
@@ -21,6 +22,8 @@ namespace Micro.Future.UI
         private ColumnObject[] mColumns;
 
         private CollectionViewSource _viewSource = new CollectionViewSource();
+        private ExecutionSettingsWindow _executionSettingsWin = new ExecutionSettingsWindow();
+
 
         public LayoutContent LayoutContent { get; set; }
 
@@ -31,9 +34,18 @@ namespace Micro.Future.UI
             _viewSource.Source = MessageHandlerContainer.DefaultInstance
                 .Get<TraderExHandler>().OrderVMCollection;
 
+            _executionSettingsWin.OnFiltering += _executionSettingsWin_OnFiltering;
+
             ExecutionTreeView.ItemsSource = _viewSource.View;
 
             mColumns = ColumnObject.GetColumns(ExecutionTreeView);
+        }
+
+        private void _executionSettingsWin_OnFiltering(string exchange, string underlying, string contract)
+        {
+            if (LayoutContent != null)
+                LayoutContent.Title = _executionSettingsWin.ExecutionTitle;
+            Filter(exchange, underlying, contract);
         }
 
         private void RadioButton_Checked_AllOrder(object sender, RoutedEventArgs e)
@@ -48,18 +60,12 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
         {
-            ExecutionSettingsWindow win = new ExecutionSettingsWindow()
-            {
-                ExchangeCollection = (from p in (IEnumerable<OrderVM>)_viewSource.Source
-                                          select p.Exchange).Distinct()
-            };
-            if (win.ShowDialog() == true)
-            {
-                if (LayoutContent != null)
-                    LayoutContent.Title = win.ExecutionTitle;
-                Filter(win.ExecutionExchange, win.ExecutionContract, win.ExecutionUnderlying);
+            var exchangeList = new List<string> { string.Empty };
+            exchangeList.AddRange((from p in (IEnumerable<OrderVM>)_viewSource.Source
+                                   select p.Exchange).Distinct());
+            _executionSettingsWin.ExchangeCollection = exchangeList;
 
-            }
+            _executionSettingsWin.Show();
         }
 
         public void Filter(string exchange, string underlying, string contract)
@@ -75,11 +81,11 @@ namespace Micro.Future.UI
                 if (contract == null)
                     return true;
 
-                OrderVM ovm = o as OrderVM;
+                OrderVM evm = o as OrderVM;
 
-                if ((string.IsNullOrEmpty(exchange) || ovm.Exchange.Contains(exchange)) &&
-                (string.IsNullOrEmpty(contract) || ovm.Contract.Contains(contract)) &&
-                (string.IsNullOrEmpty(underlying) || ovm.Contract.Contains(underlying)))
+                if (evm.Exchange.ContainsAny(exchange) &&
+                    evm.Contract.ContainsAny(contract) &&
+                    evm.Contract.ContainsAny(underlying))
                 {
                     return true;
                 }

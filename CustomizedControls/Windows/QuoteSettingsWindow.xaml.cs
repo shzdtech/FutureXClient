@@ -20,6 +20,9 @@ namespace Micro.Future.Windows
     /// </summary>
     public partial class QuoteSettingsWindow : Window
     {
+
+        public event Action<string, string, string> OnFiltering;
+
         public QuoteSettingsWindow()
         {
             InitializeComponent();
@@ -60,7 +63,8 @@ namespace Micro.Future.Windows
 
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            Hide();
+            OnFiltering?.Invoke(QuoteExchange, QuoteUnderlying, QuoteContract);
         }
 
         public IEnumerable ExchangeCollection

@@ -100,28 +100,46 @@ namespace Micro.Future.Message
         }
         private void OnPosition(PBPosition rsp)
         {
-            PositionVMCollection.Add(new PositionVM()
-            {
-                Direction = (PositionDirectionType)rsp.Direction,
-                Position = rsp.Position,
-                YdPosition = rsp.YdPosition,
-                PositionDate = rsp.PositionDate,
-                OpenVolume = rsp.OpenVolume,
-                CloseVolume = rsp.CloseVolume,
-                OpenAmount = rsp.OpenAmount,
-                CloseAmount = rsp.CloseAmount,
-                Cost = rsp.Cost,
-                OpenCost = rsp.OpenCost,
-                Profit = rsp.Profit,
-                CloseProfit = rsp.CloseProfit,
-                UseMargin = rsp.UseMargin,
-                HedgeFlag = (HedgeType)rsp.HedgeFlag,
-                Contract = rsp.Contract,
-                Exchange = rsp.Exchange,
-                //TodayPosition=rsp.                     
-                //CancelTime=rsp.
 
-            });
+            if (PositionVMCollection != null)
+            {
+                lock (PositionVMCollection)
+                {
+                    PositionVM positionVM = null;
+                    foreach (var position in PositionVMCollection)
+                    {
+                        if (position.Contract == rsp.Contract &&
+                            (int)position.Direction == rsp.Direction)
+                        {
+                            positionVM = position;
+                            break;
+                        }
+                    }
+
+                    if (positionVM == null)
+                    {
+                        positionVM = new PositionVM();
+                        PositionVMCollection.Add(positionVM);
+                    }
+
+                    positionVM.Direction = (PositionDirectionType)rsp.Direction;
+                    positionVM.Position = rsp.Position;
+                    positionVM.YdPosition = rsp.YdPosition;
+                    positionVM.PositionDate = rsp.PositionDate;
+                    positionVM.OpenVolume = rsp.OpenVolume;
+                    positionVM.CloseVolume = rsp.CloseVolume;
+                    positionVM.OpenAmount = rsp.OpenAmount;
+                    positionVM.CloseAmount = rsp.CloseAmount;
+                    positionVM.Cost = rsp.Cost;
+                    positionVM.OpenCost = rsp.OpenCost;
+                    positionVM.Profit = rsp.Profit;
+                    positionVM.CloseProfit = rsp.CloseProfit;
+                    positionVM.UseMargin = rsp.UseMargin;
+                    positionVM.HedgeFlag = (HedgeType)rsp.HedgeFlag;
+                    positionVM.Contract = rsp.Contract;
+                    positionVM.Exchange = rsp.Exchange;
+                }
+            }
         }
         private void OnFund(PBAccountInfo rsp)
         {

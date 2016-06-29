@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,8 @@ namespace Micro.Future.Windows
     /// </summary>
     public partial class TradeSettingsWindow : Window
     {
+        public event Action<string, string, string> OnFiltering;
+
         public TradeSettingsWindow()
         {
             InitializeComponent();
@@ -60,7 +63,14 @@ namespace Micro.Future.Windows
 
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            Hide();
+            OnFiltering?.Invoke(TradeExchange, TradeUnderlying, TradeContract);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            e.Cancel = true;
+            base.OnClosing(e);
         }
 
         public IEnumerable ExchangeCollection

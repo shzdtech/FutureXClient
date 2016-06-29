@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace Micro.Future.Windows
     /// </summary>
     public partial class ExecutionSettingsWindow : Window
     {
+        public event Action<string, string, string> OnFiltering;
         public ExecutionSettingsWindow()
         {
             InitializeComponent();
@@ -60,9 +62,16 @@ namespace Micro.Future.Windows
 
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            Hide();
+            OnFiltering?.Invoke(ExecutionExchange, ExecutionUnderlying, ExecutionContract);
         }
 
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            e.Cancel = true;
+            base.OnClosing(e);
+        }
         public IEnumerable ExchangeCollection
         {
             set

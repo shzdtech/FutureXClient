@@ -18,6 +18,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class ClientMainWindowOTC : RibbonWindow
     {
+        private const string CST_CONTROL_ASSEMBLY = "Micro.Future.CustomizedControls";
         private Config _config = new Config(Settings.Default.ConfigFile);
         private PBSignInManager _otcClientSignIner = new PBSignInManager();
         private PBSignInManager _ctpTradeSignIner = new PBSignInManager();
@@ -175,7 +176,7 @@ namespace Micro.Future.UI
             LayoutAnchorable ancable = new LayoutAnchorable();
             var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
             ancable.Content = quoteGrpVw;
-            ancable.Title = WPFUtility.GetLocalizedString("Optional", "Resource");
+            ancable.Title = WPFUtility.GetLocalizedString("Optional", "Resource", CST_CONTROL_ASSEMBLY);
             quotePane.Children.Add(ancable);
         }
 
@@ -185,7 +186,7 @@ namespace Micro.Future.UI
             var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
             quoteGrpVw.Filter( "CFFEX","","" );
             ancable.Content = quoteGrpVw;
-            ancable.Title = WPFUtility.GetLocalizedString("CFFEX", "Resource");
+            ancable.Title = WPFUtility.GetLocalizedString("CFFEX", "Resource", CST_CONTROL_ASSEMBLY);
             quotePane.Children.Add(ancable);
         }
 
@@ -195,7 +196,7 @@ namespace Micro.Future.UI
             var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
             quoteGrpVw.Filter("SHFE","","");
             ancable.Content = quoteGrpVw;
-            ancable.Title = WPFUtility.GetLocalizedString("SHFE", "Resource");
+            ancable.Title = WPFUtility.GetLocalizedString("SHFE", "Resource", CST_CONTROL_ASSEMBLY);
             quotePane.Children.Add(ancable);
         }
 
@@ -205,7 +206,7 @@ namespace Micro.Future.UI
             var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
             quoteGrpVw.Filter("DCE","","");
             ancable.Content = quoteGrpVw;
-            ancable.Title = WPFUtility.GetLocalizedString("DCE", "Resource");
+            ancable.Title = WPFUtility.GetLocalizedString("DCE", "Resource", CST_CONTROL_ASSEMBLY);
             quotePane.Children.Add(ancable);
         }
 
@@ -215,7 +216,7 @@ namespace Micro.Future.UI
             var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
             quoteGrpVw.Filter("CZCE","","");
             ancable.Content = quoteGrpVw;
-            ancable.Title = WPFUtility.GetLocalizedString("CZCE", "Resource");
+            ancable.Title = WPFUtility.GetLocalizedString("CZCE", "Resource", CST_CONTROL_ASSEMBLY);
             quotePane.Children.Add(ancable);
         }
 
@@ -224,7 +225,7 @@ namespace Micro.Future.UI
             LayoutAnchorable ancable = new LayoutAnchorable();
             var executionWin = new ClientExecutionWindow() { LayoutContent = ancable };
             ancable.Content = executionWin;
-            ancable.Title = WPFUtility.GetLocalizedString("AllExecution", "Resource");
+            ancable.Title = WPFUtility.GetLocalizedString("AllExecution", "Resource", CST_CONTROL_ASSEMBLY);
             executionPane.Children.Add(ancable);
         }
 
@@ -234,7 +235,7 @@ namespace Micro.Future.UI
             var executionWin = new ClientExecutionWindow() { LayoutContent = ancable };
             ancable.Content = executionWin;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENNING });
-            ancable.Title = WPFUtility.GetLocalizedString("Opening", "Resource");
+            ancable.Title = WPFUtility.GetLocalizedString("Opening", "Resource", CST_CONTROL_ASSEMBLY);
             executionPane.Children.Add(ancable);
         }
 
@@ -244,7 +245,7 @@ namespace Micro.Future.UI
             var executionWin = new ClientExecutionWindow() { LayoutContent = ancable };
             ancable.Content = executionWin;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED});
-            ancable.Title = WPFUtility.GetLocalizedString("Traded", "Resource");
+            ancable.Title = WPFUtility.GetLocalizedString("Traded", "Resource", CST_CONTROL_ASSEMBLY);
             executionPane.Children.Add(ancable);
         }
 
@@ -253,7 +254,7 @@ namespace Micro.Future.UI
             LayoutAnchorable ancable = new LayoutAnchorable();
             var tradeWin = new ClientTradeWindow() { LayoutContent = ancable };
             ancable.Content =tradeWin;
-            ancable.Title = WPFUtility.GetLocalizedString("AllTraded", "Resource");
+            ancable.Title = WPFUtility.GetLocalizedString("AllTraded", "Resource", CST_CONTROL_ASSEMBLY);
             tradePane.Children.Add(ancable);
         }
 
@@ -263,7 +264,7 @@ namespace Micro.Future.UI
             var tradeWin = new ClientTradeWindow() { LayoutContent = ancable };
             ancable.Content = tradeWin;
             tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.OPEN });
-            ancable.Title = WPFUtility.GetLocalizedString("Open", "Resource");
+            ancable.Title = WPFUtility.GetLocalizedString("Open", "Resource", CST_CONTROL_ASSEMBLY);
             tradePane.Children.Add(ancable);
         }
 
@@ -273,7 +274,7 @@ namespace Micro.Future.UI
             var tradeWin = new ClientTradeWindow() { LayoutContent = ancable };
             ancable.Content = tradeWin;
             tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.CLOSE });
-            ancable.Title = WPFUtility.GetLocalizedString("Close", "Resource");
+            ancable.Title = WPFUtility.GetLocalizedString("Close", "Resource", CST_CONTROL_ASSEMBLY);
             tradePane.Children.Add(ancable);
         }
 
@@ -282,7 +283,7 @@ namespace Micro.Future.UI
             LayoutAnchorable ancable = new LayoutAnchorable();
             var positionWin = new ClientPositionWindow() { LayoutContent = ancable };
             ancable.Content = positionWin;
-            ancable.Title = WPFUtility.GetLocalizedString("Position", "Resource");
+            ancable.Title = WPFUtility.GetLocalizedString("Position", "Resource", CST_CONTROL_ASSEMBLY);
             positionPane.Children.Add(ancable);
         }
 
