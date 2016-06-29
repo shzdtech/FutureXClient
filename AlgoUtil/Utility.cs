@@ -20,7 +20,7 @@ namespace Micro.Future.Util
 
             var strArray = findStr.Split(seperator);
             foreach (var str in strArray)
-                if (thisString.Contains(str.Trim()))
+                if (thisString.IndexOf(str.Trim(), StringComparison.InvariantCultureIgnoreCase) >= 0)
                     return true;
 
             return false;

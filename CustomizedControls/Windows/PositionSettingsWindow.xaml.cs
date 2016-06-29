@@ -70,7 +70,8 @@ namespace Micro.Future.Windows
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            e.Cancel = true;
+            Hide();
+            e.Cancel = CancelClosing;
             base.OnClosing(e);
         }
 
@@ -80,6 +81,11 @@ namespace Micro.Future.Windows
             {
                 exchangecombo.ItemsSource = value;
             }
+        }
+
+        public bool CancelClosing
+        {
+            get; set;
         }
     }
 }

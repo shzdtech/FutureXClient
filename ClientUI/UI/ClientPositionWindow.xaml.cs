@@ -20,9 +20,16 @@ namespace Micro.Future.UI
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
-        private PositionSettingsWindow _positionSettingsWin = new PositionSettingsWindow();
+        private PositionSettingsWindow _positionSettingsWin =
+            new PositionSettingsWindow() { CancelClosing = true };
 
         public LayoutContent LayoutContent { get; set; }
+
+        ~ClientPositionWindow()
+        {
+            _positionSettingsWin.CancelClosing = false;
+            _positionSettingsWin.Close();
+        }
 
         public ClientPositionWindow()
         {
@@ -129,18 +136,5 @@ namespace Micro.Future.UI
                 return false;
             };
         }
-        //private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        //{
-        //    PositionVM vm = PositionListView.SelectedItem as PositionVM;
-        //    if (vm != null)
-        //    {
-        //        MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().CloseMarketOrder(vm);
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("请选择持仓合约", "错误");
-        //    }
-        //}
-
     }
 }
