@@ -1,5 +1,5 @@
 ﻿using Micro.Future.EnumMap;
-using Micro.Future.UI;
+using Micro.Future.Utility;
 
 namespace Micro.Future.Message
 {

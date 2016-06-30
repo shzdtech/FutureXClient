@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls.Ribbon;
 using Micro.Future.Message;
-using Micro.Future.Util;
+using Micro.Future.Utility;
 using Micro.Future.Properties;
 using System.Threading;
 using Xceed.Wpf.AvalonDock.Layout;

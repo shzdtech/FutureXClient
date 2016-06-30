@@ -14,7 +14,7 @@ using System.Windows.Data;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using System.Windows.Input;
 using Micro.Future.Message;
-using Micro.Future.Util;
+using Micro.Future.Utility;
 using Micro.Future.Properties;
 
 namespace Micro.Future.UI

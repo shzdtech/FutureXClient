@@ -6,7 +6,7 @@ using System.IO;
 using log4net;
 using System.Reflection;
 
-namespace Micro.Future.Util
+namespace Micro.Future.Utility
 {
     //wrapper for log by Lucas, Jun 5th, 2013
     public class Logger

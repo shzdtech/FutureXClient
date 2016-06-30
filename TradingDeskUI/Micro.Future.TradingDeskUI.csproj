@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6425AAD0-3C33-4F14-AE8F-53ED07C203D6}</ProjectGuid>
-    <OutputType>library</OutputType>
+    <ProjectGuid>{1D256FE8-16E8-4220-B599-DAC14B18F873}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Micro.Future</RootNamespace>
-    <AssemblyName>Micro.Future.CustomizedControls</AssemblyName>
+    <AssemblyName>Micro.Future.TradingDeskUI</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -20,6 +20,7 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -27,8 +28,10 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -53,86 +56,65 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\LoginStatus.xaml.cs">
-      <DependentUpon>LoginStatus.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\Resource.en.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.en.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\Resource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModel\CityViewModel.cs" />
-    <Compile Include="ViewModel\CountryViewModel.cs" />
-    <Compile Include="ViewModel\RegionViewModel.cs" />
-    <Compile Include="ViewModel\StateViewModel.cs" />
-    <Compile Include="Windows\FastOrderWin.xaml.cs">
-      <DependentUpon>FastOrderWin.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\QuoteSettingsWindow.xaml.cs">
-      <DependentUpon>QuoteSettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\SearchQuoteWindow.xaml.cs">
-      <DependentUpon>SearchQuoteWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ExecutionSettingsWindow.xaml.cs">
-      <DependentUpon>ExecutionSettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\TradeSettingsWindow.xaml.cs">
-      <DependentUpon>TradeSettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\PositionSettingsWindow.xaml.cs">
-      <DependentUpon>PositionSettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Controls\LoginStatus.xaml">
-      <SubType>Designer</SubType>
+    <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ColumnSettingsWindow.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Controls\TDExecutionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\FastOrderWin.xaml">
+    <Page Include="Controls\TDPositionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\QuoteSettingsWindow.xaml">
+    <Page Include="Controls\OTCMarketData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\LoginWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="ViewModel\CommonRibbon.cs" />
-    <Compile Include="Windows\ColumnSettingsWindow.xaml.cs">
-      <DependentUpon>ColumnSettingsWindow.xaml</DependentUpon>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Windows\LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    <Compile Include="Controls\TDExecutionWindow.xaml.cs">
+      <DependentUpon>TDExecutionWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Windows\SearchQuoteWindow.xaml">
+    <Compile Include="Controls\TDPositionWindow.xaml.cs">
+      <DependentUpon>TDPositionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OTCMarketData.xaml.cs">
+      <DependentUpon>OTCMarketData.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\OTCFastOrderWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\ExecutionSettingsWindow.xaml">
+    <Page Include="OTCTradingDesk.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\TradeSettingsWindow.xaml">
+    <Page Include="Controls\OTCTradingStrategyLV.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\PositionSettingsWindow.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Controls\OTCTradingDeskContractParam.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\OTCFastOrderWindow.xaml.cs">
+      <DependentUpon>OTCFastOrderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OTCTradingDesk.xaml.cs">
+      <DependentUpon>OTCTradingDesk.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OTCTradingStrategyLV.xaml.cs">
+      <DependentUpon>OTCTradingStrategyLV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OTCTradingDeskContractParam.xaml.cs">
+      <DependentUpon>OTCTradingDeskContractParam.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -150,20 +132,18 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Resource.en.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.en.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Resource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="project.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Settings.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\FutureXShare\src\Micro.Future.Message.ProtoBuf\Micro.Future.Message.ProtoBuf.csproj">
@@ -174,34 +154,32 @@
       <Project>{354935ce-ab35-4bc3-88dd-e6c3b1e0870c}</Project>
       <Name>Micro.Future.Message</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AlgoUtil\Utility.csproj">
+    <ProjectReference Include="..\AlgoUtil\Micro.Future.Utility.csproj">
       <Project>{a6a3af60-a359-49c4-8747-c79b695489e2}</Project>
-      <Name>Utility</Name>
+      <Name>Micro.Future.Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UIObjects\UIObjects.csproj">
+    <ProjectReference Include="..\CustomizedControls\Micro.Future.CustomizedControls.csproj">
+      <Project>{6425aad0-3c33-4f14-ae8f-53ed07c203d6}</Project>
+      <Name>Micro.Future.CustomizedControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UIObjects\Micro.Future.UIObject.csproj">
       <Project>{4bd98165-b411-4890-b74a-30619059502b}</Project>
-      <Name>UIObjects</Name>
+      <Name>Micro.Future.UIObject</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WPFThemeLib\WPFThemeLib.csproj">
+    <ProjectReference Include="..\WPFThemeLib\Micro.Future.WPFThemeLib.csproj">
       <Project>{fc6c36d7-d378-4cb9-a50c-e5a0050e9182}</Project>
-      <Name>WPFThemeLib</Name>
+      <Name>Micro.Future.WPFThemeLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\City.png" />
+    <Resource Include="Images\Login_48x48.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Region.png" />
+    <Resource Include="Images\Calculator.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\State.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\connected_48x48.png" />
-    <Resource Include="Images\disconnected_48x48.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Themes\" />
+    <Folder Include="Business\" />
+    <Folder Include="Windows\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

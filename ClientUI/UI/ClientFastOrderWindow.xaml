@@ -4,7 +4,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    xmlns:local="clr-namespace:Micro.Future.UI;assembly=Micro.Future.UIObject"
+    xmlns:local="clr-namespace:Micro.Future.Utility;assembly=Micro.Future.Utility"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"    
     lex:LocalizeDictionary.DesignCulture="zh_CN"
     lex:LocalizeDictionary.OutputMissingKeys="True"

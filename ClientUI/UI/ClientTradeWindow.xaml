@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Micro.Future.UI;assembly=Micro.Future.UIObject"
+             xmlns:local="clr-namespace:Micro.Future.Utility;assembly=Micro.Future.Utility"
              xmlns:view="clr-namespace:Micro.Future.ViewModel"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"    
              lex:LocalizeDictionary.DesignCulture="zh_CN"

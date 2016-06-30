@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
-using Micro.Future.Util;
+using Micro.Future.Utility;
 using System.Windows.Threading;
 using PBMsgTrader;
 using Google.Protobuf;

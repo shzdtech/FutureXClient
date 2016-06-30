@@ -10,7 +10,7 @@ using System.IO;
 using Micro.Future.ViewModel;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using Micro.Future.Message;
-using Micro.Future.Util;
+using Micro.Future.Utility;
 using Micro.Future.Properties;
 
 namespace Micro.Future.UI

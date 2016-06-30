@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using Micro.Future.Util;
+using Micro.Future.Utility;
 using Micro.Future.Message;
 using System.Collections;
 using System.Security.Cryptography;

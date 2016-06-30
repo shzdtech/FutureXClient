@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using PBWrapMsgOG;
-using Micro.Future.Util;
+using Micro.Future.Utility;
 using Micro.Future.Message;
 using Micro.Future.Message.PBMessageHandler;
 using System.Windows.Threading;

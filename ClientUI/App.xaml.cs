@@ -2,7 +2,7 @@
 using Micro.Future.Constant;
 using Micro.Future.Message.PBMessageHandler;
 using Micro.Future.Properties;
-using Micro.Future.Util;
+using Micro.Future.Utility;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

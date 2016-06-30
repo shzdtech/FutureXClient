@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
-using Micro.Future.Util;
+using Micro.Future.Utility;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
 

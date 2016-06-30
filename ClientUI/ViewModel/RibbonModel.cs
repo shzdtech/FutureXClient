@@ -10,7 +10,7 @@ using Micro;
 using System.Windows.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
 using System.Linq;
-using Micro.Future.Util;
+using Micro.Future.Utility;
 using Micro.Future.UI;
 using Micro.Future.Message;
 

@@ -4,13 +4,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    xmlns:uiobj="clr-namespace:Micro.Future.UI;assembly=Micro.Future.UIObject"
+    xmlns:utility="clr-namespace:Micro.Future.Utility;assembly=Micro.Future.Utility"
     xmlns:local="clr-namespace:Micro.Future.UI"
     mc:Ignorable="d" 
     d:DesignHeight="350" d:DesignWidth="350">
     <Grid Name="FastOrderGrid" Height="300" Width="320">
         <Grid.Resources>
-            <uiobj:EnumBooleanConverter x:Key="enumBooleanConverter"/>
+            <utility:EnumBooleanConverter x:Key="enumBooleanConverter"/>
             <local:ExecuteTypeStringConverter x:Key="executeType2CNConverter"/>
         </Grid.Resources>
         <Grid.RowDefinitions>

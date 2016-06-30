@@ -17,7 +17,7 @@ using Micro.Future.ViewModel;
 using Micro.Future.Message;
 using System.ComponentModel;
 using Micro.Future.Windows;
-using Micro.Future.Util;
+using Micro.Future.Utility;
 
 namespace Micro.Future.UI
 {

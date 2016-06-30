@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PBMsgTrader;
-using Micro.Future.Util;
+using Micro.Future.Utility;
 using PBWrapMsgOG;
 using Micro.Future.ViewModel;
 using Xceed.Wpf.Toolkit;

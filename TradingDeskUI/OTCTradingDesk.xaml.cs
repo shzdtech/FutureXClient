@@ -1,6 +1,6 @@
 ﻿using Micro.Future.Message;
 using Micro.Future.Properties;
-using Micro.Future.Util;
+using Micro.Future.Utility;
 using System;
 using System.Windows;
 using System.Windows.Controls.Ribbon;

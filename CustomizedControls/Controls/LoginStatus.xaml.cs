@@ -1,4 +1,4 @@
-﻿using Micro.Future.Util;
+﻿using Micro.Future.Utility;
 using Micro.Future.ViewModel;
 using System;
 using System.Windows.Controls;
@@ -67,7 +67,7 @@ namespace Micro.Future.Controls
                 _connected = value;
                 statusIcon.IsEnabled = !value;
 
-                var componentUri = Utility.GenComponentUri(this.GetType());
+                var componentUri = Utility.Utility.GenComponentUri(this.GetType());
 
                 if (value)
                 {

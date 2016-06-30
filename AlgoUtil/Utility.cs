@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Micro.Future.Util
+namespace Micro.Future.Utility
 {
     public static class Utility
     {

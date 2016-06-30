@@ -293,21 +293,21 @@
       <Project>{354935ce-ab35-4bc3-88dd-e6c3b1e0870c}</Project>
       <Name>Micro.Future.Message</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AlgoUtil\Utility.csproj">
+    <ProjectReference Include="..\AlgoUtil\Micro.Future.Utility.csproj">
       <Project>{A6A3AF60-A359-49C4-8747-C79B695489E2}</Project>
-      <Name>Utility</Name>
+      <Name>Micro.Future.Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CustomizedControls\CustomizedControls.csproj">
+    <ProjectReference Include="..\CustomizedControls\Micro.Future.CustomizedControls.csproj">
       <Project>{6425aad0-3c33-4f14-ae8f-53ed07c203d6}</Project>
-      <Name>CustomizedControls</Name>
+      <Name>Micro.Future.CustomizedControls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UIObjects\UIObjects.csproj">
+    <ProjectReference Include="..\UIObjects\Micro.Future.UIObject.csproj">
       <Project>{4bd98165-b411-4890-b74a-30619059502b}</Project>
-      <Name>UIObjects</Name>
+      <Name>Micro.Future.UIObject</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WPFThemeLib\WPFThemeLib.csproj">
+    <ProjectReference Include="..\WPFThemeLib\Micro.Future.WPFThemeLib.csproj">
       <Project>{fc6c36d7-d378-4cb9-a50c-e5a0050e9182}</Project>
-      <Name>WPFThemeLib</Name>
+      <Name>Micro.Future.WPFThemeLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
