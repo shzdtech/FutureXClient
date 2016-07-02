@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.Business.Handl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.ViewModel.Common", "Micro.Future.ViewModel.Common\Micro.Future.ViewModel.Common.csproj", "{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.LocalStorage", "Micro.Future.LocalStorage\Micro.Future.LocalStorage.csproj", "{8A2127D2-8C14-4A0E-8608-E355ACDA150D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -211,6 +213,22 @@ Global
 		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Release|Win32.Build.0 = Release|Any CPU
 		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Release|x86.ActiveCfg = Release|Any CPU
 		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Release|x86.Build.0 = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|Win32.Build.0 = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|x86.Build.0 = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|Win32.ActiveCfg = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|Win32.Build.0 = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|x86.ActiveCfg = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
