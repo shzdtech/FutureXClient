@@ -1,0 +1,23 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Micro.Future.Resources.Localization",
+  "authors": [
+    "milk"
+  ],
+  "tags": [
+    ""
+  ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+  },
+  "frameworks": {
+    "net451": {
+      "imports": "portable-net45+netcore45+wpa81+wp8"
+    }
+  },
+  "runtimes": {
+    "win-anycpu": {},
+    "win": {}
+  }
+}

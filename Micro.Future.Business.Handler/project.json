@@ -1,0 +1,24 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Micro.Future.Business.Handler",
+  "authors": [
+    "milk"
+  ],
+  "tags": [
+    ""
+  ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "Google.Protobuf": "3.0.0-beta3"
+  },
+  "frameworks": {
+    "net451": {
+      "imports": "portable-net45+netcore45+wpa81+wp8"
+    }
+  },
+  "runtimes": {
+    "win-anycpu": {},
+    "win": {}
+  }
+}
