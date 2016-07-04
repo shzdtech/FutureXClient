@@ -70,9 +70,9 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
         {
             var exchangeList = new List<string> { string.Empty };
-            exchangeList.AddRange((from p in (IEnumerable<PositionVM>)_viewSource.Source
-                                   select p.Exchange).Distinct());
-            _positionSettingsWin.ExchangeCollection = exchangeList;
+            //exchangeList.AddRange((from p in (IEnumerable<PositionVM>)_viewSource.Source
+            //                       select p.Exchange).Distinct());
+            //_positionSettingsWin.ExchangeCollection = exchangeList;
 
             _positionSettingsWin.Show();
         }
