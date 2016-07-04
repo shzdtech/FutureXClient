@@ -1,25 +1,33 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25029.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "AlgoUtil\Utility.csproj", "{A6A3AF60-A359-49C4-8747-C79B695489E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.Utility", "Micro.Future.Utility\Micro.Future.Utility.csproj", "{A6A3AF60-A359-49C4-8747-C79B695489E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIObjects", "UIObjects\UIObjects.csproj", "{4BD98165-B411-4890-B74A-30619059502B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.UIObjects", "Micro.Future.UIObjects\Micro.Future.UIObjects.csproj", "{4BD98165-B411-4890-B74A-30619059502B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingDeskUI", "TradingDeskUI\TradingDeskUI.csproj", "{1D256FE8-16E8-4220-B599-DAC14B18F873}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.TradingDeskUI", "Micro.Future.TradingDeskUI\Micro.Future.TradingDeskUI.csproj", "{1D256FE8-16E8-4220-B599-DAC14B18F873}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomizedControls", "CustomizedControls\CustomizedControls.csproj", "{6425AAD0-3C33-4F14-AE8F-53ED07C203D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.CustomizedControls", "Micro.Future.CustomizedControls\Micro.Future.CustomizedControls.csproj", "{6425AAD0-3C33-4F14-AE8F-53ED07C203D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFThemeLib", "WPFThemeLib\WPFThemeLib.csproj", "{FC6C36D7-D378-4CB9-A50C-E5A0050E9182}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.WPFThemeLib", "Micro.Future.WPFThemeLib\Micro.Future.WPFThemeLib.csproj", "{FC6C36D7-D378-4CB9-A50C-E5A0050E9182}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTCClientUI", "ClientUI\OTCClientUI.csproj", "{B7396C44-1073-4C8E-BE3A-FD9C2329A220}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.ClientUI", "Micro.Future.ClientUI\Micro.Future.ClientUI.csproj", "{B7396C44-1073-4C8E-BE3A-FD9C2329A220}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTools", "WpfUI\WPFTools.csproj", "{F16AEF6A-4B81-4D04-9442-17438F6F6EFA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.Tools", "Micro.Future.Tools\Micro.Future.Tools.csproj", "{F16AEF6A-4B81-4D04-9442-17438F6F6EFA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.Message.ProtoBuf", "..\FutureXShare\src\Micro.Future.Message.ProtoBuf\Micro.Future.Message.ProtoBuf.csproj", "{C518B93E-4E53-45AF-AD44-B5D1BD7EEA8B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.Message", "..\FutureXShare\src\Micro.Future.Message\Micro.Future.Message.csproj", "{354935CE-AB35-4BC3-88DD-E6C3B1E0870C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.Resources.Localization", "Micro.Future.Resources.Localization\Micro.Future.Resources.Localization.csproj", "{A4F4C39E-639A-44FF-B342-FD7F38FB883D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.Business.Handler", "Micro.Future.Business.Handler\Micro.Future.Business.Handler.csproj", "{9A4B458C-1178-4337-B2A7-33E0A6822681}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.ViewModel.Common", "Micro.Future.ViewModel.Common\Micro.Future.ViewModel.Common.csproj", "{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.LocalStorage", "Micro.Future.LocalStorage\Micro.Future.LocalStorage.csproj", "{8A2127D2-8C14-4A0E-8608-E355ACDA150D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -157,6 +165,70 @@ Global
 		{354935CE-AB35-4BC3-88DD-E6C3B1E0870C}.Release|Win32.Build.0 = Release|Any CPU
 		{354935CE-AB35-4BC3-88DD-E6C3B1E0870C}.Release|x86.ActiveCfg = Release|Any CPU
 		{354935CE-AB35-4BC3-88DD-E6C3B1E0870C}.Release|x86.Build.0 = Release|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Debug|Win32.Build.0 = Debug|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Debug|x86.Build.0 = Debug|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Release|Win32.ActiveCfg = Release|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Release|Win32.Build.0 = Release|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Release|x86.ActiveCfg = Release|Any CPU
+		{A4F4C39E-639A-44FF-B342-FD7F38FB883D}.Release|x86.Build.0 = Release|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Debug|Win32.Build.0 = Debug|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Debug|x86.Build.0 = Debug|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Release|Win32.ActiveCfg = Release|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Release|Win32.Build.0 = Release|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Release|x86.ActiveCfg = Release|Any CPU
+		{9A4B458C-1178-4337-B2A7-33E0A6822681}.Release|x86.Build.0 = Release|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Debug|Win32.Build.0 = Debug|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Debug|x86.Build.0 = Debug|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Release|Win32.ActiveCfg = Release|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Release|Win32.Build.0 = Release|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Release|x86.ActiveCfg = Release|Any CPU
+		{FA8BA007-B5D3-478F-901C-46C5ED21AEE2}.Release|x86.Build.0 = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|Win32.Build.0 = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Debug|x86.Build.0 = Debug|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|Win32.ActiveCfg = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|Win32.Build.0 = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|x86.ActiveCfg = Release|Any CPU
+		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
