@@ -10,13 +10,14 @@
         lex:LocalizeDictionary.OutputMissingKeys="True"
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.CustomizedControls"
         lex:ResxLocalizationProvider.DefaultDictionary="Resource"
-        Title="{lex:Loc Key=FilterSettings}" Height="218" Width="300" WindowStyle="None">
+        Title="{lex:Loc Key=FilterSettings}" Height="218" Width="300" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Grid>
         <StackPanel>
             <Label Content="{lex:Loc Key=WindowTitle}"/>
             <TextBox x:Name="titleTxt"/>
             <Label Content="{lex:Loc Key=Exchange}"/>
-            <ComboBox x:Name="exchangecombo" SelectedIndex="0" IsEditable="True"/>
+            <TextBox x:Name="exchangecombo" />
+            <!--<ComboBox x:Name="exchangecombo" SelectedIndex="0" IsEditable="True"/>-->
             <Label Content="{lex:Loc Key=Underlying}"/>
             <TextBox x:Name="underlyingTxt"/>
             <Label Content="{lex:Loc Key=Contract}"/>

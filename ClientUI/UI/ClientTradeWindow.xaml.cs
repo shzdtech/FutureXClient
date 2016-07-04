@@ -60,9 +60,9 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
         {
             var exchangeList = new List<string> { string.Empty };
-            exchangeList.AddRange((from p in (IEnumerable<TradeVM>)_viewSource.Source
-                                   select p.Exchange).Distinct());
-            _tradeSettingsWin.ExchangeCollection = exchangeList;
+            //exchangeList.AddRange((from p in (IEnumerable<TradeVM>)_viewSource.Source
+            //                       select p.Exchange).Distinct());
+            //_tradeSettingsWin.ExchangeCollection = exchangeList;
 
             _tradeSettingsWin.Show();
         }

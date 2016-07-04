@@ -61,9 +61,9 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
         {
             var exchangeList = new List<string> { string.Empty };
-            exchangeList.AddRange((from p in (IEnumerable<OrderVM>)_viewSource.Source
-                                   select p.Exchange).Distinct());
-            _executionSettingsWin.ExchangeCollection = exchangeList;
+            //exchangeList.AddRange((from p in (IEnumerable<OrderVM>)_viewSource.Source
+            //                       select p.Exchange).Distinct());
+            //_executionSettingsWin.ExchangeCollection = exchangeList;
 
             _executionSettingsWin.Show();
         }
@@ -125,7 +125,7 @@ namespace Micro.Future.UI
                 return;
             }
 
-            ICollectionView view = CollectionViewSource.GetDefaultView(ExecutionTreeView.ItemsSource);
+            ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
             {
                 if (statuses == null)

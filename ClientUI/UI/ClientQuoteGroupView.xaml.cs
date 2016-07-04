@@ -116,9 +116,9 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
         {
             var exchangeList = new List<string> { string.Empty };
-            exchangeList.AddRange((from p in (IEnumerable<QuoteViewModel>)_viewSource.Source
-                                   select p.Exchange).Distinct());
-            _quoteSettingsWin.ExchangeCollection = exchangeList;
+            //exchangeList.AddRange((from p in (IEnumerable<QuoteViewModel>)_viewSource.Source
+            //                       select p.Exchange).Distinct());
+            //_quoteSettingsWin.ExchangeCollection = exchangeList;
 
             _quoteSettingsWin.Show();
         }
@@ -139,8 +139,8 @@ namespace Micro.Future.UI
                 QuoteViewModel qvm = o as QuoteViewModel;
 
                 if (qvm.Exchange.ContainsAny(exchange) &&
-                    qvm.Contract.ContainsAny(contract) &&
-                    qvm.Contract.ContainsAny(underlying))
+                    qvm.Contract.ContainsAny(underlying) &&
+                    qvm.Contract.ContainsAny(contract))
                 {
                     return true;
                 }

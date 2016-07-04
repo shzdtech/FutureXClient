@@ -77,17 +77,22 @@ namespace Micro.Future.Windows
             base.OnClosing(e);
         }
         
-        public IEnumerable ExchangeCollection
-        {
-            set
-            {
-                exchangecombo.ItemsSource = value;
-            }
-        }
+        //public IEnumerable ExchangeCollection
+        //{
+        //    set
+        //    {
+        //        exchangecombo.ItemsSource = value;
+        //    }
+        //}
 
         public bool CancelClosing
         {
             get; set;
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

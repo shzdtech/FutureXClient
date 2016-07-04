@@ -67,12 +67,17 @@ namespace Micro.Future.Windows
             OnFiltering?.Invoke(QuoteExchange, QuoteUnderlying, QuoteContract);
         }
 
-        public IEnumerable ExchangeCollection
+        //public IEnumerable ExchangeCollection
+        //{
+        //    set
+        //    {
+        //        exchangeCombo.ItemsSource = value;
+        //    }
+        //}
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            set
-            {
-                exchangeCombo.ItemsSource = value;
-            }
+            this.DragMove();
         }
     }
 }
