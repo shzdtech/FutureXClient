@@ -234,7 +234,7 @@ namespace Micro.Future.UI
             LayoutAnchorable ancable = new LayoutAnchorable();
             var executionWin = new ClientExecutionWindow() { LayoutContent = ancable };
             ancable.Content = executionWin;
-            executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENNING });
+            executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENNING,OrderStatus.PARTIAL_TRADED,OrderStatus.PARTIAL_TRADING });
             ancable.Title = WPFUtility.GetLocalizedString("Opening", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
             executionPane.Children.Add(ancable);
         }
