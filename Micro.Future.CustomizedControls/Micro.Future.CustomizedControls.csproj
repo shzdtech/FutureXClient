@@ -63,20 +63,11 @@
     <Compile Include="Windows\FastOrderWin.xaml.cs">
       <DependentUpon>FastOrderWin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\QuoteSettingsWindow.xaml.cs">
-      <DependentUpon>QuoteSettingsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\SearchQuoteWindow.xaml.cs">
       <DependentUpon>SearchQuoteWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\ExecutionSettingsWindow.xaml.cs">
-      <DependentUpon>ExecutionSettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\TradeSettingsWindow.xaml.cs">
-      <DependentUpon>TradeSettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\PositionSettingsWindow.xaml.cs">
-      <DependentUpon>PositionSettingsWindow.xaml</DependentUpon>
+    <Compile Include="Windows\FilterSettingsWindow.xaml.cs">
+      <DependentUpon>FilterSettingsWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\LoginStatus.xaml">
       <SubType>Designer</SubType>
@@ -87,10 +78,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\FastOrderWin.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\QuoteSettingsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -109,15 +96,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\ExecutionSettingsWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\TradeSettingsWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\PositionSettingsWindow.xaml">
+    <Page Include="Windows\FilterSettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

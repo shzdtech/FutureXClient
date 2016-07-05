@@ -84,6 +84,7 @@ namespace Micro.Future.UI
             tradeWindow.ReloadData();
             Thread.Sleep(1500);
             executionWindow.ReloadData();
+            Thread.Sleep(1500);
         }
 
         void _otcClientSignIner_OnLogged(IUserInfo obj)
@@ -110,9 +111,7 @@ namespace Micro.Future.UI
                 AddressCollection = _config.Content["OTCSERVER.ADDRESS"].Values
             };
             loginWindow.ShowDialog();
-            Thread.Sleep(1000);
             MDServerLogin();
-            Thread.Sleep(1000);
             TradingServerLogin();
 
             return true;

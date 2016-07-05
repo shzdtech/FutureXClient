@@ -20,11 +20,16 @@ namespace Micro.Future.UI
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
-        private TradeSettingsWindow _tradeSettingsWin = new TradeSettingsWindow();
+        private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow();
 
 
         public LayoutContent LayoutContent { get; set; }
 
+        ~ClientTradeWindow()
+        {
+            _filterSettingsWin.CancelClosing = false;
+            _filterSettingsWin.Close();
+        }
         public ClientTradeWindow()
         {
             InitializeComponent();
@@ -32,7 +37,7 @@ namespace Micro.Future.UI
             _viewSource.Source = MessageHandlerContainer.DefaultInstance
                 .Get<TraderExHandler>().TradeVMCollection;
 
-            _tradeSettingsWin.OnFiltering += _tradeSettingsWin_OnFiltering;
+            _filterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
 
 
             TradeTreeView.ItemsSource = _viewSource.View;
@@ -40,10 +45,10 @@ namespace Micro.Future.UI
             mColumns = ColumnObject.GetColumns(TradeTreeView);
         }
 
-        private void _tradeSettingsWin_OnFiltering(string exchange, string underlying, string contract)
+        private void _filterSettingsWin_OnFiltering(string exchange, string underlying, string contract)
         {
             if (LayoutContent != null)
-                LayoutContent.Title = _tradeSettingsWin.TradeTitle;
+                LayoutContent.Title = _filterSettingsWin.FilterTitle;
             Filter(exchange, underlying, contract);
         }
 
@@ -64,7 +69,7 @@ namespace Micro.Future.UI
             //                       select p.Exchange).Distinct());
             //_tradeSettingsWin.ExchangeCollection = exchangeList;
 
-            _tradeSettingsWin.Show();
+            _filterSettingsWin.Show();
         }
 
         public void FilterByStatus(IEnumerable<OrderOffsetType> statuses)

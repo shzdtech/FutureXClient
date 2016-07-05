@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,18 +19,16 @@ namespace Micro.Future.Windows
     /// <summary>
     /// Window1.xaml 的交互逻辑
     /// </summary>
-    public partial class QuoteSettingsWindow : Window
+    public partial class FilterSettingsWindow : Window
     {
-
         public event Action<string, string, string> OnFiltering;
-
-        public QuoteSettingsWindow()
+        public FilterSettingsWindow()
         {
             InitializeComponent();
         }
 
 
-        public string QuoteTitle
+        public string FilterTitle
         {
             get
             {
@@ -37,43 +36,59 @@ namespace Micro.Future.Windows
             }
         }
 
-        public string QuoteExchange
+        public string FilterExchange
         {
             get
             {
-                return exchangeCombo.Text;
+                return exchangecombo.Text;
             }
+            set { exchangecombo.Text = value; }
         }
 
-        public string QuoteUnderlying
+        public string FilterUnderlying
         {
             get
             {
                 return underlyingTxt.Text;
             }
+            set { underlyingTxt.Text = value; }
         }
 
-        public string QuoteContract
+        public string FilterContract
         {
             get
             {
                 return contractTxt.Text;
             }
+            set { contractTxt.Text = value; }
         }
 
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             Hide();
-            OnFiltering?.Invoke(QuoteExchange, QuoteUnderlying, QuoteContract);
+            OnFiltering?.Invoke(FilterExchange, FilterUnderlying, FilterContract);
         }
 
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            Hide();
+            e.Cancel = CancelClosing;
+            base.OnClosing(e);
+        }
+        
         //public IEnumerable ExchangeCollection
         //{
         //    set
         //    {
-        //        exchangeCombo.ItemsSource = value;
+        //        exchangecombo.ItemsSource = value;
         //    }
         //}
+
+        public bool CancelClosing
+        {
+            get; set;
+        }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
