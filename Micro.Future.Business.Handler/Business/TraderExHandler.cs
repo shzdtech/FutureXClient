@@ -258,35 +258,35 @@ namespace Micro.Future.Message
                 {
                     bool found = false;
 
-                    foreach (var trade in OrderVMCollection)
-                    {
-                        if (trade.OrderID == rsp.OrderID)
-                        {
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found)
-                    {
-                        TradeVMCollection.Add(
-                                    new TradeVM()
-                                    {
-                                        OrderID = rsp.OrderID,
-                                        Exchange = rsp.Exchange,
-                                        OrderSysID = rsp.OrderSysID,
-                                        Direction = (DirectionType)rsp.Direction,
-                                        Price = rsp.Price,
-                                        Volume = rsp.Volume,
-                                        TradingType = (TradingType)rsp.TradeType,
-                                        TradeID = rsp.TradeID,
-                                        Contract = rsp.Contract,
-                                        TradeDate = rsp.TradeDate,
-                                        OpenClose = (OrderOffsetType)rsp.Openclose,
-                                        Commission = rsp.Commission,
+                    //foreach (var trade in TradeVMCollection)
+                    //{
+                    //    if (trade.TradeID == rsp.TradeID)
+                    //    {
+                    //        found = true;
+                    //        break;
+                    //    }
+                    //}
+                    //if (!found)
+                    //{
+                    TradeVMCollection.Add(
+                                new TradeVM()
+                                {
+                                    OrderID = rsp.OrderID,
+                                    Exchange = rsp.Exchange,
+                                    OrderSysID = rsp.OrderSysID,
+                                    Direction = (DirectionType)rsp.Direction,
+                                    Price = rsp.Price,
+                                    Volume = rsp.Volume,
+                                    TradingType = (TradingType)rsp.TradeType,
+                                    TradeID = rsp.TradeID,
+                                    Contract = rsp.Contract,
+                                    TradeDate = rsp.TradeDate,
+                                    OpenClose = (OrderOffsetType)rsp.Openclose,
+                                    Commission = rsp.Commission,
                                         //InsertTime = rsp.,
                                         //UpdateTime = rsp.,
                                     });
-                    }
+                    //}
                 }
             }
         }

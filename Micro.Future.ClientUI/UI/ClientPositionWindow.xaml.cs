@@ -20,15 +20,15 @@ namespace Micro.Future.UI
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
-        private PositionSettingsWindow _positionSettingsWin =
-            new PositionSettingsWindow() { CancelClosing = true };
+        private FilterSettingsWindow _filterSettingsWin =
+            new FilterSettingsWindow() { CancelClosing = true };
 
         public LayoutContent LayoutContent { get; set; }
 
         ~ClientPositionWindow()
         {
-            _positionSettingsWin.CancelClosing = false;
-            _positionSettingsWin.Close();
+            _filterSettingsWin.CancelClosing = false;
+            _filterSettingsWin.Close();
         }
 
         public ClientPositionWindow()
@@ -38,17 +38,17 @@ namespace Micro.Future.UI
             _viewSource.Source = MessageHandlerContainer.DefaultInstance
                 .Get<TraderExHandler>().PositionVMCollection;
 
-            _positionSettingsWin.OnFiltering += _positionSettingsWin_OnFiltering;
+            _filterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
 
             PositionListView.ItemsSource = _viewSource.View;
 
             mColumns = ColumnObject.GetColumns(PositionListView);
         }
 
-        private void _positionSettingsWin_OnFiltering(string exchange, string underlying, string contract)
+        private void _filterSettingsWin_OnFiltering(string exchange, string underlying, string contract)
         {
             if (LayoutContent != null)
-                LayoutContent.Title = _positionSettingsWin.PositionTitle;
+                LayoutContent.Title = _filterSettingsWin.FilterTitle;
             Filter(exchange, underlying, contract);
         }
 
@@ -64,7 +64,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Columns(object sender, RoutedEventArgs e)
         {
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
-            win.Show();
+            win.ShowDialog();
         }
 
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
@@ -74,7 +74,7 @@ namespace Micro.Future.UI
             //                       select p.Exchange).Distinct());
             //_positionSettingsWin.ExchangeCollection = exchangeList;
 
-            _positionSettingsWin.Show();
+            _filterSettingsWin.Show();
         }
 
 
@@ -103,11 +103,11 @@ namespace Micro.Future.UI
                 PositionVM pvm = o as PositionVM;
 
                 if (pvm.Exchange.ContainsAny(exchange) &&
-                    pvm.Contract.ContainsAny(contract) &&
-                    pvm.Contract.ContainsAny(underlying))
+                    pvm.Contract.ContainsAny(underlying) &&
+                    pvm.Contract.ContainsAny(contract))
                 {
                     return true;
-                }
+                }                
 
                 return false;
             };

@@ -28,25 +28,29 @@ namespace Micro.Future.UI
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
-        private QuoteSettingsWindow _quoteSettingsWin = new QuoteSettingsWindow();
+        private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow();
 
         public LayoutContent LayoutContent { get; set; }
 
-
+        ~ClientQuoteGroupView()
+        {
+            _filterSettingsWin.CancelClosing = false;
+            _filterSettingsWin.Close();
+        }
         public ClientQuoteGroupView()
         {
             InitializeComponent();
             _viewSource.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
-            _quoteSettingsWin.OnFiltering += _quoteSettingsWin_OnFiltering;
+            _filterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
             quoteListView.ItemsSource = _viewSource.View;
 
 						mColumns = ColumnObject.GetColumns(quoteListView);
         }
 
-        private void _quoteSettingsWin_OnFiltering(string exchange, string underlying, string contract)
+        private void _fiterSettingsWin_OnFiltering(string exchange, string underlying, string contract)
         {
             if (LayoutContent != null)
-                LayoutContent.Title = _quoteSettingsWin.QuoteTitle;
+                LayoutContent.Title = _filterSettingsWin.FilterTitle;
             Filter(exchange, underlying, contract);
         }
 
@@ -120,7 +124,7 @@ namespace Micro.Future.UI
             //                       select p.Exchange).Distinct());
             //_quoteSettingsWin.ExchangeCollection = exchangeList;
 
-            _quoteSettingsWin.Show();
+            _filterSettingsWin.Show();
         }
 
         public void Filter(string exchange, string underlying, string contract)
