@@ -8,6 +8,8 @@ using Micro.Future.ViewModel;
 using Micro.Future.Message;
 using Micro.Future.Message.Business;
 using System.Collections.ObjectModel;
+using Micro.Future.LocalStorage;
+using Micro.Future.LocalStorage.DataObject;
 
 namespace Micro.Future.Message
 {
@@ -46,8 +48,8 @@ namespace Micro.Future.Message
         {
             MessageWrapper.RegisterAction<PBMsgTrader.PBMsgQueryRspMarketInfo, BizErrorMsg>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_EXCHANGE, OnMarketInfo, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgQueryRspInstrumentInfo, BizErrorMsg>
-                ((uint)BusinessMessageID.MSG_ID_QUERY_INSTRUMENT, OnInstrumentInfo, ErrorMsgAction);
+            MessageWrapper.RegisterAction<PBContractInfoList, BizErrorMsg>
+                ((uint)BusinessMessageID.MSG_ID_QUERY_INSTRUMENT, OnContractInfo, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBPosition, BizErrorMsg>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_POSITION, OnPosition, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBAccountInfo, BizErrorMsg>
@@ -88,16 +90,47 @@ namespace Micro.Future.Message
 
         }
 
-        private void OnInstrumentInfo(PBMsgTrader.PBMsgQueryRspInstrumentInfo rsp)
+        private void OnContractInfo(PBContractInfoList rsp)
         {
-            if (InstrumentVMCollection != null)
-            {
-                InstrumentVMCollection.Add(new InstrumentViewModel()
+            using (var clientDBCtx = new ClientDbContext())
+            { 
+                foreach (var contract in rsp.ContractInfo)
                 {
-                    RawData = rsp
-                });
+                    clientDBCtx.ContractInfoSet.Add(new ContractInfo()
+                    {
+                        Exchange = contract.Exchange,
+                        Contract = contract.Contract,
+                        Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
+                        ProductID = contract.ProductID,
+                        ProductType = contract.ProductType,
+                        DeliveryYear = contract.DeliveryYear,
+                        DeliveryMonth = contract.DeliveryMonth,
+                        MaxMarketOrderVolume = contract.MaxMarketOrderVolume,
+                        MinMarketOrderVolume = contract.MinMarketOrderVolume,
+                        MaxLimitOrderVolume = contract.MaxMarketOrderVolume,
+                        MinLimitOrderVolume = contract.MinMarketOrderVolume,
+                        VolumeMultiple = contract.VolumeMultiple,
+                        PriceTick = contract.PriceTick,
+                        CreateDate = contract.CreateDate,
+                        OpenDate = contract.OpenDate,
+                        ExpireDate = contract.ExpireDate,
+                        StartDelivDate = contract.EndDelivDate,
+                        EndDelivDate = contract.EndDelivDate,
+                        LifePhase = contract.LifePhase,
+                        IsTrading = contract.IsTrading,
+                        PositionType = contract.PositionType,
+                        PositionDateType = contract.PositionDateType,
+                        LongMarginRatio = contract.LongMarginRatio,
+                        ShortMarginRatio = contract.ShortMarginRatio,
+                        MaxMarginSideAlgorithm = contract.MaxMarginSideAlgorithm
+                    });
+                    
+                }
+                clientDBCtx.SaveChanges();
             }
         }
+
+
         private void OnPosition(PBPosition rsp)
         {
 
@@ -283,9 +316,9 @@ namespace Micro.Future.Message
                                     TradeDate = rsp.TradeDate,
                                     OpenClose = (OrderOffsetType)rsp.Openclose,
                                     Commission = rsp.Commission,
-                                        //InsertTime = rsp.,
-                                        //UpdateTime = rsp.,
-                                    });
+                                    //InsertTime = rsp.,
+                                    //UpdateTime = rsp.,
+                                });
                     //}
                 }
             }
@@ -338,6 +371,19 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_TRADE, sst);
 
         }
+
+        public void QueryContractInfo(string contractID = null)
+        {
+
+            var sst = new StringMap();
+            if (contractID != null)
+                sst.Entry[FieldName.INSTRUMENT_ID] = contractID;
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_INSTRUMENT, sst);
+
+
+
+        }
+
         public void CreateOrder(OrderVM orderVM)
         {
             var pb = new PBOrderInfo();
@@ -350,6 +396,8 @@ namespace Micro.Future.Message
             pb.Openclose = (int)orderVM.OffsetFlag;
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb);
+
+            
 
         }
 
