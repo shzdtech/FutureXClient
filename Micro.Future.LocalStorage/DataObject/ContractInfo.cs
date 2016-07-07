@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace Micro.Future.LocalStorage.DataObject
     [Table("ContractInfo")]
     public class ContractInfo
     {
+        ///交易所ID
+        public string Id { get; set; }
         ///交易所代码
         public string Exchange { get; set; }
         ///合约代码
@@ -27,7 +30,7 @@ namespace Micro.Future.LocalStorage.DataObject
         ///市价单最大下单量
         public int MaxMarketOrderVolume { get; set; }
         ///市价单最小下单量
-        public int MinMarketOrderVolume { get; set; };
+        public int MinMarketOrderVolume { get; set; }
         ///限价单最大下单量
         public int MaxLimitOrderVolume { get; set; }
         ///限价单最小下单量
@@ -61,6 +64,9 @@ namespace Micro.Future.LocalStorage.DataObject
         ///是否使用大额单边保证金算法
         public string MaxMarginSideAlgorithm { get; set; }
     }
+
+
+
 
 
 
