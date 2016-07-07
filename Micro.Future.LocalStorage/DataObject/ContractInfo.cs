@@ -27,7 +27,7 @@ namespace Micro.Future.LocalStorage.DataObject
         ///市价单最大下单量
         public int MaxMarketOrderVolume { get; set; }
         ///市价单最小下单量
-        public int MinMarketOrderVolume { get; set; };
+        public int MinMarketOrderVolume { get; set; }
         ///限价单最大下单量
         public int MaxLimitOrderVolume { get; set; }
         ///限价单最小下单量

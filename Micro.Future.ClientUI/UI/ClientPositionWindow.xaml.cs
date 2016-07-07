@@ -25,12 +25,6 @@ namespace Micro.Future.UI
 
         public LayoutContent LayoutContent { get; set; }
 
-        ~ClientPositionWindow()
-        {
-            _filterSettingsWin.CancelClosing = false;
-            _filterSettingsWin.Close();
-        }
-
         public ClientPositionWindow()
         {
             InitializeComponent();

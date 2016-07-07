@@ -25,11 +25,6 @@ namespace Micro.Future.UI
 
         public LayoutContent LayoutContent { get; set; }
 
-        ~ClientTradeWindow()
-        {
-            _filterSettingsWin.CancelClosing = false;
-            _filterSettingsWin.Close();
-        }
         public ClientTradeWindow()
         {
             InitializeComponent();
