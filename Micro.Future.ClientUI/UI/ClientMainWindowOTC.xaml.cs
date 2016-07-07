@@ -76,20 +76,30 @@ namespace Micro.Future.UI
 
         private void _ctpTradeSignIner_OnLogged(IUserInfo obj)
         {
-            Thread.Sleep(1500);
+            Thread.Sleep(2000);
             clientFundLV.ReloadData();
-            Thread.Sleep(1500);
+            Thread.Sleep(2000);
             positionsWindow.ReloadData();
-            Thread.Sleep(1500);
+            Thread.Sleep(2000);
             tradeWindow.ReloadData();
-            Thread.Sleep(1500);
+            Thread.Sleep(2000);
             executionWindow.ReloadData();
-            Thread.Sleep(1500);
         }
 
         void _otcClientSignIner_OnLogged(IUserInfo obj)
         {
             RightDownStatus.Content = "欢迎" + obj.LastName + obj.FirstName;
+
+            _ctpMdSignIner.SignInOptions.UserID =
+                    _ctpTradeSignIner.SignInOptions.UserID =
+                    _otcClientSignIner.SignInOptions.UserID;
+
+            _ctpMdSignIner.SignInOptions.Password =
+                _ctpTradeSignIner.SignInOptions.Password =
+                _otcClientSignIner.SignInOptions.Password;
+
+            MDServerLogin();
+            TradingServerLogin();
         }
 
         private void OnErrorMessageRecv(MessageException errRsult)
@@ -110,9 +120,8 @@ namespace Micro.Future.UI
                 MD5Round = 2,
                 AddressCollection = _config.Content["OTCSERVER.ADDRESS"].Values
             };
+
             loginWindow.ShowDialog();
-            MDServerLogin();
-            TradingServerLogin();
 
             return true;
         }
@@ -129,26 +138,36 @@ namespace Micro.Future.UI
 
         private void MDServerLogin()
         {
-            var mdCfg = _config.Content["MDSERVER"];
-            _ctpMdSignIner.SignInOptions.FrontServer = mdCfg["ADDRESS"];
-            _ctpMdSignIner.SignInOptions.BrokerID = mdCfg["BROKERID"];
-            _ctpMdSignIner.SignInOptions.UserID = mdCfg["USERID"];
-            _ctpMdSignIner.SignInOptions.Password = mdCfg["PASSWORD"];
-            _ctpMdSignIner.SignIn();
+            if (!_ctpMdSignIner.MessageWrapper.HasSignIn)
+            {
+                var mdCfg = _config.Content["MDSERVER"];
+                _ctpMdSignIner.SignInOptions.FrontServer = mdCfg["ADDRESS"];
+                _ctpMdSignIner.SignInOptions.BrokerID = mdCfg["BROKERID"];
+                if (!string.IsNullOrWhiteSpace(mdCfg["USERID"]))
+                    _ctpMdSignIner.SignInOptions.UserID = mdCfg["USERID"];
+                if (!string.IsNullOrWhiteSpace(mdCfg["PASSWORD"]))
+                    _ctpMdSignIner.SignInOptions.Password = mdCfg["PASSWORD"];
 
-            ctpLoginStatus.Prompt = "正在连接CTP行情服务器...";
+                ctpLoginStatus.Prompt = "正在连接CTP行情服务器...";
+                _ctpMdSignIner.SignIn();
+            }
         }
 
         private void TradingServerLogin()
         {
-            var mdCfg = _config.Content["TRADESERVER"];
-            _ctpTradeSignIner.SignInOptions.FrontServer = mdCfg["ADDRESS"];
-            _ctpTradeSignIner.SignInOptions.BrokerID = mdCfg["BROKERID"];
-            _ctpTradeSignIner.SignInOptions.UserID = mdCfg["USERID"];
-            _ctpTradeSignIner.SignInOptions.Password = mdCfg["PASSWORD"];
-            _ctpTradeSignIner.SignIn();
+            if (!_ctpTradeSignIner.MessageWrapper.HasSignIn)
+            {
+                var tdCfg = _config.Content["TRADESERVER"];
+                _ctpTradeSignIner.SignInOptions.FrontServer = tdCfg["ADDRESS"];
+                _ctpTradeSignIner.SignInOptions.BrokerID = tdCfg["BROKERID"];
+                if (!string.IsNullOrWhiteSpace(tdCfg["USERID"]))
+                    _ctpTradeSignIner.SignInOptions.UserID = tdCfg["USERID"];
+                if (!string.IsNullOrWhiteSpace(tdCfg["PASSWORD"]))
+                    _ctpTradeSignIner.SignInOptions.Password = tdCfg["PASSWORD"];
 
-            ctpTradeLoginStatus.Prompt = "正在连接CTP交易服务器...";
+                ctpTradeLoginStatus.Prompt = "正在连接CTP交易服务器...";
+                _ctpTradeSignIner.SignIn();
+            }
         }
 
         private void RibbonLogin_Click(object sender, RoutedEventArgs e)
@@ -184,7 +203,7 @@ namespace Micro.Future.UI
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
             var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
-            quoteGrpVw.Filter( "CFFEX","","" );
+            quoteGrpVw.Filter("CFFEX", "", "");
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("CFFEX", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
             quotePane.Children.Add(ancable);
@@ -194,7 +213,7 @@ namespace Micro.Future.UI
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
             var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
-            quoteGrpVw.Filter("SHFE","","");
+            quoteGrpVw.Filter("SHFE", "", "");
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("SHFE", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
             quotePane.Children.Add(ancable);
@@ -204,7 +223,7 @@ namespace Micro.Future.UI
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
             var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
-            quoteGrpVw.Filter("DCE","","");
+            quoteGrpVw.Filter("DCE", "", "");
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("DCE", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
             quotePane.Children.Add(ancable);
@@ -214,7 +233,7 @@ namespace Micro.Future.UI
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
             var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
-            quoteGrpVw.Filter("CZCE","","");
+            quoteGrpVw.Filter("CZCE", "", "");
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("CZCE", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
             quotePane.Children.Add(ancable);
@@ -244,7 +263,7 @@ namespace Micro.Future.UI
             LayoutAnchorable ancable = new LayoutAnchorable();
             var executionWin = new ClientExecutionWindow() { LayoutContent = ancable };
             ancable.Content = executionWin;
-            executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED});
+            executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED });
             ancable.Title = WPFUtility.GetLocalizedString("Traded", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
             executionPane.Children.Add(ancable);
         }
@@ -253,7 +272,7 @@ namespace Micro.Future.UI
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
             var tradeWin = new ClientTradeWindow() { LayoutContent = ancable };
-            ancable.Content =tradeWin;
+            ancable.Content = tradeWin;
             ancable.Title = WPFUtility.GetLocalizedString("AllTraded", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
             tradePane.Children.Add(ancable);
         }
