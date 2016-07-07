@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.LocalStorage
 {
-    class ClientDbContext : DbContext
+    public class ClientDbContext : DbContext
     {
-        public DbSet<InstrumentInfo> InstrumentInfoSet { get; set; }
+        public DbSet<ContractInfo> ContractInfoSet { get; set; }
+
+
+
+
     }
 }
