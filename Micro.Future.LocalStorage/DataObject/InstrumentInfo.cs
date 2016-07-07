@@ -10,5 +10,6 @@ namespace Micro.Future.LocalStorage.DataObject
     [Table("InstrumentInfo")]
     public class InstrumentInfo
     {
+
     }
 }
