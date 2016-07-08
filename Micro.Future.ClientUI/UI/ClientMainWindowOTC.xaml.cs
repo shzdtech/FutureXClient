@@ -39,7 +39,6 @@ namespace Micro.Future.UI
         }
         public void Initialize()
         {
-            TraderExHandler.testc();
             var msgWrapper = _otcClientSignIner.MessageWrapper;
 
             msgWrapper.MessageClient.OnDisconnected += OTCClient_OnDisconnected;
@@ -90,8 +89,6 @@ namespace Micro.Future.UI
             tradeWindow.ReloadData();
             Thread.Sleep(2000);
             executionWindow.ReloadData();
-
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryContractInfo();
         }
 
         void _otcClientSignIner_OnLogged(IUserInfo obj)
