@@ -95,40 +95,40 @@ namespace Micro.Future.Message
             using (var clientDBCtx = new ClientDbContext())
             {
 
-               
-                    clientDBCtx.ContractInfoSet.Add(new ContractInfo()
-                    {
-                        
-                        Exchange = "11",
-                        Contract = "22",
-                        Name = "HAHA",
-                        ProductID = "HAHA",
-                        ProductType = 1,
-                        DeliveryYear = 1,
-                        DeliveryMonth = 1,
-                        MaxMarketOrderVolume = 1,
-                        MinMarketOrderVolume = 1,
-                        MaxLimitOrderVolume = 1,
-                        MinLimitOrderVolume = 1,
-                        VolumeMultiple = 1,
-                        PriceTick = 1,
-                        CreateDate = "HAHA",
-                        OpenDate = "HAHA",
-                        ExpireDate = "HAHA",
-                        StartDelivDate = "HAHA",
-                        EndDelivDate = "HAHA",
-                        LifePhase = "HAHA",
-                        IsTrading = 1,
-                        PositionType = 1,
-                        PositionDateType = 1,
-                        LongMarginRatio = 1,
-                        ShortMarginRatio = 1,
-                        MaxMarginSideAlgorithm = "HAHA"
 
-                    });
-                    clientDBCtx.SaveChanges();
+                clientDBCtx.ContractInfoSet.Add(new ContractInfo()
+                {
 
-                
+                    Exchange = "11",
+                    Contract = "22",
+                    Name = "HAHA",
+                    ProductID = "HAHA",
+                    ProductType = 1,
+                    DeliveryYear = 1,
+                    DeliveryMonth = 1,
+                    MaxMarketOrderVolume = 1,
+                    MinMarketOrderVolume = 1,
+                    MaxLimitOrderVolume = 1,
+                    MinLimitOrderVolume = 1,
+                    VolumeMultiple = 1,
+                    PriceTick = 1,
+                    CreateDate = "HAHA",
+                    OpenDate = "HAHA",
+                    ExpireDate = "HAHA",
+                    StartDelivDate = "HAHA",
+                    EndDelivDate = "HAHA",
+                    LifePhase = "HAHA",
+                    IsTrading = 1,
+                    PositionType = 1,
+                    PositionDateType = 1,
+                    LongMarginRatio = 1,
+                    ShortMarginRatio = 1,
+                    MaxMarginSideAlgorithm = "HAHA"
+
+                });
+                clientDBCtx.SaveChanges();
+
+
             }
         }
 
@@ -339,17 +339,17 @@ namespace Micro.Future.Message
                 {
                     bool found = false;
 
-                    //foreach (var trade in TradeVMCollection)
-                    //{
-                    //    if (trade.TradeID == rsp.TradeID)
-                    //    {
-                    //        found = true;
-                    //        break;
-                    //    }
-                    //}
-                    //if (!found)
-                    //{
-                    TradeVMCollection.Add(
+                    foreach (var trade in TradeVMCollection)
+                    {
+                        if (trade.TradeID == rsp.TradeID)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                    {
+                        TradeVMCollection.Add(
                                 new TradeVM()
                                 {
                                     OrderID = rsp.OrderID,
@@ -367,7 +367,7 @@ namespace Micro.Future.Message
                                     //InsertTime = rsp.,
                                     //UpdateTime = rsp.,
                                 });
-                    //}
+                    }
                 }
             }
         }
@@ -380,6 +380,8 @@ namespace Micro.Future.Message
                                 {
                                     OrderID = rsp.OrderID,
                                     Exchange = rsp.Exchange,
+                                    Contract = rsp.Contract,
+                                    TradeID = rsp.TradeID,
                                     OrderSysID = rsp.OrderSysID,
                                     Direction = (DirectionType)rsp.Direction,
                                     Price = rsp.Price,
