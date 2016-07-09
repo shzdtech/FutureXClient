@@ -97,8 +97,6 @@ namespace Micro.Future.Message
 
                 try
                 {
-
-
                     clientDBCtx.ContractInfoSet.Add(new ContractInfo()
                     {
                         Id = "00",
@@ -150,10 +148,9 @@ namespace Micro.Future.Message
                     clientDBCtx.ContractInfoSet.Add(new ContractInfo()
                     {
 
-                        Exchange = "1",
-                        Contract = "2",
-                        Name = "HAHA"
+
                         /*
+                        Id = contract.Id;
                         Exchange = contract.Exchange,
                         Contract = contract.Contract,
                         Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
