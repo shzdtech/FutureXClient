@@ -90,56 +90,8 @@ namespace Micro.Future.Message
 
         }
 
-        public static void testc()
-        {
-            using (var clientDBCtx = new ClientDbContext())
-            {
+        
 
-                try
-                {
-
-
-                    clientDBCtx.ContractInfo.Add(new ContractInfo()
-                    {
-                        Id = 1,
-                        Exchange = "11",
-                        Contract = "22",
-                        Name = "HAHA",
-                        ProductID = "HAHA",
-                        ProductType = 1,
-                        DeliveryYear = 1,
-                        DeliveryMonth = 1,
-                        MaxMarketOrderVolume = 1,
-                        MinMarketOrderVolume = 1,
-                        MaxLimitOrderVolume = 1,
-                        MinLimitOrderVolume = 1,
-                        VolumeMultiple = 1,
-                        PriceTick = 1,
-                        CreateDate = "HAHA",
-                        OpenDate = "HAHA",
-                        ExpireDate = "HAHA",
-                        StartDelivDate = "HAHA",
-                        EndDelivDate = "HAHA",
-                        LifePhase = "HAHA",
-                        IsTrading = 1,
-                        PositionType = 1,
-                        PositionDateType = 1,
-                        LongMarginRatio = 1,
-                        ShortMarginRatio = 1,
-                        MaxMarginSideAlgorithm = "HAHA"
-
-                    });
-                    clientDBCtx.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    Console.WriteLine(e.InnerException);
-
-                }
-
-            }
-        }
 
         private void OnContractInfo(PBContractInfoList rsp)
         {
@@ -149,10 +101,6 @@ namespace Micro.Future.Message
                 {
                     clientDBCtx.ContractInfo.Add(new ContractInfo()
                     {
-
-
-                        /*
-                        Id = contract.Id;
                         Exchange = contract.Exchange,
                         Contract = contract.Contract,
                         Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
@@ -178,9 +126,7 @@ namespace Micro.Future.Message
                         LongMarginRatio = contract.LongMarginRatio,
                         ShortMarginRatio = contract.ShortMarginRatio,
                         MaxMarginSideAlgorithm = contract.MaxMarginSideAlgorithm
-                        */
                     });
-
                 }
                 clientDBCtx.SaveChanges();
             }
@@ -413,7 +359,6 @@ namespace Micro.Future.Message
         {
             var sst = new StringMap();
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_POSITION, sst);
-
         }
 
         public void QueryOrder()

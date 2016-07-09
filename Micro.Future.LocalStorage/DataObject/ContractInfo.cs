@@ -49,7 +49,7 @@ namespace Micro.Future.LocalStorage.DataObject
         ///结束交割日
         public string EndDelivDate { get; set; }
         ///合约生命周期状态
-        public string LifePhase { get; set; }
+        public int LifePhase { get; set; }
         ///当前是否交易
         public int IsTrading { get; set; }
         ///持仓类型

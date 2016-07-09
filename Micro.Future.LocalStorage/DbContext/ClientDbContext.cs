@@ -14,7 +14,7 @@ namespace Micro.Future.LocalStorage
 
         public DbSet<ContractInfo> ContractInfo { get; set; }
 
-        public DbSet<UserSettingInfo> UserSettingInfoSet { get; set; }
+        //public DbSet<UserSettingInfo> UserSettingInfoSet { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
