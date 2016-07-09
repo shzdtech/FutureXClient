@@ -8,5 +8,7 @@ namespace Micro.Future.LocalStorage.DataObject
 {
     class UserSetting
     {
+        ///Id
+        public int Id { get; set; }
     }
 }
