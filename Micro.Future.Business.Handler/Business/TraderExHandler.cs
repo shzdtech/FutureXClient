@@ -90,9 +90,30 @@ namespace Micro.Future.Message
 
         }
 
-        
+        //To save Personal Setting
+        private void OnPersonalSetting()
+        {
 
+        }
 
+        //To save personal contract 
+        private void OnPersonalContract()
+        {
+            using (var clientDBCtx = new ClientDbContext())
+            {
+                foreach (var personalContract in rsp.ContractInfo)
+                {
+                    clientDBCtx.ContractInfo.Add(new ContractInfo()
+                    {
+                        Exchange = personalContract.Exchange,
+                        Contract = personalContract.Contract
+                    });
+                }
+                clientDBCtx.SaveChanges();
+            }
+        }
+
+        //To save Contract Info
         private void OnContractInfo(PBContractInfoList rsp)
         {
             using (var clientDBCtx = new ClientDbContext())
