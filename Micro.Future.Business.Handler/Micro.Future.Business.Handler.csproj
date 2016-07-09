@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\AbstractOTCMarketDataHandler.cs" />
+    <Compile Include="Business\LocalOperationHandler.cs" />
     <Compile Include="Business\MarketDataHandler.cs" />
     <Compile Include="Business\OrderEnums.cs" />
     <Compile Include="Business\OTCMDClientHandler.cs" />

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Micro.Future.LocalStorage.DataObject
 {
     [Table("UserSettingInfo")]
-    class UserSettingInfo
+    public class UserSettingInfo
     {
         
     }
