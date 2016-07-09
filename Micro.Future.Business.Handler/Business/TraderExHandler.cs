@@ -95,39 +95,48 @@ namespace Micro.Future.Message
             using (var clientDBCtx = new ClientDbContext())
             {
 
-
-                clientDBCtx.ContractInfoSet.Add(new ContractInfo()
+                try
                 {
 
-                    Exchange = "11",
-                    Contract = "22",
-                    Name = "HAHA",
-                    ProductID = "HAHA",
-                    ProductType = 1,
-                    DeliveryYear = 1,
-                    DeliveryMonth = 1,
-                    MaxMarketOrderVolume = 1,
-                    MinMarketOrderVolume = 1,
-                    MaxLimitOrderVolume = 1,
-                    MinLimitOrderVolume = 1,
-                    VolumeMultiple = 1,
-                    PriceTick = 1,
-                    CreateDate = "HAHA",
-                    OpenDate = "HAHA",
-                    ExpireDate = "HAHA",
-                    StartDelivDate = "HAHA",
-                    EndDelivDate = "HAHA",
-                    LifePhase = "HAHA",
-                    IsTrading = 1,
-                    PositionType = 1,
-                    PositionDateType = 1,
-                    LongMarginRatio = 1,
-                    ShortMarginRatio = 1,
-                    MaxMarginSideAlgorithm = "HAHA"
 
-                });
-                clientDBCtx.SaveChanges();
+                    clientDBCtx.ContractInfoSet.Add(new ContractInfo()
+                    {
+                        Id = "00",
+                        Exchange = "11",
+                        Contract = "22",
+                        Name = "HAHA",
+                        ProductID = "HAHA",
+                        ProductType = 1,
+                        DeliveryYear = 1,
+                        DeliveryMonth = 1,
+                        MaxMarketOrderVolume = 1,
+                        MinMarketOrderVolume = 1,
+                        MaxLimitOrderVolume = 1,
+                        MinLimitOrderVolume = 1,
+                        VolumeMultiple = 1,
+                        PriceTick = 1,
+                        CreateDate = "HAHA",
+                        OpenDate = "HAHA",
+                        ExpireDate = "HAHA",
+                        StartDelivDate = "HAHA",
+                        EndDelivDate = "HAHA",
+                        LifePhase = "HAHA",
+                        IsTrading = 1,
+                        PositionType = 1,
+                        PositionDateType = 1,
+                        LongMarginRatio = 1,
+                        ShortMarginRatio = 1,
+                        MaxMarginSideAlgorithm = "HAHA"
 
+                    });
+                    clientDBCtx.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.InnerException);
+
+                }
 
             }
         }

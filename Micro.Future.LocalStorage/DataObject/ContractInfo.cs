@@ -65,11 +65,4 @@ namespace Micro.Future.LocalStorage.DataObject
         public string MaxMarginSideAlgorithm { get; set; }
     }
 
-
-
-
-
-
-
-
 }
