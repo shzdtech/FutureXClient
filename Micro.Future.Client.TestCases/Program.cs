@@ -1,4 +1,4 @@
-﻿using Micro.Future.Message;
+﻿using Micro.Future.LocalStorage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,14 @@ namespace Micro.Future.Client.TestCases
     {
         static void Main(string[] args)
         {
-            TraderExHandler.testc();
+            using (var dbctx = new ClientDbContext())
+            {
+                dbctx.ContractInfo.Add(new LocalStorage.DataObject.ContractInfo()
+                {
+                    Id = new Random().Next(),
+                });
+                dbctx.SaveChanges();
+            }
         }
     }
 }

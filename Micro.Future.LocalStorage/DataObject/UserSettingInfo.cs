@@ -12,6 +12,6 @@ namespace Micro.Future.LocalStorage.DataObject
     [Table("UserSettingInfo")]
     public class UserSettingInfo
     {
-        
+        public int Id { get; set; }
     }
 }

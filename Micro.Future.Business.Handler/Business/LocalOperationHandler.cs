@@ -15,14 +15,15 @@ namespace Micro.Future.Business
 {
     class LocalOperationHandler : MessageHandlerTemplate<LocalOperationHandler>
     {
-
+        
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
 
-            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgQueryRspInstrumentInfo, BizErrorMsg>
-                ((uint)BusinessMessageID.MSG_ID_QUERY_INSTRUMENT, OnContractInfo, null);
+            //MessageWrapper.RegisterAction<PBMsgTrader.PBMsgQueryRspInstrumentInfo, BizErrorMsg>
+            //   ((uint)BusinessMessageID.MSG_ID_QUERY_INSTRUMENT, OnContractInfo, null);
         }
 
+        /*
         private void OnContractInfo(PBContractInfoList rsp)
         {
             using (var clientDBCtx = new ClientDbContext())
@@ -64,11 +65,9 @@ namespace Micro.Future.Business
             }
             clientDBCtx.SaveChanges();
         }
+
+    */
     }
 
-
-
-
-
 }
-}
+
