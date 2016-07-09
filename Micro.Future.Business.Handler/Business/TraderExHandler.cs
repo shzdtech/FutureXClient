@@ -99,9 +99,9 @@ namespace Micro.Future.Message
                 {
 
 
-                    clientDBCtx.ContractInfoSet.Add(new ContractInfo()
+                    clientDBCtx.ContractInfo.Add(new ContractInfo()
                     {
-                        Id = "00",
+                        Id = 1,
                         Exchange = "11",
                         Contract = "22",
                         Name = "HAHA",
@@ -147,7 +147,7 @@ namespace Micro.Future.Message
             {
                 foreach (var contract in rsp.ContractInfo)
                 {
-                    clientDBCtx.ContractInfoSet.Add(new ContractInfo()
+                    clientDBCtx.ContractInfo.Add(new ContractInfo()
                     {
 
                         Exchange = "1",

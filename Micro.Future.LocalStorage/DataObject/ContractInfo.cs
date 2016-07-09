@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.LocalStorage.DataObject
 {
-    [Table("ContractInfo")]
     public class ContractInfo
     {
-        ///交易所ID
-        public string Id { get; set; }
+        ///Id
+        public int Id { get; set; }
         ///交易所代码
         public string Exchange { get; set; }
         ///合约代码
