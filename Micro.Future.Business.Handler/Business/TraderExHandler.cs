@@ -91,7 +91,8 @@ namespace Micro.Future.Message
         }
 
 
-        private int OnPersonalContract()
+        // 保存个人合约信息
+        private int OnPersonalContract(PBContractInfoList rsp)//need to be updated to relvant rsp
         {
             int res = -1;
 
@@ -99,16 +100,24 @@ namespace Micro.Future.Message
             {
                 using (var clientDBCtx = new ClientDbContext())
                 {
-
+                    foreach (var personalContract in rsp.ContractInfo)//rsp.ContractInfo need to be updated
+                    {
+                        clientDBCtx.ContractInfo.Add(new ContractInfo() {Exchange = personalContract.Exchange, Contract = personalContract.Contract });
+                    }
+                    clientDBCtx.SaveChanges();
+                    res = 1;
                 }
             }
-            catch
+            catch(Exception ex)
             {
-
+                //log handle
+                Console.WriteLine(ex.Message);
             }
 
             return res;
         }
+
+
 
         //To invoke the function of saving contract data to local sqlite
         private void OnContractInfo(PBContractInfoList rsp)
