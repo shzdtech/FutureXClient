@@ -111,7 +111,7 @@ namespace Micro.Future.Message
         }
 
         //To invoke the function of saving contract data to local sqlite
-        private int OnContractInfo(PBContractInfoList rsp)
+        private void OnContractInfo(PBContractInfoList rsp)
         {
             int res = 0;
 
@@ -155,7 +155,7 @@ namespace Micro.Future.Message
                     res = 1;
                     //log to be handle 
 
-                    if()
+                    //if()
                     {   
 
                     }
@@ -169,7 +169,7 @@ namespace Micro.Future.Message
                 Console.WriteLine(ex.InnerException);
             }
 
-            return res;
+            //return res;
         }
 
 
