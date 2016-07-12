@@ -32,11 +32,6 @@ namespace Micro.Future.UI
 
         public LayoutContent LayoutContent { get; set; }
 
-        ~ClientQuoteGroupView()
-        {
-            _filterSettingsWin.CancelClosing = false;
-            _filterSettingsWin.Close();
-        }
         public ClientQuoteGroupView()
         {
             InitializeComponent();

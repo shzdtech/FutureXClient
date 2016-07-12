@@ -4,6 +4,7 @@ using Micro.Future.Utility;
 using Micro.Future.Message;
 using System.Collections;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace Micro.Future.UI
 {
@@ -12,7 +13,10 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class LoginWindow : Window
     {
-        private AbstractSignInManager _signInMgr;
+        public AbstractSignInManager SignInManager
+        {
+            get; protected set;
+        }
 
         private HashEncoder<HashEncoderOption> _hashEncoder =
             new HashEncoder<HashEncoderOption>(MD5.Create(),
@@ -43,9 +47,9 @@ namespace Micro.Future.UI
 
         public LoginWindow(AbstractSignInManager signInMgr)
         {
-            _signInMgr = signInMgr;
-            _signInMgr.OnConnected += _signInMgr_OnConnected;
-            _signInMgr.OnSessionCreated += _signInMgr_OnSessionCreated;
+            SignInManager = signInMgr;
+            SignInManager.OnConnected += _signInMgr_OnConnected;
+            SignInManager.OnSessionCreated += _signInMgr_OnSessionCreated;
             InitializeComponent();
 
             var userInfo = signInMgr.SignInOptions;
@@ -76,27 +80,24 @@ namespace Micro.Future.UI
             string uid = userTxt.Text;
             string password = passwordTxt.Password;
 
-            if (_signInMgr.SignInOptions.FrontServer != frontserver ||
-                _signInMgr.SignInOptions.BrokerID != brokerid ||
-                _signInMgr.SignInOptions.UserID != uid ||
-                _signInMgr.SignInOptions.Password != password)
+            if (SignInManager.SignInOptions.FrontServer != frontserver ||
+                SignInManager.SignInOptions.BrokerID != brokerid ||
+                SignInManager.SignInOptions.UserID != uid ||
+                SignInManager.SignInOptions.Password != password)
             {
-                _signInMgr.SignInOptions.FrontServer = frontserver;
-                _signInMgr.SignInOptions.BrokerID = brokerid;
-                _signInMgr.SignInOptions.UserID = uid;
+                SignInManager.SignInOptions.FrontServer = frontserver;
+                SignInManager.SignInOptions.BrokerID = brokerid;
+                SignInManager.SignInOptions.UserID = uid;
                 if (MD5Round > 0)
                 {
                     _hashEncoder.Option.Iteration = MD5Round;
                     password = _hashEncoder.Encode(password);
                 }
 
-                _signInMgr.SignInOptions.Password = password;
+                SignInManager.SignInOptions.Password = password;
             }
 
-            _signInMgr.SignIn();
-
-            if (_signInMgr.IsSessionCreated)
-                Close();
+            SignInManager.SignIn();
         }
     }
 }

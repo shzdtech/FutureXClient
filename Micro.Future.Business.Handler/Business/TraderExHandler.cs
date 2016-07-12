@@ -8,6 +8,8 @@ using Micro.Future.ViewModel;
 using Micro.Future.Message;
 using Micro.Future.Message.Business;
 using System.Collections.ObjectModel;
+using Micro.Future.LocalStorage;
+using Micro.Future.LocalStorage.DataObject;
 
 namespace Micro.Future.Message
 {
@@ -46,8 +48,8 @@ namespace Micro.Future.Message
         {
             MessageWrapper.RegisterAction<PBMsgTrader.PBMsgQueryRspMarketInfo, BizErrorMsg>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_EXCHANGE, OnMarketInfo, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgQueryRspInstrumentInfo, BizErrorMsg>
-                ((uint)BusinessMessageID.MSG_ID_QUERY_INSTRUMENT, OnInstrumentInfo, ErrorMsgAction);
+            MessageWrapper.RegisterAction<PBContractInfoList, BizErrorMsg>
+                ((uint)BusinessMessageID.MSG_ID_QUERY_INSTRUMENT, OnContractInfo, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBPosition, BizErrorMsg>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_POSITION, OnPosition, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBAccountInfo, BizErrorMsg>
@@ -88,16 +90,98 @@ namespace Micro.Future.Message
 
         }
 
-        private void OnInstrumentInfo(PBMsgTrader.PBMsgQueryRspInstrumentInfo rsp)
+
+        // 保存个人合约信息
+        private int OnPersonalContract(PBContractInfoList rsp)//need to be updated to relvant rsp
         {
-            if (InstrumentVMCollection != null)
+            int res = -1;
+
+            try
             {
-                InstrumentVMCollection.Add(new InstrumentViewModel()
+                using (var clientDBCtx = new ClientDbContext())
                 {
-                    RawData = rsp
-                });
+                    foreach (var personalContract in rsp.ContractInfo)//rsp.ContractInfo need to be updated
+                    {
+                        clientDBCtx.ContractInfo.Add(new ContractInfo() {Exchange = personalContract.Exchange, Contract = personalContract.Contract });
+                    }
+                    clientDBCtx.SaveChanges();
+                    res = 1;
+                }
             }
+            catch(Exception ex)
+            {
+                //log handle
+                Console.WriteLine(ex.Message);
+            }
+
+            return res;
         }
+
+
+
+        //To invoke the function of saving contract data to local sqlite
+        private void OnContractInfo(PBContractInfoList rsp)
+        {
+            int res = 0;
+
+            try
+            {
+                using (var clientDBCtx = new ClientDbContext())
+                {
+                    foreach (var contract in rsp.ContractInfo)
+                    {
+                        clientDBCtx.ContractInfo.Add(new ContractInfo()
+                        {
+                            //Id = contract.Id,
+                            Exchange = contract.Exchange,
+                            Contract = contract.Contract,
+                            Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
+                            ProductID = contract.ProductID,
+                            ProductType = contract.ProductType,
+                            DeliveryYear = contract.DeliveryYear,
+                            DeliveryMonth = contract.DeliveryMonth,
+                            MaxMarketOrderVolume = contract.MaxMarketOrderVolume,
+                            MinMarketOrderVolume = contract.MinMarketOrderVolume,
+                            MaxLimitOrderVolume = contract.MaxMarketOrderVolume,
+                            MinLimitOrderVolume = contract.MinMarketOrderVolume,
+                            VolumeMultiple = contract.VolumeMultiple,
+                            PriceTick = contract.PriceTick,
+                            CreateDate = contract.CreateDate,
+                            OpenDate = contract.OpenDate,
+                            ExpireDate = contract.ExpireDate,
+                            StartDelivDate = contract.EndDelivDate,
+                            EndDelivDate = contract.EndDelivDate,
+                            LifePhase = contract.LifePhase,
+                            IsTrading = contract.IsTrading,
+                            PositionType = contract.PositionType,
+                            PositionDateType = contract.PositionDateType,
+                            LongMarginRatio = contract.LongMarginRatio,
+                            ShortMarginRatio = contract.ShortMarginRatio,
+                            MaxMarginSideAlgorithm = contract.MaxMarginSideAlgorithm
+                        });
+                    }
+                    clientDBCtx.SaveChanges();
+                    res = 1;
+                    //log to be handle 
+
+                    //if()
+                    {   
+
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                res = -1;
+                //Log to be handle
+                Console.WriteLine(ex.InnerException);
+            }
+
+            //return res;
+        }
+
+
         private void OnPosition(PBPosition rsp)
         {
 
@@ -258,17 +342,17 @@ namespace Micro.Future.Message
                 {
                     bool found = false;
 
-                    //foreach (var trade in TradeVMCollection)
-                    //{
-                    //    if (trade.TradeID == rsp.TradeID)
-                    //    {
-                    //        found = true;
-                    //        break;
-                    //    }
-                    //}
-                    //if (!found)
-                    //{
-                    TradeVMCollection.Add(
+                    foreach (var trade in TradeVMCollection)
+                    {
+                        if (trade.TradeID == rsp.TradeID)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                    {
+                        TradeVMCollection.Add(
                                 new TradeVM()
                                 {
                                     OrderID = rsp.OrderID,
@@ -283,10 +367,10 @@ namespace Micro.Future.Message
                                     TradeDate = rsp.TradeDate,
                                     OpenClose = (OrderOffsetType)rsp.Openclose,
                                     Commission = rsp.Commission,
-                                        //InsertTime = rsp.,
-                                        //UpdateTime = rsp.,
-                                    });
-                    //}
+                                    //InsertTime = rsp.,
+                                    //UpdateTime = rsp.,
+                                });
+                    }
                 }
             }
         }
@@ -299,6 +383,8 @@ namespace Micro.Future.Message
                                 {
                                     OrderID = rsp.OrderID,
                                     Exchange = rsp.Exchange,
+                                    Contract = rsp.Contract,
+                                    TradeID = rsp.TradeID,
                                     OrderSysID = rsp.OrderSysID,
                                     Direction = (DirectionType)rsp.Direction,
                                     Price = rsp.Price,
@@ -338,6 +424,20 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_TRADE, sst);
 
         }
+
+        public void QueryContractInfo(string contractID = null)
+        {
+
+            var sst = new StringMap();
+            if (contractID != null)
+                sst.Entry[FieldName.INSTRUMENT_ID] = contractID;
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_INSTRUMENT, sst);
+
+
+
+        }
+
+
         public void CreateOrder(OrderVM orderVM)
         {
             var pb = new PBOrderInfo();
@@ -350,6 +450,8 @@ namespace Micro.Future.Message
             pb.Openclose = (int)orderVM.OffsetFlag;
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb);
+
+
 
         }
 

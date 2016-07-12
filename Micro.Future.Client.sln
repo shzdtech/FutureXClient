@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.ViewModel.Comm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.LocalStorage", "Micro.Future.LocalStorage\Micro.Future.LocalStorage.csproj", "{8A2127D2-8C14-4A0E-8608-E355ACDA150D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.Client.TestCases", "Micro.Future.Client.TestCases\Micro.Future.Client.TestCases.csproj", "{A1CEBD04-8321-4C30-AF35-87688B2075BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -229,6 +231,22 @@ Global
 		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|Win32.Build.0 = Release|Any CPU
 		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|x86.ActiveCfg = Release|Any CPU
 		{8A2127D2-8C14-4A0E-8608-E355ACDA150D}.Release|x86.Build.0 = Release|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Debug|Win32.Build.0 = Debug|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Debug|x86.Build.0 = Debug|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Release|Win32.ActiveCfg = Release|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Release|Win32.Build.0 = Release|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Release|x86.ActiveCfg = Release|Any CPU
+		{A1CEBD04-8321-4C30-AF35-87688B2075BE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
