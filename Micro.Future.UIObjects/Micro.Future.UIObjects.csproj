@@ -81,6 +81,7 @@
     <Compile Include="UI\TreeViewItemViewModel.cs" />
     <Compile Include="ViewModel\ImageVM.cs" />
     <Compile Include="ViewModel\KeyboardOrderViewModel.cs" />
+    <Compile Include="ViewModel\OptionVM.cs" />
     <Compile Include="ViewModel\ViewModelData.cs" />
   </ItemGroup>
   <ItemGroup>

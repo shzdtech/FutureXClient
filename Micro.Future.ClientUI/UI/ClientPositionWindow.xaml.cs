@@ -42,9 +42,18 @@ namespace Micro.Future.UI
 
             PositionListView.ItemsSource = _viewSource.View;
 
+
+            PositionChanged = _viewSource.View as ICollectionViewLiveShaping;
+            if (PositionChanged.CanChangeLiveFiltering)
+            {
+                PositionChanged.LiveFilteringProperties.Add("Direction");
+                PositionChanged.IsLiveFiltering = true;
+            }
+
             mColumns = ColumnObject.GetColumns(PositionListView);
         }
 
+        public ICollectionViewLiveShaping PositionChanged { get; set; }
         private void _filterSettingsWin_OnFiltering(string exchange, string underlying, string contract)
         {
             if (LayoutContent != null)

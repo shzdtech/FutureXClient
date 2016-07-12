@@ -11,7 +11,8 @@
   "licenseUrl": "",
   "dependencies": {
     "Extended.Wpf.Toolkit": "2.8.0",
-    "WpfLocalizeExtension": "2.3.2"
+    "WpfLocalizeExtension": "2.3.2",
+    "OxyPlot.Wpf": "1.0.0-unstable2100"
   },
   "frameworks": {
     "net451": {
@@ -19,7 +20,7 @@
     }
   },
   "runtimes": {
-    "win-anycpu": {},
-    "win": {}
+    "win-anycpu": { },
+    "win": { }
   }
 }

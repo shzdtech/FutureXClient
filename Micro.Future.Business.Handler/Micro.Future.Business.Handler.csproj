@@ -74,7 +74,6 @@
     <Compile Include="ViewModel\MarketDataVM.cs" />
     <Compile Include="ViewModel\ObservableCollectionExtention.cs" />
     <Compile Include="ViewModel\ObstacleViewModel.cs" />
-    <Compile Include="ViewModel\OptionVM.cs" />
     <Compile Include="ViewModel\OrderVM.cs" />
     <Compile Include="ViewModel\OTCQuoteVM.cs" />
     <Compile Include="ViewModel\PositionVM.cs" />
