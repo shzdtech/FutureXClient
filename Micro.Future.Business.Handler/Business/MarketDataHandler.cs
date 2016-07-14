@@ -21,11 +21,11 @@ namespace Micro.Future.Message
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
-            MessageWrapper.RegisterAction<PBMarketDataList, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBMarketDataList, ExceptionMessage>
             ((uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA, SubMDSuccessAction, ErrorMsgAction);
-            MessageWrapper.RegisterAction<SimpleStringTable, BizErrorMsg>
+            MessageWrapper.RegisterAction<SimpleStringTable, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, UnsubMDSuccessAction, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBMarketDataList, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBMarketDataList, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_RET_MARKETDATA, RetMDSuccessAction, ErrorMsgAction);
         }
 
@@ -157,12 +157,16 @@ namespace Micro.Future.Message
             }
         }
 
-        private void ErrorMsgAction(BizErrorMsg bizErr)
+        private void ErrorMsgAction(ExceptionMessage bizErr)
         {
-            RaiseOnError(
-                new MessageException(bizErr.MessageId, bizErr.Errorcode,
-                Encoding.UTF8.GetString(bizErr.Description.ToByteArray()),
-                bizErr.Syserrcode));
+            if (bizErr.Description != null)
+            {
+                var msg = bizErr.Description.ToByteArray();
+                if (msg.Length > 0)
+                    RaiseOnError(
+                        new MessageException(bizErr.MessageId, ErrorType.UNSPECIFIED_ERROR, bizErr.Errorcode,
+                        Encoding.UTF8.GetString(msg)));
+            }
         }
     }
 }

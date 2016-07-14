@@ -14,7 +14,7 @@ namespace Micro.Future.Message
         {
             base.OnMessageWrapperRegistered(messageWrapper);
 
-            MessageWrapper.RegisterAction<PBPricingDataList, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBPricingDataList, ExceptionMessage>
                             ((uint)BusinessMessageID.MSG_ID_RTN_PRICING, OnReturningPricing, OnErrorAction);
         }
         protected override void OnReturningPricing(Message.Business.PBPricingDataList PB)
