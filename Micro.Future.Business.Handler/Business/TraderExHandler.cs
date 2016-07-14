@@ -188,7 +188,7 @@ namespace Micro.Future.Message
                         }
                     }
 
-                    if (rspCount == res)
+                    if (rspCount == res -1)
                     {
                         Console.WriteLine("本地数据保存成功");
                         //log handle

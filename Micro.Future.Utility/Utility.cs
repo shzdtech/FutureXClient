@@ -31,5 +31,10 @@ namespace Micro.Future.Utility
         {
             return ContainsAny(thisString, findStr, ';', ',');
         }
+
+
+        // to show Client version
+        public static void showCurrentVersion()
+        { }
     }
 }
