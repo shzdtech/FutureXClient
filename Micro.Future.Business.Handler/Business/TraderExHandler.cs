@@ -99,7 +99,6 @@ namespace Micro.Future.Message
         private int OnPersonalContract(PBContractInfoList rsp)//need to be updated to relvant rsp
         {
             int res = -1;
-
             try
             {
                 using (var clientDBCtx = new ClientDbContext())
@@ -111,16 +110,18 @@ namespace Micro.Future.Message
                     clientDBCtx.SaveChanges();
                     res = 1;
                 }
+
+
+                //var resPersonalContract = select
+               
             }
             catch (Exception ex)
             {
                 //log handle
                 Console.WriteLine(ex.Message);
             }
-
             return res;
         }
-
 
 
         //To invoke the function of saving contract data to local sqlite
@@ -168,12 +169,30 @@ namespace Micro.Future.Message
                     res = 1;
                     //log to be handle 
 
-                    //if()
-                    {
+                    var queryContractorInfo = from ci in clientDBCtx.ContractInfo
+                                              select ci;
 
-                    }
 
                 }
+
+
+                using (var clientDBCtx = new ClientDbContext())
+                {
+
+                    var queryContractorInfo = from ci in clientDBCtx.ContractInfo
+                                              select ci;
+
+                    foreach (var contract in rsp.ContractInfo)
+                    {
+                       
+
+
+                    }
+                    clientDBCtx.SaveChanges();
+                    res = 1;
+                    //log to be handle 
+                }
+
             }
             catch (Exception ex)
             {

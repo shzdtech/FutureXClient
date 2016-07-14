@@ -18,9 +18,10 @@ namespace Micro.Future.LocalStorage
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Filename=E:\\Projects\\FutureXClient\\Micro.Future.LocalStorage\\Data\\clientcache.db");
+            optionsBuilder.UseSqlite("Filename=C:\\Users\\huzha\\WorkSpace\\FutureXClient\\Micro.Future.LocalStorage\\Data\\clientcache.db");
+            //optionsBuilder.UseSqlite("Filename=E:\\Projects\\FutureXClient\\Micro.Future.LocalStorage\\Data\\clientcache.db");
         }
 
-        
+
     }
 }
