@@ -165,12 +165,30 @@ namespace Micro.Future.Message
                     res = 1;
                     //log to be handle 
 
-                    //if()
-                    {   
+                    var queryContractorInfo = from ci in clientDBCtx.ContractInfo
+                                              select ci;
+
+
+                }
+
+
+                using (var clientDBCtx = new ClientDbContext())
+                {
+
+                    var queryContractorInfo = from ci in clientDBCtx.ContractInfo
+                                              select ci;
+
+                    foreach (var contract in rsp.ContractInfo)
+                    {
+                       
+
 
                     }
-                    
+                    clientDBCtx.SaveChanges();
+                    res = 1;
+                    //log to be handle 
                 }
+
             }
             catch (Exception ex)
             {
