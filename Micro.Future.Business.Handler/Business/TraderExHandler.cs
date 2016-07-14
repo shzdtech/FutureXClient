@@ -108,7 +108,7 @@ namespace Micro.Future.Message
                 }
 
 
-                var resPersonalContract = select
+                //var resPersonalContract = select
                
             }
             catch(Exception ex)
