@@ -124,13 +124,14 @@ namespace Micro.Future.Message
         private void OnContractInfo(PBContractInfoList rsp)
         {
             int res = 0;
-
+            int rspCount = 0;
             try
             {
                 using (var clientDBCtx = new ClientDbContext())
                 {
                     foreach (var contract in rsp.ContractInfo)
                     {
+                        rspCount = rspCount + 1;
                         clientDBCtx.ContractInfo.Add(new ContractInfo()
                         {
                             //Id = contract.Id,
@@ -168,18 +169,28 @@ namespace Micro.Future.Message
                     var queryContractorInfo = from ci in clientDBCtx.ContractInfo
                                               select ci;
 
+                    
                     foreach (var query in queryContractorInfo)
                     {
                         foreach (var contract in rsp.ContractInfo)
                         {
-                            if ((contract.Exchange == query.Exchange)&&(contract.Contract == query.Contract))
+                            if ((contract.Exchange == query.Exchange) && (contract.Contract == query.Contract))
                             {
+                                //log handle
+                                res = res + 1;
                                 continue;
                             }
 
-
                         }
                     }
+
+                    if (rspCount == res)
+                    {
+                        Console.WriteLine("本地数据保存成功");
+                        //log handle
+                    }
+
+
                 }
 
 
