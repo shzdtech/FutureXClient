@@ -168,26 +168,22 @@ namespace Micro.Future.Message
                     var queryContractorInfo = from ci in clientDBCtx.ContractInfo
                                               select ci;
 
-
-                }
-
-
-                using (var clientDBCtx = new ClientDbContext())
-                {
-
-                    var queryContractorInfo = from ci in clientDBCtx.ContractInfo
-                                              select ci;
-
-                    foreach (var contract in rsp.ContractInfo)
+                    foreach (var query in queryContractorInfo)
                     {
-                       
+                        foreach (var contract in rsp.ContractInfo)
+                        {
+                            if ((contract.Exchange == query.Exchange)&&(contract.Contract == query.Contract))
+                            {
+                                continue;
+                            }
 
 
+                        }
                     }
-                    clientDBCtx.SaveChanges();
-                    res = 1;
-                    //log to be handle 
                 }
+
+
+               
 
             }
             catch (Exception ex)
