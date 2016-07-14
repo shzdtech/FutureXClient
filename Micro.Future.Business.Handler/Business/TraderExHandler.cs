@@ -46,27 +46,27 @@ namespace Micro.Future.Message
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
-            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgQueryRspMarketInfo, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBMarketInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_EXCHANGE, OnMarketInfo, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBContractInfoList, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBContractInfoList, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_INSTRUMENT, OnContractInfo, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBPosition, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBPosition, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_POSITION, OnPosition, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBAccountInfo, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBAccountInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_ACCOUNT_INFO, OnFund, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBOrderInfo, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_ORDER, OnQueryOrder, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBOrderInfo, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_ORDER_NEW, OnQueryOrder, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBOrderInfo, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_ORDER_UPDATE, OnUpdateOrder, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBTradeInfo, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBTradeInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_TRADE, OnQueryTrade, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBTradeInfo, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBTradeInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_TRADE_RTN, OnReturnTrade, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBOrderInfo, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, OnCancel, ErrorMsgAction);
-            //MessageWrapper.RegisterAction<PBOptionInfo, BizErrorMsg>
+            //MessageWrapper.RegisterAction<PBOptionInfo, ExceptionMessage>
             //    ((uint)BusinessMessageID.MSG_ID_OPTION_UPDATE, OnUpdateOption, ErrorMsgAction);
         }
 
@@ -77,15 +77,19 @@ namespace Micro.Future.Message
 
 
 
-        private void ErrorMsgAction(BizErrorMsg bizErr)
+        private void ErrorMsgAction(ExceptionMessage bizErr)
         {
-            RaiseOnError(
-                new MessageException(bizErr.MessageId, bizErr.Errorcode,
-                Encoding.UTF8.GetString(bizErr.Description.ToByteArray()),
-                bizErr.Syserrcode));
+            if (bizErr.Description != null)
+            {
+                var msg = bizErr.Description.ToByteArray();
+                if (msg.Length > 0)
+                    RaiseOnError(
+                        new MessageException(bizErr.MessageId, ErrorType.UNSPECIFIED_ERROR, bizErr.Errorcode,
+                        Encoding.UTF8.GetString(msg)));
+            }
         }
 
-        private void OnMarketInfo(PBMsgTrader.PBMsgQueryRspMarketInfo rsp)
+        private void OnMarketInfo(PBMarketInfo rsp)
         {
 
         }
@@ -102,13 +106,13 @@ namespace Micro.Future.Message
                 {
                     foreach (var personalContract in rsp.ContractInfo)//rsp.ContractInfo need to be updated
                     {
-                        clientDBCtx.ContractInfo.Add(new ContractInfo() {Exchange = personalContract.Exchange, Contract = personalContract.Contract });
+                        clientDBCtx.ContractInfo.Add(new ContractInfo() { Exchange = personalContract.Exchange, Contract = personalContract.Contract });
                     }
                     clientDBCtx.SaveChanges();
                     res = 1;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //log handle
                 Console.WriteLine(ex.Message);
@@ -165,10 +169,10 @@ namespace Micro.Future.Message
                     //log to be handle 
 
                     //if()
-                    {   
+                    {
 
                     }
-                    
+
                 }
             }
             catch (Exception ex)

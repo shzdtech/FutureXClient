@@ -83,23 +83,23 @@ namespace Micro.Future.Message
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
-            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgQueryRspMarketInfo, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgQueryRspMarketInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_EXCHANGE, OnMarketInfo, null);
-            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgQueryRspInstrumentInfo, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgQueryRspInstrumentInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_INSTRUMENT, OnInstrumentInfo, null);
-            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgQueryRspPosition, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgQueryRspPosition, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_POSITION, OnPosition, null);
-            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgQueryRspFund, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgQueryRspFund, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_ACCOUNT_INFO, OnFund, null);
-            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgOrderRtn, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgOrderRtn, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_ORDER, OnQueryOrder, null);
-            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgOrderRtn, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgOrderRtn, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_ORDER_UPDATE, OnUpdateOrder, null);
-            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgTradeRtn, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgTradeRtn, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_TRADE, OnQueryTrade, null);
-            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgTradeRtn, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgTradeRtn, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_TRADE_RTN, OnReturnTrade, null);
-            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgOrderAction, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBMsgTrader.PBMsgOrderAction, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, OnCancel, null);
         }
 

@@ -69,11 +69,11 @@ namespace Micro.Future.Test
             _connectHelper.OnLoginError += _connectHelper_OnError;
             _connectHelper.OnLogged += _connectHelper_OnLogged;
 
-            _connectHelper.MessageWrapper.RegisterAction<PBOrderInfo, BizErrorMsg>
+            _connectHelper.MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
                             ((uint)BusinessMessageID.MSG_ID_ORDER_NEW, OnReturningOrderInfo, OnErrorAction);
-            _connectHelper.MessageWrapper.RegisterAction<PBOrderInfo, BizErrorMsg>
+            _connectHelper.MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
                             ((uint)BusinessMessageID.MSG_ID_ORDER_UPDATE, OnReturningOrderInfo, OnErrorAction);
-            _connectHelper.MessageWrapper.RegisterAction<PBOrderInfo, BizErrorMsg>
+            _connectHelper.MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
                             ((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, OnRspCancelOrder, OnErrorAction);
 
 
@@ -86,7 +86,7 @@ namespace Micro.Future.Test
             MessageBox.Show(obj.Contract + ":" + (OrderStatus)obj.OrderStatus);
         }
 
-        private void OnErrorAction(BizErrorMsg obj)
+        private void OnErrorAction(ExceptionMessage obj)
         {
             MessageBox.Show(Encoding.UTF8.GetString(obj.Description.ToByteArray()));
         }

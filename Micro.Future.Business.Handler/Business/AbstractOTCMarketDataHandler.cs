@@ -8,12 +8,16 @@ namespace Micro.Future.Message
     public abstract class AbstractOTCMarketDataHandler :
         AbstractMessageHandler
     {
-        protected void OnErrorAction(BizErrorMsg bizErr)
+        protected void OnErrorAction(ExceptionMessage bizErr)
         {
-            RaiseOnError(
-                new MessageException(bizErr.MessageId, bizErr.Errorcode,
-                Encoding.UTF8.GetString(bizErr.Description.ToByteArray()),
-                bizErr.Syserrcode));
+            if (bizErr.Description != null)
+            {
+                var msg = bizErr.Description.ToByteArray();
+                if (msg.Length > 0)
+                    RaiseOnError(
+                        new MessageException(bizErr.MessageId, ErrorType.UNSPECIFIED_ERROR, bizErr.Errorcode,
+                        Encoding.UTF8.GetString(msg)));
+            }
         }
 
         public ObservableCollection<StrategyVM> StrategyVMCollection
@@ -38,21 +42,21 @@ namespace Micro.Future.Message
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
 
-            MessageWrapper.RegisterAction<PBPricingDataList, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBPricingDataList, ExceptionMessage>
                         ((uint)BusinessMessageID.MSG_ID_SUB_PRICING, OnSubMarketDataSuccessAction, OnErrorAction);
-            MessageWrapper.RegisterAction<PBPricingDataList, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBPricingDataList, ExceptionMessage>
                             ((uint)BusinessMessageID.MSG_ID_RTN_PRICING, OnReturningPricing, OnErrorAction);
-            MessageWrapper.RegisterAction<PBStrategyList, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBStrategyList, ExceptionMessage>
                         ((uint)BusinessMessageID.MSG_ID_QUERY_STRATEGY, OnQueryStrategySuccessAction, OnErrorAction);
-            MessageWrapper.RegisterAction<PBContractParamList, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBContractParamList, ExceptionMessage>
                        ((uint)BusinessMessageID.MSG_ID_QUERY_CONTRACT_PARAM, OnQueryContractParamSuccessAction, OnErrorAction);
-            MessageWrapper.RegisterAction<PBStrategyList, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBStrategyList, ExceptionMessage>
                        ((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, OnUpdateStrategySuccessAction, OnErrorAction);
-            MessageWrapper.RegisterAction<Result, BizErrorMsg>
+            MessageWrapper.RegisterAction<Result, ExceptionMessage>
                        ((uint)BusinessMessageID.MSG_ID_MODIFY_CONTRACT_PARAM, OnUpdateSuccessAction, OnErrorAction);
-            MessageWrapper.RegisterAction<Result, BizErrorMsg>
+            MessageWrapper.RegisterAction<Result, ExceptionMessage>
                        ((uint)BusinessMessageID.MSG_ID_MODIFY_USER_PARAM, OnUpdateSuccessAction, OnErrorAction);
-            MessageWrapper.RegisterAction<PBUserInfoList, BizErrorMsg>
+            MessageWrapper.RegisterAction<PBUserInfoList, ExceptionMessage>
                       ((uint)BusinessMessageID.MSG_ID_QUERY_TRADINGDESK, OnQueryTradingDeskSuccessAction, OnErrorAction);
 
         }
