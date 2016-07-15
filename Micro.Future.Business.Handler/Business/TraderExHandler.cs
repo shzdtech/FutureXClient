@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 
+
 namespace Micro.Future.Message
 {
     public class TraderExHandler : MessageHandlerTemplate<TraderExHandler>
@@ -127,7 +128,7 @@ namespace Micro.Future.Message
         //To invoke the function of saving contract data to local sqlite
         private void OnContractInfo(PBContractInfoList rsp)
         {
-            int res = 0;
+            int queryCount = 0;
             int rspCount = 0;
             try
             {
@@ -167,13 +168,12 @@ namespace Micro.Future.Message
                         });
                     }
                     clientDBCtx.SaveChanges();
-                    res = 1;
+                    
                     //log to be handle 
 
                     var queryContractorInfo = from ci in clientDBCtx.ContractInfo
                                               select ci;
 
-                    
                     foreach (var query in queryContractorInfo)
                     {
                         foreach (var contract in rsp.ContractInfo)
@@ -181,29 +181,23 @@ namespace Micro.Future.Message
                             if ((contract.Exchange == query.Exchange) && (contract.Contract == query.Contract))
                             {
                                 //log handle
-                                res = res + 1;
-                                continue;
+                                queryCount ++;
+                                //continue;
                             }
 
                         }
                     }
 
-                    if (rspCount == res -1)
+                    if (rspCount == queryCount)
                     {
                         Console.WriteLine("本地数据保存成功");
                         //log handle
                     }
-
-
                 }
-
-
-               
 
             }
             catch (Exception ex)
             {
-                res = -1;
                 //Log to be handle
                 Console.WriteLine(ex.InnerException);
             }

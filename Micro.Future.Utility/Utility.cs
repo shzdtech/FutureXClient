@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Collections.ObjectModel;
+using Micro.Future.LocalStorage;
+
 namespace Micro.Future.Utility
 {
     public static class Utility
@@ -34,7 +37,17 @@ namespace Micro.Future.Utility
 
 
         // to show Client version
-        public static void showCurrentVersion()
-        { }
+        public static void setCurrentVersion()
+        {
+
+        }
+
+        private static void getClientVersion()
+        {
+            using (var clientDBCtx = new ClientDbContext())
+            {
+
+            }
+        }
     }
 }

@@ -12,6 +12,9 @@ namespace Micro.Future.LocalStorage
     {
         public ClientDbContext() : base() { }
 
+        public DbSet<ClientInfo> ClientInfo { get; set; }
+
+
         public DbSet<ContractInfo> ContractInfo { get; set; }
 
         //public DbSet<UserSetting> UserSetting { get; set; }
