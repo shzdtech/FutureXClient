@@ -48,16 +48,32 @@ namespace Micro.Future.Utility
         // to show Client version
         public static void setCurrentVersion()
         {
-
+            getClientVersion();
         }
 
         //get client version from localStorage
         private static void getClientVersion()
         {
-            using (var clientDBCtx = new ClientDbContext())
-            {
+            
+                using (var clientDBCtx = new ClientDbContext())
+                {
+                    var queryClicentInfo = from db in clientDBCtx.ClientInfo
+                                           group db by db.Id into g
+                                           select new { g.Key, MaxVersion = g.Max(db => db.Version) };
 
-            }
+                    int queryCount = queryClicentInfo.Count();
+
+                    if (queryCount == 1)
+                    {
+                        Console.WriteLine("找到了最大版本号");
+                        foreach (var result in queryClicentInfo)
+                        {
+                            Console.WriteLine(result.MaxVersion);
+                        }
+                    }
+                }
+            
+            
         }
     }
 }

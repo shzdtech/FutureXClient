@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Micro.Future.Utility;
+
 
 namespace Micro.Future.Client.TestCases
 {
@@ -11,14 +13,7 @@ namespace Micro.Future.Client.TestCases
     {
         static void Main(string[] args)
         {
-            using (var dbctx = new ClientDbContext())
-            {
-                dbctx.ContractInfo.Add(new LocalStorage.DataObject.ContractInfo()
-                {
-                    Id = new Random().Next(),
-                });
-                dbctx.SaveChanges();
-            }
+            Utility.Utility.setCurrentVersion();
         }
     }
 }

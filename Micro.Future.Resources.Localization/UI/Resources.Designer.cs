@@ -1249,7 +1249,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 客户端 的本地化字符串。
+        ///   查找类似 UFO 的本地化字符串。
         /// </summary>
         internal static string UserClient {
             get {

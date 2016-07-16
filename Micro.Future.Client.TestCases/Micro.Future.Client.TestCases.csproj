@@ -59,6 +59,10 @@
       <Project>{8a2127d2-8c14-4a0e-8608-e355acda150d}</Project>
       <Name>Micro.Future.LocalStorage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Micro.Future.Utility\Micro.Future.Utility.csproj">
+      <Project>{a6a3af60-a359-49c4-8747-c79b695489e2}</Project>
+      <Name>Micro.Future.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
