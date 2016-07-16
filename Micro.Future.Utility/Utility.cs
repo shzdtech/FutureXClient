@@ -20,6 +20,8 @@ namespace Micro.Future.Utility
 {
     public static class Utility
     {
+        public static string clientVersion;
+
         public static string GenComponentUri(Type type)
         {
             return "/" + type.Assembly.FullName + ";component";
@@ -46,13 +48,13 @@ namespace Micro.Future.Utility
 
 
         // to show Client version
-        public static void setCurrentVersion()
+        public static string setCurrentVersion()
         {
-            getClientVersion();
+            return getClientVersion();
         }
 
         //get client version from localStorage
-        private static void getClientVersion()
+        private static string getClientVersion()
         {
             
                 using (var clientDBCtx = new ClientDbContext())
@@ -68,12 +70,12 @@ namespace Micro.Future.Utility
                         Console.WriteLine("找到了最大版本号");
                         foreach (var result in queryClicentInfo)
                         {
-                            Console.WriteLine(result.MaxVersion);
+                            clientVersion = result.MaxVersion;
+                            Console.WriteLine(clientVersion);
                         }
                     }
                 }
-            
-            
+            return clientVersion;
         }
     }
 }
