@@ -28,6 +28,7 @@ namespace Micro.Future.UI
         public ClientMainWindowOTC()
         {
             InitializeComponent();
+            ribbonMenu.Title += " (" + Utility.Utility.getClientVersion() + ")";
             Initialize();
             Login();
 

@@ -47,14 +47,10 @@ namespace Micro.Future.Utility
         }
 
 
-        // to show Client version
-        public static string setCurrentVersion()
-        {
-            return getClientVersion();
-        }
+     
 
         //get client version from localStorage
-        private static string getClientVersion()
+        public static string getClientVersion()
         {
             
                 using (var clientDBCtx = new ClientDbContext())

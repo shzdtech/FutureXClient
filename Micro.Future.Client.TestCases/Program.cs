@@ -13,7 +13,7 @@ namespace Micro.Future.Client.TestCases
     {
         static void Main(string[] args)
         {
-            Utility.Utility.setCurrentVersion();
+            Utility.Utility.getClientVersion();
         }
     }
 }
