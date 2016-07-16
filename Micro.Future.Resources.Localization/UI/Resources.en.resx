@@ -213,8 +213,8 @@
   <data name="FilterSettings" xml:space="preserve">
     <value>FilterSettings</value>
   </data>
-  <data name="FunctionArea" xml:space="preserve">
-    <value>FunctionArea</value>
+  <data name="TradingMarket" xml:space="preserve">
+    <value>TradingMarket</value>
   </data>
   <data name="Fund" xml:space="preserve">
     <value>Fund</value>
@@ -539,5 +539,8 @@
   </data>
   <data name="Server_OTC_Unconnected" xml:space="preserve">
     <value>OTC Server</value>
+  </data>
+  <data name="TradingStrategy" xml:space="preserve">
+    <value>TradingStrategy</value>
   </data>
 </root>

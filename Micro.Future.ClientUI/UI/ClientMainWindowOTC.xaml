@@ -30,7 +30,7 @@
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
 
-            <RibbonTab Header="{lex:Loc Key=FunctionArea}">
+            <RibbonTab Header="{lex:Loc Key=TradingMarket}">
                 <RibbonGroup>
                     <RibbonButton Label="{lex:Loc Key=LogIN}" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogin_Click" />
                 </RibbonGroup>
@@ -68,6 +68,12 @@
                     <RibbonButton Label="{lex:Loc Key=OrderWindow}" LargeImageSource="/Images/Login_48x48.png" Click="FastOrder_Click" />
                 </RibbonGroup>
             </RibbonTab>
+
+            <RibbonTab Header="{lex:Loc Key=TradingStrategy}">
+
+            </RibbonTab>
+
+
         </Ribbon>
 
         <StatusBar Grid.Row="2" Grid.ColumnSpan="4">

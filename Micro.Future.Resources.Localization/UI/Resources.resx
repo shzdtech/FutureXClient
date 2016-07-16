@@ -213,8 +213,8 @@
   <data name="FilterSettings" xml:space="preserve">
     <value>筛选配置</value>
   </data>
-  <data name="FunctionArea" xml:space="preserve">
-    <value>功能区</value>
+  <data name="TradingMarket" xml:space="preserve">
+    <value>行情交易</value>
   </data>
   <data name="Fund" xml:space="preserve">
     <value>资金</value>
@@ -539,5 +539,8 @@
   </data>
   <data name="Server_OTC_Unconnected" xml:space="preserve">
     <value>OTC服务器未连接</value>
+  </data>
+  <data name="TradingStrategy" xml:space="preserve">
+    <value>高级策略</value>
   </data>
 </root>

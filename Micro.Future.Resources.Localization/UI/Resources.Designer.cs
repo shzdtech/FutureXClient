@@ -484,15 +484,6 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 功能区 的本地化字符串。
-        /// </summary>
-        internal static string FunctionArea {
-            get {
-                return ResourceManager.GetString("FunctionArea", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 资金 的本地化字符串。
         /// </summary>
         internal static string Fund {
@@ -1209,6 +1200,24 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string TradingDay {
             get {
                 return ResourceManager.GetString("TradingDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 行情交易 的本地化字符串。
+        /// </summary>
+        internal static string TradingMarket {
+            get {
+                return ResourceManager.GetString("TradingMarket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 高级策略 的本地化字符串。
+        /// </summary>
+        internal static string TradingStrategy {
+            get {
+                return ResourceManager.GetString("TradingStrategy", resourceCulture);
             }
         }
         
