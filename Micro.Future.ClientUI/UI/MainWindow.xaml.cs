@@ -62,6 +62,8 @@ namespace Micro.Future.UI
             MyInstance = this;
 
             InitializeComponent();
+            //this.Title += " (" + Utility.Utility.getClientVersion() + ")";
+
         }
 
         public void Load()
