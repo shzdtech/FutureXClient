@@ -190,9 +190,10 @@ namespace Micro.Future.Message
 
                     if (rspCount == queryCount)
                     {
-                        Console.WriteLine("本地数据保存成功");
+                        Console.WriteLine("本地合约数据保存成功");
                         //log handle
                     }
+                    else{ throw new Exception("本地合约数据保存失败"); }
                 }
 
             }
