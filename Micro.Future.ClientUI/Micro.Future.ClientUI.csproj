@@ -91,9 +91,6 @@
     <Compile Include="UI\AdvancedMakeOrderWin.xaml.cs">
       <DependentUpon>AdvancedMakeOrderWin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientMainStrategyFrame.xaml.cs">
-      <DependentUpon>ClientMainStrategyFrame.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\ClientMainWindowOTC.xaml.cs">
       <DependentUpon>ClientMainWindowOTC.xaml</DependentUpon>
     </Compile>
@@ -105,9 +102,6 @@
     </Compile>
     <Compile Include="UI\ClientTradeWindow.xaml.cs">
       <DependentUpon>ClientTradeWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ClientMainTradeFrame.xaml.cs">
-      <DependentUpon>ClientMainTradeFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\DomesticLogin.xaml.cs">
       <DependentUpon>DomesticLogin.xaml</DependentUpon>
@@ -156,15 +150,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\AdvancedMakeOrderWin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\ClientMainStrategyFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -175,10 +161,6 @@
     <Page Include="UI\ClientTradeWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\ClientMainTradeFrame.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\DomesticLogin.xaml">
       <SubType>Designer</SubType>
