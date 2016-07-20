@@ -23,6 +23,7 @@ namespace Micro.Future.UI
             Login();
         }
 
+
         private void Initialize()
         {
             var msgWrapper = _otcSignIner.MessageWrapper;
