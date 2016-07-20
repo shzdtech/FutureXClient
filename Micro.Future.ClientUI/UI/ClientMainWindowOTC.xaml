@@ -117,7 +117,7 @@
             </StatusBarItem>
         </StatusBar>
 
-        <DockPanel/>
+        <!--<DockPanel/>-->
 
 
         <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" Grid.ColumnSpan="4" >
