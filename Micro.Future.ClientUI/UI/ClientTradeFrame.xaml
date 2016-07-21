@@ -1,0 +1,65 @@
+﻿<Page x:Class="Micro.Future.UI.ClientTradeFrame"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Micro.Future.UI"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="ClientTradeFrame">
+
+    <Grid>
+        <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" >
+            <avalonDock:DockingManager.Theme>
+                <avalonDock:GenericTheme/>
+            </avalonDock:DockingManager.Theme>
+            <avalonDock:LayoutRoot>
+                <avalonDock:LayoutPanel Orientation="Vertical">
+                    <avalonDock:LayoutDocumentPane >
+                    </avalonDock:LayoutDocumentPane>
+                    <avalonDock:LayoutPanel Orientation="Horizontal" DockHeight="350" >
+                        <avalonDock:LayoutPanel DockWidth="*" >
+                            <avalonDock:LayoutAnchorablePane >
+                                <avalonDock:LayoutAnchorable Title="快速下单">
+                                    <c:ClientFastOrderWindow x:Name="FastOrderCtl"  />
+                                </avalonDock:LayoutAnchorable>
+                                <avalonDock:LayoutAnchorable Title="资金信息">
+                                    <Grid Name="FundGrid">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="20" />
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                            <TextBlock>用户：</TextBlock>
+                                            <TextBlock Text="{Binding AccountID}"></TextBlock>
+                                        </StackPanel>
+                                        <ListView Grid.Row="1" Name="AccountInfoListView" ItemsSource="{Binding Values}" >
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Key}" Width="120"/>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Value}" Width="120"/>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </Grid>
+                                </avalonDock:LayoutAnchorable>
+                            </avalonDock:LayoutAnchorablePane>
+                        </avalonDock:LayoutPanel>
+                        <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="4*">
+                            <avalonDock:LayoutAnchorablePane>
+                                <avalonDock:LayoutAnchorable Title="订单明细">
+                                    <c:ExecutionWindow x:Name="executionWindow"/>
+                                </avalonDock:LayoutAnchorable>
+                            </avalonDock:LayoutAnchorablePane>
+                            <avalonDock:LayoutAnchorablePane >
+                                <avalonDock:LayoutAnchorable Title="持仓头寸">
+                                    <c:PositionWindow x:Name="positionsWindow"/>
+                                </avalonDock:LayoutAnchorable>
+                            </avalonDock:LayoutAnchorablePane>
+                        </avalonDock:LayoutPanel>
+                    </avalonDock:LayoutPanel>
+                </avalonDock:LayoutPanel>
+            </avalonDock:LayoutRoot>
+        </avalonDock:DockingManager>
+    </Grid>
+</Page>
