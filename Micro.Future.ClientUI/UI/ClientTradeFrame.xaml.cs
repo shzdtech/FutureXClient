@@ -24,7 +24,6 @@ using Micro.Future.Utility;
 using Micro.Future.Properties;
 
 
-
 namespace Micro.Future.UI
 {
     /// <summary>

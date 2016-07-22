@@ -14,11 +14,11 @@
       lex:ResxLocalizationProvider.DefaultDictionary="Resources"
       mc:Ignorable="d" 
       d:DesignHeight="30" d:DesignWidth="30"
-      Title="ClientTradeFrame">
+      Title="ClientTradeFrame" Width="Auto" Height="Auto">
 
     <Grid>
         <DockPanel/>
-        <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="0" Grid.ColumnSpan="1" Margin="0,0,-862,-314" >
+        <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="0" Grid.ColumnSpan="1" Margin="-949,-154,-449,-250" HorizontalAlignment="Center" VerticalAlignment="Center" Height="434" Width="1428" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0,4,0,0" >
             <avalonDock:DockingManager.Theme>
                 <avalonDock:GenericTheme/>
             </avalonDock:DockingManager.Theme>

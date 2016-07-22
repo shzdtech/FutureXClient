@@ -25,6 +25,14 @@ namespace Micro.Future.UI
 
         private ClientTradeFrame clientTradeFrame = new ClientTradeFrame();
 
+        private double windowHeight;
+        private double windowWidth;
+        private double menuHeight;
+        private double menuWidth;
+        private double frameHeigth;
+        private double frameWidth;
+        
+
         public ClientMainWindowOTC()
         {
             
@@ -98,6 +106,17 @@ namespace Micro.Future.UI
                 _ctpTradeSignIner.SignInOptions.Password =
                 _otcClientSignIner.SignInOptions.Password;
 
+
+            this.windowHeight = clientMainWindow.windowHeight;
+            this.windowWidth = clientMainWindow.windowWidth;
+            this.menuHeight = ribbonMenu.Height;
+            this.menuWidth = ribbonMenu.Width;
+            this.frameHeigth = this.windowHeight - this.menuHeight;
+            this.frameWidth = this.windowWidth;
+
+            //mainFrame.
+            mainFrame.Height = this.frameHeigth;
+            mainFrame.Width = this.frameWidth;
             loadFrame(this.clientTradeFrame);
 
             MDServerLogin();
