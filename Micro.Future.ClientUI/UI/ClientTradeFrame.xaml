@@ -1,15 +1,23 @@
 ﻿<Page x:Class="Micro.Future.UI.ClientTradeFrame"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:c="clr-namespace:Micro.Future.UI"
       xmlns:local="clr-namespace:Micro.Future.UI"
+      xmlns:data="clr-namespace:Micro.Future.ViewModel" 
+      xmlns:lex="http://wpflocalizeextension.codeplex.com" 
+      lex:LocalizeDictionary.DesignCulture="zh_CN"
+      lex:LocalizeDictionary.OutputMissingKeys="True"
+      lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+      lex:ResxLocalizationProvider.DefaultDictionary="Resources"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="ClientTradeFrame">
 
     <Grid>
-        <!--
+        <DockPanel/>
         
         <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" >
             <avalonDock:DockingManager.Theme>
@@ -64,7 +72,7 @@
             </avalonDock:LayoutRoot>
         </avalonDock:DockingManager>
         
-        -->
+       
         
     </Grid>
 </Page>

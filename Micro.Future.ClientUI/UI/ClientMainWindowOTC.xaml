@@ -124,8 +124,8 @@
 
 
 
-
-        <!--<DockPanel/>-->
+<!--
+        <DockPanel/>
         <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" Grid.ColumnSpan="4" >
             <avalonDock:DockingManager.Theme>
                 <avalonDock:GenericTheme/>
@@ -178,6 +178,6 @@
                 </avalonDock:LayoutPanel>
             </avalonDock:LayoutRoot>
         </avalonDock:DockingManager>
-
+-->
     </Grid>
 </RibbonWindow>
