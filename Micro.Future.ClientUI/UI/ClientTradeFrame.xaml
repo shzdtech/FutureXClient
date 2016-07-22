@@ -9,6 +9,8 @@
       Title="ClientTradeFrame">
 
     <Grid>
+        <!--
+        
         <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" >
             <avalonDock:DockingManager.Theme>
                 <avalonDock:GenericTheme/>
@@ -61,5 +63,8 @@
                 </avalonDock:LayoutPanel>
             </avalonDock:LayoutRoot>
         </avalonDock:DockingManager>
+        
+        -->
+        
     </Grid>
 </Page>

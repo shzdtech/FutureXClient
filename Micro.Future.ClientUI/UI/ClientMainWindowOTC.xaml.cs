@@ -25,6 +25,7 @@ namespace Micro.Future.UI
 
         public ClientMainWindowOTC()
         {
+            
             InitializeComponent();
             ribbonMenu.Title += " (" + Utility.Utility.getClientVersion() + ")";
             Initialize();
@@ -77,8 +78,8 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RegisterMessageWrapper(msgWrapper);
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OnError += OnErrorMessageRecv;
 
-
-            //mainFrame.Navigate(new CustomPagexaml());
+            
+           
         }
 
         
@@ -94,6 +95,8 @@ namespace Micro.Future.UI
             _ctpMdSignIner.SignInOptions.Password =
                 _ctpTradeSignIner.SignInOptions.Password =
                 _otcClientSignIner.SignInOptions.Password;
+
+            loadFrame(new ClientTradeFrame());
 
             MDServerLogin();
             TradingServerLogin();
@@ -333,6 +336,16 @@ namespace Micro.Future.UI
             fastOrderWindow.Show();
             otcMarketDataLV.OnQuoteSelected += fastOrderWindow.OnQuoteSelected;
             positionsWindow.OnPositionSelected += fastOrderWindow.OnPositionSelected;
+        }
+
+
+        //loadFrame(new ClientTradeFrame());
+        //Add by 马小帅
+        //To dynamically load Frame 
+        private void loadFrame(Object Frame)
+        {
+            MessageBox.Show("弹出Frame");
+            mainFrame.Navigate(Frame);
         }
 
 

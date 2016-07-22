@@ -120,11 +120,11 @@
 
 
 
-        <Frame Name="mainFrame">
-            
-        </Frame>
-        
-        
+        <Frame Name="mainFrame"/>
+
+
+
+
         <!--<DockPanel/>-->
         <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" Grid.ColumnSpan="4" >
             <avalonDock:DockingManager.Theme>
