@@ -13,12 +13,12 @@
       lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
       lex:ResxLocalizationProvider.DefaultDictionary="Resources"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="30" d:DesignWidth="30"
       Title="ClientTradeFrame">
 
     <Grid>
         <DockPanel/>
-        <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" Grid.ColumnSpan="4" >
+        <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="0" Grid.ColumnSpan="1" Margin="0,0,-862,-314" >
             <avalonDock:DockingManager.Theme>
                 <avalonDock:GenericTheme/>
             </avalonDock:DockingManager.Theme>
