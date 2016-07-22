@@ -29,7 +29,6 @@ namespace Micro.Future.UI
             ribbonMenu.Title += " (" + Utility.Utility.getClientVersion() + ")";
             Initialize();
             Login();
-
         }
 
         protected override void OnClosed(EventArgs e)
