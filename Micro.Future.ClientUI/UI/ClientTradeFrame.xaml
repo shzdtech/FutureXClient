@@ -1,11 +1,11 @@
 ﻿<Page x:Class="Micro.Future.UI.ClientTradeFrame"
+      xmlns:Controls="clr-namespace:Micro.Future.Controls;assembly=Micro.Future.CustomizedControls"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:c="clr-namespace:Micro.Future.UI"
-      xmlns:local="clr-namespace:Micro.Future.UI"
       xmlns:data="clr-namespace:Micro.Future.ViewModel" 
       xmlns:lex="http://wpflocalizeextension.codeplex.com" 
       lex:LocalizeDictionary.DesignCulture="zh_CN"
@@ -18,61 +18,58 @@
 
     <Grid>
         <DockPanel/>
-        
-        <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" >
+        <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" Grid.ColumnSpan="4" >
             <avalonDock:DockingManager.Theme>
                 <avalonDock:GenericTheme/>
             </avalonDock:DockingManager.Theme>
             <avalonDock:LayoutRoot>
-                <avalonDock:LayoutPanel Orientation="Vertical">
-                    <avalonDock:LayoutDocumentPane >
-                    </avalonDock:LayoutDocumentPane>
-                    <avalonDock:LayoutPanel Orientation="Horizontal" DockHeight="350" >
+                <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*">
+                    <avalonDock:LayoutPanel DockWidth="4*" DockHeight="0.15*" DockMinHeight="0">
+                        <avalonDock:LayoutAnchorablePane x:Name="fundPane">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Fund}">
+                                <c:ClientFundWindow x:Name="clientFundLV"/>
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                    </avalonDock:LayoutPanel>
+                    <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*" >
+                        <avalonDock:LayoutPanel DockWidth="4*" DockHeight="0.75*">
+                            <avalonDock:LayoutAnchorablePane x:Name="quotePane">
+                                <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Quote}">
+                                    <c:ClientQuoteGroupView x:Name="otcMarketDataLV"/>
+                                </avalonDock:LayoutAnchorable>
+                            </avalonDock:LayoutAnchorablePane>
+                        </avalonDock:LayoutPanel>
                         <avalonDock:LayoutPanel DockWidth="*" >
-                            <avalonDock:LayoutAnchorablePane >
-                                <avalonDock:LayoutAnchorable Title="快速下单">
+                            <avalonDock:LayoutAnchorablePane x:Name="fastorderPane" >
+                                <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}">
                                     <c:ClientFastOrderWindow x:Name="FastOrderCtl"  />
                                 </avalonDock:LayoutAnchorable>
-                                <avalonDock:LayoutAnchorable Title="资金信息">
-                                    <Grid Name="FundGrid">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="20" />
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                            <TextBlock>用户：</TextBlock>
-                                            <TextBlock Text="{Binding AccountID}"></TextBlock>
-                                        </StackPanel>
-                                        <ListView Grid.Row="1" Name="AccountInfoListView" ItemsSource="{Binding Values}" >
-                                            <ListView.View>
-                                                <GridView>
-                                                    <GridViewColumn DisplayMemberBinding="{Binding Key}" Width="120"/>
-                                                    <GridViewColumn DisplayMemberBinding="{Binding Value}" Width="120"/>
-                                                </GridView>
-                                            </ListView.View>
-                                        </ListView>
-                                    </Grid>
+                            </avalonDock:LayoutAnchorablePane>
+                        </avalonDock:LayoutPanel>
+                        <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="350" DockHeight="*">
+                            <avalonDock:LayoutAnchorablePane x:Name="executionPane" DockMinHeight="0">
+                                <avalonDock:LayoutAnchorable Title="{lex:Loc Key=ExecutionWindow}">
+                                    <c:ClientExecutionWindow x:Name="executionWindow"/>
                                 </avalonDock:LayoutAnchorable>
                             </avalonDock:LayoutAnchorablePane>
                         </avalonDock:LayoutPanel>
-                        <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="4*">
-                            <avalonDock:LayoutAnchorablePane>
-                                <avalonDock:LayoutAnchorable Title="订单明细">
-                                    <c:ExecutionWindow x:Name="executionWindow"/>
+                        <avalonDock:LayoutPanel Orientation="Horizontal" DockWidth="10*">
+                            <avalonDock:LayoutAnchorablePane x:Name="tradePane">
+                                <avalonDock:LayoutAnchorable Title="{lex:Loc Key=TradeWindow}">
+                                    <c:ClientTradeWindow x:Name="tradeWindow"/>
                                 </avalonDock:LayoutAnchorable>
                             </avalonDock:LayoutAnchorablePane>
-                            <avalonDock:LayoutAnchorablePane >
-                                <avalonDock:LayoutAnchorable Title="持仓头寸">
-                                    <c:PositionWindow x:Name="positionsWindow"/>
+                            <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
+                                <avalonDock:LayoutAnchorable Title="{lex:Loc Key=PositionWindow}">
+                                    <c:ClientPositionWindow x:Name="positionsWindow"/>
                                 </avalonDock:LayoutAnchorable>
                             </avalonDock:LayoutAnchorablePane>
                         </avalonDock:LayoutPanel>
+
                     </avalonDock:LayoutPanel>
                 </avalonDock:LayoutPanel>
             </avalonDock:LayoutRoot>
         </avalonDock:DockingManager>
-        
-       
-        
+
     </Grid>
 </Page>

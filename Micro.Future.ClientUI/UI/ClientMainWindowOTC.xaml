@@ -1,17 +1,18 @@
-﻿<RibbonWindow xmlns:Controls="clr-namespace:Micro.Future.Controls;assembly=Micro.Future.CustomizedControls"  x:Class="Micro.Future.UI.ClientMainWindowOTC"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
-        xmlns:ribbon="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon"
-        xmlns:c="clr-namespace:Micro.Future.UI"
-        xmlns:data="clr-namespace:Micro.Future.ViewModel"  
-        xmlns:lex="http://wpflocalizeextension.codeplex.com"    
-        lex:LocalizeDictionary.DesignCulture="zh_CN"
-        lex:LocalizeDictionary.OutputMissingKeys="True"
-        lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
-        lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-        WindowStartupLocation="CenterScreen" WindowState="Maximized"
-        Icon="/Images/Calculator.png">
+﻿<RibbonWindow   x:Class="Micro.Future.UI.ClientMainWindowOTC"
+                xmlns:Controls="clr-namespace:Micro.Future.Controls;assembly=Micro.Future.CustomizedControls"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+                xmlns:ribbon="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon"
+                xmlns:c="clr-namespace:Micro.Future.UI"
+                xmlns:data="clr-namespace:Micro.Future.ViewModel"  
+                xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+                lex:LocalizeDictionary.DesignCulture="zh_CN"
+                lex:LocalizeDictionary.OutputMissingKeys="True"
+                lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+                lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+                WindowStartupLocation="CenterScreen" WindowState="Maximized"
+                Icon="/Images/Calculator.png">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="33*"/>
@@ -147,13 +148,13 @@
                                 </avalonDock:LayoutAnchorable>
                             </avalonDock:LayoutAnchorablePane>
                         </avalonDock:LayoutPanel>
-                        <!--<avalonDock:LayoutPanel DockWidth="*" >
+                        <avalonDock:LayoutPanel DockWidth="*" >
                                 <avalonDock:LayoutAnchorablePane x:Name="fastorderPane" >
                                     <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}">
                                         <c:ClientFastOrderWindow x:Name="FastOrderCtl"  />
                                     </avalonDock:LayoutAnchorable>
                                 </avalonDock:LayoutAnchorablePane>
-                            </avalonDock:LayoutPanel>-->
+                            </avalonDock:LayoutPanel>
                         <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="350" DockHeight="*">
                             <avalonDock:LayoutAnchorablePane x:Name="executionPane" DockMinHeight="0">
                                 <avalonDock:LayoutAnchorable Title="{lex:Loc Key=ExecutionWindow}">

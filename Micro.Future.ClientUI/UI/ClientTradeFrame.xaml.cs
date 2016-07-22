@@ -22,6 +22,17 @@ using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using Micro.Future.Message;
 using Micro.Future.Utility;
 using Micro.Future.Properties;
+using System;
+using System.Windows;
+using System.Windows.Controls.Ribbon;
+using Micro.Future.Message;
+using Micro.Future.Utility;
+using Micro.Future.Properties;
+using System.Threading;
+using Xceed.Wpf.AvalonDock.Layout;
+using System.Collections.Generic;
+
+
 
 namespace Micro.Future.UI
 {
@@ -30,9 +41,13 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class ClientTradeFrame : Page
     {
+        private const string CST_CONTROL_ASSEMBLY = "Micro.Future.Resources.Localization";
+        private const string RESOURCE_FILE = "Resources";
+
         public ClientTradeFrame()
         {
             InitializeComponent();
         }
+
     }
 }
