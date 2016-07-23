@@ -103,6 +103,9 @@
     <Compile Include="UI\ClientQuoteGroupView.xaml.cs">
       <DependentUpon>ClientQuoteGroupView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ClientStrategyFrame.xaml.cs">
+      <DependentUpon>ClientStrategyFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ClientTradeFrame.xaml.cs">
       <DependentUpon>ClientTradeFrame.xaml</DependentUpon>
     </Compile>
@@ -161,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\ClientOptionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ClientStrategyFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

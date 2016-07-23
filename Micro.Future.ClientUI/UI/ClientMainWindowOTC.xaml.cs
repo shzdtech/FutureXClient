@@ -23,7 +23,10 @@ namespace Micro.Future.UI
         private PBSignInManager _ctpTradeSignIner = new PBSignInManager();
         private PBSignInManager _ctpMdSignIner = new PBSignInManager();
 
+        
+
         private ClientTradeFrame clientTradeFrame = new ClientTradeFrame();
+        private ClientStrategyFrame clientStrategyFrame = new ClientStrategyFrame();
 
         private double windowHeight;
         private double windowWidth;
@@ -367,6 +370,17 @@ namespace Micro.Future.UI
             mainFrame.Navigate(Frame);
         }
 
+        private void clickTradeTab()
+        {
+            this.loadFrame(this.clientTradeFrame);
+        }
 
+        private void clickStrategyTab()
+        {
+            this.loadFrame(this.clientStrategyFrame);
+        }
+
+
+        
     }
 }

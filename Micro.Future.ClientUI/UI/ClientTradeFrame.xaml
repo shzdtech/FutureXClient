@@ -13,7 +13,7 @@
       lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
       lex:ResxLocalizationProvider.DefaultDictionary="Resources"
       mc:Ignorable="d" 
-      d:DesignHeight="30" d:DesignWidth="30"
+      d:DesignHeight="300" d:DesignWidth="300"
       Title="ClientTradeFrame" Width="Auto" Height="Auto">
 
     <Grid>
