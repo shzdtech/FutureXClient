@@ -71,8 +71,8 @@
                 </RibbonGroup>
             </RibbonTab>
 
-            
-            <RibbonTab Header="{lex:Loc Key=TradingStrategy}">
+
+            <RibbonTab Header="{lex:Loc Key=TradingStrategy}" >
                 <RibbonGroup>
                     <RibbonButton Label="Login" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogin_Click"  />
                 </RibbonGroup>
