@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.ObjectModel;
 using Micro.Future.LocalStorage;
-using System.Linq;
-using System.Text;
-using Micro.Future.Utility;
-using System.Collections.ObjectModel;
-using Micro.Future.LocalStorage;
-using Micro.Future.LocalStorage.DataObject;
 
 
 
@@ -18,7 +8,7 @@ using Micro.Future.LocalStorage.DataObject;
 
 namespace Micro.Future.Utility
 {
-    public static class Utility
+    public static class MFUtilities
     {
         public static string clientVersion;
 
@@ -47,15 +37,14 @@ namespace Micro.Future.Utility
         }
 
 
-     
-
         //get client version from localStorage
-        public static string getClientVersion()
+        public static string ClientVersion
         {
-            
-                using (var clientDBCtx = new ClientDbContext())
+            get
+            {
+                using (var clientDbCtx = new ClientDbContext())
                 {
-                    var queryClicentInfo = from db in clientDBCtx.ClientInfo
+                    var queryClicentInfo = from db in clientDbCtx.ClientInfo
                                            group db by db.Id into g
                                            select new { g.Key, MaxVersion = g.Max(db => db.Version) };
 
@@ -70,8 +59,9 @@ namespace Micro.Future.Utility
                             Console.WriteLine(clientVersion);
                         }
                     }
+                    return clientVersion;
                 }
-            return clientVersion;
+            }
         }
     }
 }

@@ -10,12 +10,19 @@ using Micro.Future.Message.Business;
 using System.Collections.ObjectModel;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
-
+using System.Reflection;
+using System.IO;
 
 namespace Micro.Future.Message
 {
     public class TraderExHandler : MessageHandlerTemplate<TraderExHandler>
     {
+        public ClientDbContext ClientDbContext
+        {
+            get;
+            protected set;
+        } = new ClientDbContext();
+
         public ObservableCollection<TradeVM> TradeVMCollection
         {
             get;
@@ -102,19 +109,14 @@ namespace Micro.Future.Message
             int res = -1;
             try
             {
-                using (var clientDBCtx = new ClientDbContext())
+                foreach (var personalContract in rsp.ContractInfo)//rsp.ContractInfo need to be updated
                 {
-                    foreach (var personalContract in rsp.ContractInfo)//rsp.ContractInfo need to be updated
-                    {
-                        clientDBCtx.ContractInfo.Add(new ContractInfo() { Exchange = personalContract.Exchange, Contract = personalContract.Contract });
-                    }
-                    clientDBCtx.SaveChanges();
-                    res = 1;
+                    ClientDbContext.ContractInfo.Add(new ContractInfo() { Exchange = personalContract.Exchange, Contract = personalContract.Contract });
                 }
-
+                ClientDbContext.SaveChanges();
 
                 //var resPersonalContract = select
-               
+
             }
             catch (Exception ex)
             {
@@ -132,70 +134,66 @@ namespace Micro.Future.Message
             int rspCount = 0;
             try
             {
-                using (var clientDBCtx = new ClientDbContext())
+                foreach (var contract in rsp.ContractInfo)
+                {
+                    rspCount = rspCount + 1;
+                    ClientDbContext.ContractInfo.Add(new ContractInfo()
+                    {
+                        //Id = contract.Id,
+                        Exchange = contract.Exchange,
+                        Contract = contract.Contract,
+                        Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
+                        ProductID = contract.ProductID,
+                        ProductType = contract.ProductType,
+                        DeliveryYear = contract.DeliveryYear,
+                        DeliveryMonth = contract.DeliveryMonth,
+                        MaxMarketOrderVolume = contract.MaxMarketOrderVolume,
+                        MinMarketOrderVolume = contract.MinMarketOrderVolume,
+                        MaxLimitOrderVolume = contract.MaxMarketOrderVolume,
+                        MinLimitOrderVolume = contract.MinMarketOrderVolume,
+                        VolumeMultiple = contract.VolumeMultiple,
+                        PriceTick = contract.PriceTick,
+                        CreateDate = contract.CreateDate,
+                        OpenDate = contract.OpenDate,
+                        ExpireDate = contract.ExpireDate,
+                        StartDelivDate = contract.EndDelivDate,
+                        EndDelivDate = contract.EndDelivDate,
+                        LifePhase = contract.LifePhase,
+                        IsTrading = contract.IsTrading,
+                        PositionType = contract.PositionType,
+                        PositionDateType = contract.PositionDateType,
+                        LongMarginRatio = contract.LongMarginRatio,
+                        ShortMarginRatio = contract.ShortMarginRatio,
+                        MaxMarginSideAlgorithm = contract.MaxMarginSideAlgorithm
+                    });
+                }
+                ClientDbContext.SaveChanges();
+
+                //log to be handle 
+
+                var queryContractorInfo = from ci in ClientDbContext.ContractInfo
+                                          select ci;
+
+                foreach (var query in queryContractorInfo)
                 {
                     foreach (var contract in rsp.ContractInfo)
                     {
-                        rspCount = rspCount + 1;
-                        clientDBCtx.ContractInfo.Add(new ContractInfo()
+                        if ((contract.Exchange == query.Exchange) && (contract.Contract == query.Contract))
                         {
-                            //Id = contract.Id,
-                            Exchange = contract.Exchange,
-                            Contract = contract.Contract,
-                            Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
-                            ProductID = contract.ProductID,
-                            ProductType = contract.ProductType,
-                            DeliveryYear = contract.DeliveryYear,
-                            DeliveryMonth = contract.DeliveryMonth,
-                            MaxMarketOrderVolume = contract.MaxMarketOrderVolume,
-                            MinMarketOrderVolume = contract.MinMarketOrderVolume,
-                            MaxLimitOrderVolume = contract.MaxMarketOrderVolume,
-                            MinLimitOrderVolume = contract.MinMarketOrderVolume,
-                            VolumeMultiple = contract.VolumeMultiple,
-                            PriceTick = contract.PriceTick,
-                            CreateDate = contract.CreateDate,
-                            OpenDate = contract.OpenDate,
-                            ExpireDate = contract.ExpireDate,
-                            StartDelivDate = contract.EndDelivDate,
-                            EndDelivDate = contract.EndDelivDate,
-                            LifePhase = contract.LifePhase,
-                            IsTrading = contract.IsTrading,
-                            PositionType = contract.PositionType,
-                            PositionDateType = contract.PositionDateType,
-                            LongMarginRatio = contract.LongMarginRatio,
-                            ShortMarginRatio = contract.ShortMarginRatio,
-                            MaxMarginSideAlgorithm = contract.MaxMarginSideAlgorithm
-                        });
-                    }
-                    clientDBCtx.SaveChanges();
-                    
-                    //log to be handle 
-
-                    var queryContractorInfo = from ci in clientDBCtx.ContractInfo
-                                              select ci;
-
-                    foreach (var query in queryContractorInfo)
-                    {
-                        foreach (var contract in rsp.ContractInfo)
-                        {
-                            if ((contract.Exchange == query.Exchange) && (contract.Contract == query.Contract))
-                            {
-                                //log handle
-                                queryCount ++;
-                                //continue;
-                            }
-
+                            //log handle
+                            queryCount++;
+                            //continue;
                         }
-                    }
 
-                    if (rspCount == queryCount)
-                    {
-                        Console.WriteLine("本地合约数据保存成功");
-                        //log handle
                     }
-                    else{ throw new Exception("本地合约数据保存失败"); }
                 }
 
+                if (rspCount == queryCount)
+                {
+                    Console.WriteLine("本地合约数据保存成功");
+                    //log handle
+                }
+                else { throw new Exception("本地合约数据保存失败"); }
             }
             catch (Exception ex)
             {

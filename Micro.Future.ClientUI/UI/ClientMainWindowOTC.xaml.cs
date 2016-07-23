@@ -37,7 +37,7 @@ namespace Micro.Future.UI
         {
             
             InitializeComponent();
-            ribbonMenu.Title += " (" + Utility.Utility.getClientVersion() + ")";
+            ribbonMenu.Title += " (" + MFUtilities.ClientVersion + ")";
             Initialize();
             Login();
         }
