@@ -12,7 +12,7 @@
                 lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
                 lex:ResxLocalizationProvider.DefaultDictionary="Resources"
                 WindowStartupLocation="CenterScreen" WindowState="Maximized"
-                Icon="/Images/Calculator.png"
+                Icon="/Micro.Future.ClientUI;component/Images/Logo.png"
                 Name="clientMainWindow">
     <Grid>
         <Grid.ColumnDefinitions>

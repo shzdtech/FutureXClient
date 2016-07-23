@@ -10,7 +10,7 @@
     lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"
     Style="{StaticResource {x:Type Window}}"
-    WindowStartupLocation="CenterScreen" Topmost="True" Width="250" Height="248">
+    WindowStartupLocation="CenterScreen" Topmost="True" Width="250" Height="248" Icon="/Micro.Future.CustomizedControls;component/Images/Logo.png">
     <StackPanel>
         <Label Content="{lex:Loc Key=Login_Server}"/>
         <ComboBox x:Name="LoginCombo" SelectedIndex="0" IsEditable="True"/>
