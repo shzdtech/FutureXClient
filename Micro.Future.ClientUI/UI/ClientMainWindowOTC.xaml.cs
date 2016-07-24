@@ -197,8 +197,6 @@ namespace Micro.Future.UI
         //Onclick for Trading TradingStrategy
         private void RibbonTabTradingStrategy_Click(object sender, EventArgs e)
         {
-            OTCTradingDesk otcTD = new OTCTradingDesk();
-            otcTD.Show();
 
         }
 
