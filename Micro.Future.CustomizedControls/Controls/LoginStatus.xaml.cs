@@ -67,7 +67,7 @@ namespace Micro.Future.Controls
                 _connected = value;
                 statusIcon.IsEnabled = !value;
 
-                var componentUri = Utility.Utility.GenComponentUri(this.GetType());
+                var componentUri = MFUtilities.GenComponentUri(this.GetType());
 
                 if (value)
                 {

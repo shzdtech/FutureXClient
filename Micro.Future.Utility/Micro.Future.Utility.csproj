@@ -49,7 +49,7 @@
     <Compile Include="EnumConvertor.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility.cs" />
+    <Compile Include="MFUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />

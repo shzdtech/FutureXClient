@@ -59,6 +59,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Logo.png.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -97,6 +100,12 @@
     <Compile Include="UI\ClientQuoteGroupView.xaml.cs">
       <DependentUpon>ClientQuoteGroupView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ClientStrategyFrame.xaml.cs">
+      <DependentUpon>ClientStrategyFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ClientTradeFrame.xaml.cs">
+      <DependentUpon>ClientTradeFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ClientTradeWindow.xaml.cs">
       <DependentUpon>ClientTradeWindow.xaml</DependentUpon>
     </Compile>
@@ -133,6 +142,24 @@
     <Compile Include="UI\QuoteGroupView.xaml.cs">
       <DependentUpon>QuoteGroupView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\StrategyUI\OTCFastOrderWindow.xaml.cs">
+      <DependentUpon>OTCFastOrderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StrategyUI\OTCMarketData.xaml.cs">
+      <DependentUpon>OTCMarketData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StrategyUI\OTCTradingDeskContractParam.xaml.cs">
+      <DependentUpon>OTCTradingDeskContractParam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StrategyUI\OTCTradingStrategyLV.xaml.cs">
+      <DependentUpon>OTCTradingStrategyLV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StrategyUI\TDExecutionWindow.xaml.cs">
+      <DependentUpon>TDExecutionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StrategyUI\TDPositionWindow.xaml.cs">
+      <DependentUpon>TDPositionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\SystemSettingWindow.xaml.cs">
       <DependentUpon>SystemSettingWindow.xaml</DependentUpon>
     </Compile>
@@ -151,6 +178,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\AdvancedMakeOrderWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ClientStrategyFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ClientTradeFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -228,6 +263,30 @@
     <Page Include="UI\QuoteGroupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\StrategyUI\OTCFastOrderWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\StrategyUI\OTCMarketData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\StrategyUI\OTCTradingDeskContractParam.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\StrategyUI\OTCTradingStrategyLV.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\StrategyUI\TDExecutionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\StrategyUI\TDPositionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\SystemSettingWindow.xaml">
       <SubType>Designer</SubType>
@@ -358,6 +417,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Calculator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Logo.png.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

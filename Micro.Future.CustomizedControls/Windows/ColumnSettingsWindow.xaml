@@ -9,7 +9,7 @@
         lex:LocalizeDictionary.OutputMissingKeys="True"
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-        Title="{lex:Loc Key=ColumnSettings}" Height="300" Width="200" WindowStartupLocation="CenterScreen" Topmost="True">
+        Title="{lex:Loc Key=ColumnSettings}" Height="300" Width="200" WindowStartupLocation="CenterScreen" Topmost="True" Icon="/Micro.Future.CustomizedControls;component/Images/Logo.png">
     <StackPanel Name="ColumnSettingsPanel">
         <!-- 列管理代码 -->
         <!-- loc命名空间是ColumnObject的CLR命名空间 -->
