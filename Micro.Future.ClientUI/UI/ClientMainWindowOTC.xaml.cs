@@ -43,8 +43,6 @@ namespace Micro.Future.UI
             ribbonMenu.Title += " (" + MFUtilities.ClientVersion + ")";
             Initialize();
             Login();
-
-            ribbonMenu.
         }
 
         protected override void OnClosed(EventArgs e)
@@ -388,9 +386,9 @@ namespace Micro.Future.UI
             this.loadFrame(this.clientStrategyFrame);
         }
 
-        private void RibbonTab_GotFocus(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("HAH");
-        }
+    
+
+
+       
     }
 }
