@@ -15,7 +15,34 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300">
     <!--Frame Body-->
-    <Grid>
-        
-    </Grid>
+    <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" >
+        <avalonDock:DockingManager.Theme>
+            <avalonDock:VS2010Theme/>
+        </avalonDock:DockingManager.Theme>
+        <avalonDock:LayoutRoot>
+            <avalonDock:LayoutPanel Orientation="Vertical">
+                <avalonDock:LayoutPanel DockWidth="Auto" DockHeight="Auto" >
+                    <avalonDock:LayoutAnchorablePane >
+                        <avalonDock:LayoutAnchorable Title="策略">
+                            <c:OTCTradingStrategyLV x:Name="strategyListView"/>
+                        </avalonDock:LayoutAnchorable>
+                    </avalonDock:LayoutAnchorablePane>
+                </avalonDock:LayoutPanel>
+                <avalonDock:LayoutPanel DockWidth="4*">
+                    <avalonDock:LayoutAnchorablePane>
+                        <avalonDock:LayoutAnchorable Title="参数">
+                            <c:OTCTradingDeskContractParam x:Name="contractParamListView"/>
+                        </avalonDock:LayoutAnchorable>
+                    </avalonDock:LayoutAnchorablePane>
+                </avalonDock:LayoutPanel>
+                <avalonDock:LayoutPanel DockWidth="4*">
+                    <avalonDock:LayoutAnchorablePane>
+                        <avalonDock:LayoutAnchorable Title="行情">
+                            <c:OTCMarketData x:Name="otcMarketDataLV"/>
+                        </avalonDock:LayoutAnchorable>
+                    </avalonDock:LayoutAnchorablePane>
+                </avalonDock:LayoutPanel>
+            </avalonDock:LayoutPanel>
+        </avalonDock:LayoutRoot>
+    </avalonDock:DockingManager>
 </UserControl>

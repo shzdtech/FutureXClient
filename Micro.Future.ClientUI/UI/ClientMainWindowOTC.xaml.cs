@@ -43,6 +43,8 @@ namespace Micro.Future.UI
             ribbonMenu.Title += " (" + MFUtilities.ClientVersion + ")";
             Initialize();
             Login();
+
+            ribbonMenu.
         }
 
         protected override void OnClosed(EventArgs e)
@@ -375,17 +377,20 @@ namespace Micro.Future.UI
             mainFrame.Children.Add(ancable);
         }
 
-        private void clickTradeTab()
+
+        private void MenuTabHeader_Trade(object sender, RoutedEventArgs e)
         {
             this.loadFrame(this.clientTradeFrame);
         }
 
-        private void clickStrategyTab()
+        private void MenuTabHeader_Strategy(object sender, RoutedEventArgs e)
         {
             this.loadFrame(this.clientStrategyFrame);
         }
 
-
-        
+        private void RibbonTab_GotFocus(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("HAH");
+        }
     }
 }

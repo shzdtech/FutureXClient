@@ -142,6 +142,24 @@
     <Compile Include="UI\QuoteGroupView.xaml.cs">
       <DependentUpon>QuoteGroupView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\StrategyUI\OTCFastOrderWindow.xaml.cs">
+      <DependentUpon>OTCFastOrderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StrategyUI\OTCMarketData.xaml.cs">
+      <DependentUpon>OTCMarketData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StrategyUI\OTCTradingDeskContractParam.xaml.cs">
+      <DependentUpon>OTCTradingDeskContractParam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StrategyUI\OTCTradingStrategyLV.xaml.cs">
+      <DependentUpon>OTCTradingStrategyLV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StrategyUI\TDExecutionWindow.xaml.cs">
+      <DependentUpon>TDExecutionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StrategyUI\TDPositionWindow.xaml.cs">
+      <DependentUpon>TDPositionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\SystemSettingWindow.xaml.cs">
       <DependentUpon>SystemSettingWindow.xaml</DependentUpon>
     </Compile>
@@ -245,6 +263,30 @@
     <Page Include="UI\QuoteGroupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\StrategyUI\OTCFastOrderWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\StrategyUI\OTCMarketData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\StrategyUI\OTCTradingDeskContractParam.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\StrategyUI\OTCTradingStrategyLV.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\StrategyUI\TDExecutionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\StrategyUI\TDPositionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\SystemSettingWindow.xaml">
       <SubType>Designer</SubType>
