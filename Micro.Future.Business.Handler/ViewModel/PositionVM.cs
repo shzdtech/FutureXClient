@@ -202,5 +202,105 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private double _expiryMonth;
+        public double ExpiryMonth
+        {
+            get { return _expiryMonth; }
+            set
+            {
+                _expiryMonth = value;
+                OnPropertyChanged("ExpiryMonth");
+            }
+        }
+
+        private bool _selected;
+        public bool Selected
+        {
+            get { return _selected; }
+            set
+            {
+                _selected = value;
+                OnPropertyChanged("Selected");
+            }
+        }
+
+        private double _strikePrice;
+        public double StrikePrice
+        {
+            get { return _strikePrice; }
+            set
+            {
+                _strikePrice = value;
+                OnPropertyChanged("StrikePrice");
+            }
+        }
+
+        private Type1 _type;
+        public Type1 Type
+        {
+            get { return _type; }
+            set
+            {
+                _type = value;
+                OnPropertyChanged("Type");
+            }
+        }
+
+        private Style _style;
+        public Style Style
+        {
+            get { return _style; }
+            set
+            {
+                _style = value;
+                OnPropertyChanged("Style");
+            }
+        }
+
+        private double _delta;
+        public double Delta
+        {
+            get { return _delta; }
+            set
+            {
+                _delta = value;
+                OnPropertyChanged("Delta");
+            }
+        }
+
+        private double _vega;
+        public double Vega
+        {
+            get { return _vega; }
+            set
+            {
+                _vega = value;
+                OnPropertyChanged("Vega");
+            }
+        }
+
+        private double _positiondelta;
+        public double PositionDelta
+        {
+            get { return _positiondelta; }
+            set
+            {
+                _positiondelta = value;
+                OnPropertyChanged("PositionDelta");
+            }
+        }
+
+        private double _positionvega;
+        public double PositionVega
+        {
+            get { return _positionvega; }
+            set
+            {
+                _positionvega = value;
+                OnPropertyChanged("PositionVega");
+            }
+        }
+
+
     }
 }

@@ -39,8 +39,18 @@ namespace Micro.Future.UI
             _filterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
             quoteListView.ItemsSource = _viewSource.View;
 
-						mColumns = ColumnObject.GetColumns(quoteListView);
+            QuoteChanged = _viewSource.View as ICollectionViewLiveShaping;
+            if (QuoteChanged.CanChangeLiveFiltering)
+            {
+                QuoteChanged.LiveFilteringProperties.Add("Exchange");
+                QuoteChanged.LiveFilteringProperties.Add("Contract");
+                QuoteChanged.IsLiveFiltering = true;
+            }
+
+            mColumns = ColumnObject.GetColumns(quoteListView);
         }
+
+        public ICollectionViewLiveShaping QuoteChanged { get; set; }
 
         private void _fiterSettingsWin_OnFiltering(string exchange, string underlying, string contract)
         {

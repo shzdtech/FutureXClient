@@ -74,6 +74,7 @@
     <Compile Include="ViewModel\MarketDataVM.cs" />
     <Compile Include="ViewModel\ObservableCollectionExtention.cs" />
     <Compile Include="ViewModel\ObstacleViewModel.cs" />
+    <Compile Include="ViewModel\OptionVM.cs" />
     <Compile Include="ViewModel\OrderVM.cs" />
     <Compile Include="ViewModel\OTCQuoteVM.cs" />
     <Compile Include="ViewModel\PositionVM.cs" />
@@ -120,6 +121,10 @@
     <ProjectReference Include="..\Micro.Future.LocalStorage\Micro.Future.LocalStorage.csproj">
       <Project>{8a2127d2-8c14-4a0e-8608-e355acda150d}</Project>
       <Name>Micro.Future.LocalStorage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Micro.Future.UIObjects\Micro.Future.UIObjects.csproj">
+      <Project>{4BD98165-B411-4890-B74A-30619059502B}</Project>
+      <Name>Micro.Future.UIObjects</Name>
     </ProjectReference>
     <ProjectReference Include="..\Micro.Future.Utility\Micro.Future.Utility.csproj">
       <Project>{a6a3af60-a359-49c4-8747-c79b695489e2}</Project>

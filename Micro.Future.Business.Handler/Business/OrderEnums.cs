@@ -114,4 +114,25 @@ namespace Micro.Future.Message
         PD_SHORT = 2,
     };
 
+    public enum Type1
+    {
+
+        Future = 0,
+       
+        Option = 1,
+
+    };
+
+    public enum Style
+    {
+
+        Vanilla = 0,
+
+        Geometric = 1,
+
+        Arethmetic = 1,
+
+
+    };
+
 }
