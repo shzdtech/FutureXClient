@@ -7,7 +7,7 @@ using Micro.Future.Properties;
 using System.Threading;
 using Xceed.Wpf.AvalonDock.Layout;
 using System.Collections.Generic;
-
+using Micro.Future.Controls;
 
 namespace Micro.Future.UI
 {
@@ -118,9 +118,9 @@ namespace Micro.Future.UI
             this.frameWidth = this.windowWidth;
 
             //mainFrame.
-            mainFrame.Height = this.frameHeigth;
-            mainFrame.Width = this.frameWidth;
-            loadFrame(this.clientTradeFrame);
+            //mainFrame.Height = this.frameHeigth;
+            //mainFrame.Width = this.frameWidth;
+            loadFrame(clientTradeFrame);
 
             MDServerLogin();
             TradingServerLogin();
@@ -366,10 +366,13 @@ namespace Micro.Future.UI
         //loadFrame(new ClientTradeFrame());
         //Add by 马小帅
         //To dynamically load Frame 
-        private void loadFrame(Object Frame)
+        private void loadFrame(IAvalonAnchorable avalonAnchorable)
         {
             MessageBox.Show("弹出Frame");
-            mainFrame.Navigate(Frame);
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            avalonAnchorable.LayoutContent = ancable;
+            ancable.Content = avalonAnchorable;
+            mainFrame.Children.Add(ancable);
         }
 
         private void clickTradeTab()

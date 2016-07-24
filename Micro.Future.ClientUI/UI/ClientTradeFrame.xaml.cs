@@ -22,15 +22,16 @@ using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using Micro.Future.Message;
 using Micro.Future.Utility;
 using Micro.Future.Properties;
-
+using Micro.Future.Controls;
 
 namespace Micro.Future.UI
 {
     /// <summary>
     /// ClientTradeFrame.xaml 的交互逻辑
     /// </summary>
-    public partial class ClientTradeFrame : Page
+    public partial class ClientTradeFrame : UserControl, IAvalonAnchorable
     {
+        public LayoutContent LayoutContent { get; set; }
 
         public ClientTradeFrame()
         {

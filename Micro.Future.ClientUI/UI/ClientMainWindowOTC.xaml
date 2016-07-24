@@ -15,18 +15,12 @@
                 Icon="/Micro.Future.ClientUI;component/Images/Logo.png"
                 Name="clientMainWindow">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="33*"/>
-            <ColumnDefinition Width="124*"/>
-            <ColumnDefinition Width="93*"/>
-            <ColumnDefinition Width="510*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="110"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Ribbon x:Name="ribbonMenu" Grid.Column="0" Title="{lex:Loc Key=UserClient}" Grid.ColumnSpan="4">
+        <Ribbon x:Name="ribbonMenu" Title="{lex:Loc Key=UserClient}">
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu Visibility="Collapsed" >
                 </RibbonApplicationMenu>
@@ -80,7 +74,7 @@
 
         </Ribbon>
 
-        <StatusBar Grid.Row="2" Grid.ColumnSpan="4">
+        <StatusBar Grid.Row="2">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>
@@ -120,13 +114,19 @@
         </StatusBar>
 
 
+        <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" Grid.ColumnSpan="4" >
+            <avalonDock:DockingManager.Theme>
+                <avalonDock:GenericTheme/>
+            </avalonDock:DockingManager.Theme>
+            <avalonDock:LayoutRoot>
+                <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*">
+                    <avalonDock:LayoutAnchorablePane x:Name="mainFrame">
+                    </avalonDock:LayoutAnchorablePane>
+                </avalonDock:LayoutPanel>
+            </avalonDock:LayoutRoot>
+        </avalonDock:DockingManager>
 
-
-        <Frame Name="mainFrame"/>
-
-
-
-<!--
+        <!--
         <DockPanel/>
         <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" Grid.ColumnSpan="4" >
             <avalonDock:DockingManager.Theme>
