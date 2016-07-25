@@ -69,7 +69,7 @@
                 
             </RibbonTab>
 
-            <RibbonTab Header="">
+            <RibbonTab>
                 <RibbonTabHeader MouseUp="MenuTabHeader_Strategy" Content="高端策略"/>
                 <RibbonGroup>
                     <RibbonButton Label="Login" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogin_Click" />
