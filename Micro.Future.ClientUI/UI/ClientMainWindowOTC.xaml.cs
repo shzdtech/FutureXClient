@@ -25,7 +25,8 @@ namespace Micro.Future.UI
 
         
 
-        public static bool isClientTradeFrameLoaded = false; 
+        public static bool isClientTradeFrameLoaded = false;
+        public static bool isClientStrategyFrameLoaded = false;
 
         private double windowHeight;
         private double windowWidth;
@@ -375,13 +376,14 @@ namespace Micro.Future.UI
 
         private void MenuTabHeader_Trade(object sender, RoutedEventArgs e)
         {
-            if (isClientTradeFrameLoaded == false) this.loadFrame(ClientTradeFrame.getClientTradeFrame());
+            if (isClientTradeFrameLoaded == false) { this.loadFrame(ClientTradeFrame.getClientTradeFrame()); isClientTradeFrameLoaded = true; }
             else MessageBox.Show("交易行情已经打开");
         }
 
         private void MenuTabHeader_Strategy(object sender, RoutedEventArgs e)
         {
-           // this.loadFrame(this.clientStrategyFrame);
+            if (isClientStrategyFrameLoaded == false) { this.loadFrame(ClientTradeFrame.getClientTradeFrame()); isClientStrategyFrameLoaded = true; }
+            else MessageBox.Show("交易行情已经打开");
         }
 
     
