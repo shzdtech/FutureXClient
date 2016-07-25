@@ -10,8 +10,8 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "Extended.Wpf.Toolkit": "2.8.0",
-    "Google.Protobuf": "3.0.0-beta3",
+    "Extended.Wpf.Toolkit": "2.9.0",
+    "Google.Protobuf": "3.0.0-beta4",
     "WpfLocalizeExtension": "2.3.2"
   },
   "frameworks": {

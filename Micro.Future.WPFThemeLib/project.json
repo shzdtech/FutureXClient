@@ -10,7 +10,7 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "Extended.Wpf.Toolkit": "2.8.0",
+    "Extended.Wpf.Toolkit": "2.9.0",
     "Wpf.Themes": "1.1.0",
     "WPFThemes.DarkBlend": "1.0.8"
   },
