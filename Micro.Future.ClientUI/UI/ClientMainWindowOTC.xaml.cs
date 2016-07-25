@@ -25,7 +25,7 @@ namespace Micro.Future.UI
 
         
 
-        private bool isClientTradeFrameLoaded = false; 
+        public static bool isClientTradeFrameLoaded = false; 
 
         private double windowHeight;
         private double windowWidth;
@@ -120,7 +120,7 @@ namespace Micro.Future.UI
             //mainFrame.Height = this.frameHeigth;
             //mainFrame.Width = this.frameWidth;
             loadFrame(ClientTradeFrame.getClientTradeFrame());
-            this.isClientTradeFrameLoaded = true;
+            isClientTradeFrameLoaded = true;
             MDServerLogin();
             TradingServerLogin();
         }
@@ -375,7 +375,7 @@ namespace Micro.Future.UI
 
         private void MenuTabHeader_Trade(object sender, RoutedEventArgs e)
         {
-            if (this.isClientTradeFrameLoaded == false) this.loadFrame(ClientTradeFrame.getClientTradeFrame());
+            if (isClientTradeFrameLoaded == false) this.loadFrame(ClientTradeFrame.getClientTradeFrame());
             else MessageBox.Show("交易行情已经打开");
         }
 
