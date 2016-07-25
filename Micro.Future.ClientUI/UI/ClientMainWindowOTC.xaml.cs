@@ -383,7 +383,7 @@ namespace Micro.Future.UI
         private void MenuTabHeader_Strategy(object sender, RoutedEventArgs e)
         {
             if (isClientStrategyFrameLoaded == false) { this.loadFrame(ClientTradeFrame.getClientTradeFrame()); isClientStrategyFrameLoaded = true; }
-            else MessageBox.Show("交易行情已经打开");
+            else MessageBox.Show("高级策略已经打开");
         }
 
     

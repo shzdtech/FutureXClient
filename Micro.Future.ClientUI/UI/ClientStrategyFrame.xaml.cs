@@ -43,7 +43,7 @@ namespace Micro.Future.UI
 
         private void dockingManager_Unloaded(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("您已关闭当前高端策略窗口，您可以重新点击交易行情再次打开");
+            //MessageBox.Show("您已关闭当前高端策略窗口，您可以重新点击交易行情再次打开");
             ClientMainWindowOTC.isClientStrategyFrameLoaded = false;
         }
     }
