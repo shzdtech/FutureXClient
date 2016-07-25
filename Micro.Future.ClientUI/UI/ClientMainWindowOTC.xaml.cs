@@ -25,8 +25,7 @@ namespace Micro.Future.UI
 
         
 
-        private ClientTradeFrame clientTradeFrame = new ClientTradeFrame();
-        private ClientStrategyFrame clientStrategyFrame = new ClientStrategyFrame();
+        private bool isClientTradeFrameLoaded = false; 
 
         private double windowHeight;
         private double windowWidth;
@@ -120,8 +119,8 @@ namespace Micro.Future.UI
             //mainFrame.
             //mainFrame.Height = this.frameHeigth;
             //mainFrame.Width = this.frameWidth;
-            loadFrame(clientTradeFrame);
-
+            loadFrame(ClientTradeFrame.getClientTradeFrame());
+            this.isClientTradeFrameLoaded = true;
             MDServerLogin();
             TradingServerLogin();
         }
@@ -225,13 +224,13 @@ namespace Micro.Future.UI
         {
             
             Thread.Sleep(2000);
-            this.clientTradeFrame.clientFundLV.ReloadData();
+            ClientTradeFrame.getClientTradeFrame().clientFundLV.ReloadData();
             Thread.Sleep(2000);
-            this.clientTradeFrame.positionsWindow.ReloadData();
+            ClientTradeFrame.getClientTradeFrame().positionsWindow.ReloadData();
             Thread.Sleep(2000);
-            this.clientTradeFrame.tradeWindow.ReloadData();
+            ClientTradeFrame.getClientTradeFrame().tradeWindow.ReloadData();
             Thread.Sleep(2000);
-            this.clientTradeFrame.executionWindow.ReloadData();
+            ClientTradeFrame.getClientTradeFrame().executionWindow.ReloadData();
 
         }
 
@@ -241,7 +240,7 @@ namespace Micro.Future.UI
             var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("Optional", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            this.clientTradeFrame.quotePane.Children.Add(ancable);
+            ClientTradeFrame.getClientTradeFrame().quotePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_ZhongJin(object sender, RoutedEventArgs e)
@@ -251,7 +250,7 @@ namespace Micro.Future.UI
             quoteGrpVw.Filter("CFFEX", "", "");
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("CFFEX", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            this.clientTradeFrame.quotePane.Children.Add(ancable);
+            ClientTradeFrame.getClientTradeFrame().quotePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_ShangHai(object sender, RoutedEventArgs e)
@@ -261,7 +260,7 @@ namespace Micro.Future.UI
             quoteGrpVw.Filter("SHFE", "", "");
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("SHFE", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            this.clientTradeFrame.quotePane.Children.Add(ancable);
+            ClientTradeFrame.getClientTradeFrame().quotePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_DaLian(object sender, RoutedEventArgs e)
@@ -271,7 +270,7 @@ namespace Micro.Future.UI
             quoteGrpVw.Filter("DCE", "", "");
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("DCE", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            this.clientTradeFrame.quotePane.Children.Add(ancable);
+            ClientTradeFrame.getClientTradeFrame().quotePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_ZhengZhou(object sender, RoutedEventArgs e)
@@ -281,7 +280,7 @@ namespace Micro.Future.UI
             quoteGrpVw.Filter("CZCE", "", "");
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("CZCE", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            this.clientTradeFrame.quotePane.Children.Add(ancable);
+            ClientTradeFrame.getClientTradeFrame().quotePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Execution(object sender, RoutedEventArgs e)
@@ -290,7 +289,7 @@ namespace Micro.Future.UI
             var executionWin = new ClientExecutionWindow() { LayoutContent = ancable };
             ancable.Content = executionWin;
             ancable.Title = WPFUtility.GetLocalizedString("AllExecution", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            this.clientTradeFrame.executionPane.Children.Add(ancable);
+            ClientTradeFrame.getClientTradeFrame().executionPane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Opening(object sender, RoutedEventArgs e)
@@ -300,7 +299,7 @@ namespace Micro.Future.UI
             ancable.Content = executionWin;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENNING, OrderStatus.PARTIAL_TRADED, OrderStatus.PARTIAL_TRADING });
             ancable.Title = WPFUtility.GetLocalizedString("Opening", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            this.clientTradeFrame.executionPane.Children.Add(ancable);
+            ClientTradeFrame.getClientTradeFrame().executionPane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Traded(object sender, RoutedEventArgs e)
@@ -310,7 +309,7 @@ namespace Micro.Future.UI
             ancable.Content = executionWin;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED });
             ancable.Title = WPFUtility.GetLocalizedString("Traded", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            this.clientTradeFrame.executionPane.Children.Add(ancable);
+            ClientTradeFrame.getClientTradeFrame().executionPane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Trade(object sender, RoutedEventArgs e)
@@ -319,7 +318,7 @@ namespace Micro.Future.UI
             var tradeWin = new ClientTradeWindow() { LayoutContent = ancable };
             ancable.Content = tradeWin;
             ancable.Title = WPFUtility.GetLocalizedString("AllTraded", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            this.clientTradeFrame.tradePane.Children.Add(ancable);
+            ClientTradeFrame.getClientTradeFrame().tradePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Open(object sender, RoutedEventArgs e)
@@ -329,7 +328,7 @@ namespace Micro.Future.UI
             ancable.Content = tradeWin;
             tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.OPEN });
             ancable.Title = WPFUtility.GetLocalizedString("Open", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            this.clientTradeFrame.tradePane.Children.Add(ancable);
+            ClientTradeFrame.getClientTradeFrame().tradePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Close(object sender, RoutedEventArgs e)
@@ -339,7 +338,7 @@ namespace Micro.Future.UI
             ancable.Content = tradeWin;
             tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.CLOSE });
             ancable.Title = WPFUtility.GetLocalizedString("Close", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            this.clientTradeFrame.tradePane.Children.Add(ancable);
+            ClientTradeFrame.getClientTradeFrame().tradePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Position(object sender, RoutedEventArgs e)
@@ -348,7 +347,7 @@ namespace Micro.Future.UI
             var positionWin = new ClientPositionWindow() { LayoutContent = ancable };
             ancable.Content = positionWin;
             ancable.Title = WPFUtility.GetLocalizedString("Position", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            this.clientTradeFrame.positionPane.Children.Add(ancable);
+            ClientTradeFrame.getClientTradeFrame().positionPane.Children.Add(ancable);
         }
 
 
@@ -356,8 +355,8 @@ namespace Micro.Future.UI
         {
             FastOrderWin fastOrderWindow = new FastOrderWin();
             fastOrderWindow.Show();
-            this.clientTradeFrame.otcMarketDataLV.OnQuoteSelected += fastOrderWindow.OnQuoteSelected;
-            this.clientTradeFrame.positionsWindow.OnPositionSelected += fastOrderWindow.OnPositionSelected;
+            ClientTradeFrame.getClientTradeFrame().otcMarketDataLV.OnQuoteSelected += fastOrderWindow.OnQuoteSelected;
+            ClientTradeFrame.getClientTradeFrame().positionsWindow.OnPositionSelected += fastOrderWindow.OnPositionSelected;
         }
 
 
@@ -376,12 +375,13 @@ namespace Micro.Future.UI
 
         private void MenuTabHeader_Trade(object sender, RoutedEventArgs e)
         {
-            this.loadFrame(this.clientTradeFrame);
+            if (this.isClientTradeFrameLoaded == false) this.loadFrame(ClientTradeFrame.getClientTradeFrame());
+            else MessageBox.Show("交易行情已经打开");
         }
 
         private void MenuTabHeader_Strategy(object sender, RoutedEventArgs e)
         {
-            this.loadFrame(this.clientStrategyFrame);
+           // this.loadFrame(this.clientStrategyFrame);
         }
 
     

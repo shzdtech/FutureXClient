@@ -33,10 +33,17 @@ namespace Micro.Future.UI
     {
         public LayoutContent LayoutContent { get; set; }
 
-        public ClientTradeFrame()
+        private ClientTradeFrame()
         {
             InitializeComponent();
         }
+
+        private static ClientTradeFrame clientTradeFrame = null;
+
+        public static ClientTradeFrame getClientTradeFrame() { if (clientTradeFrame == null) clientTradeFrame = new ClientTradeFrame(); return clientTradeFrame; }
+        
+
+
 
     }
 }
