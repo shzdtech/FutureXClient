@@ -346,10 +346,6 @@ namespace Micro.Future.UI
             avalonAnchorable.LayoutContent = ancable;
             ancable.Content = avalonAnchorable;
             mainFrame.Children.Add(ancable);
-
-            
-                
-
         }
 
 
