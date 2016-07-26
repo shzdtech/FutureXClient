@@ -1213,6 +1213,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 期权交易 的本地化字符串。
+        /// </summary>
+        internal static string TradingOption {
+            get {
+                return ResourceManager.GetString("TradingOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 高级策略 的本地化字符串。
         /// </summary>
         internal static string TradingStrategy {

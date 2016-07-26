@@ -543,4 +543,7 @@
   <data name="TradingStrategy" xml:space="preserve">
     <value>高级策略</value>
   </data>
+  <data name="TradingOption" xml:space="preserve">
+    <value>期权交易</value>
+  </data>
 </root>

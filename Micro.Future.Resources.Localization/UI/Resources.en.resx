@@ -543,4 +543,7 @@
   <data name="TradingStrategy" xml:space="preserve">
     <value>TradingStrategy</value>
   </data>
+  <data name="TradingOption" xml:space="preserve">
+    <value>TradingOption</value>
+  </data>
 </root>

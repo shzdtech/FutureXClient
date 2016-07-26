@@ -25,6 +25,7 @@
                 <RibbonApplicationMenu Visibility="Collapsed" >
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
+            <!--交易行情Tab-->
             <RibbonTab>
                 <RibbonTab.Header>
                     <RibbonTabHeader MouseUp="MenuTabHeader_Trade" Content="{lex:Loc Key=TradingMarket}"/>
@@ -65,9 +66,8 @@
                 <RibbonGroup>
                     <RibbonButton Label="{lex:Loc Key=OrderWindow}" LargeImageSource="/Images/Login_48x48.png" Click="FastOrder_Click" />
                 </RibbonGroup>
-                
             </RibbonTab>
-
+            <!--高级策略Tab-->
             <RibbonTab>
                 <RibbonTab.Header>
                     <RibbonTabHeader MouseUp="MenuTabHeader_Strategy" Content="{lex:Loc Key=TradingStrategy}"/>
@@ -76,7 +76,16 @@
                     <RibbonButton Label="Login" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogin_Click" />
                 </RibbonGroup>
             </RibbonTab>
-
+            <!--高级策略Tab-->
+            <RibbonTab>
+                <RibbonTab.Header>
+                    <RibbonTabHeader Content="{lex:Loc Key=TradingOption}"/>
+                </RibbonTab.Header>
+                <RibbonGroup>
+                    
+                </RibbonGroup>
+            </RibbonTab>
+            
         </Ribbon>
 
         <StatusBar Grid.Row="2">
