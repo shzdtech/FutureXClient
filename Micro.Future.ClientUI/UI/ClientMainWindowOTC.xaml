@@ -76,7 +76,7 @@
                     <RibbonButton Label="Login" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogin_Click" />
                 </RibbonGroup>
             </RibbonTab>
-            <!--高级策略Tab-->
+            <!--期货交易Tab-->
             <RibbonTab>
                 <RibbonTab.Header>
                     <RibbonTabHeader Content="{lex:Loc Key=TradingOption}"/>

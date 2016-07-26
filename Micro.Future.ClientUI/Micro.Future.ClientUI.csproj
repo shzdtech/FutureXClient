@@ -97,7 +97,7 @@
     <Compile Include="UI\ClientMainWindowOTC.xaml.cs">
       <DependentUpon>ClientMainWindowOTC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientQuoteGroupView.xaml.cs">
+    <Compile Include="UI\ClientOptionUI\ClientQuoteGroupView.xaml.cs">
       <DependentUpon>ClientQuoteGroupView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ClientStrategyFrame.xaml.cs">
@@ -106,13 +106,13 @@
     <Compile Include="UI\ClientTradeFrame.xaml.cs">
       <DependentUpon>ClientTradeFrame.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientTradeWindow.xaml.cs">
+    <Compile Include="UI\ClientTradingUI\ClientTradeWindow.xaml.cs">
       <DependentUpon>ClientTradeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\DomesticLogin.xaml.cs">
       <DependentUpon>DomesticLogin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientExecutionWindow.xaml.cs">
+    <Compile Include="UI\ClientTradingUI\ClientExecutionWindow.xaml.cs">
       <DependentUpon>ClientExecutionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\FastOrderSettingWin.xaml.cs">
@@ -121,13 +121,13 @@
     <Compile Include="UI\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientPositionWindow.xaml.cs">
+    <Compile Include="UI\ClientTradingUI\ClientPositionWindow.xaml.cs">
       <DependentUpon>ClientPositionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ClientFastOrderWindow.xaml.cs">
       <DependentUpon>ClientFastOrderWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientOptionPage.xaml.cs">
+    <Compile Include="UI\ClientOptionUI\ClientOptionPage.xaml.cs">
       <DependentUpon>ClientOptionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\PositionWindow.xaml.cs">
@@ -139,25 +139,25 @@
     <Compile Include="UI\QuoteGroupViewOTC.xaml.cs">
       <DependentUpon>QuoteGroupViewOTC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\QuoteGroupView.xaml.cs">
+    <Compile Include="UI\ClientTradingUI\QuoteGroupView.xaml.cs">
       <DependentUpon>QuoteGroupView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\StrategyUI\OTCFastOrderWindow.xaml.cs">
+    <Compile Include="UI\ClientStrategyUI\OTCFastOrderWindow.xaml.cs">
       <DependentUpon>OTCFastOrderWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\StrategyUI\OTCMarketData.xaml.cs">
+    <Compile Include="UI\ClientStrategyUI\OTCMarketData.xaml.cs">
       <DependentUpon>OTCMarketData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\StrategyUI\OTCTradingDeskContractParam.xaml.cs">
+    <Compile Include="UI\ClientStrategyUI\OTCTradingDeskContractParam.xaml.cs">
       <DependentUpon>OTCTradingDeskContractParam.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\StrategyUI\OTCTradingStrategyLV.xaml.cs">
+    <Compile Include="UI\ClientStrategyUI\OTCTradingStrategyLV.xaml.cs">
       <DependentUpon>OTCTradingStrategyLV.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\StrategyUI\TDExecutionWindow.xaml.cs">
+    <Compile Include="UI\ClientStrategyUI\TDExecutionWindow.xaml.cs">
       <DependentUpon>TDExecutionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\StrategyUI\TDPositionWindow.xaml.cs">
+    <Compile Include="UI\ClientStrategyUI\TDPositionWindow.xaml.cs">
       <DependentUpon>TDPositionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\SystemSettingWindow.xaml.cs">
@@ -169,7 +169,7 @@
     <Compile Include="UI\OTCContactWindow.xaml.cs">
       <DependentUpon>OTCContactWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientFundWindow.xaml.cs">
+    <Compile Include="UI\ClientTradingUI\ClientFundWindow.xaml.cs">
       <DependentUpon>ClientFundWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\RibbonModel.cs" />
@@ -189,7 +189,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\ClientTradeWindow.xaml">
+    <Page Include="UI\ClientTradingUI\ClientTradeWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -197,7 +197,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\ClientExecutionWindow.xaml">
+    <Page Include="UI\ClientTradingUI\ClientExecutionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -209,7 +209,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\ClientPositionWindow.xaml">
+    <Page Include="UI\ClientTradingUI\ClientPositionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -217,11 +217,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ClientQuoteGroupView.xaml">
+    <Page Include="UI\ClientOptionUI\ClientQuoteGroupView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ClientOptionPage.xaml">
+    <Page Include="UI\ClientOptionUI\ClientOptionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -260,31 +260,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\QuoteGroupView.xaml">
+    <Page Include="UI\ClientTradingUI\QuoteGroupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\StrategyUI\OTCFastOrderWindow.xaml">
+    <Page Include="UI\ClientStrategyUI\OTCFastOrderWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\StrategyUI\OTCMarketData.xaml">
+    <Page Include="UI\ClientStrategyUI\OTCMarketData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\StrategyUI\OTCTradingDeskContractParam.xaml">
+    <Page Include="UI\ClientStrategyUI\OTCTradingDeskContractParam.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\StrategyUI\OTCTradingStrategyLV.xaml">
+    <Page Include="UI\ClientStrategyUI\OTCTradingStrategyLV.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\StrategyUI\TDExecutionWindow.xaml">
+    <Page Include="UI\ClientStrategyUI\TDExecutionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\StrategyUI\TDPositionWindow.xaml">
+    <Page Include="UI\ClientStrategyUI\TDPositionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -304,7 +304,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ClientFundWindow.xaml">
+    <Page Include="UI\ClientTradingUI\ClientFundWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -351,6 +351,10 @@
     <ProjectReference Include="..\..\FutureXShare\src\Micro.Future.Message\Micro.Future.Message.csproj">
       <Project>{354935ce-ab35-4bc3-88dd-e6c3b1e0870c}</Project>
       <Name>Micro.Future.Message</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Micro.Future.LocalStorage\Micro.Future.LocalStorage.csproj">
+      <Project>{8a2127d2-8c14-4a0e-8608-e355acda150d}</Project>
+      <Name>Micro.Future.LocalStorage</Name>
     </ProjectReference>
     <ProjectReference Include="..\Micro.Future.Utility\Micro.Future.Utility.csproj">
       <Project>{A6A3AF60-A359-49C4-8747-C79B695489E2}</Project>

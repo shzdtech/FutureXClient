@@ -27,13 +27,8 @@ namespace Micro.Future.UI
 
         public static bool isClientTradeFrameLoaded = false;
         public static bool isClientStrategyFrameLoaded = false;
+        public static bool isClientOptionFrameLoader = false;
 
-        private double windowHeight;
-        private double windowWidth;
-        private double menuHeight;
-        private double menuWidth;
-        private double frameHeigth;
-        private double frameWidth;
         
 
         public ClientMainWindowOTC()
@@ -110,16 +105,6 @@ namespace Micro.Future.UI
                 _otcClientSignIner.SignInOptions.Password;
 
 
-            this.windowHeight = clientMainWindow.windowHeight;
-            this.windowWidth = clientMainWindow.windowWidth;
-            this.menuHeight = ribbonMenu.Height;
-            this.menuWidth = ribbonMenu.Width;
-            this.frameHeigth = this.windowHeight - this.menuHeight;
-            this.frameWidth = this.windowWidth;
-
-            //mainFrame.
-            //mainFrame.Height = this.frameHeigth;
-            //mainFrame.Width = this.frameWidth;
             loadFrame(ClientTradeFrame.getClientTradeFrame());
             isClientTradeFrameLoaded = true;
             MDServerLogin();
@@ -382,7 +367,7 @@ namespace Micro.Future.UI
 
         private void MenuTabHeader_Strategy(object sender, RoutedEventArgs e)
         {
-            if (isClientStrategyFrameLoaded == false) { this.loadFrame(ClientTradeFrame.getClientTradeFrame()); isClientStrategyFrameLoaded = true; }
+            if (isClientStrategyFrameLoaded == false) { this.loadFrame(ClientStrategyFrame.getClientStrategyFrame()); isClientStrategyFrameLoaded = true; }
             else MessageBox.Show("高级策略已经打开");
         }
 
