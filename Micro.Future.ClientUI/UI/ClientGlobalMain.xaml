@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Micro.Future.UI.ClientGlobalMain"
+                xmlns:Controls="clr-namespace:Micro.Future.Controls;assembly=Micro.Future.CustomizedControls"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+                xmlns:ribbon="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon"
+                xmlns:c="clr-namespace:Micro.Future.UI"
+                xmlns:data="clr-namespace:Micro.Future.ViewModel"  
+                xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+                lex:LocalizeDictionary.DesignCulture="zh_CN"
+                lex:LocalizeDictionary.OutputMissingKeys="True"
+                lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+                lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+    <Grid>
+            
+    </Grid>
+</UserControl>

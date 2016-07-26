@@ -172,6 +172,9 @@
     <Compile Include="UI\ClientTradingUI\ClientFundWindow.xaml.cs">
       <DependentUpon>ClientFundWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ClientGlobalMain.xaml.cs">
+      <DependentUpon>ClientGlobalMain.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\RibbonModel.cs" />
     <Page Include="Test\TestWindow.xaml">
       <SubType>Designer</SubType>
@@ -305,6 +308,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\ClientTradingUI\ClientFundWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ClientGlobalMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
