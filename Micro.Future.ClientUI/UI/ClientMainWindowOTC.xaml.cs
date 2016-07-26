@@ -353,20 +353,25 @@ namespace Micro.Future.UI
         }
 
 
-        private void MenuTabHeader_Trade(object sender, RoutedEventArgs e)
+        private void clickMenuTabHeader_Trade(object sender, RoutedEventArgs e)
         {
             this.loadFrame(ClientTradeFrame.getClientTradeFrame()); 
             
         }
 
-        private void MenuTabHeader_Strategy(object sender, RoutedEventArgs e)
+        private void clickMenuTabHeader_Strategy(object sender, RoutedEventArgs e)
         {
             this.loadFrame(ClientStrategyFrame.getClientStrategyFrame());
 
         }
     
+        private void clickMenuTabHeader_Option(object sender, RoutedEventArgs e)
+        {
+            this.loadFrame(ClientOptionPage.getClientOptionPage());
+
+        }
 
 
-       
+
     }
 }

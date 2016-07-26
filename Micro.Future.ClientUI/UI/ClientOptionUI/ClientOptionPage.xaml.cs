@@ -1,4 +1,5 @@
-﻿using Micro.Future.Message;
+﻿using Micro.Future.Controls;
+using Micro.Future.Message;
 using Micro.Future.ViewModel;
 using System;
 using System.Collections;
@@ -14,14 +15,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Micro.Future.UI
 {
     /// <summary>
     /// ClientOptionWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class ClientOptionPage : UserControl
+    public partial class ClientOptionPage : UserControl, IAvalonAnchorable
     {
+        public LayoutContent LayoutContent { get;  set;}
+
+        private static ClientOptionPage clientOptionPage = null;
+
+        public static ClientOptionPage getClientOptionPage() { if (clientOptionPage == null) clientOptionPage = new ClientOptionPage();
+                                                                return clientOptionPage; }
+
 
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private ColumnObject[] mColumns;
@@ -45,24 +54,7 @@ namespace Micro.Future.UI
             volatilityLV.DataContext = new VolatilityVM();
             positionLV.DataContext = new PositionVM();
             riskLV.DataContext = new RiskVM();
-            //DataContext = OptionVM;
-            //            var numSimCollection = MessageHandlerContainer.DefaultInstance
-            //    .Get<OTCMDTradingDeskHandler>().NumericalSimVMCollection;
-            //            var optionOxyplotCollection = MessageHandlerContainer.DefaultInstance
-            //.Get<OTCMDTradingDeskHandler>().OptionOxyPlotCollection;
-            //            _viewSource.Source = numSimCollection;
-
-            //            numSimCollection.Add(new NumericalSimVM()
-            //            {
-            //                Axis = "X",
-            //            });
-
-            //            numSimCollection.Add(new NumericalSimVM()
-            //            {
-            //                Axis = "Y",
-            //            });
-
-            //            listView_numSim.ItemsSource = _viewSource.View;
+           
             mColumns = ColumnObject.GetColumns(listView_numSim);
         }
 
@@ -83,6 +75,8 @@ namespace Micro.Future.UI
                 contractExpirationMonth.ItemsSource = value;
             }
         }
+
+        
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
