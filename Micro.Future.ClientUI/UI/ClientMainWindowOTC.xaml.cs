@@ -351,7 +351,7 @@ namespace Micro.Future.UI
         //To dynamically load Frame 
         private void loadFrame(IAvalonAnchorable avalonAnchorable)
         {
-            MessageBox.Show("弹出Frame");
+            MessageBox.Show("载入窗口中，请稍后。");
             LayoutAnchorable ancable = new LayoutAnchorable();
             avalonAnchorable.LayoutContent = ancable;
             ancable.Content = avalonAnchorable;
