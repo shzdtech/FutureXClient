@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.Utility", "Mic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.UIObjects", "Micro.Future.UIObjects\Micro.Future.UIObjects.csproj", "{4BD98165-B411-4890-B74A-30619059502B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.TradingDeskUI", "Micro.Future.TradingDeskUI\Micro.Future.TradingDeskUI.csproj", "{1D256FE8-16E8-4220-B599-DAC14B18F873}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.CustomizedControls", "Micro.Future.CustomizedControls\Micro.Future.CustomizedControls.csproj", "{6425AAD0-3C33-4F14-AE8F-53ED07C203D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.WPFThemeLib", "Micro.Future.WPFThemeLib\Micro.Future.WPFThemeLib.csproj", "{FC6C36D7-D378-4CB9-A50C-E5A0050E9182}"
@@ -67,18 +65,6 @@ Global
 		{4BD98165-B411-4890-B74A-30619059502B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4BD98165-B411-4890-B74A-30619059502B}.Release|Win32.ActiveCfg = Release|Any CPU
 		{4BD98165-B411-4890-B74A-30619059502B}.Release|x86.ActiveCfg = Release|Any CPU
-		{1D256FE8-16E8-4220-B599-DAC14B18F873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D256FE8-16E8-4220-B599-DAC14B18F873}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1D256FE8-16E8-4220-B599-DAC14B18F873}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{1D256FE8-16E8-4220-B599-DAC14B18F873}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{1D256FE8-16E8-4220-B599-DAC14B18F873}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{1D256FE8-16E8-4220-B599-DAC14B18F873}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1D256FE8-16E8-4220-B599-DAC14B18F873}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1D256FE8-16E8-4220-B599-DAC14B18F873}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1D256FE8-16E8-4220-B599-DAC14B18F873}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1D256FE8-16E8-4220-B599-DAC14B18F873}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{1D256FE8-16E8-4220-B599-DAC14B18F873}.Release|Win32.ActiveCfg = Release|Any CPU
-		{1D256FE8-16E8-4220-B599-DAC14B18F873}.Release|x86.ActiveCfg = Release|Any CPU
 		{6425AAD0-3C33-4F14-AE8F-53ED07C203D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6425AAD0-3C33-4F14-AE8F-53ED07C203D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6425AAD0-3C33-4F14-AE8F-53ED07C203D6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

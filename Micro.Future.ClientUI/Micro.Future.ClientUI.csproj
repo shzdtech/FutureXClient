@@ -367,10 +367,6 @@
       <Project>{f16aef6a-4b81-4d04-9442-17438f6f6efa}</Project>
       <Name>Micro.Future.Tools</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Micro.Future.TradingDeskUI\Micro.Future.TradingDeskUI.csproj">
-      <Project>{1d256fe8-16e8-4220-b599-dac14b18f873}</Project>
-      <Name>Micro.Future.TradingDeskUI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Micro.Future.Utility\Micro.Future.Utility.csproj">
       <Project>{A6A3AF60-A359-49C4-8747-C79B695489E2}</Project>
       <Name>Micro.Future.Utility</Name>
