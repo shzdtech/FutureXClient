@@ -8,6 +8,7 @@ using System.Threading;
 using Xceed.Wpf.AvalonDock.Layout;
 using System.Collections.Generic;
 using Micro.Future.Controls;
+using System.Windows.Controls;
 
 namespace Micro.Future.UI
 {
@@ -97,9 +98,6 @@ namespace Micro.Future.UI
             _ctpMdSignIner.SignInOptions.Password =
                 _ctpTradeSignIner.SignInOptions.Password =
                 _otcClientSignIner.SignInOptions.Password;
-
-
-            loadFrame(ClientTradeFrame.getClientTradeFrame());
             
             MDServerLogin();
             TradingServerLogin();
@@ -198,13 +196,13 @@ namespace Micro.Future.UI
         {
             
             Thread.Sleep(2000);
-            ClientTradeFrame.getClientTradeFrame().clientFundLV.ReloadData();
+            tradeFrame.clientFundLV.ReloadData();
             Thread.Sleep(2000);
-            ClientTradeFrame.getClientTradeFrame().positionsWindow.ReloadData();
+            tradeFrame.positionsWindow.ReloadData();
             Thread.Sleep(2000);
-            ClientTradeFrame.getClientTradeFrame().tradeWindow.ReloadData();
+            tradeFrame.tradeWindow.ReloadData();
             Thread.Sleep(2000);
-            ClientTradeFrame.getClientTradeFrame().executionWindow.ReloadData();
+            tradeFrame.executionWindow.ReloadData();
 
         }
 
@@ -214,7 +212,7 @@ namespace Micro.Future.UI
             var quoteGrpVw = new ClientQuoteGroupView() { LayoutContent = ancable };
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("Optional", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            ClientTradeFrame.getClientTradeFrame().quotePane.Children.Add(ancable);
+            tradeFrame.quotePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_ZhongJin(object sender, RoutedEventArgs e)
@@ -224,7 +222,7 @@ namespace Micro.Future.UI
             quoteGrpVw.Filter("CFFEX", "", "");
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("CFFEX", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            ClientTradeFrame.getClientTradeFrame().quotePane.Children.Add(ancable);
+            tradeFrame.quotePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_ShangHai(object sender, RoutedEventArgs e)
@@ -234,7 +232,7 @@ namespace Micro.Future.UI
             quoteGrpVw.Filter("SHFE", "", "");
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("SHFE", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            ClientTradeFrame.getClientTradeFrame().quotePane.Children.Add(ancable);
+            tradeFrame.quotePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_DaLian(object sender, RoutedEventArgs e)
@@ -244,7 +242,7 @@ namespace Micro.Future.UI
             quoteGrpVw.Filter("DCE", "", "");
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("DCE", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            ClientTradeFrame.getClientTradeFrame().quotePane.Children.Add(ancable);
+            tradeFrame.quotePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_ZhengZhou(object sender, RoutedEventArgs e)
@@ -254,7 +252,7 @@ namespace Micro.Future.UI
             quoteGrpVw.Filter("CZCE", "", "");
             ancable.Content = quoteGrpVw;
             ancable.Title = WPFUtility.GetLocalizedString("CZCE", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            ClientTradeFrame.getClientTradeFrame().quotePane.Children.Add(ancable);
+            tradeFrame.quotePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Execution(object sender, RoutedEventArgs e)
@@ -263,7 +261,7 @@ namespace Micro.Future.UI
             var executionWin = new ClientExecutionWindow() { LayoutContent = ancable };
             ancable.Content = executionWin;
             ancable.Title = WPFUtility.GetLocalizedString("AllExecution", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            ClientTradeFrame.getClientTradeFrame().executionPane.Children.Add(ancable);
+            tradeFrame.executionPane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Opening(object sender, RoutedEventArgs e)
@@ -273,7 +271,7 @@ namespace Micro.Future.UI
             ancable.Content = executionWin;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENNING, OrderStatus.PARTIAL_TRADED, OrderStatus.PARTIAL_TRADING });
             ancable.Title = WPFUtility.GetLocalizedString("Opening", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            ClientTradeFrame.getClientTradeFrame().executionPane.Children.Add(ancable);
+            tradeFrame.executionPane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Traded(object sender, RoutedEventArgs e)
@@ -283,7 +281,7 @@ namespace Micro.Future.UI
             ancable.Content = executionWin;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED });
             ancable.Title = WPFUtility.GetLocalizedString("Traded", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            ClientTradeFrame.getClientTradeFrame().executionPane.Children.Add(ancable);
+            tradeFrame.executionPane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Trade(object sender, RoutedEventArgs e)
@@ -292,7 +290,7 @@ namespace Micro.Future.UI
             var tradeWin = new ClientTradeWindow() { LayoutContent = ancable };
             ancable.Content = tradeWin;
             ancable.Title = WPFUtility.GetLocalizedString("AllTraded", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            ClientTradeFrame.getClientTradeFrame().tradePane.Children.Add(ancable);
+            tradeFrame.tradePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Open(object sender, RoutedEventArgs e)
@@ -302,7 +300,7 @@ namespace Micro.Future.UI
             ancable.Content = tradeWin;
             tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.OPEN });
             ancable.Title = WPFUtility.GetLocalizedString("Open", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            ClientTradeFrame.getClientTradeFrame().tradePane.Children.Add(ancable);
+            tradeFrame.tradePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Close(object sender, RoutedEventArgs e)
@@ -312,7 +310,7 @@ namespace Micro.Future.UI
             ancable.Content = tradeWin;
             tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.CLOSE });
             ancable.Title = WPFUtility.GetLocalizedString("Close", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            ClientTradeFrame.getClientTradeFrame().tradePane.Children.Add(ancable);
+            tradeFrame.tradePane.Children.Add(ancable);
         }
 
         private void MenuItem_Click_Position(object sender, RoutedEventArgs e)
@@ -321,7 +319,7 @@ namespace Micro.Future.UI
             var positionWin = new ClientPositionWindow() { LayoutContent = ancable };
             ancable.Content = positionWin;
             ancable.Title = WPFUtility.GetLocalizedString("Position", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            ClientTradeFrame.getClientTradeFrame().positionPane.Children.Add(ancable);
+            tradeFrame.positionPane.Children.Add(ancable);
         }
 
 
@@ -329,45 +327,14 @@ namespace Micro.Future.UI
         {
             FastOrderWin fastOrderWindow = new FastOrderWin();
             fastOrderWindow.Show();
-            ClientTradeFrame.getClientTradeFrame().otcMarketDataLV.OnQuoteSelected += fastOrderWindow.OnQuoteSelected;
-            ClientTradeFrame.getClientTradeFrame().positionsWindow.OnPositionSelected += fastOrderWindow.OnPositionSelected;
+            tradeFrame.otcMarketDataLV.OnQuoteSelected += fastOrderWindow.OnQuoteSelected;
+            tradeFrame.positionsWindow.OnPositionSelected += fastOrderWindow.OnPositionSelected;
         }
 
-
-        //loadFrame(new ClientTradeFrame());
-        //Add by 马小帅
-        //To dynamically load Frame 
-        private void loadFrame(IAvalonAnchorable avalonAnchorable)
+        private void RibbonTabHeader_Clicked(object sender, RoutedEventArgs e)
         {
-            int frameCount = mainFrame.Children.Count;
-            if (frameCount > 0) mainFrame.Children.Clear();
-            MessageBox.Show("载入窗口中，请稍后。");
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            avalonAnchorable.LayoutContent = ancable;
-            ancable.Content = avalonAnchorable;
-            mainFrame.Children.Add(ancable);
+            Control ctrl = sender as Control;
+            mainPanel.SelectedContentIndex = int.Parse(ctrl.Tag.ToString());
         }
-
-
-        private void clickMenuTabHeader_Trade(object sender, RoutedEventArgs e)
-        {
-            this.loadFrame(ClientTradeFrame.getClientTradeFrame()); 
-            
-        }
-
-        private void clickMenuTabHeader_Strategy(object sender, RoutedEventArgs e)
-        {
-            this.loadFrame(ClientStrategyFrame.getClientStrategyFrame());
-
-        }
-    
-        private void clickMenuTabHeader_Option(object sender, RoutedEventArgs e)
-        {
-            this.loadFrame(ClientOptionPage.getClientOptionPage());
-
-        }
-
-
-
     }
 }

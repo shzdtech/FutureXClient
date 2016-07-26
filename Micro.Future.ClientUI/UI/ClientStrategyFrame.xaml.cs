@@ -22,7 +22,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class ClientStrategyFrame : UserControl, IAvalonAnchorable
     {
-        private ClientStrategyFrame()
+        public ClientStrategyFrame()
         {
             InitializeComponent();
         }
@@ -32,15 +32,5 @@ namespace Micro.Future.UI
             get;
             set;
         }
-
-        private static ClientStrategyFrame clientStrategyFrame = null;
-
-        public static ClientStrategyFrame getClientStrategyFrame()
-        {
-            if (clientStrategyFrame == null) clientStrategyFrame = new ClientStrategyFrame();
-            return clientStrategyFrame;
-        }
-
-     
     }
 }

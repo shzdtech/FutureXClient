@@ -28,10 +28,10 @@
             <!--交易行情Tab-->
             <RibbonTab>
                 <RibbonTab.Header>
-                    <RibbonTabHeader MouseUp="clickMenuTabHeader_Trade" Content="{lex:Loc Key=TradingMarket}"/>
+                    <RibbonTabHeader MouseUp="RibbonTabHeader_Clicked" Content="{lex:Loc Key=TradingMarket}" Tag="0"/>
                 </RibbonTab.Header>
                 <RibbonGroup>
-                    <RibbonButton Label="{lex:Loc Key=LogIN}" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogin_Click" />
+                    <RibbonButton Label="{lex:Loc Key=LogIN}" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogin_Click"/>
                 </RibbonGroup>
                 <!--<RibbonGroup>
                     <RibbonButton  DataContext="{x:Static data:RibbonModel.OTCContactCtrl}" />-->
@@ -70,7 +70,7 @@
             <!--高级策略Tab-->
             <RibbonTab>
                 <RibbonTab.Header>
-                    <RibbonTabHeader MouseUp="clickMenuTabHeader_Strategy" Content="{lex:Loc Key=TradingStrategy}"/>
+                    <RibbonTabHeader MouseUp="RibbonTabHeader_Clicked" Content="{lex:Loc Key=TradingStrategy}" Tag="1"/>
                 </RibbonTab.Header>
                 <RibbonGroup>
                     <RibbonButton Label="Login" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogin_Click" />
@@ -79,7 +79,7 @@
             <!--期货交易Tab-->
             <RibbonTab>
                 <RibbonTab.Header>
-                    <RibbonTabHeader Content="{lex:Loc Key=TradingOption}" MouseUp="clickMenuTabHeader_Option"/>
+                    <RibbonTabHeader Content="{lex:Loc Key=TradingOption}" MouseUp="RibbonTabHeader_Clicked" Tag="2"/>
                 </RibbonTab.Header>
                 <RibbonGroup>
                     
@@ -133,8 +133,17 @@
                 <avalonDock:GenericTheme/>
             </avalonDock:DockingManager.Theme>
             <avalonDock:LayoutRoot>
-                <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*">
-                    <avalonDock:LayoutAnchorablePane x:Name="mainFrame">
+                <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*" CanRepositionItems="False">
+                    <avalonDock:LayoutAnchorablePane x:Name="mainPanel">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=TradingMarket}">
+                            <c:ClientTradeFrame x:Name="tradeFrame"/>
+                        </avalonDock:LayoutAnchorable>
+                        <avalonDock:LayoutAnchorable  Title="{lex:Loc Key=TradingStrategy}">
+                            <c:ClientStrategyFrame x:Name="strategyFrame"/>
+                        </avalonDock:LayoutAnchorable>
+                        <avalonDock:LayoutAnchorable  Title="{lex:Loc Key=TradingOption}">
+                            <c:ClientOptionPage x:Name="optionFrame"/>
+                        </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
             </avalonDock:LayoutRoot>

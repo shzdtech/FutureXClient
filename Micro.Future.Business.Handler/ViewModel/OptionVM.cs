@@ -398,19 +398,5 @@ namespace Micro.Future.ViewModel
                 return _updateOPCommand;
             }
         }
-
-
-
-
-    }
-
-    class test
-    {
-        private OptionVM _ootvm;
-
-        void Update(double x, double y)
-        {
-            _ootvm.Points.Add(new DataPoint(x, y));
-        }
     }
 }
