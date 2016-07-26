@@ -25,15 +25,12 @@ namespace Micro.Future.UI
 
         
 
-        public static bool isClientTradeFrameLoaded = false;
-        public static bool isClientStrategyFrameLoaded = false;
-        public static bool isClientOptionFrameLoader = false;
+
 
         
 
         public ClientMainWindowOTC()
         {
-            
             InitializeComponent();
             ribbonMenu.Title += " (" + MFUtilities.ClientVersion + ")";
             Initialize();
@@ -85,9 +82,6 @@ namespace Micro.Future.UI
 
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RegisterMessageWrapper(msgWrapper);
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OnError += OnErrorMessageRecv;
-
-            
-           
         }
 
         
@@ -106,7 +100,7 @@ namespace Micro.Future.UI
 
 
             loadFrame(ClientTradeFrame.getClientTradeFrame());
-            isClientTradeFrameLoaded = true;
+            
             MDServerLogin();
             TradingServerLogin();
         }
@@ -177,12 +171,6 @@ namespace Micro.Future.UI
                 ctpTradeLoginStatus.Prompt = "正在连接CTP交易服务器...";
                 _ctpTradeSignIner.SignIn();
             }
-        }
-
-        //Onclick for Trading TradingStrategy
-        private void RibbonTabTradingStrategy_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void RibbonLogin_Click(object sender, RoutedEventArgs e)
@@ -351,26 +339,31 @@ namespace Micro.Future.UI
         //To dynamically load Frame 
         private void loadFrame(IAvalonAnchorable avalonAnchorable)
         {
+            int frameCount = mainFrame.Children.Count;
+            if (frameCount > 0) mainFrame.Children.Clear();
             MessageBox.Show("载入窗口中，请稍后。");
             LayoutAnchorable ancable = new LayoutAnchorable();
             avalonAnchorable.LayoutContent = ancable;
             ancable.Content = avalonAnchorable;
             mainFrame.Children.Add(ancable);
+
+            
+                
+
         }
 
 
         private void MenuTabHeader_Trade(object sender, RoutedEventArgs e)
         {
-            if (isClientTradeFrameLoaded == false) { this.loadFrame(ClientTradeFrame.getClientTradeFrame()); isClientTradeFrameLoaded = true; }
-            else MessageBox.Show("交易行情已经打开");
+            this.loadFrame(ClientTradeFrame.getClientTradeFrame()); 
+            
         }
 
         private void MenuTabHeader_Strategy(object sender, RoutedEventArgs e)
         {
-            if (isClientStrategyFrameLoaded == false) { this.loadFrame(ClientStrategyFrame.getClientStrategyFrame()); isClientStrategyFrameLoaded = true; }
-            else MessageBox.Show("高级策略已经打开");
-        }
+            this.loadFrame(ClientStrategyFrame.getClientStrategyFrame());
 
+        }
     
 
 

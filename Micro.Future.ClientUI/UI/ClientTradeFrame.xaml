@@ -15,7 +15,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300">
     <!--Frame Body-->
-    <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="0" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0,4,0,0" Unloaded="dockingManager_Unloaded" >
+    <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="0" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0,4,0,0" >
         <avalonDock:DockingManager.Theme>
             <avalonDock:GenericTheme/>
         </avalonDock:DockingManager.Theme>

@@ -356,6 +356,14 @@
       <Project>{8a2127d2-8c14-4a0e-8608-e355acda150d}</Project>
       <Name>Micro.Future.LocalStorage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Micro.Future.Tools\Micro.Future.Tools.csproj">
+      <Project>{f16aef6a-4b81-4d04-9442-17438f6f6efa}</Project>
+      <Name>Micro.Future.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Micro.Future.TradingDeskUI\Micro.Future.TradingDeskUI.csproj">
+      <Project>{1d256fe8-16e8-4220-b599-dac14b18f873}</Project>
+      <Name>Micro.Future.TradingDeskUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Micro.Future.Utility\Micro.Future.Utility.csproj">
       <Project>{A6A3AF60-A359-49C4-8747-C79B695489E2}</Project>
       <Name>Micro.Future.Utility</Name>
@@ -430,6 +438,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

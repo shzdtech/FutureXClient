@@ -15,7 +15,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300">
     <!--Frame Body-->
-    <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" Unloaded="dockingManager_Unloaded" >
+    <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" >
         <avalonDock:DockingManager.Theme>
             <avalonDock:VS2010Theme/>
         </avalonDock:DockingManager.Theme>

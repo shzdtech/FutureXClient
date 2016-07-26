@@ -42,11 +42,6 @@ namespace Micro.Future.UI
 
         public static ClientTradeFrame getClientTradeFrame() { if (clientTradeFrame == null) clientTradeFrame = new ClientTradeFrame(); return clientTradeFrame; }
 
-        private void dockingManager_Unloaded(object sender, RoutedEventArgs e)
-        {
-            //MessageBox.Show("您已关闭当前交易行情窗口，您可以重新点击交易行情再次打开");
-            ClientMainWindowOTC.isClientTradeFrameLoaded = false;
-            
-        }
+       
     }
 }
