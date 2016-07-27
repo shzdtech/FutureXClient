@@ -116,14 +116,14 @@ namespace Micro.Future.Message
             //PBMsgSettlementInfoConfirm pb = PBMsgSettlementInfoConfirm.CreateBuilder();
             //pb.MsgId((int)MsgIdOther.ID_REQ_SETTLEMENTINFOCONFIRM);
             //pb.BrokerID(UserInfo.BrokerID);
-            //pb.InvestorID(UserInfo.UserID);
+            //pb.InvestorID(UserInfo.UserName);
             //pb.ConfirmDate("");
             //pb.ConfirmTime("");
 
             var pb = new StringMap();
 
             pb.Entry[FieldName.BROKER_ID] = (UserInfo.BrokerID);
-            pb.Entry[FieldName.USER_ID] = (UserInfo.UserID);
+            pb.Entry[FieldName.USER_ID] = (UserInfo.UserName);
 
             //if (producerBeReady)
             //{
@@ -203,13 +203,13 @@ namespace Micro.Future.Message
 
             //PBMsgQueryReqPosition pb = PBMsgQueryReqPosition.CreateBuilder();
             //pb.BrokerID(UserInfo.BrokerID);
-            //pb.InvestorID(UserInfo.UserID);
+            //pb.InvestorID(UserInfo.UserName);
             //pb.InstrumentID("");
             //pb.MsgId((int)MsgIdQueryReq.ID_QUERY_REQ_POSITION);
             var pb = new StringMap();
 
             pb.Entry[FieldName.BROKER_ID] = (UserInfo.BrokerID);
-            pb.Entry[FieldName.USER_ID] = (UserInfo.UserID);
+            pb.Entry[FieldName.USER_ID] = (UserInfo.UserName);
             pb.Entry[FieldName.EXCHANGE_INSTRUMENT_ID] = string.Empty;
 
             //if (producerBeReady)
@@ -234,13 +234,13 @@ namespace Micro.Future.Message
 
             //PBMsgQueryReqFund pb = PBMsgQueryReqFund.CreateBuilder();
             //pb.BrokerID(UserInfo.BrokerID);
-            //pb.InvestorID(UserInfo.UserID);
+            //pb.InvestorID(UserInfo.UserName);
             //pb.MsgId((int)MsgIdQueryReq.ID_QUERY_REQ_FUND);
 
             var pb = new StringMap();
 
             pb.Entry[FieldName.BROKER_ID] = (UserInfo.BrokerID);
-            pb.Entry[FieldName.USER_ID] = (UserInfo.UserID);
+            pb.Entry[FieldName.USER_ID] = (UserInfo.UserName);
 
             //if (producerBeReady)
             //{
@@ -273,7 +273,7 @@ namespace Micro.Future.Message
 
             //PBMsgQueryReqOrder pb = PBMsgQueryReqOrder.CreateBuilder();
             //pb.BrokerID(UserInfo.BrokerID);
-            //pb.InvestorID(UserInfo.UserID);
+            //pb.InvestorID(UserInfo.UserName);
             //pb.InstrumentID("");
             //pb.ExchangeID("");
             //pb.OrderSysID("");
@@ -286,7 +286,7 @@ namespace Micro.Future.Message
             var pb = new StringMap();
 
             pb.Entry[FieldName.BROKER_ID] = (UserInfo.BrokerID);
-            pb.Entry[FieldName.USER_ID] = (UserInfo.UserID);
+            pb.Entry[FieldName.USER_ID] = (UserInfo.UserName);
 
 
             //if (producerBeReady)
@@ -311,7 +311,7 @@ namespace Micro.Future.Message
 
             //PBMsgQueryReqTrade pb = PBMsgQueryReqTrade.CreateBuilder();
             //pb.BrokerID(UserInfo.BrokerID);
-            //pb.InvestorID(UserInfo.UserID);
+            //pb.InvestorID(UserInfo.UserName);
             //pb.InstrumentID("");
             //pb.ExchangeID("");
             //pb.TradeID("");
@@ -321,7 +321,7 @@ namespace Micro.Future.Message
             var pb = new StringMap();
 
             pb.Entry[FieldName.BROKER_ID] = (UserInfo.BrokerID);
-            pb.Entry[FieldName.USER_ID] = (UserInfo.UserID);
+            pb.Entry[FieldName.USER_ID] = (UserInfo.UserName);
 
             //if (producerBeReady)
             //{
@@ -667,7 +667,7 @@ namespace Micro.Future.Message
             foreach (PBMsgOrderInsert newpb in orderlist)
             {
                 newpb.BrokerID = (UserInfo.BrokerID);
-                newpb.InvestorID = (UserInfo.UserID);
+                newpb.InvestorID = (UserInfo.UserName);
                 //newpb.OrderRef("" + mOrderRefBase++);
                 newpb.OrderRef = ("");
                 newpb.BusinessUnit = ("");
@@ -730,7 +730,7 @@ namespace Micro.Future.Message
             PBMsgOrderAction pb = new PBMsgOrderAction();
             //pb.MsgId((int)MsgIdOrder.ID_ORDER_REQ_CAN);
             pb.BrokerID=(UserInfo.BrokerID);
-            pb.InvestorID=(UserInfo.UserID);
+            pb.InvestorID=(UserInfo.UserName);
             pb.OrderActionRef=(mOrderActionRef++);
             pb.OrderRef=(vm.OrderRef);
             pb.RequestID=(0);
@@ -751,7 +751,7 @@ namespace Micro.Future.Message
             pb.ClientID=("");
             pb.BusinessUnit=("");
             pb.OrderActionStatus=("");
-            pb.UserID=(UserInfo.UserID);
+            pb.UserID=(UserInfo.UserName);
             pb.StatusMsg=(ByteString.Empty);
             pb.InstrumentID=(vm.InstrumentID);
 

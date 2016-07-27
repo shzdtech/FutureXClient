@@ -91,9 +91,9 @@ namespace Micro.Future.UI
         {
             RightDownStatus.Content = "欢迎" + obj.LastName + obj.FirstName;
 
-            _ctpMdSignIner.SignInOptions.UserID =
-                    _ctpTradeSignIner.SignInOptions.UserID =
-                    _otcClientSignIner.SignInOptions.UserID;
+            _ctpMdSignIner.SignInOptions.UserName =
+                    _ctpTradeSignIner.SignInOptions.UserName =
+                    _otcClientSignIner.SignInOptions.UserName;
 
             _ctpMdSignIner.SignInOptions.Password =
                 _ctpTradeSignIner.SignInOptions.Password =
@@ -145,7 +145,7 @@ namespace Micro.Future.UI
                 _ctpMdSignIner.SignInOptions.FrontServer = mdCfg["ADDRESS"];
                 _ctpMdSignIner.SignInOptions.BrokerID = mdCfg["BROKERID"];
                 if (!string.IsNullOrWhiteSpace(mdCfg["USERID"]))
-                    _ctpMdSignIner.SignInOptions.UserID = mdCfg["USERID"];
+                    _ctpMdSignIner.SignInOptions.UserName = mdCfg["USERID"];
                 if (!string.IsNullOrWhiteSpace(mdCfg["PASSWORD"]))
                     _ctpMdSignIner.SignInOptions.Password = mdCfg["PASSWORD"];
 
@@ -162,7 +162,7 @@ namespace Micro.Future.UI
                 _ctpTradeSignIner.SignInOptions.FrontServer = tdCfg["ADDRESS"];
                 _ctpTradeSignIner.SignInOptions.BrokerID = tdCfg["BROKERID"];
                 if (!string.IsNullOrWhiteSpace(tdCfg["USERID"]))
-                    _ctpTradeSignIner.SignInOptions.UserID = tdCfg["USERID"];
+                    _ctpTradeSignIner.SignInOptions.UserName = tdCfg["USERID"];
                 if (!string.IsNullOrWhiteSpace(tdCfg["PASSWORD"]))
                     _ctpTradeSignIner.SignInOptions.Password = tdCfg["PASSWORD"];
 
