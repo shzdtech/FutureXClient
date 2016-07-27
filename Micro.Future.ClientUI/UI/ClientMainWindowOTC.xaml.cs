@@ -176,6 +176,11 @@ namespace Micro.Future.UI
             Login();
         }
 
+        private void RibbonLogout_Click(object sender, RoutedEventArgs e)
+        {
+            Login();
+        }
+
         private void loginStatus_OnConnButtonClick(object sender, EventArgs e)
         {
             Login();
