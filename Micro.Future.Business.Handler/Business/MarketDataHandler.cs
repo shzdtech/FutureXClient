@@ -103,13 +103,13 @@ namespace Micro.Future.Message
             {
                 lock (QuoteVMCollection)
                 {
-                    foreach (var md in marketList.MdList)
+                    foreach (var md in marketList.MarketData)
                     {
                         if (!QuoteVMCollection.Exist((quote) => string.Compare(quote.Contract, md.Contract, true) == 0))
                         {
                             QuoteVMCollection.Add(new QuoteViewModel()
                             {
-                                Exchange = md.Exhange,
+                                Exchange = md.Exchange,
                                 Contract = md.Contract
                             });
                         }
@@ -136,7 +136,7 @@ namespace Micro.Future.Message
 
         protected void RetMDSuccessAction(PBMarketDataList PB)
         {
-            foreach (var md in PB.MdList)
+            foreach (var md in PB.MarketData)
             {
                 var quote = QuoteVMCollection.Find((pb) => string.Compare(pb.Contract, md.Contract, true) == 0);
                 if (quote != null)

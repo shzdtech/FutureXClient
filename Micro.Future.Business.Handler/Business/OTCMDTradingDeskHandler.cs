@@ -21,7 +21,7 @@ namespace Micro.Future.Message
         }
         protected override void OnReturningPricing(Message.Business.PBPricingDataList PB)
         {
-            foreach (var p in PB.Pricing)
+            foreach (var p in PB.PricingData)
             {
                 var ps = from s in StrategyVMCollection
                                   where (s.Exchange == p.Exchange && s.Contract == p.Contract)
