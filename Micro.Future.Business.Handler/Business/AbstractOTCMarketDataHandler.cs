@@ -249,7 +249,7 @@ namespace Micro.Future.Message
         {
             if (OTCQuoteVMCollection != null)
             {
-                foreach (var md in PB.Pricing)
+                foreach (var md in PB.PricingData)
                 {
                     OTCQuoteVMCollection.Add(new OTCQuoteVM()
                     {
@@ -265,7 +265,7 @@ namespace Micro.Future.Message
         {
             if (OTCQuoteVMCollection != null)
             {
-                foreach (var md in PB.Pricing)
+                foreach (var md in PB.PricingData)
                 {
                     var quote = OTCQuoteVMCollection.FindContract(md.Exchange, md.Contract);
                     if (quote != null)
