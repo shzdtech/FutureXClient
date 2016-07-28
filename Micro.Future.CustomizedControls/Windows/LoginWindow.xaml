@@ -10,7 +10,7 @@
     lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"
     Style="{StaticResource {x:Type Window}}"
-    WindowStartupLocation="CenterScreen" Topmost="True" Width="250" Height="248" Icon="/Micro.Future.CustomizedControls;component/Images/Logo.png">
+    WindowStartupLocation="CenterScreen" Topmost="True" Width="280" Height="280" Icon="/Micro.Future.CustomizedControls;component/Images/Logo.png">
     <StackPanel>
         <Label Content="{lex:Loc Key=Login_Server}"/>
         <ComboBox x:Name="LoginCombo" SelectedIndex="0" IsEditable="True"/>
@@ -20,6 +20,8 @@
         <TextBox x:Name="userTxt"/>
         <Label Content="{lex:Loc Key=PassWord}"/>
         <PasswordBox x:Name="passwordTxt"/>
+        <RadioButton x:Name="in" Content="盘内行情" Checked="Checked"/>
+        <RadioButton x:Name="out" Content="盘外行情" Checked="Checked"/>
         <Button Content="{lex:Loc Key=LogIn}" Click="Button_Click" IsDefault="True"/>
         <Label Content="语言/Language"/>
         <ComboBox ItemsSource="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=MergedAvailableCultures}"
