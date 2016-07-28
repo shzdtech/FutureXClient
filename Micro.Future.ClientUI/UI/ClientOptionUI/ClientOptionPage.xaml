@@ -33,7 +33,7 @@
             <Label x:Name="Reference_Price" Content="Reference Price" HorizontalAlignment="Left" VerticalAlignment="Top"  />
             <xctk:DoubleUpDown x:Name="reference_Price"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding ReferencePrice}"  Minimum="0"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label x:Name="S_SR" Content="SSR" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <Slider x:Name="sSR" HorizontalAlignment="Left"  Value="{Binding SSR}"  VerticalAlignment="Top" Width="auto" Ticks="100" Maximum="100" Minimum="0"/>
+            <Slider x:Name="sSR" HorizontalAlignment="Left"  Value="{Binding SSR}"  VerticalAlignment="Top" Width="130" Ticks="100" Maximum="100" Minimum="0"/>
             <Label x:Name="Contract_ExpirationMonth" Content="Contract ExpirationMonth" HorizontalAlignment="Left" VerticalAlignment="Top"  />
             <ComboBox x:Name="contractExpirationMonth" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" />
             <Label x:Name="Numerical_Simulation" Content="Numerical Simulation" HorizontalAlignment="Left" VerticalAlignment="Top"  />
@@ -166,97 +166,96 @@
             <Label x:Name="Up_Slope1" Content="Up Slope" HorizontalAlignment="Left" VerticalAlignment="Top"  />
             <xctk:DoubleUpDown x:Name="up_Slope1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpSlope1}"  Minimum="0"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </StackPanel>
-        <StackPanel Grid.Column="3">
-            <TabControl x:Name="tabControl"  SelectionChanged="tabControl_SelectionChanged_2" Height="460">
-                <TabItem Header="TabItem1">
-                    <Grid Background="#FFE5E5E5" >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <oxy:Plot Title="{Binding Title}" Grid.Row ="0" HorizontalContentAlignment="Stretch" LegendItemAlignment="Stretch" VerticalContentAlignment="Stretch">
-                            <oxy:Plot.Series>
-                                <oxy:LineSeries x:Name="Lineserial1" ItemsSource="{Binding Points}"/>
-                            </oxy:Plot.Series>
-                        </oxy:Plot>
-                        <oxy:PlotView x:Name="Plot1" Model="{Binding PlotModel}"  Grid.Row="1">
-                        </oxy:PlotView>
-                    </Grid>
-                </TabItem>
+        <TabControl x:Name="tabControl"  SelectionChanged="tabControl_SelectionChanged_2" Grid.Column="3">
+            <TabItem Header="TabItem1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <oxy:Plot Title="{Binding Title}" Grid.Row ="0" HorizontalContentAlignment="Stretch" LegendItemAlignment="Stretch" VerticalContentAlignment="Stretch">
+                        <oxy:Plot.Series>
+                            <oxy:LineSeries x:Name="Lineserial1" ItemsSource="{Binding Points}"/>
+                        </oxy:Plot.Series>
+                    </oxy:Plot>
+                    <oxy:PlotView x:Name="Plot1" Model="{Binding PlotModel}"  Grid.Row="1">
+                    </oxy:PlotView>
+                </Grid>
+            </TabItem>
 
-                <TabItem Header="Market Maker" Width="auto">
-                    <Grid Background="#FFE5E5E5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+            <TabItem Header="Market Maker" Width="auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                        <ListView x:Name="price_greekLV"   HorizontalAlignment="Left" Grid.Column="0" >
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="pVega" DisplayMemberBinding="{Binding pVega}"/>
-                                    <GridViewColumn Header="pDelta" DisplayMemberBinding="{Binding pDelta}"/>
-                                    <GridViewColumn Header="pBid" DisplayMemberBinding="{Binding pBid}"/>
-                                    <GridViewColumn Header="pMid" DisplayMemberBinding="{Binding pMid}"/>
-                                    <GridViewColumn Header="pAsk" DisplayMemberBinding="{Binding pAsk}"/>
-                                    <GridViewColumn Header="strike" DisplayMemberBinding="{Binding Strike}"/>
-                                    <GridViewColumn Header="cBid" DisplayMemberBinding="{Binding cBid}"/>
-                                    <GridViewColumn Header="cMid" DisplayMemberBinding="{Binding cMid}"/>
-                                    <GridViewColumn Header="cAsk" DisplayMemberBinding="{Binding cAsk}"/>
-                                    <GridViewColumn Header="cDelta" DisplayMemberBinding="{Binding cDelta}"/>
-                                    <GridViewColumn Header="cVega" DisplayMemberBinding="{Binding cVega}"/>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                        <ListView x:Name="volatilityLV"  HorizontalAlignment="Right" Grid.Column="1">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="strike" DisplayMemberBinding="{Binding Strike}"/>
-                                    <GridViewColumn Header="volBid" DisplayMemberBinding="{Binding volBid}"/>
-                                    <GridViewColumn Header="volMid" DisplayMemberBinding="{Binding volMid}"/>
-                                    <GridViewColumn Header="volAsk" DisplayMemberBinding="{Binding volAsk}"/>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </Grid>
-                </TabItem>
+                    <ListView x:Name="price_greekLV" Grid.Column="0" Grid.Row="0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="pVega" DisplayMemberBinding="{Binding pVega}"/>
+                                <GridViewColumn Header="pDelta" DisplayMemberBinding="{Binding pDelta}"/>
+                                <GridViewColumn Header="pBid" DisplayMemberBinding="{Binding pBid}"/>
+                                <GridViewColumn Header="pMid" DisplayMemberBinding="{Binding pMid}"/>
+                                <GridViewColumn Header="pAsk" DisplayMemberBinding="{Binding pAsk}"/>
+                                <GridViewColumn Header="strike" DisplayMemberBinding="{Binding Strike}"/>
+                                <GridViewColumn Header="cBid" DisplayMemberBinding="{Binding cBid}"/>
+                                <GridViewColumn Header="cMid" DisplayMemberBinding="{Binding cMid}"/>
+                                <GridViewColumn Header="cAsk" DisplayMemberBinding="{Binding cAsk}"/>
+                                <GridViewColumn Header="cDelta" DisplayMemberBinding="{Binding cDelta}"/>
+                                <GridViewColumn Header="cVega" DisplayMemberBinding="{Binding cVega}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <ListView x:Name="volatilityLV"  HorizontalAlignment="Right" Grid.Column="1">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="strike" DisplayMemberBinding="{Binding Strike}"/>
+                                <GridViewColumn Header="volBid" DisplayMemberBinding="{Binding volBid}"/>
+                                <GridViewColumn Header="volMid" DisplayMemberBinding="{Binding volMid}"/>
+                                <GridViewColumn Header="volAsk" DisplayMemberBinding="{Binding volAsk}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
 
-                <TabItem Header="Position and Risk">
-                    <Grid Background="#FFE5E5E5">
+            <TabItem Header="Position and Risk">
+                <Grid Background="#FFE5E5E5">
 
-                        <ListView x:Name="positionLV"  HorizontalAlignment="Left" VerticalAlignment="Top" >
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="expiry month" DisplayMemberBinding="{Binding ExpiryMonth}"/>
-                                    <GridViewColumn Header="selected" DisplayMemberBinding="{Binding Selected}"/>
-                                    <GridViewColumn Header="strike price" DisplayMemberBinding="{Binding StrikePrice}"/>
-                                    <GridViewColumn Header="type" DisplayMemberBinding="{Binding Type}"/>
-                                    <GridViewColumn Header="style" DisplayMemberBinding="{Binding Style}"/>
-                                    <GridViewColumn Header="position" DisplayMemberBinding="{Binding Position}"/>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                        <ListView x:Name="riskLV"  HorizontalAlignment="Left" VerticalAlignment="Top" >
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="expiry month" DisplayMemberBinding="{Binding ExpiryMonth}"/>
-                                    <GridViewColumn Header="strike price" DisplayMemberBinding="{Binding StrikePrice}"/>
-                                    <GridViewColumn Header="type" DisplayMemberBinding="{Binding Type}"/>
-                                    <GridViewColumn Header="style" DisplayMemberBinding="{Binding Style}"/>
-                                    <GridViewColumn Header="position" DisplayMemberBinding="{Binding Position}"/>
-                                    <GridViewColumn Header="value" DisplayMemberBinding="{Binding Value}"/>
-                                    <GridViewColumn Header="delta" DisplayMemberBinding="{Binding Delta}"/>
-                                    <GridViewColumn Header="vega" DisplayMemberBinding="{Binding Vega}"/>
-                                    <GridViewColumn Header="position delta" DisplayMemberBinding="{Binding PositionDelta}"/>
-                                    <GridViewColumn Header="position vega" DisplayMemberBinding="{Binding PositionVega}"/>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </Grid>
-                </TabItem>
-
-            </TabControl>
-        </StackPanel>
-
+                    <ListView x:Name="positionLV"  HorizontalAlignment="Left" VerticalAlignment="Top" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="expiry month" DisplayMemberBinding="{Binding ExpiryMonth}"/>
+                                <GridViewColumn Header="selected" DisplayMemberBinding="{Binding Selected}"/>
+                                <GridViewColumn Header="strike price" DisplayMemberBinding="{Binding StrikePrice}"/>
+                                <GridViewColumn Header="type" DisplayMemberBinding="{Binding Type}"/>
+                                <GridViewColumn Header="style" DisplayMemberBinding="{Binding Style}"/>
+                                <GridViewColumn Header="position" DisplayMemberBinding="{Binding Position}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <ListView x:Name="riskLV"  HorizontalAlignment="Left" VerticalAlignment="Top" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="expiry month" DisplayMemberBinding="{Binding ExpiryMonth}"/>
+                                <GridViewColumn Header="strike price" DisplayMemberBinding="{Binding StrikePrice}"/>
+                                <GridViewColumn Header="type" DisplayMemberBinding="{Binding Type}"/>
+                                <GridViewColumn Header="style" DisplayMemberBinding="{Binding Style}"/>
+                                <GridViewColumn Header="position" DisplayMemberBinding="{Binding Position}"/>
+                                <GridViewColumn Header="value" DisplayMemberBinding="{Binding Value}"/>
+                                <GridViewColumn Header="delta" DisplayMemberBinding="{Binding Delta}"/>
+                                <GridViewColumn Header="vega" DisplayMemberBinding="{Binding Vega}"/>
+                                <GridViewColumn Header="position delta" DisplayMemberBinding="{Binding PositionDelta}"/>
+                                <GridViewColumn Header="position vega" DisplayMemberBinding="{Binding PositionVega}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>

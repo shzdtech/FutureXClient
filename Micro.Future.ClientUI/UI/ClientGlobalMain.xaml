@@ -11,7 +11,58 @@
                 lex:LocalizeDictionary.OutputMissingKeys="True"
                 lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
                 lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-    <Grid>
-            
-    </Grid>
+                Name="clientGlobalMarket">
+
+    <avalonDock:DockingManager x:Name="dockingManager" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0,4,0,0" >
+        <avalonDock:DockingManager.Theme>
+            <avalonDock:GenericTheme/>
+        </avalonDock:DockingManager.Theme>
+        <avalonDock:LayoutRoot>
+            <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*">
+                <avalonDock:LayoutPanel DockWidth="4*" DockHeight="0.15*" DockMinHeight="0">
+                    <avalonDock:LayoutAnchorablePane x:Name="globalfundPane">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Fund}">
+                            <c:ClientGlobalFundWindow x:Name="clientGlobalFundLV"/>
+                        </avalonDock:LayoutAnchorable>
+                    </avalonDock:LayoutAnchorablePane>
+                </avalonDock:LayoutPanel>
+                <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*" >
+                    <avalonDock:LayoutPanel DockWidth="4*" DockHeight="0.75*">
+                        <avalonDock:LayoutAnchorablePane x:Name="globalquotePane">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Quote}">
+                                <c:ClientGlobalQuoteGroupView x:Name="globalMarketDataLV"/>
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                    </avalonDock:LayoutPanel>
+                    <avalonDock:LayoutPanel DockWidth="*" >
+                        <avalonDock:LayoutAnchorablePane x:Name="globalfastorderPane" >
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}">
+                                <c:ClientGlobalFastOrderWindow x:Name="GlobalFastOrderCtl"  />
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                    </avalonDock:LayoutPanel>
+                    <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="350" DockHeight="*">
+                        <avalonDock:LayoutAnchorablePane x:Name="globalexecutionPane" DockMinHeight="0">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=ExecutionWindow}">
+                                <c:ClientGlobalExecutionWindow x:Name="globalExecutionWindow"/>
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                    </avalonDock:LayoutPanel>
+                    <avalonDock:LayoutPanel Orientation="Horizontal" DockWidth="10*">
+                        <avalonDock:LayoutAnchorablePane x:Name="tradePane">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=TradeWindow}">
+                                <c:ClientGlobalTradeWindow x:Name="globalTradeWindow"/>
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                        <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=PositionWindow}">
+                                <c:ClientGlobalPositionWindow x:Name="globalPositionsWindow"/>
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                    </avalonDock:LayoutPanel>
+                </avalonDock:LayoutPanel>
+            </avalonDock:LayoutPanel>
+        </avalonDock:LayoutRoot>
+    </avalonDock:DockingManager>
+
 </UserControl>

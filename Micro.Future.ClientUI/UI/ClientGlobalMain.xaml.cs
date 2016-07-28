@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Micro.Future.UI
 {
@@ -20,6 +21,8 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class ClientGlobalMain : UserControl
     {
+        public LayoutContent LayoutContent { get; set; }
+
         public ClientGlobalMain()
         {
             InitializeComponent();

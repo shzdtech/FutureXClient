@@ -94,8 +94,14 @@
     <Compile Include="UI\AdvancedMakeOrderWin.xaml.cs">
       <DependentUpon>AdvancedMakeOrderWin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ClientGlobalFastOrderWindow.xaml.cs">
+      <DependentUpon>ClientGlobalFastOrderWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ClientMainWindowOTC.xaml.cs">
       <DependentUpon>ClientMainWindowOTC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ClientOptionUI\ClientGlobalQuoteGroupView.xaml.cs">
+      <DependentUpon>ClientGlobalQuoteGroupView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ClientOptionUI\ClientQuoteGroupView.xaml.cs">
       <DependentUpon>ClientQuoteGroupView.xaml</DependentUpon>
@@ -105,6 +111,18 @@
     </Compile>
     <Compile Include="UI\ClientTradeFrame.xaml.cs">
       <DependentUpon>ClientTradeFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ClientTradingUI\ClientGlobalExecutionWindow.xaml.cs">
+      <DependentUpon>ClientGlobalExecutionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ClientTradingUI\ClientGlobalFundWindow.xaml.cs">
+      <DependentUpon>ClientGlobalFundWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ClientTradingUI\ClientGlobalTradeWindow.xaml.cs">
+      <DependentUpon>ClientGlobalTradeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ClientTradingUI\ClientGlobalPositionWindow.xaml.cs">
+      <DependentUpon>ClientGlobalPositionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ClientTradingUI\ClientTradeWindow.xaml.cs">
       <DependentUpon>ClientTradeWindow.xaml</DependentUpon>
@@ -184,6 +202,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\ClientGlobalFastOrderWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ClientOptionUI\ClientGlobalQuoteGroupView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\ClientStrategyFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -191,6 +217,22 @@
     <Page Include="UI\ClientTradeFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ClientTradingUI\ClientGlobalExecutionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ClientTradingUI\ClientGlobalFundWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ClientTradingUI\ClientGlobalTradeWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ClientTradingUI\ClientGlobalPositionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\ClientTradingUI\ClientTradeWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
