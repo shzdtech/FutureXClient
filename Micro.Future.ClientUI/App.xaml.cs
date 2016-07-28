@@ -17,6 +17,10 @@ namespace Micro.Future
     /// </summary>
     public partial class App : Application
     {
+        //add by 马小帅, to control the Trade Window which to be show up.
+        public static bool TradeIn = true;
+        public static bool TradeOut = false;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             MessageHandlerContainer.Register<AbstractOTCMarketDataHandler, OTCMDClientHandler>();
@@ -28,5 +32,7 @@ namespace Micro.Future
 
             base.OnStartup(e);
         }
+
+
     }
 }
