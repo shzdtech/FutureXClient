@@ -546,4 +546,7 @@
   <data name="TradingOption" xml:space="preserve">
     <value>TradingOption</value>
   </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>LogOut</value>
+  </data>
 </root>

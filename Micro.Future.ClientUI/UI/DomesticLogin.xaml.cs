@@ -72,7 +72,7 @@ namespace Micro.Future.UI
         {
             this.Title = "正在连接交易服务器...";
             _trd_connhelper.SignInOptions.BrokerID = brokerTxt.Text;
-            _trd_connhelper.SignInOptions.UserID = userTxt.Text;
+            _trd_connhelper.SignInOptions.UserName = userTxt.Text;
             _trd_connhelper.SignInOptions.Password = passwordTxt.Password;
             _trd_connhelper.SignInOptions.FrontServer = MktFrontIDCombo.Text;
             _trd_connhelper.SignIn();
@@ -81,7 +81,7 @@ namespace Micro.Future.UI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             _md_connhelper.SignInOptions.BrokerID = brokerTxt.Text;
-            _md_connhelper.SignInOptions.UserID = userTxt.Text;
+            _md_connhelper.SignInOptions.UserName = userTxt.Text;
             _md_connhelper.SignInOptions.Password = passwordTxt.Password;
             _md_connhelper.SignInOptions.FrontServer = MktFrontIDCombo.Text;
 

@@ -56,7 +56,7 @@ namespace Micro.Future.UI
 
             LoginCombo.Text = userInfo.FrontServer;
             brokerTxt.Text = userInfo.BrokerID;
-            userTxt.Text = userInfo.UserID;
+            userTxt.Text = userInfo.UserName;
             passwordTxt.Password = userInfo.Password;
         }
 
@@ -82,12 +82,12 @@ namespace Micro.Future.UI
 
             if (SignInManager.SignInOptions.FrontServer != frontserver ||
                 SignInManager.SignInOptions.BrokerID != brokerid ||
-                SignInManager.SignInOptions.UserID != uid ||
+                SignInManager.SignInOptions.UserName != uid ||
                 SignInManager.SignInOptions.Password != password)
             {
                 SignInManager.SignInOptions.FrontServer = frontserver;
                 SignInManager.SignInOptions.BrokerID = brokerid;
-                SignInManager.SignInOptions.UserID = uid;
+                SignInManager.SignInOptions.UserName = uid;
                 if (MD5Round > 0)
                 {
                     _hashEncoder.Option.Iteration = MD5Round;

@@ -358,7 +358,7 @@ namespace Micro.Future.UI
             win.ShowDialog();
             if (win.IsSucceeded)
             {
-                PringToStatusSemi("内盘登录成功:" + win.User.BrokerID + ":" + win.User.UserID);
+                PringToStatusSemi("内盘登录成功:" + win.User.BrokerID + ":" + win.User.Name);
                 CreateHandlers(win.User);
             }
         }

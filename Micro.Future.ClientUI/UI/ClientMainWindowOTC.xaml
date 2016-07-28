@@ -33,6 +33,9 @@
                 <RibbonGroup>
                     <RibbonButton Label="{lex:Loc Key=LogIN}" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogin_Click"/>
                 </RibbonGroup>
+                <RibbonGroup>
+                    <RibbonButton Label="{lex:Loc Key=LogOut}" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogout_Click"/>
+                </RibbonGroup>
                 <!--<RibbonGroup>
                     <RibbonButton  DataContext="{x:Static data:RibbonModel.OTCContactCtrl}" />-->
                 <!--<RibbonButton DataContext="{x:Static data:RibbonModel.ThemeSetting}" />-->
