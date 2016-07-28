@@ -20,8 +20,9 @@
         <TextBox x:Name="userTxt"/>
         <Label Content="{lex:Loc Key=PassWord}"/>
         <PasswordBox x:Name="passwordTxt"/>
+        <!--
         <RadioButton x:Name="in" Content="盘内行情" Checked="Checked"/>
-        <RadioButton x:Name="out" Content="盘外行情" Checked="Checked"/>
+        <RadioButton x:Name="out" Content="盘外行情" Checked="Checked"/>-->
         <Button Content="{lex:Loc Key=LogIn}" Click="Button_Click" IsDefault="True"/>
         <Label Content="语言/Language"/>
         <ComboBox ItemsSource="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=MergedAvailableCultures}"
