@@ -55,7 +55,6 @@ namespace Micro.Future.UI
             var userInfo = signInMgr.SignInOptions;
 
             LoginCombo.Text = userInfo.FrontServer;
-            brokerTxt.Text = userInfo.BrokerID;
             userTxt.Text = userInfo.UserName;
             passwordTxt.Password = userInfo.Password;
         }
@@ -76,17 +75,14 @@ namespace Micro.Future.UI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string frontserver = LoginCombo.Text;
-            string brokerid = brokerTxt.Text;
             string uid = userTxt.Text;
             string password = passwordTxt.Password;
 
             if (SignInManager.SignInOptions.FrontServer != frontserver ||
-                SignInManager.SignInOptions.BrokerID != brokerid ||
                 SignInManager.SignInOptions.UserName != uid ||
                 SignInManager.SignInOptions.Password != password)
             {
                 SignInManager.SignInOptions.FrontServer = frontserver;
-                SignInManager.SignInOptions.BrokerID = brokerid;
                 SignInManager.SignInOptions.UserName = uid;
                 if (MD5Round > 0)
                 {

@@ -229,7 +229,7 @@
     <value>保单价格</value>
   </data>
   <data name="LogIn" xml:space="preserve">
-    <value>盘内交易登陆</value>
+    <value>登录</value>
   </data>
   <data name="Login_Server" xml:space="preserve">
     <value>服务器</value>
@@ -547,6 +547,6 @@
     <value>期权交易</value>
   </data>
   <data name="LogOut" xml:space="preserve">
-    <value>盘外交易登录</value>
+    <value>登出</value>
   </data>
 </root>

@@ -547,7 +547,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 盘内交易登陆 的本地化字符串。
+        ///   查找类似 登录 的本地化字符串。
         /// </summary>
         internal static string LogIn {
             get {
@@ -565,7 +565,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 盘外交易登录 的本地化字符串。
+        ///   查找类似 登出 的本地化字符串。
         /// </summary>
         internal static string LogOut {
             get {
