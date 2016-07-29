@@ -23,6 +23,8 @@ namespace Micro.Future.UI
         private PBSignInManager _otcClientSignIner = new PBSignInManager();
         private PBSignInManager _ctpTradeSignIner = new PBSignInManager();
         private PBSignInManager _ctpMdSignIner = new PBSignInManager();
+        //Mark of initial window
+        public static int initialWindow = 0;
 
         public MainOTCWindow()
         {
