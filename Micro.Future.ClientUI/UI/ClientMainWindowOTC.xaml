@@ -23,8 +23,8 @@
         <Menu Grid.Row="0">
             <MenuItem Header="{lex:Loc Key=TradingMarket}">
                 <MenuItem Header="{lex:Loc Key=TradingMarket}" MouseUp="RibbonTabHeader_Clicked"  Tag="0"/>
-                <MenuItem Header="内盘登录"/>
-                <MenuItem Header="外盘登陆"/>
+                <MenuItem Header="内盘登录" Click="RibbonLogin_Click"/>
+                <MenuItem Header="外盘登陆" Click="RibbonLogin_Click"/>
                 <MenuItem Header="{lex:Loc Key=AddWindow}">
                     <MenuItem Header="{lex:Loc Key=QuoteWindow}">
                         <MenuItem Header="{lex:Loc Key=Optional}" Click="MenuItem_Click_Contract">
