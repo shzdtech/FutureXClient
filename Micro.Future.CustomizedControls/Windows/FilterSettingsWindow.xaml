@@ -10,7 +10,7 @@
         lex:LocalizeDictionary.OutputMissingKeys="True"
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-        Title="{lex:Loc Key=FilterSettings}" Height="218" Width="300" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        Title="{lex:Loc Key=FilterSettings}" Height="218" Width="300" WindowStyle="ToolWindow">
     <Grid>
         <StackPanel>
             <Label Content="{lex:Loc Key=WindowTitle}"/>

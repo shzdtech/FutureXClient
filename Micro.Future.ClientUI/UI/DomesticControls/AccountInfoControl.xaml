@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="Micro.Future.UI.AccountInfoControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Micro.Future.UI"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+             lex:LocalizeDictionary.DesignCulture="zh_CN"
+             lex:LocalizeDictionary.OutputMissingKeys="True"
+             lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="1300">
+    <Grid>
+        <ListView Name="FundListView">
+            <ListView.View>
+                <GridView>
+                    <!--<GridViewColumn Header="静态权益" DisplayMemberBinding="{Binding }"/>
+                    <GridViewColumn Header="平仓盈亏">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CloseProfit}" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="手续费">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CashIn}" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="持仓盈亏">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PositionProfit}" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="动态权益">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding }" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="占用保证金">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding }" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="可用资金">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Available}" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="风险度">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding }" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="平仓净盈亏">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding }" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>-->
+                    <GridViewColumn Header="{lex:Loc Key=BrokerID}" DisplayMemberBinding="{Binding BrokerID}"/>
+                    <GridViewColumn Header="{lex:Loc Key=AccountID}" DisplayMemberBinding="{Binding AccountID}"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreMortgage}" DisplayMemberBinding="{Binding PreMortgage}"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreCredit}" DisplayMemberBinding="{Binding PreCredit}"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreDeposit}" DisplayMemberBinding="{Binding PreDeposit}"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreBalance}" DisplayMemberBinding="{Binding PreBalance}"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreMargin}" DisplayMemberBinding="{Binding PreMargin}"/>
+                    <GridViewColumn Header="{lex:Loc Key=InterestBase}" DisplayMemberBinding="{Binding InterestBase}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Deposit}" DisplayMemberBinding="{Binding Deposit}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Withdraw}" DisplayMemberBinding="{Binding Withdraw}"/>
+                    <GridViewColumn Header="{lex:Loc Key=FrozenMargin}" DisplayMemberBinding="{Binding FrozenMargin}"/>
+                    <GridViewColumn Header="{lex:Loc Key=FrozenCash}" DisplayMemberBinding="{Binding FrozenCash}"/>
+                    <GridViewColumn Header="{lex:Loc Key=FrozenCommission}" DisplayMemberBinding="{Binding FrozenCommission}"/>
+                    <GridViewColumn Header="{lex:Loc Key=CurrMargin}" DisplayMemberBinding="{Binding CurrMargin}"/>
+                    <GridViewColumn Header="{lex:Loc Key=CashIn}" DisplayMemberBinding="{Binding CashIn}"/>
+                    <GridViewColumn Header="{lex:Loc Key=CloseProfit}" DisplayMemberBinding="{Binding CloseProfit}"/>
+                    <GridViewColumn Header="{lex:Loc Key=PositionProfit}" DisplayMemberBinding="{Binding PositionProfit}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Balance}" DisplayMemberBinding="{Binding Balance}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Available}" DisplayMemberBinding="{Binding Available}"/>
+                    <GridViewColumn Header="{lex:Loc Key=WithdrawQuota}" DisplayMemberBinding="{Binding WithdrawQuota}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Reserve}" DisplayMemberBinding="{Binding Reserve}"/>
+                    <GridViewColumn Header="{lex:Loc Key=TradingDay}" DisplayMemberBinding="{Binding TradingDay}"/>
+                    <GridViewColumn Header="{lex:Loc Key=SettlementID}" DisplayMemberBinding="{Binding SettlementID}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Credit}" DisplayMemberBinding="{Binding Credit}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Mortgage}" DisplayMemberBinding="{Binding Mortgage}"/>
+                    <GridViewColumn Header="{lex:Loc Key=ExchangeMargin}" DisplayMemberBinding="{Binding ExchangeMargin}"/>
+
+
+                </GridView>
+            </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu StaysOpen="True">
+                    <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItemColumns_Click" />
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
+    </Grid>
+</UserControl>

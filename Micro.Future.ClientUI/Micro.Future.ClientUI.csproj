@@ -86,155 +86,96 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Business\TradeHandler.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Test\TestWindow.xaml.cs">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\AdvancedMakeOrderWin.xaml.cs">
+    <Compile Include="UI\DomesticControls\AdvancedMakeOrderWin.xaml.cs">
       <DependentUpon>AdvancedMakeOrderWin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientGlobalFastOrderWindow.xaml.cs">
-      <DependentUpon>ClientGlobalFastOrderWindow.xaml</DependentUpon>
+    <Compile Include="UI\ForeignControls\ForeignFastOrderWindow.xaml.cs">
+      <DependentUpon>ForeignFastOrderWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientMainWindowOTC.xaml.cs">
-      <DependentUpon>ClientMainWindowOTC.xaml</DependentUpon>
+    <Compile Include="MainOTCWindow.xaml.cs">
+      <DependentUpon>MainOTCWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientOptionUI\ClientGlobalQuoteGroupView.xaml.cs">
-      <DependentUpon>ClientGlobalQuoteGroupView.xaml</DependentUpon>
+    <Compile Include="UI\DomesticControls\MarketDataControl.xaml.cs">
+      <DependentUpon>MarketDataControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientOptionUI\ClientQuoteGroupView.xaml.cs">
-      <DependentUpon>ClientQuoteGroupView.xaml</DependentUpon>
+    <Compile Include="UI\Frames\StrategyFrame.xaml.cs">
+      <DependentUpon>StrategyFrame.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientStrategyFrame.xaml.cs">
-      <DependentUpon>ClientStrategyFrame.xaml</DependentUpon>
+    <Compile Include="UI\Frames\DomesticMarketFrame.xaml.cs">
+      <DependentUpon>DomesticMarketFrame.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientTradeFrame.xaml.cs">
-      <DependentUpon>ClientTradeFrame.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ClientTradingUI\ClientGlobalExecutionWindow.xaml.cs">
-      <DependentUpon>ClientGlobalExecutionWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ClientTradingUI\ClientGlobalFundWindow.xaml.cs">
-      <DependentUpon>ClientGlobalFundWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ClientTradingUI\ClientGlobalTradeWindow.xaml.cs">
-      <DependentUpon>ClientGlobalTradeWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ClientTradingUI\ClientGlobalPositionWindow.xaml.cs">
-      <DependentUpon>ClientGlobalPositionWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ClientTradingUI\ClientTradeWindow.xaml.cs">
-      <DependentUpon>ClientTradeWindow.xaml</DependentUpon>
+    <Compile Include="UI\DomesticControls\TradeRecordControl.xaml.cs">
+      <DependentUpon>TradeRecordControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\DomesticLogin.xaml.cs">
       <DependentUpon>DomesticLogin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientTradingUI\ClientExecutionWindow.xaml.cs">
-      <DependentUpon>ClientExecutionWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\FastOrderSettingWin.xaml.cs">
-      <DependentUpon>FastOrderSettingWin.xaml</DependentUpon>
+    <Compile Include="UI\DomesticControls\ExecutionControl.xaml.cs">
+      <DependentUpon>ExecutionControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientTradingUI\ClientPositionWindow.xaml.cs">
-      <DependentUpon>ClientPositionWindow.xaml</DependentUpon>
+    <Compile Include="UI\DomesticControls\PositionControl.xaml.cs">
+      <DependentUpon>PositionControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientFastOrderWindow.xaml.cs">
-      <DependentUpon>ClientFastOrderWindow.xaml</DependentUpon>
+    <Compile Include="UI\DomesticControls\FastOrderControl.xaml.cs">
+      <DependentUpon>FastOrderControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientOptionUI\ClientOptionPage.xaml.cs">
-      <DependentUpon>ClientOptionPage.xaml</DependentUpon>
+    <Compile Include="UI\Frames\OptionFrame.xaml.cs">
+      <DependentUpon>OptionFrame.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\PositionWindow.xaml.cs">
-      <DependentUpon>PositionWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ExecutionWindow.xaml.cs">
-      <DependentUpon>ExecutionWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\QuoteGroupViewOTC.xaml.cs">
+    <Compile Include="UI\OtcControls\QuoteGroupViewOTC.xaml.cs">
       <DependentUpon>QuoteGroupViewOTC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientTradingUI\QuoteGroupView.xaml.cs">
-      <DependentUpon>QuoteGroupView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ClientStrategyUI\OTCFastOrderWindow.xaml.cs">
+    <Compile Include="UI\OtcControls\OTCFastOrderWindow.xaml.cs">
       <DependentUpon>OTCFastOrderWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientStrategyUI\OTCMarketData.xaml.cs">
+    <Compile Include="UI\OtcControls\OTCMarketData.xaml.cs">
       <DependentUpon>OTCMarketData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientStrategyUI\OTCTradingDeskContractParam.xaml.cs">
+    <Compile Include="UI\OtcControls\OTCTradingDeskContractParam.xaml.cs">
       <DependentUpon>OTCTradingDeskContractParam.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientStrategyUI\OTCTradingStrategyLV.xaml.cs">
+    <Compile Include="UI\OtcControls\OTCTradingStrategyLV.xaml.cs">
       <DependentUpon>OTCTradingStrategyLV.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientStrategyUI\TDExecutionWindow.xaml.cs">
+    <Compile Include="UI\OtcControls\TDExecutionWindow.xaml.cs">
       <DependentUpon>TDExecutionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientStrategyUI\TDPositionWindow.xaml.cs">
+    <Compile Include="UI\OtcControls\TDPositionWindow.xaml.cs">
       <DependentUpon>TDPositionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\SystemSettingWindow.xaml.cs">
       <DependentUpon>SystemSettingWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\TradeMainWindowOTC.xaml.cs">
-      <DependentUpon>TradeMainWindowOTC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OTCContactWindow.xaml.cs">
+    <Compile Include="UI\OtcControls\OTCContactWindow.xaml.cs">
       <DependentUpon>OTCContactWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientTradingUI\ClientFundWindow.xaml.cs">
-      <DependentUpon>ClientFundWindow.xaml</DependentUpon>
+    <Compile Include="UI\DomesticControls\AccountInfoControl.xaml.cs">
+      <DependentUpon>AccountInfoControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ClientGlobalMain.xaml.cs">
-      <DependentUpon>ClientGlobalMain.xaml</DependentUpon>
+    <Compile Include="UI\Frames\ForeignMarketFrame.xaml.cs">
+      <DependentUpon>ForeignMarketFrame.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\RibbonModel.cs" />
-    <Page Include="Test\TestWindow.xaml">
+    <Page Include="UI\DomesticControls\AdvancedMakeOrderWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\AdvancedMakeOrderWin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\ClientGlobalFastOrderWindow.xaml">
+    <Page Include="UI\ForeignControls\ForeignFastOrderWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ClientOptionUI\ClientGlobalQuoteGroupView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\ClientStrategyFrame.xaml">
+    <Page Include="UI\Frames\StrategyFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\ClientTradeFrame.xaml">
+    <Page Include="UI\Frames\DomesticMarketFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\ClientTradingUI\ClientGlobalExecutionWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\ClientTradingUI\ClientGlobalFundWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\ClientTradingUI\ClientGlobalTradeWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\ClientTradingUI\ClientGlobalPositionWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\ClientTradingUI\ClientTradeWindow.xaml">
+    <Page Include="UI\DomesticControls\TradeRecordControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -242,94 +183,59 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\ClientTradingUI\ClientExecutionWindow.xaml">
+    <Page Include="UI\DomesticControls\ExecutionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\FastOrderSettingWin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\InputBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\ClientTradingUI\ClientPositionWindow.xaml">
+    <Page Include="UI\DomesticControls\PositionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ClientFastOrderWindow.xaml">
+    <Page Include="UI\DomesticControls\FastOrderControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ClientOptionUI\ClientQuoteGroupView.xaml">
+    <Page Include="UI\DomesticControls\MarketDataControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ClientOptionUI\ClientOptionPage.xaml">
+    <Page Include="UI\Frames\OptionFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\PositionWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\FastOrderWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UI\FastOrderWindow.xaml.cs">
-      <DependentUpon>FastOrderWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="UI\NewUserWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\ExecutionWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\QuoteGroupViewOTC.xaml">
+    <Page Include="UI\OtcControls\QuoteGroupViewOTC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ClientTradingUI\QuoteGroupView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\ClientStrategyUI\OTCFastOrderWindow.xaml">
+    <Page Include="UI\OtcControls\OTCFastOrderWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ClientStrategyUI\OTCMarketData.xaml">
+    <Page Include="UI\OtcControls\OTCMarketData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ClientStrategyUI\OTCTradingDeskContractParam.xaml">
+    <Page Include="UI\OtcControls\OTCTradingDeskContractParam.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ClientStrategyUI\OTCTradingStrategyLV.xaml">
+    <Page Include="UI\OtcControls\OTCTradingStrategyLV.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ClientStrategyUI\TDExecutionWindow.xaml">
+    <Page Include="UI\OtcControls\TDExecutionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ClientStrategyUI\TDPositionWindow.xaml">
+    <Page Include="UI\OtcControls\TDPositionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -337,31 +243,24 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\TradeMainWindowOTC.xaml">
+    <Page Include="MainOTCWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ClientMainWindowOTC.xaml">
+    <Page Include="UI\OtcControls\OTCContactWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\OTCContactWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\ClientTradingUI\ClientFundWindow.xaml">
+    <Page Include="UI\DomesticControls\AccountInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\ClientGlobalMain.xaml">
+    <Page Include="UI\Frames\ForeignMarketFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UI\NewUserWindow.xaml.cs">
-      <DependentUpon>NewUserWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -486,6 +385,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UI\OptionControls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
