@@ -11,90 +11,90 @@
     lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"         
     mc:Ignorable="d" 
-    d:DesignHeight="200" d:DesignWidth="300" HorizontalAlignment="Left">
+    d:DesignHeight="200" d:DesignWidth="300" HorizontalAlignment="Left" Width="300" Height="200" MaxWidth="300" MaxHeight="200">
     <UserControl.Resources>
         <local:EnumBooleanConverter x:Key="enumBooleanConverter"/>
     </UserControl.Resources>
-    <Grid Name="FastOrderGrid">
+    <Grid Name="FastOrderGrid" Width="300" Height="209.6">
         <Grid.Resources>
             <local:EnumBooleanConverter x:Key="enumBooleanConverter"/>
         </Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*" />
-            <RowDefinition Height="4*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="5*" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="45" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="45" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <TextBlock VerticalAlignment="Center" Text="{lex:Loc Key=Contract}" Width="35"></TextBlock>
-            <TextBox Name="FastOrderContract" Width="100" TextAlignment="Right" Text="{Binding Contract}" TextChanged="FastOrderContract_TextChanged"></TextBox>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Width="300" Height="40">
+            <TextBlock VerticalAlignment="Center" Text="{lex:Loc Key=Contract}" Width="35" Height="15.2"></TextBlock>
+            <TextBox Name="FastOrderContract" Width="100" TextAlignment="Right" Text="{Binding Contract}" TextChanged="FastOrderContract_TextChanged" Height="40"></TextBox>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <TextBlock Width="35" Text="{lex:Loc Key=OrderVolume}" VerticalAlignment="Center"></TextBlock>
-            <xctk:IntegerUpDown Width="100" FormatString="N0" x:Name="SizeTxt" Value="{Binding Volume}"/>
-            <TextBlock Text="{lex:Loc Key=TIF}" Width="35" VerticalAlignment="Center"></TextBlock>
-            <ComboBox Name="TimeTypeCombo" SelectedIndex="0" Grid.ColumnSpan="2" Width="100">
-                <ComboBoxItem>GFD</ComboBoxItem>
-                <ComboBoxItem>GTC</ComboBoxItem>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Width="300" Height="44.8">
+            <TextBlock Width="35" Text="{lex:Loc Key=OrderVolume}" VerticalAlignment="Center" Height="15.2"></TextBlock>
+            <xctk:IntegerUpDown Width="100" FormatString="N0" x:Name="SizeTxt" Value="{Binding Volume}" Height="44.8"/>
+            <TextBlock Text="{lex:Loc Key=TIF}" Width="35" VerticalAlignment="Center" Height="15.2"></TextBlock>
+            <ComboBox Name="TimeTypeCombo" SelectedIndex="0" Grid.ColumnSpan="2" Width="100" Height="44.8">
+                <ComboBoxItem Width="89.6" Height="20.8">GFD</ComboBoxItem>
+                <ComboBoxItem Width="89.6" Height="20.8">GTC</ComboBoxItem>
             </ComboBox>
         </StackPanel>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Width="300" Height="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Canvas Grid.Column="0">
+            <Canvas Grid.Column="0" Width="100" Height="20">
                 <RadioButton Name="RadioA" GroupName="orderType"  Content="{lex:Loc Key=Open}" 
-                             IsChecked="{Binding Path=OffsetFlag,Converter={StaticResource enumBooleanConverter}, ConverterParameter=OPEN}" VerticalAlignment="Center" />
+                             IsChecked="{Binding Path=OffsetFlag,Converter={StaticResource enumBooleanConverter}, ConverterParameter=OPEN}" VerticalAlignment="Center" Width="42.4" Height="16" />
             </Canvas>
-            <Canvas Grid.Column="1">
+            <Canvas Grid.Column="1" Width="100" Height="20">
                 <RadioButton Name="RadioB" GroupName="orderType" Content="{lex:Loc Key=Close}"
-                             IsChecked="{Binding Path=OffsetFlag,Converter={StaticResource enumBooleanConverter}, ConverterParameter=CLOSE}" VerticalAlignment="Center" />
+                             IsChecked="{Binding Path=OffsetFlag,Converter={StaticResource enumBooleanConverter}, ConverterParameter=CLOSE}" VerticalAlignment="Center" Width="42.4" Height="16" />
             </Canvas>
-            <Canvas Grid.Column="2">
+            <Canvas Grid.Column="2" Width="100" Height="20">
                 <RadioButton Name="RadioC"  GroupName="orderType" Content="{lex:Loc Key=CloseToday}" 
-                             IsChecked="{Binding Path=OffsetFlag,Converter={StaticResource enumBooleanConverter}, ConverterParameter=CLOSETODAY}" VerticalAlignment="Center" />
+                             IsChecked="{Binding Path=OffsetFlag,Converter={StaticResource enumBooleanConverter}, ConverterParameter=CLOSETODAY}" VerticalAlignment="Center" Width="42.4" Height="16" />
             </Canvas>
         </Grid>
 
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="3" Width="300" Height="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Canvas Grid.Column="0">
+            <Canvas Grid.Column="0" Width="150.4" Height="20">
                 <RadioButton Name="radioButtonBuy" Content="{lex:Loc Key=Buy}" 
                              IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=BUY}"
-                             VerticalAlignment="Center" GroupName="BuySellGroup" />
+                             VerticalAlignment="Center" GroupName="BuySellGroup" Width="42.4" Height="16" />
             </Canvas>
-            <Canvas Grid.Column="1">
+            <Canvas Grid.Column="1" Width="149.6" Height="20">
                 <RadioButton Name="radioButtonSell" Content="{lex:Loc Key=Sell}"
                              IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=SELL}" 
-                             VerticalAlignment="Center" GroupName="BuySellGroup" />
+                             VerticalAlignment="Center" GroupName="BuySellGroup" Width="42.4" Height="16" />
             </Canvas>
         </Grid>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal" Height="50" VerticalAlignment="Bottom">
-            <TextBlock Text="{lex:Loc Key=Price}" VerticalAlignment="Center" Width="35"></TextBlock>
-            <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment=".1" Value="{Binding LimitPrice}" />
-            <StackPanel x:Name="stackPanelPrices" Height="50" VerticalAlignment="Bottom" >
-                <Label x:Name="LabelUpperPrice" Content="{Binding UpperLimitPrice}" MouseDown="labelupperprice_MouseDown" MinHeight="10" MinWidth="20" />
-                <Label x:Name="LabelBidPrice" Content="{Binding BidPrice}"  MinHeight="10" MinWidth="20"/>
-                <Label x:Name="LabelAskPrice" Content="{Binding AskPrice}"  MinHeight="10" MinWidth="20"/>
-                <Label x:Name="LabelLowerPrice" Content="{Binding LowerLimitPrice}" MouseDown="labellowerprice_MouseDown"  MinHeight="10" MinWidth="20"/>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Height="50" VerticalAlignment="Bottom" Width="300">
+            <TextBlock Text="{lex:Loc Key=Price}" VerticalAlignment="Center" Width="35" Height="15.2"></TextBlock>
+            <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment=".1" Value="{Binding LimitPrice}" Height="49.6" />
+            <StackPanel x:Name="stackPanelPrices" Height="50" VerticalAlignment="Bottom" Width="20" >
+                <Label x:Name="LabelUpperPrice" Content="{Binding UpperLimitPrice}" MouseDown="labelupperprice_MouseDown" MinHeight="10" MinWidth="20" Width="20" Height="9.6" />
+                <Label x:Name="LabelBidPrice" Content="{Binding BidPrice}"  MinHeight="10" MinWidth="20" Width="20" Height="9.6"/>
+                <Label x:Name="LabelAskPrice" Content="{Binding AskPrice}"  MinHeight="10" MinWidth="20" Width="20" Height="9.6"/>
+                <Label x:Name="LabelLowerPrice" Content="{Binding LowerLimitPrice}" MouseDown="labellowerprice_MouseDown"  MinHeight="10" MinWidth="20" Width="20" Height="9.6"/>
             </StackPanel>
         </StackPanel>
 
-        <Grid Grid.Row="5">
+        <Grid Grid.Row="5" Width="300" Height="40">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Name="BuySummitButton" Content="{lex:Loc Key=Order}" Grid.Column="0" Command="{Binding Path=SendOrderCommand}" ></Button>
+            <Button Name="BuySummitButton" Content="{lex:Loc Key=Order}" Grid.Column="0" Command="{Binding Path=SendOrderCommand}" Width="150.4" Height="40" ></Button>
             <!--<RadioButton x:Name="radioButton" Content="买入"  IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=BUY}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="1,-148,0,0" GroupName="radiopd"/>-->
             <!--<RadioButton x:Name="radioButtonSell" Content="卖出"  IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=SELL}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="84,-148,0,0" GroupName="radiopd"/>-->
         </Grid>

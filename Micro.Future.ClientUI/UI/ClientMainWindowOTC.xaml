@@ -1,4 +1,4 @@
-﻿<RibbonWindow   x:Class="Micro.Future.UI.ClientMainWindowOTC"
+﻿<Window   x:Class="Micro.Future.UI.ClientMainWindowOTC"
                 xmlns:Controls="clr-namespace:Micro.Future.Controls;assembly=Micro.Future.CustomizedControls"
                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -16,16 +16,56 @@
                 Name="clientMainWindow">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="110"/>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Ribbon x:Name="ribbonMenu" Title="{lex:Loc Key=UserClient}">
+        <Menu Grid.Row="0">
+            <MenuItem Header="{lex:Loc Key=TradingMarket}">
+                <MenuItem Header="{lex:Loc Key=TradingMarket}" MouseUp="RibbonTabHeader_Clicked"  Tag="0"/>
+                <MenuItem Header="内盘登录"/>
+                <MenuItem Header="外盘登陆"/>
+                <MenuItem Header="{lex:Loc Key=AddWindow}">
+                    <MenuItem Header="{lex:Loc Key=QuoteWindow}">
+                        <MenuItem Header="{lex:Loc Key=Optional}" Click="MenuItem_Click_Contract">
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="{lex:Loc Key=ExecutionWindow}">
+                        <MenuItem Header="{lex:Loc Key=AllExecution}" Click="MenuItem_Click_Execution">
+                        </MenuItem>
+                        <MenuItem Header="{lex:Loc Key=Opening}" Click="MenuItem_Click_Opening">
+                        </MenuItem>
+                        <MenuItem Header="{lex:Loc Key=Traded}" Click="MenuItem_Click_Traded">
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="{lex:Loc Key=TradedWindow}">
+                        <MenuItem Header="{lex:Loc Key=AllTraded}" Click="MenuItem_Click_Trade">
+                        </MenuItem>
+                        <MenuItem Header="{lex:Loc Key=Traded_Open}" Click="MenuItem_Click_Open">
+                        </MenuItem>
+                        <MenuItem Header="{lex:Loc Key=Traded_Close}" Click="MenuItem_Click_Close">
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="{lex:Loc Key=PositionWindow}">
+                        <MenuItem Header="{lex:Loc Key=Position}" Click="MenuItem_Click_Position">
+                        </MenuItem>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="{lex:Loc Key=OrderWindow}" Click="FastOrder_Click"/>
+            </MenuItem>
+            <MenuItem Header="{lex:Loc Key=TradingStrategy}">
+                <MenuItem Header="{lex:Loc Key=TradingStrategy}" MouseUp="RibbonTabHeader_Clicked" Tag="1"/>
+            </MenuItem>
+            <MenuItem Header="{lex:Loc Key=TradingOption}">
+                <MenuItem Header="{lex:Loc Key=TradingOption}" MouseUp="RibbonTabHeader_Clicked" Tag="2"/>
+            </MenuItem>
+        </Menu>
+        <!--<Ribbon x:Name="ribbonMenu" Title="{lex:Loc Key=UserClient}">
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu Visibility="Collapsed" >
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
-            <!--交易行情Tab-->
+            --><!--交易行情Tab--><!--
             <RibbonTab>
                 <RibbonTab.Header>
                     <RibbonTabHeader MouseUp="RibbonTabHeader_Clicked" Content="{lex:Loc Key=TradingMarket}" Tag="0"/>
@@ -36,20 +76,20 @@
                 <RibbonGroup>
                     <RibbonButton Label="{lex:Loc Key=LogOut}" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogout_Click"/>
                 </RibbonGroup>
-                <!--<RibbonGroup>
+                --><!--<RibbonGroup>
                     <RibbonButton  DataContext="{x:Static data:RibbonModel.OTCContactCtrl}" />-->
                 <!--<RibbonButton DataContext="{x:Static data:RibbonModel.ThemeSetting}" />-->
                 <!--<RibbonButton DataContext="{x:Static data:RibbonModel.PasswordSetting}" />-->
                 <!--<RibbonButton DataContext="{x:Static data:RibbonModel.NewUser}" />-->
-                <!--</RibbonGroup>-->
+                <!--</RibbonGroup>--><!--
                 <RibbonGroup>
                     <RibbonMenuButton Label="{lex:Loc Key=AddWindow}" LargeImageSource="/Images/Login_48x48.png">
                         <RibbonMenuItem Header="{lex:Loc Key=QuoteWindow}">
                             <RibbonMenuItem Header="{lex:Loc Key=Optional}" Click="MenuItem_Click_Contract"/>
-                            <!--<RibbonMenuItem Header="{lex:Loc Key=CFFEX}" Click="MenuItem_Click_ZhongJin"/>
+                            --><!--<RibbonMenuItem Header="{lex:Loc Key=CFFEX}" Click="MenuItem_Click_ZhongJin"/>
                             <RibbonMenuItem Header="{lex:Loc Key=SHFE}" Click="MenuItem_Click_ShangHai"/>
                             <RibbonMenuItem Header="{lex:Loc Key=DCE}" Click="MenuItem_Click_DaLian"/>
-                            <RibbonMenuItem Header="{lex:Loc Key=CZCE}" Click="MenuItem_Click_ZhengZhou"/>-->
+                            <RibbonMenuItem Header="{lex:Loc Key=CZCE}" Click="MenuItem_Click_ZhengZhou"/>--><!--
                         </RibbonMenuItem> />
                         <RibbonMenuItem Header="{lex:Loc Key=ExecutionWindow}">
                             <RibbonMenuItem Header="{lex:Loc Key=AllExecution}" Click="MenuItem_Click_Execution"/>
@@ -62,7 +102,7 @@
                             <RibbonMenuItem Header="{lex:Loc Key=Traded_Close}" Click="MenuItem_Click_Close"/>
                         </RibbonMenuItem> />
                         <RibbonMenuItem Header="{lex:Loc Key=PositionWindow}">
-                            <RibbonMenuItem Header="Position" Click="MenuItem_Click_Position"/>
+                            <RibbonMenuItem Header="{lex:Loc Key=Position}" Click="MenuItem_Click_Position"/>
                         </RibbonMenuItem> />
                     </RibbonMenuButton>
                 </RibbonGroup>
@@ -70,7 +110,7 @@
                     <RibbonButton Label="{lex:Loc Key=OrderWindow}" LargeImageSource="/Images/Login_48x48.png" Click="FastOrder_Click" />
                 </RibbonGroup>
             </RibbonTab>
-            <!--高级策略Tab-->
+            --><!--高级策略Tab--><!--
             <RibbonTab>
                 <RibbonTab.Header>
                     <RibbonTabHeader MouseUp="RibbonTabHeader_Clicked" Content="{lex:Loc Key=TradingStrategy}" Tag="1"/>
@@ -79,7 +119,7 @@
                     <RibbonButton Label="Login" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogin_Click" />
                 </RibbonGroup>
             </RibbonTab>
-            <!--期货交易Tab-->
+            --><!--期货交易Tab--><!--
             <RibbonTab>
                 <RibbonTab.Header>
                     <RibbonTabHeader Content="{lex:Loc Key=TradingOption}" MouseUp="RibbonTabHeader_Clicked" Tag="2"/>
@@ -89,7 +129,7 @@
                 </RibbonGroup>
             </RibbonTab>
             
-        </Ribbon>
+        </Ribbon>-->
 
         <StatusBar Grid.Row="2">
             <StatusBar.ItemsPanel>
@@ -154,4 +194,4 @@
 
 
     </Grid>
-</RibbonWindow>
+</Window>

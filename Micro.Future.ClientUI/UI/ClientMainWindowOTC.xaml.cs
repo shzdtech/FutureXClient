@@ -15,7 +15,7 @@ namespace Micro.Future.UI
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class ClientMainWindowOTC : RibbonWindow
+    public partial class ClientMainWindowOTC : Window
     {
         private const string CST_CONTROL_ASSEMBLY = "Micro.Future.Resources.Localization";
         private const string RESOURCE_FILE = "Resources";
@@ -33,7 +33,7 @@ namespace Micro.Future.UI
         public ClientMainWindowOTC()
         {
             InitializeComponent();
-            ribbonMenu.Title += " (" + MFUtilities.ClientVersion + ")";
+            //ribbonMenu.Title += " (" + MFUtilities.ClientVersion + ")";
             Initialize();
             Login();
         }

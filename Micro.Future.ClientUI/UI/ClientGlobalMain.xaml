@@ -27,7 +27,7 @@
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
                 <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*" >
-                    <avalonDock:LayoutPanel DockWidth="4*" DockHeight="0.75*">
+                    <avalonDock:LayoutPanel >
                         <avalonDock:LayoutAnchorablePane x:Name="globalquotePane">
                             <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Quote}">
                                 <c:ClientGlobalQuoteGroupView x:Name="globalMarketDataLV"/>
@@ -35,7 +35,7 @@
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>
                     <avalonDock:LayoutPanel DockWidth="*" >
-                        <avalonDock:LayoutAnchorablePane x:Name="globalfastorderPane" >
+                        <avalonDock:LayoutAnchorablePane x:Name="globalfastorderPane" DockWidth="0.23*" DockHeight="1*" >
                             <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}">
                                 <c:ClientGlobalFastOrderWindow x:Name="GlobalFastOrderCtl"  />
                             </avalonDock:LayoutAnchorable>
