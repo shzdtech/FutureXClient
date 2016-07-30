@@ -57,6 +57,8 @@ namespace Micro.Future.UI
             LoginCombo.Text = userInfo.FrontServer;
             userTxt.Text = userInfo.UserName;
             passwordTxt.Password = userInfo.Password;
+
+
         }
 
         private void _signInMgr_OnSessionCreated()
@@ -94,6 +96,19 @@ namespace Micro.Future.UI
             }
 
             SignInManager.SignIn();
+        }
+
+        private void domesticChkBox_Checked(object sender, RoutedEventArgs e)
+        {
+            forgeinChkBox.IsChecked = false;
+            domesticChkBox.IsChecked = true;
+
+        }
+
+        private void forgeinChkBox_Checked(object sender, RoutedEventArgs e)
+        {
+            domesticChkBox.IsChecked = false;
+            forgeinChkBox.IsChecked = true;
         }
     }
 }

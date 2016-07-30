@@ -11,9 +11,6 @@ namespace Micro.Future.Client.TestCases
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine(MFUtilities.ClientVersion);
-        }
+        
     }
 }

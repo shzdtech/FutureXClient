@@ -19,8 +19,8 @@
         <Label Content="{lex:Loc Key=PassWord}"/>
         <PasswordBox x:Name="passwordTxt"/>
         <StackPanel Orientation="Horizontal">
-            <CheckBox x:Name="domesticChkBox" Content="内盘" IsChecked="True"/>
-            <CheckBox x:Name="forgeinChkBox" Content="外盘" />
+            <CheckBox x:Name="domesticChkBox" Content="内盘行情" IsChecked="True" Click="domesticChkBox_Checked" />
+            <CheckBox x:Name="forgeinChkBox" Content="外盘行情" IsChecked="False" Click="forgeinChkBox_Checked"/>
         </StackPanel>
         <Button Content="{lex:Loc Key=LogIn}" Click="Button_Click" IsDefault="True"/>
         <Label Content="语言/Language"/>
