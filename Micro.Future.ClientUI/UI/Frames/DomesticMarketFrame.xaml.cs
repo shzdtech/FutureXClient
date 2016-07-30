@@ -30,10 +30,8 @@ namespace Micro.Future.UI
     /// <summary>
     /// TradeFrame.xaml 的交互逻辑
     /// </summary>
-    public partial class DomesticMarketFrame : UserControl, IAvalonAnchorable
+    public partial class DomesticMarketFrame : UserControl
     {
-        public LayoutContent LayoutContent { get; set; }
-
         public DomesticMarketFrame()
         {
             if (!DesignerProperties.GetIsInDesignMode(this))

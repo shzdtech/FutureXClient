@@ -62,76 +62,7 @@
                 <MenuItem Header="{lex:Loc Key=TradingOption}" MouseUp="RibbonTabHeader_Clicked" Tag="2"/>
             </MenuItem>
         </Menu>
-        <!--<Ribbon x:Name="ribbonMenu" Title="{lex:Loc Key=UserClient}">
-            <Ribbon.ApplicationMenu>
-                <RibbonApplicationMenu Visibility="Collapsed" >
-                </RibbonApplicationMenu>
-            </Ribbon.ApplicationMenu>
-            --><!--交易行情Tab--><!--
-            <RibbonTab>
-                <RibbonTab.Header>
-                    <RibbonTabHeader MouseUp="RibbonTabHeader_Clicked" Content="{lex:Loc Key=TradingMarket}" Tag="0"/>
-                </RibbonTab.Header>
-                <RibbonGroup>
-                    <RibbonButton Label="{lex:Loc Key=LogIN}" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogin_Click"/>
-                </RibbonGroup>
-                <RibbonGroup>
-                    <RibbonButton Label="{lex:Loc Key=LogOut}" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogout_Click"/>
-                </RibbonGroup>
-                --><!--<RibbonGroup>
-                    <RibbonButton  DataContext="{x:Static data:RibbonModel.OTCContactCtrl}" />-->
-                <!--<RibbonButton DataContext="{x:Static data:RibbonModel.ThemeSetting}" />-->
-                <!--<RibbonButton DataContext="{x:Static data:RibbonModel.PasswordSetting}" />-->
-                <!--<RibbonButton DataContext="{x:Static data:RibbonModel.NewUser}" />-->
-                <!--</RibbonGroup>--><!--
-                <RibbonGroup>
-                    <RibbonMenuButton Label="{lex:Loc Key=AddWindow}" LargeImageSource="/Images/Login_48x48.png">
-                        <RibbonMenuItem Header="{lex:Loc Key=QuoteWindow}">
-                            <RibbonMenuItem Header="{lex:Loc Key=Optional}" Click="MenuItem_Click_Contract"/>
-                            --><!--<RibbonMenuItem Header="{lex:Loc Key=CFFEX}" Click="MenuItem_Click_ZhongJin"/>
-                            <RibbonMenuItem Header="{lex:Loc Key=SHFE}" Click="MenuItem_Click_ShangHai"/>
-                            <RibbonMenuItem Header="{lex:Loc Key=DCE}" Click="MenuItem_Click_DaLian"/>
-                            <RibbonMenuItem Header="{lex:Loc Key=CZCE}" Click="MenuItem_Click_ZhengZhou"/>--><!--
-                        </RibbonMenuItem> />
-                        <RibbonMenuItem Header="{lex:Loc Key=ExecutionWindow}">
-                            <RibbonMenuItem Header="{lex:Loc Key=AllExecution}" Click="MenuItem_Click_Execution"/>
-                            <RibbonMenuItem Header="{lex:Loc Key=Opening}" Click="MenuItem_Click_Opening"/>
-                            <RibbonMenuItem Header="{lex:Loc Key=Traded}" Click="MenuItem_Click_Traded"/>
-                        </RibbonMenuItem> />
-                        <RibbonMenuItem Header="{lex:Loc Key=TradedWindow}">
-                            <RibbonMenuItem Header="{lex:Loc Key=AllTraded}" Click="MenuItem_Click_Trade"/>
-                            <RibbonMenuItem Header="{lex:Loc Key=Traded_Open}" Click="MenuItem_Click_Open"/>
-                            <RibbonMenuItem Header="{lex:Loc Key=Traded_Close}" Click="MenuItem_Click_Close"/>
-                        </RibbonMenuItem> />
-                        <RibbonMenuItem Header="{lex:Loc Key=PositionWindow}">
-                            <RibbonMenuItem Header="{lex:Loc Key=Position}" Click="MenuItem_Click_Position"/>
-                        </RibbonMenuItem> />
-                    </RibbonMenuButton>
-                </RibbonGroup>
-                <RibbonGroup>
-                    <RibbonButton Label="{lex:Loc Key=OrderWindow}" LargeImageSource="/Images/Login_48x48.png" Click="FastOrder_Click" />
-                </RibbonGroup>
-            </RibbonTab>
-            --><!--高级策略Tab--><!--
-            <RibbonTab>
-                <RibbonTab.Header>
-                    <RibbonTabHeader MouseUp="RibbonTabHeader_Clicked" Content="{lex:Loc Key=TradingStrategy}" Tag="1"/>
-                </RibbonTab.Header>
-                <RibbonGroup>
-                    <RibbonButton Label="Login" LargeImageSource="/Images/Login_48x48.png" Click="RibbonLogin_Click" />
-                </RibbonGroup>
-            </RibbonTab>
-            --><!--期货交易Tab--><!--
-            <RibbonTab>
-                <RibbonTab.Header>
-                    <RibbonTabHeader Content="{lex:Loc Key=TradingOption}" MouseUp="RibbonTabHeader_Clicked" Tag="2"/>
-                </RibbonTab.Header>
-                <RibbonGroup>
-                    
-                </RibbonGroup>
-            </RibbonTab>
-            
-        </Ribbon>-->
+ 
 
         <StatusBar Grid.Row="2">
             <StatusBar.ItemsPanel>
@@ -183,12 +114,12 @@
                         <avalonDock:LayoutAnchorable Title="{lex:Loc Key=TradingMarket}">
                             <c:DomesticMarketFrame x:Name="tradeFrame"/>
                         </avalonDock:LayoutAnchorable>
-                        <avalonDock:LayoutAnchorable  Title="{lex:Loc Key=TradingStrategy}">
+                        <!--<avalonDock:LayoutAnchorable  Title="{lex:Loc Key=TradingStrategy}">
                             <c:StrategyFrame x:Name="strategyFrame"/>
                         </avalonDock:LayoutAnchorable>
                         <avalonDock:LayoutAnchorable  Title="{lex:Loc Key=TradingOption}">
                             <c:OptionFrame x:Name="optionFrame"/>
-                        </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorable>-->
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
             </avalonDock:LayoutRoot>

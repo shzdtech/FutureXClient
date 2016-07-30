@@ -18,7 +18,7 @@ namespace Micro.Future.UI
     /// <summary>
     /// OrderDetail.xaml 的交互逻辑
     /// </summary>
-    public partial class ExecutionControl : UserControl, IReloadData, IAvalonAnchorable
+    public partial class ExecutionControl : UserControl, IReloadData
     {
         private ColumnObject[] mColumns;
 

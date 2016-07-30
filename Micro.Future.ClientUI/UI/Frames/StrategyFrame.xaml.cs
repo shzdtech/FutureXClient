@@ -21,18 +21,13 @@ namespace Micro.Future.UI
     /// <summary>
     /// StrategyFrame.xaml 的交互逻辑
     /// </summary>
-    public partial class StrategyFrame : UserControl, IAvalonAnchorable
+    public partial class StrategyFrame : UserControl
     {
         public StrategyFrame()
         {
+
             if (!DesignerProperties.GetIsInDesignMode(this))
                 InitializeComponent();
-        }
-
-        public LayoutContent LayoutContent
-        {
-            get;
-            set;
         }
     }
 }

@@ -22,10 +22,8 @@ namespace Micro.Future.UI
     /// <summary>
     /// ClientOptionWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class OptionFrame : UserControl, IAvalonAnchorable
+    public partial class OptionFrame : UserControl
     {
-        public LayoutContent LayoutContent { get;  set;}
-
         private static OptionFrame clientOptionPage = null;
 
         public static OptionFrame getClientOptionPage() { if (clientOptionPage == null) clientOptionPage = new OptionFrame();

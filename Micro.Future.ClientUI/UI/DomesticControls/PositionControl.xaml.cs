@@ -17,7 +17,7 @@ namespace Micro.Future.UI
     /// <summary>
     /// Positions.xaml 的交互逻辑
     /// </summary>
-    public partial class PositionControl : UserControl, IReloadData, IAvalonAnchorable
+    public partial class PositionControl : UserControl, IReloadData
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();

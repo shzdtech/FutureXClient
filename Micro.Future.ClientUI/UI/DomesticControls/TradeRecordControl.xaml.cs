@@ -17,7 +17,7 @@ namespace Micro.Future.UI
     /// <summary>
     /// OrderDetail.xaml 的交互逻辑
     /// </summary>
-    public partial class TradeRecordControl : UserControl, IReloadData, IAvalonAnchorable
+    public partial class TradeRecordControl : UserControl, IReloadData
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();

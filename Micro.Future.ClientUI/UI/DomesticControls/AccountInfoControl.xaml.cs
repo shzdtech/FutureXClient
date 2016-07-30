@@ -2,17 +2,13 @@
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
 using System.Windows;
-using System.ComponentModel;
-using Micro.Future.Controls;
-using System;
-using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Micro.Future.UI
 {
     /// <summary>
     /// UserControl1.xaml 的交互逻辑
     /// </summary>
-    public partial class AccountInfoControl : UserControl, IReloadData, IAvalonAnchorable
+    public partial class AccountInfoControl : UserControl, IReloadData
     {
         private ColumnObject[] mColumns;
 
@@ -24,12 +20,6 @@ namespace Micro.Future.UI
                 MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().FundVMCollection;
 
             mColumns = ColumnObject.GetColumns(FundListView);
-        }
-
-        public LayoutContent LayoutContent
-        {
-            get;
-            set;
         }
 
         public void ReloadData()

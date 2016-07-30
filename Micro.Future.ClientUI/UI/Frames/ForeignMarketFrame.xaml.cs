@@ -20,7 +20,7 @@ namespace Micro.Future.UI
     /// <summary>
     /// UserControl1.xaml 的交互逻辑
     /// </summary>
-    public partial class ForeignMarketFrame : UserControl, IAvalonAnchorable
+    public partial class ForeignMarketFrame : UserControl
     {
         public LayoutContent LayoutContent { get; set; }
 

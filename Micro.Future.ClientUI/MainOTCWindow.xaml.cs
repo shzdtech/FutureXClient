@@ -21,10 +21,10 @@ namespace Micro.Future.UI
         private const string RESOURCE_FILE = "Resources";
         private Config _config = new Config(Settings.Default.ConfigFile);
         private PBSignInManager _otcClientSignIner = new PBSignInManager();
-        private PBSignInManager _ctpTradeSignIner = new PBSignInManager();
-        private PBSignInManager _ctpMdSignIner = new PBSignInManager();
+        private PBSignInManager _ctpTradeSignIner = null; // new PBSignInManager();
+        private PBSignInManager _ctpMdSignIner = null;   // new PBSignInManager();
         //Mark of initial window
-        public static int initialWindow = 0;
+        private int userRole;
 
         public MainOTCWindow()
         {
@@ -50,50 +50,70 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().RegisterMessageWrapper(msgWrapper);
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().OnError += OnErrorMessageRecv;
 
-            // Initialize Market Data
-            msgWrapper = _ctpMdSignIner.MessageWrapper;
-            msgWrapper.MessageClient.OnDisconnected += MD_OnDisconnected;
 
-            _ctpMdSignIner.OnLoginError += OnErrorMessageRecv;
-            _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
-            _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
-            msgWrapper.MessageClient.OnDisconnected += ctpLoginStatus.OnDisconnected;
+            //判断用户角色是否需要链接如下行情
+            if(this.userRole == 1)
+            {
+                // Initialize Market Data
+                msgWrapper = _ctpMdSignIner.MessageWrapper;
+                msgWrapper.MessageClient.OnDisconnected += MD_OnDisconnected;
 
-            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().RegisterMessageWrapper(msgWrapper);
-            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().OnError += OnErrorMessageRecv;
+                _ctpMdSignIner.OnLoginError += OnErrorMessageRecv;
+                _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
+                _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
+                msgWrapper.MessageClient.OnDisconnected += ctpLoginStatus.OnDisconnected;
 
-            // Initialize Trading Server
-            msgWrapper = _ctpTradeSignIner.MessageWrapper;
-            msgWrapper.MessageClient.OnDisconnected += TD_OnDisconnected;
+                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().RegisterMessageWrapper(msgWrapper);
+                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().OnError += OnErrorMessageRecv;
 
-            _ctpTradeSignIner.OnLoginError += OnErrorMessageRecv;
-            _ctpTradeSignIner.OnLogged += _ctpTradeSignIner_OnLogged;
-            _ctpTradeSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
-            _ctpTradeSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
-            msgWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
+                // Initialize Trading Server
+                msgWrapper = _ctpTradeSignIner.MessageWrapper;
+                msgWrapper.MessageClient.OnDisconnected += TD_OnDisconnected;
 
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RegisterMessageWrapper(msgWrapper);
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OnError += OnErrorMessageRecv;
+                _ctpTradeSignIner.OnLoginError += OnErrorMessageRecv;
+                _ctpTradeSignIner.OnLogged += _ctpTradeSignIner_OnLogged;
+                _ctpTradeSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
+                _ctpTradeSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
+                msgWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
+
+                MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RegisterMessageWrapper(msgWrapper);
+                MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OnError += OnErrorMessageRecv;
+            }
+            
         }
 
-        
+
 
         void _otcClientSignIner_OnLogged(IUserInfo obj)
-        {
+        { 
             RightDownStatus.Content = "欢迎" + obj.LastName + obj.FirstName;
 
-            _ctpMdSignIner.SignInOptions.UserName =
+            if (obj.Role == RoleType.Client)
+            { this.userRole = 0; }
+
+            if (obj.Role == RoleType.TradingDesk)
+            {
+                this.userRole = 1;
+                mainPanel.AddContent(new StrategyFrame());
+                _ctpTradeSignIner = new PBSignInManager();
+                _ctpMdSignIner = new PBSignInManager();
+                _ctpMdSignIner.SignInOptions.UserName =
                     _ctpTradeSignIner.SignInOptions.UserName =
                     _otcClientSignIner.SignInOptions.UserName;
 
-            _ctpMdSignIner.SignInOptions.Password =
-                _ctpTradeSignIner.SignInOptions.Password =
-                _otcClientSignIner.SignInOptions.Password;
+                _ctpMdSignIner.SignInOptions.Password =
+                    _ctpTradeSignIner.SignInOptions.Password =
+                    _otcClientSignIner.SignInOptions.Password;
+                MDServerLogin();
+                TradingServerLogin();
+            }
 
-            if(obj.Role=)
-            
-            MDServerLogin();
-            TradingServerLogin();
+            if (obj.Role == RoleType.Admin)
+            {
+                this.userRole = 24;
+                MessageBox.Show("You are login as Admin Role");
+            }
+
         }
 
         private void OnErrorMessageRecv(MessageException errRsult)
@@ -134,13 +154,13 @@ namespace Micro.Future.UI
         {
             if (!_ctpMdSignIner.MessageWrapper.HasSignIn)
             {
-                var mdCfg = _config.Content["MDSERVER"];
+                var mdCfg = _config.Content["CTPMDSERVER"];
                 _ctpMdSignIner.SignInOptions.FrontServer = mdCfg["ADDRESS"];
-                _ctpMdSignIner.SignInOptions.BrokerID = mdCfg["BROKERID"];
-                if (!string.IsNullOrWhiteSpace(mdCfg["USERID"]))
-                    _ctpMdSignIner.SignInOptions.UserName = mdCfg["USERID"];
-                if (!string.IsNullOrWhiteSpace(mdCfg["PASSWORD"]))
-                    _ctpMdSignIner.SignInOptions.Password = mdCfg["PASSWORD"];
+                //_ctpMdSignIner.SignInOptions.BrokerID = mdCfg["BROKERID"];
+                //if (!string.IsNullOrWhiteSpace(mdCfg["USERID"]))
+                //    _ctpMdSignIner.SignInOptions.UserName = mdCfg["USERID"];
+                //if (!string.IsNullOrWhiteSpace(mdCfg["PASSWORD"]))
+                //    _ctpMdSignIner.SignInOptions.Password = mdCfg["PASSWORD"];
 
                 ctpLoginStatus.Prompt = "正在连接CTP行情服务器...";
                 _ctpMdSignIner.SignIn();
@@ -151,13 +171,13 @@ namespace Micro.Future.UI
         {
             if (!_ctpTradeSignIner.MessageWrapper.HasSignIn)
             {
-                var tdCfg = _config.Content["TRADESERVER"];
+                var tdCfg = _config.Content["CTPTRADESERVER"];
                 _ctpTradeSignIner.SignInOptions.FrontServer = tdCfg["ADDRESS"];
-                _ctpTradeSignIner.SignInOptions.BrokerID = tdCfg["BROKERID"];
-                if (!string.IsNullOrWhiteSpace(tdCfg["USERID"]))
-                    _ctpTradeSignIner.SignInOptions.UserName = tdCfg["USERID"];
-                if (!string.IsNullOrWhiteSpace(tdCfg["PASSWORD"]))
-                    _ctpTradeSignIner.SignInOptions.Password = tdCfg["PASSWORD"];
+                //_ctpTradeSignIner.SignInOptions.BrokerID = tdCfg["BROKERID"];
+                //if (!string.IsNullOrWhiteSpace(tdCfg["USERID"]))
+                //    _ctpTradeSignIner.SignInOptions.UserName = tdCfg["USERID"];
+                //if (!string.IsNullOrWhiteSpace(tdCfg["PASSWORD"]))
+                //    _ctpTradeSignIner.SignInOptions.Password = tdCfg["PASSWORD"];
 
                 ctpTradeLoginStatus.Prompt = "正在连接CTP交易服务器...";
                 _ctpTradeSignIner.SignIn();
