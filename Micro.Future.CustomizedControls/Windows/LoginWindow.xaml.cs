@@ -102,13 +102,14 @@ namespace Micro.Future.UI
         {
             forgeinChkBox.IsChecked = false;
             domesticChkBox.IsChecked = true;
-
+            //MessageBox.Show("初始化交易窗口设置为盘内行情");
         }
 
         private void forgeinChkBox_Checked(object sender, RoutedEventArgs e)
         {
             domesticChkBox.IsChecked = false;
             forgeinChkBox.IsChecked = true;
+            //MessageBox.Show("初始化交易窗口设置为盘外行情");
         }
     }
 }

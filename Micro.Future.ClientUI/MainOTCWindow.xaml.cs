@@ -89,6 +89,8 @@ namespace Micro.Future.UI
             _ctpMdSignIner.SignInOptions.Password =
                 _ctpTradeSignIner.SignInOptions.Password =
                 _otcClientSignIner.SignInOptions.Password;
+
+            if(obj.Role=)
             
             MDServerLogin();
             TradingServerLogin();
