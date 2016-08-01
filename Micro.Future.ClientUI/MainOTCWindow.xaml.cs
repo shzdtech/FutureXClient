@@ -20,7 +20,7 @@ namespace Micro.Future.UI
         private const string CST_CONTROL_ASSEMBLY = "Micro.Future.Resources.Localization";
         private const string RESOURCE_FILE = "Resources";
         private Config _config = new Config(Settings.Default.ConfigFile);
-        private PBSignInManager _otcClientSignIner = new PBSignInManager();
+        private PBSignInManager _accountSignIner = new PBSignInManager();
         private PBSignInManager _ctpTradeSignIner = null; // new PBSignInManager();
         private PBSignInManager _ctpMdSignIner = null;   // new PBSignInManager();
         //Mark of initial window
@@ -36,16 +36,16 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
-            var msgWrapper = _otcClientSignIner.MessageWrapper;
+            var msgWrapper = _accountSignIner.MessageWrapper;
 
             msgWrapper.MessageClient.OnDisconnected += OTCClient_OnDisconnected;
 
-            _otcClientSignIner.OnLoginError += OnErrorMessageRecv;
-            _otcClientSignIner.OnLogged += _otcClientSignIner_OnLogged;
+            _accountSignIner.OnLoginError += OnErrorMessageRecv;
+            _accountSignIner.OnLogged += _otcClientSignIner_OnLogged;
 
             msgWrapper.MessageClient.OnDisconnected += loginStatus.OnDisconnected;
-            _otcClientSignIner.OnLogged += loginStatus.OnLogged;
-            _otcClientSignIner.OnLoginError += loginStatus.OnDisconnected;
+            _accountSignIner.OnLogged += loginStatus.OnLogged;
+            _accountSignIner.OnLoginError += loginStatus.OnDisconnected;
 
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().RegisterMessageWrapper(msgWrapper);
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().OnError += OnErrorMessageRecv;
@@ -103,11 +103,11 @@ namespace Micro.Future.UI
                 _ctpMdSignIner = new PBSignInManager();
                 _ctpMdSignIner.SignInOptions.UserName =
                     _ctpTradeSignIner.SignInOptions.UserName =
-                    _otcClientSignIner.SignInOptions.UserName;
+                    _accountSignIner.SignInOptions.UserName;
 
                 _ctpMdSignIner.SignInOptions.Password =
                     _ctpTradeSignIner.SignInOptions.Password =
-                    _otcClientSignIner.SignInOptions.Password;
+                    _accountSignIner.SignInOptions.Password;
                 MDServerLogin();
                 TradingServerLogin();
             }
@@ -134,10 +134,10 @@ namespace Micro.Future.UI
 
         private bool Login()
         {
-            LoginWindow loginWindow = new LoginWindow(_otcClientSignIner)
+            LoginWindow loginWindow = new LoginWindow(_accountSignIner)
             {
                 MD5Round = 2,
-                AddressCollection = _config.Content["OTCSERVER.ADDRESS"].Values
+                AddressCollection = _config.Content["ACCOUNTSERVER.ADDRESS"].Values
             };
 
             loginWindow.ShowDialog();

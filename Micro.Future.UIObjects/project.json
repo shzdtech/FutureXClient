@@ -10,9 +10,7 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "Extended.Wpf.Toolkit": "2.9.0",
-    "OxyPlot.Wpf": "1.0.0-unstable2100",
-    "WpfLocalizeExtension": "2.3.2"
+    "Extended.Wpf.Toolkit": "2.9.0"
   },
   "frameworks": {
     "net451": {
