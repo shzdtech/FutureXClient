@@ -30,8 +30,9 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             Title += " (" + MFUtilities.ClientVersion + ")";
-            Initialize();
+            
             Login();
+            Initialize();
         }
 
         public void Initialize()
