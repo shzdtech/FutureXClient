@@ -23,8 +23,8 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
-            <MenuItem Header="{lex:Loc Key=TradingMarket}">
-                <MenuItem Header="{lex:Loc Key=TradingMarket}" MouseUp="RibbonTabHeader_Clicked"  Tag="0"/>
+            <MenuItem Header="{lex:Loc Key=TradingMarket}" Click="MenuItem_Click_Trade">
+                <MenuItem Header="{lex:Loc Key=TradingMarket}" />
                 <MenuItem Header="内盘登录" Click="RibbonLogin_Click"/>
                 <MenuItem Header="外盘登陆" Click="RibbonLogin_Click"/>
                 <MenuItem Header="{lex:Loc Key=AddWindow}">
@@ -41,7 +41,7 @@
                         </MenuItem>
                     </MenuItem>
                     <MenuItem Header="{lex:Loc Key=TradedWindow}">
-                        <MenuItem Header="{lex:Loc Key=AllTraded}" Click="MenuItem_Click_Trade">
+                        <MenuItem Header="{lex:Loc Key=AllTraded}" Click="MenuItem_Click_AllTraded">
                         </MenuItem>
                         <MenuItem Header="{lex:Loc Key=Traded_Open}" Click="MenuItem_Click_Open">
                         </MenuItem>
@@ -56,10 +56,10 @@
                 <MenuItem Header="{lex:Loc Key=OrderWindow}" Click="FastOrder_Click"/>
             </MenuItem>
             <MenuItem Header="{lex:Loc Key=TradingStrategy}">
-                <MenuItem Header="{lex:Loc Key=TradingStrategy}" MouseUp="RibbonTabHeader_Clicked" Tag="1"/>
+                <MenuItem Header="{lex:Loc Key=TradingStrategy}" Click="MenuItem_Click_Strategy"/>
             </MenuItem>
             <MenuItem Header="{lex:Loc Key=TradingOption}">
-                <MenuItem Header="{lex:Loc Key=TradingOption}" MouseUp="RibbonTabHeader_Clicked" Tag="2"/>
+                <MenuItem Header="{lex:Loc Key=TradingOption}" Click="MenuItem_Click_Option"/>
             </MenuItem>
         </Menu>
  
@@ -110,7 +110,7 @@
             </avalonDock:DockingManager.Theme>
             <avalonDock:LayoutRoot>
                 <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*" CanRepositionItems="False">
-                    <avalonDock:LayoutAnchorablePane x:Name="mainPanel">
+                    <avalonDock:LayoutAnchorablePane x:Name="mainPane">
                         <avalonDock:LayoutAnchorable Title="{lex:Loc Key=TradingMarket}">
                             <c:DomesticMarketFrame x:Name="tradeFrame"/>
                         </avalonDock:LayoutAnchorable>

@@ -24,12 +24,6 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OptionFrame : UserControl
     {
-        private static OptionFrame clientOptionPage = null;
-
-        public static OptionFrame getClientOptionPage() { if (clientOptionPage == null) clientOptionPage = new OptionFrame();
-                                                                return clientOptionPage; }
-
-
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private ColumnObject[] mColumns;
 

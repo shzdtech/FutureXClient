@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Xceed.Wpf.AvalonDock.Layout;
 
+
 namespace Micro.Future.UI
 {
     /// <summary>
@@ -25,9 +26,11 @@ namespace Micro.Future.UI
     {
         public StrategyFrame()
         {
-
             if (!DesignerProperties.GetIsInDesignMode(this))
                 InitializeComponent();
+            
         }
+
+        
     }
 }

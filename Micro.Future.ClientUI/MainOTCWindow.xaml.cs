@@ -20,7 +20,7 @@ namespace Micro.Future.UI
         private const string CST_CONTROL_ASSEMBLY = "Micro.Future.Resources.Localization";
         private const string RESOURCE_FILE = "Resources";
         private Config _config = new Config(Settings.Default.ConfigFile);
-        private PBSignInManager _accountSignIner = new PBSignInManager();
+        private PBSignInManager _otcClientSignIner = new PBSignInManager();
         private PBSignInManager _ctpTradeSignIner = null; // new PBSignInManager();
         private PBSignInManager _ctpMdSignIner = null;   // new PBSignInManager();
         //Mark of initial window
@@ -30,22 +30,22 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             Title += " (" + MFUtilities.ClientVersion + ")";
-            Initialize();
             Login();
+            Initialize();
         }
 
         public void Initialize()
         {
-            var msgWrapper = _accountSignIner.MessageWrapper;
+            var msgWrapper = _otcClientSignIner.MessageWrapper;
 
             msgWrapper.MessageClient.OnDisconnected += OTCClient_OnDisconnected;
 
-            _accountSignIner.OnLoginError += OnErrorMessageRecv;
-            _accountSignIner.OnLogged += _otcClientSignIner_OnLogged;
+            _otcClientSignIner.OnLoginError += OnErrorMessageRecv;
+            _otcClientSignIner.OnLogged += _otcClientSignIner_OnLogged;
 
             msgWrapper.MessageClient.OnDisconnected += loginStatus.OnDisconnected;
-            _accountSignIner.OnLogged += loginStatus.OnLogged;
-            _accountSignIner.OnLoginError += loginStatus.OnDisconnected;
+            _otcClientSignIner.OnLogged += loginStatus.OnLogged;
+            _otcClientSignIner.OnLoginError += loginStatus.OnDisconnected;
 
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().RegisterMessageWrapper(msgWrapper);
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().OnError += OnErrorMessageRecv;
@@ -86,37 +86,32 @@ namespace Micro.Future.UI
 
         void _otcClientSignIner_OnLogged(IUserInfo obj)
         { 
-            
+            RightDownStatus.Content = "欢迎" + obj.LastName + obj.FirstName;
 
             if (obj.Role == RoleType.Client)
-            {
-                this.userRole = 0;
-                RightDownStatus.Content = "欢迎OTC用户:" + obj.LastName + obj.FirstName;
-            }
+            { this.userRole = 0; }
 
             if (obj.Role == RoleType.TradingDesk)
             {
                 this.userRole = 1;
-                RightDownStatus.Content = "欢迎TD用户:" + obj.LastName + obj.FirstName;
-                mainPanel.AddContent(new StrategyFrame());
+                mainPane.AddContent(new StrategyFrame());
                 _ctpTradeSignIner = new PBSignInManager();
                 _ctpMdSignIner = new PBSignInManager();
                 _ctpMdSignIner.SignInOptions.UserName =
                     _ctpTradeSignIner.SignInOptions.UserName =
-                    _accountSignIner.SignInOptions.UserName;
+                    _otcClientSignIner.SignInOptions.UserName;
 
                 _ctpMdSignIner.SignInOptions.Password =
                     _ctpTradeSignIner.SignInOptions.Password =
-                    _accountSignIner.SignInOptions.Password;
+                    _otcClientSignIner.SignInOptions.Password;
                 MDServerLogin();
                 TradingServerLogin();
             }
 
             if (obj.Role == RoleType.Admin)
             {
-                this.userRole = 24;
-                RightDownStatus.Content = "欢迎Admin用户:" + obj.LastName + obj.FirstName;
-                
+                this.userRole = 1024;
+                MessageBox.Show("You are login as Admin Role");
             }
 
         }
@@ -134,10 +129,10 @@ namespace Micro.Future.UI
 
         private bool Login()
         {
-            LoginWindow loginWindow = new LoginWindow(_accountSignIner)
+            LoginWindow loginWindow = new LoginWindow(_otcClientSignIner)
             {
                 MD5Round = 2,
-                AddressCollection = _config.Content["ACCOUNTSERVER.ADDRESS"].Values
+                AddressCollection = _config.Content["OTCSERVER.ADDRESS"].Values
             };
 
             loginWindow.ShowDialog();
@@ -217,7 +212,6 @@ namespace Micro.Future.UI
 
         private void _ctpTradeSignIner_OnLogged(IUserInfo obj)
         {
-            
             Thread.Sleep(2000);
             tradeFrame.clientFundLV.ReloadData();
             Thread.Sleep(2000);
@@ -307,7 +301,7 @@ namespace Micro.Future.UI
             tradeFrame.executionPane.Children.Add(ancable);
         }
 
-        private void MenuItem_Click_Trade(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_AllTraded(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
             var tradeWin = new TradeRecordControl() { LayoutContent = ancable };
@@ -354,10 +348,32 @@ namespace Micro.Future.UI
             tradeFrame.positionsWindow.OnPositionSelected += fastOrderWindow.OnPositionSelected;
         }
 
-        private void RibbonTabHeader_Clicked(object sender, RoutedEventArgs e)
+        //打开盘内行情页面
+        private void MenuItem_Click_Trade(object sender, RoutedEventArgs e)
         {
-            Control ctrl = sender as Control;
-            mainPanel.SelectedContentIndex = int.Parse(ctrl.Tag.ToString());
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new DomesticMarketFrame();
+            if (mainPane.Children.Count > 0) mainPane.Children.Clear();
+            mainPane.Children.Add(ancable);
         }
+
+        //打开策略页面
+        private void MenuItem_Click_Strategy(object sender, RoutedEventArgs e)
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new StrategyFrame();
+            if(mainPane.Children.Count>0) mainPane.Children.Clear();
+            mainPane.Children.Add(ancable);
+        }
+
+        //打开期权页面
+        private void MenuItem_Click_Option(object sender, RoutedEventArgs e)
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new OptionFrame();
+            if (mainPane.Children.Count > 0) mainPane.Children.Clear();
+            mainPane.Children.Add(ancable);
+        }
+
     }
 }
