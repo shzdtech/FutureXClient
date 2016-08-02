@@ -301,7 +301,7 @@ namespace Micro.Future.UI
             tradeFrame.executionPane.Children.Add(ancable);
         }
 
-        private void MenuItem_Click_Trade(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_AllTraded(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
             var tradeWin = new TradeRecordControl() { LayoutContent = ancable };
@@ -347,15 +347,33 @@ namespace Micro.Future.UI
             tradeFrame.otcMarketDataLV.OnQuoteSelected += fastOrderWindow.OnQuoteSelected;
             tradeFrame.positionsWindow.OnPositionSelected += fastOrderWindow.OnPositionSelected;
         }
-        
+
+        //打开盘内行情页面
+        private void MenuItem_Click_Trade(object sender, RoutedEventArgs e)
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new DomesticMarketFrame();
+            if (mainPane.Children.Count > 0) mainPane.Children.Clear();
+            mainPane.Children.Add(ancable);
+        }
+
+        //打开策略页面
         private void MenuItem_Click_Strategy(object sender, RoutedEventArgs e)
         {
             LayoutAnchorable ancable = new LayoutAnchorable();
             ancable.Content = new StrategyFrame();
-            mainPane.Children.Clear();
+            if(mainPane.Children.Count>0) mainPane.Children.Clear();
             mainPane.Children.Add(ancable);
         }
 
-       
+        //打开期权页面
+        private void MenuItem_Click_Option(object sender, RoutedEventArgs e)
+        {
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new OptionFrame();
+            if (mainPane.Children.Count > 0) mainPane.Children.Clear();
+            mainPane.Children.Add(ancable);
+        }
+
     }
 }
