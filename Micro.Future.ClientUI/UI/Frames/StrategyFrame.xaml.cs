@@ -28,6 +28,9 @@ namespace Micro.Future.UI
         {
             if (!DesignerProperties.GetIsInDesignMode(this))
                 InitializeComponent();
+            
         }
+
+        
     }
 }

@@ -94,7 +94,7 @@ namespace Micro.Future.UI
             if (obj.Role == RoleType.TradingDesk)
             {
                 this.userRole = 1;
-                mainPanel.AddContent(new StrategyFrame());
+                mainPane.AddContent(new StrategyFrame());
                 _ctpTradeSignIner = new PBSignInManager();
                 _ctpMdSignIner = new PBSignInManager();
                 _ctpMdSignIner.SignInOptions.UserName =
@@ -347,10 +347,13 @@ namespace Micro.Future.UI
             tradeFrame.otcMarketDataLV.OnQuoteSelected += fastOrderWindow.OnQuoteSelected;
             tradeFrame.positionsWindow.OnPositionSelected += fastOrderWindow.OnPositionSelected;
         }
-
+        
         private void MenuItem_Click_Strategy(object sender, RoutedEventArgs e)
         {
-           mainPanel.AddContent(new StrategyFrame().Content);
+            LayoutAnchorable ancable = new LayoutAnchorable();
+            ancable.Content = new StrategyFrame();
+            mainPane.Children.Clear();
+            mainPane.Children.Add(ancable);
         }
 
        

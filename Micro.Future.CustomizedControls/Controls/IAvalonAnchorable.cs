@@ -12,8 +12,7 @@ namespace Micro.Future.Controls
     {
         public static LayoutAnchorable AddContent(this LayoutAnchorablePane pane, object content)
         {
-            MessageBox.Show(pane.Children.Count.ToString());
-            if (pane.Children.Count > 0) pane.Children.Clear();
+
             var layoutAnchorable = new LayoutAnchorable();
             layoutAnchorable.Content = content;
             pane.Children.Add(layoutAnchorable);

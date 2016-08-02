@@ -110,7 +110,7 @@
             </avalonDock:DockingManager.Theme>
             <avalonDock:LayoutRoot>
                 <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*" CanRepositionItems="False">
-                    <avalonDock:LayoutAnchorablePane x:Name="mainPanel">
+                    <avalonDock:LayoutAnchorablePane x:Name="mainPane">
                         <avalonDock:LayoutAnchorable Title="{lex:Loc Key=TradingMarket}">
                             <c:DomesticMarketFrame x:Name="tradeFrame"/>
                         </avalonDock:LayoutAnchorable>
