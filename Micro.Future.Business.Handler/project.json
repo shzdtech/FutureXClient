@@ -11,7 +11,8 @@
   "licenseUrl": "",
   "dependencies": {
     "Google.Protobuf": "3.0.0-beta4",
-    "OxyPlot": "1.0.0-unstable2100"
+    "OxyPlot": "1.0.0-unstable2100",
+    "WpfLocalizeExtension": "2.3.2"
   },
   "frameworks": {
     "net451": {

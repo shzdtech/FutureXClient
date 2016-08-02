@@ -10,7 +10,8 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "log4net": "2.0.5"
+    "log4net": "2.0.5",
+    "WpfLocalizeExtension": "2.3.2"
   },
   "frameworks": {
     "net451": {}

@@ -193,7 +193,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ListView x:Name="price_greekLV" Grid.Column="0" Grid.Row="0">
+                    <ListView x:Name="price_greekLV" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="pVega" DisplayMemberBinding="{Binding pVega}"/>
