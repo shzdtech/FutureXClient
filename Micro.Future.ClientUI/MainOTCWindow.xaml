@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="{lex:Loc Key=TradingMarket}">
-                <MenuItem Header="{lex:Loc Key=TradingMarket}" MouseUp="RibbonTabHeader_Clicked"  Tag="0"/>
+                <MenuItem Header="{lex:Loc Key=TradingMarket}"/>
                 <MenuItem Header="内盘登录" Click="RibbonLogin_Click"/>
                 <MenuItem Header="外盘登陆" Click="RibbonLogin_Click"/>
                 <MenuItem Header="{lex:Loc Key=AddWindow}">
@@ -56,10 +56,10 @@
                 <MenuItem Header="{lex:Loc Key=OrderWindow}" Click="FastOrder_Click"/>
             </MenuItem>
             <MenuItem Header="{lex:Loc Key=TradingStrategy}">
-                <MenuItem Header="{lex:Loc Key=TradingStrategy}" Click="RibbonTabHeader_Clicked" Tag="1"/>
+                <MenuItem Header="{lex:Loc Key=TradingStrategy}" Click="MenuItem_Click_Strategy"/>
             </MenuItem>
             <MenuItem Header="{lex:Loc Key=TradingOption}">
-                <MenuItem Header="{lex:Loc Key=TradingOption}" Click="RibbonTabHeader_Clicked" Tag="2"/>
+                <MenuItem Header="{lex:Loc Key=TradingOption}" Click="MenuItem_Click_Strategy"/>
             </MenuItem>
         </Menu>
  
