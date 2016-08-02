@@ -30,7 +30,6 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             Title += " (" + MFUtilities.ClientVersion + ")";
-            
             Login();
             Initialize();
         }
@@ -213,7 +212,6 @@ namespace Micro.Future.UI
 
         private void _ctpTradeSignIner_OnLogged(IUserInfo obj)
         {
-            
             Thread.Sleep(2000);
             tradeFrame.clientFundLV.ReloadData();
             Thread.Sleep(2000);
