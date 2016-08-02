@@ -111,7 +111,7 @@ namespace Micro.Future.UI
 
             if (obj.Role == RoleType.Admin)
             {
-                this.userRole = 24;
+                this.userRole = 1024;
                 MessageBox.Show("You are login as Admin Role");
             }
 
