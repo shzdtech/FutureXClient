@@ -32,7 +32,6 @@ namespace Micro.Future.UI
             Title += " (" + MFUtilities.ClientVersion + ")";
             Initialize();
             Login();
-            
         }
 
         public void Initialize()
@@ -87,16 +86,14 @@ namespace Micro.Future.UI
 
         void _otcClientSignIner_OnLogged(IUserInfo obj)
         { 
+            RightDownStatus.Content = "欢迎" + obj.LastName + obj.FirstName;
+
             if (obj.Role == RoleType.Client)
-            {
-                this.userRole = 0;
-                RightDownStatus.Content = "欢迎OTC用户:" + obj.LastName + obj.FirstName;
-            }
+            { this.userRole = 0; }
 
             if (obj.Role == RoleType.TradingDesk)
             {
                 this.userRole = 1;
-                RightDownStatus.Content = "欢迎TD用户:" + obj.LastName + obj.FirstName;
                 mainPanel.AddContent(new StrategyFrame());
                 _ctpTradeSignIner = new PBSignInManager();
                 _ctpMdSignIner = new PBSignInManager();
@@ -114,8 +111,7 @@ namespace Micro.Future.UI
             if (obj.Role == RoleType.Admin)
             {
                 this.userRole = 24;
-                RightDownStatus.Content = "欢迎Admin用户:" + obj.LastName + obj.FirstName;
-                
+                MessageBox.Show("You are login as Admin Role");
             }
 
         }
