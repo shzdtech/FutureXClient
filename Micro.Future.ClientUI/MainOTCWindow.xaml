@@ -56,10 +56,10 @@
                 <MenuItem Header="{lex:Loc Key=OrderWindow}" Click="FastOrder_Click"/>
             </MenuItem>
             <MenuItem Header="{lex:Loc Key=TradingStrategy}">
-                <MenuItem Header="{lex:Loc Key=TradingStrategy}" MouseUp="RibbonTabHeader_Clicked" Tag="1"/>
+                <MenuItem Header="{lex:Loc Key=TradingStrategy}" Click="RibbonTabHeader_Clicked" Tag="1"/>
             </MenuItem>
             <MenuItem Header="{lex:Loc Key=TradingOption}">
-                <MenuItem Header="{lex:Loc Key=TradingOption}" MouseUp="RibbonTabHeader_Clicked" Tag="2"/>
+                <MenuItem Header="{lex:Loc Key=TradingOption}" Click="RibbonTabHeader_Clicked" Tag="2"/>
             </MenuItem>
         </Menu>
  

@@ -350,8 +350,14 @@ namespace Micro.Future.UI
 
         private void RibbonTabHeader_Clicked(object sender, RoutedEventArgs e)
         {
-            Control ctrl = sender as Control;
-            mainPanel.SelectedContentIndex = int.Parse(ctrl.Tag.ToString());
+            //Control ctrl = sender as Control;
+            //mainPanel.SelectedContentIndex = int.Parse(ctrl.Tag.ToString());
+
+
+            MessageBox.Show("Switch Farme");
+
         }
+
+       
     }
 }
