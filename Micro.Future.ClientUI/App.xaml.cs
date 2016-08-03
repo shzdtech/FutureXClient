@@ -24,11 +24,10 @@ namespace Micro.Future
         protected override void OnStartup(StartupEventArgs e)
         {
             MessageHandlerContainer.Register<AbstractOTCMarketDataHandler, OTCMDClientHandler>();
+            MessageHandlerContainer.Register<OTCMDTradingDeskHandler, OTCMDTradingDeskHandler>();
             MessageHandlerContainer.Register<MarketDataHandler, MarketDataHandler>();
             MessageHandlerContainer.Register<TraderExHandler, TraderExHandler>();
             MessageHandlerContainer.DefaultInstance.Refresh();
-
-            Config cfg = new Config(Settings.Default.ConfigFile);
 
             base.OnStartup(e);
         }

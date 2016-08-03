@@ -376,6 +376,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 内盘交易 的本地化字符串。
+        /// </summary>
+        internal static string DomesticTradingMarket {
+            get {
+                return ResourceManager.GetString("DomesticTradingMarket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 确定 的本地化字符串。
         /// </summary>
         internal static string Enter {
@@ -453,6 +462,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string FilterSettings {
             get {
                 return ResourceManager.GetString("FilterSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 外盘交易 的本地化字符串。
+        /// </summary>
+        internal static string ForeignTradingMarket {
+            get {
+                return ResourceManager.GetString("ForeignTradingMarket", resourceCulture);
             }
         }
         
@@ -1024,6 +1042,24 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 TradingDesk已经连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_TradingDesk_Connected {
+            get {
+                return ResourceManager.GetString("Server_TradingDesk_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 TradingDesk失去连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_TradingDesk_DisConnected {
+            get {
+                return ResourceManager.GetString("Server_TradingDesk_DisConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 结算编号 的本地化字符串。
         /// </summary>
         internal static string SettlementID {
@@ -1209,15 +1245,6 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string TradingDay {
             get {
                 return ResourceManager.GetString("TradingDay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 行情交易 的本地化字符串。
-        /// </summary>
-        internal static string TradingMarket {
-            get {
-                return ResourceManager.GetString("TradingMarket", resourceCulture);
             }
         }
         

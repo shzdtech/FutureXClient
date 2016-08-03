@@ -10,7 +10,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Xceed.Wpf.AvalonDock.Layout;
 using Micro.Future.Utility;
-using Micro.Future.Controls;
+using Micro.Future.CustomizedControls;
 
 namespace Micro.Future.UI
 {

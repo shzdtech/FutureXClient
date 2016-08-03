@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls.Ribbon;
 using Micro.Future.Message;
 using Micro.Future.Utility;
 using Micro.Future.Properties;
-using System.Threading;
-using Xceed.Wpf.AvalonDock.Layout;
+using System.Configuration;
 using System.Collections.Generic;
-using Micro.Future.Controls;
-using System.Windows.Controls;
+using Micro.Future.CustomizedControls;
 
 namespace Micro.Future.UI
 {
@@ -20,100 +17,58 @@ namespace Micro.Future.UI
         private const string CST_CONTROL_ASSEMBLY = "Micro.Future.Resources.Localization";
         private const string RESOURCE_FILE = "Resources";
         private Config _config = new Config(Settings.Default.ConfigFile);
-        private PBSignInManager _otcClientSignIner = new PBSignInManager();
-        private PBSignInManager _ctpTradeSignIner = null; // new PBSignInManager();
-        private PBSignInManager _ctpMdSignIner = null;   // new PBSignInManager();
+        private PBSignInManager _accountSignIner = new PBSignInManager();
+
         //Mark of initial window
-        private int userRole;
 
         public MainOTCWindow()
         {
             InitializeComponent();
             Title += " (" + MFUtilities.ClientVersion + ")";
-            Login();
             Initialize();
         }
 
         public void Initialize()
         {
-            var msgWrapper = _otcClientSignIner.MessageWrapper;
 
-            msgWrapper.MessageClient.OnDisconnected += OTCClient_OnDisconnected;
+            _accountSignIner.OnLoginError += OnErrorMessageRecv;
+            _accountSignIner.OnLogged += OnLogged;
 
-            _otcClientSignIner.OnLoginError += OnErrorMessageRecv;
-            _otcClientSignIner.OnLogged += _otcClientSignIner_OnLogged;
-
-            msgWrapper.MessageClient.OnDisconnected += loginStatus.OnDisconnected;
-            _otcClientSignIner.OnLogged += loginStatus.OnLogged;
-            _otcClientSignIner.OnLoginError += loginStatus.OnDisconnected;
-
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().RegisterMessageWrapper(msgWrapper);
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().OnError += OnErrorMessageRecv;
-
-
-            //判断用户角色是否需要链接如下行情
-            if(this.userRole == 1)
-            {
-                // Initialize Market Data
-                msgWrapper = _ctpMdSignIner.MessageWrapper;
-                msgWrapper.MessageClient.OnDisconnected += MD_OnDisconnected;
-
-                _ctpMdSignIner.OnLoginError += OnErrorMessageRecv;
-                _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
-                _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
-                msgWrapper.MessageClient.OnDisconnected += ctpLoginStatus.OnDisconnected;
-
-                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().RegisterMessageWrapper(msgWrapper);
-                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().OnError += OnErrorMessageRecv;
-
-                // Initialize Trading Server
-                msgWrapper = _ctpTradeSignIner.MessageWrapper;
-                msgWrapper.MessageClient.OnDisconnected += TD_OnDisconnected;
-
-                _ctpTradeSignIner.OnLoginError += OnErrorMessageRecv;
-                _ctpTradeSignIner.OnLogged += _ctpTradeSignIner_OnLogged;
-                _ctpTradeSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
-                _ctpTradeSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
-                msgWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
-
-                MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RegisterMessageWrapper(msgWrapper);
-                MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OnError += OnErrorMessageRecv;
-            }
-            
+            Login();
         }
 
 
 
-        void _otcClientSignIner_OnLogged(IUserInfo obj)
-        { 
-            RightDownStatus.Content = "欢迎" + obj.LastName + obj.FirstName;
-
-            if (obj.Role == RoleType.Client)
-            { this.userRole = 0; }
-
-            if (obj.Role == RoleType.TradingDesk)
+        void OnLogged(IUserInfo userInfo)
+        {
+            var roleType = userInfo.Role.ToString();
+            var frameDict = (Dictionary<string, IList<string>>)ConfigurationManager.GetSection("frames/roles");
+            IList<string> frames;
+            if (frameDict.TryGetValue(roleType, out frames))
             {
-                this.userRole = 1;
-                mainPane.AddContent(new StrategyFrame());
-                _ctpTradeSignIner = new PBSignInManager();
-                _ctpMdSignIner = new PBSignInManager();
-                _ctpMdSignIner.SignInOptions.UserName =
-                    _ctpTradeSignIner.SignInOptions.UserName =
-                    _otcClientSignIner.SignInOptions.UserName;
+                foreach (var frame in frames)
+                {
+                    var frameUI = Activator.CreateInstance(Type.GetType(frame)) as IUserFrame;
+                    if (frameUI != null)
+                    {
+                        mainPane.AddContent(frameUI).Title = frameUI.Title;
 
-                _ctpMdSignIner.SignInOptions.Password =
-                    _ctpTradeSignIner.SignInOptions.Password =
-                    _otcClientSignIner.SignInOptions.Password;
-                MDServerLogin();
-                TradingServerLogin();
+                        if (frameUI.FrameMenus != null)
+                        {
+                            foreach (var menuitem in frameUI.FrameMenus)
+                                mainMenu.Items.Add(menuitem);
+                        }
+
+                        if (frameUI.StatusBarItems != null)
+                        {
+                            foreach (var statusbaritem in frameUI.StatusBarItems)
+                                statusBar.Items.Add(statusbaritem);
+                        }
+
+                        frameUI.LoginAsync(_accountSignIner.SignInOptions.UserName, _accountSignIner.SignInOptions.Password);
+                    }
+                }
             }
-
-            if (obj.Role == RoleType.Admin)
-            {
-                this.userRole = 1024;
-                MessageBox.Show("You are login as Admin Role");
-            }
-
         }
 
         private void OnErrorMessageRecv(MessageException errRsult)
@@ -121,259 +76,19 @@ namespace Micro.Future.UI
             MessageBox.Show(this, errRsult.Message, WPFUtility.GetLocalizedString("Error", RESOURCE_FILE), MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        void OTCClient_OnDisconnected(Exception ex)
-        {
-            MessageBox.Show(this, WPFUtility.GetLocalizedString("ReConnect", RESOURCE_FILE), "服务器连接已断开", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
 
         private bool Login()
         {
-            LoginWindow loginWindow = new LoginWindow(_otcClientSignIner)
+            LoginWindow loginWindow = new LoginWindow(_accountSignIner)
             {
                 MD5Round = 2,
-                AddressCollection = _config.Content["OTCSERVER.ADDRESS"].Values
+                AddressCollection = _config.Content["ACCOUNTSERVER.ADDRESS"].Values
             };
 
-            loginWindow.ShowDialog();
+            if (!loginWindow.ShowDialog().Value)
+                Close();
 
             return true;
         }
-
-        void MD_OnDisconnected(Exception ex)
-        {
-            MessageBox.Show(this, "请点击状态栏中的连接按钮尝试重新连接", "行情服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        void TD_OnDisconnected(Exception ex)
-        {
-            MessageBox.Show(this, "请点击状态栏中的连接按钮尝试重新连接", "Trading服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        private void MDServerLogin()
-        {
-            if (!_ctpMdSignIner.MessageWrapper.HasSignIn)
-            {
-                var mdCfg = _config.Content["CTPMDSERVER"];
-                _ctpMdSignIner.SignInOptions.FrontServer = mdCfg["ADDRESS"];
-                //_ctpMdSignIner.SignInOptions.BrokerID = mdCfg["BROKERID"];
-                //if (!string.IsNullOrWhiteSpace(mdCfg["USERID"]))
-                //    _ctpMdSignIner.SignInOptions.UserName = mdCfg["USERID"];
-                //if (!string.IsNullOrWhiteSpace(mdCfg["PASSWORD"]))
-                //    _ctpMdSignIner.SignInOptions.Password = mdCfg["PASSWORD"];
-
-                ctpLoginStatus.Prompt = "正在连接CTP行情服务器...";
-                _ctpMdSignIner.SignIn();
-            }
-        }
-
-        private void TradingServerLogin()
-        {
-            if (!_ctpTradeSignIner.MessageWrapper.HasSignIn)
-            {
-                var tdCfg = _config.Content["CTPTRADESERVER"];
-                _ctpTradeSignIner.SignInOptions.FrontServer = tdCfg["ADDRESS"];
-                //_ctpTradeSignIner.SignInOptions.BrokerID = tdCfg["BROKERID"];
-                //if (!string.IsNullOrWhiteSpace(tdCfg["USERID"]))
-                //    _ctpTradeSignIner.SignInOptions.UserName = tdCfg["USERID"];
-                //if (!string.IsNullOrWhiteSpace(tdCfg["PASSWORD"]))
-                //    _ctpTradeSignIner.SignInOptions.Password = tdCfg["PASSWORD"];
-
-                ctpTradeLoginStatus.Prompt = "正在连接CTP交易服务器...";
-                _ctpTradeSignIner.SignIn();
-            }
-        }
-
-        private void RibbonLogin_Click(object sender, RoutedEventArgs e)
-        {
-            Login();
-        }
-
-        private void RibbonLogout_Click(object sender, RoutedEventArgs e)
-        {
-            Login();
-        }
-
-        private void loginStatus_OnConnButtonClick(object sender, EventArgs e)
-        {
-            Login();
-        }
-
-        private void ctpLoginStatus_OnConnButtonClick(object sender, EventArgs e)
-        {
-            MDServerLogin();
-        }
-
-        private void ctpTradingLoginStatus_OnConnButtonClick(object sender, EventArgs e)
-        {
-            TradingServerLogin();
-        }
-
-
-        private void _ctpTradeSignIner_OnLogged(IUserInfo obj)
-        {
-            Thread.Sleep(2000);
-            tradeFrame.clientFundLV.ReloadData();
-            Thread.Sleep(2000);
-            tradeFrame.positionsWindow.ReloadData();
-            Thread.Sleep(2000);
-            tradeFrame.tradeWindow.ReloadData();
-            Thread.Sleep(2000);
-            tradeFrame.executionWindow.ReloadData();
-
-        }
-
-        private void MenuItem_Click_Contract(object sender, RoutedEventArgs e)
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            var quoteGrpVw = new MarketDataControl() { LayoutContent = ancable };
-            ancable.Content = quoteGrpVw;
-            ancable.Title = WPFUtility.GetLocalizedString("Optional", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            tradeFrame.quotePane.Children.Add(ancable);
-        }
-
-        private void MenuItem_Click_ZhongJin(object sender, RoutedEventArgs e)
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            var quoteGrpVw = new MarketDataControl() { LayoutContent = ancable };
-            quoteGrpVw.Filter("CFFEX", "", "");
-            ancable.Content = quoteGrpVw;
-            ancable.Title = WPFUtility.GetLocalizedString("CFFEX", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            tradeFrame.quotePane.Children.Add(ancable);
-        }
-
-        private void MenuItem_Click_ShangHai(object sender, RoutedEventArgs e)
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            var quoteGrpVw = new MarketDataControl() { LayoutContent = ancable };
-            quoteGrpVw.Filter("SHFE", "", "");
-            ancable.Content = quoteGrpVw;
-            ancable.Title = WPFUtility.GetLocalizedString("SHFE", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            tradeFrame.quotePane.Children.Add(ancable);
-        }
-
-        private void MenuItem_Click_DaLian(object sender, RoutedEventArgs e)
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            var quoteGrpVw = new MarketDataControl() { LayoutContent = ancable };
-            quoteGrpVw.Filter("DCE", "", "");
-            ancable.Content = quoteGrpVw;
-            ancable.Title = WPFUtility.GetLocalizedString("DCE", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            tradeFrame.quotePane.Children.Add(ancable);
-        }
-
-        private void MenuItem_Click_ZhengZhou(object sender, RoutedEventArgs e)
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            var quoteGrpVw = new MarketDataControl() { LayoutContent = ancable };
-            quoteGrpVw.Filter("CZCE", "", "");
-            ancable.Content = quoteGrpVw;
-            ancable.Title = WPFUtility.GetLocalizedString("CZCE", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            tradeFrame.quotePane.Children.Add(ancable);
-        }
-
-        private void MenuItem_Click_Execution(object sender, RoutedEventArgs e)
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            var executionWin = new ExecutionControl() { LayoutContent = ancable };
-            ancable.Content = executionWin;
-            ancable.Title = WPFUtility.GetLocalizedString("AllExecution", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            tradeFrame.executionPane.Children.Add(ancable);
-        }
-
-        private void MenuItem_Click_Opening(object sender, RoutedEventArgs e)
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            var executionWin = new ExecutionControl() { LayoutContent = ancable };
-            ancable.Content = executionWin;
-            executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENNING, OrderStatus.PARTIAL_TRADED, OrderStatus.PARTIAL_TRADING });
-            ancable.Title = WPFUtility.GetLocalizedString("Opening", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            tradeFrame.executionPane.Children.Add(ancable);
-        }
-
-        private void MenuItem_Click_Traded(object sender, RoutedEventArgs e)
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            var executionWin = new ExecutionControl() { LayoutContent = ancable };
-            ancable.Content = executionWin;
-            executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED });
-            ancable.Title = WPFUtility.GetLocalizedString("Traded", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            tradeFrame.executionPane.Children.Add(ancable);
-        }
-
-        private void MenuItem_Click_AllTraded(object sender, RoutedEventArgs e)
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            var tradeWin = new TradeRecordControl() { LayoutContent = ancable };
-            ancable.Content = tradeWin;
-            ancable.Title = WPFUtility.GetLocalizedString("AllTraded", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            tradeFrame.tradePane.Children.Add(ancable);
-        }
-
-        private void MenuItem_Click_Open(object sender, RoutedEventArgs e)
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            var tradeWin = new TradeRecordControl() { LayoutContent = ancable };
-            ancable.Content = tradeWin;
-            tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.OPEN });
-            ancable.Title = WPFUtility.GetLocalizedString("Open", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            tradeFrame.tradePane.Children.Add(ancable);
-        }
-
-        private void MenuItem_Click_Close(object sender, RoutedEventArgs e)
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            var tradeWin = new TradeRecordControl() { LayoutContent = ancable };
-            ancable.Content = tradeWin;
-            tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.CLOSE });
-            ancable.Title = WPFUtility.GetLocalizedString("Close", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            tradeFrame.tradePane.Children.Add(ancable);
-        }
-
-        private void MenuItem_Click_Position(object sender, RoutedEventArgs e)
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            var positionWin = new PositionControl() { LayoutContent = ancable };
-            ancable.Content = positionWin;
-            ancable.Title = WPFUtility.GetLocalizedString("Position", RESOURCE_FILE, CST_CONTROL_ASSEMBLY);
-            tradeFrame.positionPane.Children.Add(ancable);
-        }
-
-
-        private void FastOrder_Click(object sender, RoutedEventArgs e)
-        {
-            FastOrderWin fastOrderWindow = new FastOrderWin();
-            fastOrderWindow.Show();
-            tradeFrame.otcMarketDataLV.OnQuoteSelected += fastOrderWindow.OnQuoteSelected;
-            tradeFrame.positionsWindow.OnPositionSelected += fastOrderWindow.OnPositionSelected;
-        }
-
-        //打开盘内行情页面
-        private void MenuItem_Click_Trade(object sender, RoutedEventArgs e)
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            ancable.Content = new DomesticMarketFrame();
-            if (mainPane.Children.Count > 0) mainPane.Children.Clear();
-            mainPane.Children.Add(ancable);
-        }
-
-        //打开策略页面
-        private void MenuItem_Click_Strategy(object sender, RoutedEventArgs e)
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            ancable.Content = new StrategyFrame();
-            if(mainPane.Children.Count>0) mainPane.Children.Clear();
-            mainPane.Children.Add(ancable);
-        }
-
-        //打开期权页面
-        private void MenuItem_Click_Option(object sender, RoutedEventArgs e)
-        {
-            LayoutAnchorable ancable = new LayoutAnchorable();
-            ancable.Content = new OptionFrame();
-            if (mainPane.Children.Count > 0) mainPane.Children.Clear();
-            mainPane.Children.Add(ancable);
-        }
-
     }
 }

@@ -1,4 +1,4 @@
-﻿using Micro.Future.Controls;
+﻿using Micro.Future.CustomizedControls;
 using Micro.Future.Message;
 using Micro.Future.ViewModel;
 using System;
@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -22,12 +23,41 @@ namespace Micro.Future.UI
     /// <summary>
     /// ClientOptionWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class OptionFrame : UserControl
+    public partial class OptionFrame : UserControl, IUserFrame
     {
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private ColumnObject[] mColumns;
 
+        public IEnumerable<MenuItem> FrameMenus
+        {
+            get
+            {
+                return null;
+            }
+        }
 
+
+        public string Title
+        {
+            get
+            {
+                return "Options";
+            }
+        }
+
+
+        public IEnumerable<StatusBarItem> StatusBarItems
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        public void LoginAsync(string usernname, string password)
+        {
+
+        }
 
         public OptionVM OptionVM
         {

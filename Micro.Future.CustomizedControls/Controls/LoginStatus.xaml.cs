@@ -4,7 +4,7 @@ using System;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Micro.Future.Controls
+namespace Micro.Future.CustomizedControls
 {
     /// <summary>
     /// LoginStatus.xaml 的交互逻辑

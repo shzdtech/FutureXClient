@@ -213,9 +213,6 @@
   <data name="FilterSettings" xml:space="preserve">
     <value>FilterSettings</value>
   </data>
-  <data name="TradingMarket" xml:space="preserve">
-    <value>TradingMarket</value>
-  </data>
   <data name="Fund" xml:space="preserve">
     <value>Fund</value>
   </data>
@@ -548,5 +545,17 @@
   </data>
   <data name="LogOut" xml:space="preserve">
     <value>LogOut</value>
+  </data>
+  <data name="DomesticTradingMarket" xml:space="preserve">
+    <value>China Market</value>
+  </data>
+  <data name="ForgeinTradingMarket" xml:space="preserve">
+    <value>Forgein Market</value>
+  </data>
+  <data name="Server_TradingDesk_Connected" xml:space="preserve">
+    <value>TradingDesk Disconnected</value>
+  </data>
+  <data name="Server_TradingDesk_DisConnected" xml:space="preserve">
+    <value>TradingDesk Connected</value>
   </data>
 </root>
