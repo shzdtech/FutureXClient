@@ -1,15 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using Xceed.Wpf.AvalonDock.Layout;
 using Micro.Future.Message;
 using System.ComponentModel;
 using System.Windows.Controls;
 using Micro.Future.CustomizedControls;
 using System;
 using System.Windows.Controls.Primitives;
-using System.Threading;
-using Micro.Future.Utility;
-using Micro.Future.Properties;
 using Micro.Future.Resources.Localization;
 
 namespace Micro.Future.UI
@@ -19,10 +15,8 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class DomesticMarketFrame : UserControl, IUserFrame
     {
-        private Config _config = new Config(Settings.Default.ConfigFile);
-
-        private PBSignInManager _ctpTradeSignIner = new PBSignInManager();
-        private PBSignInManager _ctpMdSignIner = new PBSignInManager();
+        private AbstractSignInManager _ctpMdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<MarketDataHandler>());
+        private AbstractSignInManager _ctpTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<TraderExHandler>());
 
 
         public string Title
@@ -69,7 +63,6 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
-
             // Initialize Market Data
             var msgWrapper = _ctpMdSignIner.MessageWrapper;
             msgWrapper.MessageClient.OnDisconnected += MD_OnDisconnected;
@@ -116,8 +109,6 @@ namespace Micro.Future.UI
         {
             if (!_ctpMdSignIner.MessageWrapper.HasSignIn)
             {
-                var mdCfg = _config.Content["CTPMDSERVER"];
-                _ctpMdSignIner.SignInOptions.FrontServer = mdCfg["ADDRESS"];
                 ctpLoginStatus.Prompt = "正在连接CTP行情服务器...";
                 _ctpMdSignIner.SignIn();
             }
@@ -127,8 +118,6 @@ namespace Micro.Future.UI
         {
             if (!_ctpTradeSignIner.MessageWrapper.HasSignIn)
             {
-                var tdCfg = _config.Content["CTPTRADESERVER"];
-                _ctpTradeSignIner.SignInOptions.FrontServer = tdCfg["ADDRESS"];
                 ctpTradeLoginStatus.Prompt = "正在连接CTP交易服务器...";
                 _ctpTradeSignIner.SignIn();
             }

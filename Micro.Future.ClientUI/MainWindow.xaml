@@ -12,8 +12,7 @@
                 WindowStartupLocation="CenterScreen" WindowState="Maximized"
                 Icon="/Micro.Future.ClientUI;component/Images/Logo.png"
                 Name="clientMainWindow"
-                Title="U.F.O."
-          >
+                Title="U.F.O.">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -23,7 +22,7 @@
         <Menu x:Name="mainMenu" Grid.Row="0" IsMainMenu="True">
         </Menu>
 
-        <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1" Grid.ColumnSpan="4" >
+        <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1">
             <avalonDock:DockingManager.Theme>
                 <avalonDock:GenericTheme/>
             </avalonDock:DockingManager.Theme>

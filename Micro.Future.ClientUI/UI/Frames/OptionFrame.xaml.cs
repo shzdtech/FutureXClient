@@ -1,5 +1,6 @@
 ﻿using Micro.Future.CustomizedControls;
 using Micro.Future.Message;
+using Micro.Future.Resources.Localization;
 using Micro.Future.ViewModel;
 using System;
 using System.Collections;
@@ -25,38 +26,77 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OptionFrame : UserControl, IUserFrame
     {
+        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCMDTradingDeskHandler>());
+
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private ColumnObject[] mColumns;
-
-        public IEnumerable<MenuItem> FrameMenus
-        {
-            get
-            {
-                return null;
-            }
-        }
-
 
         public string Title
         {
             get
             {
-                return "Options";
+                return frameMenu.Header.ToString();
             }
         }
 
+
+        public IEnumerable<MenuItem> FrameMenus
+        {
+            get
+            {
+                return Resources["exOptionMenuItems"] as IEnumerable<MenuItem>;
+            }
+        }
 
         public IEnumerable<StatusBarItem> StatusBarItems
         {
             get
             {
-                return null;
+                return Resources["exOptionStatusBarItems"] as IEnumerable<StatusBarItem>;
             }
         }
 
         public void LoginAsync(string usernname, string password)
         {
+            _tdSignIner.SignInOptions.UserName = usernname;
+            _tdSignIner.SignInOptions.Password = password;
+        }
 
+        public void Initialize()
+        {
+
+            // Initialize Market Data
+            var msgWrapper = _tdSignIner.MessageWrapper;
+            msgWrapper.MessageClient.OnDisconnected += TD_OnDisconnected;
+
+            _tdSignIner.OnLoginError += OnErrorMessageRecv;
+            _tdSignIner.OnLogged += OptionLoginStatus.OnLogged;
+            _tdSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
+            msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
+
+            MessageHandlerContainer.DefaultInstance.Get<OTCMDTradingDeskHandler>().RegisterMessageWrapper(msgWrapper);
+            MessageHandlerContainer.DefaultInstance.Get<OTCMDTradingDeskHandler>().OnError += OnErrorMessageRecv;
+
+            TDServerLogin();
+        }
+
+        private void OnErrorMessageRecv(MessageException errRsult)
+        {
+            MessageBox.Show(errRsult.Message, WPFUtility.GetLocalizedString("Error", LocalizationInfo.ResourceFile), MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        void TD_OnDisconnected(Exception ex)
+        {
+            MessageBox.Show("请点击状态栏中的连接按钮尝试重新连接", "TradingDesk服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void TDServerLogin()
+        {
+            if (!_tdSignIner.MessageWrapper.HasSignIn)
+            {
+                OptionLoginStatus.Prompt = "正在连接TradingDesk服务器...";
+                _tdSignIner.SignIn();
+            }
         }
 
         public OptionVM OptionVM
@@ -69,6 +109,8 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
 
+            Initialize();
+
             StrikePricePanel.DataContext = new NumericalSimVM();
             VolatilityPanel.DataContext = new OptionVM();
             VolatilityPanel1.DataContext = new OptionVM();
@@ -76,7 +118,7 @@ namespace Micro.Future.UI
             volatilityLV.DataContext = new VolatilityVM();
             positionLV.DataContext = new PositionVM();
             riskLV.DataContext = new RiskVM();
-           
+
             mColumns = ColumnObject.GetColumns(listView_numSim);
         }
 
@@ -98,7 +140,7 @@ namespace Micro.Future.UI
             }
         }
 
-        
+
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

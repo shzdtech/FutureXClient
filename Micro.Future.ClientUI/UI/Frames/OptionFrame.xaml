@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="Micro.Future.UI.OptionFrame"
+      xmlns:Controls="clr-namespace:Micro.Future.CustomizedControls;assembly=Micro.Future.CustomizedControls"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,8 +7,24 @@
       xmlns:local="clr-namespace:Micro.Future.UI"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:oxy="http://oxyplot.org/wpf"
+      xmlns:lex="http://wpflocalizeextension.codeplex.com" 
+      lex:LocalizeDictionary.DesignCulture="zh_CN"
+      lex:LocalizeDictionary.OutputMissingKeys="True"
+      lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+      lex:ResxLocalizationProvider.DefaultDictionary="Resources"
       mc:Ignorable="d" d:DesignWidth="800">
+    <UserControl.Resources>
+        <x:Array Type="{x:Type MenuItem}" x:Key="exOptionMenuItems">
+            <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=TradingOption}">
 
+            </MenuItem>
+        </x:Array>
+        <x:Array Type="{x:Type StatusBarItem}" x:Key="exOptionStatusBarItems">
+            <StatusBarItem>
+                <Controls:LoginStatus x:Name="OptionLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OptionServer_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OptionServer_DisConnected}" Connected="False"/>
+            </StatusBarItem>
+        </x:Array>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />

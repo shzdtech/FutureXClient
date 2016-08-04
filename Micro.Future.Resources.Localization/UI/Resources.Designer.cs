@@ -1024,6 +1024,24 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 期权服务器已经连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OptionServer_Connected {
+            get {
+                return ResourceManager.GetString("Server_OptionServer_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 期权服务器失去连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OptionServer_DisConnected {
+            get {
+                return ResourceManager.GetString("Server_OptionServer_DisConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 OTC服务器已连接 的本地化字符串。
         /// </summary>
         internal static string Server_OTC_Connected {

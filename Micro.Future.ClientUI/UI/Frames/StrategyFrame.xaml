@@ -6,7 +6,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:c="clr-namespace:Micro.Future.UI"
-      xmlns:data="clr-namespace:Micro.Future.ViewModel" 
       xmlns:lex="http://wpflocalizeextension.codeplex.com" 
       lex:LocalizeDictionary.DesignCulture="zh_CN"
       lex:LocalizeDictionary.OutputMissingKeys="True"

@@ -1,8 +1,6 @@
 ﻿using Micro.Future.CustomizedControls;
 using Micro.Future.Message;
-using Micro.Future.Properties;
 using Micro.Future.Resources.Localization;
-using Micro.Future.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,8 +16,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class StrategyFrame : UserControl, IUserFrame
     {
-        private Config _config = new Config(Settings.Default.ConfigFile);
-        private PBSignInManager _tdSignIner = new PBSignInManager();
+        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCMDTradingDeskHandler>());
 
         public StrategyFrame()
         {
@@ -28,8 +25,6 @@ namespace Micro.Future.UI
                 InitializeComponent();
                 Initialize();
             }
-
-
         }
 
 
@@ -96,8 +91,6 @@ namespace Micro.Future.UI
         {
             if (!_tdSignIner.MessageWrapper.HasSignIn)
             {
-                var mdCfg = _config.Content["OTCTDSERVER"];
-                _tdSignIner.SignInOptions.FrontServer = mdCfg["ADDRESS"];
                 TdLoginStatus.Prompt = "正在连接TradingDesk服务器...";
                 _tdSignIner.SignIn();
             }
