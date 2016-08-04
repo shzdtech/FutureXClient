@@ -6,22 +6,19 @@ using Micro.Future.Properties;
 using System.Configuration;
 using System.Collections.Generic;
 using Micro.Future.CustomizedControls;
+using Micro.Future.Resources.Localization;
 
 namespace Micro.Future.UI
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainOTCWindow : Window
+    public partial class MainWindow : Window
     {
-        private const string CST_CONTROL_ASSEMBLY = "Micro.Future.Resources.Localization";
-        private const string RESOURCE_FILE = "Resources";
         private Config _config = new Config(Settings.Default.ConfigFile);
         private PBSignInManager _accountSignIner = new PBSignInManager();
 
-        //Mark of initial window
-
-        public MainOTCWindow()
+        public MainWindow()
         {
             InitializeComponent();
             Title += " (" + MFUtilities.ClientVersion + ")";
@@ -36,7 +33,6 @@ namespace Micro.Future.UI
 
             Login();
         }
-
 
 
         void OnLogged(IUserInfo userInfo)
@@ -73,11 +69,11 @@ namespace Micro.Future.UI
 
         private void OnErrorMessageRecv(MessageException errRsult)
         {
-            MessageBox.Show(this, errRsult.Message, WPFUtility.GetLocalizedString("Error", RESOURCE_FILE), MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(this, errRsult.Message, WPFUtility.GetLocalizedString("Error", LocalizationInfo.ResourceFile), MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
 
-        private bool Login()
+        private void Login()
         {
             LoginWindow loginWindow = new LoginWindow(_accountSignIner)
             {
@@ -87,8 +83,6 @@ namespace Micro.Future.UI
 
             if (!loginWindow.ShowDialog().Value)
                 Close();
-
-            return true;
         }
     }
 }

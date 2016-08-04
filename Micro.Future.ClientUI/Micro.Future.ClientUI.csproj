@@ -95,8 +95,8 @@
     <Compile Include="UI\ForeignControls\ForeignFastOrderWindow.xaml.cs">
       <DependentUpon>ForeignFastOrderWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainOTCWindow.xaml.cs">
-      <DependentUpon>MainOTCWindow.xaml</DependentUpon>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\DomesticControls\MarketDataControl.xaml.cs">
       <DependentUpon>MarketDataControl.xaml</DependentUpon>
@@ -245,7 +245,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainOTCWindow.xaml">
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
