@@ -28,9 +28,6 @@
         </x:Array>
     </UserControl.Resources>
     <avalonDock:DockingManager x:Name="dockingManager">
-        <avalonDock:DockingManager.Theme>
-            <avalonDock:VS2010Theme/>
-        </avalonDock:DockingManager.Theme>
         <avalonDock:LayoutRoot>
             <avalonDock:LayoutPanel Orientation="Vertical">
                 <avalonDock:LayoutPanel DockWidth="Auto" DockHeight="Auto" >

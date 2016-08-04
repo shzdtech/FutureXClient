@@ -5,6 +5,7 @@ using Micro.Future.ViewModel;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -107,9 +108,11 @@ namespace Micro.Future.UI
 
         public OptionFrame()
         {
-            InitializeComponent();
-
-            Initialize();
+            if (!DesignerProperties.GetIsInDesignMode(this))
+            {
+                InitializeComponent();
+                Initialize();
+            }
 
             StrikePricePanel.DataContext = new NumericalSimVM();
             VolatilityPanel.DataContext = new OptionVM();
