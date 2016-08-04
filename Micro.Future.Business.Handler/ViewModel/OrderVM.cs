@@ -33,6 +33,17 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private int _sessionID;
+        public int SessionID
+        {
+            get { return _sessionID; }
+            set
+            {
+                _sessionID = value;
+                OnPropertyChanged("SessionID");
+            }
+        }
+
         private DirectionType _direction;
         public DirectionType Direction
         {

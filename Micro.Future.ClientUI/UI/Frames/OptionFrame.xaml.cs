@@ -68,7 +68,6 @@ namespace Micro.Future.UI
 
             // Initialize Market Data
             var msgWrapper = _tdSignIner.MessageWrapper;
-            msgWrapper.MessageClient.OnDisconnected += TD_OnDisconnected;
 
             _tdSignIner.OnLoginError += OnErrorMessageRecv;
             _tdSignIner.OnLogged += OptionLoginStatus.OnLogged;
@@ -84,11 +83,6 @@ namespace Micro.Future.UI
         private void OnErrorMessageRecv(MessageException errRsult)
         {
             MessageBox.Show(errRsult.Message, WPFUtility.GetLocalizedString("Error", LocalizationInfo.ResourceFile), MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
-        void TD_OnDisconnected(Exception ex)
-        {
-            MessageBox.Show("请点击状态栏中的连接按钮尝试重新连接", "TradingDesk服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void TDServerLogin()

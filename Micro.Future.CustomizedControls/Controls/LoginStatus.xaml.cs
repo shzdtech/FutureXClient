@@ -1,6 +1,7 @@
 ﻿using Micro.Future.Utility;
 using Micro.Future.ViewModel;
 using System;
+using System.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -25,10 +26,15 @@ namespace Micro.Future.CustomizedControls
             statusIcon.MouseLeftButtonUp += StatusIcon_MouseLeftButtonUp;
         }
 
+        public SystemSound DisconnectSound
+        {
+            get;
+            set;
+        } = SystemSounds.Exclamation;
+
         private void StatusIcon_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (OnConnButtonClick != null)
-                OnConnButtonClick(sender, e);
+            OnConnButtonClick?.Invoke(sender, e);
         }
 
         public object ConnectedPrompt
@@ -93,6 +99,7 @@ namespace Micro.Future.CustomizedControls
             if(obj != null)
             {
                 Connected = false;
+                DisconnectSound?.Play();
             }
         }
     }

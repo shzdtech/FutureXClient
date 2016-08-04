@@ -65,8 +65,7 @@ namespace Micro.Future.UI
         {
             // Initialize Market Data
             var msgWrapper = _ctpMdSignIner.MessageWrapper;
-            msgWrapper.MessageClient.OnDisconnected += MD_OnDisconnected;
-
+            
             _ctpMdSignIner.OnLoginError += OnErrorMessageRecv;
             _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
             _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
@@ -77,7 +76,6 @@ namespace Micro.Future.UI
 
             // Initialize Trading Server
             msgWrapper = _ctpTradeSignIner.MessageWrapper;
-            msgWrapper.MessageClient.OnDisconnected += TD_OnDisconnected;
 
             _ctpTradeSignIner.OnLoginError += OnErrorMessageRecv;
             _ctpTradeSignIner.OnLogged += _ctpTradeSignIner_OnLogged;
@@ -92,17 +90,7 @@ namespace Micro.Future.UI
 
         private void OnErrorMessageRecv(MessageException errRsult)
         {
-            MessageBox.Show(errRsult.Message, WPFUtility.GetLocalizedString("Error", LocalizationInfo.ResourceFile), MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
-        void MD_OnDisconnected(Exception ex)
-        {
-            MessageBox.Show("请点击状态栏中的连接按钮尝试重新连接", "行情服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        void TD_OnDisconnected(Exception ex)
-        {
-            MessageBox.Show("请点击状态栏中的连接按钮尝试重新连接", "Trading服务器失去连接", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(Application.Current.MainWindow, errRsult.Message, WPFUtility.GetLocalizedString("Error", LocalizationInfo.ResourceFile), MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void MarketDataServerLogin()

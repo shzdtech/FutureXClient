@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Micro.Future.Utility;
-using System.Windows.Threading;
 using Micro.Future.ViewModel;
-using Micro.Future.Message;
 using Micro.Future.Message.Business;
 using System.Collections.ObjectModel;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
-using System.Reflection;
-using System.IO;
 
 namespace Micro.Future.Message
 {
@@ -74,6 +68,8 @@ namespace Micro.Future.Message
                 ((uint)BusinessMessageID.MSG_ID_TRADE_RTN, OnReturnTrade, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, OnCancel, ErrorMsgAction);
+            MessageWrapper.RegisterAction<PBPosition, ExceptionMessage>
+               ((uint)BusinessMessageID.MSG_ID_POSITION_UPDATED, OnPosition, ErrorMsgAction);
             //MessageWrapper.RegisterAction<PBOptionInfo, ExceptionMessage>
             //    ((uint)BusinessMessageID.MSG_ID_OPTION_UPDATE, OnUpdateOption, ErrorMsgAction);
         }
@@ -309,6 +305,7 @@ namespace Micro.Future.Message
                         {
                             OrderID = rsp.OrderID,
                             OrderSysID = rsp.OrderSysID,
+                            SessionID = rsp.SessionID,
                             Direction = (DirectionType)rsp.Direction,
                             LimitPrice = rsp.LimitPrice,
                             Volume = rsp.Volume,
@@ -333,9 +330,6 @@ namespace Micro.Future.Message
                 }
             }
         }
-        //                ExecutionVMCollection.Dispatcher.Invoke
-        //                    (new Action<PBMsgTrader.PBMsgOrderRtn, string>(ExecutionVMCollection.Update),
-        //                      rsp, rsp.ExchangeID); 
 
 
         private void OnUpdateOrder(PBOrderInfo rsp)
@@ -346,7 +340,7 @@ namespace Micro.Future.Message
                 {
                     foreach (var order in OrderVMCollection)
                     {
-                        if (order.OrderID == rsp.OrderID)
+                        if (order.SessionID == rsp.SessionID && order.OrderID == rsp.OrderID)
                         {
                             order.Status = (OrderStatus)rsp.OrderStatus;
                             order.OrderSysID = rsp.OrderSysID;
@@ -357,6 +351,7 @@ namespace Micro.Future.Message
                 }
             }
         }
+
         private void OnQueryTrade(PBTradeInfo rsp)
         {
             if (TradeVMCollection != null)
