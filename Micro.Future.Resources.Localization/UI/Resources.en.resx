@@ -520,22 +520,22 @@
     <value>Open</value>
   </data>
   <data name="Server_CTP_MD_Connected" xml:space="preserve">
-    <value>CTP Market Data Server</value>
+    <value>CTP MarketData Connected</value>
   </data>
   <data name="Server_CTP_MD_Unconnected" xml:space="preserve">
-    <value>CTP Market Data Server</value>
+    <value>CTP MarketData Disconnected</value>
   </data>
   <data name="Server_CTP_TD_Connected" xml:space="preserve">
-    <value>CTP Trading Server</value>
+    <value>CTP Trading Connected</value>
   </data>
   <data name="Server_CTP_TD_Unconnected" xml:space="preserve">
-    <value>CTP Trading Server</value>
+    <value>CTP Trading Disconnected</value>
   </data>
   <data name="Server_OTC_Connected" xml:space="preserve">
-    <value>OTC Server</value>
+    <value>OTC Server Connected</value>
   </data>
   <data name="Server_OTC_Unconnected" xml:space="preserve">
-    <value>OTC Server</value>
+    <value>OTC Server Disonnected</value>
   </data>
   <data name="TradingStrategy" xml:space="preserve">
     <value>TradingStrategy</value>

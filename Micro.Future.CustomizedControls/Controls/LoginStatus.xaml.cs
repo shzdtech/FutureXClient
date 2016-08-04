@@ -23,7 +23,12 @@ namespace Micro.Future.CustomizedControls
 
             Connected = false;
 
-            statusIcon.MouseLeftButtonUp += StatusIcon_MouseLeftButtonUp;
+            MouseUp += LoginStatus_MouseUp;
+        }
+
+        private void LoginStatus_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            OnConnButtonClick?.Invoke(sender, e);
         }
 
         public SystemSound DisconnectSound
@@ -32,10 +37,6 @@ namespace Micro.Future.CustomizedControls
             set;
         } = SystemSounds.Exclamation;
 
-        private void StatusIcon_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            OnConnButtonClick?.Invoke(sender, e);
-        }
 
         public object ConnectedPrompt
         {
@@ -94,6 +95,7 @@ namespace Micro.Future.CustomizedControls
         {
             Connected = true;
         }
+
         public void OnDisconnected(object obj)
         {
             if(obj != null)

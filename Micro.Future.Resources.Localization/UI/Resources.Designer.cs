@@ -1024,7 +1024,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 期权服务器已经连接 的本地化字符串。
+        ///   查找类似 期权服务器已连接 的本地化字符串。
         /// </summary>
         internal static string Server_OptionServer_Connected {
             get {
@@ -1033,7 +1033,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 期权服务器失去连接 的本地化字符串。
+        ///   查找类似 期权服务器未连接 的本地化字符串。
         /// </summary>
         internal static string Server_OptionServer_DisConnected {
             get {
@@ -1060,7 +1060,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 TradingDesk已经连接 的本地化字符串。
+        ///   查找类似 TradingDesk已连接 的本地化字符串。
         /// </summary>
         internal static string Server_TradingDesk_Connected {
             get {
@@ -1069,7 +1069,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 TradingDesk失去连接 的本地化字符串。
+        ///   查找类似 TradingDesk未连接 的本地化字符串。
         /// </summary>
         internal static string Server_TradingDesk_DisConnected {
             get {

@@ -553,15 +553,15 @@
     <value>外盘交易</value>
   </data>
   <data name="Server_TradingDesk_Connected" xml:space="preserve">
-    <value>TradingDesk已经连接</value>
+    <value>TradingDesk已连接</value>
   </data>
   <data name="Server_TradingDesk_DisConnected" xml:space="preserve">
-    <value>TradingDesk失去连接</value>
+    <value>TradingDesk未连接</value>
   </data>
   <data name="Server_OptionServer_Connected" xml:space="preserve">
-    <value>期权服务器已经连接</value>
+    <value>期权服务器已连接</value>
   </data>
   <data name="Server_OptionServer_DisConnected" xml:space="preserve">
-    <value>期权服务器失去连接</value>
+    <value>期权服务器未连接</value>
   </data>
 </root>
