@@ -181,6 +181,11 @@ namespace Micro.Future.UI
                 }
             }
         }
+
+        private void OptionLoginStatus_OnConnButtonClick(object sender, EventArgs e)
+        {
+            TDServerLogin();
+        }
     }
 }
 

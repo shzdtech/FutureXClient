@@ -89,5 +89,10 @@ namespace Micro.Future.UI
                 _tdSignIner.SignIn();
             }
         }
+
+        private void TdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
+        {
+            TDServerLogin();
+        }
     }
 }
