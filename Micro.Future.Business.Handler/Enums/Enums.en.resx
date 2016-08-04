@@ -169,7 +169,7 @@
     <value>Cancel Rejected</value>
   </data>
   <data name="OrderStatus_OPENNING" xml:space="preserve">
-    <value>Openning</value>
+    <value>Submitted</value>
   </data>
   <data name="OrderStatus_OPEN_REJECTED" xml:space="preserve">
     <value>Open Rejected</value>

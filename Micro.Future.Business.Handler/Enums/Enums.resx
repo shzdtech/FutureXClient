@@ -166,7 +166,7 @@
     <value>撤销失败</value>
   </data>
   <data name="OrderStatus_OPENNING" xml:space="preserve">
-    <value>开仓提交中</value>
+    <value>已提交</value>
   </data>
   <data name="OrderStatus_OPEN_REJECTED" xml:space="preserve">
     <value>开仓被拒绝</value>

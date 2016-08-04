@@ -241,7 +241,7 @@ namespace Micro.Future.Business.Handler.Enums {
         }
         
         /// <summary>
-        ///   查找类似 开仓提交中 的本地化字符串。
+        ///   查找类似 已提交 的本地化字符串。
         /// </summary>
         internal static string OrderStatus_OPENNING {
             get {

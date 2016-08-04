@@ -292,7 +292,8 @@ namespace Micro.Future.Message
 
                     foreach (var order in OrderVMCollection)
                     {
-                        if (order.OrderID == rsp.OrderID)
+                        if ((rsp.OrderSysID != 0 && rsp.OrderSysID == order.OrderSysID) ||
+                            (rsp.OrderID == order.OrderID && rsp.SessionID == order.SessionID))
                         {
                             found = true;
                             break;
@@ -340,8 +341,11 @@ namespace Micro.Future.Message
                 {
                     foreach (var order in OrderVMCollection)
                     {
-                        if (order.SessionID == rsp.SessionID && order.OrderID == rsp.OrderID)
+                        if ((rsp.OrderSysID != 0 && rsp.OrderSysID == order.OrderSysID) ||
+                            (rsp.OrderID == order.OrderID && rsp.SessionID == order.SessionID))
                         {
+                            order.Exchange = rsp.Exchange;
+                            order.Contract = rsp.Contract;
                             order.Status = (OrderStatus)rsp.OrderStatus;
                             order.OrderSysID = rsp.OrderSysID;
                             order.UpdateTime = order.UpdateTime;
