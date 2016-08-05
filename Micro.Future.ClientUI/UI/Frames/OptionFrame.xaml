@@ -33,7 +33,8 @@
             <Label x:Name="Reference_Price" Content="Reference Price" HorizontalAlignment="Left" VerticalAlignment="Top"  />
             <xctk:DoubleUpDown x:Name="reference_Price"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding ReferencePrice}"  Minimum="0"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label x:Name="S_SR" Content="SSR" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <Slider x:Name="sSR" HorizontalAlignment="Left"  Value="{Binding SSR}"  VerticalAlignment="Top" Width="130" Ticks="100" Maximum="100" Minimum="0"/>
+            <TextBlock Text="{Binding Path=Value,ElementName=sSR}" />
+            <Slider x:Name="sSR" HorizontalAlignment="Left"  Value="{Binding SSR}"  VerticalAlignment="Top" Width="130" Ticks="100" Maximum="100" Minimum="0" />
             <Label x:Name="Contract_ExpirationMonth" Content="Contract ExpirationMonth" HorizontalAlignment="Left" VerticalAlignment="Top"  />
             <ComboBox x:Name="contractExpirationMonth" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" />
             <Label x:Name="Numerical_Simulation" Content="Numerical Simulation" HorizontalAlignment="Left" VerticalAlignment="Top"  />
@@ -167,18 +168,15 @@
             <xctk:DoubleUpDown x:Name="up_Slope1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpSlope1}"  Minimum="0"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </StackPanel>
         <TabControl x:Name="tabControl"  SelectionChanged="tabControl_SelectionChanged_2" Grid.Column="3">
-            <TabItem Header="TabItem1">
+            <TabItem Header="Volatility and Position" x:Name="tabVolatility">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <oxy:Plot Title="{Binding Title}" Grid.Row ="0" HorizontalContentAlignment="Stretch" LegendItemAlignment="Stretch" VerticalContentAlignment="Stretch">
-                        <oxy:Plot.Series>
-                            <oxy:LineSeries x:Name="Lineserial1" ItemsSource="{Binding Points}"/>
-                        </oxy:Plot.Series>
-                    </oxy:Plot>
-                    <oxy:PlotView x:Name="Plot1" Model="{Binding PlotModel}"  Grid.Row="1">
+                    <oxy:PlotView Grid.Row="0" x:Name="VegaPosition" Model="{Binding PlotModelBar}" MinHeight="200" MinWidth="200" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    </oxy:PlotView>
+                    <oxy:PlotView Grid.Row="1" x:Name="PlotVolatility" Model="{Binding PlotModel}" MinHeight="200" MinWidth="200" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     </oxy:PlotView>
                 </Grid>
             </TabItem>
@@ -193,7 +191,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ListView x:Name="price_greekLV" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center">
+                    <ListView x:Name="price_greekLV" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Top">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="pVega" DisplayMemberBinding="{Binding pVega}"/>
@@ -210,7 +208,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ListView x:Name="volatilityLV"  HorizontalAlignment="Right" Grid.Column="1">
+                    <ListView x:Name="volatilityLV"  HorizontalAlignment="Left" Grid.Column="1">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="strike" DisplayMemberBinding="{Binding Strike}"/>

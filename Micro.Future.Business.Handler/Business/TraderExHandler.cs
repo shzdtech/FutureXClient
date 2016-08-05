@@ -12,6 +12,8 @@ using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using System.Reflection;
 using System.IO;
+using OxyPlot.Series;
+using OxyPlot;
 
 namespace Micro.Future.Message
 {
@@ -52,6 +54,10 @@ namespace Micro.Future.Message
             get;
         } = new ObservableCollection<FundVM>();
 
+        public OptionOxyVM OptionOxyVM
+        {
+            get;
+        } = new OptionOxyVM();
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
             MessageWrapper.RegisterAction<PBMarketInfo, ExceptionMessage>
@@ -76,6 +82,23 @@ namespace Micro.Future.Message
                 ((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, OnCancel, ErrorMsgAction);
             //MessageWrapper.RegisterAction<PBOptionInfo, ExceptionMessage>
             //    ((uint)BusinessMessageID.MSG_ID_OPTION_UPDATE, OnUpdateOption, ErrorMsgAction);
+            //MessageWrapper.RegisterAction<PBOptionInfo, ExceptionMessage>
+            //    ((uint)BusinessMessageID.MSG_ID_OPTION_UPDATE, OnUpdateOption, ErrorMsgAction);
+        }
+
+
+        public void OnUpdateOption()
+        {
+            var lineSerie = new LineSeries();
+            var columnSeries = new ColumnSeries();
+            for (int i = 0; i < 10; i++)
+            {
+                lineSerie.Points.Add(new DataPoint(i, i));
+                columnSeries.Items.Add(new ColumnItem { Value = i });
+            }
+            OptionOxyVM.PlotModel.Series.Add(lineSerie);
+            OptionOxyVM.PlotModelBar.Series.Add(columnSeries);
+
         }
 
         private void OnCancel(PBOrderInfo rsp)

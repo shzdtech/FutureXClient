@@ -28,25 +28,34 @@ namespace Micro.Future.UI
         private ColumnObject[] mColumns;
 
 
-
         public OptionVM OptionVM
         {
             get;
             private set;
         } = new OptionVM();
 
+        public OptionOxyVM OptionOxyVM
+        {
+            get;
+        } = new OptionOxyVM();
+
+
+
         public OptionFrame()
         {
             InitializeComponent();
-
+            var traderExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            traderExHandler.OnUpdateOption();
             StrikePricePanel.DataContext = new NumericalSimVM();
-            VolatilityPanel.DataContext = new OptionVM();
-            VolatilityPanel1.DataContext = new OptionVM();
+            //VolatilityPanel.DataContext = new OptionVM();
+            //VolatilityPanel1.DataContext = new OptionVM();
             price_greekLV.DataContext = new PriceGreekVM();
             volatilityLV.DataContext = new VolatilityVM();
             positionLV.DataContext = new PositionVM();
             riskLV.DataContext = new RiskVM();
-           
+            PlotVolatility.Model = traderExHandler.OptionOxyVM.PlotModel;
+            VegaPosition.Model = traderExHandler.OptionOxyVM.PlotModelBar;
+
             mColumns = ColumnObject.GetColumns(listView_numSim);
         }
 

@@ -79,7 +79,7 @@
     <Compile Include="UI\ToggleButtonData.cs" />
     <Compile Include="UI\ReloadData.cs" />
     <Compile Include="UI\TreeViewItemViewModel.cs" />
-    <Compile Include="ViewModel\OptionOxyPlot.cs" />
+    <Compile Include="ViewModel\OptionOxyVM.cs" />
     <Compile Include="ViewModel\RiskVM.cs" />
     <Compile Include="ViewModel\VolatilityVM.cs" />
     <Compile Include="ViewModel\PriceGreekVM.cs" />

@@ -39,10 +39,10 @@ namespace Micro.Future.Message
             get;
         } = new ObservableCollection<NumericalSimVM>();
 
-        public ObservableCollection<OptionOxyPlot> OptionOxyPlotCollection
+        public ObservableCollection<OptionOxyVM> OptionOxyVMCollection
         {
             get;
-        } = new ObservableCollection<OptionOxyPlot>();
+        } = new ObservableCollection<OptionOxyVM>();
 
         public void UpdateOptionParam(OptionVM opVM)
         {
