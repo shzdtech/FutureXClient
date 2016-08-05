@@ -64,6 +64,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
@@ -86,6 +87,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RoleSectionHandler.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="UI\DomesticControls\AdvancedMakeOrderWin.xaml.cs">
       <DependentUpon>AdvancedMakeOrderWin.xaml</DependentUpon>
@@ -93,8 +95,8 @@
     <Compile Include="UI\ForeignControls\ForeignFastOrderWindow.xaml.cs">
       <DependentUpon>ForeignFastOrderWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainOTCWindow.xaml.cs">
-      <DependentUpon>MainOTCWindow.xaml</DependentUpon>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\DomesticControls\MarketDataControl.xaml.cs">
       <DependentUpon>MarketDataControl.xaml</DependentUpon>
@@ -243,7 +245,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainOTCWindow.xaml">
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -303,10 +305,6 @@
     <ProjectReference Include="..\Micro.Future.LocalStorage\Micro.Future.LocalStorage.csproj">
       <Project>{8a2127d2-8c14-4a0e-8608-e355acda150d}</Project>
       <Name>Micro.Future.LocalStorage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Micro.Future.Tools\Micro.Future.Tools.csproj">
-      <Project>{f16aef6a-4b81-4d04-9442-17438f6f6efa}</Project>
-      <Name>Micro.Future.Tools</Name>
     </ProjectReference>
     <ProjectReference Include="..\Micro.Future.Utility\Micro.Future.Utility.csproj">
       <Project>{A6A3AF60-A359-49C4-8747-C79B695489E2}</Project>
@@ -382,9 +380,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\OptionControls\" />

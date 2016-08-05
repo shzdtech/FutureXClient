@@ -1,13 +1,7 @@
 ﻿using Micro.Future.Message;
-using Micro.Future.Constant;
-using Micro.Future.Message.PBMessageHandler;
 using Micro.Future.Properties;
 using Micro.Future.Utility;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Windows;
 
 namespace Micro.Future
@@ -17,22 +11,45 @@ namespace Micro.Future
     /// </summary>
     public partial class App : Application
     {
-        //add by 马小帅, to control the Trade Window which to be show up.
-        //public static bool TradeIn = true;
-        //public static bool TradeOut = false;
-
         protected override void OnStartup(StartupEventArgs e)
         {
-            MessageHandlerContainer.Register<AbstractOTCMarketDataHandler, OTCMDClientHandler>();
-            MessageHandlerContainer.Register<MarketDataHandler, MarketDataHandler>();
-            MessageHandlerContainer.Register<TraderExHandler, TraderExHandler>();
-            MessageHandlerContainer.DefaultInstance.Refresh();
+            Config config = new Config(Settings.Default.ConfigFile);
 
-            Config cfg = new Config(Settings.Default.ConfigFile);
+            var configDict = config.Content["OTCCLIENTSERVER"];
+            MessageHandlerContainer.Register<AbstractOTCMarketDataHandler, OTCMDClientHandler>
+                (new SignInOptions {
+                    FrontServer = configDict["ADDRESS"],
+                    ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
+                });
+
+            configDict = config.Content["OTCTDSERVER"];
+            MessageHandlerContainer.Register<OTCMDTradingDeskHandler, OTCMDTradingDeskHandler>
+                (new SignInOptions
+                {
+                    FrontServer = configDict["ADDRESS"],
+                    ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
+                });
+
+            configDict = config.Content["CTPMDSERVER"];
+            MessageHandlerContainer.Register<MarketDataHandler, MarketDataHandler>
+                (new SignInOptions
+                {
+                    FrontServer = configDict["ADDRESS"],
+                    ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
+                });
+
+            configDict = config.Content["CTPTRADESERVER"];
+            MessageHandlerContainer.Register<TraderExHandler, TraderExHandler>
+               (new SignInOptions
+               {
+                   FrontServer = configDict["ADDRESS"],
+                   ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
+               });
+
+            MessageHandlerContainer.DefaultInstance.Refresh();
 
             base.OnStartup(e);
         }
-
 
     }
 }

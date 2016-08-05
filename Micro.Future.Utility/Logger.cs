@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.IO;
 using log4net;
@@ -15,7 +13,7 @@ namespace Micro.Future.Utility
         {
         }
 
-        private static readonly ILog loginfo = log4net.LogManager.GetLogger("log");
+        private static readonly ILog loginfo = LogManager.GetLogger("log");
 
         //invoke before any log
         public static void StartLog(string config)
@@ -66,7 +64,7 @@ namespace Micro.Future.Utility
                 sb.Append("[" + property.Name + "]" + property.GetValue(obj, null).ToString() + ", ");
             }
 
-            Logger.Debug(sb.ToString());
+            Debug(sb.ToString());
         }
     }
 }

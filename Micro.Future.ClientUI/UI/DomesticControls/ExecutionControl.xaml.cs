@@ -11,7 +11,7 @@ using System.Collections.ObjectModel;
 using Xceed.Wpf.AvalonDock.Layout;
 using Micro.Future.UI;
 using Micro.Future.Utility;
-using Micro.Future.Controls;
+using Micro.Future.CustomizedControls;
 
 namespace Micro.Future.UI
 {

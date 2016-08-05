@@ -1,10 +1,11 @@
 ﻿using Micro.Future.Utility;
 using Micro.Future.ViewModel;
 using System;
+using System.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Micro.Future.Controls
+namespace Micro.Future.CustomizedControls
 {
     /// <summary>
     /// LoginStatus.xaml 的交互逻辑
@@ -13,7 +14,10 @@ namespace Micro.Future.Controls
     {
         public event EventHandler OnConnButtonClick;
 
+        private string _lastErrorMsg;
+
         private ImageVM _loginStatusVM = new ImageVM();
+
         public LoginStatus()
         {
             InitializeComponent();
@@ -22,14 +26,20 @@ namespace Micro.Future.Controls
 
             Connected = false;
 
-            statusIcon.MouseLeftButtonUp += StatusIcon_MouseLeftButtonUp;
+            MouseUp += LoginStatus_MouseUp;
         }
 
-        private void StatusIcon_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void LoginStatus_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (OnConnButtonClick != null)
-                OnConnButtonClick(sender, e);
+            OnConnButtonClick?.Invoke(sender, e);
         }
+
+        public SystemSound DisconnectSound
+        {
+            get;
+            set;
+        } = SystemSounds.Exclamation;
+
 
         public object ConnectedPrompt
         {
@@ -77,7 +87,7 @@ namespace Micro.Future.Controls
                 }
                 else
                 {
-                    promptLabel.Content = DisconnectedPrompt;
+                    promptLabel.Content = _lastErrorMsg != null ? _lastErrorMsg : DisconnectedPrompt;
                     _loginStatusVM.SourceUri = componentUri + "/Images/disconnected_48x48.png";
                     _loginStatusVM.SetImage(_loginStatusVM.SourceUri);
                 }
@@ -88,11 +98,16 @@ namespace Micro.Future.Controls
         {
             Connected = true;
         }
+
         public void OnDisconnected(object obj)
         {
-            if(obj != null)
+            if (obj != null)
             {
+                var ex = obj as Exception;
+                _lastErrorMsg = ex != null ? ex.Message : null;
+
                 Connected = false;
+                DisconnectSound?.Play();
             }
         }
     }

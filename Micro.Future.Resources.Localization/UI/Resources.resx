@@ -213,8 +213,8 @@
   <data name="FilterSettings" xml:space="preserve">
     <value>筛选配置</value>
   </data>
-  <data name="TradingMarket" xml:space="preserve">
-    <value>行情交易</value>
+  <data name="DomesticTradingMarket" xml:space="preserve">
+    <value>内盘交易</value>
   </data>
   <data name="Fund" xml:space="preserve">
     <value>资金</value>
@@ -258,7 +258,7 @@
   <data name="OpenCost" xml:space="preserve">
     <value>开仓成本</value>
   </data>
-  <data name="Opening" xml:space="preserve">
+  <data name="Opened" xml:space="preserve">
     <value>当前挂单</value>
   </data>
   <data name="OpenVolume" xml:space="preserve">
@@ -548,5 +548,20 @@
   </data>
   <data name="LogOut" xml:space="preserve">
     <value>登出</value>
+  </data>
+  <data name="ForeignTradingMarket" xml:space="preserve">
+    <value>外盘交易</value>
+  </data>
+  <data name="Server_TradingDesk_Connected" xml:space="preserve">
+    <value>TradingDesk已连接</value>
+  </data>
+  <data name="Server_TradingDesk_DisConnected" xml:space="preserve">
+    <value>TradingDesk未连接</value>
+  </data>
+  <data name="Server_OptionServer_Connected" xml:space="preserve">
+    <value>期权服务器已连接</value>
+  </data>
+  <data name="Server_OptionServer_DisConnected" xml:space="preserve">
+    <value>期权服务器未连接</value>
   </data>
 </root>

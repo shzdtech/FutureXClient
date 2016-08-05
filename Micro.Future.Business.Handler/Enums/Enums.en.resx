@@ -168,8 +168,8 @@
   <data name="OrderStatus_CANCEL_REJECTED" xml:space="preserve">
     <value>Cancel Rejected</value>
   </data>
-  <data name="OrderStatus_OPENNING" xml:space="preserve">
-    <value>Openning</value>
+  <data name="OrderStatus_OPENED" xml:space="preserve">
+    <value>Accepted</value>
   </data>
   <data name="OrderStatus_OPEN_REJECTED" xml:space="preserve">
     <value>Open Rejected</value>
@@ -218,5 +218,8 @@
   </data>
   <data name="OrderTIFType_IOC" xml:space="preserve">
     <value>IOC</value>
+  </data>
+  <data name="OrderStatus_SUBMITTING" xml:space="preserve">
+    <value>Submitting</value>
   </data>
 </root>

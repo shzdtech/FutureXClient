@@ -1,0 +1,41 @@
+﻿<Window x:Class="Micro.Future.UI.MainWindow"
+                xmlns:Controls="clr-namespace:Micro.Future.CustomizedControls;assembly=Micro.Future.CustomizedControls"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+                xmlns:c="clr-namespace:Micro.Future.UI"
+                xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+                lex:LocalizeDictionary.DesignCulture="zh_CN"
+                lex:LocalizeDictionary.OutputMissingKeys="True"
+                lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+                lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+                WindowStartupLocation="CenterScreen" WindowState="Maximized"
+                Icon="/Micro.Future.ClientUI;component/Images/Logo.png"
+                Name="clientMainWindow"
+                Title="U.F.O.">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Menu x:Name="mainMenu" Grid.Row="0" IsMainMenu="True">
+        </Menu>
+
+        <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1">
+            <avalonDock:DockingManager.Theme>
+                <avalonDock:GenericTheme/>
+            </avalonDock:DockingManager.Theme>
+            <avalonDock:LayoutRoot>
+                <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*" CanRepositionItems="False">
+                    <avalonDock:LayoutAnchorablePane x:Name="mainPane">
+                    </avalonDock:LayoutAnchorablePane>
+                </avalonDock:LayoutPanel>
+            </avalonDock:LayoutRoot>
+        </avalonDock:DockingManager>
+
+
+        <StatusBar x:Name="statusBar" Grid.Row="2">
+        </StatusBar>
+    </Grid>
+</Window>

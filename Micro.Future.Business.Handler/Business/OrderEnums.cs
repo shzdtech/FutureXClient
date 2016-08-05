@@ -26,14 +26,16 @@ namespace Micro.Future.Message
         OPEN_REJECTED = 4,
         [LocalizableDescription(@"OrderStatus_REJECTED", typeof(Enums))]
         REJECTED = 5,
-        [LocalizableDescription(@"OrderStatus_OPENNING", typeof(Enums))]
-        OPENNING = 10,
+        [LocalizableDescription(@"OrderStatus_OPENED", typeof(Enums))]
+        OPENED = 10,
         [LocalizableDescription(@"OrderStatus_PARTIAL_TRADING", typeof(Enums))]
         PARTIAL_TRADING = 11,
         [LocalizableDescription(@"OrderStatus_CANCELING", typeof(Enums))]
         CANCELING = 12,
         [LocalizableDescription(@"OrderStatus_CANCEL_REJECTED", typeof(Enums))]
-        CANCEL_REJECTED = 13
+        CANCEL_REJECTED = 13,
+        [LocalizableDescription(@"OrderStatus_SUBMITTING", typeof(Enums))]
+        SUBMITTING = 14,
     };
 
     public enum OrderExecType

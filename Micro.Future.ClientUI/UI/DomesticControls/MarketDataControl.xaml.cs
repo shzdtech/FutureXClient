@@ -30,8 +30,6 @@ namespace Micro.Future.UI
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow();
 
-        public LayoutContent LayoutContent { get; set; }
-
         public MarketDataControl()
         {
             InitializeComponent();
@@ -55,8 +53,6 @@ namespace Micro.Future.UI
 
         private void _fiterSettingsWin_OnFiltering(string exchange, string underlying, string contract)
         {
-            if (LayoutContent != null)
-                LayoutContent.Title = _filterSettingsWin.FilterTitle;
             Filter(exchange, underlying, contract);
         }
 

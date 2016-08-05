@@ -1,14 +1,17 @@
-﻿using Micro.Future.Controls;
+﻿using Micro.Future.CustomizedControls;
 using Micro.Future.Message;
+using Micro.Future.Resources.Localization;
 using Micro.Future.ViewModel;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -22,11 +25,60 @@ namespace Micro.Future.UI
     /// <summary>
     /// ClientOptionWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class OptionFrame : UserControl
+    public partial class OptionFrame : UserControl, IUserFrame
     {
+        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCMDTradingDeskHandler>());
+
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private ColumnObject[] mColumns;
 
+        public string Title
+        {
+            get
+            {
+                return frameMenu.Header.ToString();
+            }
+        }
+
+
+        public IEnumerable<MenuItem> FrameMenus
+        {
+            get
+            {
+                return Resources["exOptionMenuItems"] as IEnumerable<MenuItem>;
+            }
+        }
+
+
+        public void LoginAsync(string usernname, string password)
+        {
+            _tdSignIner.SignInOptions.UserName = usernname;
+            _tdSignIner.SignInOptions.Password = password;
+        }
+
+        public void Initialize()
+        {
+
+            // Initialize Market Data
+            var msgWrapper = _tdSignIner.MessageWrapper;
+
+            _tdSignIner.OnLogged += OptionLoginStatus.OnLogged;
+            _tdSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
+            msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
+
+            MessageHandlerContainer.DefaultInstance.Get<OTCMDTradingDeskHandler>().RegisterMessageWrapper(msgWrapper);
+
+            TDServerLogin();
+        }
+
+        private void TDServerLogin()
+        {
+            if (!_tdSignIner.MessageWrapper.HasSignIn)
+            {
+                OptionLoginStatus.Prompt = "正在连接TradingDesk服务器...";
+                _tdSignIner.SignIn();
+            }
+        }
 
         public OptionVM OptionVM
         {
@@ -42,10 +94,16 @@ namespace Micro.Future.UI
 
 
         public OptionFrame()
-        {
-            InitializeComponent();
+        {           
+            if (!DesignerProperties.GetIsInDesignMode(this))
+            {
+                InitializeComponent();
+                Initialize();
+            }
+
             var traderExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             traderExHandler.OnUpdateOption();
+
             StrikePricePanel.DataContext = new NumericalSimVM();
             //VolatilityPanel.DataContext = new OptionVM();
             //VolatilityPanel1.DataContext = new OptionVM();
@@ -77,7 +135,7 @@ namespace Micro.Future.UI
             }
         }
 
-        
+
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -120,6 +178,11 @@ namespace Micro.Future.UI
                     ctrl.Background = Brushes.MistyRose;
                 }
             }
+        }
+
+        private void OptionLoginStatus_OnConnButtonClick(object sender, EventArgs e)
+        {
+            TDServerLogin();
         }
     }
 }

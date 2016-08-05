@@ -376,6 +376,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 内盘交易 的本地化字符串。
+        /// </summary>
+        internal static string DomesticTradingMarket {
+            get {
+                return ResourceManager.GetString("DomesticTradingMarket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 确定 的本地化字符串。
         /// </summary>
         internal static string Enter {
@@ -453,6 +462,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string FilterSettings {
             get {
                 return ResourceManager.GetString("FilterSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 外盘交易 的本地化字符串。
+        /// </summary>
+        internal static string ForeignTradingMarket {
+            get {
+                return ResourceManager.GetString("ForeignTradingMarket", resourceCulture);
             }
         }
         
@@ -729,9 +747,9 @@ namespace Micro.Future.Resources.Localization.UI {
         /// <summary>
         ///   查找类似 当前挂单 的本地化字符串。
         /// </summary>
-        internal static string Opening {
+        internal static string Opened {
             get {
-                return ResourceManager.GetString("Opening", resourceCulture);
+                return ResourceManager.GetString("Opened", resourceCulture);
             }
         }
         
@@ -1006,6 +1024,24 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 期权服务器已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OptionServer_Connected {
+            get {
+                return ResourceManager.GetString("Server_OptionServer_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 期权服务器未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OptionServer_DisConnected {
+            get {
+                return ResourceManager.GetString("Server_OptionServer_DisConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 OTC服务器已连接 的本地化字符串。
         /// </summary>
         internal static string Server_OTC_Connected {
@@ -1020,6 +1056,24 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Server_OTC_Unconnected {
             get {
                 return ResourceManager.GetString("Server_OTC_Unconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 TradingDesk已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_TradingDesk_Connected {
+            get {
+                return ResourceManager.GetString("Server_TradingDesk_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 TradingDesk未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_TradingDesk_DisConnected {
+            get {
+                return ResourceManager.GetString("Server_TradingDesk_DisConnected", resourceCulture);
             }
         }
         
@@ -1209,15 +1263,6 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string TradingDay {
             get {
                 return ResourceManager.GetString("TradingDay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 行情交易 的本地化字符串。
-        /// </summary>
-        internal static string TradingMarket {
-            get {
-                return ResourceManager.GetString("TradingMarket", resourceCulture);
             }
         }
         

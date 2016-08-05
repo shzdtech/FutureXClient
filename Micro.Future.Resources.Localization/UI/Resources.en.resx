@@ -213,9 +213,6 @@
   <data name="FilterSettings" xml:space="preserve">
     <value>FilterSettings</value>
   </data>
-  <data name="TradingMarket" xml:space="preserve">
-    <value>TradingMarket</value>
-  </data>
   <data name="Fund" xml:space="preserve">
     <value>Fund</value>
   </data>
@@ -258,8 +255,8 @@
   <data name="OpenCost" xml:space="preserve">
     <value>OpenCost</value>
   </data>
-  <data name="Opening" xml:space="preserve">
-    <value>Opening</value>
+  <data name="Opened" xml:space="preserve">
+    <value>Accepted</value>
   </data>
   <data name="OpenVolume" xml:space="preserve">
     <value>OpenVolume</value>
@@ -523,22 +520,22 @@
     <value>Open</value>
   </data>
   <data name="Server_CTP_MD_Connected" xml:space="preserve">
-    <value>CTP Market Data Server</value>
+    <value>CTP MarketData Connected</value>
   </data>
   <data name="Server_CTP_MD_Unconnected" xml:space="preserve">
-    <value>CTP Market Data Server</value>
+    <value>CTP MarketData Disconnected</value>
   </data>
   <data name="Server_CTP_TD_Connected" xml:space="preserve">
-    <value>CTP Trading Server</value>
+    <value>CTP Trading Connected</value>
   </data>
   <data name="Server_CTP_TD_Unconnected" xml:space="preserve">
-    <value>CTP Trading Server</value>
+    <value>CTP Trading Disconnected</value>
   </data>
   <data name="Server_OTC_Connected" xml:space="preserve">
-    <value>OTC Server</value>
+    <value>OTC Server Connected</value>
   </data>
   <data name="Server_OTC_Unconnected" xml:space="preserve">
-    <value>OTC Server</value>
+    <value>OTC Server Disonnected</value>
   </data>
   <data name="TradingStrategy" xml:space="preserve">
     <value>TradingStrategy</value>
@@ -548,5 +545,23 @@
   </data>
   <data name="LogOut" xml:space="preserve">
     <value>LogOut</value>
+  </data>
+  <data name="DomesticTradingMarket" xml:space="preserve">
+    <value>China Market</value>
+  </data>
+  <data name="ForgeinTradingMarket" xml:space="preserve">
+    <value>Forgein Market</value>
+  </data>
+  <data name="Server_TradingDesk_Connected" xml:space="preserve">
+    <value>TradingDesk Disconnected</value>
+  </data>
+  <data name="Server_TradingDesk_DisConnected" xml:space="preserve">
+    <value>TradingDesk Connected</value>
+  </data>
+  <data name="Server_OptionServer_Connected" xml:space="preserve">
+    <value>Option Server Connected</value>
+  </data>
+  <data name="Server_OptionServer_DisConnected" xml:space="preserve">
+    <value>Option Server Disonnected</value>
   </data>
 </root>

@@ -205,7 +205,7 @@ namespace Micro.Future.Business.Handler.Enums {
         }
         
         /// <summary>
-        ///   查找类似 撤销失败 的本地化字符串。
+        ///   查找类似 撤单失败 的本地化字符串。
         /// </summary>
         internal static string OrderStatus_CANCEL_REJECTED {
             get {
@@ -214,7 +214,7 @@ namespace Micro.Future.Business.Handler.Enums {
         }
         
         /// <summary>
-        ///   查找类似 取消 的本地化字符串。
+        ///   查找类似 已撤单 的本地化字符串。
         /// </summary>
         internal static string OrderStatus_CANCELED {
             get {
@@ -223,7 +223,7 @@ namespace Micro.Future.Business.Handler.Enums {
         }
         
         /// <summary>
-        ///   查找类似 撤销中 的本地化字符串。
+        ///   查找类似 撤单中 的本地化字符串。
         /// </summary>
         internal static string OrderStatus_CANCELING {
             get {
@@ -241,11 +241,11 @@ namespace Micro.Future.Business.Handler.Enums {
         }
         
         /// <summary>
-        ///   查找类似 开仓提交中 的本地化字符串。
+        ///   查找类似 已接受 的本地化字符串。
         /// </summary>
-        internal static string OrderStatus_OPENNING {
+        internal static string OrderStatus_OPENED {
             get {
-                return ResourceManager.GetString("OrderStatus_OPENNING", resourceCulture);
+                return ResourceManager.GetString("OrderStatus_OPENED", resourceCulture);
             }
         }
         
@@ -277,6 +277,15 @@ namespace Micro.Future.Business.Handler.Enums {
         }
         
         /// <summary>
+        ///   查找类似 正在提交 的本地化字符串。
+        /// </summary>
+        internal static string OrderStatus_SUBMITTING {
+            get {
+                return ResourceManager.GetString("OrderStatus_SUBMITTING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 未定义 的本地化字符串。
         /// </summary>
         internal static string OrderStatus_UNDEFINED {
@@ -295,7 +304,7 @@ namespace Micro.Future.Business.Handler.Enums {
         }
         
         /// <summary>
-        ///   查找类似 立即完成，否则撤销 的本地化字符串。
+        ///   查找类似 立即完成或撤单 的本地化字符串。
         /// </summary>
         internal static string OrderTIFType_IOC {
             get {

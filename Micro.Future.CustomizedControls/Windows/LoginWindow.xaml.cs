@@ -63,6 +63,7 @@ namespace Micro.Future.UI
 
         private void _signInMgr_OnSessionCreated()
         {
+            DialogResult = true;
             Close();
         }
 
