@@ -27,10 +27,7 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
-
-            _accountSignIner.OnLoginError += OnErrorMessageRecv;
             _accountSignIner.OnLogged += OnLogged;
-
             Login();
         }
 
@@ -66,12 +63,6 @@ namespace Micro.Future.UI
                 }
             }
         }
-
-        private void OnErrorMessageRecv(MessageException errRsult)
-        {
-            MessageBox.Show(this, errRsult.Message, WPFUtility.GetLocalizedString("Error", LocalizationInfo.ResourceFile), MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
 
         private void Login()
         {
