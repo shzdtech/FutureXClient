@@ -747,9 +747,9 @@ namespace Micro.Future.Resources.Localization.UI {
         /// <summary>
         ///   查找类似 当前挂单 的本地化字符串。
         /// </summary>
-        internal static string Opening {
+        internal static string Opened {
             get {
-                return ResourceManager.GetString("Opening", resourceCulture);
+                return ResourceManager.GetString("Opened", resourceCulture);
             }
         }
         

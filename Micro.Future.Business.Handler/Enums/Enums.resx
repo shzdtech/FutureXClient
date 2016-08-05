@@ -165,8 +165,8 @@
   <data name="OrderStatus_CANCEL_REJECTED" xml:space="preserve">
     <value>撤单失败</value>
   </data>
-  <data name="OrderStatus_OPENNING" xml:space="preserve">
-    <value>已提交</value>
+  <data name="OrderStatus_OPENED" xml:space="preserve">
+    <value>已接受</value>
   </data>
   <data name="OrderStatus_OPEN_REJECTED" xml:space="preserve">
     <value>开仓被拒绝</value>
@@ -215,5 +215,8 @@
   </data>
   <data name="OrderTIFType_IOC" xml:space="preserve">
     <value>立即完成或撤单</value>
+  </data>
+  <data name="OrderStatus_SUBMITTING" xml:space="preserve">
+    <value>正在提交</value>
   </data>
 </root>

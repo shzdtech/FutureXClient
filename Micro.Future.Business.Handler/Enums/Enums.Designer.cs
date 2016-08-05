@@ -241,11 +241,11 @@ namespace Micro.Future.Business.Handler.Enums {
         }
         
         /// <summary>
-        ///   查找类似 已提交 的本地化字符串。
+        ///   查找类似 已接受 的本地化字符串。
         /// </summary>
-        internal static string OrderStatus_OPENNING {
+        internal static string OrderStatus_OPENED {
             get {
-                return ResourceManager.GetString("OrderStatus_OPENNING", resourceCulture);
+                return ResourceManager.GetString("OrderStatus_OPENED", resourceCulture);
             }
         }
         
@@ -273,6 +273,15 @@ namespace Micro.Future.Business.Handler.Enums {
         internal static string OrderStatus_REJECTED {
             get {
                 return ResourceManager.GetString("OrderStatus_REJECTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在提交 的本地化字符串。
+        /// </summary>
+        internal static string OrderStatus_SUBMITTING {
+            get {
+                return ResourceManager.GetString("OrderStatus_SUBMITTING", resourceCulture);
             }
         }
         

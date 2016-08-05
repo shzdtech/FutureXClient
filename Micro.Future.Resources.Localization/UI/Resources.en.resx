@@ -255,8 +255,8 @@
   <data name="OpenCost" xml:space="preserve">
     <value>OpenCost</value>
   </data>
-  <data name="Opening" xml:space="preserve">
-    <value>Opening</value>
+  <data name="Opened" xml:space="preserve">
+    <value>Accepted</value>
   </data>
   <data name="OpenVolume" xml:space="preserve">
     <value>OpenVolume</value>

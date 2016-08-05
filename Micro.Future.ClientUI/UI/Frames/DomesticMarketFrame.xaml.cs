@@ -157,11 +157,11 @@ namespace Micro.Future.UI
             executionPane.AddContent(new ExecutionControl()).Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
-        private void MenuItem_Click_Opening(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_Opened(object sender, RoutedEventArgs e)
         {
             var executionWin = new ExecutionControl();
-            executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENNING, OrderStatus.PARTIAL_TRADED, OrderStatus.PARTIAL_TRADING });
-            executionPane.AddContent(executionWin).Title = WPFUtility.GetLocalizedString("Opening", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENED, OrderStatus.PARTIAL_TRADED, OrderStatus.PARTIAL_TRADING });
+            executionPane.AddContent(executionWin).Title = WPFUtility.GetLocalizedString("Opened", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
         private void MenuItem_Click_Traded(object sender, RoutedEventArgs e)

@@ -25,7 +25,7 @@
                     <MenuItem Header="{lex:Loc Key=ExecutionWindow}">
                         <MenuItem Header="{lex:Loc Key=AllExecution}" Click="MenuItem_Click_Execution">
                         </MenuItem>
-                        <MenuItem Header="{lex:Loc Key=Opening}" Click="MenuItem_Click_Opening">
+                        <MenuItem Header="{lex:Loc Key=Opening}" Click="MenuItem_Click_Opened">
                         </MenuItem>
                         <MenuItem Header="{lex:Loc Key=Traded}" Click="MenuItem_Click_Traded">
                         </MenuItem>

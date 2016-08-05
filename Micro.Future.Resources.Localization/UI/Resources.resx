@@ -258,7 +258,7 @@
   <data name="OpenCost" xml:space="preserve">
     <value>开仓成本</value>
   </data>
-  <data name="Opening" xml:space="preserve">
+  <data name="Opened" xml:space="preserve">
     <value>当前挂单</value>
   </data>
   <data name="OpenVolume" xml:space="preserve">
