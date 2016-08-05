@@ -11,7 +11,7 @@
     lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"         
     mc:Ignorable="d" 
-    d:DesignHeight="200" d:DesignWidth="300" HorizontalAlignment="Left">
+    d:DesignHeight="180" d:DesignWidth="300" HorizontalAlignment="Left">
     <UserControl.Resources>
         <local:EnumBooleanConverter x:Key="enumBooleanConverter"/>
     </UserControl.Resources>
@@ -24,8 +24,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Width="300" Height="30">
             <Label VerticalAlignment="Center" Content="{lex:Loc Key=Contract}" Width="35"></Label>
@@ -33,11 +32,11 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Width="300" Height="30">
             <Label Width="35" Content="{lex:Loc Key=OrderVolume}" VerticalAlignment="Center"></Label>
-            <xctk:IntegerUpDown Width="100" FormatString="N0" x:Name="SizeTxt" Value="{Binding Volume}" VerticalAlignment="Center"/>
+            <xctk:IntegerUpDown Width="100" FormatString="N0" x:Name="SizeTxt" Value="{Binding Volume, Mode=OneWayToSource}" VerticalAlignment="Center"/>
             <TextBlock Text="{lex:Loc Key=TIF}" Width="35" VerticalAlignment="Center"></TextBlock>
             <ComboBox Name="TimeTypeCombo" SelectedIndex="0" Grid.ColumnSpan="2" Width="100" VerticalAlignment="Center">
                 <ComboBoxItem>GFD</ComboBoxItem>
-                <ComboBoxItem>GTC</ComboBoxItem>
+                <ComboBoxItem>IOC</ComboBoxItem>
             </ComboBox>
         </StackPanel>
 
@@ -69,17 +68,16 @@
                              VerticalAlignment="Center" GroupName="BuySellGroup" Width="42.4" Height="16" HorizontalAlignment="Left" />
         </Grid>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal" Height="30" VerticalAlignment="Bottom" Width="300">
-            <Label Content="{lex:Loc Key=Price}" VerticalAlignment="Center" Width="35"></Label>
-            <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment=".1" Value="{Binding LimitPrice}" VerticalAlignment="Center" />
-            <StackPanel x:Name="stackPanelPrices" Height="50" VerticalAlignment="Bottom" Width="20" >
-                <Label x:Name="LabelUpperPrice" Content="{Binding UpperLimitPrice}" MouseDown="labelupperprice_MouseDown" MinHeight="10" MinWidth="20" Width="20" Height="9.6" />
-                <Label x:Name="LabelBidPrice" Content="{Binding BidPrice}"  MinHeight="10" MinWidth="20" Width="20" Height="9.6"/>
-                <Label x:Name="LabelAskPrice" Content="{Binding AskPrice}"  MinHeight="10" MinWidth="20" Width="20" Height="9.6"/>
-                <Label x:Name="LabelLowerPrice" Content="{Binding LowerLimitPrice}" MouseDown="labellowerprice_MouseDown"  MinHeight="10" MinWidth="20" Width="20" Height="9.6"/>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Height="60">
+            <Label Content="{lex:Loc Key=Price}" Width="35"></Label>
+            <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment="1" Value="{Binding LimitPrice}" VerticalAlignment="Center" />
+            <StackPanel x:Name="stackPanelPrices" MinWidth="50">
+                <Label x:Name="LabelUpperPrice" Content="{Binding UpperLimitPrice}" MouseDown="labelupperprice_MouseDown" />
+                <Label x:Name="LabelBidPrice" Content="{Binding BidPrice}" MouseDown="LabelBidPrice_MouseDown" />
+                <Label x:Name="LabelAskPrice" Content="{Binding AskPrice}" MouseDown="LabelAskPrice_MouseDown" />
+                <Label x:Name="LabelLowerPrice" Content="{Binding LowerLimitPrice}" MouseDown="labellowerprice_MouseDown" />
             </StackPanel>
+            <Button Grid.Row="5" Name="BuySummitButton" Content="{lex:Loc Key=Order}" Grid.Column="0" Command="{Binding Path=SendOrderCommand}" MinWidth="100" />
         </StackPanel>
-
-        <Button Grid.Row="5" Name="BuySummitButton" Content="{lex:Loc Key=Order}" Grid.Column="0" Command="{Binding Path=SendOrderCommand}" Width="150" VerticalAlignment="Top"></Button>
     </Grid>
 </UserControl>

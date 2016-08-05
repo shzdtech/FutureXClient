@@ -63,6 +63,11 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
+            // Initailize UI events
+            otcMarketDataLV.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
+            positionsWindow.OnPositionSelected += FastOrderCtl.OnPositionSelected;
+
+
             // Initialize Market Data
             var msgWrapper = _ctpMdSignIner.MessageWrapper;
             
@@ -194,14 +199,5 @@ namespace Micro.Future.UI
         {
             positionPane.AddContent(new PositionControl()).Title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
-
-        private void FastOrder_Click(object sender, RoutedEventArgs e)
-        {
-            FastOrderWin fastOrderWindow = new FastOrderWin();
-            fastOrderWindow.Show();
-            otcMarketDataLV.OnQuoteSelected += fastOrderWindow.OnQuoteSelected;
-            positionsWindow.OnPositionSelected += fastOrderWindow.OnPositionSelected;
-        }
-
     }
 }
