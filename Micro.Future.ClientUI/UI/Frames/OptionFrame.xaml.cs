@@ -49,6 +49,14 @@ namespace Micro.Future.UI
             }
         }
 
+        public IEnumerable<StatusBarItem> StatusBarItems
+        {
+            get
+            {
+                return Resources["exOptionStatusBarItems"] as IEnumerable<StatusBarItem>;
+            }
+        }
+
 
         public void LoginAsync(string usernname, string password)
         {

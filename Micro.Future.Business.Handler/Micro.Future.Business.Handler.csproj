@@ -72,15 +72,20 @@
     <Compile Include="ViewModel\ContractParamVM.cs" />
     <Compile Include="ViewModel\FundVM.cs" />
     <Compile Include="ViewModel\MarketDataVM.cs" />
+    <Compile Include="ViewModel\NumericalSimVM.cs" />
     <Compile Include="ViewModel\ObservableCollectionExtention.cs" />
     <Compile Include="ViewModel\ObstacleViewModel.cs" />
+    <Compile Include="ViewModel\OptionOxyVM.cs" />
     <Compile Include="ViewModel\OptionVM.cs" />
     <Compile Include="ViewModel\OrderVM.cs" />
     <Compile Include="ViewModel\OTCQuoteVM.cs" />
     <Compile Include="ViewModel\PositionVM.cs" />
+    <Compile Include="ViewModel\PriceGreekVM.cs" />
+    <Compile Include="ViewModel\RiskVM.cs" />
     <Compile Include="ViewModel\StrategyVM.cs" />
     <Compile Include="ViewModel\TradeVM.cs" />
     <Compile Include="ViewModel\TradingDeskVM.cs" />
+    <Compile Include="ViewModel\VolatilityVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
