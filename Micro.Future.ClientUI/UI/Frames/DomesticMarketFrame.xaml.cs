@@ -66,32 +66,21 @@ namespace Micro.Future.UI
             // Initialize Market Data
             var msgWrapper = _ctpMdSignIner.MessageWrapper;
             
-            _ctpMdSignIner.OnLoginError += OnErrorMessageRecv;
             _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
             _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += ctpLoginStatus.OnDisconnected;
-
             MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().RegisterMessageWrapper(msgWrapper);
-            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().OnError += OnErrorMessageRecv;
 
             // Initialize Trading Server
             msgWrapper = _ctpTradeSignIner.MessageWrapper;
 
-            _ctpTradeSignIner.OnLoginError += OnErrorMessageRecv;
             _ctpTradeSignIner.OnLogged += _ctpTradeSignIner_OnLogged;
             _ctpTradeSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
             _ctpTradeSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
-
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RegisterMessageWrapper(msgWrapper);
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OnError += OnErrorMessageRecv;
         }
 
-
-        private void OnErrorMessageRecv(MessageException errRsult)
-        {
-            MessageBox.Show(Application.Current.MainWindow, errRsult.Message, WPFUtility.GetLocalizedString("Error", LocalizationInfo.ResourceFile), MessageBoxButton.OK, MessageBoxImage.Error);
-        }
 
         private void MarketDataServerLogin()
         {
@@ -111,7 +100,7 @@ namespace Micro.Future.UI
             }
         }
 
-        private void ctpLoginStatus_OnConnButtonClick(object sender, EventArgs e)
+        private void ctpMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
         {
             MarketDataServerLogin();
         }

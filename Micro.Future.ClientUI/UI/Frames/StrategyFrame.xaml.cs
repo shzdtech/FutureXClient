@@ -65,20 +65,13 @@ namespace Micro.Future.UI
             // Initialize Market Data
             var msgWrapper = _tdSignIner.MessageWrapper;
 
-            _tdSignIner.OnLoginError += OnErrorMessageRecv;
             _tdSignIner.OnLogged += TdLoginStatus.OnLogged;
             _tdSignIner.OnLoginError += TdLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += TdLoginStatus.OnDisconnected;
 
             MessageHandlerContainer.DefaultInstance.Get<OTCMDTradingDeskHandler>().RegisterMessageWrapper(msgWrapper);
-            MessageHandlerContainer.DefaultInstance.Get<OTCMDTradingDeskHandler>().OnError += OnErrorMessageRecv;
 
             TDServerLogin();
-        }
-
-        private void OnErrorMessageRecv(MessageException errRsult)
-        {
-            MessageBox.Show(errRsult.Message, WPFUtility.GetLocalizedString("Error", LocalizationInfo.ResourceFile), MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void TDServerLogin()

@@ -1,6 +1,7 @@
 ﻿using Micro.Future.Message;
 using Micro.Future.Properties;
 using Micro.Future.Utility;
+using System;
 using System.Windows;
 
 namespace Micro.Future
@@ -14,17 +15,36 @@ namespace Micro.Future
         {
             Config config = new Config(Settings.Default.ConfigFile);
 
+            var configDict = config.Content["OTCCLIENTSERVER"];
             MessageHandlerContainer.Register<AbstractOTCMarketDataHandler, OTCMDClientHandler>
-                (new SignInOptions { FrontServer = config.Content["OTCCLIENTSERVER"]["ADDRESS"] });
+                (new SignInOptions {
+                    FrontServer = configDict["ADDRESS"],
+                    ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
+                });
 
+            configDict = config.Content["OTCTDSERVER"];
             MessageHandlerContainer.Register<OTCMDTradingDeskHandler, OTCMDTradingDeskHandler>
-                (new SignInOptions { FrontServer = config.Content["OTCTDSERVER"]["ADDRESS"] });
+                (new SignInOptions
+                {
+                    FrontServer = configDict["ADDRESS"],
+                    ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
+                });
 
+            configDict = config.Content["CTPMDSERVER"];
             MessageHandlerContainer.Register<MarketDataHandler, MarketDataHandler>
-                (new SignInOptions { FrontServer = config.Content["CTPMDSERVER"]["ADDRESS"] });
+                (new SignInOptions
+                {
+                    FrontServer = configDict["ADDRESS"],
+                    ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
+                });
 
+            configDict = config.Content["CTPTRADESERVER"];
             MessageHandlerContainer.Register<TraderExHandler, TraderExHandler>
-                (new SignInOptions { FrontServer = config.Content["CTPTRADESERVER"]["ADDRESS"] });
+               (new SignInOptions
+               {
+                   FrontServer = configDict["ADDRESS"],
+                   ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
+               });
 
             MessageHandlerContainer.DefaultInstance.Refresh();
 

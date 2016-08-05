@@ -14,7 +14,10 @@ namespace Micro.Future.CustomizedControls
     {
         public event EventHandler OnConnButtonClick;
 
+        private string _lastErrorMsg;
+
         private ImageVM _loginStatusVM = new ImageVM();
+
         public LoginStatus()
         {
             InitializeComponent();
@@ -84,7 +87,7 @@ namespace Micro.Future.CustomizedControls
                 }
                 else
                 {
-                    promptLabel.Content = DisconnectedPrompt;
+                    promptLabel.Content = _lastErrorMsg != null ? _lastErrorMsg : DisconnectedPrompt;
                     _loginStatusVM.SourceUri = componentUri + "/Images/disconnected_48x48.png";
                     _loginStatusVM.SetImage(_loginStatusVM.SourceUri);
                 }
@@ -98,8 +101,11 @@ namespace Micro.Future.CustomizedControls
 
         public void OnDisconnected(object obj)
         {
-            if(obj != null)
+            if (obj != null)
             {
+                var ex = obj as Exception;
+                _lastErrorMsg = ex != null ? ex.Message : null;
+
                 Connected = false;
                 DisconnectSound?.Play();
             }

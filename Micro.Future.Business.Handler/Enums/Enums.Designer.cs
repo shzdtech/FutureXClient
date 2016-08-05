@@ -205,7 +205,7 @@ namespace Micro.Future.Business.Handler.Enums {
         }
         
         /// <summary>
-        ///   查找类似 撤销失败 的本地化字符串。
+        ///   查找类似 撤单失败 的本地化字符串。
         /// </summary>
         internal static string OrderStatus_CANCEL_REJECTED {
             get {
@@ -214,7 +214,7 @@ namespace Micro.Future.Business.Handler.Enums {
         }
         
         /// <summary>
-        ///   查找类似 取消 的本地化字符串。
+        ///   查找类似 已撤单 的本地化字符串。
         /// </summary>
         internal static string OrderStatus_CANCELED {
             get {
@@ -223,7 +223,7 @@ namespace Micro.Future.Business.Handler.Enums {
         }
         
         /// <summary>
-        ///   查找类似 撤销中 的本地化字符串。
+        ///   查找类似 撤单中 的本地化字符串。
         /// </summary>
         internal static string OrderStatus_CANCELING {
             get {
@@ -295,7 +295,7 @@ namespace Micro.Future.Business.Handler.Enums {
         }
         
         /// <summary>
-        ///   查找类似 立即完成，否则撤销 的本地化字符串。
+        ///   查找类似 立即完成或撤单 的本地化字符串。
         /// </summary>
         internal static string OrderTIFType_IOC {
             get {

@@ -157,13 +157,13 @@
     <value>全部成交</value>
   </data>
   <data name="OrderStatus_CANCELED" xml:space="preserve">
-    <value>取消</value>
+    <value>已撤单</value>
   </data>
   <data name="OrderStatus_CANCELING" xml:space="preserve">
-    <value>撤销中</value>
+    <value>撤单中</value>
   </data>
   <data name="OrderStatus_CANCEL_REJECTED" xml:space="preserve">
-    <value>撤销失败</value>
+    <value>撤单失败</value>
   </data>
   <data name="OrderStatus_OPENNING" xml:space="preserve">
     <value>已提交</value>
@@ -214,6 +214,6 @@
     <value>当日有效</value>
   </data>
   <data name="OrderTIFType_IOC" xml:space="preserve">
-    <value>立即完成，否则撤销</value>
+    <value>立即完成或撤单</value>
   </data>
 </root>
