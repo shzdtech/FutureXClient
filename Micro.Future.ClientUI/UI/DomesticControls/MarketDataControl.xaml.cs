@@ -18,13 +18,16 @@ using Micro.Future.Message;
 using System.ComponentModel;
 using Micro.Future.Windows;
 using Micro.Future.Utility;
+using Micro.Future.Resources.Localization;
+using Micro.Future.CustomizedControls.Controls;
+using Micro.Future.CustomizedControls;
 
 namespace Micro.Future.UI
 {
     /// <summary>
     /// QuoteGroupDoc.xaml 的交互逻辑
     /// </summary>
-    public partial class MarketDataControl : UserControl, IReloadData
+    public partial class MarketDataControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
@@ -86,6 +89,13 @@ namespace Micro.Future.UI
                 }
             }
         }
+
+        public LayoutAnchorablePane AnchorablePane
+        {
+            get;
+            set;
+        }
+
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
             var quote = contractTextBox.Text;
@@ -128,6 +138,14 @@ namespace Micro.Future.UI
 
             _filterSettingsWin.Show();
         }
+
+
+        private void MenuItem_Click_ShowCustomizedContractTab(object sender, RoutedEventArgs e)
+        {
+            if(AnchorablePane!=null)
+                AnchorablePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+        }
+
 
         public void Filter(string exchange, string underlying, string contract)
         {

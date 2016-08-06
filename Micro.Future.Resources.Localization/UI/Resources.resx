@@ -564,4 +564,16 @@
   <data name="Server_OptionServer_DisConnected" xml:space="preserve">
     <value>期权服务器未连接</value>
   </data>
+  <data name="ShowCustomizedContractTab" xml:space="preserve">
+    <value>显示自选合约</value>
+  </data>
+  <data name="ShowAllExecution" xml:space="preserve">
+    <value>显示所有委托单</value>
+  </data>
+  <data name="ShowDealedExecution" xml:space="preserve">
+    <value>显示成交委托单</value>
+  </data>
+  <data name="ShowOpenExecution" xml:space="preserve">
+    <value>显示当前挂单</value>
+  </data>
 </root>

@@ -564,4 +564,16 @@
   <data name="Server_OptionServer_DisConnected" xml:space="preserve">
     <value>Option Server Disonnected</value>
   </data>
+  <data name="ShowCustomizedContractTab" xml:space="preserve">
+    <value>ShowCustomizedContractTab</value>
+  </data>
+  <data name="ShowAllExecution" xml:space="preserve">
+    <value>ShowAllExecution</value>
+  </data>
+  <data name="ShowDealedExecution" xml:space="preserve">
+    <value>ShowTradedExecution</value>
+  </data>
+  <data name="ShowOpenExecution" xml:space="preserve">
+    <value>ShowOpenExecution</value>
+  </data>
 </root>

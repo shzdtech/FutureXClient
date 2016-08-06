@@ -11,13 +11,15 @@ using System.Collections.Generic;
 using Xceed.Wpf.AvalonDock.Layout;
 using Micro.Future.Utility;
 using Micro.Future.CustomizedControls;
+using Micro.Future.CustomizedControls.Controls;
+using Micro.Future.Resources.Localization;
 
 namespace Micro.Future.UI
 {
     /// <summary>
     /// Positions.xaml 的交互逻辑
     /// </summary>
-    public partial class PositionControl : UserControl, IReloadData
+    public partial class PositionControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
@@ -25,6 +27,8 @@ namespace Micro.Future.UI
             new FilterSettingsWindow() { CancelClosing = true };
 
         public LayoutContent LayoutContent { get; set; }
+
+        public LayoutAnchorablePane AnchorablePane { get; set; }
 
         public PositionControl()
         {
@@ -80,6 +84,15 @@ namespace Micro.Future.UI
 
             _filterSettingsWin.Show();
         }
+
+
+        private void MenuItem_Click_Position(object sender, RoutedEventArgs e)
+        {
+            if (AnchorablePane != null)
+                AnchorablePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+        }
+
+
 
 
         private void PositionListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

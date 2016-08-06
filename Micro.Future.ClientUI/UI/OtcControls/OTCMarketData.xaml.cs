@@ -72,5 +72,7 @@ namespace Micro.Future.UI
                 MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
             }
         }
+
+        
     }
 }

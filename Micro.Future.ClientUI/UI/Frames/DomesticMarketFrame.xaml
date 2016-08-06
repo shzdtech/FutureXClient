@@ -76,7 +76,7 @@
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="quotePane">
                             <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Quote}">
-                                <c:MarketDataControl x:Name="otcMarketDataLV"/>
+                                <c:MarketDataControl x:Name="marketDataLV"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>

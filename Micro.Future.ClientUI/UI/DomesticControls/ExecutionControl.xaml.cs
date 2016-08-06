@@ -12,13 +12,16 @@ using Xceed.Wpf.AvalonDock.Layout;
 using Micro.Future.UI;
 using Micro.Future.Utility;
 using Micro.Future.CustomizedControls;
+using Micro.Future.CustomizedControls.Controls;
+using System;
+using Micro.Future.Resources.Localization;
 
 namespace Micro.Future.UI
 {
     /// <summary>
     /// OrderDetail.xaml 的交互逻辑
     /// </summary>
-    public partial class ExecutionControl : UserControl, IReloadData
+    public partial class ExecutionControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
         private ColumnObject[] mColumns;
 
@@ -27,6 +30,8 @@ namespace Micro.Future.UI
 
 
         public LayoutContent LayoutContent { get; set; }
+
+        public LayoutAnchorablePane AnchorablePane{ get; set;}
 
         public ExecutionControl()
         {
@@ -256,6 +261,27 @@ namespace Micro.Future.UI
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
             win.Show();
         }
+
+
+        private void MenuItem_Click_ShowAllExecution(object sender, RoutedEventArgs e)
+        {
+            if (AnchorablePane != null)
+                AnchorablePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+        }
+
+        private void MenuItem_Click_ShowOpenExecution(object sender, RoutedEventArgs e)
+        {
+            if (AnchorablePane != null)
+                AnchorablePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Opened", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+        }
+
+        private void MenuItem_Click_ShowDealedExecution(object sender, RoutedEventArgs e)
+        {
+            if (AnchorablePane != null)
+                AnchorablePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Traded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+        }
+
+
 
         public void ReloadData()
         {

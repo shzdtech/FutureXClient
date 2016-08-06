@@ -82,6 +82,15 @@
                     <MenuItem Header="{lex:Loc Key=FilterSettings}" Click="MenuItem_Click_Settings" />
                     <Separator />
                     <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItem_Click_Columns" />
+                    <Separator />
+                    <!--所有委托单-->
+                    <MenuItem Header="{lex:Loc Key=ShowAllExecution}" Click="MenuItem_Click_ShowAllExecution" />
+                    <Separator />
+                    <!--当前挂单-->
+                    <MenuItem Header="{lex:Loc Key=ShowOpenExecution}" Click="MenuItem_Click_ShowOpenExecution" />
+                    <Separator />
+                    <!--已成交-->
+                    <MenuItem Header="{lex:Loc Key=ShowDealedExecution}" Click="MenuItem_Click_ShowDealedExecution" />
                     <Separator></Separator>
                 </ContextMenu>
             </ListView.ContextMenu>

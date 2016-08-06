@@ -66,6 +66,7 @@
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
+                
                 <ListView.ContextMenu>
                     <ContextMenu Name="QuoteContextMenu" StaysOpen="True">
                         <MenuItem Header="删除报价" Click="MenuItem_Click_Delete" />
