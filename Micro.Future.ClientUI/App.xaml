@@ -6,8 +6,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Micro.Future.WPFThemeLib;component/Styles/RibbonStyle.xaml"/>
-                <ResourceDictionary Source="/Micro.Future.WPFThemeLib;component/Themes/WhistlerBlue.xaml" />
-                <ResourceDictionary Source="/Micro.Future.WPFThemeLib;component/Styles/MicroFutureStyle.xaml"/>
+                <!--<ResourceDictionary Source="/Micro.Future.WPFThemeLib;component/Themes/WhistlerBlue.xaml" />
+                <ResourceDictionary Source="/Micro.Future.WPFThemeLib;component/Styles/MicroFutureStyle.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

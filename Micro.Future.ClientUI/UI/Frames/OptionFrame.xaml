@@ -33,157 +33,202 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel x:Name="StrikePricePanel" Grid.Column="0" >
-            <Label x:Name="Strike_PriceIncrement" Content="Strike Price Increment" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="strike_PriceIncrement"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding StrikePriceIncrement}"  Minimum="0"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="No_StrikePrice" Content="Number of Strike Price" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="no_StrikePrice"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding NumberofStrikePrice}"  Minimum="0"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="RiskFree_Interest" Content="Risk Free Interest" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="riskFree_Interest"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding RiskFreeInterest}"  Minimum="0"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Days_Maturity" Content="Days to Maturity" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="days_Maturity"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DaysMaturity}"  Minimum="0"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Time_WeightingEffect" Content="Time Weighting Effect" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="time_WeightingEffect"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding TimeWeightingEffect}"  Minimum="0"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Log_ReturnThreshold" Content="Log Return Threshold" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="log_ReturnThreshold"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding LogReturnThreshold}"  Minimum="0"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="ATM_ForwardPrice" Content="ATM Forward Price" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="atm_ForwardPrice"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding ATMForwardPrice}"  Minimum="0"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Reference_Price" Content="Reference Price" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="reference_Price"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding ReferencePrice}"  Minimum="0"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="S_SR" Content="SSR" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <TextBlock Text="{Binding Path=Value,ElementName=sSR}" />
-            <Slider x:Name="sSR" HorizontalAlignment="Left"  Value="{Binding SSR}"  VerticalAlignment="Top" Width="130" Ticks="100" Maximum="100" Minimum="0" />
-            <Label x:Name="Contract_ExpirationMonth" Content="Contract ExpirationMonth" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <ComboBox x:Name="contractExpirationMonth" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" />
-            <Label x:Name="Numerical_Simulation" Content="Numerical Simulation" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <ListView x:Name="listView_numSim" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="nSims">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <WrapPanel>
-                                        <TextBox x:Name="nSims" TextWrapping="Wrap" Text="{Binding nSims}" KeyUp ="OptionWin_KeyDown"/>
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="miniSteps">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <WrapPanel>
-                                        <TextBox x:Name="miniSteps" TextWrapping="Wrap" Text="{Binding miniSteps}" KeyUp="OptionWin_KeyDown"/>
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="avgRuns">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <WrapPanel>
-                                        <TextBox x:Name="avgRuns" TextWrapping="Wrap" Text="{Binding avgRuns}" KeyUp ="OptionWin_KeyDown"/>
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <Label x:Name="Pricing_Strikes" Content="Pricing Strikes" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <ListView x:Name="pricing_strikes" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="ITM">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <WrapPanel>
-                                        <TextBox x:Name="ITM" TextWrapping="Wrap" Text="{Binding ITM}" KeyUp ="OptionWin_KeyDown"/>
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="OTM">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <WrapPanel>
-                                        <TextBox x:Name="OTM" TextWrapping="Wrap" Text="{Binding OTM}" KeyUp ="OptionWin_KeyDown"/>
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Pct">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <WrapPanel>
-                                        <TextBox x:Name="Pct" TextWrapping="Wrap" Text="{Binding Pct}" KeyUp ="OptionWin_KeyDown"/>
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <GroupBox x:Name="Strike_PriceIncrement" Header="Strike Price Increment">
+                <xctk:DoubleUpDown x:Name="strike_PriceIncrement"  Tag="1" UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding StrikePriceIncrement}"  Minimum="1" Maximum="1000000"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="No_StrikePrice" Header="Number of Strike Price">
+                <xctk:DoubleUpDown x:Name="no_StrikePrice" Tag="1"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding NumberofStrikePrice}"  Minimum="1" Maximum="1000000"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="RiskFree_Interest" Header="Risk Free Interest">
+                <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="1"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding RiskFreeInterest}"  Minimum="0" Maximum="1"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Days_Maturity" Header="Days to Maturity">
+                <xctk:DoubleUpDown x:Name="days_Maturity" Tag="1"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DaysMaturity}"  Minimum="1" Maximum="1000000"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Time_WeightingEffect" Header="Time Weighting Effect">
+                <xctk:DoubleUpDown x:Name="time_WeightingEffect" Tag="1"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding TimeWeightingEffect}"  Minimum="-1000000" Maximum="1000000"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Log_ReturnThreshold" Header="Log Return Threshold">
+                <xctk:DoubleUpDown x:Name="log_ReturnThreshold" Tag="1"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding LogReturnThreshold}"  Minimum="0" Maximum="1" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="ATM_ForwardPrice" Header="ATM Forward Price">
+                <xctk:DoubleUpDown x:Name="atm_ForwardPrice" Tag="1"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding ATMForwardPrice}"  Minimum="0" Maximum="1000000"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Reference_Price" Header="Reference Price">
+                <xctk:DoubleUpDown x:Name="reference_Price"  Tag="1" UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding ReferencePrice}"  Minimum="0" Maximum="1000000"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="S_SR" Header="SSR">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Tag="1" Text="{Binding Path=Value,ElementName=sSR}" />
+                    <Slider Grid.Row="1" x:Name="sSR" HorizontalAlignment="Left" Tag="1" Value="{Binding SSR}"  VerticalAlignment="Top" Width="130" TickFrequency="100" Maximum="100" Minimum="0"  />
+                </Grid>
+            </GroupBox>
+            <GroupBox x:Name="Contract_ExpirationMonth" Header="Contract ExpirationMonth">
+                <ComboBox x:Name="contractExpirationMonth" Tag="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" />
+            </GroupBox>
+            <GroupBox x:Name="Numerical_Simulation" Header="Numerical Simulation">
+                <ListView x:Name="listView_numSim" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="nSims">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel>
+                                            <TextBox x:Name="nSims" Tag="1" TextWrapping="Wrap" Text="{Binding nSims}" KeyUp ="OptionWin_KeyDown"/>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="miniSteps">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel>
+                                            <TextBox x:Name="miniSteps" Tag="1" TextWrapping="Wrap" Text="{Binding miniSteps}" KeyUp="OptionWin_KeyDown"/>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="avgRuns">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel>
+                                            <TextBox x:Name="avgRuns" Tag="1" TextWrapping="Wrap" Text="{Binding avgRuns}" KeyUp ="OptionWin_KeyDown"/>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </GroupBox>
+            <GroupBox x:Name="Pricing_Strikes" Header="Pricing Strikes">
+                <ListView x:Name="pricing_strikes" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ITM">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel>
+                                            <TextBox x:Name="ITM" TextWrapping="Wrap" Text="{Binding ITM}" KeyUp ="OptionWin_KeyDown"/>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="OTM">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel>
+                                            <TextBox x:Name="OTM" TextWrapping="Wrap" Text="{Binding OTM}" KeyUp ="OptionWin_KeyDown"/>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Pct">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel>
+                                            <TextBox x:Name="Pct" TextWrapping="Wrap" Text="{Binding Pct}" KeyUp ="OptionWin_KeyDown"/>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </GroupBox>
 
         </StackPanel >
         <StackPanel x:Name="VolatilityPanel" Grid.Column="1">
-            <Label x:Name="Volatility_Reference" Content="Volatility Reference" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="volatility_Reference"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding VolatilityReference}"  Minimum="0"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Volatility_ChangeRate" Content="Volatility Change Rate" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="volatility_ChangeRate"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding VolatilityChangeRate}"  Minimum="0"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Current_Volatility" Content="Current Volatility" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label x:Name="current_Volatility" Content="{Binding CurrentVolatility}"  HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label x:Name="Slope_Reference" Content="Slope Reference" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="slope_Reference"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding SlopeReference}"  Minimum="0"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Slope_ChangeRate" Content="Slope Change Rate" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="slope_ChangeRate"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding SlopeChangeRate}"  Minimum="0"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Current_Slope" Content="Current Slope" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label x:Name="current_Slope" Content="{Binding CurrentSlope}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label x:Name="Put_Curvature" Content="Put Curvature" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="put_Curvature"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding PutCurvature}"  Minimum="0"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Call_Curvature" Content="Call Curvature" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="call_Curvature"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding CallCurvature}"  Minimum="0"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Down_Cutoff" Content="Down Cutoff" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="down_Cutoff"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownCutoff}"  Minimum="0"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Up_Cutoff" Content="Up Cutoff" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="up_Cutoff"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpCutoff}"  Minimum="0"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Down_SmoothingRange" Content="Down Smoothing Range" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="down_SmoothingRange"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownSmoothingRange}"  Minimum="0"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Up_SmoothingRange" Content="Up Smoothing Range" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="up_SmoothingRange"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpSmoothingRange}"  Minimum="0"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Down_Slope" Content="Down Slope" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="down_Slope"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownSlope}"  Minimum="0"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Up_Slope" Content="Up Slope" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="up_Slope"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpSlope}"  Minimum="0"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <GroupBox x:Name="Volatility_Reference" Tag="2" Header="Volatility Reference">
+                <xctk:DoubleUpDown x:Name="volatility_Reference"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding VolatilityReference}"  Minimum="0" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Volatility_ChangeRate" Header="Volatility Change Rate">
+                <xctk:DoubleUpDown x:Name="volatility_ChangeRate" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding VolatilityChangeRate}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Current_Volatility" Header="Current Volatility">
+                <Label x:Name="current_Volatility" Tag="2" Content="{Binding CurrentVolatility}"  HorizontalAlignment="Left" VerticalAlignment="Top" />
+            </GroupBox>
+            <GroupBox x:Name="Slope_Reference" Header="Slope Reference">
+                <xctk:DoubleUpDown x:Name="slope_Reference"  Tag="2" UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding SlopeReference}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Slope_ChangeRate" Header="Slope Change Rate">
+                <xctk:DoubleUpDown x:Name="slope_ChangeRate" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding SlopeChangeRate}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Current_Slope" Header="Current Slope">
+                <Label x:Name="current_Slope" Tag="2" Content="{Binding CurrentSlope}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            </GroupBox>
+            <GroupBox x:Name="Put_Curvature" Header="Put Curvature">
+                <xctk:DoubleUpDown x:Name="put_Curvature" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding PutCurvature}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Call_Curvature" Header="Call Curvature">
+                <xctk:DoubleUpDown x:Name="call_Curvature" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding CallCurvature}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Down_Cutoff" Header="Down Cutoff">
+                <xctk:DoubleUpDown x:Name="down_Cutoff" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownCutoff}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Up_Cutoff" Header="Up Cutoff">
+                <xctk:DoubleUpDown x:Name="up_Cutoff" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpCutoff}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Down_SmoothingRange" Header="Down Smoothing Range">
+                <xctk:DoubleUpDown x:Name="down_SmoothingRange" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownSmoothingRange}"  Minimum="0"  Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Up_SmoothingRange" Header="Up Smoothing Range">
+                <xctk:DoubleUpDown x:Name="up_SmoothingRange" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpSmoothingRange}"  Minimum="0" Maximum="1000000"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Down_Slope" Header="Down Slope">
+                <xctk:DoubleUpDown x:Name="down_Slope" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownSlope}"  Minimum="-1000000" Maximum="1000000"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Up_Slope" Header="Up Slope">
+                <xctk:DoubleUpDown x:Name="up_Slope" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpSlope}"  Minimum="-1000000" Maximum="1000000"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
         </StackPanel>
         <StackPanel x:Name="VolatilityPanel1" Grid.Column="2">
-            <Label x:Name="Volatility_Reference1" Content="Volatility Reference" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="volatility_Reference1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding VolatilityReference1}"  Minimum="0"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Volatility_ChangeRate1" Content="Volatility Change Rate" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="volatility_ChangeRate1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding VolatilityChangeRate1}"  Minimum="0"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Current_Volatility1" Content="Current Volatility" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label x:Name="current_Volatility1" Content="{Binding CurrentVolatility1}"  HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label x:Name="Slope_Reference1" Content="Slope Reference" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="slope_Reference1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding SlopeReference1}"  Minimum="0"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Slope_ChangeRate1" Content="Slope Change Rate" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="slope_ChangeRate1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding SlopeChangeRate1}"  Minimum="0"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Current_Slope1" Content="Current Slope" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label x:Name="current_Slope1" Content="{Binding CurrentSlope1}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label x:Name="Put_Curvature1" Content="Put Curvature" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="put_Curvature1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding PutCurvature1}"  Minimum="0"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Call_Curvature1" Content="Call Curvature" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="call_Curvature1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding CallCurvature1}"  Minimum="0"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Down_Cutoff1" Content="Down Cutoff" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="down_Cutoff1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownCutoff1}"  Minimum="0"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Up_Cutoff1" Content="Up Cutoff" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="up_Cutoff1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpCutoff1}"  Minimum="0"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Down_SmoothingRange1" Content="Down Smoothing Range" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="down_SmoothingRange1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownSmoothingRange1}"  Minimum="0"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Up_SmoothingRange1" Content="Up Smoothing Range" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="up_SmoothingRange1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpSmoothingRange1}"  Minimum="0"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Down_Slope1" Content="Down Slope" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="down_Slope1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownSlope1}"  Minimum="0"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label x:Name="Up_Slope1" Content="Up Slope" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-            <xctk:DoubleUpDown x:Name="up_Slope1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpSlope1}"  Minimum="0"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        </StackPanel>
+            <GroupBox x:Name="Volatility_Reference1" Tag="3" Header="Volatility Reference">
+                <xctk:DoubleUpDown x:Name="volatility_Reference1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding VolatilityReference}"  Minimum="0" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Volatility_ChangeRate1" Header="Volatility Change Rate">
+                <xctk:DoubleUpDown x:Name="volatility_ChangeRate1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding VolatilityChangeRate}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Current_Volatility1" Header="Current Volatility">
+                <Label x:Name="current_Volatility1" Tag="3" Content="{Binding CurrentVolatility}"  HorizontalAlignment="Left" VerticalAlignment="Top" />
+            </GroupBox>
+            <GroupBox x:Name="Slope_Reference1" Header="Slope Reference">
+                <xctk:DoubleUpDown x:Name="slope_Reference1"  Tag="3" UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding SlopeReference}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Slope_ChangeRate1" Header="Slope Change Rate">
+                <xctk:DoubleUpDown x:Name="slope_ChangeRate1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding SlopeChangeRate}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Current_Slope1" Header="Current Slope">
+                <Label x:Name="current_Slope1" Tag="3" Content="{Binding CurrentSlope}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            </GroupBox>
+            <GroupBox x:Name="Put_Curvature1" Header="Put Curvature">
+                <xctk:DoubleUpDown x:Name="put_Curvature1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding PutCurvature}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Call_Curvature1" Header="Call Curvature">
+                <xctk:DoubleUpDown x:Name="call_Curvature1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding CallCurvature}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Down_Cutoff1" Header="Down Cutoff">
+                <xctk:DoubleUpDown x:Name="down_Cutoff1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownCutoff}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Up_Cutoff1" Header="Up Cutoff">
+                <xctk:DoubleUpDown x:Name="up_Cutoff1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpCutoff}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Down_SmoothingRange1" Header="Down Smoothing Range">
+                <xctk:DoubleUpDown x:Name="down_SmoothingRange1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownSmoothingRange}"  Minimum="0"  Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Up_SmoothingRange1" Header="Up Smoothing Range">
+                <xctk:DoubleUpDown x:Name="up_SmoothingRange1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpSmoothingRange}"  Minimum="0" Maximum="1000000"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Down_Slope1" Header="Down Slope">
+                <xctk:DoubleUpDown x:Name="down_Slope1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownSlope}"  Minimum="-1000000" Maximum="1000000"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>
+            <GroupBox x:Name="Up_Slope1" Header="Up Slope">
+                <xctk:DoubleUpDown x:Name="up_Slope1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpSlope}"  Minimum="-1000000" Maximum="1000000"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </GroupBox>        </StackPanel>
         <TabControl x:Name="tabControl"  SelectionChanged="tabControl_SelectionChanged_2" Grid.Column="3">
             <TabItem Header="Volatility and Position" x:Name="tabVolatility">
                 <Grid>
@@ -191,9 +236,9 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <oxy:PlotView Grid.Row="0" x:Name="VegaPosition" Model="{Binding PlotModelBar}" MinHeight="200" MinWidth="200" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <oxy:PlotView Grid.Row="0" x:Name="VegaPosition" Tag="4" Model="{Binding PlotModelBar}" MinHeight="200" MinWidth="200" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     </oxy:PlotView>
-                    <oxy:PlotView Grid.Row="1" x:Name="PlotVolatility" Model="{Binding PlotModel}" MinHeight="200" MinWidth="200" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <oxy:PlotView Grid.Row="1" x:Name="PlotVolatility" Tag="4" Model="{Binding PlotModel}" MinHeight="200" MinWidth="200" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     </oxy:PlotView>
                 </Grid>
             </TabItem>
@@ -208,10 +253,10 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ListView x:Name="price_greekLV" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Top">
+                    <ListView x:Name="price_greekLV" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Top" Tag="5">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="pVega" DisplayMemberBinding="{Binding pVega}"/>
+                                <GridViewColumn Header="pVega"  DisplayMemberBinding="{Binding pVega}" />
                                 <GridViewColumn Header="pDelta" DisplayMemberBinding="{Binding pDelta}"/>
                                 <GridViewColumn Header="pBid" DisplayMemberBinding="{Binding pBid}"/>
                                 <GridViewColumn Header="pMid" DisplayMemberBinding="{Binding pMid}"/>
@@ -225,7 +270,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ListView x:Name="volatilityLV"  HorizontalAlignment="Left" Grid.Column="1">
+                    <ListView x:Name="volatilityLV"  HorizontalAlignment="Left" Grid.Column="1" Tag="5">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="strike" DisplayMemberBinding="{Binding Strike}"/>
@@ -241,7 +286,7 @@
             <TabItem Header="Position and Risk">
                 <Grid Background="#FFE5E5E5">
 
-                    <ListView x:Name="positionLV"  HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    <ListView x:Name="positionLV"  HorizontalAlignment="Left" VerticalAlignment="Top" Tag="6" >
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="expiry month" DisplayMemberBinding="{Binding ExpiryMonth}"/>
@@ -253,7 +298,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ListView x:Name="riskLV"  HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    <ListView x:Name="riskLV"  HorizontalAlignment="Left" VerticalAlignment="Top" Tag="6" >
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="expiry month" DisplayMemberBinding="{Binding ExpiryMonth}"/>
