@@ -43,7 +43,6 @@
                         </MenuItem>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{lex:Loc Key=OrderWindow}" Click="FastOrder_Click"/>
             </MenuItem>
         </x:Array>
         <x:Array Type="{x:Type StatusBarItem}" x:Key="exStatusBarItems">
@@ -60,8 +59,8 @@
             <avalonDock:GenericTheme/>
         </avalonDock:DockingManager.Theme>
         <avalonDock:LayoutRoot>
-            <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*">
-                <avalonDock:LayoutPanel DockWidth="4*" DockHeight="0.15*" DockMinHeight="0">
+            <avalonDock:LayoutPanel Orientation="Vertical">
+                <avalonDock:LayoutPanel DockHeight="0.15*">
                     <avalonDock:LayoutAnchorablePane x:Name="fundPane">
                         <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Fund}">
                             <c:AccountInfoControl x:Name="clientFundLV"/>
@@ -70,7 +69,7 @@
                 </avalonDock:LayoutPanel>
                 <avalonDock:LayoutPanel Orientation="Vertical">
                     <avalonDock:LayoutPanel Orientation="Horizontal">
-                        <avalonDock:LayoutAnchorablePane x:Name="fastorderPane" DockWidth="0.23*" DockHeight="1*">
+                        <avalonDock:LayoutAnchorablePane x:Name="fastorderPane" DockWidth="0.25*">
                             <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}" CanClose="True" CanAutoHide="True">
                                 <c:FastOrderControl x:Name="FastOrderCtl"/>
                             </avalonDock:LayoutAnchorable>

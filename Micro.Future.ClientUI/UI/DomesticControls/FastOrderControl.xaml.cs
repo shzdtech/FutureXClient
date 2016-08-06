@@ -79,14 +79,22 @@ namespace Micro.Future.UI
             LimitTxt.Value = double.Parse(LabelLowerPrice.Content.ToString());
         }
 
+
+        private void LabelBidPrice_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            LimitTxt.Value = double.Parse(LabelBidPrice.Content.ToString());
+        }
+
+        private void LabelAskPrice_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
+        }
+
         private void FastOrderContract_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (_currentContract != null && FastOrderContract.Text != _currentContract)
                 stackPanelPrices.DataContext = null;
-            //LabelUpperPrice.Content = string.Empty;
-            //LabelBidPrice.Content = string.Empty;
-            //LabelAskPrice.Content = string.Empty;
-            //LabelLowerPrice.Content = string.Empty;
         }
+
     }
 }

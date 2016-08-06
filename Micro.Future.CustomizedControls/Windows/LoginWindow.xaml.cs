@@ -48,8 +48,10 @@ namespace Micro.Future.UI
         public LoginWindow(AbstractSignInManager signInMgr)
         {
             SignInManager = signInMgr;
-            SignInManager.OnConnected += _signInMgr_OnConnected;
-            SignInManager.OnSessionCreated += _signInMgr_OnSessionCreated;
+            SignInManager.OnConnected += OnConnected;
+            SignInManager.OnLogged += OnLogged;
+            SignInManager.OnLoginError += OnLoginError;
+
             InitializeComponent();
 
             var userInfo = signInMgr.SignInOptions;
@@ -57,21 +59,29 @@ namespace Micro.Future.UI
             LoginCombo.Text = userInfo.FrontServer;
             userTxt.Text = userInfo.UserName;
             passwordTxt.Password = userInfo.Password;
-
-
         }
 
-        private void _signInMgr_OnSessionCreated()
+        private void OnLoginError(MessageException ex)
+        {
+            if (ex != null)
+            {
+                loginBtn.IsEnabled = true;
+                MessageBox.Show(this, ex.Message);
+            }
+        }
+
+        private void OnLogged(IUserInfo obj)
         {
             DialogResult = true;
             Close();
         }
 
-        void _signInMgr_OnConnected(Exception ex)
+        void OnConnected(Exception ex)
         {
             if (ex != null)
             {
-                Title = ex.Message;
+                loginBtn.IsEnabled = true;
+                MessageBox.Show(this, ex.Message);
             }
         }
 
@@ -97,6 +107,8 @@ namespace Micro.Future.UI
             }
 
             SignInManager.SignIn();
+
+            loginBtn.IsEnabled = false;
         }
 
         private void domesticChkBox_Checked(object sender, RoutedEventArgs e)
