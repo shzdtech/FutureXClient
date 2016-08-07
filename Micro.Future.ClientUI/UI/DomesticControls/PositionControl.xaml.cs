@@ -89,7 +89,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Position(object sender, RoutedEventArgs e)
         {
             if (AnchorablePane != null)
-                AnchorablePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                AnchorablePane.AddContent(new PositionControl()).Title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
 

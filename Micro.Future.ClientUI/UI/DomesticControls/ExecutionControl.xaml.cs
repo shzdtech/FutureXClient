@@ -266,19 +266,23 @@ namespace Micro.Future.UI
         private void MenuItem_Click_ShowAllExecution(object sender, RoutedEventArgs e)
         {
             if (AnchorablePane != null)
-                AnchorablePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                AnchorablePane.AddContent(new ExecutionControl()).Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
         private void MenuItem_Click_ShowOpenExecution(object sender, RoutedEventArgs e)
         {
+            var executionWin = new ExecutionControl();
+            executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENED, OrderStatus.PARTIAL_TRADED, OrderStatus.PARTIAL_TRADING });
             if (AnchorablePane != null)
-                AnchorablePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Opened", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                AnchorablePane.AddContent(executionWin).Title = WPFUtility.GetLocalizedString("Opened", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
         private void MenuItem_Click_ShowDealedExecution(object sender, RoutedEventArgs e)
         {
+            var executionWin = new ExecutionControl();
+            executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED });
             if (AnchorablePane != null)
-                AnchorablePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Traded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                AnchorablePane.AddContent(executionWin).Title = WPFUtility.GetLocalizedString("Traded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
 
