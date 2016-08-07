@@ -239,16 +239,16 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_CloseTrade(object sender, RoutedEventArgs e)
         {
-            if (AnchorablePane != null)
-                AnchorablePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Close", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-        }
-
-        private void MenuItem_Click_AllTrade(object sender, RoutedEventArgs e)
-        {
             var tradeWin = new TradeRecordControl();
             tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.CLOSE });
             if (AnchorablePane != null)
                 AnchorablePane.AddContent(tradeWin).Title = WPFUtility.GetLocalizedString("Close", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+        }
+
+        private void MenuItem_Click_AllTrade(object sender, RoutedEventArgs e)
+        {
+            if (AnchorablePane != null)
+                AnchorablePane.AddContent(new TradeRecordControl()).Title = WPFUtility.GetLocalizedString("AllTraded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
         private void TradeTreeView_Click(object sender, RoutedEventArgs e)
