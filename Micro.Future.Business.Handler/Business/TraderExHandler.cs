@@ -185,7 +185,7 @@ namespace Micro.Future.Message
                         PositionDateType = contract.PositionDateType,
                         LongMarginRatio = contract.LongMarginRatio,
                         ShortMarginRatio = contract.ShortMarginRatio,
-                        MaxMarginSideAlgorithm = contract.MaxMarginSideAlgorithm
+                        GroupName = contract.GroupName
                     });
                 }
                 ClientDbContext.SaveChanges();
@@ -487,7 +487,7 @@ namespace Micro.Future.Message
 
         public void CreateOrder(OrderVM orderVM)
         {
-            var pb = new PBOrderInfo();
+            var pb = new PBOrderRequest();
             pb.Contract = orderVM.Contract;
             pb.LimitPrice = orderVM.LimitPrice;
             pb.Tif = (int)orderVM.TIF;
@@ -505,7 +505,7 @@ namespace Micro.Future.Message
 
         public void CancelOrder(OrderVM orderVM)
         {
-            var sendobjBld = new PBOrderInfo();
+            var sendobjBld = new PBOrderRequest();
             sendobjBld.Exchange = orderVM.Exchange;
             sendobjBld.Contract = orderVM.Contract;
             sendobjBld.OrderID = orderVM.OrderID;
