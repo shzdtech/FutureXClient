@@ -66,7 +66,8 @@ namespace Micro.Future.ViewModel
                 MinorGridlineStyle = LineStyle.Dot,
                 Title = "StrikePrice",
                 Position = AxisPosition.Bottom,   
-                IsTickCentered = false,             
+                IsTickCentered = false, 
+                //GapWidth =             
             };
             PlotModelBar.Axes.Add(strikepriceAxis1);
 
