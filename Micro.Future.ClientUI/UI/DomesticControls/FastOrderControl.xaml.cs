@@ -109,7 +109,7 @@ namespace Micro.Future.UI
         }
 
      
-
+        /*
         private void LimitTxt_MouseLeave(object sender, MouseEventArgs e)
         {
             if (LimitTxt.Value <= 0)
@@ -118,7 +118,7 @@ namespace Micro.Future.UI
                 LimitTxt.Value = 0.1;
             }
         }
-
+        */
 
         //
 
