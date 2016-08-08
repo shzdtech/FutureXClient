@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\AvalonLayoutExtenstions.cs" />
+    <Compile Include="Controls\ILayoutAnchorableControl.cs" />
     <Compile Include="Controls\LoginStatus.xaml.cs">
       <DependentUpon>LoginStatus.xaml</DependentUpon>
     </Compile>

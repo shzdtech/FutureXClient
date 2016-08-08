@@ -61,7 +61,7 @@ namespace Micro.Future.LocalStorage.DataObject
         ///空头保证金率
         public double ShortMarginRatio { get; set; }
         ///是否使用大额单边保证金算法
-        public string MaxMarginSideAlgorithm { get; set; }
+        public string GroupName { get; set; }
     }
 
 }

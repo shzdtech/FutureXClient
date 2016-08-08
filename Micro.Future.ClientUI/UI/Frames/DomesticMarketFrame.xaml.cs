@@ -64,9 +64,12 @@ namespace Micro.Future.UI
         public void Initialize()
         {
             // Initailize UI events
-            otcMarketDataLV.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
+            marketDataLV.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
             positionsWindow.OnPositionSelected += FastOrderCtl.OnPositionSelected;
-
+            marketDataLV.AnchorablePane = quotePane;
+            executionWindow.AnchorablePane = executionPane;
+            tradeWindow.AnchorablePane = tradePane;
+            positionsWindow.AnchorablePane = positionPane;
 
             // Initialize Market Data
             var msgWrapper = _ctpMdSignIner.MessageWrapper;
@@ -128,6 +131,7 @@ namespace Micro.Future.UI
         {
             quotePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
+
 
         private void MenuItem_Click_ZhongJin(object sender, RoutedEventArgs e)
         {

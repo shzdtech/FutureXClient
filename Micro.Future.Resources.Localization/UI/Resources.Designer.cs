@@ -1114,6 +1114,42 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 显示所有委托单 的本地化字符串。
+        /// </summary>
+        internal static string ShowAllExecution {
+            get {
+                return ResourceManager.GetString("ShowAllExecution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 显示自选合约 的本地化字符串。
+        /// </summary>
+        internal static string ShowCustomizedContractTab {
+            get {
+                return ResourceManager.GetString("ShowCustomizedContractTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 显示成交委托单 的本地化字符串。
+        /// </summary>
+        internal static string ShowDealedExecution {
+            get {
+                return ResourceManager.GetString("ShowDealedExecution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 显示当前挂单 的本地化字符串。
+        /// </summary>
+        internal static string ShowOpenExecution {
+            get {
+                return ResourceManager.GetString("ShowOpenExecution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 订单状态 的本地化字符串。
         /// </summary>
         internal static string Status {
