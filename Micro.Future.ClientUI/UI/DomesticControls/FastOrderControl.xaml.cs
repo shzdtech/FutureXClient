@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
+using System.Windows;
 
 namespace Micro.Future.UI
 {
@@ -95,6 +96,32 @@ namespace Micro.Future.UI
             if (_currentContract != null && FastOrderContract.Text != _currentContract)
                 stackPanelPrices.DataContext = null;
         }
+
+    
+
+        private void SizeTxt_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (SizeTxt.Value < 1)
+            {
+                MessageBox.Show("输入数值至少为1");
+                SizeTxt.Value = 1;
+            }
+        }
+
+     
+
+        private void LimitTxt_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (LimitTxt.Value <= 0)
+            {
+                MessageBox.Show("输入价格必须大于0");
+                LimitTxt.Value = 0.1;
+            }
+        }
+
+
+        //
+
 
     }
 }

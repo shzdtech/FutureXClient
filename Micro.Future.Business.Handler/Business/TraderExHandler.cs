@@ -513,6 +513,7 @@ namespace Micro.Future.Message
 
         public void CreateOrder(OrderVM orderVM)
         {
+            
             var pb = new PBOrderRequest();
             pb.Contract = orderVM.Contract;
             pb.LimitPrice = orderVM.LimitPrice;
