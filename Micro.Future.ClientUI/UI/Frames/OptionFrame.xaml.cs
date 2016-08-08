@@ -29,7 +29,13 @@ namespace Micro.Future.UI
     {
         private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCMDTradingDeskHandler>());
 
-        private CollectionViewSource _viewSource = new CollectionViewSource();
+        private CollectionViewSource _viewSourcePosition = new CollectionViewSource();
+        private CollectionViewSource _viewSourceRisk = new CollectionViewSource();
+        private CollectionViewSource _viewSourcePriceGreek = new CollectionViewSource();
+        private CollectionViewSource _viewSourceVolatility = new CollectionViewSource();
+
+
+
         private ColumnObject[] mColumns;
 
         public string Title
@@ -110,8 +116,16 @@ namespace Micro.Future.UI
             }
 
             var traderExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            _viewSourcePosition.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RiskVMCollection;
+            _viewSourceRisk.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
+            _viewSourcePriceGreek.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PriceGreekVMCollection;
+            _viewSourceVolatility.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().VolatilityVMCollection;
+            positionLV.ItemsSource = _viewSourcePosition.View;
+            riskLV.ItemsSource = _viewSourceRisk.View;
+            price_greekLV.ItemsSource = _viewSourcePriceGreek.View;
+            volatilityLV.ItemsSource = _viewSourceVolatility.View;
             traderExHandler.OnUpdateOption();
-
+            traderExHandler.OnUpdateTest();
             StrikePricePanel.DataContext = new NumericalSimVM();
             //VolatilityPanel.DataContext = new OptionVM();
             //VolatilityPanel1.DataContext = new OptionVM();
