@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
 using System.Windows;
+using System.Text.RegularExpressions;
 
 namespace Micro.Future.UI
 {
@@ -101,11 +102,22 @@ namespace Micro.Future.UI
 
         private void SizeTxt_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (SizeTxt.Value < 1)
+            var source = "^[0-9]*$";
+
+            if (Regex.IsMatch(SizeTxt.Value.ToString(), source) == true)
             {
-                MessageBox.Show("输入数值至少为1");
+                if (SizeTxt.Value < 1)
+                {
+                    MessageBox.Show("输入数值至少为1");
+                    SizeTxt.Value = 1;
+                }
+            }
+            else
+            {
+                MessageBox.Show("只可以输入数字！");
                 SizeTxt.Value = 1;
             }
+            
         }
 
      
