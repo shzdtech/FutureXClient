@@ -121,16 +121,19 @@ namespace Micro.Future.UI
         }
 
      
-        /*
+        
         private void LimitTxt_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (LimitTxt.Value <= 0)
+            var source = "^[0-9]+(.[0-9]{2})?$";
+            if (Regex.IsMatch(LimitTxt.Value.ToString(), source) == true)
             {
-                MessageBox.Show("输入价格必须大于0");
-                LimitTxt.Value = 0.1;
+                MessageBox.Show("只可以输入两位小数的正实数！");
+                SizeTxt.Value = 1;
             }
         }
-        */
+
+        
+
 
         //
 

@@ -70,7 +70,7 @@
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Height="60">
             <Label Content="{lex:Loc Key=Price}" Width="35" VerticalAlignment="Center"/>
-            <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment="1" Value="{Binding LimitPrice}" VerticalAlignment="Center" />
+            <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment="1" Value="{Binding LimitPrice}" VerticalAlignment="Center" MouseLeave="LimitTxt_MouseLeave" />
             <StackPanel x:Name="stackPanelPrices" MinWidth="50">
                 <Label x:Name="LabelUpperPrice" Content="{Binding UpperLimitPrice}" MouseDown="labelupperprice_MouseDown" />
                 <Label x:Name="LabelBidPrice" Content="{Binding BidPrice}" MouseDown="LabelBidPrice_MouseDown" />
