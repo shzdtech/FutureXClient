@@ -102,7 +102,7 @@ namespace Micro.Future.UI
 
         private void SizeTxt_MouseLeave(object sender, MouseEventArgs e)
         {
-            var source = "^[0-9]*$";
+            var source = "^[0-9]{1,9}";
 
             if (Regex.IsMatch(SizeTxt.Value.ToString(), source) == true)
             {
