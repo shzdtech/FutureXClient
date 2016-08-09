@@ -124,7 +124,7 @@ namespace Micro.Future.UI
         
         private void LimitTxt_MouseLeave(object sender, MouseEventArgs e)
         {
-            var source = "^[-]?[0-9]+(.[0-9]{2})?$";
+            var source = "^[-]?[0-9]*$";
             if (Regex.IsMatch(LimitTxt.Value.ToString(), source) == true)
             {
                 MessageBox.Show("只可以输入两位小数的实数！");
