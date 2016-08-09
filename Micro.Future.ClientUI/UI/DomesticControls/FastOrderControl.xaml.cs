@@ -127,7 +127,7 @@ namespace Micro.Future.UI
             var source = "^[-]?[0-9]*$";
             if (Regex.IsMatch(LimitTxt.Value.ToString(), source) == true)
             {
-                MessageBox.Show("只可以输入两位小数的实数！");
+                MessageBox.Show("只可以输入数字！");
                 SizeTxt.Value = 1;
             }
         }
