@@ -1,6 +1,8 @@
 ﻿using Micro.Future.Message.Business;
 using Micro.Future.ViewModel;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 
 namespace Micro.Future.Message
@@ -63,21 +65,16 @@ namespace Micro.Future.Message
 
         private void OnUpdateStrategySuccessAction(PBStrategyList PB)
         {
-            if (StrategyVMCollection != null)
+            foreach (var strategy in PB.Strategy)
             {
-                foreach (var strategy in PB.Strategy)
+                var strategyVM = StrategyVMCollection.FindContract(strategy.Exchange, strategy.Contract);
+                if (strategyVM != null)
                 {
-                    var strategyVM = StrategyVMCollection.FindContract(strategy.Exchange, strategy.Contract);
-                    if (strategyVM != null)
-                    {
-                        strategyVM.IsTradingAllowed = strategy.AllowTrading;
-                        strategyVM.Offset = strategy.Offset;
-                        strategyVM.Depth = strategy.Depth;
-                        strategyVM.Spread = strategy.Spread;
-                        strategyVM.Enabled = strategy.Enabled;
-                        strategyVM.Quantity = strategy.Quantity;
-                        break;
-                    }
+                    strategyVM.IsTradingAllowed = strategy.AllowTrading;
+                    strategyVM.Depth = strategy.Depth;
+                    strategyVM.Enabled = strategy.Enabled;
+                    strategyVM.Quantity = strategy.Quantity;
+                    break;
                 }
             }
         }
@@ -90,17 +87,14 @@ namespace Micro.Future.Message
 
         protected void OnQueryTradingDeskSuccessAction(PBUserInfoList obj)
         {
-            if (TradingDeskVMCollection != null)
+            foreach (var userInfo in obj.UserInfo)
             {
-                foreach (var userInfo in obj.UserInfo)
+                TradingDeskVMCollection.Add(new TradingDeskVM()
                 {
-                    TradingDeskVMCollection.Add(new TradingDeskVM()
-                    {
-                        Name = userInfo.LastName + " " + userInfo.FirstName,
-                        ContactNum = userInfo.ContactNum,
-                        Email = userInfo.Email
-                    });
-                }
+                    Name = userInfo.LastName + " " + userInfo.FirstName,
+                    ContactNum = userInfo.ContactNum,
+                    Email = userInfo.Email
+                });
             }
         }
 
@@ -109,12 +103,14 @@ namespace Micro.Future.Message
             var strategy = new PBStrategy();
             strategy.Exchange = sVM.Exchange;
             strategy.Contract = sVM.Contract;
-            strategy.Offset = (float)sVM.Offset;
             strategy.Depth = sVM.Depth;
-            strategy.Spread = sVM.Spread;
             strategy.Quantity = sVM.Quantity;
             strategy.AllowTrading = sVM.IsTradingAllowed;
             strategy.Enabled = sVM.Enabled;
+
+            foreach (var param in sVM.Params)
+                strategy.Params[param.Name] = param.Value;
+
             var strategyListBd = new PBStrategyList();
             strategyListBd.Strategy.Add(strategy);
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategyListBd);
@@ -156,50 +152,45 @@ namespace Micro.Future.Message
 
         protected void OnQueryStrategySuccessAction(PBStrategyList PB)
         {
-            if (StrategyVMCollection != null)
+            foreach (var strategy in PB.Strategy)
             {
-                foreach (var strategy in PB.Strategy)
+
+                var strategyVM = StrategyVMCollection.FindContract(strategy.Exchange, strategy.Contract);
+                if (strategyVM == null)
                 {
+                    strategyVM = new StrategyVM();
+                    StrategyVMCollection.Add(strategyVM);
+                }
 
-                    var strategyVM = StrategyVMCollection.FindContract(strategy.Exchange, strategy.Contract);
-                    if (strategyVM == null)
-                    {
-                        strategyVM = new StrategyVM();
-                        StrategyVMCollection.Add(strategyVM);
-                    }
+                strategyVM.Exchange = strategy.Exchange;
+                strategyVM.Contract = strategy.Contract;
+                strategyVM.IsTradingAllowed = strategy.AllowTrading;
+                strategyVM.Underlying = strategy.Underlying;
+                strategyVM.StrategySym = strategy.Symbol;
+                strategyVM.Description = strategy.Description;
+                strategyVM.Depth = strategy.Depth;
+                strategyVM.Enabled = strategy.Enabled;
+                strategyVM.Quantity = strategy.Quantity;
 
-                    strategyVM.Exchange = strategy.Exchange;
-                    strategyVM.Contract = strategy.Contract;
-                    strategyVM.IsTradingAllowed = strategy.AllowTrading;
-                    strategyVM.Underlying = strategy.Underlying;
-                    strategyVM.StrategySym = strategy.Symbol;
-                    strategyVM.Description = strategy.Description;
-                    strategyVM.Offset = strategy.Offset;
-                    strategyVM.Depth = strategy.Depth;
-                    strategyVM.Spread = strategy.Spread;
-                    strategyVM.Enabled = strategy.Enabled;
-                    strategyVM.Quantity = strategy.Quantity;
+                foreach (var param in strategy.Params)
+                {
+                    strategyVM.Params.Add(
+                        new NamedParamVM()
+                        {
+                            Name = param.Key,
+                            Value = param.Value,
+                        });
+                }
 
-                    foreach (var param in strategy.Params)
-                    {
-                        strategyVM.Params.Add(
-                            new NamedParamVM()
-                            {
-                                Name = param.Name,
-                                Value = param.Value,
-                            });
-                    }
-
-                    foreach (var wtContract in strategy.WeightContract)
-                    {
-                        strategyVM.BaseContractParams.Add(
-                            new BaseContractParamVM()
-                            {
-                                Exchange = wtContract.Exchange,
-                                Contract = wtContract.Contract,
-                                Weight = wtContract.Weight
-                            });
-                    }
+                foreach (var wtContract in strategy.PricingContracts)
+                {
+                    strategyVM.PricingContractParams.Add(
+                        new PricingContractParamVM()
+                        {
+                            Exchange = wtContract.Exchange,
+                            Contract = wtContract.Contract,
+                            Weight = wtContract.Weight
+                        });
                 }
             }
         }
@@ -212,67 +203,86 @@ namespace Micro.Future.Message
 
         protected void OnQueryContractParamSuccessAction(PBContractParamList PB)
         {
-            if (ContractParamVMCollection != null)
+            foreach (var param in PB.Params)
             {
-                foreach (var param in PB.Params)
+                var contractParamVM = ContractParamVMCollection.
+                    FindContract(param.Exchange, param.Contract);
+                if (contractParamVM == null)
                 {
-                    var contractParamVM = ContractParamVMCollection.
-                        FindContract(param.Exchange, param.Contract);
-                    if (contractParamVM == null)
-                    {
-                        contractParamVM = new ContractParamVM();
-                        ContractParamVMCollection.Add(contractParamVM);
-                    }
-
-                    contractParamVM.Exchange = param.Exchange;
-                    contractParamVM.Contract = param.Contract;
-                    contractParamVM.DepthVol = param.DepthVol;
-                    contractParamVM.Gamma = param.Gamma;
+                    contractParamVM = new ContractParamVM();
+                    ContractParamVMCollection.Add(contractParamVM);
                 }
+
+                contractParamVM.Exchange = param.Exchange;
+                contractParamVM.Contract = param.Contract;
+                contractParamVM.DepthVol = param.DepthVol;
+                contractParamVM.Gamma = param.Gamma;
             }
 
         }
 
-        public void SubMarketData()
+        public void SubMarketData(IEnumerable<string> instrIDList)
         {
+            var instr = new NamedStringVector();
+            instr.Name = (FieldName.INSTRUMENT_ID);
+
+            foreach (string instrID in instrIDList)
+            {
+                instr.Entry.Add(instrID);
+            }
+
             var sst = new SimpleStringTable();
+            sst.Columns.Add(instr);
+
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_SUB_PRICING, sst);
         }
 
-        public void UnsubMarketData()
+        public void UnsubMarketData(IEnumerable<string> instrIDList)
         {
+            var instr = new NamedStringVector();
+            instr.Name = (FieldName.INSTRUMENT_ID);
+
+            foreach (string instrID in instrIDList)
+            {
+                instr.Entry.Add(instrID);
+            }
+
             var sst = new SimpleStringTable();
+            sst.Columns.Add(instr);
+
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, sst);
         }
 
         protected void OnSubMarketDataSuccessAction(PBPricingDataList PB)
         {
-            if (OTCQuoteVMCollection != null)
+            foreach (var md in PB.PricingData)
             {
-                foreach (var md in PB.PricingData)
+                OTCQuoteVMCollection.Add(new OTCQuoteVM()
                 {
-                    OTCQuoteVMCollection.Add(new OTCQuoteVM()
-                    {
-                        Exchange = md.Exchange,
-                        Contract = md.Contract,
-                        Quantity = 1,
-                    });
-                }
+                    Exchange = md.Exchange,
+                    Contract = md.Contract,
+                    Quantity = 1,
+                });
             }
         }
 
         protected virtual void OnReturningPricing(PBPricingDataList PB)
         {
-            if (OTCQuoteVMCollection != null)
+            foreach (var md in PB.PricingData)
             {
-                foreach (var md in PB.PricingData)
+                var quote = OTCQuoteVMCollection.FindContract(md.Exchange, md.Contract);
+                if (quote != null)
                 {
-                    var quote = OTCQuoteVMCollection.FindContract(md.Exchange, md.Contract);
-                    if (quote != null)
-                    {
-                        quote.BidPrice = md.BidPrice;
-                        quote.AskPrice = md.AskPrice;
-                    }
+                    quote.BidPrice = md.BidPrice;
+                    quote.AskPrice = md.AskPrice;
+                }
+                var ps = from s in StrategyVMCollection
+                         where (s.Exchange == md.Exchange && s.Contract == md.Contract)
+                         select s;
+                foreach (var s in ps)
+                {
+                    s.BidPrice = md.BidPrice;
+                    s.AskPrice = md.AskPrice;
                 }
             }
         }

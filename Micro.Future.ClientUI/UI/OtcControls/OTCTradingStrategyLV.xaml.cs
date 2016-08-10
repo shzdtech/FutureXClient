@@ -39,7 +39,7 @@ namespace Micro.Future.UI
         {
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().StrategyVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().QueryStrategy();
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().SubMarketData();
+            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().SubMarketData(new List<string>());
         }
 
         private void OnStrategyChanged(object sender, RoutedPropertyChangedEventArgs<object> e)

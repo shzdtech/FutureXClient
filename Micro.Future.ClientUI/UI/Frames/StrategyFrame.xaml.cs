@@ -16,7 +16,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class StrategyFrame : UserControl, IUserFrame
     {
-        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCMDTradingDeskHandler>());
+        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AbstractOTCMarketDataHandler>());
 
         public StrategyFrame()
         {
@@ -68,10 +68,17 @@ namespace Micro.Future.UI
             _tdSignIner.OnLogged += TdLoginStatus.OnLogged;
             _tdSignIner.OnLoginError += TdLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += TdLoginStatus.OnDisconnected;
+            _tdSignIner.OnLogged += _tdSignIner_OnLogged;
 
-            MessageHandlerContainer.DefaultInstance.Get<OTCMDTradingDeskHandler>().RegisterMessageWrapper(msgWrapper);
+            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().RegisterMessageWrapper(msgWrapper);
 
             TDServerLogin();
+        }
+
+        private void _tdSignIner_OnLogged(IUserInfo obj)
+        {
+            strategyListView.ReloadData();
+            contractParamListView.ReloadData();
         }
 
         private void TDServerLogin()

@@ -39,29 +39,11 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Offset">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <WrapPanel>
-                                        <xctk:DoubleUpDown x:Name="offsetTextBox" FormatString="F2" Value="{Binding Offset}" KeyUp ="OnKeyDown" UpdateValueOnEnterKey="True" ShowButtonSpinner="False"/>
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
                         <GridViewColumn Header="Depth">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <WrapPanel>
                                         <xctk:IntegerUpDown x:Name="depthTextBox" Value="{Binding Depth}" KeyUp ="OnKeyDown" UpdateValueOnEnterKey="True" Minimum="0" ShowButtonSpinner="False"></xctk:IntegerUpDown>
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Spread">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <WrapPanel>
-                                        <xctk:DoubleUpDown x:Name="spreadTextBox" FormatString="F2" Value="{Binding Spread}" KeyUp ="OnKeyDown" UpdateValueOnEnterKey="True" Minimum="0" ShowButtonSpinner="False"></xctk:DoubleUpDown>
                                     </WrapPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -104,7 +86,7 @@
                 </ListView.View>
             </ListView>
             <GridSplitter Grid.Column="3" HorizontalAlignment="Stretch" />
-            <ListView Name="OTCTradingDeskContractParam" Grid.Column="4" ItemsSource="{Binding SelectedItem.BaseContractParams, ElementName=OTCTradingLV}">
+            <ListView Name="OTCTradingDeskContractParam" Grid.Column="4" ItemsSource="{Binding SelectedItem.PricingContractParams, ElementName=OTCTradingLV}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Exchange" DisplayMemberBinding="{Binding Exchange}"/>

@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace Micro.Future.ViewModel
 {
-    public class BaseContractParamVM : ContractNotifyPropertyChanged
+    public class PricingContractParamVM : ContractNotifyPropertyChanged
     {
         private double _weight;
         public double Weight
@@ -97,20 +97,6 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private double _offset;
-        public double Offset
-        {
-            get
-            {
-                return _offset;
-            }
-            set
-            {
-                _offset = value;
-                OnPropertyChanged("Offset");
-            }
-        }
-
         private int _depth;
         public int Depth
         {
@@ -125,20 +111,6 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private double _spread;
-        public double Spread
-        {
-            get
-            {
-                return _spread;
-            }
-            set
-            {
-                _spread = value;
-                OnPropertyChanged("Spread");
-            }
-        }
-
         private ObservableCollection<NamedParamVM> _strategyParams = new ObservableCollection<NamedParamVM>();
         public ObservableCollection<NamedParamVM> Params
         {
@@ -148,12 +120,12 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private ObservableCollection<BaseContractParamVM> _baseContractParams = new ObservableCollection<BaseContractParamVM>();
-        public ObservableCollection<BaseContractParamVM> BaseContractParams
+        private ObservableCollection<PricingContractParamVM> _pricingContractParams = new ObservableCollection<PricingContractParamVM>();
+        public ObservableCollection<PricingContractParamVM> PricingContractParams
         {
             get
             {
-                return _baseContractParams;
+                return _pricingContractParams;
             }
         }
 

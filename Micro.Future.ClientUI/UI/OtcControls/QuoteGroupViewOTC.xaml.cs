@@ -35,7 +35,7 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().SubMarketData();
+            //MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().SubMarketData();
         }
 
         private void QuoteListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
