@@ -98,9 +98,8 @@ namespace Micro.Future.UI
                 stackPanelPrices.DataContext = null;
         }
 
-    
 
-        private void SizeTxt_MouseLeave(object sender, MouseEventArgs e)
+        private void SizeTxt_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var source = "^[0-9]{1,9}";
 
@@ -117,12 +116,9 @@ namespace Micro.Future.UI
                 MessageBox.Show("只可以输入数字！");
                 SizeTxt.Value = 1;
             }
-            
         }
 
-     
-        
-        private void LimitTxt_MouseLeave(object sender, MouseEventArgs e)
+        private void LimitTxt_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var source = "^[-]?[0-9]{1,5}";
             if (Regex.IsMatch(LimitTxt.Value.ToString(), source) == true)
@@ -131,8 +127,6 @@ namespace Micro.Future.UI
                 SizeTxt.Value = 1;
             }
         }
-
-        
 
 
         //
