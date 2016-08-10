@@ -32,7 +32,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Width="300" Height="30">
             <Label Width="35" Content="{lex:Loc Key=OrderVolume}" VerticalAlignment="Center"></Label>
-            <xctk:IntegerUpDown Width="100" FormatString="N0" x:Name="SizeTxt" Value="{Binding Volume, Mode=OneWayToSource}" VerticalAlignment="Center"/>
+            <xctk:IntegerUpDown Width="100" FormatString="N0" x:Name="SizeTxt" Value="{Binding Volume, Mode=OneWayToSource}" VerticalAlignment="Center" ValueChanged="SizeTxt_ValueChanged" />
             <TextBlock Text="{lex:Loc Key=TIF}" Width="35" VerticalAlignment="Center"></TextBlock>
             <ComboBox Name="TimeTypeCombo" SelectedIndex="0" Grid.ColumnSpan="2" Width="100" VerticalAlignment="Center">
                 <ComboBoxItem>GFD</ComboBoxItem>
@@ -70,7 +70,7 @@
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Height="60">
             <Label Content="{lex:Loc Key=Price}" Width="35" VerticalAlignment="Center"/>
-            <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment="1" Value="{Binding LimitPrice}" VerticalAlignment="Center" />
+            <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment="1" Value="{Binding LimitPrice}" VerticalAlignment="Center" ValueChanged="LimitTxt_ValueChanged" />
             <StackPanel x:Name="stackPanelPrices" MinWidth="50">
                 <Label x:Name="LabelUpperPrice" Content="{Binding UpperLimitPrice}" MouseDown="labelupperprice_MouseDown" />
                 <Label x:Name="LabelBidPrice" Content="{Binding BidPrice}" MouseDown="LabelBidPrice_MouseDown" />

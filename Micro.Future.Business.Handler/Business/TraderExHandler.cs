@@ -50,6 +50,21 @@ namespace Micro.Future.Message
             get;
         } = new ObservableCollection<FundVM>();
 
+        public ObservableCollection<RiskVM> RiskVMCollection
+        {
+            get;
+        } = new ObservableCollection<RiskVM>();
+
+        public ObservableCollection<PriceGreekVM> PriceGreekVMCollection
+        {
+            get;
+        } = new ObservableCollection<PriceGreekVM>();
+
+        public ObservableCollection<VolatilityVM> VolatilityVMCollection
+        {
+            get;
+        } = new ObservableCollection<VolatilityVM>();
+
         public OptionOxyVM OptionOxyVM
         {
             get;
@@ -89,7 +104,7 @@ namespace Micro.Future.Message
         {
             var lineSerie = new LineSeries();
             var columnSeries = new ColumnSeries();
-            for (int i = 0; i < 10; i++)
+            for (double i = 0.5; i < 10; i++)
             {
                 lineSerie.Points.Add(new DataPoint(i, i));
                 columnSeries.Items.Add(new ColumnItem { Value = i });
@@ -97,6 +112,17 @@ namespace Micro.Future.Message
             OptionOxyVM.PlotModel.Series.Add(lineSerie);
             OptionOxyVM.PlotModelBar.Series.Add(columnSeries);
 
+        }
+
+        public void OnUpdateTest()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                RiskVMCollection.Add(new RiskVM{ Delta = i, DisplayName = i.ToString(), PositionDelta = i, PositionVega = i, Value = i, Vega = i });
+                PositionVMCollection.Add(new PositionVM { Selected = true, StrikePrice = i, Type = 0, Style = 0, Position = i });
+                PriceGreekVMCollection.Add(new PriceGreekVM {  cAsk = i, cBid = i, cDelta = i, cMid = i, cVega = i, DisplayName = i.ToString(), pAsk = i, pBid = i, pDelta = i, pMid = i, pVega = i, Strike = i});
+                VolatilityVMCollection.Add(new VolatilityVM {  DisplayName = i.ToString(), Strike = i, VolAsk = i, volBid = i, VolMid = i});
+            }
         }
 
         private void OnCancel(PBOrderInfo rsp)
@@ -487,6 +513,7 @@ namespace Micro.Future.Message
 
         public void CreateOrder(OrderVM orderVM)
         {
+            
             var pb = new PBOrderRequest();
             pb.Contract = orderVM.Contract;
             pb.LimitPrice = orderVM.LimitPrice;

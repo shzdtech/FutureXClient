@@ -238,7 +238,7 @@
                     </Grid.RowDefinitions>
                     <oxy:PlotView Grid.Row="0" x:Name="VegaPosition" Tag="4" Model="{Binding PlotModelBar}" MinHeight="200" MinWidth="200" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     </oxy:PlotView>
-                    <oxy:PlotView Grid.Row="1" x:Name="PlotVolatility" Tag="4" Model="{Binding PlotModel}" MinHeight="200" MinWidth="200" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <oxy:PlotView Grid.Row="1" x:Name="PlotVolatility" Tag="4" Model="{Binding PlotModel}"  MinWidth="200"  MinHeight="480" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     </oxy:PlotView>
                 </Grid>
             </TabItem>

@@ -2,6 +2,8 @@
 using System.Windows.Input;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
+using System.Windows;
+using System.Text.RegularExpressions;
 
 namespace Micro.Future.UI
 {
@@ -95,6 +97,40 @@ namespace Micro.Future.UI
             if (_currentContract != null && FastOrderContract.Text != _currentContract)
                 stackPanelPrices.DataContext = null;
         }
+
+
+        private void SizeTxt_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var source = "^[0-9]{1,9}";
+
+            if (Regex.IsMatch(SizeTxt.Value.ToString(), source) == true)
+            {
+                if (SizeTxt.Value < 1)
+                {
+                    MessageBox.Show("输入数值至少为1");
+                    SizeTxt.Value = 1;
+                }
+            }
+            else
+            {
+                MessageBox.Show("只可以输入数字！");
+                SizeTxt.Value = 1;
+            }
+        }
+
+        private void LimitTxt_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var source = "^[-]?[0-9]{1,5}";
+            if (Regex.IsMatch(LimitTxt.Value.ToString(), source) == true)
+            {
+                MessageBox.Show("只可以输入数字！");
+                SizeTxt.Value = 1;
+            }
+        }
+
+
+        //
+
 
     }
 }

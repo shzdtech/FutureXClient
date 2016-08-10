@@ -39,20 +39,45 @@ namespace Micro.Future.ViewModel
             //PlotModel.LegendBackground = OxyColor.FromAColor(200, OxyColors.White);
             //PlotModel.LegendBorder = OxyColors.Black;
 
-            var volatilityAxis = new LinearAxis() { MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot, Title = "StrikePrice", TitlePosition = 0 };
+            var volatilityAxis = new LinearAxis() {
+                MajorGridlineStyle = LineStyle.Solid,
+                MinorGridlineStyle = LineStyle.Dot,
+                Position = AxisPosition.Bottom,
+                Minimum = 0,
+                Maximum = 10,
+                MinimumPadding = 0,
+                MaximumPadding = 0,
+                Title = "StrikePrice"
+            };
             PlotModel.Axes.Add(volatilityAxis);
-            //var strikepriceAxis = new LinearAxis() { /*MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot,*/ Title = "Volatility", TitlePosition = 1 };
-            //PlotModel.Axes.Add(strikepriceAxis);
+            var strikepriceAxis = new LinearAxis() {
+                MajorGridlineStyle = LineStyle.Solid,
+                MinorGridlineStyle = LineStyle.Dot,
+                Position = AxisPosition.Left,
+                Title = "Volatility"};
+            PlotModel.Axes.Add(strikepriceAxis);
 
         }
 
         private void SetUpModelBar()
         {
-            var strikepriceAxis1 = new CategoryAxis() { MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot, Title = "StrikePrice", TitlePosition = 0 };
+            var strikepriceAxis1 = new CategoryAxis() {
+                MajorGridlineStyle = LineStyle.Solid,
+                MinorGridlineStyle = LineStyle.Dot,
+                Title = "StrikePrice",
+                Position = AxisPosition.Bottom,   
+                IsTickCentered = false, 
+                //GapWidth =             
+            };
             PlotModelBar.Axes.Add(strikepriceAxis1);
 
-            //var positionAxis = new LinearAxis() { MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot, Title = "Position", TitlePosition = 1 };
-            //PlotModelBar.Axes.Add(positionAxis);
+            var positionAxis = new LinearAxis() {
+                MajorGridlineStyle = LineStyle.Solid,
+                MinorGridlineStyle = LineStyle.Dot,
+                Title = "Position",
+                Position = AxisPosition.Left,
+            };
+            PlotModelBar.Axes.Add(positionAxis);
         }
 
         private void LoadData(ModelParams modelParams)

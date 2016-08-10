@@ -132,7 +132,7 @@ namespace Micro.Future.Message
 
         Geometric = 1,
 
-        Arethmetic = 1,
+        Arethmetic = 2,
 
 
     };
