@@ -27,6 +27,15 @@ namespace Micro.Future.ViewModel
     }
     public class StrategyVM : OTCQuoteVM
     {
+        public StrategyVM(AbstractOTCMarketDataHandler otcHandler)
+        {
+            OTCHandler = otcHandler;
+        }
+
+        public AbstractOTCMarketDataHandler OTCHandler { get; set; }
+
+
+
         private string _underlying;
         public string Underlying
         {
@@ -131,8 +140,7 @@ namespace Micro.Future.ViewModel
 
         public void UpdateStrategy()
         {
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>()
-                .UpdateStrategy(this);
+            OTCHandler.UpdateStrategy(this);
         }
 
         RelayCommand _updateCommand;

@@ -27,7 +27,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OptionFrame : UserControl, IUserFrame
     {
-        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCMDTradingDeskHandler>());
+        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
 
         private CollectionViewSource _viewSourcePosition = new CollectionViewSource();
         private CollectionViewSource _viewSourceRisk = new CollectionViewSource();
@@ -80,7 +80,7 @@ namespace Micro.Future.UI
             _tdSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
 
-            MessageHandlerContainer.DefaultInstance.Get<OTCMDTradingDeskHandler>().RegisterMessageWrapper(msgWrapper);
+            MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().RegisterMessageWrapper(msgWrapper);
 
             TDServerLogin();
         }

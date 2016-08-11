@@ -14,11 +14,11 @@ namespace Micro.Future.UI
     /// <summary>
     /// StrategyFrame.xaml 的交互逻辑
     /// </summary>
-    public partial class StrategyFrame : UserControl, IUserFrame
+    public partial class OptionStrategyFrame : UserControl, IUserFrame
     {
-        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AbstractOTCMarketDataHandler>());
+        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
 
-        public StrategyFrame()
+        public OptionStrategyFrame()
         {
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
@@ -62,7 +62,7 @@ namespace Micro.Future.UI
         public void Initialize()
         {
 
-            var handler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>();
+            var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
             strategyListView.OTCHandler = handler;
             contractParamListView.OTCHandler = handler;
 

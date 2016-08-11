@@ -108,12 +108,11 @@ namespace Micro.Future.Message
             strategy.AllowTrading = sVM.IsTradingAllowed;
             strategy.Enabled = sVM.Enabled;
 
+            strategy.ModelParams = new ModelParams();
             foreach (var param in sVM.Params)
-                strategy.Params[param.Name] = param.Value;
+                strategy.ModelParams.ScalaParams[param.Name] = param.Value;
 
-            var strategyListBd = new PBStrategyList();
-            strategyListBd.Strategy.Add(strategy);
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategyListBd);
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }
 
         public void UpdateQuantity(string exchange, string contract, int quantity)
@@ -158,7 +157,7 @@ namespace Micro.Future.Message
                 var strategyVM = StrategyVMCollection.FindContract(strategy.Exchange, strategy.Contract);
                 if (strategyVM == null)
                 {
-                    strategyVM = new StrategyVM();
+                    strategyVM = new StrategyVM(this);
                     StrategyVMCollection.Add(strategyVM);
                 }
 
@@ -172,7 +171,7 @@ namespace Micro.Future.Message
                 strategyVM.Enabled = strategy.Enabled;
                 strategyVM.Quantity = strategy.Quantity;
 
-                foreach (var param in strategy.Params)
+                foreach (var param in strategy.ModelParams?.ScalaParams)
                 {
                     strategyVM.Params.Add(
                         new NamedParamVM()
