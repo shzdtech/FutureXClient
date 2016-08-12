@@ -31,15 +31,16 @@ namespace Micro.Future.UI
         public OTCTradingStrategyLV()
         {
             InitializeComponent();
-            OTCTradingLV.ItemsSource = MessageHandlerContainer.
-                DefaultInstance.Get<AbstractOTCMarketDataHandler>().StrategyVMCollection;
         }
+
+        public AbstractOTCMarketDataHandler OTCHandler { get; set; }
 
         public void ReloadData()
         {
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().StrategyVMCollection.Clear();
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().QueryStrategy();
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().SubMarketData(new List<string>());
+            OTCTradingLV.ItemsSource = OTCHandler?.StrategyVMCollection;
+            OTCHandler?.StrategyVMCollection.Clear();
+            OTCHandler?.QueryStrategy();
+            OTCHandler?.SubMarketData(new List<string>());
         }
 
         private void OnStrategyChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -57,8 +58,7 @@ namespace Micro.Future.UI
             {
                 if (e.Key == Key.Escape || e.Key == Key.Enter)
                 {
-
-                    StrategyVM strategyVM = ctrl.DataContext as StrategyVM;
+                    StrategyVM strategyVM = OTCTradingLV.SelectedItem as StrategyVM;
                     if (strategyVM != null)
                     {
                         if (e.Key == Key.Enter)
@@ -78,5 +78,4 @@ namespace Micro.Future.UI
             }
         }
     }
-
 }

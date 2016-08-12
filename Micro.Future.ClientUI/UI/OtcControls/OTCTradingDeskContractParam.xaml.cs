@@ -1,22 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Collections.ObjectModel;
-using Xceed.Wpf.AvalonDock.Layout;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
-using Micro.Future.Message.Business;
-using System.ComponentModel;
 
 namespace Micro.Future.UI
 {
@@ -28,23 +15,22 @@ namespace Micro.Future.UI
         public OTCTradingDeskContractParam()
         {
             InitializeComponent();
-
-            OTCTradingContractParamListView.ItemsSource =
-               MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().
-               ContractParamVMCollection;
         }
+
+        public AbstractOTCMarketDataHandler OTCHandler { get; set; }
 
         public void ReloadData()
         {
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().ContractParamVMCollection.Clear();
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().QueryContractParam();
+            OTCTradingContractParamListView.ItemsSource = OTCHandler?.ContractParamVMCollection;
+            OTCHandler?.ContractParamVMCollection.Clear();
+            OTCHandler?.QueryContractParam();
         }
 
         private void Button_Click_Cfm(object sender, RoutedEventArgs e)
         {
             Button cfm = sender as Button;
             var cpVM = (ContractParamVM)((ListViewItem)cfm.Tag).DataContext;
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().UpdateContractParam(cpVM);
+            OTCHandler?.UpdateContractParam(cpVM);
         }
 
         private void OnParamChanged(object sender, RoutedPropertyChangedEventArgs<object> e)

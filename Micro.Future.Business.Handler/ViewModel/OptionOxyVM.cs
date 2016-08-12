@@ -80,24 +80,24 @@ namespace Micro.Future.ViewModel
             PlotModelBar.Axes.Add(positionAxis);
         }
 
-        private void LoadData(ModelParams modelParams)
-        {
-            var lineSerie = new LineSeries()
-            {
-                StrokeThickness = 2,
-                MarkerSize = 3,
-                CanTrackerInterpolatePoints = false,
-                Smooth = false,
-            };
-            foreach (var data in modelParams.Values)
-            {
-                lineSerie.Points.Add(new DataPoint(1, data));
-            }
+        //private void LoadData(ModelParams modelParams)
+        //{
+        //    var lineSerie = new LineSeries()
+        //    {
+        //        StrokeThickness = 2,
+        //        MarkerSize = 3,
+        //        CanTrackerInterpolatePoints = false,
+        //        Smooth = false,
+        //    };
+        //    foreach (var data in modelParams.Values)
+        //    {
+        //        lineSerie.Points.Add(new DataPoint(1, data));
+        //    }
 
-            PlotModel.Series.Add(lineSerie);
+        //    PlotModel.Series.Add(lineSerie);
 
 
-        }
+        //}
 
     }
 }

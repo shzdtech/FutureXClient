@@ -25,17 +25,16 @@ namespace Micro.Future.UI
         public OTCContactWindow()
         {
             InitializeComponent();
-
-            tradingDeskLV.ItemsSource = MessageHandlerContainer.
-                DefaultInstance.Get<AbstractOTCMarketDataHandler>().
-                TradingDeskVMCollection;
-
         }
+
+        public AbstractOTCMarketDataHandler OTCHandler { get; set; }
 
         public void ReloadData()
         {
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().TradingDeskVMCollection.Clear();
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().QueryTradingDesk();
+            tradingDeskLV.ItemsSource = OTCHandler.TradingDeskVMCollection;
+
+            OTCHandler.TradingDeskVMCollection.Clear();
+            OTCHandler.QueryTradingDesk();
         }
 
     }

@@ -15,15 +15,15 @@ namespace Micro.Future
         {
             Config config = new Config(Settings.Default.ConfigFile);
 
-            var configDict = config.Content["OTCCLIENTSERVER"];
-            MessageHandlerContainer.Register<AbstractOTCMarketDataHandler, OTCMDClientHandler>
+            var configDict = config.Content["OTCSERVER"];
+            MessageHandlerContainer.Register<AbstractOTCMarketDataHandler, OTCContractHandler>
                 (new SignInOptions {
                     FrontServer = configDict["ADDRESS"],
                     ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
                 });
 
-            configDict = config.Content["OTCTDSERVER"];
-            MessageHandlerContainer.Register<OTCMDTradingDeskHandler, OTCMDTradingDeskHandler>
+            configDict = config.Content["OTCOPTIONSERVER"];
+            MessageHandlerContainer.Register<OTCOptionTradingDeskHandler, OTCOptionTradingDeskHandler>
                 (new SignInOptions
                 {
                     FrontServer = configDict["ADDRESS"],

@@ -81,7 +81,15 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}"/>
+                        <GridViewColumn Header="Value">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <WrapPanel>
+                                        <xctk:DoubleUpDown Value="{Binding Value}" KeyUp ="OnKeyDown" UpdateValueOnEnterKey="True" ShowButtonSpinner="False"></xctk:DoubleUpDown>
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
