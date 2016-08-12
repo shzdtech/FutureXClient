@@ -46,7 +46,7 @@ namespace Micro.Future.Message
 
             MessageWrapper.RegisterAction<PBPricingDataList, ExceptionMessage>
                         ((uint)BusinessMessageID.MSG_ID_SUB_PRICING, OnSubMarketDataSuccessAction, OnErrorAction);
-            MessageWrapper.RegisterAction<PBPricingDataList, ExceptionMessage>
+            MessageWrapper.RegisterAction<PBPricingData, ExceptionMessage>
                             ((uint)BusinessMessageID.MSG_ID_RTN_PRICING, OnReturningPricing, OnErrorAction);
             MessageWrapper.RegisterAction<PBStrategyList, ExceptionMessage>
                         ((uint)BusinessMessageID.MSG_ID_QUERY_STRATEGY, OnQueryStrategySuccessAction, OnErrorAction);
@@ -265,24 +265,21 @@ namespace Micro.Future.Message
             }
         }
 
-        protected virtual void OnReturningPricing(PBPricingDataList PB)
+        protected virtual void OnReturningPricing(PBPricingData md)
         {
-            foreach (var md in PB.PricingData)
+            var quote = OTCQuoteVMCollection.FindContract(md.Exchange, md.Contract);
+            if (quote != null)
             {
-                var quote = OTCQuoteVMCollection.FindContract(md.Exchange, md.Contract);
-                if (quote != null)
-                {
-                    quote.BidPrice = md.BidPrice;
-                    quote.AskPrice = md.AskPrice;
-                }
-                var ps = from s in StrategyVMCollection
-                         where (s.Exchange == md.Exchange && s.Contract == md.Contract)
-                         select s;
-                foreach (var s in ps)
-                {
-                    s.BidPrice = md.BidPrice;
-                    s.AskPrice = md.AskPrice;
-                }
+                quote.BidPrice = md.BidPrice;
+                quote.AskPrice = md.AskPrice;
+            }
+            var ps = from s in StrategyVMCollection
+                     where (s.Exchange == md.Exchange && s.Contract == md.Contract)
+                     select s;
+            foreach (var s in ps)
+            {
+                s.BidPrice = md.BidPrice;
+                s.AskPrice = md.AskPrice;
             }
         }
     }

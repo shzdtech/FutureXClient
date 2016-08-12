@@ -14,17 +14,24 @@ namespace Micro.Future.UI
     {
         private string _currentContract;
 
-        private bool submitEnabled;
-        public bool SubmitEnabled
+        public TraderExHandler TradeHandler
         {
             get
             {
-                return submitEnabled;
+                return OrderVM?.TradeHandler;
             }
             set
             {
-                submitEnabled = value;
+                OrderVM = new OrderVM(value);
+                OrderVM.Volume = 1;
+                DataContext = OrderVM;
             }
+        }
+
+        public bool SubmitEnabled
+        {
+            get;
+            set;
         }
 
         public void OnQuoteSelected(QuoteViewModel quoteVM)
@@ -32,9 +39,9 @@ namespace Micro.Future.UI
             if (quoteVM != null)
             {
                 _currentContract = quoteVM.Contract;
-                DataContext = quoteVM;
+                stackPanelPrices.DataContext = quoteVM;
                 OrderVM.Contract = quoteVM.Contract;
-
+                OrderVM.LimitPrice = quoteVM.MatchPrice;
             }
         }
 
@@ -64,12 +71,8 @@ namespace Micro.Future.UI
 
         public FastOrderControl()
         {
-            OrderVM = new OrderVM();
             InitializeComponent();
-            DataContext = OrderVM;
         }
-
-        private OrderVM _orderVM = new OrderVM();
 
         private void labelupperprice_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -97,40 +100,5 @@ namespace Micro.Future.UI
             if (_currentContract != null && FastOrderContract.Text != _currentContract)
                 stackPanelPrices.DataContext = null;
         }
-
-
-        private void SizeTxt_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            var source = "^[0-9]{1,9}";
-
-            if (Regex.IsMatch(SizeTxt.Value.ToString(), source) == true)
-            {
-                if (SizeTxt.Value < 1)
-                {
-                    MessageBox.Show("输入数值至少为1");
-                    SizeTxt.Value = 1;
-                }
-            }
-            else
-            {
-                MessageBox.Show("只可以输入数字！");
-                SizeTxt.Value = 1;
-            }
-        }
-
-        private void LimitTxt_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            var source = "^[-]?[0-9]{1,5}";
-            if (Regex.IsMatch(LimitTxt.Value.ToString(), source) == true)
-            {
-                MessageBox.Show("只可以输入数字！");
-                SizeTxt.Value = 1;
-            }
-        }
-
-
-        //
-
-
     }
 }

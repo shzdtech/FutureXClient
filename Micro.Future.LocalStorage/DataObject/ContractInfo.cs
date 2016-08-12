@@ -51,7 +51,7 @@ namespace Micro.Future.LocalStorage.DataObject
         ///合约生命周期状态
         public int LifePhase { get; set; }
         ///当前是否交易
-        public int IsTrading { get; set; }
+        public bool IsTrading { get; set; }
         ///持仓类型
         public int PositionType { get; set; }
         ///持仓日期类型
