@@ -211,7 +211,8 @@ namespace Micro.Future.Message
                         PositionDateType = contract.PositionDateType,
                         LongMarginRatio = contract.LongMarginRatio,
                         ShortMarginRatio = contract.ShortMarginRatio,
-                        GroupName = contract.GroupName
+                        UnderlyingExchange = contract.UnderlyingExchange,
+                        UnderlyingContract = contract.UnderlyingContract
                     });
                 }
                 ClientDbContext.SaveChanges();
