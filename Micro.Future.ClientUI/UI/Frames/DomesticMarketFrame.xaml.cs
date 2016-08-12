@@ -87,6 +87,9 @@ namespace Micro.Future.UI
             _ctpTradeSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RegisterMessageWrapper(msgWrapper);
+
+
+            FastOrderCtl.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
         }
 
 

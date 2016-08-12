@@ -11,6 +11,13 @@ namespace Micro.Future.ViewModel
     //报价
     public class OrderVM : ContractNotifyPropertyChanged
     {
+        public OrderVM(TraderExHandler trdHdl)
+        {
+            TradeHandler = trdHdl;
+        }
+
+        public TraderExHandler TradeHandler { get; set; }
+
         private ulong _orderID;
         public ulong OrderID
         {
@@ -44,7 +51,7 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private DirectionType _direction;
+        private DirectionType _direction = DirectionType.BUY;
         public DirectionType Direction
         {
             get { return _direction; }
@@ -164,7 +171,7 @@ namespace Micro.Future.ViewModel
                 _offsetFlag = value;
                 OnPropertyChanged("OffsetFlag");
             }
-        }        
+        }
 
 
         private string _insertTime;
@@ -212,12 +219,10 @@ namespace Micro.Future.ViewModel
         }
 
 
-
         private void sendOrder(object param)
         {
             //this.Direction = (string)directStr == "1" ? DirectionType.BUY : DirectionType.SELL;
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().
-                CreateOrder(this);
+            TradeHandler?.CreateOrder(this);
         }
 
         RelayCommand _sendOrderCommand;
@@ -227,7 +232,7 @@ namespace Micro.Future.ViewModel
             {
                 if (_sendOrderCommand == null)
                 {
-                    _sendOrderCommand= new RelayCommand(sendOrder);
+                    _sendOrderCommand = new RelayCommand(sendOrder);
                 }
                 return _sendOrderCommand;
             }

@@ -14,17 +14,24 @@ namespace Micro.Future.UI
     {
         private string _currentContract;
 
-        private bool submitEnabled;
-        public bool SubmitEnabled
+        public TraderExHandler TradeHandler
         {
             get
             {
-                return submitEnabled;
+                return OrderVM?.TradeHandler;
             }
             set
             {
-                submitEnabled = value;
+                OrderVM = new OrderVM(value);
+                OrderVM.Volume = 1;
+                DataContext = OrderVM;
             }
+        }
+
+        public bool SubmitEnabled
+        {
+            get;
+            set;
         }
 
         public void OnQuoteSelected(QuoteViewModel quoteVM)
@@ -32,9 +39,9 @@ namespace Micro.Future.UI
             if (quoteVM != null)
             {
                 _currentContract = quoteVM.Contract;
-                DataContext = quoteVM;
+                stackPanelPrices.DataContext = quoteVM;
                 OrderVM.Contract = quoteVM.Contract;
-
+                OrderVM.LimitPrice = quoteVM.MatchPrice;
             }
         }
 
@@ -64,12 +71,8 @@ namespace Micro.Future.UI
 
         public FastOrderControl()
         {
-            OrderVM = new OrderVM();
             InitializeComponent();
-            DataContext = OrderVM;
         }
-
-        private OrderVM _orderVM = new OrderVM();
 
         private void labelupperprice_MouseDown(object sender, MouseButtonEventArgs e)
         {
