@@ -123,7 +123,7 @@ namespace Micro.Future.UI
 
         private void LimitTxt_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var source = "^[-+]?[0-9]+(\.[0-9]+)?$";
+            var source = "^[-]?[0-9]{1,5}";
             if (Regex.IsMatch(LimitTxt.Value.ToString(), source) == true)
             {
                 MessageBox.Show("只可以输入数字！");
