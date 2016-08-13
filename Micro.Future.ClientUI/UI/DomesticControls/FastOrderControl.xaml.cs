@@ -5,6 +5,7 @@ using Micro.Future.Message;
 using System.Windows;
 using System.Text.RegularExpressions;
 using System;
+using System.Windows.Media;
 
 namespace Micro.Future.UI
 {
@@ -32,8 +33,13 @@ namespace Micro.Future.UI
 
         private void Callback_OnOrderError(Exception obj)
         {
+            if (obj.Message.Equals("订单合约不能为空") | obj.Message.Equals("输入合约不存在"))
+            { FastOrderContract.Background = new SolidColorBrush(Colors.Red); MessageBox.Show(obj.Message); }
+            if (obj.Message.Equals("订单数量不正确"))
+            {
+                SizeTxt.Background = new SolidColorBrush(Colors.Red); MessageBox.Show(obj.Message);
+            } 
 
-            MessageBox.Show(obj.Message);
         }
 
         public bool SubmitEnabled
@@ -109,7 +115,14 @@ namespace Micro.Future.UI
                 stackPanelPrices.DataContext = null;
         }
 
-        
+        private void BuySummitButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            FastOrderContract.Background = new SolidColorBrush(Colors.White);
+            SizeTxt.Background = new SolidColorBrush(Colors.White);
+        }
+
+
 
 
 

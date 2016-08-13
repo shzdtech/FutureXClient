@@ -187,47 +187,47 @@ namespace Micro.Future.Message
         //To invoke the function of saving contract data to local sqlite
         private void OnContractInfo(PBContractInfoList rsp)
         {
-            int queryCount = 0;
-            int rspCount = 0;
             try
             {
                 using (var clientCtx = new ClientDbContext())
                 {
                     foreach (var contract in rsp.ContractInfo)
                     {
-                        rspCount = rspCount + 1;
-                        clientCtx.ContractInfo.Add(new ContractInfo()
+                        if (clientCtx.ContractInfo.Where(u => u.Contract == contract.Contract && u.Exchange == contract.Exchange).Any() == false)
                         {
-                            //Id = contract.Id,
-                            Exchange = contract.Exchange,
-                            Contract = contract.Contract,
-                            Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
-                            ProductID = contract.ProductID,
-                            ProductType = contract.ProductType,
-                            DeliveryYear = contract.DeliveryYear,
-                            DeliveryMonth = contract.DeliveryMonth,
-                            MaxMarketOrderVolume = contract.MaxMarketOrderVolume,
-                            MinMarketOrderVolume = contract.MinMarketOrderVolume,
-                            MaxLimitOrderVolume = contract.MaxMarketOrderVolume,
-                            MinLimitOrderVolume = contract.MinMarketOrderVolume,
-                            VolumeMultiple = contract.VolumeMultiple,
-                            PriceTick = contract.PriceTick,
-                            CreateDate = contract.CreateDate,
-                            OpenDate = contract.OpenDate,
-                            ExpireDate = contract.ExpireDate,
-                            StartDelivDate = contract.EndDelivDate,
-                            EndDelivDate = contract.EndDelivDate,
-                            LifePhase = contract.LifePhase,
-                            IsTrading = contract.IsTrading,
-                            PositionType = contract.PositionType,
-                            PositionDateType = contract.PositionDateType,
-                            LongMarginRatio = contract.LongMarginRatio,
-                            ShortMarginRatio = contract.ShortMarginRatio,
-                            UnderlyingExchange = contract.UnderlyingExchange,
-                            UnderlyingContract = contract.UnderlyingContract
-                        });
-                    }
-                    clientCtx.SaveChanges();
+                            clientCtx.ContractInfo.Add(new ContractInfo()
+                            {
+                                Exchange = contract.Exchange,
+                                Contract = contract.Contract,
+                                Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
+                                ProductID = contract.ProductID,
+                                ProductType = contract.ProductType,
+                                DeliveryYear = contract.DeliveryYear,
+                                DeliveryMonth = contract.DeliveryMonth,
+                                MaxMarketOrderVolume = contract.MaxMarketOrderVolume,
+                                MinMarketOrderVolume = contract.MinMarketOrderVolume,
+                                MaxLimitOrderVolume = contract.MaxMarketOrderVolume,
+                                MinLimitOrderVolume = contract.MinMarketOrderVolume,
+                                VolumeMultiple = contract.VolumeMultiple,
+                                PriceTick = contract.PriceTick,
+                                CreateDate = contract.CreateDate,
+                                OpenDate = contract.OpenDate,
+                                ExpireDate = contract.ExpireDate,
+                                StartDelivDate = contract.EndDelivDate,
+                                EndDelivDate = contract.EndDelivDate,
+                                LifePhase = contract.LifePhase,
+                                IsTrading = contract.IsTrading,
+                                PositionType = contract.PositionType,
+                                PositionDateType = contract.PositionDateType,
+                                LongMarginRatio = contract.LongMarginRatio,
+                                ShortMarginRatio = contract.ShortMarginRatio,
+                                UnderlyingExchange = contract.UnderlyingExchange,
+                                UnderlyingContract = contract.UnderlyingContract
+                            });
+                            clientCtx.SaveChanges();
+                        }  
+                    }   
+                    
                 }
                 //log to be handle 
             }
@@ -522,13 +522,9 @@ namespace Micro.Future.Message
                 OnOrderError?.Invoke(new Exception("订单数量不正确"));
                 return;
             }
-
-            
-
          
             double tickPrice = 0;
             double price = 0;
-
 
             using (var clientCtx = new ClientDbContext())
             {

@@ -27,8 +27,7 @@ namespace Micro.Future.LocalStorage
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Composite primary key 
-            modelBuilder.Entity<ContractInfo>()
-            .HasKey(c => new { c.Exchange, c.Contract });
+            modelBuilder.Entity<ContractInfo>().HasKey(c => new { c.Exchange, c.Contract });
         }
 
         public string ConnectionString { get; protected set; }
