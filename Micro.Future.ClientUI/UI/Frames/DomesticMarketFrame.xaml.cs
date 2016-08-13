@@ -128,6 +128,7 @@ namespace Micro.Future.UI
             positionsWindow.ReloadData();
             tradeWindow.ReloadData();
             executionWindow.ReloadData();
+            FastOrderCtl.TradeHandler.QueryContractInfo();
         }
 
         private void MenuItem_Click_Contract(object sender, RoutedEventArgs e)

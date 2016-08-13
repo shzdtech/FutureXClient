@@ -24,6 +24,13 @@ namespace Micro.Future.LocalStorage
 
         public DbSet<ContractInfo> ContractInfo { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Composite primary key 
+            modelBuilder.Entity<ContractInfo>()
+            .HasKey(c => new { c.Exchange, c.Contract });
+        }
+
         public string ConnectionString { get; protected set; }
 
         //public DbSet<UserSetting> UserSetting { get; set; }
@@ -34,6 +41,7 @@ namespace Micro.Future.LocalStorage
             //optionsBuilder.UseSqlite("Filename=E:\\Projects\\FutureXClient\\Micro.Future.LocalStorage\\Data\\clientcache.db");
         }
 
+       
 
     }
 }

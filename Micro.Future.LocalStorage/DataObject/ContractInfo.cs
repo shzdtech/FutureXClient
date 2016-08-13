@@ -10,8 +10,6 @@ namespace Micro.Future.LocalStorage.DataObject
 {
     public class ContractInfo
     {
-        ///Id
-        public int Id { get; set; }
         ///交易所代码
         public string Exchange { get; set; }
         ///合约代码
@@ -37,7 +35,7 @@ namespace Micro.Future.LocalStorage.DataObject
         ///合约数量乘数
         public int VolumeMultiple { get; set; }
         ///最小变动价位
-        public int PriceTick { get; set; }
+        public double PriceTick { get; set; }
         ///创建日
         public string CreateDate { get; set; }
         ///上市日
