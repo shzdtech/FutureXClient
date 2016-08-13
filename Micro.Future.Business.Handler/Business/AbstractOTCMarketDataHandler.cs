@@ -46,7 +46,7 @@ namespace Micro.Future.Message
 
             MessageWrapper.RegisterAction<PBPricingDataList, ExceptionMessage>
                         ((uint)BusinessMessageID.MSG_ID_SUB_PRICING, OnSubMarketDataSuccessAction, OnErrorAction);
-            MessageWrapper.RegisterAction<PBPricingDataList, ExceptionMessage>
+            MessageWrapper.RegisterAction<PBPricingData, ExceptionMessage>
                             ((uint)BusinessMessageID.MSG_ID_RTN_PRICING, OnReturningPricing, OnErrorAction);
             MessageWrapper.RegisterAction<PBStrategyList, ExceptionMessage>
                         ((uint)BusinessMessageID.MSG_ID_QUERY_STRATEGY, OnQueryStrategySuccessAction, OnErrorAction);
@@ -108,12 +108,11 @@ namespace Micro.Future.Message
             strategy.AllowTrading = sVM.IsTradingAllowed;
             strategy.Enabled = sVM.Enabled;
 
+            strategy.ModelParams = new ModelParams();
             foreach (var param in sVM.Params)
-                strategy.Params[param.Name] = param.Value;
+                strategy.ModelParams.ScalaParams[param.Name] = param.Value;
 
-            var strategyListBd = new PBStrategyList();
-            strategyListBd.Strategy.Add(strategy);
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategyListBd);
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }
 
         public void UpdateQuantity(string exchange, string contract, int quantity)
@@ -158,7 +157,7 @@ namespace Micro.Future.Message
                 var strategyVM = StrategyVMCollection.FindContract(strategy.Exchange, strategy.Contract);
                 if (strategyVM == null)
                 {
-                    strategyVM = new StrategyVM();
+                    strategyVM = new StrategyVM(this);
                     StrategyVMCollection.Add(strategyVM);
                 }
 
@@ -172,7 +171,7 @@ namespace Micro.Future.Message
                 strategyVM.Enabled = strategy.Enabled;
                 strategyVM.Quantity = strategy.Quantity;
 
-                foreach (var param in strategy.Params)
+                foreach (var param in strategy.ModelParams?.ScalaParams)
                 {
                     strategyVM.Params.Add(
                         new NamedParamVM()
@@ -266,24 +265,21 @@ namespace Micro.Future.Message
             }
         }
 
-        protected virtual void OnReturningPricing(PBPricingDataList PB)
+        protected virtual void OnReturningPricing(PBPricingData md)
         {
-            foreach (var md in PB.PricingData)
+            var quote = OTCQuoteVMCollection.FindContract(md.Exchange, md.Contract);
+            if (quote != null)
             {
-                var quote = OTCQuoteVMCollection.FindContract(md.Exchange, md.Contract);
-                if (quote != null)
-                {
-                    quote.BidPrice = md.BidPrice;
-                    quote.AskPrice = md.AskPrice;
-                }
-                var ps = from s in StrategyVMCollection
-                         where (s.Exchange == md.Exchange && s.Contract == md.Contract)
-                         select s;
-                foreach (var s in ps)
-                {
-                    s.BidPrice = md.BidPrice;
-                    s.AskPrice = md.AskPrice;
-                }
+                quote.BidPrice = md.BidPrice;
+                quote.AskPrice = md.AskPrice;
+            }
+            var ps = from s in StrategyVMCollection
+                     where (s.Exchange == md.Exchange && s.Contract == md.Contract)
+                     select s;
+            foreach (var s in ps)
+            {
+                s.BidPrice = md.BidPrice;
+                s.AskPrice = md.AskPrice;
             }
         }
     }

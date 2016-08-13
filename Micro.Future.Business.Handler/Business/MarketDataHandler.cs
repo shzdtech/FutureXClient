@@ -25,7 +25,7 @@ namespace Micro.Future.Message
             ((uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA, SubMDSuccessAction, ErrorMsgAction);
             MessageWrapper.RegisterAction<SimpleStringTable, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, UnsubMDSuccessAction, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBMarketDataList, ExceptionMessage>
+            MessageWrapper.RegisterAction<PBMarketData, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_RET_MARKETDATA, RetMDSuccessAction, ErrorMsgAction);
         }
 
@@ -134,26 +134,23 @@ namespace Micro.Future.Message
             }
         }
 
-        protected void RetMDSuccessAction(PBMarketDataList PB)
+        protected void RetMDSuccessAction(PBMarketData md)
         {
-            foreach (var md in PB.MarketData)
+            var quote = QuoteVMCollection.Find((pb) => string.Compare(pb.Contract, md.Contract, true) == 0);
+            if (quote != null)
             {
-                var quote = QuoteVMCollection.Find((pb) => string.Compare(pb.Contract, md.Contract, true) == 0);
-                if (quote != null)
-                {
-                    quote.MatchPrice = md.MatchPrice;
-                    quote.BidPrice = md.BidPrice[0];
-                    quote.AskPrice = md.AskPrice[0];
-                    quote.BidSize = md.BidVolume[0];
-                    quote.AskSize = md.AskVolume[0];
-                    quote.Volume = md.Volume;
-                    quote.OpenValue = md.OpenValue;
-                    quote.PreCloseValue = md.PreCloseValue;
-                    quote.HighValue = md.HighValue;
-                    quote.LowValue = md.LowValue;
-                    quote.UpperLimitPrice = md.HighLimit;
-                    quote.LowerLimitPrice = md.LowLimit;
-                }
+                quote.MatchPrice = md.MatchPrice;
+                quote.BidPrice = md.BidPrice[0];
+                quote.AskPrice = md.AskPrice[0];
+                quote.BidSize = md.BidVolume[0];
+                quote.AskSize = md.AskVolume[0];
+                quote.Volume = md.Volume;
+                quote.OpenValue = md.OpenValue;
+                quote.PreCloseValue = md.PreCloseValue;
+                quote.HighValue = md.HighValue;
+                quote.LowValue = md.LowValue;
+                quote.UpperLimitPrice = md.HighLimit;
+                quote.LowerLimitPrice = md.LowLimit;
             }
         }
 

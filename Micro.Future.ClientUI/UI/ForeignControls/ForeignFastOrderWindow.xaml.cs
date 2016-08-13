@@ -12,17 +12,22 @@ namespace Micro.Future.UI
     {
         private string _currentContract;
 
-        private bool submitEnabled;
-        public bool SubmitEnabled
+        public TraderExHandler TradeHandler
         {
             get
             {
-                return submitEnabled;
+                return OrderVM?.TradeHandler;
             }
             set
             {
-                submitEnabled = value;
+                OrderVM = new OrderVM(value);
             }
+        }
+
+        public bool SubmitEnabled
+        {
+            get;
+            set;
         }
 
         public void OnQuoteSelected(QuoteViewModel quoteVM)
@@ -62,12 +67,9 @@ namespace Micro.Future.UI
 
         public ForeignFastOrderWindow()
         {
-            OrderVM = new OrderVM();
             InitializeComponent();
             DataContext = OrderVM;
         }
-
-        private OrderVM _orderVM = new OrderVM();
 
         private void labelupperprice_MouseDown(object sender, MouseButtonEventArgs e)
         {

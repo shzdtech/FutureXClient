@@ -211,7 +211,8 @@ namespace Micro.Future.Message
                         PositionDateType = contract.PositionDateType,
                         LongMarginRatio = contract.LongMarginRatio,
                         ShortMarginRatio = contract.ShortMarginRatio,
-                        GroupName = contract.GroupName
+                        UnderlyingExchange = contract.UnderlyingExchange,
+                        UnderlyingContract = contract.UnderlyingContract
                     });
                 }
                 ClientDbContext.SaveChanges();
@@ -353,7 +354,7 @@ namespace Micro.Future.Message
 
                     if (!found)
                     {
-                        var orderVM = new OrderVM()
+                        var orderVM = new OrderVM(this)
                         {
                             OrderID = rsp.OrderID,
                             OrderSysID = rsp.OrderSysID,
@@ -395,8 +396,7 @@ namespace Micro.Future.Message
                         if ((rsp.OrderSysID != 0 && rsp.OrderSysID == order.OrderSysID) ||
                             (rsp.OrderID == order.OrderID && rsp.SessionID == order.SessionID))
                         {
-                            order.Exchange = rsp.Exchange;
-                            order.Contract = rsp.Contract;
+                            order.Active = rsp.Active;
                             order.Status = (OrderStatus)rsp.OrderStatus;
                             order.OrderSysID = rsp.OrderSysID;
                             order.UpdateTime = order.UpdateTime;

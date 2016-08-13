@@ -14,17 +14,24 @@ namespace Micro.Future.UI
     {
         private string _currentContract;
 
-        private bool submitEnabled;
-        public bool SubmitEnabled
+        public TraderExHandler TradeHandler
         {
             get
             {
-                return submitEnabled;
+                return OrderVM?.TradeHandler;
             }
             set
             {
-                submitEnabled = value;
+                OrderVM = new OrderVM(value);
+                OrderVM.Volume = 1;
+                DataContext = OrderVM;
             }
+        }
+
+        public bool SubmitEnabled
+        {
+            get;
+            set;
         }
 
         public void OnQuoteSelected(QuoteViewModel quoteVM)
@@ -32,9 +39,9 @@ namespace Micro.Future.UI
             if (quoteVM != null)
             {
                 _currentContract = quoteVM.Contract;
-                DataContext = quoteVM;
+                stackPanelPrices.DataContext = quoteVM;
                 OrderVM.Contract = quoteVM.Contract;
-
+                OrderVM.LimitPrice = quoteVM.MatchPrice;
             }
         }
 
@@ -64,12 +71,8 @@ namespace Micro.Future.UI
 
         public FastOrderControl()
         {
-            OrderVM = new OrderVM();
             InitializeComponent();
-            DataContext = OrderVM;
         }
-
-        private OrderVM _orderVM = new OrderVM();
 
         private void labelupperprice_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -99,11 +102,27 @@ namespace Micro.Future.UI
         }
 
 
-        private void SizeTxt_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            var source = "^[0-9]{1,9}";
+       
 
-            if (Regex.IsMatch(SizeTxt.Value.ToString(), source) == true)
+        private void LimitTxt_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            /*
+            var source = "^[-]?[0-9]{1,5}";
+            if (Regex.IsMatch(LimitTxt.Value.ToString(), source) == true)
+            {
+                MessageBox.Show("只可以输入数字！");
+                SizeTxt.Value = 1;
+            }
+            */
+        }
+
+        
+
+        private void BuySummitButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            var sizeSource = "^[1-9][0-9]{1,5}";
+            if (Regex.IsMatch(SizeTxt.Value.ToString(), sizeSource) == true)
             {
                 if (SizeTxt.Value < 1)
                 {
@@ -113,18 +132,9 @@ namespace Micro.Future.UI
             }
             else
             {
-                MessageBox.Show("只可以输入数字！");
+                MessageBox.Show("只可以输入正整数,且单笔购买数量最多为10万！");
                 SizeTxt.Value = 1;
-            }
-        }
-
-        private void LimitTxt_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            var source = "^[-]?[0-9]{1,5}";
-            if (Regex.IsMatch(LimitTxt.Value.ToString(), source) == true)
-            {
-                MessageBox.Show("只可以输入数字！");
-                SizeTxt.Value = 1;
+                return;
             }
         }
 

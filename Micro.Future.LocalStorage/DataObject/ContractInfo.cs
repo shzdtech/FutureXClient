@@ -51,7 +51,7 @@ namespace Micro.Future.LocalStorage.DataObject
         ///合约生命周期状态
         public int LifePhase { get; set; }
         ///当前是否交易
-        public int IsTrading { get; set; }
+        public bool IsTrading { get; set; }
         ///持仓类型
         public int PositionType { get; set; }
         ///持仓日期类型
@@ -61,7 +61,8 @@ namespace Micro.Future.LocalStorage.DataObject
         ///空头保证金率
         public double ShortMarginRatio { get; set; }
         ///是否使用大额单边保证金算法
-        public string GroupName { get; set; }
+        public string UnderlyingExchange { get; set; }
+        public string UnderlyingContract { get; set; }
     }
 
 }
