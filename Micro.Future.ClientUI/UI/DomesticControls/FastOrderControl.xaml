@@ -32,7 +32,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Width="300" Height="30">
             <Label Width="35" Content="{lex:Loc Key=OrderVolume}" VerticalAlignment="Center"></Label>
-            <xctk:IntegerUpDown Width="100" Value="{Binding Volume}" FormatString="N0" x:Name="SizeTxt" VerticalAlignment="Center" />
+            <xctk:IntegerUpDown Width="100" Value="{Binding Volume}" FormatString="N0" x:Name="SizeTxt" VerticalAlignment="Center" Maximum="100000" Minimum="1"/>
             <TextBlock Text="{lex:Loc Key=TIF}" Width="35" VerticalAlignment="Center"></TextBlock>
             <ComboBox Name="TimeTypeCombo" SelectedIndex="0" Grid.ColumnSpan="2" Width="100" VerticalAlignment="Center">
                 <ComboBoxItem>GFD</ComboBoxItem>
@@ -77,7 +77,7 @@
                 <Label x:Name="LabelAskPrice" Content="{Binding AskPrice}" MouseDown="LabelAskPrice_MouseDown" />
                 <Label x:Name="LabelLowerPrice" Content="{Binding LowerLimitPrice}" MouseDown="labellowerprice_MouseDown" />
             </StackPanel>
-            <Button Grid.Row="5" Name="BuySummitButton" Content="{lex:Loc Key=Order}" Grid.Column="0" Command="{Binding Path=SendOrderCommand}" MinWidth="100" />
+            <Button Grid.Row="5" Name="BuySummitButton" Content="{lex:Loc Key=Order}" Grid.Column="0" Command="{Binding Path=SendOrderCommand}" MinWidth="100" Click="BuySummitButton_Click" />
         </StackPanel>
     </Grid>
 </UserControl>

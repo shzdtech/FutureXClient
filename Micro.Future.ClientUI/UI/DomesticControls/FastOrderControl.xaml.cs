@@ -102,11 +102,27 @@ namespace Micro.Future.UI
         }
 
 
-        private void SizeTxt_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            var source = "^[0-9]{1,9}";
+       
 
-            if (Regex.IsMatch(SizeTxt.Value.ToString(), source) == true)
+        private void LimitTxt_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            /*
+            var source = "^[-]?[0-9]{1,5}";
+            if (Regex.IsMatch(LimitTxt.Value.ToString(), source) == true)
+            {
+                MessageBox.Show("只可以输入数字！");
+                SizeTxt.Value = 1;
+            }
+            */
+        }
+
+        
+
+        private void BuySummitButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            var sizeSource = "^[1-9][0-9]{1,5}";
+            if (Regex.IsMatch(SizeTxt.Value.ToString(), sizeSource) == true)
             {
                 if (SizeTxt.Value < 1)
                 {
@@ -116,18 +132,9 @@ namespace Micro.Future.UI
             }
             else
             {
-                MessageBox.Show("只可以输入数字！");
+                MessageBox.Show("只可以输入正整数,且单笔购买数量最多为10万！");
                 SizeTxt.Value = 1;
-            }
-        }
-
-        private void LimitTxt_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            var source = "^[-]?[0-9]{1,5}";
-            if (Regex.IsMatch(LimitTxt.Value.ToString(), source) == true)
-            {
-                MessageBox.Show("只可以输入数字！");
-                SizeTxt.Value = 1;
+                return;
             }
         }
 
