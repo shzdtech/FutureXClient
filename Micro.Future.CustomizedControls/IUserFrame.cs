@@ -11,6 +11,6 @@ namespace Micro.Future.CustomizedControls
 
         IEnumerable<StatusBarItem> StatusBarItems { get; }
 
-        void LoginAsync(string usernname, string password);
+        void LoginAsync(string usernname, string password, string server = null);
     }
 }

@@ -58,7 +58,8 @@ namespace Micro.Future.UI
                                 statusBar.Items.Add(statusbaritem);
                         }
 
-                        frameUI.LoginAsync(_accountSignIner.SignInOptions.UserName, _accountSignIner.SignInOptions.Password);
+                        var entries = _accountSignIner.SignInOptions.FrontServer.Split(':');
+                        frameUI.LoginAsync(_accountSignIner.SignInOptions.UserName, _accountSignIner.SignInOptions.Password, entries[0]);
                     }
                 }
             }

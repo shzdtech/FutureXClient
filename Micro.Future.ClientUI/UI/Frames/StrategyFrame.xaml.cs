@@ -53,10 +53,14 @@ namespace Micro.Future.UI
             }
         }
 
-        public void LoginAsync(string usernname, string password)
+        public void LoginAsync(string usernname, string password, string server)
         {
             _tdSignIner.SignInOptions.UserName = usernname;
             _tdSignIner.SignInOptions.Password = password;
+
+            var entries = _tdSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            if (server != null && entries.Length < 2)
+                _tdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
         }
 
         public void Initialize()

@@ -28,10 +28,18 @@ namespace Micro.Future.UI
         }
 
 
-        public void LoginAsync(string usernname, string password)
+        public void LoginAsync(string usernname, string password, string server)
         {
             _ctpMdSignIner.SignInOptions.UserName = _ctpTradeSignIner.SignInOptions.UserName = usernname;
             _ctpMdSignIner.SignInOptions.Password = _ctpTradeSignIner.SignInOptions.Password = password;
+            var entries = _ctpMdSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            if (server != null && entries.Length < 2)
+                _ctpMdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
+            entries = _ctpTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            if (server != null && entries.Length < 2)
+                _ctpTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
             MarketDataServerLogin();
             TradingServerLogin();
         }

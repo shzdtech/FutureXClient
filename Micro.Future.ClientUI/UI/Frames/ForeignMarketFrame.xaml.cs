@@ -53,7 +53,7 @@ namespace Micro.Future.UI
             }
         }
 
-        public void LoginAsync(string usernname, string password)
+        public void LoginAsync(string usernname, string password, string server)
         {
 
         }
