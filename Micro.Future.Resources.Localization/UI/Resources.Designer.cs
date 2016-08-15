@@ -988,6 +988,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 重置 的本地化字符串。
+        /// </summary>
+        internal static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 卖出 的本地化字符串。
         /// </summary>
         internal static string Sell {
