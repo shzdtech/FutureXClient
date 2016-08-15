@@ -35,6 +35,7 @@ namespace Micro.Future.UI
         {
             if (obj.Message.Equals("订单合约不能为空") | obj.Message.Equals("输入合约不存在"))
             { FastOrderContract.Background = new SolidColorBrush(Colors.Red); MessageBox.Show(obj.Message); }
+
             if (obj.Message.Equals("订单数量不正确"))
             {
                 SizeTxt.Background = new SolidColorBrush(Colors.Red); MessageBox.Show(obj.Message);
