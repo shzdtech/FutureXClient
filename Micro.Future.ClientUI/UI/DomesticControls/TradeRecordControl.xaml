@@ -73,15 +73,21 @@
                     <!--<MenuItem Header="修改订单" />-->
                     <!--<MenuItem Header="{lex:Loc Key=CancelOrder}" Click="MenuItem_Click_CancelOrder" />
                     <Separator />-->
-                    <MenuItem Header="{lex:Loc Key=FilterSettings}" Click="MenuItem_Click_Settings" />
+
+                    <MenuItem Header="{lex:Loc Key=AddFilter}" Click="MenuItem_Click_Settings" />
+                    <Separator />
+                    <MenuItem Header="{lex:Loc Key=FilterSetting}" Click="MenuItem_Click_Settings" />
                     <Separator />
                     <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItem_Click_Columns" />
+                    <!--
                     <Separator />
                     <MenuItem Header="{lex:Loc Key=Traded_Open}" Click="MenuItem_Click_OpenTrade" />
                     <Separator />
                     <MenuItem Header="{lex:Loc Key=Traded_Close}" Click="MenuItem_Click_CloseTrade" />
                     <Separator />
                     <MenuItem Header="{lex:Loc Key=AllTraded}" Click="MenuItem_Click_AllTrade" />
+                    -->
+                    
                     <Separator></Separator>
                 </ContextMenu>
             </ListView.ContextMenu>

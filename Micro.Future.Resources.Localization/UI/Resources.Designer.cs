@@ -88,6 +88,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 添加筛选 的本地化字符串。
+        /// </summary>
+        internal static string AddFilter {
+            get {
+                return ResourceManager.GetString("AddFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 添加板块 的本地化字符串。
         /// </summary>
         internal static string AddWindow {
