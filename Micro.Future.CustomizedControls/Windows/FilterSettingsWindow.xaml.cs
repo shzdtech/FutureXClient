@@ -70,5 +70,10 @@ namespace Micro.Future.Windows
         {
             get; set;
         }
+
+        private void ResetBtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

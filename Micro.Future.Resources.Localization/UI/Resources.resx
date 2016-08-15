@@ -576,4 +576,10 @@
   <data name="ShowOpenExecution" xml:space="preserve">
     <value>显示当前挂单</value>
   </data>
+  <data name="AddFilter" xml:space="preserve">
+    <value>添加筛选</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>重置</value>
+  </data>
 </root>
