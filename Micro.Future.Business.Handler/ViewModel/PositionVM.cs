@@ -59,14 +59,14 @@ namespace Micro.Future.ViewModel
         }
 
         ///持仓日期
-        private string _positionDate;
-        public string PositionDate
+        private PositionDateFlagType _positionDateFlag;
+        public PositionDateFlagType PositionDateFlag
         {
-            get { return _positionDate; }
+            get { return _positionDateFlag; }
             set
             {
-                _positionDate = value;
-                OnPropertyChanged("PositionDate");
+                _positionDateFlag = value;
+                OnPropertyChanged("PositionDateFlag");
             }
         }
 

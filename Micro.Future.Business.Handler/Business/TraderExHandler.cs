@@ -17,12 +17,6 @@ namespace Micro.Future.Message
 {
     public class TraderExHandler : MessageHandlerTemplate<TraderExHandler>
     {
-        private Dictionary<string, string>[] contractIDDictionary; //contract, ID
-        private Dictionary<string, string>[] contractDictionary; //contract, contractName
-        private Dictionary<string, double>[] contractTickPriceDictionary; //conttact, tickPrice
-        private int contractInfoRecordAmount = 0;
-
-
         public event Action<Exception> OnOrderError;
 
         public ObservableCollection<TradeVM> TradeVMCollection
@@ -268,7 +262,7 @@ namespace Micro.Future.Message
                     positionVM.Direction = (PositionDirectionType)rsp.Direction;
                     positionVM.Position = rsp.Position;
                     positionVM.YdPosition = rsp.YdPosition;
-                    positionVM.PositionDate = rsp.PositionDate;
+                    positionVM.PositionDateFlag = (PositionDateFlagType)rsp.PositionDateFlag;
                     positionVM.OpenVolume = rsp.OpenVolume;
                     positionVM.CloseVolume = rsp.CloseVolume;
                     positionVM.OpenAmount = rsp.OpenAmount;

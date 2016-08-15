@@ -116,6 +116,14 @@ namespace Micro.Future.Message
         PD_SHORT = 2,
     };
 
+    public enum PositionDateFlagType
+    {
+        ///今日持仓
+        PSD_TODAY = 0,
+        ///历史持仓
+        PSD_HISTORY = 1
+    };
+
     public enum Type1
     {
 
