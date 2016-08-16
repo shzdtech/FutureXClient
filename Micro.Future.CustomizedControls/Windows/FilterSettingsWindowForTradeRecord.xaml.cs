@@ -1,28 +1,81 @@
-﻿using Micro.Future.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Micro.Future.Windows;
 
 namespace Micro.Future.CustomizedControls.Windows
 {
     /// <summary>
     /// FilterSettingsWindowForTradeRecord.xaml 的交互逻辑
     /// </summary>
-    public partial class FilterSettingsWindowForTradeRecord : FilterSettingsWindow
+    public partial class FilterSettingsWindowForTradeRecord : Window
     {
+        public event Action<string, string, string> OnFiltering;
+
         public FilterSettingsWindowForTradeRecord()
         {
             InitializeComponent();
+        }
+
+
+        public string FilterTitle
+        {
+            get
+            {
+                return titleTxt.Text;
+            }
+        }
+
+        public string FilterExchange
+        {
+            get
+            {
+                return exchangecombo.Text;
+            }
+            set { exchangecombo.Text = value; }
+        }
+
+        public string FilterUnderlying
+        {
+            get
+            {
+                return underlyingTxt.Text;
+            }
+            set { underlyingTxt.Text = value; }
+        }
+
+        public string FilterContract
+        {
+            get
+            {
+                return contractTxt.Text;
+            }
+            set { contractTxt.Text = value; }
+        }
+
+        private void OkBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Hide();
+            OnFiltering?.Invoke(FilterExchange, FilterUnderlying, FilterContract);
+        }
+
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            Hide();
+            e.Cancel = CancelClosing;
+            base.OnClosing(e);
+        }
+
+
+        public bool CancelClosing
+        {
+            get; set;
+        }
+
+        private void ResetBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -394,6 +394,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 结束时间 的本地化字符串。
+        /// </summary>
+        internal static string EndTime {
+            get {
+                return ResourceManager.GetString("EndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 确定 的本地化字符串。
         /// </summary>
         internal static string Enter {
@@ -471,6 +480,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string FilterSettings {
             get {
                 return ResourceManager.GetString("FilterSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 筛选设置 的本地化字符串。
+        /// </summary>
+        internal static string FilterSettingsWindowForTradeRecord {
+            get {
+                return ResourceManager.GetString("FilterSettingsWindowForTradeRecord", resourceCulture);
             }
         }
         
@@ -1164,6 +1182,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string ShowOpenExecution {
             get {
                 return ResourceManager.GetString("ShowOpenExecution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 开始时间 的本地化字符串。
+        /// </summary>
+        internal static string StartTime {
+            get {
+                return ResourceManager.GetString("StartTime", resourceCulture);
             }
         }
         
