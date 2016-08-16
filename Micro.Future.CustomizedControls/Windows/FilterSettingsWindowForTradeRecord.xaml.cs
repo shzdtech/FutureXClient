@@ -1,13 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
-using Micro.Future.Windows;
 
-namespace Micro.Future.CustomizedControls.Windows
+namespace Micro.Future.Windows
 {
-    /// <summary>
-    /// FilterSettingsWindowForTradeRecord.xaml 的交互逻辑
-    /// </summary>
+    
     public partial class FilterSettingsWindowForTradeRecord : Window
     {
         public event Action<string, string, string> OnFiltering;
