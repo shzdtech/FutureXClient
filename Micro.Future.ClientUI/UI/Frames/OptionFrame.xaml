@@ -24,6 +24,22 @@
                 <Controls:LoginStatus x:Name="OptionLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OptionServer_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OptionServer_DisConnected}" Connected="False" OnConnButtonClick="OptionLoginStatus_OnConnButtonClick"/>
             </StatusBarItem>
         </x:Array>
+
+        <GridViewColumnCollection x:Key="multiPutColumns">
+            <GridViewColumn Header="pVega" DisplayMemberBinding="{Binding pVega}"  />
+            <GridViewColumn Header="pDelta" DisplayMemberBinding="{Binding pDelta}" />
+            <GridViewColumn Header="pBid" DisplayMemberBinding="{Binding pBid}" />
+            <GridViewColumn Header="pMid" DisplayMemberBinding="{Binding pMid}" />
+            <GridViewColumn Header="pAsk" DisplayMemberBinding="{Binding pAsk}" />
+        </GridViewColumnCollection>
+
+        <GridViewColumnCollection x:Key="multiCallColumns">
+            <GridViewColumn Header="cVega" DisplayMemberBinding="{Binding cVega}"  />
+            <GridViewColumn Header="cDelta" DisplayMemberBinding="{Binding cDelta}" />
+            <GridViewColumn Header="cBid" DisplayMemberBinding="{Binding cBid}" />
+            <GridViewColumn Header="cMid" DisplayMemberBinding="{Binding cMid}" />
+            <GridViewColumn Header="cAsk" DisplayMemberBinding="{Binding cAsk}" />
+        </GridViewColumnCollection>
     </UserControl.Resources>
     <TabControl x:Name="tabControlall"  SelectionChanged="tabControl_SelectionChanged_2">
         <TabItem Header="Wing Model" x:Name="wingModel">
@@ -329,27 +345,57 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <ListView x:Name="price_greekLV" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Top" Tag="5">
+                <ListView x:Name="option_priceLV">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="pVega"  DisplayMemberBinding="{Binding pVega}" />
-                            <GridViewColumn Header="pDelta" DisplayMemberBinding="{Binding pDelta}"/>
-                            <GridViewColumn Header="pBid" DisplayMemberBinding="{Binding pBid}"/>
-                            <GridViewColumn Header="pMid" DisplayMemberBinding="{Binding pMid}"/>
-                            <GridViewColumn Header="pAsk" DisplayMemberBinding="{Binding pAsk}"/>
+                            <GridViewColumn>
+                                <GridViewColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="Put" HorizontalAlignment="Center"/>
+                                            <GridViewHeaderRowPresenter Columns="{StaticResource multiPutColumns}" HorizontalAlignment="Left"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.HeaderTemplate>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <GridViewRowPresenter Columns="{StaticResource multiPutColumns}" HorizontalAlignment="Left"  />
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                             <GridViewColumn Header="strike" DisplayMemberBinding="{Binding Strike}"/>
-                            <GridViewColumn Header="cBid" DisplayMemberBinding="{Binding cBid}"/>
-                            <GridViewColumn Header="cMid" DisplayMemberBinding="{Binding cMid}"/>
-                            <GridViewColumn Header="cAsk" DisplayMemberBinding="{Binding cAsk}"/>
-                            <GridViewColumn Header="cDelta" DisplayMemberBinding="{Binding cDelta}"/>
-                            <GridViewColumn Header="cVega" DisplayMemberBinding="{Binding cVega}"/>
+                            <GridViewColumn>
+                                <GridViewColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="Call" HorizontalAlignment="Center"/>
+                                            <GridViewHeaderRowPresenter Columns="{StaticResource multiCallColumns}" HorizontalAlignment="Left"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.HeaderTemplate>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <GridViewRowPresenter Columns="{StaticResource multiCallColumns}" HorizontalAlignment="Left"  />
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
+                    <ListView.ContextMenu>
+                        <ContextMenu Name="OptionContextMenu" StaysOpen="True">
+                            <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItem_Click_OptionColumns" />
+                            <Separator />
+                        </ContextMenu>
+                    </ListView.ContextMenu>
                 </ListView>
-                <ListView x:Name="volatilityLV"  HorizontalAlignment="Left" Grid.Column="1" Tag="5">
+                <ListView x:Name="volatilityLV"  Grid.Column="1" HorizontalAlignment="Left" Tag="5">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="strike" DisplayMemberBinding="{Binding Strike}"/>
@@ -363,7 +409,6 @@
         </TabItem>
         <TabItem Header="Position and Risk">
             <Grid Background="#FFE5E5E5">
-
                 <ListView x:Name="positionLV"  HorizontalAlignment="Left" VerticalAlignment="Top" Tag="6" >
                     <ListView.View>
                         <GridView>

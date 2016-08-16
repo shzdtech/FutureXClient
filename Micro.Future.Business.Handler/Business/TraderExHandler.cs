@@ -199,7 +199,7 @@ namespace Micro.Future.Message
                         MaxLimitOrderVolume = contract.MaxMarketOrderVolume,
                         MinLimitOrderVolume = contract.MinMarketOrderVolume,
                         VolumeMultiple = contract.VolumeMultiple,
-                        PriceTick = contract.PriceTick,
+                        PriceTick = (int)contract.PriceTick,
                         CreateDate = contract.CreateDate,
                         OpenDate = contract.OpenDate,
                         ExpireDate = contract.ExpireDate,

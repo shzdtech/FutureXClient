@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,8 +37,7 @@ namespace Micro.Future.UI
 
 
 
-        private ColumnObject[] mColumns;
-
+        private ColumnObject[] _optionColumns;
         public string Title
         {
             get
@@ -122,21 +122,17 @@ namespace Micro.Future.UI
             _viewSourceVolatility.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().VolatilityVMCollection;
             positionLV.ItemsSource = _viewSourcePosition.View;
             riskLV.ItemsSource = _viewSourceRisk.View;
-            price_greekLV.ItemsSource = _viewSourcePriceGreek.View;
+            option_priceLV.ItemsSource = _viewSourcePriceGreek.View;
             volatilityLV.ItemsSource = _viewSourceVolatility.View;
             traderExHandler.OnUpdateOption();
             traderExHandler.OnUpdateTest();
             StrikePricePanel.DataContext = new NumericalSimVM();
             //VolatilityPanel.DataContext = new OptionVM();
             //VolatilityPanel1.DataContext = new OptionVM();
-            price_greekLV.DataContext = new PriceGreekVM();
-            volatilityLV.DataContext = new VolatilityVM();
-            positionLV.DataContext = new PositionVM();
-            riskLV.DataContext = new RiskVM();
             PlotVolatility.Model = traderExHandler.OptionOxyVM.PlotModel;
             VegaPosition.Model = traderExHandler.OptionOxyVM.PlotModelBar;
 
-            mColumns = ColumnObject.GetColumns(listView_numSim);
+            _optionColumns = ColumnObject.GetColumns(option_priceLV);
         }
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -206,6 +202,15 @@ namespace Micro.Future.UI
         {
             TDServerLogin();
         }
+
+        private void MenuItem_Click_OptionColumns(object sender, RoutedEventArgs e)
+        {
+            ColumnSettingsWindow win = new ColumnSettingsWindow(_optionColumns);
+            win.Show();
+        }
+
+
+
     }
 }
 
