@@ -185,10 +185,17 @@ namespace Micro.Future.Message
             {
                 using (var clientCtx = new ClientDbContext())
                 {
+                    var deleteContractQuery = from p in clientCtx.ContractInfo
+                                              select p;
+
+                    if (deleteContractQuery.Any())
+                    {
+                        clientCtx.ContractInfo.RemoveRange(deleteContractQuery);
+                        clientCtx.SaveChanges();
+                    }
+
                     foreach (var contract in rsp.ContractInfo)
                     {
-                        if (clientCtx.ContractInfo.Where(u => u.Contract == contract.Contract && u.Exchange == contract.Exchange).Any() == false)
-                        {
                             clientCtx.ContractInfo.Add(new ContractInfo()
                             {
                                 Exchange = contract.Exchange,
@@ -222,7 +229,6 @@ namespace Micro.Future.Message
                         }  
                     }   
                     
-                }
                 //log to be handle 
             }
             catch (Exception ex)
