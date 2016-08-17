@@ -223,7 +223,9 @@ namespace Micro.Future.Message
                                 LongMarginRatio = contract.LongMarginRatio,
                                 ShortMarginRatio = contract.ShortMarginRatio,
                                 UnderlyingExchange = contract.UnderlyingExchange,
-                                UnderlyingContract = contract.UnderlyingContract
+                                UnderlyingContract = contract.UnderlyingContract,
+                                StrikePrice = contract.StrikePrice,
+                                ContractType = contract.ContractType
                             });
                             clientCtx.SaveChanges();
                         }  

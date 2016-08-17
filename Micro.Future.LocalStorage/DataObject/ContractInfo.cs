@@ -61,6 +61,8 @@ namespace Micro.Future.LocalStorage.DataObject
         ///是否使用大额单边保证金算法
         public string UnderlyingExchange { get; set; }
         public string UnderlyingContract { get; set; }
+        public double StrikePrice { get; set; }
+        public int ContractType { get; set; }
     }
 
 }
