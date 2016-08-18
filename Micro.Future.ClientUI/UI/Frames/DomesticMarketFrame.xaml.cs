@@ -7,6 +7,9 @@ using Micro.Future.CustomizedControls;
 using System;
 using System.Windows.Controls.Primitives;
 using Micro.Future.Resources.Localization;
+using Micro.Future.UI;
+using Micro.Future.Utility;
+using Micro.Future.LocalStorage.DataObject;
 
 namespace Micro.Future.UI
 {
@@ -136,7 +139,13 @@ namespace Micro.Future.UI
             positionsWindow.ReloadData();
             tradeWindow.ReloadData();
             executionWindow.ReloadData();
-            FastOrderCtl.TradeHandler.QueryContractInfo();
+
+            var today = DateTime.Now.Date.ToShortDateString();
+
+            if (MFUtilities.GetSyncVersion(nameof(ContractInfo)) != today)
+            {
+                FastOrderCtl.TradeHandler.QueryContractInfo();
+            }
         }
 
         private void MenuItem_Click_Contract(object sender, RoutedEventArgs e)

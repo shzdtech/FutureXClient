@@ -19,9 +19,10 @@ namespace Micro.Future.LocalStorage
 
         public ClientDbContext(string connectionString) : base() { ConnectionString = connectionString; }
 
+        public DbSet<SyncInfo> SyncInfo { get; set; }
+
         public DbSet<ClientInfo> ClientInfo { get; set; }
-
-
+        
         public DbSet<ContractInfo> ContractInfo { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,7 +41,39 @@ namespace Micro.Future.LocalStorage
             //optionsBuilder.UseSqlite("Filename=E:\\Projects\\FutureXClient\\Micro.Future.LocalStorage\\Data\\clientcache.db");
         }
 
-       
+        public string GetSyncVersion(string item)
+        {
+            var version = from sync in SyncInfo
+                          where sync.Item == item
+                          select sync.Version;
 
+            return version.FirstOrDefault();
+        }
+
+        public DateTime SetSyncVersion(string item, string version)
+        {
+            var syncItem = SyncInfo.Where(i => i.Item == item).FirstOrDefault();
+
+            var now = DateTime.Now;
+
+            if(syncItem == null)
+            {
+                syncItem = new SyncInfo()
+                {
+                    Item = item,
+                    Version = version,
+                    SyncTime = now
+                };
+
+                SyncInfo.Add(syncItem);
+            }
+            else
+            {
+                syncItem.Version = version;
+                syncItem.SyncTime = now;
+            }
+
+            return now;
+        }
     }
 }
