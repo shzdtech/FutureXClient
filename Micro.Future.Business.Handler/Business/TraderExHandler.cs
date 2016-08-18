@@ -152,16 +152,15 @@ namespace Micro.Future.Message
 
 
         // 保存个人合约信息
-        private int OnPersonalContract(PBContractInfoList rsp)//need to be updated to relvant rsp
+        private void OnPersonalContract(PBContractInfoList rsp)//need to be updated to relvant rsp
         {
-            int res = -1;
             try
             {
                 using (var clientCtx = new ClientDbContext())
                 {
                     foreach (var personalContract in rsp.ContractInfo)//rsp.ContractInfo need to be updated
                     {
-                        clientCtx.ContractInfo.Add(new ContractInfo() { Exchange = personalContract.Exchange, Contract = personalContract.Contract });
+                        clientCtx.ContractInfo.Add(new ContractInfo() { Exchange = personalContract.Exchange, Contract = personalContract.Contract  });
                     }
                     clientCtx.SaveChanges();
                 }
@@ -174,7 +173,7 @@ namespace Micro.Future.Message
                 //log handle
                 Console.WriteLine(ex.Message);
             }
-            return res;
+
         }
 
 
