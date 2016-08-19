@@ -72,6 +72,8 @@ namespace Micro.Future.UI
             var entries = _tdSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _tdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
+            TDServerLogin();
         }
 
         public void Initialize()
@@ -85,8 +87,6 @@ namespace Micro.Future.UI
             msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
 
             MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().RegisterMessageWrapper(msgWrapper);
-
-            TDServerLogin();
         }
 
         private void TDServerLogin()

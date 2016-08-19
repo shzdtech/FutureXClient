@@ -61,6 +61,8 @@ namespace Micro.Future.UI
             var entries = _tdSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _tdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
+            TDServerLogin();
         }
 
         public void Initialize()
@@ -78,9 +80,7 @@ namespace Micro.Future.UI
             msgWrapper.MessageClient.OnDisconnected += TdLoginStatus.OnDisconnected;
             _tdSignIner.OnLogged += _tdSignIner_OnLogged;
 
-            handler.RegisterMessageWrapper(msgWrapper);
-
-            TDServerLogin();
+            handler.RegisterMessageWrapper(msgWrapper);;
         }
 
         private void _tdSignIner_OnLogged(IUserInfo obj)
