@@ -119,11 +119,6 @@ namespace Micro.Future.UI
                 stackPanelPrices.DataContext = null;
         }
 
-
-
-
-
-
         //
 
 

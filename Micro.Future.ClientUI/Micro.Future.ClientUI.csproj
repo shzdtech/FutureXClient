@@ -158,6 +158,7 @@
     <Compile Include="UI\Frames\ForeignMarketFrame.xaml.cs">
       <DependentUpon>ForeignMarketFrame.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInfo.cs" />
     <Page Include="UI\DomesticControls\AdvancedMakeOrderWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

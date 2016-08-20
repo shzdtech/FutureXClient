@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.LocalStorage.DataObject
 {
-    class PersonalContract
+    public class PersonalContract
     {
         //UserId
         public int UserID { get; set; }
