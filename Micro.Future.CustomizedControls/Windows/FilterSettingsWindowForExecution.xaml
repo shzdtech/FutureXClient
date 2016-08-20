@@ -1,0 +1,31 @@
+﻿<Window x:Class="Micro.Future.Windows.FilterSettingsWindowForExecution"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Micro.Future.Windows"
+        mc:Ignorable="d"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+        lex:LocalizeDictionary.DesignCulture="zh_CN"
+        lex:LocalizeDictionary.OutputMissingKeys="True"
+        lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+        lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+        Title="{lex:Loc Key=FilterSettings}" Height="300" Width="300" WindowStyle="ToolWindow">
+    <Grid>
+        <StackPanel>
+            <Label Content="{lex:Loc Key=WindowTitle}"/>
+            <TextBox x:Name="titleTxt"/>
+            <Label Content="{lex:Loc Key=Exchange}"/>
+            <TextBox x:Name="exchangecombo"/>
+            <!--<ComboBox x:Name="exchangecombo" SelectedIndex="0" IsEditable="True"/>-->
+            <Label Content="{lex:Loc Key=Underlying}"/>
+            <TextBox x:Name="underlyingTxt"/>
+            <Label Content="{lex:Loc Key=Contract}"/>
+            <TextBox x:Name="contractTxt"/>
+            <Label Content="{lex:Loc Key=ExecutionStatus}"/>
+            <TextBox x:Name="statusTxt"/>
+            <Button x:Name="OkBtn" Content="{lex:Loc Key=Enter}" IsDefault="True" Click="OkBtn_Click" Margin="35,0,53,0"/>
+            <Button x:Name="ResetBtn" Content="{lex:Loc Key=Reset}" IsDefault="False" Click="ResetBtn_Click" Height="23" RenderTransformOrigin="0.478,-0.65" Margin="35,0,53,0" />
+        </StackPanel>
+    </Grid>
+</Window>

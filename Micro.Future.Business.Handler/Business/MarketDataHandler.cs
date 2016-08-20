@@ -4,16 +4,21 @@ using System.Text;
 using Micro.Future.ViewModel;
 using Micro.Future.Message.Business;
 using System.Collections.ObjectModel;
+using Micro.Future.LocalStorage.DataObject;
+using Micro.Future.UI;
+using Micro.Future.LocalStorage;
+using Micro.Future;
+
 
 namespace Micro.Future.Message
 {
     public class MarketDataHandler : MessageHandlerTemplate<MarketDataHandler>
     {
-        private ISet<string> mWatchList = new HashSet<string>();
         public ISet<string> WatchList
         {
-            get { return mWatchList; }
-        }
+            get;
+        } = new HashSet<string>();
+
         public ObservableCollection<QuoteViewModel> QuoteVMCollection
         {
             get;
@@ -47,7 +52,7 @@ namespace Micro.Future.Message
             var sst = new SimpleStringTable();
             sst.Columns.Add(instr);
 
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA, sst);
+            MessageWrapper?.SendMessage((uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA, sst);
         }
 
         public void SubMarketData()
@@ -154,7 +159,7 @@ namespace Micro.Future.Message
             }
         }
 
-        private void ErrorMsgAction(ExceptionMessage bizErr)
+        protected void ErrorMsgAction(ExceptionMessage bizErr)
         {
             if (bizErr.Description != null)
             {
@@ -163,6 +168,29 @@ namespace Micro.Future.Message
                     RaiseOnError(
                         new MessageException(bizErr.MessageId, ErrorType.UNSPECIFIED_ERROR, bizErr.Errorcode,
                         Encoding.UTF8.GetString(msg)));
+            }
+        }
+
+
+        // 保存个人合约信息
+        private void saveContract()
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                var queryPersonalContract = from query in clientCtx.PersonalContract select query;
+
+                if (queryPersonalContract.Any() == true)
+                {
+                    clientCtx.PersonalContract.RemoveRange(queryPersonalContract);
+                    clientCtx.SaveChanges();
+                }
+
+                foreach (var data in MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection)
+                {
+                    clientCtx.PersonalContract.Add(new PersonalContract() { UserID = int.Parse(MessageWrapper.User.Id), Contract = data.Contract });
+                }
+
+                clientCtx.SaveChanges();
             }
         }
     }

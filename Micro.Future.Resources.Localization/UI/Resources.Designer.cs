@@ -457,6 +457,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 委托单状态 的本地化字符串。
+        /// </summary>
+        internal static string ExecutionStatus {
+            get {
+                return ResourceManager.GetString("ExecutionStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 委托单板块 的本地化字符串。
         /// </summary>
         internal static string ExecutionWindow {

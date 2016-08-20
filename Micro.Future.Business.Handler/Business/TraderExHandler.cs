@@ -12,6 +12,7 @@ using OxyPlot.Series;
 using OxyPlot;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Micro.Future.UI;
 
 namespace Micro.Future.Message
 {
@@ -147,32 +148,6 @@ namespace Micro.Future.Message
 
         private void OnMarketInfo(PBMarketInfo rsp)
         {
-
-        }
-
-
-        // 保存个人合约信息
-        private void OnPersonalContract(PBContractInfoList rsp)//need to be updated to relvant rsp
-        {
-            try
-            {
-                using (var clientCtx = new ClientDbContext())
-                {
-                    foreach (var personalContract in rsp.ContractInfo)//rsp.ContractInfo need to be updated
-                    {
-                        clientCtx.ContractInfo.Add(new ContractInfo() { Exchange = personalContract.Exchange, Contract = personalContract.Contract  });
-                    }
-                    clientCtx.SaveChanges();
-                }
-
-                //var resPersonalContract = select
-
-            }
-            catch (Exception ex)
-            {
-                //log handle
-                Console.WriteLine(ex.Message);
-            }
 
         }
 
@@ -573,7 +548,6 @@ namespace Micro.Future.Message
             CreateOrder(orderVM);
         }
 
-
-
     }
 }
+
