@@ -8,11 +8,11 @@ namespace Micro.Future.Windows
     public partial class FilterSettingsWindow : Window
     {
         public event Action<string, string, string> OnFiltering;
+
         public FilterSettingsWindow()
         {
             InitializeComponent();
         }
-
 
         public string FilterTitle
         {
@@ -55,7 +55,6 @@ namespace Micro.Future.Windows
             OnFiltering?.Invoke(FilterExchange, FilterUnderlying, FilterContract);
         }
 
-
         protected override void OnClosing(CancelEventArgs e)
         {
             Hide();
@@ -63,7 +62,6 @@ namespace Micro.Future.Windows
             base.OnClosing(e);
         }
         
-
         public bool CancelClosing
         {
             get; set;

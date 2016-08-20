@@ -79,21 +79,18 @@
                     <!--<MenuItem Header="修改订单" />-->
                     <MenuItem Header="{lex:Loc Key=CancelOrder}" Click="MenuItem_Click_CancelOrder" />
                     <Separator />
-                    <MenuItem Header="{lex:Loc Key=AddFilter}" Click="MenuItem_Click_Settings" />
+                    <MenuItem Header="{lex:Loc Key=AddFilter}" Click="MenuItem_Click_ShowAllExecution" />
                     <Separator />
                     <MenuItem Header="{lex:Loc Key=FilterSettings}" Click="MenuItem_Click_Settings" />
                     <Separator />
                     <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItem_Click_Columns" />
                     <!--<Separator />-->
-                    <!--<MenuItem Header="{lex:Loc Key=CurrentStatus}" Click="MenuItem_Click_Columns" />-->
-                    <!--<Separator /> -->
                     <!--所有委托单-->
                     <!--<MenuItem Header="{lex:Loc Key=ShowAllExecution}" Click="MenuItem_Click_ShowAllExecution" /> -->
                     <!--<Separator /> -->
                     <!--当前挂单-->
                     <!--<MenuItem Header="{lex:Loc Key=ShowOpenExecution}" Click="MenuItem_Click_ShowOpenExecution" /> -->
-                    <!--<Separator /> -->
-
+                    <!--<Separator />-->
                     <!--<MenuItem Header="{lex:Loc Key=ShowDealedExecution}" Click="MenuItem_Click_ShowDealedExecution" /> -->
                     <!--已成交-->
                     

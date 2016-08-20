@@ -82,7 +82,7 @@
                     <ContextMenu Name="QuoteContextMenu" StaysOpen="True">
                         <MenuItem Header="{lex:Loc Key=DeleteOrder}" Click="MenuItem_Click_Delete" />
                         <Separator />
-                        <MenuItem Header="{lex:Loc Key=AddFilter}" Click="MenuItem_Click_Settings" />
+                        <MenuItem Header="{lex:Loc Key=AddFilter}" Click="MenuItem_Click_ShowCustomizedContractTab" />
                         <Separator />
                         <MenuItem Header="{lex:Loc Key=FilterSettings}" Click="MenuItem_Click_Settings" />
                         <Separator />

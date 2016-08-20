@@ -50,14 +50,12 @@ namespace Micro.Future.Windows
             OnFiltering?.Invoke(FilterExchange, FilterUnderlying, FilterContract);
         }
 
-
         protected override void OnClosing(CancelEventArgs e)
         {
             Hide();
             e.Cancel = CancelClosing;
             base.OnClosing(e);
         }
-
 
         public bool CancelClosing
         {
