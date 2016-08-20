@@ -8,11 +8,9 @@ namespace Micro.Future.LocalStorage.DataObject
 {
     class PersonalContract
     {
-        ///Id
+        //UserId
         public int UserID { get; set; }
-        ///交易所代码
-        public string Exchange { get; set; }
-        ///合约代码
+        //Contract
         public string Contract { get; set; }
     }
 }

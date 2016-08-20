@@ -99,8 +99,6 @@ namespace Micro.Future.UI
 
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
-
-
             if (contractTextBox.Text == "")
             {
                 this.contractTextBox.Background = new SolidColorBrush(Colors.Red);
@@ -120,7 +118,6 @@ namespace Micro.Future.UI
                     this.contractTextBox.Background = new SolidColorBrush(Colors.White);
                 }
             }
-
 
             var quote = contractTextBox.Text;
 
@@ -220,6 +217,18 @@ namespace Micro.Future.UI
                 return false;
             };
         }
+        
+        // 保存个人合约信息
+        private void saveContract()
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                var queryPersonal = from query in clientCtx.
+            }
+            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection
 
+
+        }
+        
     }
 }
