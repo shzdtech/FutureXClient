@@ -47,7 +47,7 @@
                 <avalonDock:LayoutPanel DockWidth="4*">
                     <avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorable Title="行情">
-                            <c:OTCMarketData x:Name="otcMarketDataLV"/>
+                            <c:MarketDataControl x:Name="otcMarketDataLV"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>

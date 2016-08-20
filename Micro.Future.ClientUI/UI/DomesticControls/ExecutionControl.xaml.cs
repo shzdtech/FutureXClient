@@ -26,8 +26,7 @@ namespace Micro.Future.UI
         private ColumnObject[] mColumns;
 
         private CollectionViewSource _viewSource = new CollectionViewSource();
-        private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow();
-
+        private FilterSettingsWindowForExecution _filterSettingsWinForExecution = new FilterSettingsWindowForExecution();
 
         public LayoutContent LayoutContent { get; set; }
 
@@ -40,7 +39,7 @@ namespace Micro.Future.UI
             _viewSource.Source = MessageHandlerContainer.DefaultInstance
                 .Get<TraderExHandler>().OrderVMCollection;
 
-            _filterSettingsWin.OnFiltering += _executionSettingsWin_OnFiltering;
+            _filterSettingsWinForExecution.OnFiltering += _executionSettingsWin_OnFiltering;
 
             ExecutionTreeView.ItemsSource = _viewSource.View;
 
@@ -50,7 +49,7 @@ namespace Micro.Future.UI
         private void _executionSettingsWin_OnFiltering(string exchange, string underlying, string contract)
         {
             if (LayoutContent != null)
-                LayoutContent.Title = _filterSettingsWin.FilterTitle;
+                LayoutContent.Title = _filterSettingsWinForExecution.FilterTitle;
             Filter(exchange, underlying, contract);
         }
 
@@ -71,7 +70,7 @@ namespace Micro.Future.UI
             //                       select p.Exchange).Distinct());
             //_executionSettingsWin.ExchangeCollection = exchangeList;
 
-            _filterSettingsWin.Show();
+            _filterSettingsWinForExecution.Show();
         }
 
         public void Filter(string exchange, string underlying, string contract)
