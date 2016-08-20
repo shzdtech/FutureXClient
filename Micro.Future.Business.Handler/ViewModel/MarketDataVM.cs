@@ -9,6 +9,7 @@ namespace Micro.Future.ViewModel
     //报价
     public class QuoteViewModel : ContractNotifyPropertyChanged
     {
+
         private double preCloseValue;
         public double PreCloseValue
         {

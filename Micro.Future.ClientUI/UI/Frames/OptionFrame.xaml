@@ -25,21 +25,6 @@
             </StatusBarItem>
         </x:Array>
 
-        <GridViewColumnCollection x:Key="multiPutColumns">
-            <GridViewColumn Header="pVega" DisplayMemberBinding="{Binding pVega}"  />
-            <GridViewColumn Header="pDelta" DisplayMemberBinding="{Binding pDelta}" />
-            <GridViewColumn Header="pBid" DisplayMemberBinding="{Binding pBid}" />
-            <GridViewColumn Header="pMid" DisplayMemberBinding="{Binding pMid}" />
-            <GridViewColumn Header="pAsk" DisplayMemberBinding="{Binding pAsk}" />
-        </GridViewColumnCollection>
-
-        <GridViewColumnCollection x:Key="multiCallColumns">
-            <GridViewColumn Header="cVega" DisplayMemberBinding="{Binding cVega}"  />
-            <GridViewColumn Header="cDelta" DisplayMemberBinding="{Binding cDelta}" />
-            <GridViewColumn Header="cBid" DisplayMemberBinding="{Binding cBid}" />
-            <GridViewColumn Header="cMid" DisplayMemberBinding="{Binding cMid}" />
-            <GridViewColumn Header="cAsk" DisplayMemberBinding="{Binding cAsk}" />
-        </GridViewColumnCollection>
     </UserControl.Resources>
     <TabControl x:Name="tabControlall"  SelectionChanged="tabControl_SelectionChanged_2">
         <TabItem Header="Wing Model" x:Name="wingModel">
@@ -341,51 +326,45 @@
         <TabItem Header="Market Maker" Width="auto">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
+                
+                <WrapPanel Grid.Row="0">
+                    <Label Content="种类"></Label>
+                    <ComboBox Name="underlyingCB" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingCB_SelectionChanged"/>
+                    <Label Content="产品"></Label>
+                    <ComboBox Name="underlyingContractCB" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingContractCB_SelectionChanged"/>
+                    <Label Content="Strike Number"></Label>
+                    <TextBox x:Name="textBox" Height="23" TextWrapping="Wrap"  Width="40"/>
+                </WrapPanel>
 
-                <ListView x:Name="option_priceLV">
+                <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0" BorderThickness="1,1,1,1">
                     <ListView.View>
-                        <GridView>
-                            <GridViewColumn>
-                                <GridViewColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <TextBlock Text="Put" HorizontalAlignment="Center"/>
-                                            <GridViewHeaderRowPresenter Columns="{StaticResource multiPutColumns}" HorizontalAlignment="Left"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.HeaderTemplate>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <GridViewRowPresenter Columns="{StaticResource multiPutColumns}" HorizontalAlignment="Left"  />
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
+                        <GridView x:Name="option_priceGV">
+                            <GridViewColumn Header="Vega" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
                             </GridViewColumn>
-                            <GridViewColumn Header="strike" DisplayMemberBinding="{Binding Strike}"/>
-                            <GridViewColumn>
-                                <GridViewColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <TextBlock Text="Call" HorizontalAlignment="Center"/>
-                                            <GridViewHeaderRowPresenter Columns="{StaticResource multiCallColumns}" HorizontalAlignment="Left"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.HeaderTemplate>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <GridViewRowPresenter Columns="{StaticResource multiCallColumns}" HorizontalAlignment="Left"  />
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                            <GridViewColumn Header="Delta" DisplayMemberBinding="{Binding PutOptionVM.Delta}" />
+                            <GridViewColumn Header="Volume" DisplayMemberBinding="{Binding PutOptionVM.Volume}" />
+                            <GridViewColumn Header="LastPrice" DisplayMemberBinding="{Binding PutOptionVM.MatchPrice}" />
+                            <GridViewColumn Header="Bid" DisplayMemberBinding="{Binding PutOptionVM.BidPrice}" />
+                            <GridViewColumn Header="BidSize" DisplayMemberBinding="{Binding PutOptionVM.BidSize}" />
+                            <GridViewColumn Header="Mid" DisplayMemberBinding="{Binding PutOptionVM.Mid}" />
+                            <GridViewColumn Header="Ask" DisplayMemberBinding="{Binding PutOptionVM.AskPrice}" />
+                            <GridViewColumn Header="AskSize" DisplayMemberBinding="{Binding PutOptionVM.AskSize}" />
+                            <GridViewColumn Header="strike" DisplayMemberBinding="{Binding StrikePrice}"/>
+                            <GridViewColumn Header="AskSize" DisplayMemberBinding="{Binding CallOptionVM.AskSize}" />
+                            <GridViewColumn Header="Ask" DisplayMemberBinding="{Binding CallOptionVM.AskPrice}" />
+                            <GridViewColumn Header="Mid" DisplayMemberBinding="{Binding CallOptionVM.Mid}" />
+                            <GridViewColumn Header="BidSize" DisplayMemberBinding="{Binding CallOptionVM.BidSize}" />
+                            <GridViewColumn Header="Bid" DisplayMemberBinding="{Binding CallOptionVM.BidPrice}" />
+                            <GridViewColumn Header="LastPrice" DisplayMemberBinding="{Binding CallOptionVM.MatchPrice}" />
+                            <GridViewColumn Header="Volume" DisplayMemberBinding="{Binding CallOptionVM.Volume}" />
+                            <GridViewColumn Header="Delta" DisplayMemberBinding="{Binding CallOptionVM.Delta}" />
+                            <GridViewColumn Header="Vega" DisplayMemberBinding="{Binding CallOptionVM.Vega}"  />
                         </GridView>
                     </ListView.View>
                     <ListView.ContextMenu>
@@ -395,16 +374,85 @@
                         </ContextMenu>
                     </ListView.ContextMenu>
                 </ListView>
-                <ListView x:Name="volatilityLV"  Grid.Column="1" HorizontalAlignment="Left" Tag="5">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="strike" DisplayMemberBinding="{Binding Strike}"/>
-                            <GridViewColumn Header="volBid" DisplayMemberBinding="{Binding volBid}"/>
-                            <GridViewColumn Header="volMid" DisplayMemberBinding="{Binding volMid}"/>
-                            <GridViewColumn Header="volAsk" DisplayMemberBinding="{Binding volAsk}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+
+                <!--<DockPanel Grid.Row="1" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                    <Label Content="Put" Grid.Row="0" Grid.Column="0" Background="RoyalBlue"/>
+                    <ListView x:Name="option_putpriceLV" Grid.Row="1" Grid.Column="0" BorderThickness="1,1,0,1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Vega" DisplayMemberBinding="{Binding pVega}"  />
+                                <GridViewColumn Header="Delta" DisplayMemberBinding="{Binding pDelta}" />
+                                <GridViewColumn Header="Volume" DisplayMemberBinding="{Binding Volume}" />
+                                <GridViewColumn Header="LastPrice" DisplayMemberBinding="{Binding MatchPrice}" />
+                                <GridViewColumn Header="Bid" DisplayMemberBinding="{Binding BidPrice}" />
+                                <GridViewColumn Header="BidSize" DisplayMemberBinding="{Binding BidSize}" />
+                                <GridViewColumn Header="Mid" DisplayMemberBinding="{Binding Mid}" />
+                                <GridViewColumn Header="Ask" DisplayMemberBinding="{Binding AskPrice}" />
+                                <GridViewColumn Header="AskSize" DisplayMemberBinding="{Binding AskSize}" />
+                            </GridView>
+                        </ListView.View>
+                        <ListView.ContextMenu>
+                            <ContextMenu Name="OptionContextMenu" StaysOpen="True">
+                                <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItem_Click_OptionPutColumns" />
+                                <Separator />
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                    </ListView>
+                    <WrapPanel Grid.Row="0" Grid.Column="1" Background="LightGray" Height="25" Margin="0.4,0.4,0.4,0" VerticalAlignment="Top">
+                    </WrapPanel>
+                    <ListView x:Name="option_strikeLV" Grid.Row="1" Grid.Column="1" Background="LightGray" BorderThickness="1,0,0,1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="strike" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Label Content="Call" Grid.Row="0" Grid.Column="2" Background="IndianRed"></Label>
+                    <ListView x:Name="option_callpriceLV" Grid.Row="1" Grid.Column="2" BorderThickness="0,1,1,1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="AskSize" DisplayMemberBinding="{Binding AskSize}" />
+                                <GridViewColumn Header="Ask" DisplayMemberBinding="{Binding AskPrice}" />
+                                <GridViewColumn Header="Mid" DisplayMemberBinding="{Binding Mid}" />
+                                <GridViewColumn Header="BidSize" DisplayMemberBinding="{Binding BidSize}" />
+                                <GridViewColumn Header="Bid" DisplayMemberBinding="{Binding BidPrice}" />
+                                <GridViewColumn Header="LastPrice" DisplayMemberBinding="{Binding MatchPrice}" />
+                                <GridViewColumn Header="Volume" DisplayMemberBinding="{Binding Volume}" />
+                                <GridViewColumn Header="Delta" DisplayMemberBinding="{Binding pDelta}" />
+                                <GridViewColumn Header="Vega" DisplayMemberBinding="{Binding pVega}"  />
+                            </GridView>
+                        </ListView.View>
+                        <ListView.ContextMenu>
+                            <ContextMenu Name="OptionCallContextMenu" StaysOpen="True">
+                                <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItem_Click_OptionCallColumns" />
+                                <Separator />
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                    </ListView>
+                    <ListView x:Name="volatilityLV"  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" Tag="5">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="strike" DisplayMemberBinding="{Binding Strike}"/>
+                                <GridViewColumn Header="volBid" DisplayMemberBinding="{Binding volBid}"/>
+                                <GridViewColumn Header="volMid" DisplayMemberBinding="{Binding volMid}"/>
+                                <GridViewColumn Header="volAsk" DisplayMemberBinding="{Binding volAsk}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </DockPanel>-->
+
             </Grid>
         </TabItem>
         <TabItem Header="Position and Risk">
@@ -441,3 +489,30 @@
         </TabItem>
     </TabControl>
 </UserControl>
+
+<!--<GridViewColumn>
+                                <GridViewColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="Put" HorizontalAlignment="Center"/>
+                                            <GridViewHeaderRowPresenter Columns="{StaticResource multiPutColumns}" HorizontalAlignment="Left"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.HeaderTemplate>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <GridViewRowPresenter Columns="{StaticResource multiPutColumns}" HorizontalAlignment="Left"  />
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>-->
+
+<!--<GridViewColumnCollection x:Key="multiPutColumns">
+            <GridViewColumn Header="pVega" DisplayMemberBinding="{Binding pVega}"  />
+            <GridViewColumn Header="pDelta" DisplayMemberBinding="{Binding pDelta}" />
+            <GridViewColumn Header="pBid" DisplayMemberBinding="{Binding pBid}" />
+            <GridViewColumn Header="pMid" DisplayMemberBinding="{Binding pMid}" />
+            <GridViewColumn Header="pAsk" DisplayMemberBinding="{Binding pAsk}" />
+        </GridViewColumnCollection>-->
+

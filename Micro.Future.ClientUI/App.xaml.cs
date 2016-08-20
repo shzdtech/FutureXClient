@@ -38,6 +38,14 @@ namespace Micro.Future
                     ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
                 });
 
+            configDict = config.Content["CTPOPTIONSERVER"];
+            MessageHandlerContainer.Register<CTPOptionDataHandler, CTPOptionDataHandler>
+                (new SignInOptions
+                {
+                    FrontServer = configDict["ADDRESS"],
+                    ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
+                });
+
             configDict = config.Content["CTPTRADESERVER"];
             MessageHandlerContainer.Register<TraderExHandler, TraderExHandler>
                (new SignInOptions

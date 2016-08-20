@@ -9,11 +9,11 @@ namespace Micro.Future.Message
 {
     public class MarketDataHandler : MessageHandlerTemplate<MarketDataHandler>
     {
-        private ISet<string> mWatchList = new HashSet<string>();
         public ISet<string> WatchList
         {
-            get { return mWatchList; }
-        }
+            get;
+        } = new HashSet<string>();
+
         public ObservableCollection<QuoteViewModel> QuoteVMCollection
         {
             get;
@@ -47,7 +47,7 @@ namespace Micro.Future.Message
             var sst = new SimpleStringTable();
             sst.Columns.Add(instr);
 
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA, sst);
+            MessageWrapper?.SendMessage((uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA, sst);
         }
 
         public void SubMarketData()
@@ -154,7 +154,7 @@ namespace Micro.Future.Message
             }
         }
 
-        private void ErrorMsgAction(ExceptionMessage bizErr)
+        protected void ErrorMsgAction(ExceptionMessage bizErr)
         {
             if (bizErr.Description != null)
             {
