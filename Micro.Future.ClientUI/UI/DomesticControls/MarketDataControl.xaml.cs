@@ -98,6 +98,16 @@ namespace Micro.Future.UI
 
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
+
+
+            if (contractTextBox.Text == "")
+            {
+                this.contractTextBox.Background = new SolidColorBrush(Colors.Red);
+                MessageBox.Show("输入合约不能为空");
+                this.contractTextBox.Background = new SolidColorBrush(Colors.White);
+                return;
+            }
+
             var quote = contractTextBox.Text;
 
             var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
@@ -109,8 +119,14 @@ namespace Micro.Future.UI
             }
             else
             {
-                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
-                    SubMarketData(quote);
+                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+
+                this.contractTextBox.Background = new SolidColorBrush(Colors.Red);
+                MessageBox.Show("输入合约不存在");
+                contractTextBox.Text = "";
+                this.contractTextBox.Background = new SolidColorBrush(Colors.White);
+                
+                
             }
         }
 

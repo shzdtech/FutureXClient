@@ -574,6 +574,5 @@ namespace Micro.Future.Message
         }
 
 
-
     }
 }

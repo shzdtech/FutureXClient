@@ -34,10 +34,14 @@ namespace Micro.Future.UI
         private void Callback_OnOrderError(Exception obj)
         {
             if (obj.Message.Equals("订单合约不能为空") | obj.Message.Equals("输入合约不存在"))
-            { FastOrderContract.Background = new SolidColorBrush(Colors.Red); MessageBox.Show(obj.Message); }
+            { FastOrderContract.Background = new SolidColorBrush(Colors.Red);
+                MessageBox.Show(obj.Message);
+                FastOrderContract.Background = new SolidColorBrush(Colors.White); }
             if (obj.Message.Equals("订单数量不正确"))
             {
-                SizeTxt.Background = new SolidColorBrush(Colors.Red); MessageBox.Show(obj.Message);
+                SizeTxt.Background = new SolidColorBrush(Colors.Red);
+                MessageBox.Show(obj.Message);
+                SizeTxt.Background = new SolidColorBrush(Colors.White);
             } 
 
         }
@@ -113,13 +117,6 @@ namespace Micro.Future.UI
         {
             if (_currentContract != null && FastOrderContract.Text != _currentContract)
                 stackPanelPrices.DataContext = null;
-        }
-
-        private void BuySummitButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-            FastOrderContract.Background = new SolidColorBrush(Colors.White);
-            SizeTxt.Background = new SolidColorBrush(Colors.White);
         }
 
 
