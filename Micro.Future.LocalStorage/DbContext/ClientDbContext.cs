@@ -31,6 +31,7 @@ namespace Micro.Future.LocalStorage
         {
             // Composite primary key 
             modelBuilder.Entity<ContractInfo>().HasKey(c => new { c.Exchange, c.Contract });
+            modelBuilder.Entity<PersonalContract>().HasKey(p => new { p.UserID, p.Contract });
         }
 
         public string ConnectionString { get; protected set; }
