@@ -108,10 +108,20 @@ namespace Micro.Future.UI
                 return;
             }
 
+
+            {
+                this.contractTextBox.Background = new SolidColorBrush(Colors.Red);
+                MessageBox.Show("输入合约不存在");
+                contractTextBox.Text = "";
+                this.contractTextBox.Background = new SolidColorBrush(Colors.White);
+            }
+
             var quote = contractTextBox.Text;
 
             var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
                        QuoteVMCollection.Find((obj) => string.Compare(obj.Contract, quote, true) == 0);
+
+            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection.f
 
             if (item != null)
             {
@@ -119,14 +129,7 @@ namespace Micro.Future.UI
             }
             else
             {
-                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
-
-                this.contractTextBox.Background = new SolidColorBrush(Colors.Red);
-                MessageBox.Show("输入合约不存在");
-                contractTextBox.Text = "";
-                this.contractTextBox.Background = new SolidColorBrush(Colors.White);
-                
-                
+                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);     
             }
         }
 
