@@ -5,14 +5,9 @@ using System.Windows;
 namespace Micro.Future.Windows
 {
 
-    public partial class FilterSettingsWindow : Window
+    public partial class FilterSettingsWindowForExecution : Window
     {
         public event Action<string, string, string> OnFiltering;
-        public FilterSettingsWindow()
-        {
-            InitializeComponent();
-        }
-
 
         public string FilterTitle
         {
@@ -62,7 +57,7 @@ namespace Micro.Future.Windows
             e.Cancel = CancelClosing;
             base.OnClosing(e);
         }
-        
+
 
         public bool CancelClosing
         {

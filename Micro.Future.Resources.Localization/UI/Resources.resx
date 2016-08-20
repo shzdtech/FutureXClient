@@ -591,4 +591,7 @@
   <data name="StartTime" xml:space="preserve">
     <value>开始时间</value>
   </data>
+  <data name="ExecutionStatus" xml:space="preserve">
+    <value>委托单状态</value>
+  </data>
 </root>
