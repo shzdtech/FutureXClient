@@ -119,7 +119,6 @@ namespace Micro.Future.UI
                     contractTextBox.Text = "";
                     this.contractTextBox.Background = new SolidColorBrush(Colors.White);
                 }
-               
             }
 
 
@@ -128,7 +127,6 @@ namespace Micro.Future.UI
             var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
                        QuoteVMCollection.Find((obj) => string.Compare(obj.Contract, quote, true) == 0);
 
-            //MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection.FindContract
 
             if (item != null)
             {
