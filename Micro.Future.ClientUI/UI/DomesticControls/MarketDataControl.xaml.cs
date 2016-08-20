@@ -21,6 +21,7 @@ using Micro.Future.Utility;
 using Micro.Future.Resources.Localization;
 using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.CustomizedControls;
+using Micro.Future.LocalStorage;
 
 namespace Micro.Future.UI
 {
@@ -108,20 +109,26 @@ namespace Micro.Future.UI
                 return;
             }
 
-
+            using (var clientCtx = new ClientDbContext())
             {
-                this.contractTextBox.Background = new SolidColorBrush(Colors.Red);
-                MessageBox.Show("输入合约不存在");
-                contractTextBox.Text = "";
-                this.contractTextBox.Background = new SolidColorBrush(Colors.White);
+                var query = from contractInfo in clientCtx.ContractInfo where contractInfo.Contract == contractTextBox.Text select contractInfo;
+                if (query.Any()==false)
+                {
+                    this.contractTextBox.Background = new SolidColorBrush(Colors.Red);
+                    MessageBox.Show("输入合约不存在");
+                    contractTextBox.Text = "";
+                    this.contractTextBox.Background = new SolidColorBrush(Colors.White);
+                }
+               
             }
+
 
             var quote = contractTextBox.Text;
 
             var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
                        QuoteVMCollection.Find((obj) => string.Compare(obj.Contract, quote, true) == 0);
 
-            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection.f
+            //MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection.FindContract
 
             if (item != null)
             {
