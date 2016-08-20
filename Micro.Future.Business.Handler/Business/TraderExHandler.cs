@@ -10,16 +10,14 @@ using System.Reflection;
 using System.IO;
 using OxyPlot.Series;
 using OxyPlot;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Micro.Future.Message
 {
     public class TraderExHandler : MessageHandlerTemplate<TraderExHandler>
     {
-        public ClientDbContext ClientDbContext
-        {
-            get;
-            protected set;
-        } = new ClientDbContext();
+        public event Action<Exception> OnOrderError;
 
         public ObservableCollection<TradeVM> TradeVMCollection
         {
@@ -69,6 +67,7 @@ namespace Micro.Future.Message
         {
             get;
         } = new OptionOxyVM();
+
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
             MessageWrapper.RegisterAction<PBMarketInfo, ExceptionMessage>
@@ -100,6 +99,8 @@ namespace Micro.Future.Message
         }
 
 
+
+
         public void OnUpdateOption()
         {
             var lineSerie = new LineSeries();
@@ -118,10 +119,10 @@ namespace Micro.Future.Message
         {
             for (int i = 0; i < 10; i++)
             {
-                RiskVMCollection.Add(new RiskVM{ Delta = i, DisplayName = i.ToString(), PositionDelta = i, PositionVega = i, Value = i, Vega = i });
+                RiskVMCollection.Add(new RiskVM { Delta = i, DisplayName = i.ToString(), PositionDelta = i, PositionVega = i, Value = i, Vega = i });
                 PositionVMCollection.Add(new PositionVM { Selected = true, StrikePrice = i, Type = 0, Style = 0, Position = i });
-                PriceGreekVMCollection.Add(new PriceGreekVM {  cAsk = i, cBid = i, cDelta = i, cMid = i, cVega = i, DisplayName = i.ToString(), pAsk = i, pBid = i, pDelta = i, pMid = i, pVega = i, Strike = i});
-                VolatilityVMCollection.Add(new VolatilityVM {  DisplayName = i.ToString(), Strike = i, VolAsk = i, volBid = i, VolMid = i});
+                PriceGreekVMCollection.Add(new PriceGreekVM { cAsk = i, cBid = i, cDelta = i, cMid = i, cVega = i, DisplayName = i.ToString(), pAsk = i, pBid = i, pDelta = i, pMid = i, pVega = i, Strike = i });
+                VolatilityVMCollection.Add(new VolatilityVM { DisplayName = i.ToString(), Strike = i, VolAsk = i, volBid = i, VolMid = i });
             }
         }
 
@@ -151,16 +152,18 @@ namespace Micro.Future.Message
 
 
         // 保存个人合约信息
-        private int OnPersonalContract(PBContractInfoList rsp)//need to be updated to relvant rsp
+        private void OnPersonalContract(PBContractInfoList rsp)//need to be updated to relvant rsp
         {
-            int res = -1;
             try
             {
-                foreach (var personalContract in rsp.ContractInfo)//rsp.ContractInfo need to be updated
+                using (var clientCtx = new ClientDbContext())
                 {
-                    ClientDbContext.ContractInfo.Add(new ContractInfo() { Exchange = personalContract.Exchange, Contract = personalContract.Contract });
+                    foreach (var personalContract in rsp.ContractInfo)//rsp.ContractInfo need to be updated
+                    {
+                        clientCtx.ContractInfo.Add(new ContractInfo() { Exchange = personalContract.Exchange, Contract = personalContract.Contract  });
+                    }
+                    clientCtx.SaveChanges();
                 }
-                ClientDbContext.SaveChanges();
 
                 //var resPersonalContract = select
 
@@ -170,88 +173,67 @@ namespace Micro.Future.Message
                 //log handle
                 Console.WriteLine(ex.Message);
             }
-            return res;
+
         }
 
 
         //To invoke the function of saving contract data to local sqlite
         private void OnContractInfo(PBContractInfoList rsp)
         {
-            int queryCount = 0;
-            int rspCount = 0;
-            try
+            Task.Run(() =>
             {
-                foreach (var contract in rsp.ContractInfo)
+                using (var clientCtx = new ClientDbContext())
                 {
-                    rspCount = rspCount + 1;
-                    ClientDbContext.ContractInfo.Add(new ContractInfo()
+                    var deleteContractQuery = from p in clientCtx.ContractInfo
+                                              select p;
+
+                    if (deleteContractQuery.Any())
                     {
-                        //Id = contract.Id,
-                        Exchange = contract.Exchange,
-                        Contract = contract.Contract,
-                        Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
-                        ProductID = contract.ProductID,
-                        ProductType = contract.ProductType,
-                        DeliveryYear = contract.DeliveryYear,
-                        DeliveryMonth = contract.DeliveryMonth,
-                        MaxMarketOrderVolume = contract.MaxMarketOrderVolume,
-                        MinMarketOrderVolume = contract.MinMarketOrderVolume,
-                        MaxLimitOrderVolume = contract.MaxMarketOrderVolume,
-                        MinLimitOrderVolume = contract.MinMarketOrderVolume,
-                        VolumeMultiple = contract.VolumeMultiple,
-                        PriceTick = (int)contract.PriceTick,
-                        CreateDate = contract.CreateDate,
-                        OpenDate = contract.OpenDate,
-                        ExpireDate = contract.ExpireDate,
-                        StartDelivDate = contract.EndDelivDate,
-                        EndDelivDate = contract.EndDelivDate,
-                        LifePhase = contract.LifePhase,
-                        IsTrading = contract.IsTrading,
-                        PositionType = contract.PositionType,
-                        PositionDateType = contract.PositionDateType,
-                        LongMarginRatio = contract.LongMarginRatio,
-                        ShortMarginRatio = contract.ShortMarginRatio,
-                        UnderlyingExchange = contract.UnderlyingExchange,
-                        UnderlyingContract = contract.UnderlyingContract
-                    });
-                }
-                ClientDbContext.SaveChanges();
+                        clientCtx.ContractInfo.RemoveRange(deleteContractQuery);
+                        clientCtx.SaveChanges();
+                    }
 
-                //log to be handle 
-
-                var queryContractorInfo = from ci in ClientDbContext.ContractInfo
-                                          select ci;
-
-                foreach (var query in queryContractorInfo)
-                {
                     foreach (var contract in rsp.ContractInfo)
                     {
-                        if ((contract.Exchange == query.Exchange) && (contract.Contract == query.Contract))
+                        clientCtx.ContractInfo.Add(new ContractInfo()
                         {
-                            //log handle
-                            queryCount++;
-                            //continue;
-                        }
-
+                            Exchange = contract.Exchange,
+                            Contract = contract.Contract,
+                            Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
+                            ProductID = contract.ProductID,
+                            ProductType = contract.ProductType,
+                            DeliveryYear = contract.DeliveryYear,
+                            DeliveryMonth = contract.DeliveryMonth,
+                            MaxMarketOrderVolume = contract.MaxMarketOrderVolume,
+                            MinMarketOrderVolume = contract.MinMarketOrderVolume,
+                            MaxLimitOrderVolume = contract.MaxMarketOrderVolume,
+                            MinLimitOrderVolume = contract.MinMarketOrderVolume,
+                            VolumeMultiple = contract.VolumeMultiple,
+                            PriceTick = contract.PriceTick,
+                            CreateDate = contract.CreateDate,
+                            OpenDate = contract.OpenDate,
+                            ExpireDate = contract.ExpireDate,
+                            StartDelivDate = contract.EndDelivDate,
+                            EndDelivDate = contract.EndDelivDate,
+                            LifePhase = contract.LifePhase,
+                            IsTrading = contract.IsTrading,
+                            PositionType = contract.PositionType,
+                            PositionDateType = contract.PositionDateType,
+                            LongMarginRatio = contract.LongMarginRatio,
+                            ShortMarginRatio = contract.ShortMarginRatio,
+                            UnderlyingExchange = contract.UnderlyingExchange,
+                            UnderlyingContract = contract.UnderlyingContract,
+                            StrikePrice = contract.StrikePrice,
+                            ContractType = contract.ContractType
+                        });
                     }
-                }
+                    clientCtx.SetSyncVersion(nameof(ContractInfo), DateTime.Now.Date.ToShortDateString());
 
-                if (rspCount == queryCount)
-                {
-                    Console.WriteLine("本地合约数据保存成功");
-                    //log handle
+                    clientCtx.SaveChanges();
                 }
-                else { throw new Exception("本地合约数据保存失败"); }
-            }
-            catch (Exception ex)
-            {
-                //Log to be handle
-                Console.WriteLine(ex.InnerException);
-            }
-
-            //return res;
+            });
         }
-
+     
 
         private void OnPosition(PBPosition rsp)
         {
@@ -280,7 +262,7 @@ namespace Micro.Future.Message
                     positionVM.Direction = (PositionDirectionType)rsp.Direction;
                     positionVM.Position = rsp.Position;
                     positionVM.YdPosition = rsp.YdPosition;
-                    positionVM.PositionDate = rsp.PositionDate;
+                    positionVM.PositionDateFlag = (PositionDateFlagType)rsp.PositionDateFlag;
                     positionVM.OpenVolume = rsp.OpenVolume;
                     positionVM.CloseVolume = rsp.CloseVolume;
                     positionVM.OpenAmount = rsp.OpenAmount;
@@ -447,6 +429,7 @@ namespace Micro.Future.Message
                 }
             }
         }
+
         private void OnReturnTrade(PBTradeInfo rsp)
         {
             if (TradeVMCollection != null)
@@ -511,20 +494,63 @@ namespace Micro.Future.Message
         }
 
 
+
+
         public void CreateOrder(OrderVM orderVM)
         {
-            
-            var pb = new PBOrderRequest();
-            pb.Contract = orderVM.Contract;
-            pb.LimitPrice = orderVM.LimitPrice;
-            pb.Tif = (int)orderVM.TIF;
-            pb.Volume = orderVM.Volume;
-            pb.ExecType = (int)orderVM.ExecType;
-            pb.Direction = (int)orderVM.Direction;
-            pb.Openclose = (int)orderVM.OffsetFlag;
+            if (orderVM == null)
+            {
 
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb);
+                OnOrderError?.Invoke(new Exception("订单对象异常"));
+                return;
+            }
 
+            if (orderVM.Contract == null)
+            {
+                OnOrderError?.Invoke(new Exception("订单合约不能为空"));
+                return;
+            }
+
+            if (orderVM.Volume <= 0)
+            {
+                OnOrderError?.Invoke(new Exception("订单数量不正确"));
+                return;
+            }
+         
+            double tickPrice = 0;
+            double price = 0;
+
+            using (var clientCtx = new ClientDbContext())
+            {
+                tickPrice = (from contract in clientCtx.ContractInfo
+                             where contract.Contract == orderVM.Contract
+                             select contract.PriceTick).FirstOrDefault();
+
+                if (tickPrice != 0)
+                {
+                    price = Math.Round((orderVM.LimitPrice / tickPrice)) * tickPrice;
+                }
+                else
+                {
+                    OnOrderError?.Invoke(new Exception("输入合约不存在"));
+                    return;
+                }
+
+
+
+
+                var pb = new PBOrderRequest();
+                pb.Contract = orderVM.Contract;
+                pb.LimitPrice = orderVM.LimitPrice;
+                pb.Tif = (int)orderVM.TIF;
+                pb.Volume = orderVM.Volume;
+                pb.ExecType = (int)orderVM.ExecType;
+                pb.Direction = (int)orderVM.Direction;
+                pb.Openclose = (int)orderVM.OffsetFlag;
+
+                MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb);
+
+            }
 
 
         }

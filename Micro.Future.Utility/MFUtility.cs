@@ -63,5 +63,25 @@ namespace Micro.Future.Utility
                 }
             }
         }
+
+        public static string GetSyncVersion(string item)
+        {
+            using (var clientDbCtx = new ClientDbContext())
+            {
+                return clientDbCtx.GetSyncVersion(item);
+            }
+        }
+
+        public static DateTime SetSyncVersion(string item, string version)
+        {
+            using (var clientDbCtx = new ClientDbContext())
+            {
+                var syncTm = clientDbCtx.SetSyncVersion(item, version);
+
+                clientDbCtx.SaveChanges();
+
+                return syncTm;
+            }
+        }
     }
 }

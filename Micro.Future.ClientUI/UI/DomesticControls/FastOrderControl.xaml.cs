@@ -4,6 +4,8 @@ using Micro.Future.ViewModel;
 using Micro.Future.Message;
 using System.Windows;
 using System.Text.RegularExpressions;
+using System;
+using System.Windows.Media;
 
 namespace Micro.Future.UI
 {
@@ -25,7 +27,19 @@ namespace Micro.Future.UI
                 OrderVM = new OrderVM(value);
                 OrderVM.Volume = 1;
                 DataContext = OrderVM;
+                value.OnOrderError += Callback_OnOrderError; 
             }
+        }
+
+        private void Callback_OnOrderError(Exception obj)
+        {
+            if (obj.Message.Equals("订单合约不能为空") | obj.Message.Equals("输入合约不存在"))
+            { FastOrderContract.Background = new SolidColorBrush(Colors.Red); MessageBox.Show(obj.Message); }
+            if (obj.Message.Equals("订单数量不正确"))
+            {
+                SizeTxt.Background = new SolidColorBrush(Colors.Red); MessageBox.Show(obj.Message);
+            } 
+
         }
 
         public bool SubmitEnabled
@@ -101,42 +115,16 @@ namespace Micro.Future.UI
                 stackPanelPrices.DataContext = null;
         }
 
-
-       
-
-        private void LimitTxt_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            /*
-            var source = "^[-]?[0-9]{1,5}";
-            if (Regex.IsMatch(LimitTxt.Value.ToString(), source) == true)
-            {
-                MessageBox.Show("只可以输入数字！");
-                SizeTxt.Value = 1;
-            }
-            */
-        }
-
-        
-
         private void BuySummitButton_Click(object sender, RoutedEventArgs e)
         {
             
-            var sizeSource = "^[1-9][0-9]{1,5}";
-            if (Regex.IsMatch(SizeTxt.Value.ToString(), sizeSource) == true)
-            {
-                if (SizeTxt.Value < 1)
-                {
-                    MessageBox.Show("输入数值至少为1");
-                    SizeTxt.Value = 1;
-                }
-            }
-            else
-            {
-                MessageBox.Show("只可以输入正整数,且单笔购买数量最多为10万！");
-                SizeTxt.Value = 1;
-                return;
-            }
+            FastOrderContract.Background = new SolidColorBrush(Colors.White);
+            SizeTxt.Background = new SolidColorBrush(Colors.White);
         }
+
+
+
+
 
 
         //

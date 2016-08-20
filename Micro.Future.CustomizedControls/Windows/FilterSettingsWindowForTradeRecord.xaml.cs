@@ -4,13 +4,12 @@ using System.Windows;
 
 namespace Micro.Future.Windows
 {
-    /// <summary>
-    /// Window1.xaml 的交互逻辑
-    /// </summary>
-    public partial class FilterSettingsWindow : Window
+    
+    public partial class FilterSettingsWindowForTradeRecord : Window
     {
         public event Action<string, string, string> OnFiltering;
-        public FilterSettingsWindow()
+
+        public FilterSettingsWindowForTradeRecord()
         {
             InitializeComponent();
         }
@@ -64,7 +63,7 @@ namespace Micro.Future.Windows
             e.Cancel = CancelClosing;
             base.OnClosing(e);
         }
-        
+
 
         public bool CancelClosing
         {
@@ -73,7 +72,7 @@ namespace Micro.Future.Windows
 
         private void ResetBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
     }
 }

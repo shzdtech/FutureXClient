@@ -48,6 +48,7 @@
     <Compile Include="DataObject\ClientInfo.cs" />
     <Compile Include="DataObject\ContractInfo.cs" />
     <Compile Include="DataObject\PersonalContract.cs" />
+    <Compile Include="DataObject\SyncInfo.cs" />
     <Compile Include="DataObject\UserSetting.cs" />
     <Compile Include="DbContext\ClientDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -65,6 +65,9 @@
     <Compile Include="ViewModel\CountryViewModel.cs" />
     <Compile Include="ViewModel\RegionViewModel.cs" />
     <Compile Include="ViewModel\StateViewModel.cs" />
+    <Compile Include="Windows\FilterSettingsWindowForTradeRecord.xaml.cs">
+      <DependentUpon>FilterSettingsWindowForTradeRecord.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\SearchQuoteWindow.xaml.cs">
       <DependentUpon>SearchQuoteWindow.xaml</DependentUpon>
     </Compile>
@@ -78,6 +81,10 @@
     <Page Include="Windows\ColumnSettingsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FilterSettingsWindowForTradeRecord.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

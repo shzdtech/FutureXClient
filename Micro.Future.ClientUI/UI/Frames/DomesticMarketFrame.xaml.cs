@@ -7,6 +7,9 @@ using Micro.Future.CustomizedControls;
 using System;
 using System.Windows.Controls.Primitives;
 using Micro.Future.Resources.Localization;
+using Micro.Future.UI;
+using Micro.Future.Utility;
+using Micro.Future.LocalStorage.DataObject;
 
 namespace Micro.Future.UI
 {
@@ -28,10 +31,18 @@ namespace Micro.Future.UI
         }
 
 
-        public void LoginAsync(string usernname, string password)
+        public void LoginAsync(string usernname, string password, string server)
         {
             _ctpMdSignIner.SignInOptions.UserName = _ctpTradeSignIner.SignInOptions.UserName = usernname;
             _ctpMdSignIner.SignInOptions.Password = _ctpTradeSignIner.SignInOptions.Password = password;
+            var entries = _ctpMdSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            if (server != null && entries.Length < 2)
+                _ctpMdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
+            entries = _ctpTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            if (server != null && entries.Length < 2)
+                _ctpTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
             MarketDataServerLogin();
             TradingServerLogin();
         }
@@ -128,6 +139,13 @@ namespace Micro.Future.UI
             positionsWindow.ReloadData();
             tradeWindow.ReloadData();
             executionWindow.ReloadData();
+
+            var today = DateTime.Now.Date.ToShortDateString();
+
+            if (MFUtilities.GetSyncVersion(nameof(ContractInfo)) != today)
+            {
+                FastOrderCtl.TradeHandler.QueryContractInfo();
+            }
         }
 
         private void MenuItem_Click_Contract(object sender, RoutedEventArgs e)
