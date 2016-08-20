@@ -219,30 +219,7 @@ namespace Micro.Future.UI
             };
         }
         
-        // 保存个人合约信息
-        private void saveContract()
-        {
-            using (var clientCtx = new ClientDbContext())
-            {
-                var queryPersonalContract = from query in clientCtx.PersonalContract select query;
-
-                if (queryPersonalContract.Any() == true)
-                {
-                    clientCtx.PersonalContract.RemoveRange(queryPersonalContract);
-                    clientCtx.SaveChanges();
-                }
-
-
-                foreach (var data in MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection)
-                {
-                    clientCtx.PersonalContract.Add(new PersonalContract() { UserID =  int.Parse(UserInfo.getUserInfoInstance().Id) , Contract = data.Contract});
-                }
-                clientCtx.SaveChanges();
-            }
-            
-
-
-        }
+        
         
     }
 }

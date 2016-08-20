@@ -4,6 +4,11 @@ using System.Text;
 using Micro.Future.ViewModel;
 using Micro.Future.Message.Business;
 using System.Collections.ObjectModel;
+using Micro.Future.LocalStorage.DataObject;
+using Micro.Future.UI;
+using Micro.Future.LocalStorage;
+using Micro.Future;
+
 
 namespace Micro.Future.Message
 {
@@ -163,6 +168,29 @@ namespace Micro.Future.Message
                     RaiseOnError(
                         new MessageException(bizErr.MessageId, ErrorType.UNSPECIFIED_ERROR, bizErr.Errorcode,
                         Encoding.UTF8.GetString(msg)));
+            }
+        }
+
+
+        // 保存个人合约信息
+        private void saveContract()
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                var queryPersonalContract = from query in clientCtx.PersonalContract select query;
+
+                if (queryPersonalContract.Any() == true)
+                {
+                    clientCtx.PersonalContract.RemoveRange(queryPersonalContract);
+                    clientCtx.SaveChanges();
+                }
+
+                foreach (var data in MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection)
+                {
+                    clientCtx.PersonalContract.Add(new PersonalContract() { UserID = int.Parse(MessageWrapper.User.Id), Contract = data.Contract });
+                }
+
+                clientCtx.SaveChanges();
             }
         }
     }

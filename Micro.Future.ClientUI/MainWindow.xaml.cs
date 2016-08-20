@@ -34,7 +34,6 @@ namespace Micro.Future.UI
 
         void OnLogged(IUserInfo userInfo)
         {
-            UserInfo.getUserInfoInstance().Id = userInfo.Id;
             var roleType = userInfo.Role.ToString();
             var frameDict = (Dictionary<string, IList<string>>)ConfigurationManager.GetSection("frames/roles");
             IList<string> frames;

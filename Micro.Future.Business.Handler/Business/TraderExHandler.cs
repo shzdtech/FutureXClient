@@ -12,6 +12,7 @@ using OxyPlot.Series;
 using OxyPlot;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Micro.Future.UI;
 
 namespace Micro.Future.Message
 {
@@ -547,6 +548,10 @@ namespace Micro.Future.Message
             CreateOrder(orderVM);
         }
 
+       
 
+
+
+        }
     }
 }
