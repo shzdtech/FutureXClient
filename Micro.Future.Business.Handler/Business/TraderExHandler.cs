@@ -316,6 +316,7 @@ namespace Micro.Future.Message
                         {
                             OrderID = rsp.OrderID,
                             OrderSysID = rsp.OrderSysID,
+                            Portfolio = rsp.Portfolio,
                             SessionID = rsp.SessionID,
                             Direction = (DirectionType)rsp.Direction,
                             LimitPrice = rsp.LimitPrice,
@@ -389,6 +390,7 @@ namespace Micro.Future.Message
                                     OrderID = rsp.OrderID,
                                     Exchange = rsp.Exchange,
                                     OrderSysID = rsp.OrderSysID,
+                                    Portfolio = rsp.Portfolio,
                                     Direction = (DirectionType)rsp.Direction,
                                     Price = rsp.Price,
                                     Volume = rsp.Volume,
@@ -418,6 +420,7 @@ namespace Micro.Future.Message
                                     Contract = rsp.Contract,
                                     TradeID = rsp.TradeID,
                                     OrderSysID = rsp.OrderSysID,
+                                    Portfolio = rsp.Portfolio,
                                     Direction = (DirectionType)rsp.Direction,
                                     Price = rsp.Price,
                                     Volume = rsp.Volume,
