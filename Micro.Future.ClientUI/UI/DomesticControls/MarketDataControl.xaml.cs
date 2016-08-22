@@ -56,9 +56,9 @@ namespace Micro.Future.UI
 
         public ICollectionViewLiveShaping QuoteChanged { get; set; }
 
-        private void _fiterSettingsWin_OnFiltering(string exchange, string underlying, string contract)
+        private void _fiterSettingsWin_OnFiltering(string title, string exchange, string underlying, string contract)
         {
-            Filter(exchange, underlying, contract);
+            Filter(title,exchange, underlying, contract);
         }
 
         public event Action<QuoteViewModel> OnQuoteSelected;
@@ -169,8 +169,9 @@ namespace Micro.Future.UI
         }
 
 
-        public void Filter(string exchange, string underlying, string contract)
+        public void Filter(string title, string exchange, string underlying, string contract)
         {
+            this.
             if (quoteListView == null)
             {
                 return;
