@@ -342,7 +342,7 @@
                     <TextBox x:Name="textBox" Height="23" TextWrapping="Wrap"  Width="40"/>
                 </WrapPanel>
 
-                <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0" BorderThickness="1,1,1,1">
+                <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0" BorderThickness="0,0,0,0">
                     <ListView.View>
                         <GridView x:Name="option_priceGV">
                             <GridViewColumn DisplayMemberBinding="{Binding PutOptionVM.Vega}">
@@ -417,13 +417,22 @@
                                         </TextBlock.Background>PAskSize</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding PutOptionVM.Strike}">
+                            <GridViewColumn >
                                 <GridViewColumn.Header>
-                                    <TextBlock>
-                                        <TextBlock.Background>
-                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}"/>
-                                        </TextBlock.Background>Strike</TextBlock>
+                                    <Grid>
+                                        <TextBlock>
+                                            <TextBlock.Background>
+                                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}"/>
+                                            </TextBlock.Background>Strike</TextBlock>
+                                    </Grid>
                                 </GridViewColumn.Header>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid Background="LightGray">
+                                            <TextBlock Text="{Binding StrikePrice}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn DisplayMemberBinding="{Binding CallOptionVM.AskSize}">
                                 <GridViewColumn.Header>

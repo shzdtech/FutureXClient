@@ -273,6 +273,7 @@ namespace Micro.Future.UI
                                orderby o.StrikePrice
                                select o.Contract).Distinct().ToList();
                 handler.CallPutOptionVMCollection.Clear();
+
                 handler.SubCallPutOptionData(strikeList,callList,putList);
             }
         }
