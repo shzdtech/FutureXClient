@@ -53,7 +53,7 @@ namespace Micro.Future.UI
         }
 
         public ICollectionViewLiveShaping PositionChanged { get; set; }
-        private void _filterSettingsWin_OnFiltering(string exchange, string underlying, string contract)
+        private void _filterSettingsWin_OnFiltering(string title, string exchange, string underlying, string contract)
         {
             if (LayoutContent != null)
                 LayoutContent.Title = _filterSettingsWin.FilterTitle;

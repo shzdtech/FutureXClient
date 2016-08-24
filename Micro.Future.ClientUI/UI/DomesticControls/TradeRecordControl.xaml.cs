@@ -43,7 +43,7 @@ namespace Micro.Future.UI
             mColumns = ColumnObject.GetColumns(TradeTreeView);
         }
 
-        private void _filterSettingsWin_OnFiltering(string exchange, string underlying, string contract)
+        private void _filterSettingsWin_OnFiltering(string title, string exchange, string underlying, string contract)
         {
             if (LayoutContent != null)
                 LayoutContent.Title = _filterSettingsWin.FilterTitle;
