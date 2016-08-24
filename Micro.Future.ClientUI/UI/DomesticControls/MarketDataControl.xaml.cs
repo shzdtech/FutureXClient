@@ -171,6 +171,7 @@ namespace Micro.Future.UI
 
         public void Filter(string title, string exchange, string underlying, string contract)
         {
+            MessageBox.Show(title);
             MessageBox.Show(this.TabIndex.ToString());
             if (quoteListView == null)
             {
