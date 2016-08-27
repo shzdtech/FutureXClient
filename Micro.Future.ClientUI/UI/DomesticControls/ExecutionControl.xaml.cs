@@ -46,11 +46,11 @@ namespace Micro.Future.UI
             mColumns = ColumnObject.GetColumns(ExecutionTreeView);
         }
 
-        private void _executionSettingsWin_OnFiltering(string exchange, string underlying, string contract)
+        private void _executionSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
         {
             if (LayoutContent != null)
                 LayoutContent.Title = _filterSettingsWinForExecution.FilterTitle;
-            Filter(exchange, underlying, contract);
+            Filter(tabTitle, exchange, underlying, contract);
         }
 
         private void RadioButton_Checked_AllOrder(object sender, RoutedEventArgs e)
@@ -73,12 +73,23 @@ namespace Micro.Future.UI
             _filterSettingsWinForExecution.Show();
         }
 
-        public void Filter(string exchange, string underlying, string contract)
+        public void Filter(string tabTitle,string exchange, string underlying, string contract)
         {
             if (ExecutionTreeView == null)
             {
                 return;
             }
+
+            for (int count = 0; count < this.AnchorablePane.ChildrenCount; count++)
+            {
+                MessageBox.Show(this.AnchorablePane.Children[count].Title);
+                if (this.AnchorablePane.Children[count].Title.Equals(tabTitle))
+                {
+                    MessageBox.Show("已存在同名窗口,请重新输入.");
+                    return;
+                }
+            }
+            this.AnchorablePane.SelectedContent.Title = tabTitle;
 
             ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)

@@ -43,11 +43,11 @@ namespace Micro.Future.UI
             mColumns = ColumnObject.GetColumns(TradeTreeView);
         }
 
-        private void _filterSettingsWin_OnFiltering(string title, string exchange, string underlying, string contract)
+        private void _filterSettingsWin_OnFiltering(string tabType, int tabIndex, string tabTitle, string exchange, string underlying, string contract)
         {
             if (LayoutContent != null)
-                LayoutContent.Title = _filterSettingsWin.FilterTitle;
-            Filter(exchange, underlying, contract);
+                LayoutContent.Title = _filterSettingsWin.FilterTabTitle;
+            Filter(tabType, tabIndex, tabTitle, exchange, underlying, contract);
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -93,13 +93,24 @@ namespace Micro.Future.UI
                 return false;
             };
         }
-
-        public void Filter(string exchange, string underlying, string contract)
+        
+        public void Filter(string tabType, int tabIndex, string tabTitle, string exchange, string underlying, string contract)
         {
             if (TradeTreeView == null)
             {
                 return;
             }
+
+            for (int count = 0; count < this.AnchorablePane.ChildrenCount; count++)
+            {
+                MessageBox.Show(this.AnchorablePane.Children[count].Title);
+                if (this.AnchorablePane.Children[count].Title.Equals(tabTitle))
+                {
+                    MessageBox.Show("已存在同名窗口,请重新输入.");
+                    return;
+                }
+            }
+            this.AnchorablePane.SelectedContent.Title = tabTitle;
 
             ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
