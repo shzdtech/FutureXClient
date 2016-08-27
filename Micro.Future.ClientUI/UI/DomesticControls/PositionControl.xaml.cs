@@ -53,11 +53,11 @@ namespace Micro.Future.UI
         }
 
         public ICollectionViewLiveShaping PositionChanged { get; set; }
-        private void _filterSettingsWin_OnFiltering(string tabType, int tabIndex, string tabTitle, string exchange, string underlying, string contract)
+        private void _filterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
         {
             if (LayoutContent != null)
                 LayoutContent.Title = _filterSettingsWin.FilterTabTitle;
-            Filter(tabType, tabIndex, tabTitle, exchange, underlying, contract);
+            Filter(tabTitle, exchange, underlying, contract);
         }
 
         public event Action<PositionVM> OnPositionSelected;
@@ -104,7 +104,7 @@ namespace Micro.Future.UI
             }
         }
 
-        public void Filter(string tabType, int tabIndex, string tabTitle, string exchange, string underlying, string contract)
+        public void Filter(string tabTitle, string exchange, string underlying, string contract)
         {
             if (PositionListView == null)
             {

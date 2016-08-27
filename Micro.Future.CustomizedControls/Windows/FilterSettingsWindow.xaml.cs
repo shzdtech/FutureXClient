@@ -7,33 +7,12 @@ namespace Micro.Future.Windows
 
     public partial class FilterSettingsWindow : Window
     {
-        public event Action<string, int, string, string, string, string> OnFiltering;
+        public event Action<string, string, string, string> OnFiltering;
 
         public FilterSettingsWindow()
         {
             InitializeComponent();
         }
-
-        //To be done
-        public string FilterTabType
-        {
-            get
-            {
-                return titleTxt.Text;
-            }
-            set { titleTxt.Text = value; }
-        }
-
-        //to be done
-        public int FilterTabIndex
-        {
-            get
-            {
-                return 0;
-            }
-            //set { titleTxt.Text = value; }
-        }
-
 
         public string FilterTabTitle
         {
@@ -74,7 +53,7 @@ namespace Micro.Future.Windows
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             Hide();
-            OnFiltering?.Invoke(FilterTabType, FilterTabIndex, FilterTabTitle, FilterExchange, FilterUnderlying, FilterContract);
+            OnFiltering?.Invoke(FilterTabTitle, FilterExchange, FilterUnderlying, FilterContract);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -91,7 +70,10 @@ namespace Micro.Future.Windows
 
         private void ResetBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+            titleTxt.Text = "";
+            exchangecombo.Text = "";
+            underlyingTxt.Text = "";
+            contractTxt.Text = "";
         }
     }
 }

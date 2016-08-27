@@ -65,7 +65,11 @@ namespace Micro.Future.Windows
 
         private void ResetBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+            titleTxt.Text = "";
+            exchangecombo.Text = "";
+            exchangecombo.Text = "";
+            underlyingTxt.Text = "";
+
         }
     }
 }
