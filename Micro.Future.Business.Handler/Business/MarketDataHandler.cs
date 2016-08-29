@@ -94,7 +94,7 @@ namespace Micro.Future.Message
             var sst = new SimpleStringTable();
             sst.Columns.Add(instr);
 
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, sst);
+            MessageWrapper?.SendMessage((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, sst);
         }
 
         public void UnsubMarketData()

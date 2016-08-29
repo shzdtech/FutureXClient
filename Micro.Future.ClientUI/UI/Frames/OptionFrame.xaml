@@ -23,11 +23,14 @@
         </x:Array>
         <x:Array Type="{x:Type StatusBarItem}" x:Key="exOptionStatusBarItems">
             <StatusBarItem>
+                <Controls:LoginStatus x:Name="OptionMdLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OptionServer_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OptionServer_DisConnected}" Connected="False" OnConnButtonClick="OptionMdLoginStatus_OnConnButtonClick"/>
+            </StatusBarItem>
+            <StatusBarItem>
                 <Controls:LoginStatus x:Name="OptionLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OptionServer_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OptionServer_DisConnected}" Connected="False" OnConnButtonClick="OptionLoginStatus_OnConnButtonClick"/>
             </StatusBarItem>
         </x:Array>
     </UserControl.Resources>
-    <TabControl x:Name="tabControlall"  SelectionChanged="tabControl_SelectionChanged_2">
+    <TabControl x:Name="tabControlall">
         <TabItem Header="Wing Model" x:Name="wingModel">
             <!--<Grid>
                 <Grid.ColumnDefinitions>
@@ -234,7 +237,7 @@
                         <xctk:DoubleUpDown x:Name="up_Slope1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpSlope}"  Minimum="-1000000" Maximum="1000000"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     </GroupBox>
                 </StackPanel>
-                <TabControl x:Name="tabControl"  SelectionChanged="tabControl_SelectionChanged_2" Grid.Column="3">
+                <TabControl x:Name="tabControl" Grid.Column="3">
                     <TabItem Header="Volatility and Position" x:Name="tabVolatility">
                         <Grid>
                             <Grid.RowDefinitions>

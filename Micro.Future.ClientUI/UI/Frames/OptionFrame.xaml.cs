@@ -33,7 +33,7 @@ namespace Micro.Future.UI
         private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
         private AbstractSignInManager _ctpSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPOptionDataHandler>());
 
-        private IList<ColumnObject> _optionColumns;
+
 
         public string Title
         {
@@ -74,22 +74,19 @@ namespace Micro.Future.UI
             if (server != null && entries.Length < 2)
                 _ctpSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
-
             TDServerLogin();
-            _ctpSignIner.SignIn();
+            MDServerLogin();
         }
 
         public void Initialize()
         {
+            // Initialize Market Data
 
 
-
-            var msgWrapper = _tdSignIner.MessageWrapper;
-
+            msgWrapper = _tdSignIner.MessageWrapper;
             _tdSignIner.OnLogged += OptionLoginStatus.OnLogged;
             _tdSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
-
             MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().RegisterMessageWrapper(msgWrapper);
 
         }
@@ -113,31 +110,14 @@ namespace Micro.Future.UI
             }
         }
 
-        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public IEnumerable ExpirationMonthCollection
         {
-
+            set
+            {
+                contractExpirationMonth.ItemsSource = value;
+            }
         }
 
-        private void tabControl_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-
-        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void tabControl_SelectionChanged_2(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void miniSteps_KeyUp(object sender, KeyEventArgs e)
-        {
-
-        }
 
         private void OptionWin_KeyDown(object sender, KeyEventArgs e)
         {
@@ -178,6 +158,63 @@ namespace Micro.Future.UI
             win.Show();
         }
 
+
+        private void underlyingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var productId = underlyingCB.SelectedItem.ToString();
+
+            if (productId != null)
+            {
+                var underlyingContracts = (from c in _contractList
+                                           where c.ProductID == productId
+                                           select c.UnderlyingContract).Distinct().ToList();
+
+                underlyingContractCB.ItemsSource = underlyingContracts;
+            }
+        }
+
+        private void UpdateOption()
+        {
+            if (underlyingContractCB.SelectedItem != null && _ctpOptionHandler.MessageWrapper != null)
+            {
+                var uc = underlyingContractCB.SelectedItem.ToString();
+
+                var optionList = (from c in _contractList
+                                  where c.UnderlyingContract == uc
+                                  select c).ToList();
+
+                var strikeList = (from o in optionList
+                                  orderby o.StrikePrice
+                                  select o.StrikePrice).Distinct().ToList();
+
+                var callList = (from o in optionList
+                                where o.ContractType == 2
+                                orderby o.StrikePrice
+                                select o.Contract).Distinct().ToList();
+
+                var putList = (from o in optionList
+                               where o.ContractType == 3
+                               orderby o.StrikePrice
+                               select o.Contract).Distinct().ToList();
+
+                var oldList = (from o in _ctpOptionHandler.CallPutOptionVMCollection
+                               select o.CallOptionVM.Contract).ToList();
+                _ctpOptionHandler.UnsubMarketData(oldList);
+
+                oldList = (from o in _ctpOptionHandler.CallPutOptionVMCollection
+                           select o.PutOptionVM.Contract).ToList();
+                _ctpOptionHandler.UnsubMarketData(oldList);
+
+                _ctpOptionHandler.CallPutOptionVMCollection.Clear();
+                _ctpOptionHandler.SubCallPutOptionData(strikeList, callList, putList);
+            }
+        }
+
+
+        private void OptionMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
+        {
+            MDServerLogin();
+        }
     }
 }
 

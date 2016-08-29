@@ -40,6 +40,17 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private string _portfolio;
+        public string Portfolio
+        {
+            get { return _portfolio; }
+            set
+            {
+                _portfolio = value;
+                OnPropertyChanged("Portfolio");
+            }
+        }
+
         private int _sessionID;
         public int SessionID
         {

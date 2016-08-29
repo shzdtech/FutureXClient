@@ -158,28 +158,28 @@ namespace Micro.Future.UI
         private void MenuItem_Click_ZhongJin(object sender, RoutedEventArgs e)
         {
             var quoteGrpVw = new MarketDataControl();
-            quoteGrpVw.Filter("CFFEX", "", "");
+            quoteGrpVw.Filter("", "CFFEX", "", "");
             quotePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("CFFEX", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
         private void MenuItem_Click_ShangHai(object sender, RoutedEventArgs e)
         {
             var quoteGrpVw = new MarketDataControl();
-            quoteGrpVw.Filter("SHFE", "", "");
+            quoteGrpVw.Filter("", "SHFE", "", "");
             quotePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("CFFEX", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
         private void MenuItem_Click_DaLian(object sender, RoutedEventArgs e)
         {
             var quoteGrpVw = new MarketDataControl();
-            quoteGrpVw.Filter("DCE", "", "");
+            quoteGrpVw.Filter("", "DCE", "", "");
             quotePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("CFFEX", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
         private void MenuItem_Click_ZhengZhou(object sender, RoutedEventArgs e)
         {
             var quoteGrpVw = new MarketDataControl();
-            quoteGrpVw.Filter("CZCE", "", "");
+            quoteGrpVw.Filter("", "CZCE", "", "");
             quotePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("CFFEX", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
