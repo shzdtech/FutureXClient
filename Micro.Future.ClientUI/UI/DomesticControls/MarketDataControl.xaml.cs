@@ -64,7 +64,7 @@ namespace Micro.Future.UI
         public event Action<QuoteViewModel> OnQuoteSelected;
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
+        {   
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
             win.Show();
         }

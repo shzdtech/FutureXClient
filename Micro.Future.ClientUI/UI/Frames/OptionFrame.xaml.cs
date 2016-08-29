@@ -33,15 +33,7 @@ namespace Micro.Future.UI
         private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
         private AbstractSignInManager _ctpSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPOptionDataHandler>());
 
-        private CollectionViewSource _viewSourcePosition = new CollectionViewSource();
-        private CollectionViewSource _viewSourceRisk = new CollectionViewSource();
-        private CollectionViewSource _viewSourcePutOption = new CollectionViewSource();
-        private CollectionViewSource _viewSourceCallOption = new CollectionViewSource();
-        private CollectionViewSource _viewSourceVolatility = new CollectionViewSource();
-
-        private IList<ContractInfo> _contractList;
-
-        private ColumnObject[] _optionColumns;
+        private IList<ColumnObject> _optionColumns;
 
         public string Title
         {
@@ -89,13 +81,6 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
-            using (var clientCache = new ClientDbContext())
-            {
-                _contractList = clientCache.ContractInfo.Where(c => c.ProductType == 1).ToList();
-            }
-
-            underlyingCB.ItemsSource = _contractList.Select(c => c.ProductID).Distinct();
-            // Initialize Market Data
 
 
 
@@ -107,24 +92,6 @@ namespace Micro.Future.UI
 
             MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().RegisterMessageWrapper(msgWrapper);
 
-            var traderExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
-            _viewSourcePosition.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RiskVMCollection;
-            _viewSourceRisk.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
-            option_priceLV.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<CTPOptionDataHandler>().CallPutOptionVMCollection;
-            _viewSourceVolatility.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().VolatilityVMCollection;
-            positionLV.ItemsSource = _viewSourcePosition.View;
-            riskLV.ItemsSource = _viewSourceRisk.View;
-            //volatilityLV.ItemsSource = _viewSourceVolatility.View;
-            traderExHandler.OnUpdateOption();
-            traderExHandler.OnUpdateTest();
-            StrikePricePanel.DataContext = new NumericalSimVM();
-            //VolatilityPanel.DataContext = new OptionVM();
-            //VolatilityPanel1.DataContext = new OptionVM();
-            PlotVolatility.Model = traderExHandler.OptionOxyVM.PlotModel;
-            VegaPosition.Model = traderExHandler.OptionOxyVM.PlotModelBar;
-
-            _optionColumns = ColumnObject.GetColumns(option_priceLV);
-
         }
 
         private void TDServerLogin()
@@ -135,18 +102,6 @@ namespace Micro.Future.UI
                 _tdSignIner.SignIn();
             }
         }
-
-        public OptionVM OptionVM
-        {
-            get;
-            private set;
-        } = new OptionVM();
-
-        public OptionOxyVM OptionOxyVM
-        {
-            get;
-        } = new OptionOxyVM();
-
 
 
         public OptionFrame()
@@ -167,15 +122,6 @@ namespace Micro.Future.UI
         {
 
         }
-
-        public IEnumerable ExpirationMonthCollection
-        {
-            set
-            {
-                contractExpirationMonth.ItemsSource = value;
-            }
-        }
-
 
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -232,51 +178,6 @@ namespace Micro.Future.UI
             win.Show();
         }
 
-
-        private void underlyingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var productId = underlyingCB.SelectedItem.ToString();
-
-            if (productId != null)
-            {
-                var underlyingContracts = (from c in _contractList
-                                           where c.ProductID == productId
-                                           select c.UnderlyingContract).Distinct().ToList();
-
-                underlyingContractCB.ItemsSource = underlyingContracts;
-            }
-        }
-
-        private void underlyingContractCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (underlyingContractCB.SelectedItem != null)
-            {
-                var uc = underlyingContractCB.SelectedItem.ToString();
-
-                var optionList = (from c in _contractList
-                                  where c.UnderlyingContract == uc
-                                  select c).ToList();
-
-                var strikeList = (from o in optionList
-                                  orderby o.StrikePrice
-                                  select o.StrikePrice).Distinct().ToList();
-
-                var handler = MessageHandlerContainer.DefaultInstance.Get<CTPOptionDataHandler>();
-
-                var callList = (from o in optionList
-                                where o.ContractType == 2
-                                orderby o.StrikePrice
-                                select o.Contract).Distinct().ToList();
-
-                var putList = (from o in optionList
-                               where o.ContractType == 3
-                               orderby o.StrikePrice
-                               select o.Contract).Distinct().ToList();
-                handler.CallPutOptionVMCollection.Clear();
-
-                handler.SubCallPutOptionData(strikeList,callList,putList);
-            }
-        }
     }
 }
 

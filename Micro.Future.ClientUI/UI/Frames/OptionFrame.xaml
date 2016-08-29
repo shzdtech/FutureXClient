@@ -3,11 +3,13 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:c="clr-namespace:Micro.Future.UI"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Micro.Future.UI"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:oxy="http://oxyplot.org/wpf"
       xmlns:lex="http://wpflocalizeextension.codeplex.com" 
+      xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
       lex:LocalizeDictionary.DesignCulture="zh_CN"
       lex:LocalizeDictionary.OutputMissingKeys="True"
       lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
@@ -24,11 +26,10 @@
                 <Controls:LoginStatus x:Name="OptionLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OptionServer_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OptionServer_DisConnected}" Connected="False" OnConnButtonClick="OptionLoginStatus_OnConnButtonClick"/>
             </StatusBarItem>
         </x:Array>
-
     </UserControl.Resources>
     <TabControl x:Name="tabControlall"  SelectionChanged="tabControl_SelectionChanged_2">
         <TabItem Header="Wing Model" x:Name="wingModel">
-            <Grid>
+            <!--<Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
@@ -246,8 +247,7 @@
                             </oxy:PlotView>
                         </Grid>
                     </TabItem>
-
-                    <!--<TabItem Header="Market Maker" Width="auto">
+                    --><!--<TabItem Header="Market Maker" Width="auto">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"></RowDefinition>
@@ -286,7 +286,6 @@
                             </ListView>
                         </Grid>
                     </TabItem>-->
-
                     <!--<TabItem Header="Position and Risk">
                         <Grid Background="#FFE5E5E5">
 
@@ -319,12 +318,35 @@
                                 </ListView.View>
                             </ListView>
                         </Grid>
-                    </TabItem>-->
+                    </TabItem>--><!--
                 </TabControl>
-            </Grid>
+            </Grid>-->
+            <avalonDock:DockingManager x:Name="dockingManager">
+                <avalonDock:DockingManager.Theme>
+                    <avalonDock:GenericTheme/>
+                </avalonDock:DockingManager.Theme>
+                <avalonDock:LayoutRoot>
+                    <avalonDock:LayoutPanel Orientation="Horizontal">
+                        <avalonDock:LayoutPanel DockWidth="0.15*" Orientation="Vertical">
+                            <avalonDock:LayoutAnchorablePane x:Name="WMSettingsPane">
+                                <avalonDock:LayoutAnchorable Title="WingModel Settings">
+                                    <c:WMSettingsCtrl x:Name="WMSettingsLV"/>
+                                </avalonDock:LayoutAnchorable>
+                            </avalonDock:LayoutAnchorablePane>
+                        </avalonDock:LayoutPanel>
+                        <avalonDock:LayoutPanel DockWidth="0.3*"  Orientation="Vertical">
+                            <avalonDock:LayoutAnchorablePane x:Name="VolCurvPane">
+                                <avalonDock:LayoutAnchorable Title="Volatility Risk">
+                                    <c:VolCurvCtrl x:Name="VolCurvLV"/>
+                                </avalonDock:LayoutAnchorable>
+                            </avalonDock:LayoutAnchorablePane>
+                        </avalonDock:LayoutPanel>
+                    </avalonDock:LayoutPanel>
+                </avalonDock:LayoutRoot>
+            </avalonDock:DockingManager>
         </TabItem>
         <TabItem Header="Market Maker" Width="auto">
-            <Grid>
+            <!--<Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
@@ -343,9 +365,129 @@
                 </WrapPanel>
 
                 <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0" BorderThickness="0,0,0,0">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.View>
-                        <GridView x:Name="option_priceGV">
-                            <GridViewColumn DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                        <GridView x:Name="option_priceGV"  ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+                            <GridViewColumn x:Name="columnEnable1">
+                                <GridViewColumn.Header>
+                                    <TextBlock Text="启用">
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>
+                                    </TextBlock>
+                                </GridViewColumn.Header>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox></CheckBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="PBidQT" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>PBidQT</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="columnEnable2">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>启用</TextBlock>
+                                </GridViewColumn.Header>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox></CheckBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="PAskQT" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>PAskQT</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="PBidIV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>PBidIV</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="PAskIV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>PAskIV</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="PBidTheo" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>PBidTheo</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="PAskTheo" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>PAskTheo</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="PMidIV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>PMidIV</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="PBidQV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>PBidQV</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="PAskQV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>PAskQV</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="PTheta" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>PTheta</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="PGamma" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>PGamma</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="PVega" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -353,7 +495,7 @@
                                         </TextBlock.Background>PVega</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding PutOptionVM.Delta}">
+                            <GridViewColumn x:Name="PDelta" DisplayMemberBinding="{Binding PutOptionVM.Delta}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -361,7 +503,7 @@
                                         </TextBlock.Background>PDelta</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding PutOptionVM.Volume}">
+                            <GridViewColumn x:Name="PVolume" DisplayMemberBinding="{Binding PutOptionVM.Volume}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -369,7 +511,7 @@
                                         </TextBlock.Background>PVolume</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding PutOptionVM.LastPrice}">
+                            <GridViewColumn x:Name="PLastPrice" DisplayMemberBinding="{Binding PutOptionVM.LastPrice}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -377,7 +519,7 @@
                                         </TextBlock.Background>PLastPrice</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding PutOptionVM.Bid}">
+                            <GridViewColumn x:Name="PBid" DisplayMemberBinding="{Binding PutOptionVM.Bid}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -385,7 +527,7 @@
                                         </TextBlock.Background>PBid</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding PutOptionVM.BidSize}">
+                            <GridViewColumn x:Name="PBidSize" DisplayMemberBinding="{Binding PutOptionVM.BidSize}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -393,7 +535,7 @@
                                         </TextBlock.Background>PBidSize</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding PutOptionVM.Mid}">
+                            <GridViewColumn x:Name="PMid" DisplayMemberBinding="{Binding PutOptionVM.Mid}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -401,7 +543,7 @@
                                         </TextBlock.Background>PMid</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding PutOptionVM.Ask}">
+                            <GridViewColumn x:Name="PAsk" DisplayMemberBinding="{Binding PutOptionVM.Ask}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -409,7 +551,7 @@
                                         </TextBlock.Background>PAsk</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding PutOptionVM.AskSize}">
+                            <GridViewColumn x:Name="PAskSize" DisplayMemberBinding="{Binding PutOptionVM.AskSize}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -417,12 +559,12 @@
                                         </TextBlock.Background>PAskSize</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn >
+                            <GridViewColumn x:Name="Strike">
                                 <GridViewColumn.Header>
                                     <Grid>
                                         <TextBlock>
                                             <TextBlock.Background>
-                                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}"/>
+                                                <SolidColorBrush Color="LightGray"/>
                                             </TextBlock.Background>Strike</TextBlock>
                                     </Grid>
                                 </GridViewColumn.Header>
@@ -434,7 +576,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding CallOptionVM.AskSize}">
+                            <GridViewColumn x:Name="CAskSize" DisplayMemberBinding="{Binding CallOptionVM.AskSize}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -442,7 +584,7 @@
                                         </TextBlock.Background>CAskSize</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding CallOptionVM.Ask}">
+                            <GridViewColumn x:Name="CAsk" DisplayMemberBinding="{Binding CallOptionVM.Ask}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -450,7 +592,7 @@
                                         </TextBlock.Background>CAsk</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding CallOptionVM.Mid}">
+                            <GridViewColumn x:Name="CMid" DisplayMemberBinding="{Binding CallOptionVM.Mid}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -458,7 +600,7 @@
                                         </TextBlock.Background>CMid</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding CallOptionVM.BidSize}">
+                            <GridViewColumn x:Name="CBidSize" DisplayMemberBinding="{Binding CallOptionVM.BidSize}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -466,7 +608,7 @@
                                         </TextBlock.Background>CBidSize</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding CallOptionVM.Bid}">
+                            <GridViewColumn x:Name="CBid" DisplayMemberBinding="{Binding CallOptionVM.Bid}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -474,7 +616,7 @@
                                         </TextBlock.Background>CBid</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding CallOptionVM.LastPrice}">
+                            <GridViewColumn x:Name="CLastPrice" DisplayMemberBinding="{Binding CallOptionVM.LastPrice}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -482,7 +624,7 @@
                                         </TextBlock.Background>CLastPrice</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding CallOptionVM.Volume}">
+                            <GridViewColumn x:Name="CVolume" DisplayMemberBinding="{Binding CallOptionVM.Volume}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -490,7 +632,7 @@
                                         </TextBlock.Background>CVolume</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding CallOptionVM.Delta}">
+                            <GridViewColumn x:Name="CDelta" DisplayMemberBinding="{Binding CallOptionVM.Delta}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -498,7 +640,7 @@
                                         </TextBlock.Background>CDelta</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding CallOptionVM.Vega}">
+                            <GridViewColumn x:Name="CVega" DisplayMemberBinding="{Binding CallOptionVM.Vega}">
                                 <GridViewColumn.Header>
                                     <TextBlock>
                                         <TextBlock.Background>
@@ -506,6 +648,122 @@
                                         </TextBlock.Background>CVega</TextBlock>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
+                            <GridViewColumn x:Name="CBidIV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>CBidIV</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="CAskIV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>CAskIV</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="CBidTheo" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>CBidTheo</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="CAskTheo" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>CAskTheo</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="CMidIV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>CMidIV</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="CAskQV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>CAskQV</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="CBidQV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>CBidQV</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="CTheta" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>CTheta</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="CGamma" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>CGamma</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="columnEnable3">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>启用</TextBlock>
+                                </GridViewColumn.Header>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox></CheckBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="CBidQT" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>CBidQT</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="columnEnable4">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>启用</TextBlock>
+                                </GridViewColumn.Header>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox></CheckBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="CAskQT" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                                <GridViewColumn.Header>
+                                    <TextBlock>
+                                        <TextBlock.Background>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                        </TextBlock.Background>CAskQT</TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="PPosition" Header="PPosition" DisplayMemberBinding="{Binding Position}"/>
+                            <GridViewColumn x:Name="CPosition" Header="CPosition" DisplayMemberBinding="{Binding Position}"/>
                         </GridView>
                     </ListView.View>
                     <ListView.ContextMenu>
@@ -516,7 +774,7 @@
                     </ListView.ContextMenu>
                 </ListView>
 
-                <!--<DockPanel Grid.Row="1" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+                --><!--<DockPanel Grid.Row="1" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
@@ -592,41 +850,34 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </DockPanel>-->
+                </DockPanel>--><!--
 
-            </Grid>
-        </TabItem>
-        <TabItem Header="Position and Risk">
-            <Grid Background="#FFE5E5E5">
-                <ListView x:Name="positionLV"  HorizontalAlignment="Left" VerticalAlignment="Top" Tag="6" >
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="expiry month" DisplayMemberBinding="{Binding ExpiryMonth}"/>
-                            <GridViewColumn Header="selected" DisplayMemberBinding="{Binding Selected}"/>
-                            <GridViewColumn Header="strike price" DisplayMemberBinding="{Binding StrikePrice}"/>
-                            <GridViewColumn Header="type" DisplayMemberBinding="{Binding Type}"/>
-                            <GridViewColumn Header="style" DisplayMemberBinding="{Binding Style}"/>
-                            <GridViewColumn Header="position" DisplayMemberBinding="{Binding Position}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <ListView x:Name="riskLV"  HorizontalAlignment="Left" VerticalAlignment="Top" Tag="6" >
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="expiry month" DisplayMemberBinding="{Binding ExpiryMonth}"/>
-                            <GridViewColumn Header="strike price" DisplayMemberBinding="{Binding StrikePrice}"/>
-                            <GridViewColumn Header="type" DisplayMemberBinding="{Binding Type}"/>
-                            <GridViewColumn Header="style" DisplayMemberBinding="{Binding Style}"/>
-                            <GridViewColumn Header="position" DisplayMemberBinding="{Binding Position}"/>
-                            <GridViewColumn Header="value" DisplayMemberBinding="{Binding Value}"/>
-                            <GridViewColumn Header="delta" DisplayMemberBinding="{Binding Delta}"/>
-                            <GridViewColumn Header="vega" DisplayMemberBinding="{Binding Vega}"/>
-                            <GridViewColumn Header="position delta" DisplayMemberBinding="{Binding PositionDelta}"/>
-                            <GridViewColumn Header="position vega" DisplayMemberBinding="{Binding PositionVega}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </Grid>
+            </Grid>-->
+                        <avalonDock:DockingManager x:Name="dockingManager">
+                <avalonDock:DockingManager.Theme>
+                    <avalonDock:GenericTheme/>
+                </avalonDock:DockingManager.Theme>
+                <avalonDock:LayoutRoot>
+                    <avalonDock:LayoutPanel Orientation="Horizontal">
+                        <avalonDock:LayoutPanel DockWidth="0.15*" Orientation="Vertical">
+                            <avalonDock:LayoutAnchorablePane x:Name="WMSettingsPane">
+                                <avalonDock:LayoutAnchorable Title="WingModel Settings">
+                                    <c:WMSettingsCtrl x:Name="WMSettingsLV"/>
+                                </avalonDock:LayoutAnchorable>
+                            </avalonDock:LayoutAnchorablePane>
+                        </avalonDock:LayoutPanel>
+                        <avalonDock:LayoutPanel DockWidth="0.3*"  Orientation="Vertical">
+                            <avalonDock:LayoutAnchorablePane x:Name="VolCurvPane">
+                                <avalonDock:LayoutAnchorable Title="Volatility Risk">
+                                    <c:VolCurvCtrl x:Name="VolCurvLV"/>
+                                </avalonDock:LayoutAnchorable>
+                            </avalonDock:LayoutAnchorablePane>
+                        </avalonDock:LayoutPanel>
+                    </avalonDock:LayoutPanel>
+                </avalonDock:LayoutRoot>
+            </avalonDock:DockingManager>
+
+            
         </TabItem>
     </TabControl>
 </UserControl>

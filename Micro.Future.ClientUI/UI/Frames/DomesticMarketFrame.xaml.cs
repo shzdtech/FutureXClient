@@ -10,6 +10,7 @@ using Micro.Future.Resources.Localization;
 using Micro.Future.UI;
 using Micro.Future.Utility;
 using Micro.Future.LocalStorage.DataObject;
+using Micro.Future.CustomizedControls.Windows;
 
 namespace Micro.Future.UI
 {
@@ -223,6 +224,12 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Position(object sender, RoutedEventArgs e)
         {
             positionPane.AddContent(new PositionControl()).Title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+        }
+
+        private void MenuItem_Click_Portfolio(object sender, RoutedEventArgs e)
+        {
+            PortoforlioWindow win = new PortoforlioWindow();
+            win.Show();
         }
     }
 }

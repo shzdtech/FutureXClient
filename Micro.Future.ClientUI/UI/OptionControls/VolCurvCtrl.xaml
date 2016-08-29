@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="Micro.Future.UI.VolCurvCtrl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Micro.Future.UI"
+             xmlns:oxy="http://oxyplot.org/wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <oxy:PlotView Grid.Row="0" x:Name="VegaPosition" Tag="4" MinHeight="200" MinWidth="200" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        </oxy:PlotView>
+        <oxy:PlotView Grid.Row="1" x:Name="PlotVolatility" Tag="4" MinWidth="200"  MinHeight="480" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        </oxy:PlotView>
+    </Grid>
+</UserControl>

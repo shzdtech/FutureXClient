@@ -43,6 +43,8 @@
                         </MenuItem>
                     </MenuItem>
                 </MenuItem>
+                <MenuItem Header="添加Portfolio" Click="MenuItem_Click_Portfolio">
+                </MenuItem>
             </MenuItem>
         </x:Array>
         <x:Array Type="{x:Type StatusBarItem}" x:Key="exStatusBarItems">
