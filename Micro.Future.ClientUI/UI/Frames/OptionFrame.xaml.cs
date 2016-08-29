@@ -33,8 +33,6 @@ namespace Micro.Future.UI
         private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
         private AbstractSignInManager _ctpSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPOptionDataHandler>());
 
-
-
         public string Title
         {
             get
@@ -78,12 +76,21 @@ namespace Micro.Future.UI
             MDServerLogin();
         }
 
+        private void MDServerLogin()
+        {
+            if (!_ctpSignIner.MessageWrapper.HasSignIn)
+            {
+                OptionMdLoginStatus.Prompt = "正在连接期权服务器...";
+                _ctpSignIner.SignIn();
+            }
+        }
+
         public void Initialize()
         {
             // Initialize Market Data
 
 
-            msgWrapper = _tdSignIner.MessageWrapper;
+            var msgWrapper = _tdSignIner.MessageWrapper;
             _tdSignIner.OnLogged += OptionLoginStatus.OnLogged;
             _tdSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
@@ -109,15 +116,6 @@ namespace Micro.Future.UI
                 Initialize();
             }
         }
-
-        public IEnumerable ExpirationMonthCollection
-        {
-            set
-            {
-                contractExpirationMonth.ItemsSource = value;
-            }
-        }
-
 
         private void OptionWin_KeyDown(object sender, KeyEventArgs e)
         {
@@ -152,63 +150,7 @@ namespace Micro.Future.UI
             TDServerLogin();
         }
 
-        private void MenuItem_Click_OptionColumns(object sender, RoutedEventArgs e)
-        {
-            ColumnSettingsWindow win = new ColumnSettingsWindow(_optionColumns);
-            win.Show();
-        }
-
-
-        private void underlyingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var productId = underlyingCB.SelectedItem.ToString();
-
-            if (productId != null)
-            {
-                var underlyingContracts = (from c in _contractList
-                                           where c.ProductID == productId
-                                           select c.UnderlyingContract).Distinct().ToList();
-
-                underlyingContractCB.ItemsSource = underlyingContracts;
-            }
-        }
-
-        private void UpdateOption()
-        {
-            if (underlyingContractCB.SelectedItem != null && _ctpOptionHandler.MessageWrapper != null)
-            {
-                var uc = underlyingContractCB.SelectedItem.ToString();
-
-                var optionList = (from c in _contractList
-                                  where c.UnderlyingContract == uc
-                                  select c).ToList();
-
-                var strikeList = (from o in optionList
-                                  orderby o.StrikePrice
-                                  select o.StrikePrice).Distinct().ToList();
-
-                var callList = (from o in optionList
-                                where o.ContractType == 2
-                                orderby o.StrikePrice
-                                select o.Contract).Distinct().ToList();
-
-                var putList = (from o in optionList
-                               where o.ContractType == 3
-                               orderby o.StrikePrice
-                               select o.Contract).Distinct().ToList();
-
-                var oldList = (from o in _ctpOptionHandler.CallPutOptionVMCollection
-                               select o.CallOptionVM.Contract).ToList();
-                _ctpOptionHandler.UnsubMarketData(oldList);
-
-                oldList = (from o in _ctpOptionHandler.CallPutOptionVMCollection
-                           select o.PutOptionVM.Contract).ToList();
-                _ctpOptionHandler.UnsubMarketData(oldList);
-
-                _ctpOptionHandler.CallPutOptionVMCollection.Clear();
-                _ctpOptionHandler.SubCallPutOptionData(strikeList, callList, putList);
-            }
-        }
+        
 
 
         private void OptionMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
