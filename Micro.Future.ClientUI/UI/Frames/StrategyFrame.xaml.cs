@@ -87,6 +87,7 @@ namespace Micro.Future.UI
         {
             strategyListView.ReloadData();
             contractParamListView.ReloadData();
+            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().QueryPortfolio();
         }
 
         private void TDServerLogin()

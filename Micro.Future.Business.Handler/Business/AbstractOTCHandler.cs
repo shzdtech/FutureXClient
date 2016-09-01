@@ -233,6 +233,12 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_CONTRACT_PARAM, sst);
         }
 
+        public void QueryPortfolio()
+        {
+            var sst = new StringMap();
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO, sst);
+        }
+
         protected void OnQueryContractParamSuccessAction(PBContractParamList PB)
         {
             foreach (var param in PB.Params)
