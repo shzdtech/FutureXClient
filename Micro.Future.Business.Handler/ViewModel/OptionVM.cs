@@ -380,7 +380,7 @@ namespace Micro.Future.ViewModel
 
         public void UpdateOptionParam()
         {
-            MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().
+            MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>().
                 UpdateOptionParam(this);
         }
 

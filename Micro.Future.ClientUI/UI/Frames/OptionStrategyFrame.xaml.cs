@@ -16,7 +16,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OptionStrategyFrame : UserControl, IUserFrame
     {
-        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
+        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionHandler>());
 
         public OptionStrategyFrame()
         {
@@ -68,7 +68,7 @@ namespace Micro.Future.UI
         public void Initialize()
         {
 
-            var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+            var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
             strategyListView.OTCHandler = handler;
             contractParamListView.OTCHandler = handler;
 

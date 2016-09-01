@@ -30,7 +30,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OptionFrame : UserControl, IUserFrame
     {
-        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
+        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionHandler>());
         private AbstractSignInManager _ctpSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPOptionDataHandler>());
         private CTPOptionDataHandler _ctpOptionHandler = MessageHandlerContainer.DefaultInstance.Get<CTPOptionDataHandler>();
 
@@ -108,7 +108,7 @@ namespace Micro.Future.UI
             _tdSignIner.OnLogged += OptionLoginStatus.OnLogged;
             _tdSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
-            MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().RegisterMessageWrapper(msgWrapper);
+            MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>().RegisterMessageWrapper(msgWrapper);
 
             var traderExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             _viewSourcePosition.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RiskVMCollection;

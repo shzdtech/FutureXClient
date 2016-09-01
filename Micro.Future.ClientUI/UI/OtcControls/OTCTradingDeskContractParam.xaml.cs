@@ -17,7 +17,7 @@ namespace Micro.Future.UI
             InitializeComponent();
         }
 
-        public AbstractOTCMarketDataHandler OTCHandler { get; set; }
+        public AbstractOTCHandler OTCHandler { get; set; }
 
         public void ReloadData()
         {

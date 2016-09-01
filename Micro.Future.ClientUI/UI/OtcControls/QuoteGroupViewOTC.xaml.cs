@@ -28,7 +28,7 @@ namespace Micro.Future.UI
             InitializeComponent();
 
             QuoteListView.ItemsSource =
-                MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().OTCQuoteVMCollection;
+                MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().OTCQuoteVMCollection;
         }
 
         public event Action<OTCQuoteVM> OnQuoteSelected;
