@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -18,10 +19,10 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class ColumnSettingsWindow : Window
     {
-        public ColumnSettingsWindow(ColumnObject[] columns)
+        public ColumnSettingsWindow(IEnumerable<ColumnObject> columns)
         {
             InitializeComponent();
-            columnsList.ItemsSource = columns;
+            treeColumns.ItemsSource = columns;
         }
     }
 
@@ -57,32 +58,43 @@ namespace Micro.Future.UI
 
         public static DependencyProperty IsVisibleProperty =
             DependencyProperty.Register("IsVisible", typeof(bool), typeof(ColumnObject),
-            new PropertyMetadata(true, OnIsVisibleChanged));
+            new FrameworkPropertyMetadata(true, 
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.Journal,
+            new PropertyChangedCallback(OnIsVisibleChanged)));
 
         static void OnIsVisibleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var cobj = (ColumnObject)d;
-            if ((bool)e.NewValue)
+            bool isChecked = (bool)e.NewValue;
+            if (cobj.collec != null)
             {
-                //尝试还原位置，此时有可能由于别的列也被隐藏造成位置无效
-                if (cobj.index < 0 || cobj.index > cobj.collec.Count)
-                    cobj.index = cobj.collec.Count - 1;
-                cobj.collec.Insert(cobj.index, cobj.Column);
-            }
-            else
-            {
-                //记住隐藏时列的位置，显示的时候尝试排列在原来位置
-                cobj.index = cobj.collec.IndexOf(cobj.Column);
-                if (cobj.index != -1)
+                if (isChecked)
                 {
-                    cobj.collec.RemoveAt(cobj.index);
+                    //尝试还原位置，此时有可能由于别的列也被隐藏造成位置无效
+                    if (cobj.index < 0 || cobj.index > cobj.collec.Count)
+                        cobj.index = cobj.collec.Count - 1;
+                    cobj.collec.Insert(cobj.index, cobj.Column);
                 }
+                else
+                {
+                    //记住隐藏时列的位置，显示的时候尝试排列在原来位置
+                    cobj.index = cobj.collec.IndexOf(cobj.Column);
+                    if (cobj.index != -1)
+                    {
+                        cobj.collec.RemoveAt(cobj.index);
+                    }
+                }
+            }
+
+            foreach (var c in cobj.Children)
+            {
+                c.SetValue(IsVisibleProperty, isChecked);
+                //OnIsVisibleChanged(c, e);
             }
         }
 
-        #endregion
 
-        #region 静态成员
+        #endregion
 
         //从ListView中获取ColumnObject对象
         public static ColumnObject[] GetColumns(ListView lv)
@@ -95,22 +107,37 @@ namespace Micro.Future.UI
             return null;
         }
 
-        #endregion
+        public static ColumnObject CreateColumn(ListView lv, GridViewColumn column)
+        {
+            return new ColumnObject(column, ((GridView)lv.View).Columns); ;
+        }
 
         #region 属性/字段
 
         //GridViewColumn集合
         GridViewColumnCollection collec;
         int index;
+
         public GridViewColumn Column { get; private set; }
 
         #endregion
 
-        public ColumnObject(GridViewColumn column, GridViewColumnCollection collec)
+        public ColumnObject(GridViewColumn column, GridViewColumnCollection collec = null)
         {
             Column = column;
             this.collec = collec;
         }
 
+        public void Initialize()
+        {
+            foreach (var child in Children)
+            {
+                child.Parent = this;
+                child.Initialize();
+            }
+        }
+
+        public IList<ColumnObject> Children { get; private set; } = new List<ColumnObject>();
+        public ColumnObject Parent { get; private set; }
     }
 }

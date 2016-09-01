@@ -119,6 +119,11 @@ namespace Micro.Future.UI
                 stackPanelPrices.DataContext = null;
         }
 
+        private void portofolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
         //
 
 

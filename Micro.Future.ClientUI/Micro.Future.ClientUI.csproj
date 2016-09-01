@@ -131,6 +131,15 @@
     <Compile Include="UI\Frames\OptionFrame.xaml.cs">
       <DependentUpon>OptionFrame.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\OptionControls\OpMarketMakerCtrl.xaml.cs">
+      <DependentUpon>OpMarketMakerCtrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\OptionControls\VolCurvCtrl.xaml.cs">
+      <DependentUpon>VolCurvCtrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\OptionControls\WMSettingsCtrl.xaml.cs">
+      <DependentUpon>WMSettingsCtrl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\OtcControls\QuoteGroupViewOTC.xaml.cs">
       <DependentUpon>QuoteGroupViewOTC.xaml</DependentUpon>
     </Compile>
@@ -214,6 +223,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\OptionControls\OpMarketMakerCtrl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\OptionControls\VolCurvCtrl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\OptionControls\WMSettingsCtrl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\OtcControls\QuoteGroupViewOTC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -374,9 +395,7 @@
   <ItemGroup>
     <Resource Include="Images\Logo.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\OptionControls\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -10,6 +10,7 @@ using Micro.Future.Resources.Localization;
 using Micro.Future.UI;
 using Micro.Future.Utility;
 using Micro.Future.LocalStorage.DataObject;
+using Micro.Future.CustomizedControls.Windows;
 
 namespace Micro.Future.UI
 {
@@ -157,28 +158,28 @@ namespace Micro.Future.UI
         private void MenuItem_Click_ZhongJin(object sender, RoutedEventArgs e)
         {
             var quoteGrpVw = new MarketDataControl();
-            quoteGrpVw.Filter("CFFEX", "", "");
+            quoteGrpVw.Filter("", "CFFEX", "", "");
             quotePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("CFFEX", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
         private void MenuItem_Click_ShangHai(object sender, RoutedEventArgs e)
         {
             var quoteGrpVw = new MarketDataControl();
-            quoteGrpVw.Filter("SHFE", "", "");
+            quoteGrpVw.Filter("", "SHFE", "", "");
             quotePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("CFFEX", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
         private void MenuItem_Click_DaLian(object sender, RoutedEventArgs e)
         {
             var quoteGrpVw = new MarketDataControl();
-            quoteGrpVw.Filter("DCE", "", "");
+            quoteGrpVw.Filter("", "DCE", "", "");
             quotePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("CFFEX", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
         private void MenuItem_Click_ZhengZhou(object sender, RoutedEventArgs e)
         {
             var quoteGrpVw = new MarketDataControl();
-            quoteGrpVw.Filter("CZCE", "", "");
+            quoteGrpVw.Filter("", "CZCE", "", "");
             quotePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("CFFEX", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
@@ -223,6 +224,12 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Position(object sender, RoutedEventArgs e)
         {
             positionPane.AddContent(new PositionControl()).Title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+        }
+
+        private void MenuItem_Click_Portfolio(object sender, RoutedEventArgs e)
+        {
+            PortoforlioWindow win = new PortoforlioWindow();
+            win.Show();
         }
     }
 }

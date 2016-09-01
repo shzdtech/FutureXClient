@@ -18,6 +18,11 @@ namespace Micro.Future.UI
         private Config _config = new Config(Settings.Default.ConfigFile);
         private PBSignInManager _accountSignIner = new PBSignInManager();
 
+        public static int maketDataTabCount = 0;
+
+
+
+
         public MainWindow()
         {
             InitializeComponent();

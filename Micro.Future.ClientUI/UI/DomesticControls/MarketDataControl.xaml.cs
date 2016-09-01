@@ -34,6 +34,8 @@ namespace Micro.Future.UI
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow();
+        
+
 
         public MarketDataControl()
         {
@@ -52,19 +54,20 @@ namespace Micro.Future.UI
             }
 
             mColumns = ColumnObject.GetColumns(quoteListView);
+
         }
 
         public ICollectionViewLiveShaping QuoteChanged { get; set; }
 
-        private void _fiterSettingsWin_OnFiltering(string exchange, string underlying, string contract)
+        private void _fiterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
         {
-            Filter(exchange, underlying, contract);
+            Filter(tabTitle, exchange, underlying, contract);
         }
 
         public event Action<QuoteViewModel> OnQuoteSelected;
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
+        {   
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
             win.Show();
         }
@@ -168,9 +171,20 @@ namespace Micro.Future.UI
                 AnchorablePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
-
-        public void Filter(string exchange, string underlying, string contract)
+        //DataType is for window style, tabIndex is for 
+        public void Filter(string tabTitle, string exchange, string underlying, string contract)
         {
+            for (int count = 0; count < this.AnchorablePane.ChildrenCount; count++)
+            {
+                MessageBox.Show(this.AnchorablePane.Children[count].Title);
+                if (this.AnchorablePane.Children[count].Title.Equals(tabTitle))
+                { 
+                    MessageBox.Show("已存在同名窗口,请重新输入.");
+                    return;
+                }
+            }
+            this.AnchorablePane.SelectedContent.Title = tabTitle;
+
             if (quoteListView == null)
             {
                 return;

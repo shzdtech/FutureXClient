@@ -32,17 +32,6 @@ namespace Micro.Future.UI
     {
         private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionHandler>());
         private AbstractSignInManager _ctpSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPOptionDataHandler>());
-        private CTPOptionDataHandler _ctpOptionHandler = MessageHandlerContainer.DefaultInstance.Get<CTPOptionDataHandler>();
-
-        private CollectionViewSource _viewSourcePosition = new CollectionViewSource();
-        private CollectionViewSource _viewSourceRisk = new CollectionViewSource();
-        private CollectionViewSource _viewSourcePutOption = new CollectionViewSource();
-        private CollectionViewSource _viewSourceCallOption = new CollectionViewSource();
-        private CollectionViewSource _viewSourceVolatility = new CollectionViewSource();
-
-        private IList<ContractInfo> _contractList;
-
-        private ColumnObject[] _optionColumns;
 
         public string Title
         {
@@ -87,52 +76,26 @@ namespace Micro.Future.UI
             MDServerLogin();
         }
 
+        private void MDServerLogin()
+        {
+            if (!_ctpSignIner.MessageWrapper.HasSignIn)
+            {
+                OptionMdLoginStatus.Prompt = "正在连接期权服务器...";
+                _ctpSignIner.SignIn();
+            }
+        }
+
         public void Initialize()
         {
-            using (var clientCache = new ClientDbContext())
-            {
-                _contractList = clientCache.ContractInfo.Where(c => c.ProductType == 1).ToList();
-            }
-
-            underlyingCB.ItemsSource = _contractList.Select(c => c.ProductID).Distinct();
             // Initialize Market Data
-            var msgWrapper = _ctpSignIner.MessageWrapper;
-            _ctpSignIner.OnLogged += OptionMdLoginStatus.OnLogged;
-            _ctpSignIner.OnLoginError += OptionMdLoginStatus.OnDisconnected;
-            _ctpSignIner.OnLogged += _ctpSignIner_OnLogged;
-            msgWrapper.MessageClient.OnDisconnected += OptionMdLoginStatus.OnDisconnected;
-            _ctpOptionHandler.RegisterMessageWrapper(msgWrapper);
 
 
-            msgWrapper = _tdSignIner.MessageWrapper;
+            var msgWrapper = _tdSignIner.MessageWrapper;
             _tdSignIner.OnLogged += OptionLoginStatus.OnLogged;
             _tdSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
             MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>().RegisterMessageWrapper(msgWrapper);
 
-            var traderExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
-            _viewSourcePosition.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RiskVMCollection;
-            _viewSourceRisk.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
-            option_priceLV.ItemsSource = _ctpOptionHandler.CallPutOptionVMCollection;
-            _viewSourceVolatility.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().VolatilityVMCollection;
-            positionLV.ItemsSource = _viewSourcePosition.View;
-            riskLV.ItemsSource = _viewSourceRisk.View;
-            //volatilityLV.ItemsSource = _viewSourceVolatility.View;
-            traderExHandler.OnUpdateOption();
-            traderExHandler.OnUpdateTest();
-            StrikePricePanel.DataContext = new NumericalSimVM();
-            //VolatilityPanel.DataContext = new OptionVM();
-            //VolatilityPanel1.DataContext = new OptionVM();
-            PlotVolatility.Model = traderExHandler.OptionOxyVM.PlotModel;
-            VegaPosition.Model = traderExHandler.OptionOxyVM.PlotModelBar;
-
-            _optionColumns = ColumnObject.GetColumns(option_priceLV);
-
-        }
-
-        private void _ctpSignIner_OnLogged(IUserInfo obj)
-        {
-            UpdateOption();
         }
 
         private void TDServerLogin()
@@ -144,27 +107,6 @@ namespace Micro.Future.UI
             }
         }
 
-        private void MDServerLogin()
-        {
-            if (!_ctpSignIner.MessageWrapper.HasSignIn)
-            {
-                OptionMdLoginStatus.Prompt = "正在连接期权行情服务器...";
-                _ctpSignIner.SignIn();
-            }
-        }
-
-        public OptionVM OptionVM
-        {
-            get;
-            private set;
-        } = new OptionVM();
-
-        public OptionOxyVM OptionOxyVM
-        {
-            get;
-        } = new OptionOxyVM();
-
-
 
         public OptionFrame()
         {
@@ -174,15 +116,6 @@ namespace Micro.Future.UI
                 Initialize();
             }
         }
-
-        public IEnumerable ExpirationMonthCollection
-        {
-            set
-            {
-                contractExpirationMonth.ItemsSource = value;
-            }
-        }
-
 
         private void OptionWin_KeyDown(object sender, KeyEventArgs e)
         {
@@ -217,69 +150,8 @@ namespace Micro.Future.UI
             TDServerLogin();
         }
 
-        private void MenuItem_Click_OptionColumns(object sender, RoutedEventArgs e)
-        {
-            ColumnSettingsWindow win = new ColumnSettingsWindow(_optionColumns);
-            win.Show();
-        }
+        
 
-
-        private void underlyingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var productId = underlyingCB.SelectedItem.ToString();
-
-            if (productId != null)
-            {
-                var underlyingContracts = (from c in _contractList
-                                           where c.ProductID == productId
-                                           select c.UnderlyingContract).Distinct().ToList();
-
-                underlyingContractCB.ItemsSource = underlyingContracts;
-            }
-        }
-
-        private void UpdateOption()
-        {
-            if (underlyingContractCB.SelectedItem != null && _ctpOptionHandler.MessageWrapper != null)
-            {
-                var uc = underlyingContractCB.SelectedItem.ToString();
-
-                var optionList = (from c in _contractList
-                                  where c.UnderlyingContract == uc
-                                  select c).ToList();
-
-                var strikeList = (from o in optionList
-                                  orderby o.StrikePrice
-                                  select o.StrikePrice).Distinct().ToList();
-
-                var callList = (from o in optionList
-                                where o.ContractType == 2
-                                orderby o.StrikePrice
-                                select o.Contract).Distinct().ToList();
-
-                var putList = (from o in optionList
-                               where o.ContractType == 3
-                               orderby o.StrikePrice
-                               select o.Contract).Distinct().ToList();
-
-                var oldList = (from o in _ctpOptionHandler.CallPutOptionVMCollection
-                               select o.CallOptionVM.Contract).ToList();
-                _ctpOptionHandler.UnsubMarketData(oldList);
-
-                oldList = (from o in _ctpOptionHandler.CallPutOptionVMCollection
-                           select o.PutOptionVM.Contract).ToList();
-                _ctpOptionHandler.UnsubMarketData(oldList);
-
-                _ctpOptionHandler.CallPutOptionVMCollection.Clear();
-                _ctpOptionHandler.SubCallPutOptionData(strikeList, callList, putList);
-            }
-        }
-
-
-        private void underlyingContractCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            UpdateOption();
-        }
 
         private void OptionMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
         {

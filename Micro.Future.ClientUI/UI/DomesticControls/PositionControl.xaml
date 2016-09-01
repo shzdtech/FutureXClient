@@ -40,6 +40,7 @@
                     <GridViewColumn Header="{lex:Loc Key=LongFrozenAmount}" DisplayMemberBinding="{Binding LongFrozenAmount}" />
                     <GridViewColumn Header="{lex:Loc Key=ShortFrozen}" DisplayMemberBinding="{Binding ShortFrozen}" />
                     <GridViewColumn Header="{lex:Loc Key=ShortFrozenAmount}" DisplayMemberBinding="{Binding ShortFrozenAmount}" />
+                    <GridViewColumn Header="Portofolio" DisplayMemberBinding="{Binding Portofolio}" />
                     <!--<GridViewColumn Header="上次占用保证金" DisplayMemberBinding="{Binding PreMargin}" />-->
                     <!--<GridViewColumn Header="冻结保证金" DisplayMemberBinding="{Binding FrozenMargin}" />
                     <GridViewColumn Header="冻结资金" DisplayMemberBinding="{Binding FrozenCash}" />

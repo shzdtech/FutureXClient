@@ -105,12 +105,15 @@ namespace Micro.Future.Message
         public void OnUpdateOption()
         {
             var lineSerie = new LineSeries();
+            var lineSerie1 = new LineSeries();
             var columnSeries = new ColumnSeries();
             for (double i = 0.5; i < 10; i++)
             {
+                lineSerie1.Points.Add(new DataPoint(i, 10 - 0.5 * i));
                 lineSerie.Points.Add(new DataPoint(i, i));
                 columnSeries.Items.Add(new ColumnItem { Value = i });
             }
+            OptionOxyVM.PlotModel.Series.Add(lineSerie1);
             OptionOxyVM.PlotModel.Series.Add(lineSerie);
             OptionOxyVM.PlotModelBar.Series.Add(columnSeries);
 

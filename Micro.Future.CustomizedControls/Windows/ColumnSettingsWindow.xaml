@@ -13,19 +13,29 @@
     <StackPanel Name="ColumnSettingsPanel">
         <!-- 列管理代码 -->
         <!-- loc命名空间是ColumnObject的CLR命名空间 -->
-        <ListBox Name="columnsList">
+        <TreeView x:Name="treeColumns" ItemsSource="{Binding Mode=OneTime}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Children, Mode=OneTime}">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Focusable="False" IsChecked="{Binding IsVisible}" VerticalAlignment="Center" />
+                        <ContentPresenter Content="{Binding Column.Header, Mode=OneTime}" />
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        <!--<ListBox Name="columnsList" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="Focusable" Value="False" />
                 </Style>
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
-                <DataTemplate>
+                <HierarchicalDataTemplate>
                     <CheckBox IsChecked="{Binding IsVisible}" 
                               Content="{Binding Column.Header}"
                               Margin="2"/>
-                </DataTemplate>
+                </HierarchicalDataTemplate>
             </ListBox.ItemTemplate>
-        </ListBox>
+        </ListBox>-->
     </StackPanel>
 </Window>

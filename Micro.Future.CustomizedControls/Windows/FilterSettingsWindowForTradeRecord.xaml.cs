@@ -7,13 +7,12 @@ namespace Micro.Future.Windows
     
     public partial class FilterSettingsWindowForTradeRecord : Window
     {
-        public event Action<string, string, string> OnFiltering;
+        public event Action<string, string, string, string> OnFiltering;
 
         public FilterSettingsWindowForTradeRecord()
         {
             InitializeComponent();
         }
-
 
         public string FilterTitle
         {
@@ -21,6 +20,7 @@ namespace Micro.Future.Windows
             {
                 return titleTxt.Text;
             }
+            set { titleTxt.Text = value; }
         }
 
         public string FilterExchange
@@ -53,7 +53,7 @@ namespace Micro.Future.Windows
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             Hide();
-            OnFiltering?.Invoke(FilterExchange, FilterUnderlying, FilterContract);
+            OnFiltering?.Invoke(FilterTitle, FilterExchange, FilterUnderlying, FilterContract);
         }
 
 
