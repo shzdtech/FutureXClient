@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OxyPlot;
+using System.Collections.ObjectModel;
+
 
 
 namespace Micro.Future.ViewModel
@@ -39,7 +41,8 @@ namespace Micro.Future.ViewModel
             //PlotModel.LegendBackground = OxyColor.FromAColor(200, OxyColors.White);
             //PlotModel.LegendBorder = OxyColors.Black;
 
-            var volatilityAxis = new LinearAxis() {
+            var volatilityAxis = new LinearAxis()
+            {
                 MajorGridlineStyle = LineStyle.Solid,
                 MinorGridlineStyle = LineStyle.Dot,
                 Position = AxisPosition.Bottom,
@@ -50,28 +53,32 @@ namespace Micro.Future.ViewModel
                 Title = "StrikePrice"
             };
             PlotModel.Axes.Add(volatilityAxis);
-            var strikepriceAxis = new LinearAxis() {
+            var strikepriceAxis = new LinearAxis()
+            {
                 MajorGridlineStyle = LineStyle.Solid,
                 MinorGridlineStyle = LineStyle.Dot,
                 Position = AxisPosition.Left,
-                Title = "Volatility"};
+                Title = "Volatility"
+            };
             PlotModel.Axes.Add(strikepriceAxis);
 
         }
 
         private void SetUpModelBar()
         {
-            var strikepriceAxis1 = new CategoryAxis() {
+            var strikepriceAxis1 = new CategoryAxis()
+            {
                 MajorGridlineStyle = LineStyle.Solid,
                 MinorGridlineStyle = LineStyle.Dot,
                 Title = "StrikePrice",
-                Position = AxisPosition.Bottom,   
-                IsTickCentered = false, 
+                Position = AxisPosition.Bottom,
+                IsTickCentered = false,
                 //GapWidth =             
             };
             PlotModelBar.Axes.Add(strikepriceAxis1);
 
-            var positionAxis = new LinearAxis() {
+            var positionAxis = new LinearAxis()
+            {
                 MajorGridlineStyle = LineStyle.Solid,
                 MinorGridlineStyle = LineStyle.Dot,
                 Title = "Position",
@@ -98,6 +105,30 @@ namespace Micro.Future.ViewModel
 
 
         //}
+
+    }
+
+    public class VolatilityLinesVM
+    {
+        public ObservableCollection<DataPoint> CallBidVolLine { get; }
+            = new ObservableCollection<DataPoint>();
+        public ObservableCollection<DataPoint> CallAskVolLine { get; }
+            = new ObservableCollection<DataPoint>();
+        public ObservableCollection<DataPoint> CallMidVolLine { get; }
+    = new ObservableCollection<DataPoint>();
+        public ObservableCollection<DataPoint> PutBidVolLine { get; }
+    = new ObservableCollection<DataPoint>();
+        public ObservableCollection<DataPoint> PutAskVolLine { get; }
+            = new ObservableCollection<DataPoint>();
+        public ObservableCollection<DataPoint> PutMidVolLine { get; }
+            = new ObservableCollection<DataPoint>();
+        public ObservableCollection<DataPoint> TheoBidVolLine { get; }
+            = new ObservableCollection<DataPoint>();
+        public ObservableCollection<DataPoint> TheoAskVolLine { get; }
+            = new ObservableCollection<DataPoint>();
+        public ObservableCollection<DataPoint> TheoMidVolLine { get; }
+            = new ObservableCollection<DataPoint>();
+
 
     }
 }
