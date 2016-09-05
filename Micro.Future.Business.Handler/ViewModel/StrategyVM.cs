@@ -27,12 +27,12 @@ namespace Micro.Future.ViewModel
     }
     public class StrategyVM : OTCQuoteVM
     {
-        public StrategyVM(AbstractOTCMarketDataHandler otcHandler)
+        public StrategyVM(AbstractOTCHandler otcHandler)
         {
             OTCHandler = otcHandler;
         }
 
-        public AbstractOTCMarketDataHandler OTCHandler { get; set; }
+        public AbstractOTCHandler OTCHandler { get; set; }
 
 
 

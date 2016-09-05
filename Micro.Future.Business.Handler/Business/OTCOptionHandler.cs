@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.Message
 {
-    public class OTCOptionTradingDeskHandler: AbstractOTCMarketDataHandler
+    public class OTCOptionHandler : AbstractOTCHandler
     {
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {

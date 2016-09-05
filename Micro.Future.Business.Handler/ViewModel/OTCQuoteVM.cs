@@ -46,7 +46,7 @@ namespace Micro.Future.ViewModel
 
         private void updateQuantity()
         {
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().
+            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().
                 UpdateQuantity(Exchange, Contract, Quantity);
         }
 

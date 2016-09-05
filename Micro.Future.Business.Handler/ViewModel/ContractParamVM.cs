@@ -40,7 +40,7 @@ namespace Micro.Future.ViewModel
 
         public void UpdateContractParam()
         {
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>().
+            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().
                 UpdateContractParam(this);
         }
 

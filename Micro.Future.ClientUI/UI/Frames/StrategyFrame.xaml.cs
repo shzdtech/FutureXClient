@@ -16,7 +16,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class StrategyFrame : UserControl, IUserFrame
     {
-        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AbstractOTCMarketDataHandler>());
+        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AbstractOTCHandler>());
 
         public StrategyFrame()
         {
@@ -68,7 +68,7 @@ namespace Micro.Future.UI
         public void Initialize()
         {
 
-            var handler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCMarketDataHandler>();
+            var handler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
             strategyListView.OTCHandler = handler;
             contractParamListView.OTCHandler = handler;
 
@@ -87,6 +87,7 @@ namespace Micro.Future.UI
         {
             strategyListView.ReloadData();
             contractParamListView.ReloadData();
+            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().QueryPortfolio();
         }
 
         private void TDServerLogin()

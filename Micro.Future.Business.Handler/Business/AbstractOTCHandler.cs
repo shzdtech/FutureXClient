@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System;
 
 namespace Micro.Future.Message
 {
-    public abstract class AbstractOTCMarketDataHandler :
+    public abstract class AbstractOTCHandler :
         AbstractMessageHandler
     {
         protected void OnErrorAction(ExceptionMessage bizErr)
@@ -41,6 +42,11 @@ namespace Micro.Future.Message
             get;
         } = new ObservableCollection<OTCQuoteVM>();
 
+        public ObservableCollection<PortfolioVM> PortfolioVMCollection
+        {
+            get;
+        } = new ObservableCollection<PortfolioVM>();
+
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
 
@@ -60,8 +66,33 @@ namespace Micro.Future.Message
                        ((uint)BusinessMessageID.MSG_ID_MODIFY_USER_PARAM, OnUpdateSuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBUserInfoList, ExceptionMessage>
                       ((uint)BusinessMessageID.MSG_ID_QUERY_TRADINGDESK, OnQueryTradingDeskSuccessAction, OnErrorAction);
+            MessageWrapper.RegisterAction<PBPortfolioList, ExceptionMessage>
+                      ((uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO, OnQueryPortfolioSuccessAction, OnErrorAction);
 
         }
+
+        private void OnQueryPortfolioSuccessAction(PBPortfolioList PB)
+        {
+            PortfolioVMCollection.Clear();
+            foreach (var portfolio in PB.Portfolio)
+            {
+                PortfolioVMCollection.Add(new PortfolioVM { Name = portfolio.Name });
+            }
+        }
+
+        public void CreatePortfolios(IEnumerable<PortfolioVM> portfolios)
+        {
+            var portfolioList = new PBPortfolioList();
+
+            foreach (var portfolio in portfolios)
+            {
+                portfolioList.Portfolio.Add(new PBPortfolio { Name = portfolio.Name });
+            }
+
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSD_ID_PORTFOLIO_NEW, portfolioList);
+        }
+
+
 
         private void OnUpdateStrategySuccessAction(PBStrategyList PB)
         {
@@ -128,11 +159,13 @@ namespace Micro.Future.Message
 
         public void UpdateContractParam(ContractParamVM cpVM)
         {
-            var cpBd = new PBContractParam();
-            cpBd.Exchange = cpVM.Exchange;
-            cpBd.Contract = cpVM.Contract;
-            cpBd.DepthVol = cpVM.DepthVol;
-            cpBd.Gamma = cpVM.Gamma;
+            var cpBd = new PBContractParam
+            {
+                Exchange = cpVM.Exchange,
+                Contract = cpVM.Contract,
+                DepthVol = cpVM.DepthVol,
+                Gamma = cpVM.Gamma
+            };
             var cpLstBd = new PBContractParamList();
             cpLstBd.Params.Add(cpBd);
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_CONTRACT_PARAM, cpLstBd);
@@ -198,6 +231,12 @@ namespace Micro.Future.Message
         {
             var sst = new StringMap();
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_CONTRACT_PARAM, sst);
+        }
+
+        public void QueryPortfolio()
+        {
+            var sst = new StringMap();
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO, sst);
         }
 
         protected void OnQueryContractParamSuccessAction(PBContractParamList PB)
