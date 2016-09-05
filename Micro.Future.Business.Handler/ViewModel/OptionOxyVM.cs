@@ -5,14 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using OxyPlot;
 using System.Collections.ObjectModel;
-
-
+using OxyPlot.Axes;
+using System.Windows;
+using OxyPlot.Series;
 
 namespace Micro.Future.ViewModel
 {
-    using Message;
-    using OxyPlot.Axes;
-    using OxyPlot.Series;
     public class OptionOxyVM : ViewModelBase
     {
 
@@ -108,24 +106,50 @@ namespace Micro.Future.ViewModel
 
     }
 
-    public class VolatilityLinesVM
+    public class VolatilityLinesVM : ViewModelBase
     {
+        //public static readonly DependencyProperty CallBidVolLineDataProperty =
+        //    DependencyProperty.Register(nameof(CallBidVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
         public ObservableCollection<DataPoint> CallBidVolLine { get; }
             = new ObservableCollection<DataPoint>();
+
+        //public static readonly DependencyProperty CallAskVolLineDataProperty =
+        //   DependencyProperty.Register(nameof(CallAskVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
         public ObservableCollection<DataPoint> CallAskVolLine { get; }
             = new ObservableCollection<DataPoint>();
+
+        //public static readonly DependencyProperty CallMidVolLineDataProperty =
+        //   DependencyProperty.Register(nameof(CallMidVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
         public ObservableCollection<DataPoint> CallMidVolLine { get; }
-    = new ObservableCollection<DataPoint>();
+            = new ObservableCollection<DataPoint>();
+
+        //public static readonly DependencyProperty PutBidVolLineDataProperty =
+        //   DependencyProperty.Register(nameof(PutBidVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
         public ObservableCollection<DataPoint> PutBidVolLine { get; }
-    = new ObservableCollection<DataPoint>();
+             = new ObservableCollection<DataPoint>();
+
+        //public static readonly DependencyProperty PutAskVolLineDataProperty =
+        //   DependencyProperty.Register(nameof(PutAskVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
         public ObservableCollection<DataPoint> PutAskVolLine { get; }
             = new ObservableCollection<DataPoint>();
+
+        //public static readonly DependencyProperty PutMidVolLineDataProperty =
+        //   DependencyProperty.Register(nameof(PutMidVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
         public ObservableCollection<DataPoint> PutMidVolLine { get; }
             = new ObservableCollection<DataPoint>();
+
+        //public static readonly DependencyProperty TheoBidVolLineDataProperty =
+        //   DependencyProperty.Register(nameof(TheoBidVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
         public ObservableCollection<DataPoint> TheoBidVolLine { get; }
             = new ObservableCollection<DataPoint>();
+
+        //public static readonly DependencyProperty TheoAskVolLineDataProperty =
+        //   DependencyProperty.Register(nameof(TheoAskVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
         public ObservableCollection<DataPoint> TheoAskVolLine { get; }
             = new ObservableCollection<DataPoint>();
+
+        //public static readonly DependencyProperty TheoMidVolLineDataProperty =
+        //   DependencyProperty.Register(nameof(TheoMidVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
         public ObservableCollection<DataPoint> TheoMidVolLine { get; }
             = new ObservableCollection<DataPoint>();
 

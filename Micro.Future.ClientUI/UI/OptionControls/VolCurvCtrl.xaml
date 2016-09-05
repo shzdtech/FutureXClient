@@ -18,17 +18,17 @@
         </Grid.RowDefinitions>
         <oxy:PlotView Grid.Row="0" x:Name="VegaPosition" Tag="4" MinHeight="200" MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         </oxy:PlotView>
-        <oxy:Plot Grid.Row="1" MinHeight="200" MinWidth="150">
+        <oxy:Plot x:Name="volPlot" Grid.Row="1" MinHeight="200" MinWidth="150">
             <oxy:Plot.Series>
-                <oxy:LineSeries Name="callBidLS" Visibility="{Binding ElementName=checkBoxCallBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:LineSeries Name="callAskLS" Visibility="{Binding ElementName=checkBoxCallAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:LineSeries Name="callMidLS" Visibility="{Binding ElementName=checkBoxCallMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:LineSeries Name="putBidLS" Visibility="{Binding ElementName=checkBoxPutBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:LineSeries Name="putAskLS" Visibility="{Binding ElementName=checkBoxPutAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:LineSeries Name="putMidLS" Visibility="{Binding ElementName=checkBoxPutMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:LineSeries Name="theoBidLS"  MouseDown="theoBidLS_MouseDown" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:LineSeries Name="theoAskLS" Visibility="{Binding ElementName=checkBoxTheoAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:LineSeries Name="theoMidLS" Visibility="{Binding ElementName=checkBoxTheoMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="callBidLS" ItemsSource="{Binding CallBidVolLine}" MarkerType="Triangle" MarkerSize="10" Visibility="{Binding ElementName=checkBoxCallBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="callAskLS" ItemsSource="{Binding CallAskVolLine}" Visibility="{Binding ElementName=checkBoxCallAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="callMidLS" ItemsSource="{Binding CallMidVolLine}" Visibility="{Binding ElementName=checkBoxCallMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="putBidLS" ItemsSource="{Binding PutBidVolLine}" Visibility="{Binding ElementName=checkBoxPutBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="putAskLS" ItemsSource="{Binding PutAskVolLine}" Visibility="{Binding ElementName=checkBoxPutAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="putMidLS" ItemsSource="{Binding PutMidVolLine}" Visibility="{Binding ElementName=checkBoxPutMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="theoBidLS" ItemsSource="{Binding TheoBidVolLine}" MouseDown="theoBidLS_MouseDown" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="theoAskLS" ItemsSource="{Binding TheoAskVolLine}" Visibility="{Binding ElementName=checkBoxTheoAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="theoMidLS" ItemsSource="{Binding TheoMidVolLine}" Visibility="{Binding ElementName=checkBoxTheoMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
             </oxy:Plot.Series>
             <oxy:Plot.Axes>
                 <oxy:LinearAxis MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Bottom" Minimum="0" Maximum="10" MinimumPadding="0" MaximumPadding="0" Title="StrikePrice"/>
@@ -36,15 +36,15 @@
             </oxy:Plot.Axes>
         </oxy:Plot>
         <WrapPanel Grid.Row="2" MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <CheckBox x:Name="checkBoxCallBid" Content="CallBidVol"/>
-            <CheckBox x:Name="checkBoxCallAsk" Content="CallBidVol"/>
-            <CheckBox x:Name="checkBoxCallMid" Content="CallBidVol"/>
-            <CheckBox x:Name="checkBoxPutBid" Content="CallBidVol"/>
-            <CheckBox x:Name="checkBoxPutAsk" Content="CallBidVol"/>
-            <CheckBox x:Name="checkBoxPutMid" Content="CallBidVol"/>
-            <CheckBox x:Name="checkBoxTheoBid" Content="CallBidVol"/>
-            <CheckBox x:Name="checkBoxTheoAsk" Content="CallBidVol"/>
-            <CheckBox x:Name="checkBoxTheoMid" Content="CallBidVol"/>
+            <CheckBox x:Name="checkBoxCallBid" Content="CallBidVol" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxCallAsk" Content="CallBidVol" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxCallMid" Content="CallBidVol" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxPutBid" Content="CallBidVol" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxPutAsk" Content="CallBidVol" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxPutMid" Content="CallBidVol" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxTheoBid" Content="CallBidVol" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxTheoAsk" Content="CallBidVol" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxTheoMid" Content="CallBidVol" IsChecked="True"/>
         </WrapPanel>
     </Grid>
 </UserControl>

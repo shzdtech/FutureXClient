@@ -1,7 +1,9 @@
 ﻿using Micro.Future.Message;
 using Micro.Future.ViewModel;
+using OxyPlot;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,16 +35,7 @@ namespace Micro.Future.UI
             var traderExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
 
             //PlotVolatility.Model = traderExHandler.OptionOxyVM.PlotModel;
-            callBidLS.ItemsSource = traderExHandler.VolatilityLinesVM.CallBidVolLine;
-            callBidLS.MarkerType = OxyPlot.MarkerType.Triangle;
-            callAskLS.ItemsSource = traderExHandler.VolatilityLinesVM.CallAskVolLine;
-            callMidLS.ItemsSource = traderExHandler.VolatilityLinesVM.CallMidVolLine;
-            putBidLS.ItemsSource = traderExHandler.VolatilityLinesVM.PutBidVolLine;
-            putAskLS.ItemsSource = traderExHandler.VolatilityLinesVM.PutAskVolLine;
-            putMidLS.ItemsSource = traderExHandler.VolatilityLinesVM.PutMidVolLine;
-            theoBidLS.ItemsSource = traderExHandler.VolatilityLinesVM.TheoBidVolLine;
-            theoAskLS.ItemsSource = traderExHandler.VolatilityLinesVM.TheoAskVolLine;
-            theoMidLS.ItemsSource = traderExHandler.VolatilityLinesVM.TheoMidVolLine;
+            volPlot.DataContext = traderExHandler.VolatilityLinesVM;
             VegaPosition.Model = traderExHandler.OptionOxyVM.PlotModelBar;
             traderExHandler.OnUpdateOption();
             traderExHandler.OnUpdateTest();
