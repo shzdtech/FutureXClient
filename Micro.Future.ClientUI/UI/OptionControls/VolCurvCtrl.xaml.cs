@@ -1,4 +1,5 @@
 ﻿using Micro.Future.Message;
+using Micro.Future.UI.OptionControls;
 using Micro.Future.ViewModel;
 using OxyPlot;
 using System;
@@ -39,11 +40,14 @@ namespace Micro.Future.UI
             VegaPosition.Model = traderExHandler.OptionOxyVM.PlotModelBar;
             traderExHandler.OnUpdateOption();
             traderExHandler.OnUpdateTest();
+            callMidLS.MarkerType = MarkerType.Custom;
         }
 
-        private void theoBidLS_MouseDown(object sender, MouseButtonEventArgs e)
+        private void theoBidVol_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            QTWin win = new QTWin();
+            win.Show();
+            theoBidSC.MarkerFill
         }
     }
 

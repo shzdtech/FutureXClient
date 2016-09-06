@@ -137,6 +137,9 @@
     <Compile Include="UI\OptionControls\VolCurvCtrl.xaml.cs">
       <DependentUpon>VolCurvCtrl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\OptionControls\QTWin.xaml.cs">
+      <DependentUpon>QTWin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\OptionControls\WMSettingsCtrl.xaml.cs">
       <DependentUpon>WMSettingsCtrl.xaml</DependentUpon>
     </Compile>
@@ -228,6 +231,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\OptionControls\VolCurvCtrl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\OptionControls\QTWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

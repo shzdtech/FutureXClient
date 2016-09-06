@@ -119,6 +119,7 @@ namespace Micro.Future.Message
             {
                 VolatilityLinesVM.CallAskVolLine.Add(new DataPoint(i, 10 - 0.5 * i));
                 VolatilityLinesVM.CallBidVolLine.Add(new DataPoint(i, i));
+                VolatilityLinesVM.TheoBidVolLine.Add(new DataPoint(i, i));
                 columnSeries.Items.Add(new ColumnItem { Value = i });
             }
             OptionOxyVM.PlotModelBar.Series.Add(columnSeries);
