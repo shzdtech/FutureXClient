@@ -153,6 +153,12 @@ namespace Micro.Future.ViewModel
         public ObservableCollection<DataPoint> TheoMidVolLine { get; }
             = new ObservableCollection<DataPoint>();
 
+        public ObservableCollection<ScatterPoint> CallAskVolScatter { get; }
+            = new ObservableCollection<ScatterPoint>();
+        public ObservableCollection<ScatterPoint> TheoBidPutVolScatter { get; }
+            = new ObservableCollection<ScatterPoint>();
+        public ObservableCollection<ScatterPoint> TheoBidCallVolScatter { get; }
+            = new ObservableCollection<ScatterPoint>();
 
     }
 }

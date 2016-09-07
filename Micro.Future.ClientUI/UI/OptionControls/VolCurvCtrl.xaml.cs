@@ -43,12 +43,20 @@ namespace Micro.Future.UI
             callMidLS.MarkerType = MarkerType.Custom;
         }
 
-        private void theoBidVol_MouseDown(object sender, MouseButtonEventArgs e)
+
+
+        private void theoBidPutSC_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            QTWin win = new QTWin();
-            win.Show();
-            theoBidSC.MarkerFill
+
         }
+
+        private void theoBidCallSC_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        //public static PlotModel CustomMarkers()
+        //{ }
     }
 
 
