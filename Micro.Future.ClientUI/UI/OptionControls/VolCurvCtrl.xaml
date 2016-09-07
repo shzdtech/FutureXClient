@@ -20,16 +20,16 @@
         </oxy:PlotView>
         <oxy:Plot x:Name="volPlot" Grid.Row="1" MinHeight="200" MinWidth="150">
             <oxy:Plot.Series>
-                <oxy:LineSeries Name="callBidLS" ItemsSource="{Binding CallBidVolLine}" MouseDown="theoBidVol_MouseDown" MarkerType="Triangle"  MarkerSize="5" Visibility="{Binding ElementName=checkBoxCallBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:LineSeries Name="callAskLS" ItemsSource="{Binding CallAskVolLine}"  Visibility="{Binding ElementName=checkBoxCallAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="callBidLS" ItemsSource="{Binding CallBidVolLine}" MarkerType="Triangle"  MarkerSize="5" Visibility="{Binding ElementName=checkBoxCallBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="callAskLS" ItemsSource="{Binding CallAskVolLine}" Visibility="{Binding ElementName=checkBoxCallAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:ScatterSeries Name="callAskSC" ItemsSource="{Binding CallAskVolScatter}" MarkerType="Square" MarkerSize="5" MarkerFill="Brown"   Visibility="{Binding ElementName=checkBoxCallAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="callMidLS" ItemsSource="{Binding CallMidVolLine}" Visibility="{Binding ElementName=checkBoxCallMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="putBidLS" ItemsSource="{Binding PutBidVolLine}" Visibility="{Binding ElementName=checkBoxPutBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="putAskLS" ItemsSource="{Binding PutAskVolLine}" Visibility="{Binding ElementName=checkBoxPutAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="putMidLS" ItemsSource="{Binding PutMidVolLine}" Visibility="{Binding ElementName=checkBoxPutMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:LineSeries Name="theoBidLS" ItemsSource="{Binding TheoBidVolLine}" MouseDown="theoBidVol_MouseDown" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:ScatterSeries Name="theoBidPutSC" ItemsSource="{Binding TheoBidPutVolScatter}" MouseDown="theoBidPutSC_MouseDown" MarkerFill="{Binding theoBidPutColor}" MarkerType="Custom" MarkerSize="5"  Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:ScatterSeries Name="theoBidCallSC" ItemsSource="{Binding TheoBidCallVolScatter}" MouseDown="theoBidCallSC_MouseDown" MarkerType="Square" MarkerSize="5" MarkerFill="Blue"  Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="theoBidLS" ItemsSource="{Binding TheoBidVolLine}" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:ScatterSeries Name="theoBidPutSC" ItemsSource="{Binding TheoBidPutVolScatter}" MarkerType="Custom" MarkerSize="5"  Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:ScatterSeries Name="theoBidCallSC" ItemsSource="{Binding TheoBidCallVolScatter}" MarkerType="Custom" MarkerSize="5" MarkerFill="Blue"  Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="theoAskLS" ItemsSource="{Binding TheoAskVolLine}" Visibility="{Binding ElementName=checkBoxTheoAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="theoMidLS" ItemsSource="{Binding TheoMidVolLine}" Visibility="{Binding ElementName=checkBoxTheoMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
             </oxy:Plot.Series>

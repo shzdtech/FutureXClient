@@ -38,9 +38,11 @@ namespace Micro.Future.UI
             //PlotVolatility.Model = traderExHandler.OptionOxyVM.PlotModel;
             volPlot.DataContext = traderExHandler.VolatilityLinesVM;
             VegaPosition.Model = traderExHandler.OptionOxyVM.PlotModelBar;
+            theoBidPutSC.MarkerOutline = CustomOxyMarkers.LDTriangle;
+            theoBidCallSC.MarkerOutline = CustomOxyMarkers.RDTriangle;
+
             traderExHandler.OnUpdateOption();
             traderExHandler.OnUpdateTest();
-            callMidLS.MarkerType = MarkerType.Custom;
         }
 
 

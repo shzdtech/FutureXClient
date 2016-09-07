@@ -120,8 +120,8 @@ namespace Micro.Future.Message
                 VolatilityLinesVM.CallAskVolLine.Add(new DataPoint(i, 10 - 0.5 * i));
                 VolatilityLinesVM.CallBidVolLine.Add(new DataPoint(i, i));
                 VolatilityLinesVM.TheoBidVolLine.Add(new DataPoint(i, i));
-                VolatilityLinesVM.TheoBidPutVolScatter.Add(new ScatterPoint(i-0.1, i));
-                VolatilityLinesVM.TheoBidCallVolScatter.Add(new ScatterPoint(i+0.1, i));
+                VolatilityLinesVM.TheoBidPutVolScatter.Add(new ScatterPoint(i, i, 5));
+                VolatilityLinesVM.TheoBidCallVolScatter.Add(new ScatterPoint(i, i, 5));
                 columnSeries.Items.Add(new ColumnItem { Value = i });
             }
             OptionOxyVM.PlotModelBar.Series.Add(columnSeries);
