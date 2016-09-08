@@ -2,6 +2,7 @@
 using Micro.Future.UI.OptionControls;
 using Micro.Future.ViewModel;
 using OxyPlot;
+using OxyPlot.Series;
 using OxyPlot.Wpf;
 using System;
 using System.Collections.Generic;
@@ -42,25 +43,37 @@ namespace Micro.Future.UI
             theoBidPutSC.MarkerOutline = CustomOxyMarkers.LDTriangle;
             theoBidCallSC.MarkerOutline = CustomOxyMarkers.RDTriangle;
 
+            var internalSS = theoBidCallSC.CreateModel() as OxyPlot.Series.ScatterSeries;
+            internalSS.MouseDown += InternalSS_MouseDown;
+
             traderExHandler.OnUpdateOption();
             traderExHandler.OnUpdateTest();
 
         }
 
+        private void InternalSS_MouseDown(object sender, OxyMouseDownEventArgs e)
+        {
+            var bpSC = sender as OxyPlot.Series.ScatterSeries;
+            if (bpSC != null)
+            {
+                TrackerHitResult nearestPoint = bpSC.GetNearestPoint(e.Position, false);
+                if (nearestPoint != null)
+                {
+                    var point = nearestPoint.Item as ScatterPoint;
+                    if (point != null)
+                    {
+                        // int index = (int)nearestPoint.Index;
+                        point.Size = new Random().Next(10, 30);
+                        bpSC.PlotModel.InvalidatePlot(false);
+                    }
+                }
+            }
+        }
 
 
         private void theoBidPutSC_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var bpSC = sender as ScatterSeries;
-            OxyMouseDownEventArgs args = ConverterExtensions.ToMouseDownEventArgs(e, sender);
-            if (bpSC != null)
-            {
-                TrackerHitResult nearestPoint = bpSC.GetNearestPoint(args.Position, false);
-                if (nearestPoint != null)
-                {
-                    object selectedSC = nearestPoint.Item;
-                }
-            }
+
         }
 
         private void theoBidCallSC_MouseDown(object sender, MouseButtonEventArgs e)
