@@ -27,8 +27,28 @@
                 <oxy:LineSeries Name="putBidLS" ItemsSource="{Binding PutBidVolLine}" Visibility="{Binding ElementName=checkBoxPutBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="putAskLS" ItemsSource="{Binding PutAskVolLine}" Visibility="{Binding ElementName=checkBoxPutAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="putMidLS" ItemsSource="{Binding PutMidVolLine}" Visibility="{Binding ElementName=checkBoxPutMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:LineSeries Name="theoBidLS" ItemsSource="{Binding TheoBidVolLine}" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:ScatterSeries Name="theoBidPutSC" ItemsSource="{Binding TheoBidPutVolScatter}" MarkerType="Custom" MarkerSize="5"  Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries>
+                    <oxy:LineSeries Name="theoBidLS"  ItemsSource="{Binding TheoBidVolLine}" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                </oxy:LineSeries>
+                <oxy:ScatterSeries>
+                    <oxy:TrackerControl Position="{Binding Position}">
+                        <oxy:TrackerControl.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="{Binding }"/>
+                                <CheckBox x:Name="putQTBox" Grid.Row="1" Content="QTPut" HorizontalAlignment="Left" Height="100"  Grid.RowSpan="4" VerticalAlignment="Top" Width="100"/>
+                                <CheckBox x:Name="callQTBox" Grid.Row="2" Content="QTCall" HorizontalAlignment="Left" Height="100" Grid.RowSpan="4" VerticalAlignment="Top" Width="100"/>
+                            </Grid>
+                        </oxy:TrackerControl.Content>
+
+
+                    </oxy:TrackerControl>
+                    <oxy:ScatterSeries Name="theoBidPutSC" ItemsSource="{Binding TheoBidPutVolScatter}"  MarkerType="Custom" MarkerSize="5"  Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MouseDown="theoBidPutSC_MouseDown"/>
+                </oxy:ScatterSeries>
                 <oxy:ScatterSeries Name="theoBidCallSC" ItemsSource="{Binding TheoBidCallVolScatter}" MarkerType="Custom" MarkerSize="5" MarkerFill="Blue"  Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="theoAskLS" ItemsSource="{Binding TheoAskVolLine}" Visibility="{Binding ElementName=checkBoxTheoAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="theoMidLS" ItemsSource="{Binding TheoMidVolLine}" Visibility="{Binding ElementName=checkBoxTheoMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>

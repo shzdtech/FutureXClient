@@ -2,6 +2,7 @@
 using Micro.Future.UI.OptionControls;
 using Micro.Future.ViewModel;
 using OxyPlot;
+using OxyPlot.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -43,19 +44,31 @@ namespace Micro.Future.UI
 
             traderExHandler.OnUpdateOption();
             traderExHandler.OnUpdateTest();
+
         }
 
 
 
         private void theoBidPutSC_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            var bpSC = sender as ScatterSeries;
+            OxyMouseDownEventArgs args = ConverterExtensions.ToMouseDownEventArgs(e, sender);
+            if (bpSC != null)
+            {
+                TrackerHitResult nearestPoint = bpSC.GetNearestPoint(args.Position, false);
+                if (nearestPoint != null)
+                {
+                    object selectedSC = nearestPoint.Item;
+                }
+            }
         }
 
         private void theoBidCallSC_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
         }
+
+
 
         //public static PlotModel CustomMarkers()
         //{ }
