@@ -9,6 +9,11 @@ namespace Micro.Future.Windows
     {
         public event Action<string, string, string, string> OnFiltering;
 
+        public FilterSettingsWindowForExecution()
+        {
+            InitializeComponent();
+        }
+
         public string FilterTitle
         {
             get

@@ -18,7 +18,7 @@
     <UserControl.Resources>
         <x:Array Type="{x:Type MenuItem}" x:Key="exOptionMenuItems">
             <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=TradingOption}">
-
+    
             </MenuItem>
         </x:Array>
         <x:Array Type="{x:Type StatusBarItem}" x:Key="exOptionStatusBarItems">

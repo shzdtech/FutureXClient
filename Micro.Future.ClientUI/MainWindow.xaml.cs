@@ -19,9 +19,7 @@ namespace Micro.Future.UI
         private PBSignInManager _accountSignIner = new PBSignInManager();
 
         public static int maketDataTabCount = 0;
-
-
-
+        
 
         public MainWindow()
         {
@@ -35,7 +33,6 @@ namespace Micro.Future.UI
             _accountSignIner.OnLogged += OnLogged;
             Login();
         }
-
 
         void OnLogged(IUserInfo userInfo)
         {
@@ -66,13 +63,22 @@ namespace Micro.Future.UI
                         var entries = _accountSignIner.SignInOptions.FrontServer.Split(':');
                         frameUI.LoginAsync(_accountSignIner.SignInOptions.UserName, _accountSignIner.SignInOptions.Password, entries[0]);
                     }
+
                 }
             }
 
-           
+        }
+
+        
+        public void OpenFrame(IUserFrame Frame)
+        {
+            //MessageBox.Show("OpenFrame");
+            mainPane.AddContent(Frame);
 
 
         }
+        
+
 
         private void Login()
         {
