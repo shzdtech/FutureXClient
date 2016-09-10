@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
@@ -12,5 +13,10 @@ namespace Micro.Future.CustomizedControls
         IEnumerable<StatusBarItem> StatusBarItems { get; }
 
         void LoginAsync(string usernname, string password, string server = null);
+
+        
+        //event Action<IUserFrame> MenuBtnClicked;
+
+
     }
 }

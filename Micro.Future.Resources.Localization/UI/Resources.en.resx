@@ -594,4 +594,7 @@
   <data name="ExecutionStatus" xml:space="preserve">
     <value>ExecutionStatus</value>
   </data>
+  <data name="Portofolio" xml:space="preserve">
+    <value>Portofolio</value>
+  </data>
 </root>
