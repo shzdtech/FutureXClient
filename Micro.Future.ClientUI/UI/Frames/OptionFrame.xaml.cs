@@ -157,6 +157,21 @@ namespace Micro.Future.UI
         {
             MDServerLogin();
         }
+
+        private void Add_Model_Click(object sender, RoutedEventArgs e)
+        {
+            TabItem modelitem = new TabItem();
+
+
+            WMSettingsCtrl ne = new WMSettingsCtrl();
+
+
+            tabControlall.Items.Add(modelitem);
+        }
+
+
+
+
     }
 }
 

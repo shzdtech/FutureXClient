@@ -55,5 +55,9 @@ namespace Micro.Future.UI
             }
         }
 
+        public static explicit operator TabItem(WMSettingsCtrl v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

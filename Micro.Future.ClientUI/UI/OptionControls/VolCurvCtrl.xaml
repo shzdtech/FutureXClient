@@ -47,7 +47,7 @@
                     </oxy:TrackerControl>
                 </oxy:ScatterSeries>
                 <oxy:ScatterSeries Name="theoBidPutSC" ItemsSource="{Binding TheoBidPutVolScatter}"  MarkerType="Custom" MarkerSize="5"  Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MouseDown="theoBidPutSC_MouseDown"/>
-                <oxy:ScatterSeries Name="theoBidCallSC" ItemsSource="{Binding TheoBidCallVolScatter}" MarkerType="Custom" MarkerSize="5" MarkerFill="Blue"  Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:ScatterSeries Name="theoBidCallSC" ItemsSource="{Binding TheoBidCallVolScatter}" MarkerType="Custom" MarkerSize="5"  Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="theoAskLS" ItemsSource="{Binding TheoAskVolLine}" Visibility="{Binding ElementName=checkBoxTheoAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="theoMidLS" ItemsSource="{Binding TheoMidVolLine}" Visibility="{Binding ElementName=checkBoxTheoMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
             </oxy:Plot.Series>
