@@ -16,11 +16,10 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <oxy:PlotView Grid.Row="0" x:Name="VegaPosition" Tag="4" MinHeight="200" MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        </oxy:PlotView>
+        <oxy:PlotView Grid.Row="0" x:Name="VegaPosition" Tag="4" MinHeight="200" MinWidth="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></oxy:PlotView>
         <oxy:Plot x:Name="volPlot" Grid.Row="1" MinHeight="200" MinWidth="150">
             <oxy:Plot.Series>
-                <oxy:LineSeries Name="callBidLS" ItemsSource="{Binding CallBidVolLine}" MarkerType="Triangle"  MarkerSize="5" Visibility="{Binding ElementName=checkBoxCallBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="callBidLS" ItemsSource="{Binding CallBidVolLine}" Visibility="{Binding ElementName=checkBoxCallBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="callAskLS" ItemsSource="{Binding CallAskVolLine}" Visibility="{Binding ElementName=checkBoxCallAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:ScatterSeries Name="callAskSC" ItemsSource="{Binding CallAskVolScatter}" MarkerType="Square" MarkerSize="5" MarkerFill="Brown"   Visibility="{Binding ElementName=checkBoxCallAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="callMidLS" ItemsSource="{Binding CallMidVolLine}" Visibility="{Binding ElementName=checkBoxCallMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
@@ -30,28 +29,14 @@
                 <oxy:LineSeries>
                     <oxy:LineSeries Name="theoBidLS"  ItemsSource="{Binding TheoBidVolLine}" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 </oxy:LineSeries>
-                <oxy:ScatterSeries>
-                    <oxy:TrackerControl Position="{Binding Position}">
-                        <oxy:TrackerControl.Content>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Text="{Binding }"/>
-                                <CheckBox x:Name="putQTBox" Grid.Row="1" Content="QTPut" HorizontalAlignment="Left" Height="100"  Grid.RowSpan="4" VerticalAlignment="Top" Width="100"/>
-                                <CheckBox x:Name="callQTBox" Grid.Row="2" Content="QTCall" HorizontalAlignment="Left" Height="100" Grid.RowSpan="4" VerticalAlignment="Top" Width="100"/>
-                            </Grid>
-                        </oxy:TrackerControl.Content>
-                    </oxy:TrackerControl>
-                </oxy:ScatterSeries>
-                <oxy:ScatterSeries Name="theoBidPutSC" ItemsSource="{Binding TheoBidPutVolScatter}"  MarkerType="Custom" MarkerSize="5"  Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MouseDown="theoBidPutSC_MouseDown"/>
-                <oxy:ScatterSeries Name="theoBidCallSC" ItemsSource="{Binding TheoBidCallVolScatter}" MarkerType="Custom" MarkerSize="5" MarkerFill="Blue"  Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:ScatterSeries Name="theoBidPutSC" ItemsSource="{Binding TheoBidPutVolScatter}" ColorAxisKey="redLineColorAxis"  MarkerType="Custom" MarkerSize="10" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MouseDown="theoBidPutSC_MouseDown"/>
+                <oxy:ScatterSeries Name="theoBidCallSC" ItemsSource="{Binding TheoBidCallVolScatter}" ColorAxisKey="greenLineColorAxis" MarkerType="Custom" MarkerSize="10" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="theoAskLS" ItemsSource="{Binding TheoAskVolLine}" Visibility="{Binding ElementName=checkBoxTheoAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="theoMidLS" ItemsSource="{Binding TheoMidVolLine}" Visibility="{Binding ElementName=checkBoxTheoMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
             </oxy:Plot.Series>
             <oxy:Plot.Axes>
+                <oxy:LinearColorAxis Key="greenLineColorAxis" Minimum="0.1" Maximum="0.9" HighColor="Green" LowColor="Red" Position ="None"/>
+                <oxy:LinearColorAxis Key="redLineColorAxis" Minimum="0.1" Maximum="0.9" HighColor="Red" LowColor="Black" Position ="None"/>
                 <oxy:LinearAxis MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Bottom" Minimum="0" Maximum="10" MinimumPadding="0" MaximumPadding="0" Title="StrikePrice"/>
                 <oxy:LinearAxis MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="Volatility"/>
             </oxy:Plot.Axes>

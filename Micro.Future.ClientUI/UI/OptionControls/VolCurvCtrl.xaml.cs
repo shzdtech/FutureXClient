@@ -27,6 +27,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class VolCurvCtrl : UserControl
     {
+
         public VolCurvCtrl()
         {
             InitializeComponent();
@@ -63,7 +64,9 @@ namespace Micro.Future.UI
                     if (point != null)
                     {
                         // int index = (int)nearestPoint.Index;
-                        point.Size = new Random().Next(10, 30);
+                        bool isOn = (bool)point.Tag;
+                        point.Tag = !isOn;
+                        point.Value = isOn ? 1 : 0;
                         bpSC.PlotModel.InvalidatePlot(false);
                     }
                 }
