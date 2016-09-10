@@ -594,4 +594,7 @@
   <data name="ExecutionStatus" xml:space="preserve">
     <value>委托单状态</value>
   </data>
+  <data name="Portofolio" xml:space="preserve">
+    <value>持仓组合</value>
+  </data>
 </root>

@@ -103,5 +103,22 @@ namespace Micro.Future.UI
         {
             TDServerLogin();
         }
+
+        
+
+
+
+        //private void MenuItem_Click_TradingStrategy(object sender, RoutedEventArgs e)
+        //{}
+
+
+        //public openStrategyFrame _openStrategyFrame;
+
+        //public event Action<IUserFrame> MenuBtnClicked;
+
+
     }
+
+
+    //public delegate void openStrategyFrame();
 }
