@@ -871,6 +871,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 持仓组合 的本地化字符串。
+        /// </summary>
+        internal static string Portofolio {
+            get {
+                return ResourceManager.GetString("Portofolio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 持仓 的本地化字符串。
         /// </summary>
         internal static string Position {
