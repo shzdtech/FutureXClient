@@ -1,0 +1,189 @@
+﻿<UserControl x:Class="Micro.Future.UI.OpMarketData"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Micro.Future.UI.OptionControls"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+             lex:LocalizeDictionary.DesignCulture="zh_CN"
+             lex:LocalizeDictionary.OutputMissingKeys="True"
+             lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+             mc:Ignorable="d" 
+             d:DesignHeight="75" d:DesignWidth="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="labelOption1" Grid.Row="0" Grid.Column="0" Content="期权1"/>
+        <WrapPanel Grid.Row="1" Grid.Column="0">
+            <Label Content="交易所"></Label>
+            <ComboBox Name="underlyingEX" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingCB_SelectionChanged"/>
+            <Label Content="种类"></Label>
+            <ComboBox Name="underlyingCB" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingCB_SelectionChanged"/>
+            <Label Content="产品"></Label>
+            <ComboBox Name="underlyingContractCB"  SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingContractCB_SelectionChanged"/>
+        </WrapPanel>
+        <Label x:Name="labelOption2" Grid.Row="2" Grid.Column="0" Content="期权2"/>
+        <WrapPanel Grid.Row="3" Grid.Column="0">
+            <Label Content="交易所"></Label>
+            <ComboBox Name="underlyingEX1" SelectedIndex="0" Width="auto" VerticalAlignment="Center"/>
+            <Label Content="种类"></Label>
+            <ComboBox Name="underlyingCB1" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingCB1_SelectionChanged"/>
+            <Label Content="产品"></Label>
+            <ComboBox Name="underlyingContractCB1"  SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingContractCB1_SelectionChanged"/>
+        </WrapPanel>
+        <Label x:Name="labelFuture1" Grid.Row="0" Grid.Column="1" Content="期货1"/>
+        <WrapPanel Grid.Row="1" Grid.Column="1">
+            <Label Content="交易所"></Label>
+            <ComboBox Name="exchange1" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="exchange1_SelectionChanged"/>
+            <Label Content="产品"></Label>
+            <TextBox x:Name="underlyingTextBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" KeyDown="underlyingTextBox1_KeyDown" />
+            <Label Content="合约"></Label>
+            <TextBox Name="contractTextBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" KeyDown="contractTextBox1_KeyDown"  />
+        </WrapPanel>
+        <Label x:Name="labelFuture2" Grid.Row="2" Grid.Column="1" Content="期货1"/>
+        <WrapPanel Grid.Row="3" Grid.Column="1">
+            <Label Content="交易所"></Label>
+            <ComboBox Name="exchange2" SelectedIndex="0" Width="auto" VerticalAlignment="Center"/>
+            <Label Content="产品"></Label>
+            <TextBox Name="underlyingTextBox2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" />
+            <Label Content="合约"></Label>
+            <TextBox Name="contractTextBox2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" />
+        </WrapPanel>
+        <ListView Name="quoteListView1" Grid.Row="1" Grid.Column="2" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
+                    <GridViewColumn Header="{lex:Loc Key=QuoteVolume}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Volume}" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{lex:Loc Key=MatchPrice}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value}" DataContext="{Binding MatchPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{lex:Loc Key=BidPrice}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value}" DataContext="{Binding BidPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{lex:Loc Key=BidSize}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding BidSize}" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{lex:Loc Key=AskPrice}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value}" DataContext="{Binding AskPrice}" Style="{DynamicResource DoubleChangeStyle}" Background="Black"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{lex:Loc Key=AskSize}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding AskSize}" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{lex:Loc Key=Exchange}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Exchange}" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView Name="quoteListView2" Grid.Row="3" Grid.Column="2" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
+                    <GridViewColumn Header="{lex:Loc Key=QuoteVolume}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Volume}" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{lex:Loc Key=MatchPrice}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value}" DataContext="{Binding MatchPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{lex:Loc Key=BidPrice}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value}" DataContext="{Binding BidPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{lex:Loc Key=BidSize}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding BidSize}" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{lex:Loc Key=AskPrice}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value}" DataContext="{Binding AskPrice}" Style="{DynamicResource DoubleChangeStyle}" Background="Black"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{lex:Loc Key=AskSize}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding AskSize}" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{lex:Loc Key=Exchange}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Exchange}" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+
+</UserControl>

@@ -95,7 +95,8 @@ namespace Micro.Future.UI
             _tdSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
             MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>().RegisterMessageWrapper(msgWrapper);
-
+            optionPane.AddContent(new OptionModelCtrl()).Title = "Model";
+            optionPane.AddContent(new OpMarketMakerCtrl()).Title = "Market Maker";
         }
 
         private void TDServerLogin()
@@ -160,13 +161,10 @@ namespace Micro.Future.UI
 
         private void Add_Model_Click(object sender, RoutedEventArgs e)
         {
-            TabItem modelitem = new TabItem();
-
-
-            WMSettingsCtrl ne = new WMSettingsCtrl();
-
-
-            tabControlall.Items.Add(modelitem);
+            //TabItem modelitem = new TabItem();
+            //WMSettingsCtrl ne = new WMSettingsCtrl();
+            //tabControlall.Items.Add(modelitem);
+            optionPane.AddContent(new OptionModelCtrl()).Title = "Model";
         }
 
 
