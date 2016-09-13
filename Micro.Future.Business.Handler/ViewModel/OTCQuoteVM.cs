@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace Micro.Future.ViewModel
 {
-    public class OTCQuoteVM : ContractNotifyPropertyChanged
+    public class OTCPricingVM : PricingVM
     {
         private int _quantity = 1;
         public int Quantity
@@ -18,29 +18,6 @@ namespace Micro.Future.ViewModel
             {
                 _quantity = value;
                 OnPropertyChanged("Quantity");
-            }
-        }
-
-
-        private DoubleChange _askPrice = new DoubleChange();
-        public DoubleChange AskPrice
-        {
-            get { return _askPrice; }
-            set
-            {
-                _askPrice.Value = value.Value;
-                OnPropertyChanged("AskPrice");
-            }
-        }
-
-        private DoubleChange _bidPrice = new DoubleChange();
-        public DoubleChange BidPrice
-        {
-            get { return _bidPrice; }
-            set
-            {
-                _bidPrice.Value = value.Value;
-                OnPropertyChanged("BidPrice");
             }
         }
 

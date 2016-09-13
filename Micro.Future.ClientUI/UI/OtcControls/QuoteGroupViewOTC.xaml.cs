@@ -31,7 +31,7 @@ namespace Micro.Future.UI
                 MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().OTCQuoteVMCollection;
         }
 
-        public event Action<OTCQuoteVM> OnQuoteSelected;
+        public event Action<OTCPricingVM> OnQuoteSelected;
 
         public void ReloadData()
         {
@@ -42,7 +42,7 @@ namespace Micro.Future.UI
         {
             if (OnQuoteSelected != null)
             {
-                OTCQuoteVM quote = QuoteListView.SelectedItem as OTCQuoteVM;
+                OTCPricingVM quote = QuoteListView.SelectedItem as OTCPricingVM;
                 OnQuoteSelected(quote);
             }
         }

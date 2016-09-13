@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System;
+using System.Threading.Tasks;
 
 namespace Micro.Future.Message
 {
@@ -37,10 +38,10 @@ namespace Micro.Future.Message
             get;
         } = new ObservableCollection<TradingDeskVM>();
 
-        public ObservableCollection<OTCQuoteVM> OTCQuoteVMCollection
+        public ObservableCollection<OTCPricingVM> OTCQuoteVMCollection
         {
             get;
-        } = new ObservableCollection<OTCQuoteVM>();
+        } = new ObservableCollection<OTCPricingVM>();
 
         public ObservableCollection<PortfolioVM> PortfolioVMCollection
         {
@@ -71,6 +72,69 @@ namespace Micro.Future.Message
 
         }
 
+        public Task<ModelParamsVM> QueryModelParamsAsync(string modelName)
+        {
+            if (string.IsNullOrEmpty(modelName))
+                return Task.FromResult<ModelParamsVM>(null);
+
+            var msgId = (uint)SystemMessageID.MSG_ID_QUERY_MODELPARAMS;
+
+            var tcs = new TaskCompletionSource<ModelParamsVM>();
+
+            var serialId = NextSerialId;
+
+            ModelParams modelParams = new ModelParams();
+            modelParams.Header = new DataHeader();
+            modelParams.Header.SerialId = serialId;
+            modelParams.InstanceName = modelName;
+
+            #region callback
+            MessageWrapper.RegisterAction<ModelParams, ExceptionMessage>
+            (msgId,
+            (resp) =>
+            {
+                if (resp.Header?.SerialId == serialId)
+                {
+                    var modelVM = new ModelParamsVM()
+                    {
+                        InstanceName = resp.InstanceName,
+                        Model = resp.Model,
+                    };
+
+                    foreach (var param in resp.Params)
+                    {
+                        modelVM.Params.Add(new NamedParamVM()
+                        {
+                            Name = param.Key,
+                            Value = param.Value,
+                        });
+                    }
+
+                    tcs.TrySetResult(modelVM);
+                }
+            },
+            (ExceptionMessage bizErr) =>
+            {
+                OnErrorAction(bizErr);
+                tcs.SetResult(null);
+            }
+            );
+            #endregion
+
+            MessageWrapper.SendMessage(msgId, modelParams);
+
+            return tcs.Task;
+        }
+
+        public void UpdateModelParams(string modelName, string paramName, double paramValue)
+        {
+            var model = new ModelParams();
+            model.InstanceName = modelName;
+            model.Params[paramName] = paramValue;
+
+            MessageWrapper.SendMessage((uint)SystemMessageID.MSG_ID_UPDATE_MODELPARAMS, model);
+        }
+
         private void OnQueryPortfolioSuccessAction(PBPortfolioList PB)
         {
             PortfolioVMCollection.Clear();
@@ -92,9 +156,7 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSD_ID_PORTFOLIO_NEW, portfolioList);
         }
 
-
-
-        private void OnUpdateStrategySuccessAction(PBStrategyList PB)
+        protected void OnUpdateStrategySuccessAction(PBStrategyList PB)
         {
             foreach (var strategy in PB.Strategy)
             {
@@ -138,10 +200,6 @@ namespace Micro.Future.Message
             strategy.Quantity = sVM.Quantity;
             strategy.AllowTrading = sVM.IsTradingAllowed;
             strategy.Enabled = sVM.Enabled;
-
-            strategy.ModelParams = new ModelParams();
-            foreach (var param in sVM.Params)
-                strategy.ModelParams.ScalaParams[param.Name] = param.Value;
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }
@@ -203,16 +261,9 @@ namespace Micro.Future.Message
                 strategyVM.Depth = strategy.Depth;
                 strategyVM.Enabled = strategy.Enabled;
                 strategyVM.Quantity = strategy.Quantity;
-
-                foreach (var param in strategy.ModelParams?.ScalaParams)
-                {
-                    strategyVM.Params.Add(
-                        new NamedParamVM()
-                        {
-                            Name = param.Key,
-                            Value = param.Value,
-                        });
-                }
+                strategyVM.IVModel = strategy.IvModel;
+                strategyVM.VolModel = strategy.VolModel;
+                strategyVM.PricingModel = strategy.PricingModel;
 
                 foreach (var wtContract in strategy.PricingContracts)
                 {
@@ -295,7 +346,7 @@ namespace Micro.Future.Message
         {
             foreach (var md in PB.PricingData)
             {
-                OTCQuoteVMCollection.Add(new OTCQuoteVM()
+                OTCQuoteVMCollection.Add(new OTCPricingVM()
                 {
                     Exchange = md.Exchange,
                     Contract = md.Contract,

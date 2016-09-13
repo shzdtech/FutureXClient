@@ -71,6 +71,7 @@
     <Compile Include="protos\PBMsgTrader.cs" />
     <Compile Include="ViewModel\AddOrderViewModel.cs" />
     <Compile Include="ViewModel\CallPutOptionVM.cs" />
+    <Compile Include="ViewModel\ModelParamsVM.cs" />
     <Compile Include="ViewModel\OptionMarketVM.cs" />
     <Compile Include="ViewModel\ContractNotifyPropertyChanged.cs" />
     <Compile Include="ViewModel\ContractParamVM.cs" />
@@ -80,12 +81,15 @@
     <Compile Include="ViewModel\ObservableCollectionExtention.cs" />
     <Compile Include="ViewModel\ObstacleViewModel.cs" />
     <Compile Include="ViewModel\OptionOxyVM.cs" />
+    <Compile Include="ViewModel\TradingDeskOptionVM.cs" />
+    <Compile Include="ViewModel\OptionPricingVM.cs" />
     <Compile Include="ViewModel\OptionVM.cs" />
     <Compile Include="ViewModel\OrderVM.cs" />
     <Compile Include="ViewModel\OTCQuoteVM.cs" />
     <Compile Include="ViewModel\PortfolioVM.cs" />
     <Compile Include="ViewModel\PositionVM.cs" />
     <Compile Include="ViewModel\PriceGreekVM.cs" />
+    <Compile Include="ViewModel\PricingVM.cs" />
     <Compile Include="ViewModel\RiskVM.cs" />
     <Compile Include="ViewModel\StrategyVM.cs" />
     <Compile Include="ViewModel\TradeVM.cs" />

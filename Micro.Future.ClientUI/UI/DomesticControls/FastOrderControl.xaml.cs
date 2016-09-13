@@ -52,14 +52,14 @@ namespace Micro.Future.UI
             set;
         }
 
-        public void OnQuoteSelected(QuoteViewModel quoteVM)
+        public void OnQuoteSelected(MarketDataVM quoteVM)
         {
             if (quoteVM != null)
             {
                 _currentContract = quoteVM.Contract;
                 stackPanelPrices.DataContext = quoteVM;
                 OrderVM.Contract = quoteVM.Contract;
-                OrderVM.LimitPrice = quoteVM.MatchPrice;
+                OrderVM.LimitPrice = quoteVM.LastPrice;
             }
         }
 

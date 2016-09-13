@@ -77,5 +77,15 @@ namespace Micro.Future.UI
                 }
             }
         }
+
+        private async void OTCTradingLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            StrategyVM strategyVM = OTCTradingLV.SelectedItem as StrategyVM;
+            if (strategyVM != null)
+            {
+                var paramsVM = await OTCHandler?.QueryModelParamsAsync(strategyVM.PricingModel);
+                StrategyParam.ItemsSource = paramsVM.Params;
+            }
+        }
     }
 }

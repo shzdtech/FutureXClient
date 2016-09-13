@@ -21,14 +21,14 @@ namespace Micro.Future.UI
     {
         private PositionViewModel mLPositionViewModel;
         private PositionViewModel mSPositionViewModel;
-        private QuoteViewModel mQuoteViewModel;
+        private MarketDataVM mQuoteViewModel;
         private FundViewModel mFundViewModel;
         public AdvancedMakeOrderWin()
         {
             InitializeComponent();
         }
 
-        public void SetBindingData(QuoteViewModel vmQuoteViewModel,
+        public void SetBindingData(MarketDataVM vmQuoteViewModel,
             PositionViewModel longPosition, 
             PositionViewModel shortPosition, 
             FundViewModel vmFundViewModel)

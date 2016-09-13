@@ -47,14 +47,14 @@ namespace Micro.Future.Message
         protected void RetOptionSuccessAction(PBMarketData md)
         {
             OptionMarketVM quote = null;
-            var cp = CallPutOptionVMCollection.Find((pb) => string.Compare(pb.PutOptionVM.Contract, md.Contract, true) == 0);
+            var cp = CallPutOptionVMCollection.FirstOrDefault((pb) => string.Compare(pb.PutOptionVM.Contract, md.Contract, true) == 0);
             if(cp != null)
             {
                 quote = cp.PutOptionVM;
             }
             else
             {
-                cp = CallPutOptionVMCollection.Find((pb) => string.Compare(pb.CallOptionVM.Contract, md.Contract, true) == 0);
+                cp = CallPutOptionVMCollection.FirstOrDefault((pb) => string.Compare(pb.CallOptionVM.Contract, md.Contract, true) == 0);
                 if (cp != null)
                 {
                     quote = cp.CallOptionVM;
@@ -63,7 +63,7 @@ namespace Micro.Future.Message
 
             if (quote != null)
             {
-                quote.MatchPrice = md.MatchPrice;
+                quote.LastPrice = md.MatchPrice;
                 quote.BidPrice = md.BidPrice[0];
                 quote.AskPrice = md.AskPrice[0];
                 quote.BidSize = md.BidVolume[0];

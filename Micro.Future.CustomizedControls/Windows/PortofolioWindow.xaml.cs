@@ -50,14 +50,14 @@ namespace Micro.Future.CustomizedControls.Windows
                 ResubMarketData();
         }
 
-        private IEnumerable<QuoteViewModel> SeletedQuoteVM
+        private IEnumerable<MarketDataVM> SeletedQuoteVM
         {
             get
             {
                 var selectedItems = portofolioListView.SelectedItems;
                 for (int i = 0; i < selectedItems.Count; i++)
                 {
-                    yield return selectedItems[i] as QuoteViewModel;
+                    yield return selectedItems[i] as MarketDataVM;
                 }
             }
         }
@@ -88,7 +88,7 @@ namespace Micro.Future.CustomizedControls.Windows
             var quote = portofolioTextBox.Text;
 
             var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
-                       QuoteVMCollection.Find((obj) => string.Compare(obj.Contract, quote, true) == 0);
+                       QuoteVMCollection.FirstOrDefault((obj) => string.Compare(obj.Contract, quote, true) == 0);
 
 
             if (item != null)
@@ -100,7 +100,5 @@ namespace Micro.Future.CustomizedControls.Windows
                 MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
             }
         }
-
-
     }
 }

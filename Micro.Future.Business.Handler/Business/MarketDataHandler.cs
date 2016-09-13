@@ -19,10 +19,10 @@ namespace Micro.Future.Message
             get;
         } = new HashSet<string>();
 
-        public ObservableCollection<QuoteViewModel> QuoteVMCollection
+        public ObservableCollection<MarketDataVM> QuoteVMCollection
         {
             get;
-        } = new ObservableCollection<QuoteViewModel>();
+        } = new ObservableCollection<MarketDataVM>();
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
@@ -69,7 +69,7 @@ namespace Micro.Future.Message
             }
         }
 
-        public void UnsubMarketData(IEnumerable<QuoteViewModel> quoteCollection)
+        public void UnsubMarketData(IEnumerable<MarketDataVM> quoteCollection)
         {
             List<string> instrList = new List<string>();
             foreach (var quoteVM in quoteCollection)
@@ -110,9 +110,9 @@ namespace Micro.Future.Message
                 {
                     foreach (var md in marketList.MarketData)
                     {
-                        if (!QuoteVMCollection.Exist((quote) => string.Compare(quote.Contract, md.Contract, true) == 0))
+                        if (!QuoteVMCollection.Any((quote) => string.Compare(quote.Contract, md.Contract, true) == 0))
                         {
-                            QuoteVMCollection.Add(new QuoteViewModel()
+                            QuoteVMCollection.Add(new MarketDataVM()
                             {
                                 Exchange = md.Exchange,
                                 Contract = md.Contract
@@ -131,7 +131,7 @@ namespace Micro.Future.Message
                 {
                     foreach (var contract in strTbl.Columns[0].Entry)
                     {
-                        var quote = QuoteVMCollection.Find((pb) => string.Compare(pb.Contract, contract, true) == 0);
+                        var quote = QuoteVMCollection.FirstOrDefault((pb) => string.Compare(pb.Contract, contract, true) == 0);
                         if (quote != null)
                             QuoteVMCollection.Remove(quote);
                     }
@@ -141,10 +141,10 @@ namespace Micro.Future.Message
 
         protected void RetMDSuccessAction(PBMarketData md)
         {
-            var quote = QuoteVMCollection.Find((pb) => string.Compare(pb.Contract, md.Contract, true) == 0);
+            var quote = QuoteVMCollection.FirstOrDefault((pb) => string.Compare(pb.Contract, md.Contract, true) == 0);
             if (quote != null)
             {
-                quote.MatchPrice = md.MatchPrice;
+                quote.LastPrice = md.MatchPrice;
                 quote.BidPrice = md.BidPrice[0];
                 quote.AskPrice = md.AskPrice[0];
                 quote.BidSize = md.BidVolume[0];

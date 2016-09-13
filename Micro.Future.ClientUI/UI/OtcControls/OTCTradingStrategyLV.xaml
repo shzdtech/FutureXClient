@@ -16,7 +16,7 @@
                 <ColumnDefinition Width="3"></ColumnDefinition>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ListView Name="OTCTradingLV" Grid.Column="0" ItemsSource="{Binding}">
+            <ListView Name="OTCTradingLV" Grid.Column="0" ItemsSource="{Binding}" SelectionChanged="OTCTradingLV_SelectionChanged">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="启用">
@@ -77,7 +77,7 @@
                 </ListView.View>
             </ListView>
             <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
-            <ListView Name="StrategyParam" Grid.Column="2" ItemsSource="{Binding SelectedItem.Params, ElementName=OTCTradingLV}">
+            <ListView Name="StrategyParam" Grid.Column="2">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
