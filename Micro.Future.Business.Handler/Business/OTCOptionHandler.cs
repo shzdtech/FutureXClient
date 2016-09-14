@@ -16,7 +16,7 @@ namespace Micro.Future.Message
         {
             base.OnMessageWrapperRegistered(messageWrapper);
             MessageWrapper.RegisterAction<PBTradingDeskOptionParams, ExceptionMessage>
-                      ((uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO, OnTradingDeskOptionParams, OnErrorAction);
+                      ((uint)BusinessMessageID.MSG_ID_RTN_TRADINGDESK_PRICING, OnTradingDeskOptionParams, OnErrorAction);
         }
         public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection
         {
