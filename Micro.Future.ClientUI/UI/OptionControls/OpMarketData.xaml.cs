@@ -79,7 +79,7 @@ namespace Micro.Future.UI
                                   orderby o.StrikePrice
                                   select o.StrikePrice).Distinct().ToList();
 
-                var handler = MessageHandlerContainer.DefaultInstance.Get<CTPOptionDataHandler>();
+                var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
 
                 var callList = (from o in optionList
                                 where o.ContractType == 2
@@ -90,9 +90,9 @@ namespace Micro.Future.UI
                                where o.ContractType == 3
                                orderby o.StrikePrice
                                select o.Contract).Distinct().ToList();
-                handler.CallPutOptionVMCollection.Clear();
+                handler.CallPutTDOptionVMCollection.Clear();
 
-                handler.SubCallPutOptionData(strikeList, callList, putList);
+                handler.SubCallPutTDOptionData(strikeList, callList, putList);
             }
         }
 
@@ -123,7 +123,7 @@ namespace Micro.Future.UI
                                   orderby o.StrikePrice
                                   select o.StrikePrice).Distinct().ToList();
 
-                var handler = MessageHandlerContainer.DefaultInstance.Get<CTPOptionDataHandler>();
+                var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
 
                 var callList = (from o in optionList
                                 where o.ContractType == 2
@@ -134,9 +134,9 @@ namespace Micro.Future.UI
                                where o.ContractType == 3
                                orderby o.StrikePrice
                                select o.Contract).Distinct().ToList();
-                handler.CallPutOptionVMCollection.Clear();
+                handler.CallPutTDOptionVMCollection.Clear();
 
-                handler.SubCallPutOptionData(strikeList, callList, putList);
+                handler.SubCallPutTDOptionData(strikeList, callList, putList);
             }
         }
 

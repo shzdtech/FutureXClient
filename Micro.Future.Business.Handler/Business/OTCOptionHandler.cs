@@ -18,46 +18,70 @@ namespace Micro.Future.Message
             MessageWrapper.RegisterAction<PBTradingDeskOptionParams, ExceptionMessage>
                       ((uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO, OnTradingDeskOptionParams, OnErrorAction);
         }
-        public ObservableCollection<TradingDeskOptionVM> TradingDeskOptionVMCollection
+        public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection
         {
             get;
-        } = new ObservableCollection<TradingDeskOptionVM>();
+        } = new ObservableCollection<CallPutTDOptionVM>();
+
 
         private void OnTradingDeskOptionParams(PBTradingDeskOptionParams tradingDeskOption)
         {
-            var tdOptionVM = TradingDeskOptionVMCollection.FindContract(tradingDeskOption.Exchange, tradingDeskOption.Contract);
-            if (tdOptionVM == null)
+            TradingDeskOptionVM quote = null;
+            var cp = CallPutTDOptionVMCollection.FirstOrDefault((pb) => string.Compare(pb.PutOptionVM.Contract, tradingDeskOption.Contract, true) == 0);
+            if (cp != null)
             {
-                tdOptionVM = new TradingDeskOptionVM
+                quote = cp.PutOptionVM;
+            }
+            else
+            {
+                cp = CallPutTDOptionVMCollection.FirstOrDefault((pb) => string.Compare(pb.CallOptionVM.Contract, tradingDeskOption.Contract, true) == 0);
+                if (cp != null)
                 {
-                    Exchange = tradingDeskOption.Exchange,
-                    Contract = tradingDeskOption.Contract
-                };
-                TradingDeskOptionVMCollection.Add(tdOptionVM);
+                    quote = cp.CallOptionVM;
+                }
             }
 
-            tdOptionVM.MarketDataVM.AskPrice = tradingDeskOption.MarketData.AskPrice;
-            tdOptionVM.MarketDataVM.AskSize = tradingDeskOption.MarketData.AskSize;
-            tdOptionVM.MarketDataVM.AskVol = tradingDeskOption.MarketData.AskVolatility;
-            tdOptionVM.MarketDataVM.BidPrice = tradingDeskOption.MarketData.BidPrice;
-            tdOptionVM.MarketDataVM.BidSize = tradingDeskOption.MarketData.BidSize;
-            tdOptionVM.MarketDataVM.BidVol = tradingDeskOption.MarketData.BidVolatility;
+            quote.MarketDataVM.AskPrice = tradingDeskOption.MarketData.AskPrice;
+            quote.MarketDataVM.AskSize = tradingDeskOption.MarketData.AskSize;
+            quote.MarketDataVM.AskVol = tradingDeskOption.MarketData.AskVolatility;
+            quote.MarketDataVM.BidPrice = tradingDeskOption.MarketData.BidPrice;
+            quote.MarketDataVM.BidSize = tradingDeskOption.MarketData.BidSize;
+            quote.MarketDataVM.BidVol = tradingDeskOption.MarketData.BidVolatility;
 
-            tdOptionVM.TheoDataVM.AskPrice = tradingDeskOption.TheoData.AskPrice;
-            tdOptionVM.TheoDataVM.AskSize = tradingDeskOption.TheoData.AskSize;
-            tdOptionVM.TheoDataVM.AskVol = tradingDeskOption.TheoData.AskVolatility;
-            tdOptionVM.TheoDataVM.AskDelta = tradingDeskOption.TheoData.AskDelta;
-            tdOptionVM.TheoDataVM.AskGamma = tradingDeskOption.TheoData.AskGamma;
-            tdOptionVM.TheoDataVM.AskTheta = tradingDeskOption.TheoData.AskTheta;
-            tdOptionVM.TheoDataVM.AskVega = tradingDeskOption.TheoData.AskVega;
+            quote.TheoDataVM.AskPrice = tradingDeskOption.TheoData.AskPrice;
+            quote.TheoDataVM.AskSize = tradingDeskOption.TheoData.AskSize;
+            quote.TheoDataVM.AskVol = tradingDeskOption.TheoData.AskVolatility;
+            quote.TheoDataVM.AskDelta = tradingDeskOption.TheoData.AskDelta;
+            quote.TheoDataVM.AskGamma = tradingDeskOption.TheoData.AskGamma;
+            quote.TheoDataVM.AskTheta = tradingDeskOption.TheoData.AskTheta;
+            quote.TheoDataVM.AskVega = tradingDeskOption.TheoData.AskVega;
 
-            tdOptionVM.TheoDataVM.BidPrice = tradingDeskOption.TheoData.BidPrice;
-            tdOptionVM.TheoDataVM.BidSize = tradingDeskOption.TheoData.BidSize;
-            tdOptionVM.TheoDataVM.BidVol = tradingDeskOption.TheoData.BidVolatility;
-            tdOptionVM.TheoDataVM.BidDelta = tradingDeskOption.TheoData.BidDelta;
-            tdOptionVM.TheoDataVM.BidGamma = tradingDeskOption.TheoData.BidGamma;
-            tdOptionVM.TheoDataVM.BidTheta = tradingDeskOption.TheoData.BidTheta;
-            tdOptionVM.TheoDataVM.BidVega = tradingDeskOption.TheoData.BidVega;
+            quote.TheoDataVM.BidPrice = tradingDeskOption.TheoData.BidPrice;
+            quote.TheoDataVM.BidSize = tradingDeskOption.TheoData.BidSize;
+            quote.TheoDataVM.BidVol = tradingDeskOption.TheoData.BidVolatility;
+            quote.TheoDataVM.BidDelta = tradingDeskOption.TheoData.BidDelta;
+            quote.TheoDataVM.BidGamma = tradingDeskOption.TheoData.BidGamma;
+            quote.TheoDataVM.BidTheta = tradingDeskOption.TheoData.BidTheta;
+            quote.TheoDataVM.BidVega = tradingDeskOption.TheoData.BidVega;
+        }
+
+
+        public void SubCallPutTDOptionData(IList<double> strikeList, IList<string> callList, IList<string> putList)
+        {
+            for (int i = 0; i < callList.Count; i++)
+            {
+                var callOption = new TradingDeskOptionVM { Contract = callList[i] };
+                var putOption = new TradingDeskOptionVM { Contract = putList[i] };
+                CallPutTDOptionVMCollection.Add(new CallPutTDOptionVM()
+                {
+                    StrikePrice = strikeList[i],
+                    CallOptionVM = callOption,
+                    PutOptionVM = putOption
+                });
+            }
+
+            SubMarketData(callList);
+            SubMarketData(putList);
         }
 
     }
