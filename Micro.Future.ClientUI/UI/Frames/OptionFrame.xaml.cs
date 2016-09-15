@@ -1,4 +1,5 @@
 ﻿using Micro.Future.CustomizedControls;
+using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
@@ -28,7 +29,7 @@ namespace Micro.Future.UI
     /// <summary>
     /// ClientOptionWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class OptionFrame : UserControl, IUserFrame
+    public partial class OptionFrame : UserControl, IUserFrame, ILayoutAnchorableControl
     {
         private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionHandler>());
         private AbstractSignInManager _ctpSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPOptionDataHandler>());
@@ -58,6 +59,14 @@ namespace Micro.Future.UI
             }
         }
 
+        public LayoutAnchorablePane AnchorablePane
+        {
+            get;
+            
+
+            set;
+           
+        }
 
         public void LoginAsync(string usernname, string password, string server)
         {
@@ -161,9 +170,15 @@ namespace Micro.Future.UI
         private void Add_Model_Click(object sender, RoutedEventArgs e)
         {
             TabItem modelitem = new TabItem();
+            modelitem.Header = "自定义模型";
 
 
-            WMSettingsCtrl ne = new WMSettingsCtrl();
+            System.Windows.Controls.TabItem myModelItem = new System.Windows.Controls.TabItem();
+
+
+           
+
+            
 
 
             tabControlall.Items.Add(modelitem);
