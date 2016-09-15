@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.Business.Handler.ViewModel
 {
-    public class OptionMarketVM: QuoteViewModel
+    public class OptionMarketVM: MarketDataVM
     {
        
     }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Micro.Future.ViewModel
 {
     //报价
-    public class QuoteViewModel : ContractNotifyPropertyChanged
+    public class MarketDataVM : PricingVM
     {
 
         private double preCloseValue;
@@ -17,7 +17,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 preCloseValue = value;
-                OnPropertyChanged("PreCloseValue");
+                OnPropertyChanged(nameof(PreCloseValue));
             }
         }
 
@@ -28,7 +28,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 openValue = value;
-                OnPropertyChanged("OpenValue");
+                OnPropertyChanged(nameof(OpenValue));
             }
         }
 
@@ -39,7 +39,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 turnover = value;
-                OnPropertyChanged("Turnover");
+                OnPropertyChanged(nameof(Turnover));
             }
         }
 
@@ -50,7 +50,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 volume = value;
-                OnPropertyChanged("Volume");
+                OnPropertyChanged(nameof(Volume));
             }
         }
 
@@ -76,58 +76,14 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private DoubleChange matchPrice = new DoubleChange();
-        public DoubleChange MatchPrice
+        private DoubleChange _lastPrice = new DoubleChange();
+        public DoubleChange LastPrice
         {
-            get { return matchPrice; }
+            get { return _lastPrice; }
             set
             {
-                matchPrice.Value = value.Value;
-                OnPropertyChanged("MatchPrice");
-            }
-        }
-
-        private DoubleChange askPrice = new DoubleChange();
-        public DoubleChange AskPrice
-        {
-            get { return askPrice; }
-            set
-            {
-                askPrice.Value = value.Value;
-                OnPropertyChanged("AskPrice");
-            }
-        }
-
-        private long askSize;
-        public long AskSize
-        {
-            get { return askSize; }
-            set
-            {
-                askSize = value;
-                OnPropertyChanged("AskSize");
-            }
-        }
-
-        private DoubleChange bidPrice = new DoubleChange();
-        public DoubleChange BidPrice
-        {
-            get { return bidPrice; }
-            set
-            {
-                bidPrice.Value = value.Value;
-                OnPropertyChanged("BidPrice");
-            }
-        }
-
-        private long bidSize;
-        public long BidSize
-        {
-            get { return bidSize; }
-            set
-            {
-                bidSize = value;
-                OnPropertyChanged("BidSize");
+                _lastPrice.Value = value.Value;
+                OnPropertyChanged("LastPrice");
             }
         }
 

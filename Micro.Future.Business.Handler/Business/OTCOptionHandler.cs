@@ -15,61 +15,73 @@ namespace Micro.Future.Message
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
             base.OnMessageWrapperRegistered(messageWrapper);
+            MessageWrapper.RegisterAction<PBTradingDeskOptionParams, ExceptionMessage>
+                      ((uint)BusinessMessageID.MSG_ID_RTN_TRADINGDESK_PRICING, OnTradingDeskOptionParams, OnErrorAction);
+        }
+        public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection
+        {
+            get;
+        } = new ObservableCollection<CallPutTDOptionVM>();
+
+
+        private void OnTradingDeskOptionParams(PBTradingDeskOptionParams tradingDeskOption)
+        {
+            TradingDeskOptionVM quote = null;
+            var cp = CallPutTDOptionVMCollection.FirstOrDefault((pb) => string.Compare(pb.PutOptionVM.Contract, tradingDeskOption.Contract, true) == 0);
+            if (cp != null)
+            {
+                quote = cp.PutOptionVM;
+            }
+            else
+            {
+                cp = CallPutTDOptionVMCollection.FirstOrDefault((pb) => string.Compare(pb.CallOptionVM.Contract, tradingDeskOption.Contract, true) == 0);
+                if (cp != null)
+                {
+                    quote = cp.CallOptionVM;
+                }
+            }
+
+            quote.MarketDataVM.AskPrice = tradingDeskOption.MarketData.AskPrice;
+            quote.MarketDataVM.AskSize = tradingDeskOption.MarketData.AskSize;
+            quote.MarketDataVM.AskVol = tradingDeskOption.MarketData.AskVolatility;
+            quote.MarketDataVM.BidPrice = tradingDeskOption.MarketData.BidPrice;
+            quote.MarketDataVM.BidSize = tradingDeskOption.MarketData.BidSize;
+            quote.MarketDataVM.BidVol = tradingDeskOption.MarketData.BidVolatility;
+
+            quote.TheoDataVM.AskPrice = tradingDeskOption.TheoData.AskPrice;
+            quote.TheoDataVM.AskSize = tradingDeskOption.TheoData.AskSize;
+            quote.TheoDataVM.AskVol = tradingDeskOption.TheoData.AskVolatility;
+            quote.TheoDataVM.AskDelta = tradingDeskOption.TheoData.AskDelta;
+            quote.TheoDataVM.AskGamma = tradingDeskOption.TheoData.AskGamma;
+            quote.TheoDataVM.AskTheta = tradingDeskOption.TheoData.AskTheta;
+            quote.TheoDataVM.AskVega = tradingDeskOption.TheoData.AskVega;
+
+            quote.TheoDataVM.BidPrice = tradingDeskOption.TheoData.BidPrice;
+            quote.TheoDataVM.BidSize = tradingDeskOption.TheoData.BidSize;
+            quote.TheoDataVM.BidVol = tradingDeskOption.TheoData.BidVolatility;
+            quote.TheoDataVM.BidDelta = tradingDeskOption.TheoData.BidDelta;
+            quote.TheoDataVM.BidGamma = tradingDeskOption.TheoData.BidGamma;
+            quote.TheoDataVM.BidTheta = tradingDeskOption.TheoData.BidTheta;
+            quote.TheoDataVM.BidVega = tradingDeskOption.TheoData.BidVega;
         }
 
-        public ObservableCollection<NumericalSimVM> NumericalSimVMCollection
-        {
-            get;
-        } = new ObservableCollection<NumericalSimVM>();
 
-        public ObservableCollection<OptionOxyVM> OptionOxyVMCollection
+        public void SubCallPutTDOptionData(IList<double> strikeList, IList<string> callList, IList<string> putList)
         {
-            get;
-        } = new ObservableCollection<OptionOxyVM>();
+            for (int i = 0; i < callList.Count; i++)
+            {
+                var callOption = new TradingDeskOptionVM { Contract = callList[i] };
+                var putOption = new TradingDeskOptionVM { Contract = putList[i] };
+                CallPutTDOptionVMCollection.Add(new CallPutTDOptionVM()
+                {
+                    StrikePrice = strikeList[i],
+                    CallOptionVM = callOption,
+                    PutOptionVM = putOption
+                });
+            }
 
-        public void UpdateOptionParam(OptionVM opVM)
-        {
-            //var opBd = new PBOption();
-            //opBd.StrikePriceIncrement = opVM.StrikePriceIncrement;
-            //opBd.NumberofStrikePrice = opVM.NumberofStrikePrice;
-            //opBd.RiskFreeInterest = opVM.RiskFreeInterest;
-            //opBd.DaysMaturity = opVM.DaysMaturity;
-            //opBd.TimeWeightingEffect = opVM.TimeWeightingEffect;
-            //opBd.LogReturnThreshold = opVM.LogReturnThreshold;
-            //opBd.ATMForwardPrice = opVM.ATMForwardPrice;
-            //opBd.ReferencePrice = opVM.ReferencePrice;
-            //opBd.VolatilityReference = opVM.VolatilityReference;
-            //opBd.CurrentVolatility = opVM.CurrentVolatility;
-            //opBd.CurrentSlope = opVM.CurrentSlope;
-            //opBd.VolatilityChangeRate = opVM.VolatilityChangeRate;
-            //opBd.SlopeReference = opVM.SlopeReference;
-            //opBd.SlopeChangeRate = opVM.SlopeChangeRate;
-            //opBd.PutCurvature = opVM.PutCurvature;
-            //opBd.CallCurvature = opVM.CallCurvature;
-            //opBd.DownCutoff = opVM.DownCutoff;
-            //opBd.UpCutoff = opVM.UpCutoff;
-            //opBd.DownSmoothingRange = opVM.DownSmoothingRange;
-            //opBd.UpSmoothingRange = opVM.UpSmoothingRange;
-            //opBd.DownSlope = opVM.DownSlope;
-            //opBd.UpSlope = opVM.UpSlope;
-            //opBd.VolatilityReference1 = opVM.VolatilityReference1;
-            //opBd.CurrentVolatility1 = opVM.CurrentVolatility1;
-            //opBd.CurrentSlope1 = opVM.CurrentSlope1;
-            //opBd.VolatilityChangeRate1 = opVM.VolatilityChangeRate1;
-            //opBd.SlopeReference1 = opVM.SlopeReference1;
-            //opBd.SlopeChangeRate1 = opVM.SlopeChangeRate1;
-            //opBd.PutCurvature1 = opVM.PutCurvature1;
-            //opBd.CallCurvature1 = opVM.CallCurvature1;
-            //opBd.DownCutoff1 = opVM.DownCutoff1;
-            //opBd.UpCutoff1 = opVM.UpCutoff1;
-            //opBd.DownSmoothingRange1 = opVM.DownSmoothingRange1;
-            //opBd.UpSmoothingRange1 = opVM.UpSmoothingRange1;
-            //opBd.DownSlope1 = opVM.DownSlope1;
-            //opBd.UpSlope1 = opVM.UpSlope1;
-            //opBd.SSR = opVM.SSR;
-            var opLstBd = new PBContractParamList();
-            //cpLstBd.Params.Add(opBd);
-            //MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_CONTRACT_PARAM, cpLstBd);
+            SubMarketData(callList);
+            SubMarketData(putList);
         }
 
     }

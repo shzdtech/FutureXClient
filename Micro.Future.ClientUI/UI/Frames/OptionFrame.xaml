@@ -31,27 +31,22 @@
             </StatusBarItem>
         </x:Array>
     </UserControl.Resources>
-    <TabControl x:Name="tabControlall">
+    <!--<TabControl x:Name="tabControlall">
         <TabItem Header="Wing Model" x:Name="wingModel">
             <avalonDock:DockingManager x:Name="dockingManager">
                 <avalonDock:DockingManager.Theme>
                     <avalonDock:GenericTheme/>
                 </avalonDock:DockingManager.Theme>
                 <avalonDock:LayoutRoot>
-                    <avalonDock:LayoutPanel Orientation="Horizontal">
-                        <avalonDock:LayoutPanel DockWidth="0.15*" Orientation="Vertical">
-                            <avalonDock:LayoutAnchorablePane x:Name="WMSettingsPane">
-                                <avalonDock:LayoutAnchorable Title="WingModel Settings">
-                                    <c:WMSettingsCtrl x:Name="WMSettingsLV"/>
-                                </avalonDock:LayoutAnchorable>
-                            </avalonDock:LayoutAnchorablePane>
-                        </avalonDock:LayoutPanel>
-                        <avalonDock:LayoutPanel DockWidth="0.3*"  Orientation="Vertical">
-                            <avalonDock:LayoutAnchorablePane x:Name="VolCurvPane">
-                                <avalonDock:LayoutAnchorable Title="Volatility Risk">
-                                    <c:VolCurvCtrl x:Name="VolCurvLV"/>
-                                </avalonDock:LayoutAnchorable>
-                            </avalonDock:LayoutAnchorablePane>
+                    <avalonDock:LayoutPanel Orientation="Vertical">
+                        <avalonDock:LayoutPanel Orientation="Vertical">
+                            <avalonDock:LayoutPanel DockHeight="0.5*">
+                                <avalonDock:LayoutAnchorablePane x:Name="optionModelPane">
+                                    <avalonDock:LayoutAnchorable Title="OptionModel">
+                                        <c:OptionModelCtrl x:Name="optionModelCtrl"/>
+                                    </avalonDock:LayoutAnchorable>
+                                </avalonDock:LayoutAnchorablePane>
+                            </avalonDock:LayoutPanel>
                         </avalonDock:LayoutPanel>
                     </avalonDock:LayoutPanel>
                 </avalonDock:LayoutRoot>
@@ -77,5 +72,16 @@
 
 
         </TabItem>
-    </TabControl>
+    </TabControl>-->
+    <avalonDock:DockingManager x:Name="dockingManager" >
+        <avalonDock:DockingManager.Theme>
+            <avalonDock:GenericTheme/>
+        </avalonDock:DockingManager.Theme>
+        <avalonDock:LayoutRoot>
+            <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*" CanRepositionItems="False">
+                <avalonDock:LayoutAnchorablePane x:Name="optionPane">
+                </avalonDock:LayoutAnchorablePane>
+            </avalonDock:LayoutPanel>
+        </avalonDock:LayoutRoot>
+    </avalonDock:DockingManager>
 </UserControl>

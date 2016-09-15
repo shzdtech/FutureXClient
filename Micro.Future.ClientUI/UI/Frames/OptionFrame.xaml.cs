@@ -1,5 +1,4 @@
 ﻿using Micro.Future.CustomizedControls;
-using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
@@ -29,7 +28,7 @@ namespace Micro.Future.UI
     /// <summary>
     /// ClientOptionWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class OptionFrame : UserControl, IUserFrame, ILayoutAnchorableControl
+    public partial class OptionFrame : UserControl, IUserFrame
     {
         private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionHandler>());
         private AbstractSignInManager _ctpSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPOptionDataHandler>());
@@ -59,14 +58,6 @@ namespace Micro.Future.UI
             }
         }
 
-        public LayoutAnchorablePane AnchorablePane
-        {
-            get;
-            
-
-            set;
-           
-        }
 
         public void LoginAsync(string usernname, string password, string server)
         {
@@ -104,7 +95,8 @@ namespace Micro.Future.UI
             _tdSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
             MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>().RegisterMessageWrapper(msgWrapper);
-
+            optionPane.AddContent(new OptionModelCtrl()).Title = "Model";
+            optionPane.AddContent(new OpMarketMakerCtrl()).Title = "Market Maker";
         }
 
         private void TDServerLogin()
@@ -169,19 +161,10 @@ namespace Micro.Future.UI
 
         private void Add_Model_Click(object sender, RoutedEventArgs e)
         {
-            TabItem modelitem = new TabItem();
-            modelitem.Header = "自定义模型";
-
-
-            System.Windows.Controls.TabItem myModelItem = new System.Windows.Controls.TabItem();
-
-
-           
-
-            
-
-
-            tabControlall.Items.Add(modelitem);
+            //TabItem modelitem = new TabItem();
+            //WMSettingsCtrl ne = new WMSettingsCtrl();
+            //tabControlall.Items.Add(modelitem);
+            optionPane.AddContent(new OptionModelCtrl()).Title = "Model";
         }
 
 

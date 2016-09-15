@@ -25,7 +25,7 @@ namespace Micro.Future.ViewModel
             }
         }
     }
-    public class StrategyVM : OTCQuoteVM
+    public class StrategyVM : OTCPricingVM
     {
         public StrategyVM(AbstractOTCHandler otcHandler)
         {
@@ -120,12 +120,36 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private ObservableCollection<NamedParamVM> _strategyParams = new ObservableCollection<NamedParamVM>();
-        public ObservableCollection<NamedParamVM> Params
+        private string _pricingModel;
+        public string PricingModel
         {
-            get
+            get { return _pricingModel; }
+            set
             {
-                return _strategyParams;
+                _pricingModel = value;
+                OnPropertyChanged("PricingModel");
+            }
+        }
+
+        private string _ivModel;
+        public string IVModel
+        {
+            get { return _ivModel; }
+            set
+            {
+                _ivModel = value;
+                OnPropertyChanged("IVModel");
+            }
+        }
+
+        private string _volModel;
+        public string VolModel
+        {
+            get { return _volModel; }
+            set
+            {
+                _volModel = value;
+                OnPropertyChanged("VolModel");
             }
         }
 

@@ -380,8 +380,7 @@ namespace Micro.Future.ViewModel
 
         public void UpdateOptionParam()
         {
-            MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>().
-                UpdateOptionParam(this);
+            
         }
 
         RelayCommand _updateOPCommand;

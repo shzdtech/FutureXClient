@@ -134,6 +134,12 @@
     <Compile Include="UI\OptionControls\OpMarketMakerCtrl.xaml.cs">
       <DependentUpon>OpMarketMakerCtrl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\OptionControls\OpMarketData.xaml.cs">
+      <DependentUpon>OpMarketData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\OptionControls\OptionModelCtrl.xaml.cs">
+      <DependentUpon>OptionModelCtrl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\OptionControls\VolCurvCtrl.xaml.cs">
       <DependentUpon>VolCurvCtrl.xaml</DependentUpon>
     </Compile>
@@ -227,6 +233,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UI\OptionControls\OpMarketMakerCtrl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\OptionControls\OpMarketData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\OptionControls\OptionModelCtrl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

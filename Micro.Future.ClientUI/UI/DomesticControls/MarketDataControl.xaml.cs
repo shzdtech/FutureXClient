@@ -64,7 +64,7 @@ namespace Micro.Future.UI
             Filter(tabTitle, exchange, underlying, contract);
         }
 
-        public event Action<QuoteViewModel> OnQuoteSelected;
+        public event Action<MarketDataVM> OnQuoteSelected;
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {   
@@ -83,14 +83,14 @@ namespace Micro.Future.UI
                 ResubMarketData();
         }
 
-        private IEnumerable<QuoteViewModel> SeletedQuoteVM
+        private IEnumerable<MarketDataVM> SeletedQuoteVM
         {
             get
             {
                 var selectedItems = quoteListView.SelectedItems;
                 for (int i = 0; i < selectedItems.Count; i++)
                 {
-                    yield return selectedItems[i] as QuoteViewModel;
+                    yield return selectedItems[i] as MarketDataVM;
                 }
             }
         }
@@ -126,7 +126,7 @@ namespace Micro.Future.UI
             var quote = contractTextBox.Text;
 
             var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
-                       QuoteVMCollection.Find((obj) => string.Compare(obj.Contract, quote, true) == 0);
+                       QuoteVMCollection.FirstOrDefault((obj) => string.Compare(obj.Contract, quote, true) == 0);
 
 
             if (item != null)
@@ -143,7 +143,7 @@ namespace Micro.Future.UI
         {
             if (OnQuoteSelected != null)
             {
-                QuoteViewModel quoteVM = quoteListView.SelectedItem as QuoteViewModel;
+                MarketDataVM quoteVM = quoteListView.SelectedItem as MarketDataVM;
                 OnQuoteSelected(quoteVM);
             }
         }
@@ -196,7 +196,7 @@ namespace Micro.Future.UI
                 if (contract == null)
                     return true;
 
-                QuoteViewModel qvm = o as QuoteViewModel;
+                MarketDataVM qvm = o as MarketDataVM;
 
                 if (qvm.Exchange.ContainsAny(exchange) &&
                     qvm.Contract.ContainsAny(contract) &&
@@ -222,7 +222,7 @@ namespace Micro.Future.UI
                 if (contract == null)
                     return true;
 
-                QuoteViewModel qvm = o as QuoteViewModel;
+                MarketDataVM qvm = o as MarketDataVM;
 
                 if (qvm.Contract.Contains(contract))
                 {
