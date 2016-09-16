@@ -4,6 +4,7 @@ using Micro.Future.Message;
 using Micro.Future.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,8 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OpMarketMakerCtrl : UserControl
     {
+        private OTCOptionHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
+
         private CollectionViewSource _viewSourcePosition = new CollectionViewSource();
         private CollectionViewSource _viewSourceRisk = new CollectionViewSource();
         private CollectionViewSource _viewSourcePutOption = new CollectionViewSource();
@@ -33,6 +36,11 @@ namespace Micro.Future.UI
         private IList<ContractInfo> _contractList;
 
         private IList<ColumnObject> _optionColumns;
+
+        public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection
+        {
+            get;
+        } = new ObservableCollection<CallPutTDOptionVM>();
 
         public void Initialize()
         {
@@ -47,8 +55,10 @@ namespace Micro.Future.UI
             var traderExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             _viewSourcePosition.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RiskVMCollection;
             _viewSourceRisk.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
-            option_priceLV.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>().CallPutTDOptionVMCollection;
+            option_priceLV.ItemsSource = CallPutTDOptionVMCollection;
             _viewSourceVolatility.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().VolatilityVMCollection;
+            _otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
+
 
             // Set columns tree
             var marketNode = new ColumnObject(new GridViewColumn() { Header = "行情" });
@@ -111,6 +121,11 @@ namespace Micro.Future.UI
 
         }
 
+        private void OnTradingDeskOptionParamsReceived(TradingDeskOptionVM vm)
+        {
+            CallPutTDOptionVMCollection.Update(vm);
+        }
+
         public OpMarketMakerCtrl()
         {
 
@@ -170,9 +185,12 @@ namespace Micro.Future.UI
                                where o.ContractType == 3
                                orderby o.StrikePrice
                                select o.Contract).Distinct().ToList();
-                handler.CallPutTDOptionVMCollection.Clear();
-
-                handler.SubCallPutTDOptionData(strikeList, callList, putList);
+                CallPutTDOptionVMCollection.Clear();
+                var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList);
+                foreach (var vm in retList)
+                {
+                    CallPutTDOptionVMCollection.Add(vm);
+                }
             }
         }
     }

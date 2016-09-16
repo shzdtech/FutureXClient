@@ -17,6 +17,7 @@ using Micro.Future.Resources.Localization;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace Micro.Future.UI
 {
@@ -25,7 +26,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OpMarketData : UserControl
     {
-
+        private OTCOptionHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
         private IList<ContractInfo> _contractList;
         private CollectionViewSource _viewSource = new CollectionViewSource();
 
@@ -34,6 +35,11 @@ namespace Micro.Future.UI
             InitializeComponent();
             Initialize();
         }
+
+        public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection
+        {
+            get;
+        } = new ObservableCollection<CallPutTDOptionVM>();
 
         public void Initialize()
         {
@@ -90,9 +96,12 @@ namespace Micro.Future.UI
                                where o.ContractType == 3
                                orderby o.StrikePrice
                                select o.Contract).Distinct().ToList();
-                handler.CallPutTDOptionVMCollection.Clear();
-
-                handler.SubCallPutTDOptionData(strikeList, callList, putList);
+                CallPutTDOptionVMCollection.Clear();
+                var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList);
+                foreach (var vm in retList)
+                {
+                    CallPutTDOptionVMCollection.Add(vm);
+                }
             }
         }
 
@@ -134,9 +143,12 @@ namespace Micro.Future.UI
                                where o.ContractType == 3
                                orderby o.StrikePrice
                                select o.Contract).Distinct().ToList();
-                handler.CallPutTDOptionVMCollection.Clear();
-
-                handler.SubCallPutTDOptionData(strikeList, callList, putList);
+                CallPutTDOptionVMCollection.Clear();
+                var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList);
+                foreach(var vm in retList)
+                {
+                    CallPutTDOptionVMCollection.Add(vm);
+                }
             }
         }
 
