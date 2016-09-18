@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Micro.Future.Message
+{
+    public enum ProductType
+    {
+        PRODUCT_UNSPECIFIED = -1,
+        ///期货
+        PRODUCT_FUTURE = 0,
+        ///期货期权
+        PRODUCT_OPTIONS = 1,
+        ///组合
+        PRODUCT_COMBINATION = 2,
+        ///即期
+        PRODUCT_SPOT = 3,
+        ///期转现
+        PRODUCT_EFP = 4,
+        ///现货期权
+        PRODUCT_SPOTOPTION = 5,
+        ///OTC合约
+        PRODUCT_OTC = 6,
+        ///OTC期权
+        PRODUCT_OTC_OPTION = 7,
+        ///
+        PRODUCT_UPPERBOUND,
+    };
+}

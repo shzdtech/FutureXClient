@@ -124,15 +124,6 @@ namespace Micro.Future.Message
         PSD_HISTORY = 1
     };
 
-    public enum Type1
-    {
-
-        Future = 0,
-       
-        Option = 1,
-
-    };
-
     public enum Style
     {
 
@@ -141,8 +132,6 @@ namespace Micro.Future.Message
         Geometric = 1,
 
         Arethmetic = 2,
-
-
     };
 
 }

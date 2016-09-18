@@ -46,7 +46,7 @@ namespace Micro.Future.UI
         {
             using (var clientCache = new ClientDbContext())
             {
-                _contractList = clientCache.ContractInfo.Where(c => c.ProductType == 1).ToList();
+                _contractList = clientCache.GetContractsByProductType((int)ProductType.PRODUCT_OPTIONS);
             }
 
             underlyingCB.ItemsSource = _contractList.Select(c => c.ProductID).Distinct();

@@ -19,6 +19,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Micro.Future.LocalStorage;
+using Micro.Future.LocalStorage.DataObject;
 
 namespace Micro.Future.UI
 {
@@ -27,30 +29,103 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class VolCurvCtrl : UserControl
     {
-
+        private IList<ContractInfo> _contractList;
+        private OTCOptionHandler _otcHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
         public VolCurvCtrl()
         {
             InitializeComponent();
             Initialize();
         }
 
+        public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection
+        {
+            get;
+        }
+
+        public VolatilityLinesVM VolatilityLinesVM
+        {
+            get;
+        } = new VolatilityLinesVM();
+
+
         public void Initialize()
         {
-            var otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
+            using (var clientCache = new ClientDbContext())
+            {
+                _contractList = clientCache.GetContractsByProductType((int)ProductType.PRODUCT_OPTIONS);
+            }
 
             //PlotVolatility.Model = traderExHandler.OptionOxyVM.PlotModel;
-            volPlot.DataContext = otcOptionHandler.VolatilityLinesVM;
-            VegaPosition.Model = otcOptionHandler.OptionOxyVM.PlotModelBar;
+            volPlot.DataContext = _otcHandler.VolatilityLinesVM;
+            VegaPosition.Model = _otcHandler.OptionOxyVM.PlotModelBar;
             theoBidPutSC.MarkerOutline = CustomOxyMarkers.LDTriangle;
             theoBidCallSC.MarkerOutline = CustomOxyMarkers.RDTriangle;
 
             var internalSS = theoBidCallSC.CreateModel() as OxyPlot.Series.ScatterSeries;
             internalSS.MouseDown += InternalSS_MouseDown;
 
-            otcOptionHandler.OnUpdateOption();
-            otcOptionHandler.OnUpdateTest();
+            _otcHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
 
         }
+
+        private void OnTradingDeskOptionParamsReceived(TradingDeskOptionVM tdOptionVM)
+        {
+            if(CallPutTDOptionVMCollection.Update(tdOptionVM))
+            {
+                var list = CallPutTDOptionVMCollection.ToList();
+                int idx = list.FindIndex((pb) => string.Compare(pb.PutOptionVM.Contract, tdOptionVM.Contract, true) == 0);
+                if(idx >= 0) // Update PutOption
+                {
+
+                }
+                else
+                {
+                    idx = list.FindIndex((pb) => string.Compare(pb.CallOptionVM.Contract, tdOptionVM.Contract, true) == 0);
+                    if (idx >= 0) // Update CallOption
+                    {
+                        var datapt = VolatilityLinesVM.CallAskVolLine[idx];
+                        VolatilityLinesVM.CallAskVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.MarketDataVM.AskPrice);
+                    }
+                }
+            }
+        }
+
+
+        public void SelectOption(string contract)
+        {
+            var optionList = (from c in _contractList
+                              where c.UnderlyingContract == contract
+                              select c).ToList();
+
+            var strikeList = (from o in optionList
+                              orderby o.StrikePrice
+                              select o.StrikePrice).Distinct().ToList();  
+
+            var callList = (from o in optionList
+                            where o.ContractType == 2
+                            orderby o.StrikePrice
+                            select o.Contract).Distinct().ToList();
+
+            var putList = (from o in optionList
+                           where o.ContractType == 3
+                           orderby o.StrikePrice
+                           select o.Contract).Distinct().ToList();
+
+            ClearPlot();
+            CallPutTDOptionVMCollection.Clear();
+            var retList = _otcHandler.SubCallPutTDOptionData(strikeList, callList, putList);
+            foreach (var vm in retList)
+            {
+                CallPutTDOptionVMCollection.Add(vm);
+                VolatilityLinesVM.CallAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.AskPrice));
+            }
+        }
+
+        private void ClearPlot()
+        {
+            VolatilityLinesVM.ClearAll();
+        }
+
 
         private void InternalSS_MouseDown(object sender, OxyMouseDownEventArgs e)
         {
@@ -83,11 +158,6 @@ namespace Micro.Future.UI
         {
 
         }
-
-
-
-        //public static PlotModel CustomMarkers()
-        //{ }
     }
 
 

@@ -44,6 +44,13 @@ namespace Micro.Future.LocalStorage
             //optionsBuilder.UseSqlite("Filename=E:\\Projects\\FutureXClient\\Micro.Future.LocalStorage\\Data\\clientcache.db");
         }
 
+        
+        public IList<ContractInfo> GetContractsByProductType(int productType)
+        {
+            return ContractInfo.Where(c => c.ProductType == 1).ToList();
+        }
+
+
         public string GetSyncVersion(string item)
         {
             var version = from sync in SyncInfo

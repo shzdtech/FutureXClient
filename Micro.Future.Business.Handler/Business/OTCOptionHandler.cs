@@ -42,7 +42,7 @@ namespace Micro.Future.Message
             for (int i = 0; i < 10; i++)
             {
                 RiskVMCollection.Add(new RiskVM { Delta = i, DisplayName = i.ToString(), PositionDelta = i, PositionVega = i, Value = i, Vega = i });
-                PositionVMCollection.Add(new PositionVM { Selected = true, StrikePrice = i, Type = 0, Style = 0, Position = i });
+                PositionVMCollection.Add(new PositionVM { Selected = true, StrikePrice = i, ProductType = 0, Style = 0, Position = i });
                 PriceGreekVMCollection.Add(new PriceGreekVM { cAsk = i, cBid = i, cDelta = i, cMid = i, cVega = i, DisplayName = i.ToString(), pAsk = i, pBid = i, pDelta = i, pMid = i, pVega = i, Strike = i });
                 VolatilityVMCollection.Add(new VolatilityVM { DisplayName = i.ToString(), Strike = i, VolAsk = i, volBid = i, VolMid = i });
             }
@@ -135,13 +135,15 @@ namespace Micro.Future.Message
 
     public static class OptionVMExtensions
     {
-        public static void Update(this IEnumerable<CallPutTDOptionVM> collection, TradingDeskOptionVM newVM)
+        public static bool Update(this IEnumerable<CallPutTDOptionVM> collection, TradingDeskOptionVM newVM)
         {
+            bool ret;
             TradingDeskOptionVM quote = null;
             var cp = collection.FirstOrDefault((pb) => string.Compare(pb.PutOptionVM.Contract, newVM.Contract, true) == 0);
             if (cp != null)
             {
                 quote = cp.PutOptionVM;
+                ret = true;
             }
             else
             {
@@ -149,6 +151,7 @@ namespace Micro.Future.Message
                 if (cp != null)
                 {
                     quote = cp.CallOptionVM;
+                    ret = true;
                 }
             }
 
@@ -181,6 +184,8 @@ namespace Micro.Future.Message
                 quote.TheoDataVM.BidTheta = newVM.TheoDataVM.BidTheta;
                 quote.TheoDataVM.BidVega = newVM.TheoDataVM.BidVega;
             }
+
+            return true;
         }
     }
 }
