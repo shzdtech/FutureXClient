@@ -25,15 +25,16 @@ namespace Micro.Future.Message
         public void OnUpdateOption()
         {
             var columnSeries = new ColumnSeries();
-            for (double i = 0.5; i < 10; i++)
-            {
-                VolatilityLinesVM.CallAskVolLine.Add(new DataPoint(i, 10 - 0.5 * i));
-                VolatilityLinesVM.CallBidVolLine.Add(new DataPoint(i, i));
-                VolatilityLinesVM.TheoBidVolLine.Add(new DataPoint(i, i));
-                VolatilityLinesVM.TheoBidPutVolScatter.Add(new ScatterPoint(i, i, double.NaN, i / 10, true));
-                VolatilityLinesVM.TheoBidCallVolScatter.Add(new ScatterPoint(i, i, double.NaN, i / 10, true));
-                columnSeries.Items.Add(new ColumnItem { Value = i });
-            }
+            VolatilityLinesVM.CallAskVolLine.Add(new DataPoint());
+            //for (double i = 0.5; i < 10; i++)
+            //{
+            //    VolatilityLinesVM.CallAskVolLine.Add(new DataPoint(i, 10 - 0.5 * i));
+            //    VolatilityLinesVM.CallBidVolLine.Add(new DataPoint(i, i));
+            //    VolatilityLinesVM.TheoBidVolLine.Add(new DataPoint(i, i));
+            //    VolatilityLinesVM.TheoBidPutVolScatter.Add(new ScatterPoint(i, i, double.NaN, i / 10, true));
+            //    VolatilityLinesVM.TheoBidCallVolScatter.Add(new ScatterPoint(i, i, double.NaN, i / 10, true));
+            //    columnSeries.Items.Add(new ColumnItem { Value = i });
+            //}
             OptionOxyVM.PlotModelBar.Series.Add(columnSeries);
         }
 
