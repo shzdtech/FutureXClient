@@ -51,7 +51,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PBidQT" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="PBidQT" DisplayMemberBinding="{Binding PutStrategyVM.Enabled}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -72,7 +72,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PAskQT" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="PAskQT" DisplayMemberBinding="{Binding Binding PutStrategyVM.Enabled}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -80,7 +80,7 @@
                                 </TextBlock.Background>PAskQT</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PBidIV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="PBidIV" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidVol}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -88,7 +88,7 @@
                                 </TextBlock.Background>PBidIV</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PAskIV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="PAskIV" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskVol}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -96,7 +96,7 @@
                                 </TextBlock.Background>PAskIV</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PBidTheo" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="PBidTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.BidPrice}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -104,7 +104,7 @@
                                 </TextBlock.Background>PBidTheo</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PAskTheo" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="PAskTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskPrice}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -112,7 +112,7 @@
                                 </TextBlock.Background>PAskTheo</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PMidIV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="PMidIV" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.MidVol}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -120,7 +120,7 @@
                                 </TextBlock.Background>PMidIV</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PBidQV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="PBidQV" DisplayMemberBinding="{Binding PutStrategyVM.Quantity}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -128,7 +128,7 @@
                                 </TextBlock.Background>PBidQV</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PAskQV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="PAskQV" DisplayMemberBinding="{Binding PutStrategyVM.Quantity}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -136,7 +136,7 @@
                                 </TextBlock.Background>PAskQV</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PTheta" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="PTheta" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Theta}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -144,7 +144,7 @@
                                 </TextBlock.Background>PTheta</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PGamma" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="PGamma" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Gamma}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -152,7 +152,7 @@
                                 </TextBlock.Background>PGamma</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PVega" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="PVega" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Vega}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -160,7 +160,7 @@
                                 </TextBlock.Background>PVega</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PDelta" DisplayMemberBinding="{Binding PutOptionVM.Delta}">
+                    <GridViewColumn x:Name="PDelta" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Delta}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -168,23 +168,7 @@
                                 </TextBlock.Background>PDelta</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PVolume" DisplayMemberBinding="{Binding PutOptionVM.Volume}">
-                        <GridViewColumn.Header>
-                            <TextBlock>
-                                <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-                                </TextBlock.Background>PVolume</TextBlock>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="PLastPrice" DisplayMemberBinding="{Binding PutOptionVM.LastPrice}">
-                        <GridViewColumn.Header>
-                            <TextBlock>
-                                <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-                                </TextBlock.Background>PLastPrice</TextBlock>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="PBid" DisplayMemberBinding="{Binding PutOptionVM.Bid}">
+                    <GridViewColumn x:Name="PBid" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidPrice}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -192,7 +176,7 @@
                                 </TextBlock.Background>PBid</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PBidSize" DisplayMemberBinding="{Binding PutOptionVM.BidSize}">
+                    <GridViewColumn x:Name="PBidSize" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidSize}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -200,7 +184,7 @@
                                 </TextBlock.Background>PBidSize</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PMid" DisplayMemberBinding="{Binding PutOptionVM.Mid}">
+                    <GridViewColumn x:Name="PMid" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.MidPrice}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -208,7 +192,7 @@
                                 </TextBlock.Background>PMid</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PAsk" DisplayMemberBinding="{Binding PutOptionVM.Ask}">
+                    <GridViewColumn x:Name="PAsk" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskPrice}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -216,7 +200,7 @@
                                 </TextBlock.Background>PAsk</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PAskSize" DisplayMemberBinding="{Binding PutOptionVM.AskSize}">
+                    <GridViewColumn x:Name="PAskSize" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskSize}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -241,7 +225,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CAskSize" DisplayMemberBinding="{Binding CallOptionVM.AskSize}">
+                    <GridViewColumn x:Name="CAskSize" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskSize}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -249,7 +233,7 @@
                                 </TextBlock.Background>CAskSize</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CAsk" DisplayMemberBinding="{Binding CallOptionVM.Ask}">
+                    <GridViewColumn x:Name="CAsk" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskPrice}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -257,7 +241,7 @@
                                 </TextBlock.Background>CAsk</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CMid" DisplayMemberBinding="{Binding CallOptionVM.Mid}">
+                    <GridViewColumn x:Name="CMid" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.MidPrice}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -265,7 +249,7 @@
                                 </TextBlock.Background>CMid</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CBidSize" DisplayMemberBinding="{Binding CallOptionVM.BidSize}">
+                    <GridViewColumn x:Name="CBidSize" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidSize}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -273,7 +257,7 @@
                                 </TextBlock.Background>CBidSize</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CBid" DisplayMemberBinding="{Binding CallOptionVM.Bid}">
+                    <GridViewColumn x:Name="CBid" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidPrice}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -281,23 +265,7 @@
                                 </TextBlock.Background>CBid</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CLastPrice" DisplayMemberBinding="{Binding CallOptionVM.LastPrice}">
-                        <GridViewColumn.Header>
-                            <TextBlock>
-                                <TextBlock.Background>
-                                    <SolidColorBrush Color="#FFC55B5B"/>
-                                </TextBlock.Background>CLastPrice</TextBlock>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="CVolume" DisplayMemberBinding="{Binding CallOptionVM.Volume}">
-                        <GridViewColumn.Header>
-                            <TextBlock>
-                                <TextBlock.Background>
-                                    <SolidColorBrush Color="#FFC55B5B"/>
-                                </TextBlock.Background>CVolume</TextBlock>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="CDelta" DisplayMemberBinding="{Binding CallOptionVM.Delta}">
+                    <GridViewColumn x:Name="CDelta" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Delta}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -305,7 +273,7 @@
                                 </TextBlock.Background>CDelta</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CVega" DisplayMemberBinding="{Binding CallOptionVM.Vega}">
+                    <GridViewColumn x:Name="CVega" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Vega}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -313,7 +281,7 @@
                                 </TextBlock.Background>CVega</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CBidIV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="CBidIV" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidVol}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -321,7 +289,7 @@
                                 </TextBlock.Background>CBidIV</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CAskIV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="CAskIV" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskVol}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -329,7 +297,7 @@
                                 </TextBlock.Background>CAskIV</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CBidTheo" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="CBidTheo" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.BidPrice}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -337,7 +305,7 @@
                                 </TextBlock.Background>CBidTheo</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CAskTheo" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="CAskTheo" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.AskPrice}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -345,7 +313,7 @@
                                 </TextBlock.Background>CAskTheo</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CMidIV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="CMidIV" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.MidPrice}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -353,7 +321,7 @@
                                 </TextBlock.Background>CMidIV</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CAskQV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="CAskQV" DisplayMemberBinding="{Binding CallStrategyVM.Quantity}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -361,7 +329,7 @@
                                 </TextBlock.Background>CAskQV</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CBidQV" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="CBidQV" DisplayMemberBinding="{Binding CallStrategyVM.Quantity}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -369,7 +337,7 @@
                                 </TextBlock.Background>CBidQV</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CTheta" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="CTheta" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Theta}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -377,7 +345,7 @@
                                 </TextBlock.Background>CTheta</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CGamma" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="CGamma" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Gamma}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -398,7 +366,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CBidQT" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="CBidQT" DisplayMemberBinding="{Binding CallStrategyVM.Enabled}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -419,7 +387,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CAskQT" DisplayMemberBinding="{Binding PutOptionVM.Vega}">
+                    <GridViewColumn x:Name="CAskQT" DisplayMemberBinding="{Binding CallStrategyVM.Enabled}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -427,8 +395,8 @@
                                 </TextBlock.Background>CAskQT</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PPosition" Header="PPosition" DisplayMemberBinding="{Binding Position}"/>
-                    <GridViewColumn x:Name="CPosition" Header="CPosition" DisplayMemberBinding="{Binding Position}"/>
+                    <GridViewColumn x:Name="PPosition" Header="PPosition" DisplayMemberBinding="{Binding PutPositionVM.Position}"/>
+                    <GridViewColumn x:Name="CPosition" Header="CPosition" DisplayMemberBinding="{Binding CallPositionVM.Position}"/>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>

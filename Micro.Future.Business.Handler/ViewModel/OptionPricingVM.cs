@@ -36,6 +36,34 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private double _midVol;
+        public double MidVol
+        {
+            get
+            {
+                return _midVol;
+            }
+            set
+            {
+                _midVol = value;
+                OnPropertyChanged(nameof(MidVol));
+            }
+        }
+
+        private double _midPrice;
+        public double MidPrice
+        {
+            get
+            {
+                return _midPrice;
+            }
+            set
+            {
+                _midPrice = value;
+                OnPropertyChanged(nameof(MidPrice));
+            }
+        }
+
         private double _bidDelta;
         public double BidDelta
         {

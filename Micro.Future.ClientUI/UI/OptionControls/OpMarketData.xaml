@@ -22,18 +22,7 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
+            
         </Grid.ColumnDefinitions>
         <Label x:Name="labelOption1" Grid.Row="0" Grid.Column="0" Content="期权1"/>
         <WrapPanel Grid.Row="1" Grid.Column="0">
@@ -71,7 +60,7 @@
             <Label Content="合约"></Label>
             <TextBox Name="contractTextBox2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" />
         </WrapPanel>
-        <ListView Name="quoteListView1" Grid.Row="1" Grid.Column="2" >
+        <ListView Name="quoteListView1" Grid.Row="0" Grid.Column="2" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
@@ -127,7 +116,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView Name="quoteListView2" Grid.Row="3" Grid.Column="2" >
+        <ListView Name="quoteListView2" Grid.Row="2" Grid.Column="2" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>

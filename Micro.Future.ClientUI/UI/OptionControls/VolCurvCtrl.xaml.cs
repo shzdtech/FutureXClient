@@ -36,19 +36,19 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
-            var traderExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            var otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
 
             //PlotVolatility.Model = traderExHandler.OptionOxyVM.PlotModel;
-            volPlot.DataContext = traderExHandler.VolatilityLinesVM;
-            VegaPosition.Model = traderExHandler.OptionOxyVM.PlotModelBar;
+            volPlot.DataContext = otcOptionHandler.VolatilityLinesVM;
+            VegaPosition.Model = otcOptionHandler.OptionOxyVM.PlotModelBar;
             theoBidPutSC.MarkerOutline = CustomOxyMarkers.LDTriangle;
             theoBidCallSC.MarkerOutline = CustomOxyMarkers.RDTriangle;
 
             var internalSS = theoBidCallSC.CreateModel() as OxyPlot.Series.ScatterSeries;
             internalSS.MouseDown += InternalSS_MouseDown;
 
-            traderExHandler.OnUpdateOption();
-            traderExHandler.OnUpdateTest();
+            otcOptionHandler.OnUpdateOption();
+            otcOptionHandler.OnUpdateTest();
 
         }
 
