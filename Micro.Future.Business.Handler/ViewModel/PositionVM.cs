@@ -235,14 +235,14 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private Type1 _type;
-        public Type1 Type
+        private ProductType _productType;
+        public ProductType ProductType
         {
-            get { return _type; }
+            get { return _productType; }
             set
             {
-                _type = value;
-                OnPropertyChanged("Type");
+                _productType = value;
+                OnPropertyChanged(nameof(ProductType));
             }
         }
 

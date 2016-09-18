@@ -48,6 +48,7 @@
     <Compile Include="Business\OrderEnums.cs" />
     <Compile Include="Business\OTCContractHandler.cs" />
     <Compile Include="Business\OTCOptionHandler.cs" />
+    <Compile Include="Business\ProductEnums.cs" />
     <Compile Include="Business\TraderExHandler.cs" />
     <Compile Include="Constant\CustomOxyMarkers.cs" />
     <Compile Include="Constant\StringConst.cs" />

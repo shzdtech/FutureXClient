@@ -157,8 +157,14 @@ namespace Micro.Future.ViewModel
             = new ObservableCollection<ScatterPoint>();
         public ObservableCollection<ScatterPoint> TheoBidPutVolScatter { get; }
             = new ObservableCollection<ScatterPoint>();
+
         public ObservableCollection<ScatterPoint> TheoBidCallVolScatter { get; }
             = new ObservableCollection<ScatterPoint>();
+
+        public void ClearAll()
+        {
+            CallBidVolLine.Clear();
+        }
 
     }
 }

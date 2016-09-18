@@ -13,6 +13,7 @@ using OxyPlot;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Micro.Future.UI;
+using Micro.Future.Business;
 
 namespace Micro.Future.Message
 {
@@ -132,7 +133,7 @@ namespace Micro.Future.Message
             for (int i = 0; i < 10; i++)
             {
                 RiskVMCollection.Add(new RiskVM { Delta = i, DisplayName = i.ToString(), PositionDelta = i, PositionVega = i, Value = i, Vega = i });
-                PositionVMCollection.Add(new PositionVM { Selected = true, StrikePrice = i, Type = 0, Style = 0, Position = i });
+                PositionVMCollection.Add(new PositionVM { Selected = true, StrikePrice = i, ProductType = 0, Style = 0, Position = i });
                 PriceGreekVMCollection.Add(new PriceGreekVM { cAsk = i, cBid = i, cDelta = i, cMid = i, cVega = i, DisplayName = i.ToString(), pAsk = i, pBid = i, pDelta = i, pMid = i, pVega = i, Strike = i });
                 VolatilityVMCollection.Add(new VolatilityVM { DisplayName = i.ToString(), Strike = i, VolAsk = i, volBid = i, VolMid = i });
             }
