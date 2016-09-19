@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Micro.Future.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,17 +21,20 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OptionModelCtrl : UserControl
     {
+        private VolCurvCtrl _volCurvCtrl = new VolCurvCtrl();
+        private OpMarketData _opMarketData = new OpMarketData();
         public OptionModelCtrl()
         {
             InitializeComponent();
-        }
+            OpMarketControl.underlyingContractCB1.SelectionChanged += UnderlyingContractCB1_SelectionChanged;        }
 
-        private void onunderlyingContractCB_SelectionChanged(string Contract)
+        private void UnderlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var opMarketMakerCtrl = new OpMarketMakerCtrl();
-            var volCurvCtrl = new VolCurvCtrl();
-
+            ModelParamsVM modelParams = new ModelParamsVM();
+            var uc = OpMarketControl.underlyingContractCB1.SelectedItem;
+            _volCurvCtrl.SelectOption(uc.ToString());
+            var modelparamsVM = await OTCHandler?.QueryModelParamsAsync(modelParams.Model);
+            VolatilityPanel. = modelParams.Params;
         }
-
     }
 }

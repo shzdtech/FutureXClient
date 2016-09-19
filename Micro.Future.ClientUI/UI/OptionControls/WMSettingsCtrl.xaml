@@ -123,92 +123,92 @@
             </GroupBox>
 
         </StackPanel >
-        <StackPanel x:Name="VolatilityPanel" Grid.Column="1">
+        <StackPanel x:FieldModifier="public" Name="VolatilityPanel" Grid.Column="1">
             <GroupBox x:Name="Volatility_Reference" Tag="2" Header="Volatility Reference">
-                <xctk:DoubleUpDown x:Name="volatility_Reference"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding VolatilityReference}"  Minimum="0" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="volatility_Reference"   UpdateValueOnEnterKey="True" FormatString="F2" Value="{Binding Path=[vol_ref].Value}" Tag="vol_ref" Minimum="0" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Volatility_ChangeRate" Header="Volatility Change Rate">
-                <xctk:DoubleUpDown x:Name="volatility_ChangeRate" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding VolatilityChangeRate}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="volatility_ChangeRate" Tag="vcr"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[vcr].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Current_Volatility" Header="Current Volatility">
                 <Label x:Name="current_Volatility" Tag="2" Content="{Binding CurrentVolatility}"  HorizontalAlignment="Left" VerticalAlignment="Top" />
             </GroupBox>
             <GroupBox x:Name="Slope_Reference" Header="Slope Reference">
-                <xctk:DoubleUpDown x:Name="slope_Reference"  Tag="2" UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding SlopeReference}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="slope_Reference"  Tag="slope_ref" UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[slope_ref].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Slope_ChangeRate" Header="Slope Change Rate">
-                <xctk:DoubleUpDown x:Name="slope_ChangeRate" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding SlopeChangeRate}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="slope_ChangeRate" Tag="scr"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[scr].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Current_Slope" Header="Current Slope">
                 <Label x:Name="current_Slope" Tag="2" Content="{Binding CurrentSlope}" HorizontalAlignment="Left" VerticalAlignment="Top" />
             </GroupBox>
             <GroupBox x:Name="Put_Curvature" Header="Put Curvature">
-                <xctk:DoubleUpDown x:Name="put_Curvature" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding PutCurvature}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="put_Curvature" Tag="put_curv"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[put_curv].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Call_Curvature" Header="Call Curvature">
-                <xctk:DoubleUpDown x:Name="call_Curvature" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding CallCurvature}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="call_Curvature" Tag="call_curv"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[call_curv].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Down_Cutoff" Header="Down Cutoff">
-                <xctk:DoubleUpDown x:Name="down_Cutoff" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownCutoff}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="down_Cutoff" Tag="dn_cf"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[dn_cf].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Up_Cutoff" Header="Up Cutoff">
-                <xctk:DoubleUpDown x:Name="up_Cutoff" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpCutoff}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="up_Cutoff" Tag="up_cf"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[up_cf].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Down_SmoothingRange" Header="Down Smoothing Range">
-                <xctk:DoubleUpDown x:Name="down_SmoothingRange" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownSmoothingRange}"  Minimum="0"  Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="down_SmoothingRange" Tag="dn_sm"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[dn_sm].Value}"  Minimum="0"  Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Up_SmoothingRange" Header="Up Smoothing Range">
-                <xctk:DoubleUpDown x:Name="up_SmoothingRange" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpSmoothingRange}"  Minimum="0" Maximum="1000000"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="up_SmoothingRange" Tag="up_sm"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[up_sm].Value}"  Minimum="0" Maximum="1000000"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Down_Slope" Header="Down Slope">
-                <xctk:DoubleUpDown x:Name="down_Slope" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownSlope}"  Minimum="-1000000" Maximum="1000000"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="down_Slope" Tag="dn_slope"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[dn_slope].Value}"  Minimum="-1000000" Maximum="1000000"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Up_Slope" Header="Up Slope">
-                <xctk:DoubleUpDown x:Name="up_Slope" Tag="2"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpSlope}"  Minimum="-1000000" Maximum="1000000"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="up_Slope" Tag="up_slope"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[up_slope].Value}"  Minimum="-1000000" Maximum="1000000"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
         </StackPanel>
         <StackPanel x:Name="VolatilityPanel1" Grid.Column="2">
             <GroupBox x:Name="Volatility_Reference1" Tag="3" Header="Volatility Reference">
-                <xctk:DoubleUpDown x:Name="volatility_Reference1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding VolatilityReference}"  Minimum="0" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="volatility_Reference1"   UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[vol_ref].Value}" Tag="vol_ref"  Minimum="0" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Volatility_ChangeRate1" Header="Volatility Change Rate">
-                <xctk:DoubleUpDown x:Name="volatility_ChangeRate1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding VolatilityChangeRate}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="volatility_ChangeRate1" Tag="vcr"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[vcr].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Current_Volatility1" Header="Current Volatility">
                 <Label x:Name="current_Volatility1" Tag="3" Content="{Binding CurrentVolatility}"  HorizontalAlignment="Left" VerticalAlignment="Top" />
             </GroupBox>
             <GroupBox x:Name="Slope_Reference1" Header="Slope Reference">
-                <xctk:DoubleUpDown x:Name="slope_Reference1"  Tag="3" UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding SlopeReference}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="slope_Reference1"  Tag="slope_ref" UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[slope_ref].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Slope_ChangeRate1" Header="Slope Change Rate">
-                <xctk:DoubleUpDown x:Name="slope_ChangeRate1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding SlopeChangeRate}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="slope_ChangeRate1" Tag="scr"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[scr].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Current_Slope1" Header="Current Slope">
                 <Label x:Name="current_Slope1" Tag="3" Content="{Binding CurrentSlope}" HorizontalAlignment="Left" VerticalAlignment="Top" />
             </GroupBox>
             <GroupBox x:Name="Put_Curvature1" Header="Put Curvature">
-                <xctk:DoubleUpDown x:Name="put_Curvature1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding PutCurvature}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="put_Curvature1" Tag="put_curv"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[put_curv].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Call_Curvature1" Header="Call Curvature">
-                <xctk:DoubleUpDown x:Name="call_Curvature1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding CallCurvature}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="call_Curvature1" Tag="call_curv"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[call_curv].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Down_Cutoff1" Header="Down Cutoff">
-                <xctk:DoubleUpDown x:Name="down_Cutoff1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownCutoff}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="down_Cutoff1" Tag="dn_cf"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[dn_cf].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Up_Cutoff1" Header="Up Cutoff">
-                <xctk:DoubleUpDown x:Name="up_Cutoff1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpCutoff}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="up_Cutoff1" Tag="up_cf"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[up_cf].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Down_SmoothingRange1" Header="Down Smoothing Range">
-                <xctk:DoubleUpDown x:Name="down_SmoothingRange1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownSmoothingRange}"  Minimum="0"  Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="down_SmoothingRange1" Tag="dn_sm"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[dn_sm].Value}"  Minimum="0"  Maximum="1000000" Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Up_SmoothingRange1" Header="Up Smoothing Range">
-                <xctk:DoubleUpDown x:Name="up_SmoothingRange1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpSmoothingRange}"  Minimum="0" Maximum="1000000"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="up_SmoothingRange1" Tag="up_sm"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[up_sm].Value}"  Minimum="0" Maximum="1000000"  Increment="0.01" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Down_Slope1" Header="Down Slope">
-                <xctk:DoubleUpDown x:Name="down_Slope1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DownSlope}"  Minimum="-1000000" Maximum="1000000"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="down_Slope1" Tag="dn_slope"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[dn_slope].Value}"  Minimum="-1000000" Maximum="1000000"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
             <GroupBox x:Name="Up_Slope1" Header="Up Slope">
-                <xctk:DoubleUpDown x:Name="up_Slope1" Tag="3"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding UpSlope}"  Minimum="-1000000" Maximum="1000000"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="up_Slope1" Tag="up_slope"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[up_slope].Value}"  Minimum="-1000000" Maximum="1000000"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>
         </StackPanel>
     </Grid>

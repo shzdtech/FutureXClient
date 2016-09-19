@@ -119,7 +119,7 @@ namespace Micro.Future.UI
                 underlyingContractCB1.ItemsSource = underlyingContracts;
             }
         }
-        private void underlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void underlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (underlyingContractCB1.SelectedItem != null)
             {

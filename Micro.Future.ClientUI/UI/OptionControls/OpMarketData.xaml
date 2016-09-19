@@ -31,7 +31,7 @@
             <Label Content="种类"></Label>
             <ComboBox Name="underlyingCB" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingCB_SelectionChanged"/>
             <Label Content="产品"></Label>
-            <ComboBox Name="underlyingContractCB"  SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingContractCB_SelectionChanged"/>
+            <ComboBox x:FieldModifier="public" Name="underlyingContractCB"  SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingContractCB_SelectionChanged"/>
         </WrapPanel>
         <Label x:Name="labelOption2" Grid.Row="2" Grid.Column="0" Content="期权2"/>
         <WrapPanel Grid.Row="3" Grid.Column="0">
