@@ -51,12 +51,7 @@ namespace Micro.Future.UI
 
             underlyingCB.ItemsSource = _contractList.Select(c => c.ProductID).Distinct();
             // Initialize Market Data
-
-            var traderExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
-            _viewSourcePosition.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RiskVMCollection;
-            _viewSourceRisk.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
             option_priceLV.ItemsSource = CallPutTDOptionVMCollection;
-            _viewSourceVolatility.Source = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().VolatilityVMCollection;
             _otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
 
 
@@ -177,12 +172,12 @@ namespace Micro.Future.UI
                 var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
 
                 var callList = (from o in optionList
-                                where o.ContractType == 2
+                                where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
                                 orderby o.StrikePrice
                                 select o.Contract).Distinct().ToList();
 
                 var putList = (from o in optionList
-                               where o.ContractType == 3
+                               where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
                                orderby o.StrikePrice
                                select o.Contract).Distinct().ToList();
                 CallPutTDOptionVMCollection.Clear();

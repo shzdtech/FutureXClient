@@ -176,6 +176,9 @@
     <Compile Include="UI\Frames\ForeignMarketFrame.xaml.cs">
       <DependentUpon>ForeignMarketFrame.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="UI\DomesticControls\AdvancedMakeOrderWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -293,6 +296,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Frames\ForeignMarketFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
