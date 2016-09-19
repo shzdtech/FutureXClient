@@ -140,17 +140,29 @@ namespace Micro.Future.ViewModel
 
         //public static readonly DependencyProperty TheoBidVolLineDataProperty =
         //   DependencyProperty.Register(nameof(TheoBidVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
-        public ObservableCollection<DataPoint> TheoBidVolLine { get; }
+        public ObservableCollection<DataPoint> TheoPutBidVolLine { get; }
             = new ObservableCollection<DataPoint>();
 
         //public static readonly DependencyProperty TheoAskVolLineDataProperty =
         //   DependencyProperty.Register(nameof(TheoAskVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
-        public ObservableCollection<DataPoint> TheoAskVolLine { get; }
+        public ObservableCollection<DataPoint> TheoPutAskVolLine { get; }
             = new ObservableCollection<DataPoint>();
 
         //public static readonly DependencyProperty TheoMidVolLineDataProperty =
         //   DependencyProperty.Register(nameof(TheoMidVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
-        public ObservableCollection<DataPoint> TheoMidVolLine { get; }
+        public ObservableCollection<DataPoint> TheoPutMidVolLine { get; }
+            = new ObservableCollection<DataPoint>();
+        public ObservableCollection<DataPoint> TheoCallBidVolLine { get; }
+    = new ObservableCollection<DataPoint>();
+
+        //public static readonly DependencyProperty TheoAskVolLineDataProperty =
+        //   DependencyProperty.Register(nameof(TheoAskVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
+        public ObservableCollection<DataPoint> TheoCallAskVolLine { get; }
+            = new ObservableCollection<DataPoint>();
+
+        //public static readonly DependencyProperty TheoMidVolLineDataProperty =
+        //   DependencyProperty.Register(nameof(TheoMidVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
+        public ObservableCollection<DataPoint> TheoCallMidVolLine { get; }
             = new ObservableCollection<DataPoint>();
 
         public ObservableCollection<ScatterPoint> CallAskVolScatter { get; }
