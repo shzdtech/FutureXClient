@@ -10,7 +10,7 @@
              lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
              lex:ResxLocalizationProvider.DefaultDictionary="Resources"
              mc:Ignorable="d" 
-             d:DesignHeight="75" d:DesignWidth="600">
+             d:DesignHeight="100" d:DesignWidth="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

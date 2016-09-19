@@ -24,5 +24,13 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
         }
+
+        private void onunderlyingContractCB_SelectionChanged(string Contract)
+        {
+            var opMarketMakerCtrl = new OpMarketMakerCtrl();
+            var volCurvCtrl = new VolCurvCtrl();
+
+        }
+
     }
 }
