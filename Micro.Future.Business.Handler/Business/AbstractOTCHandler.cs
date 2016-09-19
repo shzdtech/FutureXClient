@@ -142,6 +142,8 @@ namespace Micro.Future.Message
             {
                 PortfolioVMCollection.Add(new PortfolioVM { Name = portfolio.Name });
             }
+
+            
         }
 
         public void CreatePortfolios(IEnumerable<PortfolioVM> portfolios)
