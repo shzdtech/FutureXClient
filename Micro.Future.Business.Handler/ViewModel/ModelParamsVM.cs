@@ -43,6 +43,12 @@ namespace Micro.Future.ViewModel
             }
         }
 
-
+        public NamedParamVM this[string paramName]
+        {
+            get
+            {
+               return Params.FirstOrDefault(p => p.Name == paramName);
+            }
+        }
     }
 }

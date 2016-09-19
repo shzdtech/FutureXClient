@@ -28,4 +28,17 @@ namespace Micro.Future.Message
         ///
         PRODUCT_UPPERBOUND,
     };
+
+    public enum ContractType
+    {
+        CONTRACTTYPE_UNSPECIFIED = 0,
+        CONTRACTTYPE_FUTURE = 1,
+        CONTRACTTYPE_CALL_OPTION = 2,
+        CONTRACTTYPE_PUT_OPTION = 3,
+        CONTRACTTYPE_SPREAD = 4,
+        CONTRACTTYPE_BUTTERFLY = 5,
+        CONTRACTTYPE_INDEX_2_LEGS = 6,
+        CONTRACTTYPE_INDEX_4_LEGS = 7,
+        CONTRACTTYPE_CASHSPOT = 8,
+    };
 }

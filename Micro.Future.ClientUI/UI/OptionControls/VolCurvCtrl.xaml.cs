@@ -115,12 +115,12 @@ namespace Micro.Future.UI
                               select o.StrikePrice).Distinct().ToList();  
 
             var callList = (from o in optionList
-                            where o.ContractType == 2
+                            where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
                             orderby o.StrikePrice
                             select o.Contract).Distinct().ToList();
 
             var putList = (from o in optionList
-                           where o.ContractType == 3
+                           where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
                            orderby o.StrikePrice
                            select o.Contract).Distinct().ToList();
 
