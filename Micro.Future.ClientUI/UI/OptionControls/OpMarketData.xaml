@@ -51,7 +51,7 @@
             <Label Content="合约"></Label>
             <TextBox Name="contractTextBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" KeyDown="contractTextBox1_KeyDown"  />
         </WrapPanel>
-        <Label x:Name="labelFuture2" Grid.Row="2" Grid.Column="1" Content="期货1"/>
+        <Label x:Name="labelFuture2" Grid.Row="2" Grid.Column="1" Content="期货2"/>
         <WrapPanel Grid.Row="3" Grid.Column="1">
             <Label Content="交易所"></Label>
             <ComboBox Name="exchange2" SelectedIndex="0" Width="auto" VerticalAlignment="Center"/>

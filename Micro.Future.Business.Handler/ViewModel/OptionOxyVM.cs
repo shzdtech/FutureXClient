@@ -176,6 +176,20 @@ namespace Micro.Future.ViewModel
         public void ClearAll()
         {
             CallBidVolLine.Clear();
+            CallAskVolLine.Clear();
+            CallMidVolLine.Clear();
+            PutBidVolLine.Clear();
+            PutAskVolLine.Clear();
+            PutMidVolLine.Clear();
+            TheoPutBidVolLine.Clear();
+            TheoPutAskVolLine.Clear();
+            TheoPutMidVolLine.Clear();
+            TheoCallBidVolLine.Clear();
+            TheoCallAskVolLine.Clear();
+            TheoCallMidVolLine.Clear();
+            CallAskVolScatter.Clear();
+            TheoBidPutVolScatter.Clear();
+            TheoBidCallVolScatter.Clear();
         }
 
     }
