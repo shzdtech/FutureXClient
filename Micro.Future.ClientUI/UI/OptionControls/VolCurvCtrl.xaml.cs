@@ -62,9 +62,9 @@ namespace Micro.Future.UI
             theoAskSC.MarkerOutline = CustomOxyMarkers.RDTriangle;
 
             var internalBidSS = theoBidSC.CreateModel() as OxyPlot.Series.ScatterSeries;
-            internalBidSS.MouseDown += InternalBidSS_MouseDown;
+            internalBidSS.MouseDown += InternalScatter_MouseDown;
             var internalAskSS = theoAskSC.CreateModel() as OxyPlot.Series.ScatterSeries;
-            internalAskSS.MouseDown += InternalAskSS_MouseDown;
+            internalAskSS.MouseDown += InternalScatter_MouseDown;
 
             _otcHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
 
@@ -148,7 +148,7 @@ namespace Micro.Future.UI
         }
 
 
-        private void InternalBidSS_MouseDown(object sender, OxyMouseDownEventArgs e)
+        private void InternalScatter_MouseDown(object sender, OxyMouseDownEventArgs e)
         {
             var bpSC = sender as OxyPlot.Series.ScatterSeries;
             if (bpSC != null)
@@ -168,27 +168,6 @@ namespace Micro.Future.UI
                 }
             }
         }
-        private void InternalAskSS_MouseDown(object sender, OxyMouseDownEventArgs e)
-        {
-            var bpSC = sender as OxyPlot.Series.ScatterSeries;
-            if (bpSC != null)
-            {
-                TrackerHitResult nearestPoint = bpSC.GetNearestPoint(e.Position, false);
-                if (nearestPoint != null)
-                {
-                    var point = nearestPoint.Item as ScatterPoint;
-                    if (point != null)
-                    {
-                        var strategyVM = (StrategyVM)point.Tag;
-                        strategyVM.Enable = !strategyVM.AskEnabled;
-                        point.Value = strategyVM.AskEnabled ? 1 : 0;
-                        bpSC.PlotModel.InvalidatePlot(false);
-
-                    }
-                }
-            }
-        }
-
     }
 
 

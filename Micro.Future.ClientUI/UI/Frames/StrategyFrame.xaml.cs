@@ -16,7 +16,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class StrategyFrame : UserControl, IUserFrame
     {
-        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AbstractOTCHandler>());
+        private AbstractSignInManager _otcSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AbstractOTCHandler>());
 
         public StrategyFrame()
         {
@@ -55,12 +55,12 @@ namespace Micro.Future.UI
 
         public void LoginAsync(string usernname, string password, string server)
         {
-            _tdSignIner.SignInOptions.UserName = usernname;
-            _tdSignIner.SignInOptions.Password = password;
+            _otcSignIner.SignInOptions.UserName = usernname;
+            _otcSignIner.SignInOptions.Password = password;
 
-            var entries = _tdSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            var entries = _otcSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
-                _tdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+                _otcSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
             TDServerLogin();
         }
@@ -73,17 +73,17 @@ namespace Micro.Future.UI
             contractParamListView.OTCHandler = handler;
 
             // Initialize Market Data
-            var msgWrapper = _tdSignIner.MessageWrapper;
+            var msgWrapper = _otcSignIner.MessageWrapper;
 
-            _tdSignIner.OnLogged += TdLoginStatus.OnLogged;
-            _tdSignIner.OnLoginError += TdLoginStatus.OnDisconnected;
+            _otcSignIner.OnLogged += TdLoginStatus.OnLogged;
+            _otcSignIner.OnLoginError += TdLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += TdLoginStatus.OnDisconnected;
-            _tdSignIner.OnLogged += _tdSignIner_OnLogged;
+            _otcSignIner.OnLogged += _otcSignIner_OnLogged;
 
             handler.RegisterMessageWrapper(msgWrapper);;
         }
 
-        private void _tdSignIner_OnLogged(IUserInfo obj)
+        private void _otcSignIner_OnLogged(IUserInfo obj)
         {
             strategyListView.ReloadData();
             contractParamListView.ReloadData();
@@ -92,10 +92,10 @@ namespace Micro.Future.UI
 
         private void TDServerLogin()
         {
-            if (!_tdSignIner.MessageWrapper.HasSignIn)
+            if (!_otcSignIner.MessageWrapper.HasSignIn)
             {
                 TdLoginStatus.Prompt = "正在连接TradingDesk服务器...";
-                _tdSignIner.SignIn();
+                _otcSignIner.SignIn();
             }
         }
 
