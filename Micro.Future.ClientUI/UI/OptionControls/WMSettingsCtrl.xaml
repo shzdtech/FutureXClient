@@ -45,7 +45,7 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Tag="1" Text="{Binding Path=Value,ElementName=sSR}" />
-                    <Slider Grid.Row="1" x:Name="sSR" HorizontalAlignment="Left" Tag="1" Value="{Binding SSR}"  VerticalAlignment="Top" Width="130" TickFrequency="100" Maximum="100" Minimum="0"  />
+                    <Slider Grid.Row="1" x:Name="sSR" HorizontalAlignment="Left" Tag="up_cf" Value="{Binding Path=[up_cf].Value}"  VerticalAlignment="Top" Width="130" TickFrequency="100" Maximum="100" Minimum="0"  />
                 </Grid>
             </GroupBox>
             <GroupBox x:Name="Contract_ExpirationMonth" Header="Contract ExpirationMonth">
