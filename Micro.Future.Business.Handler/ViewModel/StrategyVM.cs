@@ -21,7 +21,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _weight = value;
-                OnPropertyChanged("Weight");
+                OnPropertyChanged(nameof(Weight));
             }
         }
     }
@@ -46,7 +46,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _underlying = value;
-                OnPropertyChanged("Underlying");
+                OnPropertyChanged(nameof(Underlying));
             }
         }
 
@@ -60,7 +60,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _strategySym = value;
-                OnPropertyChanged("StrategySym");
+                OnPropertyChanged(nameof(StrategySym));
             }
         }
 
@@ -74,35 +74,49 @@ namespace Micro.Future.ViewModel
             set
             {
                 _description = value;
-                OnPropertyChanged("Description");
+                OnPropertyChanged(nameof(Description));
             }
         }
 
-        private bool _enabled;
-        public bool Enabled
+        private bool _bidEnabled;
+        public bool BidEnabled
         {
             get
             {
-                return _enabled;
+                return _bidEnabled;
             }
             set
             {
-                _enabled = value;
-                OnPropertyChanged("Enabled");
+                _bidEnabled = value;
+                OnPropertyChanged(nameof(BidEnabled));
             }
         }
 
-        private bool _tradingAllowed;
-        public bool IsTradingAllowed
+        private bool _askEnabled;
+        public bool AskEnabled
         {
             get
             {
-                return _tradingAllowed;
+                return _askEnabled;
             }
             set
             {
-                _tradingAllowed = value;
-                OnPropertyChanged("IsTradingAllowed");
+                _askEnabled = value;
+                OnPropertyChanged(nameof(AskEnabled));
+            }
+        }
+
+        private bool _hedgeing;
+        public bool Hedging
+        {
+            get
+            {
+                return _hedgeing;
+            }
+            set
+            {
+                _hedgeing = value;
+                OnPropertyChanged(nameof(Hedging));
             }
         }
 
@@ -116,7 +130,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _depth = value;
-                OnPropertyChanged("Depth");
+                OnPropertyChanged(nameof(Depth));
             }
         }
 
@@ -127,7 +141,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _pricingModel = value;
-                OnPropertyChanged("PricingModel");
+                OnPropertyChanged(nameof(PricingModel));
             }
         }
 
@@ -138,7 +152,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _ivModel = value;
-                OnPropertyChanged("IVModel");
+                OnPropertyChanged(nameof(IVModel));
             }
         }
 
@@ -149,7 +163,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _volModel = value;
-                OnPropertyChanged("VolModel");
+                OnPropertyChanged(nameof(VolModel));
             }
         }
 

@@ -165,9 +165,10 @@ namespace Micro.Future.Message
                 var strategyVM = StrategyVMCollection.FindContract(strategy.Exchange, strategy.Contract);
                 if (strategyVM != null)
                 {
-                    strategyVM.IsTradingAllowed = strategy.AllowTrading;
+                    strategyVM.Hedging = strategy.Hedging;
                     strategyVM.Depth = strategy.Depth;
-                    strategyVM.Enabled = strategy.Enabled;
+                    strategyVM.BidEnabled = strategy.BidEnabled;
+                    strategyVM.AskEnabled = strategy.AskEnabled;
                     strategyVM.Quantity = strategy.Quantity;
                     break;
                 }
@@ -200,8 +201,9 @@ namespace Micro.Future.Message
             strategy.Contract = sVM.Contract;
             strategy.Depth = sVM.Depth;
             strategy.Quantity = sVM.Quantity;
-            strategy.AllowTrading = sVM.IsTradingAllowed;
-            strategy.Enabled = sVM.Enabled;
+            strategy.Hedging = sVM.Hedging;
+            strategy.AskEnabled = sVM.AskEnabled;
+            strategy.BidEnabled = sVM.BidEnabled;
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }
@@ -256,12 +258,13 @@ namespace Micro.Future.Message
 
                 strategyVM.Exchange = strategy.Exchange;
                 strategyVM.Contract = strategy.Contract;
-                strategyVM.IsTradingAllowed = strategy.AllowTrading;
+                strategyVM.Hedging = strategy.Hedging;
                 strategyVM.Underlying = strategy.Underlying;
                 strategyVM.StrategySym = strategy.Symbol;
                 strategyVM.Description = strategy.Description;
                 strategyVM.Depth = strategy.Depth;
-                strategyVM.Enabled = strategy.Enabled;
+                strategyVM.AskEnabled = strategy.AskEnabled;
+                strategyVM.BidEnabled = strategy.BidEnabled;
                 strategyVM.Quantity = strategy.Quantity;
                 strategyVM.IVModel = strategy.IvModel;
                 strategyVM.VolModel = strategy.VolModel;

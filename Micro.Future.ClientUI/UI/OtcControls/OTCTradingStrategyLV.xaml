@@ -19,10 +19,17 @@
             <ListView Name="OTCTradingLV" Grid.Column="0" ItemsSource="{Binding}" SelectionChanged="OTCTradingLV_SelectionChanged">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="启用">
+                        <GridViewColumn Header="启用Bid报价">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox IsChecked="{Binding Enabled}" Command="{Binding UpdateCommand}"></CheckBox>
+                                    <CheckBox IsChecked="{Binding BidEnabled}" Command="{Binding UpdateCommand}"></CheckBox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="启用Ask报价">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding AskEnabled}" Command="{Binding UpdateCommand}"></CheckBox>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -35,7 +42,7 @@
                         <GridViewColumn Header="AutoTrading">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox IsChecked="{Binding IsTradingAllowed}" Command="{Binding UpdateCommand}"></CheckBox>
+                                    <CheckBox IsChecked="{Binding Hedging}" Command="{Binding UpdateCommand}"></CheckBox>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
