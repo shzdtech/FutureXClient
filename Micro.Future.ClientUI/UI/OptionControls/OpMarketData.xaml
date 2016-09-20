@@ -27,7 +27,7 @@
         <Label x:Name="labelOption1" Grid.Row="0" Grid.Column="0" Content="期权1"/>
         <WrapPanel Grid.Row="1" Grid.Column="0">
             <Label Content="交易所"></Label>
-            <ComboBox Name="underlyingEX" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingCB_SelectionChanged"/>
+            <ComboBox Name="underlyingEX" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingEX_SelectionChanged"/>
             <Label Content="种类"></Label>
             <ComboBox Name="underlyingCB" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingCB_SelectionChanged"/>
             <Label Content="产品"></Label>

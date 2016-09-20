@@ -24,18 +24,25 @@ namespace Micro.Future.UI
     {
         private VolCurvCtrl _volCurvCtrl = new VolCurvCtrl();
         private OpMarketData _opMarketData = new OpMarketData();
+        private OTCOptionHandler _otcHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
         public OptionModelCtrl()
         {
             InitializeComponent();
-            OpMarketControl.underlyingContractCB1.SelectionChanged += UnderlyingContractCB1_SelectionChanged;        }
+            OpMarketControl.underlyingContractCB1.SelectionChanged += UnderlyingContractCB1_SelectionChanged;
+        }
 
         private async void UnderlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ModelParamsVM modelParams = new ModelParamsVM();
-            var uc = OpMarketControl.underlyingContractCB1.SelectedItem;
-            _volCurvCtrl.SelectOption(uc.ToString());
-            var modelparamsVM = await MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>()?.QueryModelParamsAsync(modelParams.Model);
-            WMSettingsLV.DataContext = modelparamsVM;
+            var exchange = OpMarketControl.underlyingEX.SelectedValue;
+            var uc = OpMarketControl.underlyingContractCB1.SelectedValue;
+
+            if (exchange != null && uc != null)
+            {
+                _volCurvCtrl.SelectOption(uc.ToString());
+                var strategyVM = _otcHandler.StrategyVMCollection.FirstOrDefault(s => s.Contract == uc.ToString() && s.Exchange == exchange.ToString());
+                var modelparamsVM = await _otcHandler.QueryModelParamsAsync(strategyVM.VolModel);
+                //WMSettingsLV.DataContext = modelparamsVM;
+            }
         }
     }
 }

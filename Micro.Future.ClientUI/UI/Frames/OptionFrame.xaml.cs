@@ -31,7 +31,7 @@ namespace Micro.Future.UI
     public partial class OptionFrame : UserControl, IUserFrame
     {
         private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionHandler>());
-        private AbstractSignInManager _ctpSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPOptionDataHandler>());
+        // private AbstractSignInManager _ctpSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPOptionDataHandler>());
 
         public string Title
         {
@@ -61,28 +61,18 @@ namespace Micro.Future.UI
 
         public void LoginAsync(string usernname, string password, string server)
         {
-            _tdSignIner.SignInOptions.UserName = _ctpSignIner.SignInOptions.UserName = usernname;
-            _tdSignIner.SignInOptions.Password = _ctpSignIner.SignInOptions.Password = password;
+            _tdSignIner.SignInOptions.UserName = usernname;
+            _tdSignIner.SignInOptions.Password = password;
 
             var entries = _tdSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _tdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
-            entries = _ctpSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            if (server != null && entries.Length < 2)
-                _ctpSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+            //entries = _ctpSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            //if (server != null && entries.Length < 2)
+            //    _ctpSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
             TDServerLogin();
-            MDServerLogin();
-        }
-
-        private void MDServerLogin()
-        {
-            if (!_ctpSignIner.MessageWrapper.HasSignIn)
-            {
-                OptionMdLoginStatus.Prompt = "正在连接期权服务器...";
-                _ctpSignIner.SignIn();
-            }
         }
 
         public void Initialize()
@@ -93,10 +83,17 @@ namespace Micro.Future.UI
             var msgWrapper = _tdSignIner.MessageWrapper;
             _tdSignIner.OnLogged += OptionLoginStatus.OnLogged;
             _tdSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
+            _tdSignIner.OnLogged += _tdSignIner_OnLogged;
+
             msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
             MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>().RegisterMessageWrapper(msgWrapper);
             optionPane.AddContent(new OptionModelCtrl()).Title = "Model";
             optionPane.AddContent(new OpMarketMakerCtrl()).Title = "Market Maker";
+        }
+
+        private void _tdSignIner_OnLogged(IUserInfo obj)
+        {
+            MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>().QueryStrategy();
         }
 
         private void TDServerLogin()
@@ -149,14 +146,6 @@ namespace Micro.Future.UI
         private void OptionLoginStatus_OnConnButtonClick(object sender, EventArgs e)
         {
             TDServerLogin();
-        }
-
-        
-
-
-        private void OptionMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
-        {
-            MDServerLogin();
         }
 
         private void Add_Model_Click(object sender, RoutedEventArgs e)

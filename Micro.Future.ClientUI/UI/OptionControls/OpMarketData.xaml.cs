@@ -48,8 +48,7 @@ namespace Micro.Future.UI
                 _contractList = clientCache.ContractInfo.Where(c => c.ProductType == 1).ToList();
             }
 
-            underlyingCB.ItemsSource = _contractList.Select(c => c.ProductID).Distinct();
-            underlyingCB1.ItemsSource = _contractList.Select(c => c.ProductID).Distinct();
+            underlyingEX.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             _viewSource.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
             quoteListView1.ItemsSource = _viewSource.View;
             quoteListView2.ItemsSource = _viewSource.View;
@@ -61,12 +60,12 @@ namespace Micro.Future.UI
 
         private void underlyingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var productId = underlyingCB.SelectedItem.ToString();
+            var productId = underlyingCB.SelectedValue;
 
             if (productId != null)
             {
                 var underlyingContracts = (from c in _contractList
-                                           where c.ProductID == productId
+                                           where c.ProductID == productId.ToString()
                                            select c.UnderlyingContract).Distinct().ToList();
 
                 underlyingContractCB.ItemsSource = underlyingContracts;
@@ -75,9 +74,9 @@ namespace Micro.Future.UI
 
         private void underlyingContractCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (underlyingContractCB.SelectedItem != null)
+            if (underlyingContractCB.SelectedValue != null)
             {
-                var uc = underlyingContractCB.SelectedItem.ToString();
+                var uc = underlyingContractCB.SelectedValue.ToString();
 
 
                 var optionList = (from c in _contractList
@@ -110,12 +109,12 @@ namespace Micro.Future.UI
 
         private void underlyingCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var productId = underlyingCB1.SelectedItem.ToString();
+            var productId = underlyingCB1.SelectedValue;
 
             if (productId != null)
             {
                 var underlyingContracts = (from c in _contractList
-                                           where c.ProductID == productId
+                                           where c.ProductID == productId.ToString()
                                            select c.UnderlyingContract).Distinct().ToList();
 
                 underlyingContractCB1.ItemsSource = underlyingContracts;
@@ -123,9 +122,9 @@ namespace Micro.Future.UI
         }
         public void underlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (underlyingContractCB1.SelectedItem != null)
+            if (underlyingContractCB1.SelectedValue != null)
             {
-                var uc = underlyingContractCB1.SelectedItem.ToString();
+                var uc = underlyingContractCB1.SelectedValue.ToString();
 
                 var optionList = (from c in _contractList
                                   where c.UnderlyingContract == uc
@@ -203,6 +202,12 @@ namespace Micro.Future.UI
         private void exchange1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void underlyingEX_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var exchange = underlyingEX.SelectedValue.ToString();
+            underlyingCB.ItemsSource = _contractList.Where(c=>c.Exchange == exchange).Select(c => c.ProductID).Distinct();
         }
     }
 }
