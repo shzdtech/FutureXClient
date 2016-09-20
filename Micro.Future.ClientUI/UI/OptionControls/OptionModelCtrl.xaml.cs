@@ -33,8 +33,8 @@ namespace Micro.Future.UI
             ModelParamsVM modelParams = new ModelParamsVM();
             var uc = OpMarketControl.underlyingContractCB1.SelectedItem;
             _volCurvCtrl.SelectOption(uc.ToString());
-            var modelparamsVM = await OTCHandler?.QueryModelParamsAsync(modelParams.Model);
-            VolatilityPanel. = modelParams.Params;
+            //var modelparamsVM = await OTCHandler?.QueryModelParamsAsync(modelParams.Model);
+            //VolatilityPanel = modelParams.Params;
         }
     }
 }
