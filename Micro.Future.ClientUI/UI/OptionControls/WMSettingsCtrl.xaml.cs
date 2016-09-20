@@ -25,8 +25,6 @@ namespace Micro.Future.UI
         public WMSettingsCtrl()
         {
             InitializeComponent();
-            StrikePricePanel.DataContext = new NumericalSimVM();
-            VolatilityPanel.DataContext = ModelParams;
         }
         public ModelParamsVM ModelParams
         {

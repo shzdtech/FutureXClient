@@ -29,8 +29,8 @@
                 <oxy:LineSeries>
                     <oxy:LineSeries Name="theoBidLS"  ItemsSource="{Binding TheoBidVolLine}" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 </oxy:LineSeries>
-                <oxy:ScatterSeries Name="theoBidPutSC" ItemsSource="{Binding TheoBidPutVolScatter}" ColorAxisKey="redLineColorAxis"  MarkerType="Custom" MarkerSize="10" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MouseDown="theoBidPutSC_MouseDown"/>
-                <oxy:ScatterSeries Name="theoBidCallSC" ItemsSource="{Binding TheoBidCallVolScatter}" ColorAxisKey="greenLineColorAxis" MarkerType="Custom" MarkerSize="10" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:ScatterSeries Name="theoBidSC" ItemsSource="{Binding TheoBidVolScatter}" ColorAxisKey="redLineColorAxis"  MarkerType="Custom" MarkerSize="10" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MouseDown="InternalBidSS_MouseDown"/>
+                <oxy:ScatterSeries Name="theoAskSC" ItemsSource="{Binding TheoAskVolScatter}" ColorAxisKey="greenLineColorAxis" MarkerType="Custom" MarkerSize="10" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MouseDown="InternalAskSS_MouseDown"/>
                 <oxy:LineSeries Name="theoAskLS" ItemsSource="{Binding TheoAskVolLine}" Visibility="{Binding ElementName=checkBoxTheoAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="theoMidLS" ItemsSource="{Binding TheoMidVolLine}" Visibility="{Binding ElementName=checkBoxTheoMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
             </oxy:Plot.Series>

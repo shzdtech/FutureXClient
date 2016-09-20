@@ -137,40 +137,18 @@ namespace Micro.Future.ViewModel
         //   DependencyProperty.Register(nameof(PutMidVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
         public ObservableCollection<DataPoint> PutMidVolLine { get; }
             = new ObservableCollection<DataPoint>();
-
-        //public static readonly DependencyProperty TheoBidVolLineDataProperty =
-        //   DependencyProperty.Register(nameof(TheoBidVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
-        public ObservableCollection<DataPoint> TheoPutBidVolLine { get; }
+        public ObservableCollection<DataPoint> TheoBidVolLine { get; }
             = new ObservableCollection<DataPoint>();
 
-        //public static readonly DependencyProperty TheoAskVolLineDataProperty =
-        //   DependencyProperty.Register(nameof(TheoAskVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
-        public ObservableCollection<DataPoint> TheoPutAskVolLine { get; }
+        public ObservableCollection<DataPoint> TheoAskVolLine { get; }
             = new ObservableCollection<DataPoint>();
 
-        //public static readonly DependencyProperty TheoMidVolLineDataProperty =
-        //   DependencyProperty.Register(nameof(TheoMidVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
-        public ObservableCollection<DataPoint> TheoPutMidVolLine { get; }
-            = new ObservableCollection<DataPoint>();
-        public ObservableCollection<DataPoint> TheoCallBidVolLine { get; }
-    = new ObservableCollection<DataPoint>();
-
-        //public static readonly DependencyProperty TheoAskVolLineDataProperty =
-        //   DependencyProperty.Register(nameof(TheoAskVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
-        public ObservableCollection<DataPoint> TheoCallAskVolLine { get; }
+        public ObservableCollection<DataPoint> TheoMidVolLine { get; }
             = new ObservableCollection<DataPoint>();
 
-        //public static readonly DependencyProperty TheoMidVolLineDataProperty =
-        //   DependencyProperty.Register(nameof(TheoMidVolLine), typeof(ObservableCollection<DataPoint>), typeof(LineSeries));
-        public ObservableCollection<DataPoint> TheoCallMidVolLine { get; }
-            = new ObservableCollection<DataPoint>();
-
-        public ObservableCollection<ScatterPoint> CallAskVolScatter { get; }
+        public ObservableCollection<ScatterPoint> TheoAskVolScatter { get; }
             = new ObservableCollection<ScatterPoint>();
-        public ObservableCollection<ScatterPoint> TheoBidPutVolScatter { get; }
-            = new ObservableCollection<ScatterPoint>();
-
-        public ObservableCollection<ScatterPoint> TheoBidCallVolScatter { get; }
+        public ObservableCollection<ScatterPoint> TheoBidVolScatter { get; }
             = new ObservableCollection<ScatterPoint>();
 
         public void ClearAll()
@@ -181,15 +159,11 @@ namespace Micro.Future.ViewModel
             PutBidVolLine.Clear();
             PutAskVolLine.Clear();
             PutMidVolLine.Clear();
-            TheoPutBidVolLine.Clear();
-            TheoPutAskVolLine.Clear();
-            TheoPutMidVolLine.Clear();
-            TheoCallBidVolLine.Clear();
-            TheoCallAskVolLine.Clear();
-            TheoCallMidVolLine.Clear();
-            CallAskVolScatter.Clear();
-            TheoBidPutVolScatter.Clear();
-            TheoBidCallVolScatter.Clear();
+            TheoBidVolLine.Clear();
+            TheoAskVolLine.Clear();
+            TheoMidVolLine.Clear();
+            TheoAskVolScatter.Clear();
+            TheoBidVolScatter.Clear();
         }
 
     }

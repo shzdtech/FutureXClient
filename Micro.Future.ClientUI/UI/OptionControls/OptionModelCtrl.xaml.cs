@@ -1,4 +1,5 @@
-﻿using Micro.Future.ViewModel;
+﻿using Micro.Future.Message;
+using Micro.Future.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,13 +29,13 @@ namespace Micro.Future.UI
             InitializeComponent();
             OpMarketControl.underlyingContractCB1.SelectionChanged += UnderlyingContractCB1_SelectionChanged;        }
 
-        private void UnderlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void UnderlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ModelParamsVM modelParams = new ModelParamsVM();
             var uc = OpMarketControl.underlyingContractCB1.SelectedItem;
             _volCurvCtrl.SelectOption(uc.ToString());
-            //var modelparamsVM = await OTCHandler?.QueryModelParamsAsync(modelParams.Model);
-            //VolatilityPanel = modelParams.Params;
+            var modelparamsVM = await MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>()?.QueryModelParamsAsync(modelParams.Model);
+            WMSettingsLV.DataContext = modelparamsVM;
         }
     }
 }

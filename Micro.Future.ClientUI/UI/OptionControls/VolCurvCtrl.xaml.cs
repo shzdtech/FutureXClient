@@ -58,11 +58,13 @@ namespace Micro.Future.UI
             //PlotVolatility.Model = traderExHandler.OptionOxyVM.PlotModel;
             volPlot.DataContext = VolatilityLinesVM;
             //VegaPosition.Model = _otcHandler.OptionOxyVM.PlotModelBar;
-            theoBidPutSC.MarkerOutline = CustomOxyMarkers.LDTriangle;
-            theoBidCallSC.MarkerOutline = CustomOxyMarkers.RDTriangle;
+            theoBidSC.MarkerOutline = CustomOxyMarkers.LDTriangle;
+            theoAskSC.MarkerOutline = CustomOxyMarkers.RDTriangle;
 
-            var internalSS = theoBidCallSC.CreateModel() as OxyPlot.Series.ScatterSeries;
-            internalSS.MouseDown += InternalSS_MouseDown;
+            var internalBidSS = theoBidSC.CreateModel() as OxyPlot.Series.ScatterSeries;
+            internalBidSS.MouseDown += InternalBidSS_MouseDown;
+            var internalAskSS = theoAskSC.CreateModel() as OxyPlot.Series.ScatterSeries;
+            internalAskSS.MouseDown += InternalAskSS_MouseDown;
 
             _otcHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
 
@@ -80,9 +82,9 @@ namespace Micro.Future.UI
                     VolatilityLinesVM.PutAskVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.MarketDataVM.AskVol);
                     VolatilityLinesVM.PutBidVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.MarketDataVM.BidVol);
                     VolatilityLinesVM.PutMidVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.MarketDataVM.MidVol);
-                    VolatilityLinesVM.TheoPutAskVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.TheoDataVM.AskVol);
-                    VolatilityLinesVM.TheoPutBidVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.TheoDataVM.BidVol);
-                    VolatilityLinesVM.TheoPutMidVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.TheoDataVM.MidVol);
+                    VolatilityLinesVM.TheoAskVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.TheoDataVM.AskVol);
+                    VolatilityLinesVM.TheoBidVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.TheoDataVM.BidVol);
+                    VolatilityLinesVM.TheoMidVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.TheoDataVM.MidVol);
 
                 }
                 else
@@ -94,10 +96,6 @@ namespace Micro.Future.UI
                         VolatilityLinesVM.CallAskVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.MarketDataVM.AskVol);
                         VolatilityLinesVM.CallBidVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.MarketDataVM.BidVol);
                         VolatilityLinesVM.CallMidVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.MarketDataVM.MidVol);
-                        VolatilityLinesVM.TheoCallAskVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.TheoDataVM.AskVol);
-                        VolatilityLinesVM.TheoCallBidVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.TheoDataVM.BidVol);
-                        VolatilityLinesVM.TheoCallMidVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.TheoDataVM.MidVol);
-
                     }
                 }
             }
@@ -136,14 +134,11 @@ namespace Micro.Future.UI
                 VolatilityLinesVM.PutAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol));
                 VolatilityLinesVM.PutBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol));
                 VolatilityLinesVM.PutMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.MidVol));
-                VolatilityLinesVM.TheoPutAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.AskVol));
-                VolatilityLinesVM.TheoPutBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.BidVol));
-                VolatilityLinesVM.TheoPutMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.MidVol));
-                VolatilityLinesVM.TheoCallAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.CallOptionVM.TheoDataVM.AskVol));
-                VolatilityLinesVM.TheoCallBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.CallOptionVM.TheoDataVM.BidVol));
-                VolatilityLinesVM.TheoCallMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.CallOptionVM.TheoDataVM.MidVol));
-                VolatilityLinesVM.TheoBidPutVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.BidVol, double.NaN, 0, vm.CallStrategyVM));
-                VolatilityLinesVM.TheoBidCallVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.TheoDataVM.BidVol, double.NaN, 0, vm.CallStrategyVM));
+                VolatilityLinesVM.TheoAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.AskVol));
+                VolatilityLinesVM.TheoBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.BidVol));
+                VolatilityLinesVM.TheoMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.MidVol));
+                VolatilityLinesVM.TheoBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.BidVol, double.NaN, 0, vm.CallStrategyVM));
+                VolatilityLinesVM.TheoBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.TheoDataVM.BidVol, double.NaN, 0, vm.CallStrategyVM));
             }
         }
 
@@ -153,7 +148,7 @@ namespace Micro.Future.UI
         }
 
 
-        private void InternalSS_MouseDown(object sender, OxyMouseDownEventArgs e)
+        private void InternalBidSS_MouseDown(object sender, OxyMouseDownEventArgs e)
         {
             var bpSC = sender as OxyPlot.Series.ScatterSeries;
             if (bpSC != null)
@@ -165,8 +160,28 @@ namespace Micro.Future.UI
                     if (point != null)
                     {
                         var strategyVM = (StrategyVM)point.Tag;
-                        strategyVM.Enable = !strategyVM.Enable;
-                        point.Value = strategyVM.Enable ? 1 : 0;
+                        strategyVM.Enable = !strategyVM.BidEnabled;
+                        point.Value = strategyVM.BidEnabled ? 1 : 0;
+                        bpSC.PlotModel.InvalidatePlot(false);
+
+                    }
+                }
+            }
+        }
+        private void InternalAskSS_MouseDown(object sender, OxyMouseDownEventArgs e)
+        {
+            var bpSC = sender as OxyPlot.Series.ScatterSeries;
+            if (bpSC != null)
+            {
+                TrackerHitResult nearestPoint = bpSC.GetNearestPoint(e.Position, false);
+                if (nearestPoint != null)
+                {
+                    var point = nearestPoint.Item as ScatterPoint;
+                    if (point != null)
+                    {
+                        var strategyVM = (StrategyVM)point.Tag;
+                        strategyVM.Enable = !strategyVM.AskEnabled;
+                        point.Value = strategyVM.AskEnabled ? 1 : 0;
                         bpSC.PlotModel.InvalidatePlot(false);
 
                     }
@@ -174,16 +189,6 @@ namespace Micro.Future.UI
             }
         }
 
-
-        private void theoBidPutSC_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void theoBidCallSC_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
     }
 
 

@@ -57,6 +57,8 @@ namespace Micro.Future.UI
 
         }
 
+
+
         private void underlyingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var productId = underlyingCB.SelectedItem.ToString();
