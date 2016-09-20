@@ -106,7 +106,7 @@ namespace Micro.Future.Message
                         modelVM.Params.Add(new NamedParamVM()
                         {
                             Name = param.Key,
-                            Value = param.Value,
+                            Value = param.Value,                            
                         });
                     }
 

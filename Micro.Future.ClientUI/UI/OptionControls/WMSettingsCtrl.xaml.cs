@@ -1,4 +1,5 @@
-﻿using Micro.Future.ViewModel;
+﻿using Micro.Future.Message;
+using Micro.Future.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,12 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             StrikePricePanel.DataContext = new NumericalSimVM();
+            VolatilityPanel.DataContext = ModelParams;
         }
+        public ModelParamsVM ModelParams
+        {
+            get;
+        } = new ModelParamsVM();
 
         private void OptionWin_KeyDown(object sender, KeyEventArgs e)
         {

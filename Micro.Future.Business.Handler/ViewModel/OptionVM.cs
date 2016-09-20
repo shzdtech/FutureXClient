@@ -14,6 +14,11 @@ namespace Micro.Future.ViewModel
 
     public class OptionVM : ViewModelBase
     {
+        //public OptionVM(AbstractOTCHandler otcHandler)
+        //{
+        //    OTCHandler = otcHandler;
+        //}
+        public AbstractOTCHandler OTCHandler { get; set; }
         public List<DataPoint> Points { get; set; }
 
         public string Title { get; private set; }
@@ -380,7 +385,7 @@ namespace Micro.Future.ViewModel
 
         public void UpdateOptionParam()
         {
-            
+            //OTCHandler.UpdateOptionParam(this);
         }
 
         RelayCommand _updateOPCommand;

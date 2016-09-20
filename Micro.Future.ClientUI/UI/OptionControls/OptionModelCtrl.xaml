@@ -17,7 +17,7 @@
             <avalonDock:LayoutPanel Orientation="Vertical">
                 <avalonDock:LayoutPanel DockHeight="0.2*" >
                     <avalonDock:LayoutAnchorablePane x:Name="OPMarketPane" >
-                        <avalonDock:LayoutAnchorable Title="MarketData">
+                        <avalonDock:LayoutAnchorable >
                             <c:OpMarketData x:Name="OpMarketControl"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>

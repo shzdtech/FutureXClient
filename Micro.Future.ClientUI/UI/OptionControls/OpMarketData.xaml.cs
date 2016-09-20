@@ -77,6 +77,7 @@ namespace Micro.Future.UI
             {
                 var uc = underlyingContractCB.SelectedItem.ToString();
 
+
                 var optionList = (from c in _contractList
                                   where c.UnderlyingContract == uc
                                   select c).ToList();
@@ -85,7 +86,7 @@ namespace Micro.Future.UI
                                   orderby o.StrikePrice
                                   select o.StrikePrice).Distinct().ToList();
 
-                var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
+                var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();                
 
                 var callList = (from o in optionList
                                 where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
@@ -118,7 +119,7 @@ namespace Micro.Future.UI
                 underlyingContractCB1.ItemsSource = underlyingContracts;
             }
         }
-        private void underlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void underlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (underlyingContractCB1.SelectedItem != null)
             {
