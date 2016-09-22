@@ -28,6 +28,7 @@ namespace Micro.Future.UI
     {
         private OTCOptionHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
         private IList<ContractInfo> _contractList;
+        private IList<ContractInfo> _futurecontractList;
         private CollectionViewSource _viewSource = new CollectionViewSource();
 
         public OpMarketData()
@@ -41,14 +42,22 @@ namespace Micro.Future.UI
             get;
         } = new ObservableCollection<CallPutTDOptionVM>();
 
+        public ObservableCollection<MarketDataVM> QuoteVMCollection
+        {
+            get;
+        } = new ObservableCollection<MarketDataVM>();
+
         public void Initialize()
         {
             using (var clientCache = new ClientDbContext())
             {
+                _futurecontractList = clientCache.ContractInfo.Where(c => c.ProductType == 0).ToList();
+
                 _contractList = clientCache.ContractInfo.Where(c => c.ProductType == 1).ToList();
             }
 
             underlyingEX.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
+            exchange1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
             _viewSource.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
             quoteListView1.ItemsSource = _viewSource.View;
             quoteListView2.ItemsSource = _viewSource.View;
@@ -87,7 +96,7 @@ namespace Micro.Future.UI
                                   orderby o.StrikePrice
                                   select o.StrikePrice).Distinct().ToList();
 
-                var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();                
+                var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
 
                 var callList = (from o in optionList
                                 where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
@@ -147,7 +156,7 @@ namespace Micro.Future.UI
                                select o.Contract).Distinct().ToList();
                 CallPutTDOptionVMCollection.Clear();
                 var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList);
-                foreach(var vm in retList)
+                foreach (var vm in retList)
                 {
                     CallPutTDOptionVMCollection.Add(vm);
                 }
@@ -159,31 +168,88 @@ namespace Micro.Future.UI
 
         }
 
-        private void contractTextBox1_KeyDown(object sender, KeyEventArgs e)
+
+
+        private void exchange1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            var exchange = exchange1.SelectedValue.ToString();
+            underlying1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+        }
+
+        private void underlyingEX_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var exchange = underlyingEX.SelectedValue.ToString();
+            underlyingCB.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+        }
+
+        private void exchange2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var exchange = underlyingEX.SelectedValue.ToString();
+            exchange2.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+        }
+
+        private void underlying1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var productId = underlying1.SelectedValue;
+
+            if (productId != null)
             {
-                if (contractTextBox1.Text == "")
-                {
-                    this.contractTextBox1.Background = new SolidColorBrush(Colors.Red);
-                    MessageBox.Show("输入合约不能为空");
-                    this.contractTextBox1.Background = new SolidColorBrush(Colors.White);
-                    return;
-                }
+                var underlyingContracts = (from c in _futurecontractList
+                                           where c.ProductID == productId.ToString()
+                                           select c.Contract).Distinct().ToList();
 
-                using (var clientCtx = new ClientDbContext())
-                {
-                    var query = from contractInfo in clientCtx.ContractInfo where contractInfo.Contract == contractTextBox1.Text select contractInfo;
-                    if (query.Any() == false)
-                    {
-                        this.contractTextBox1.Background = new SolidColorBrush(Colors.Red);
-                        MessageBox.Show("输入合约不存在");
-                        contractTextBox1.Text = "";
-                        this.contractTextBox1.Background = new SolidColorBrush(Colors.White);
-                    }
-                }
+                contract1.ItemsSource = underlyingContracts;
 
-                var quote = contractTextBox1.Text;
+            }
+        }
+        //private void contractTextBox1_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.Key == Key.Enter)
+        //    {
+        //        if (contractTextBox1.Text == "")
+        //        {
+        //            this.contractTextBox1.Background = new SolidColorBrush(Colors.Red);
+        //            MessageBox.Show("输入合约不能为空");
+        //            this.contractTextBox1.Background = new SolidColorBrush(Colors.White);
+        //            return;
+        //        }
+
+        //        using (var clientCtx = new ClientDbContext())
+        //        {
+        //            var query = from contractInfo in clientCtx.ContractInfo where contractInfo.Contract == contractTextBox1.Text select contractInfo;
+        //            if (query.Any() == false)
+        //            {
+        //                this.contractTextBox1.Background = new SolidColorBrush(Colors.Red);
+        //                MessageBox.Show("输入合约不存在");
+        //                contractTextBox1.Text = "";
+        //                this.contractTextBox1.Background = new SolidColorBrush(Colors.White);
+        //            }
+        //        }
+
+        //        var quote = contractTextBox1.Text;
+
+        //        var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
+        //                   QuoteVMCollection.FirstOrDefault((obj) => string.Compare(obj.Contract, quote, true) == 0);
+
+        //        if (item != null)
+        //        {
+        //            quoteListView1.SelectedItem = item;
+        //        }
+        //        else
+        //        {
+        //            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+        //        }
+        //    }
+        //}
+        private void contract1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var contractId = contract1.SelectedValue;
+
+            if (contractId != null)
+            {
+                string quote = contractId.ToString();
+
+                QuoteVMCollection.Clear();
 
                 var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
                            QuoteVMCollection.FirstOrDefault((obj) => string.Compare(obj.Contract, quote, true) == 0);
@@ -197,17 +263,6 @@ namespace Micro.Future.UI
                     MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
                 }
             }
-        }
-
-        private void exchange1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void underlyingEX_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var exchange = underlyingEX.SelectedValue.ToString();
-            underlyingCB.ItemsSource = _contractList.Where(c=>c.Exchange == exchange).Select(c => c.ProductID).Distinct();
         }
     }
 }
