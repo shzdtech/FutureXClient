@@ -29,7 +29,8 @@ namespace Micro.Future.UI
         private OTCOptionHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
         private IList<ContractInfo> _contractList;
         private IList<ContractInfo> _futurecontractList;
-        private CollectionViewSource _viewSource = new CollectionViewSource();
+        private CollectionViewSource _viewSource1 = new CollectionViewSource();
+        private CollectionViewSource _viewSource2 = new CollectionViewSource();
 
         public OpMarketData()
         {
@@ -42,10 +43,15 @@ namespace Micro.Future.UI
             get;
         } = new ObservableCollection<CallPutTDOptionVM>();
 
-        public ObservableCollection<MarketDataVM> QuoteVMCollection
+        public ObservableCollection<MarketDataVM> QuoteVMCollection1
         {
             get;
         } = new ObservableCollection<MarketDataVM>();
+        public ObservableCollection<MarketDataVM> QuoteVMCollection2
+        {
+            get;
+        } = new ObservableCollection<MarketDataVM>();
+
 
         public void Initialize()
         {
@@ -58,14 +64,12 @@ namespace Micro.Future.UI
 
             underlyingEX.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             exchange1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
-            _viewSource.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
-            quoteListView1.ItemsSource = _viewSource.View;
-            quoteListView2.ItemsSource = _viewSource.View;
-
-
+            exchange2.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
+            _viewSource1.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
+            _viewSource2.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
+            quoteListView1.ItemsSource = QuoteVMCollection1;
+            quoteListView2.ItemsSource = QuoteVMCollection2;
         }
-
-
 
         private void underlyingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -169,39 +173,12 @@ namespace Micro.Future.UI
         }
 
 
-
-        private void exchange1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var exchange = exchange1.SelectedValue.ToString();
-            underlying1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
-        }
-
         private void underlyingEX_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = underlyingEX.SelectedValue.ToString();
             underlyingCB.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
         }
 
-        private void exchange2_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var exchange = underlyingEX.SelectedValue.ToString();
-            exchange2.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
-        }
-
-        private void underlying1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var productId = underlying1.SelectedValue;
-
-            if (productId != null)
-            {
-                var underlyingContracts = (from c in _futurecontractList
-                                           where c.ProductID == productId.ToString()
-                                           select c.Contract).Distinct().ToList();
-
-                contract1.ItemsSource = underlyingContracts;
-
-            }
-        }
         //private void contractTextBox1_KeyDown(object sender, KeyEventArgs e)
         //{
         //    if (e.Key == Key.Enter)
@@ -241,22 +218,81 @@ namespace Micro.Future.UI
         //        }
         //    }
         //}
+
+        private void exchange1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var exchange = exchange1.SelectedValue.ToString();
+            underlying1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+        }
+
+        private void underlying1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var productId = underlying1.SelectedValue;
+
+            if (productId != null)
+            {
+                var underlyingContracts = (from c in _futurecontractList
+                                           where c.ProductID == productId.ToString()
+                                           select c.Contract).Distinct().ToList();
+
+                contract1.ItemsSource = underlyingContracts;
+
+            }
+        }
+
         private void contract1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var contractId = contract1.SelectedValue;
+
+            if (contract1.SelectedItem != null)
+            {
+                var uc = contract1.SelectedItem.ToString();
+                var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+                QuoteVMCollection1.Clear();
+                handler.SubMarketData(new[] { uc });
+                var quote = handler.QuoteVMCollection.FirstOrDefault(c => c.Contract == uc);
+                if (quote != null)
+                {
+                    QuoteVMCollection1.Add(quote);
+                }
+            }
+        }
+
+        private void exchange2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var exchange = exchange2.SelectedValue.ToString();
+            underlying2.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+
+        }
+
+        private void underlying2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var productId = underlying2.SelectedValue;
+
+            if (productId != null)
+            {
+                var underlyingContracts = (from c in _futurecontractList
+                                           where c.ProductID == productId.ToString()
+                                           select c.Contract).Distinct().ToList();
+
+                contract2.ItemsSource = underlyingContracts;
+
+            }
+        }
+
+        private void contract2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var contractId = contract2.SelectedValue;
 
             if (contractId != null)
             {
                 string quote = contractId.ToString();
-
-                QuoteVMCollection.Clear();
-
+                QuoteVMCollection2.Clear();
                 var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
                            QuoteVMCollection.FirstOrDefault((obj) => string.Compare(obj.Contract, quote, true) == 0);
 
                 if (item != null)
                 {
-                    quoteListView1.SelectedItem = item;
+                    quoteListView2.SelectedItem = item;
                 }
                 else
                 {

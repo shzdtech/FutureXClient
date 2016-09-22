@@ -57,13 +57,13 @@
             <Label Content="交易所"></Label>
             <ComboBox Name="exchange2" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="exchange2_SelectionChanged"/>
             <Label Content="产品"></Label>
-            <TextBox Name="underlyingTextBox2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" />
+            <ComboBox Name="underlying2" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlying2_SelectionChanged"/>
             <Label Content="合约"></Label>
-            <TextBox Name="contractTextBox2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" />
+            <ComboBox Name="contract2" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="contract2_SelectionChanged"/>
         </WrapPanel>
         <ListView Name="quoteListView1" Grid.Row="0" Grid.Column="2" >
             <ListView.View>
-                <GridView>
+                <GridView x:Name="mdLV1">
                     <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
                     <GridViewColumn Header="{lex:Loc Key=QuoteVolume}">
                         <GridViewColumn.CellTemplate>
