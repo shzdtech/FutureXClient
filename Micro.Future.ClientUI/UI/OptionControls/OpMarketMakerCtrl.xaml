@@ -37,7 +37,7 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView x:Name="option_priceGV"  ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
-                    <GridViewColumn x:Name="columnEnable1">
+                    <GridViewColumn x:Name="PBidQT">
                         <GridViewColumn.Header>
                             <TextBlock Text="PBidQT启用">
                                 <TextBlock.Background>
@@ -51,7 +51,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PBidQT">
+                    <GridViewColumn x:Name="PAskQT">
                         <GridViewColumn.Header>
                             <TextBlock Text="PAskQT启用">
                                 <TextBlock.Background >
@@ -64,14 +64,6 @@
                                 <CheckBox IsChecked="{Binding PutStrategyVM.AskEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="PAskQT" DisplayMemberBinding="{Binding Binding PutStrategyVM.Enabled}">
-                        <GridViewColumn.Header>
-                            <TextBlock>
-                                <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-                                </TextBlock.Background>PAskQT</TextBlock>
-                        </GridViewColumn.Header>
                     </GridViewColumn>
                     <GridViewColumn x:Name="PBidIV" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidVol}">
                         <GridViewColumn.Header>
