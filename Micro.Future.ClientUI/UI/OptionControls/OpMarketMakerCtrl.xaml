@@ -51,7 +51,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="columnEnable2">
+                    <GridViewColumn x:Name="PBidQT">
                         <GridViewColumn.Header>
                             <TextBlock Text="PAskQT启用">
                                 <TextBlock.Background >
@@ -346,7 +346,7 @@
                                 </TextBlock.Background>CGamma</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="columnEnable3">
+                    <GridViewColumn x:Name="CBidQT">
                         <GridViewColumn.Header>
                             <TextBlock Text="CBidQT启用">
                                 <TextBlock.Background>
@@ -362,7 +362,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="columnEnable4">
+                    <GridViewColumn x:Name="CAskQT">
                         <GridViewColumn.Header>
                             <TextBlock Text="CAskQT启用">
                                 <TextBlock.Background>
