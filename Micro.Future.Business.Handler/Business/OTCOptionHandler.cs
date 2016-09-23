@@ -75,7 +75,11 @@ namespace Micro.Future.Message
 
         private void OnTradingDeskOptionParams(PBTradingDeskOptionParams tradingDeskOption)
         {
-            TradingDeskOptionVM quote = new TradingDeskOptionVM();
+            TradingDeskOptionVM quote = new TradingDeskOptionVM
+            {
+                Exchange = tradingDeskOption.Exchange,
+                Contract = tradingDeskOption.Contract
+            };
 
             quote.MarketDataVM.AskPrice = tradingDeskOption.MarketData.AskPrice;
             quote.MarketDataVM.AskSize = tradingDeskOption.MarketData.AskSize;
@@ -138,13 +142,11 @@ namespace Micro.Future.Message
     {
         public static bool Update(this IEnumerable<CallPutTDOptionVM> collection, TradingDeskOptionVM newVM)
         {
-            bool ret;
             TradingDeskOptionVM quote = null;
             var cp = collection.FirstOrDefault((pb) => string.Compare(pb.PutOptionVM.Contract, newVM.Contract, true) == 0);
             if (cp != null)
             {
                 quote = cp.PutOptionVM;
-                ret = true;
             }
             else
             {
@@ -152,7 +154,6 @@ namespace Micro.Future.Message
                 if (cp != null)
                 {
                     quote = cp.CallOptionVM;
-                    ret = true;
                 }
             }
 
@@ -184,9 +185,11 @@ namespace Micro.Future.Message
                 quote.TheoDataVM.BidGamma = newVM.TheoDataVM.BidGamma;
                 quote.TheoDataVM.BidTheta = newVM.TheoDataVM.BidTheta;
                 quote.TheoDataVM.BidVega = newVM.TheoDataVM.BidVega;
+
+                return true;
             }
 
-            return true;
+            return false;
         }
     }
 }

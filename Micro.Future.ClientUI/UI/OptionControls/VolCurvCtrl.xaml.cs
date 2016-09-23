@@ -40,7 +40,7 @@ namespace Micro.Future.UI
         public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection
         {
             get;
-        }
+        } = new ObservableCollection<CallPutTDOptionVM>();
 
         public VolatilityLinesVM VolatilityLinesVM
         {

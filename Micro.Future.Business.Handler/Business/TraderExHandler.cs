@@ -171,45 +171,49 @@ namespace Micro.Future.Message
                 {
                     using (var clientCtx = new ClientDbContext())
                     {
-                        var oldContracts = from p in clientCtx.ContractInfo select p;
-
-                        clientCtx.RemoveRange(oldContracts);
-                        clientCtx.SaveChanges();
-
-                        foreach (var contract in rsp.ContractInfo)
+                        foreach (var productType in Enum.GetValues(typeof(ProductType)))
                         {
-                            clientCtx.ContractInfo.Add(new ContractInfo()
+                            var oldContracts = from p in clientCtx.ContractInfo select p;
+
+                            clientCtx.RemoveRange(oldContracts);
+                            clientCtx.SaveChanges();
+
+                            foreach (var contract in rsp.ContractInfo)
                             {
-                                Exchange = contract.Exchange,
-                                Contract = contract.Contract,
-                                Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
-                                ProductID = contract.ProductID,
-                                ProductType = contract.ProductType,
-                                DeliveryYear = contract.DeliveryYear,
-                                DeliveryMonth = contract.DeliveryMonth,
-                                MaxMarketOrderVolume = contract.MaxMarketOrderVolume,
-                                MinMarketOrderVolume = contract.MinMarketOrderVolume,
-                                MaxLimitOrderVolume = contract.MaxMarketOrderVolume,
-                                MinLimitOrderVolume = contract.MinMarketOrderVolume,
-                                VolumeMultiple = contract.VolumeMultiple,
-                                PriceTick = contract.PriceTick,
-                                CreateDate = contract.CreateDate,
-                                OpenDate = contract.OpenDate,
-                                ExpireDate = contract.ExpireDate,
-                                StartDelivDate = contract.EndDelivDate,
-                                EndDelivDate = contract.EndDelivDate,
-                                LifePhase = contract.LifePhase,
-                                IsTrading = contract.IsTrading,
-                                PositionType = contract.PositionType,
-                                PositionDateType = contract.PositionDateType,
-                                LongMarginRatio = contract.LongMarginRatio,
-                                ShortMarginRatio = contract.ShortMarginRatio,
-                                UnderlyingExchange = contract.UnderlyingExchange,
-                                UnderlyingContract = contract.UnderlyingContract,
-                                StrikePrice = contract.StrikePrice,
-                                ContractType = contract.ContractType
-                            });
+                                clientCtx.ContractInfo.Add(new ContractInfo()
+                                {
+                                    Exchange = contract.Exchange,
+                                    Contract = contract.Contract,
+                                    Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
+                                    ProductID = contract.ProductID,
+                                    ProductType = contract.ProductType,
+                                    DeliveryYear = contract.DeliveryYear,
+                                    DeliveryMonth = contract.DeliveryMonth,
+                                    MaxMarketOrderVolume = contract.MaxMarketOrderVolume,
+                                    MinMarketOrderVolume = contract.MinMarketOrderVolume,
+                                    MaxLimitOrderVolume = contract.MaxMarketOrderVolume,
+                                    MinLimitOrderVolume = contract.MinMarketOrderVolume,
+                                    VolumeMultiple = contract.VolumeMultiple,
+                                    PriceTick = contract.PriceTick,
+                                    CreateDate = contract.CreateDate,
+                                    OpenDate = contract.OpenDate,
+                                    ExpireDate = contract.ExpireDate,
+                                    StartDelivDate = contract.EndDelivDate,
+                                    EndDelivDate = contract.EndDelivDate,
+                                    LifePhase = contract.LifePhase,
+                                    IsTrading = contract.IsTrading,
+                                    PositionType = contract.PositionType,
+                                    PositionDateType = contract.PositionDateType,
+                                    LongMarginRatio = contract.LongMarginRatio,
+                                    ShortMarginRatio = contract.ShortMarginRatio,
+                                    UnderlyingExchange = contract.UnderlyingExchange,
+                                    UnderlyingContract = contract.UnderlyingContract,
+                                    StrikePrice = contract.StrikePrice,
+                                    ContractType = contract.ContractType
+                                });
+                            }
                         }
+
                         clientCtx.SetSyncVersion(nameof(ContractInfo), DateTime.Now.Date.ToShortDateString());
 
                         clientCtx.SaveChanges();
