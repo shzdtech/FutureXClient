@@ -20,10 +20,17 @@ namespace Micro.Future.ViewModel
             set;
         }
 
+        bool IsOTC
+        {
+            get;
+        }
+
+
         bool EqualContract(IContractKey contractKey);
 
         bool EqualContract(string exchange, string contract);
     }
+
     public class ContractNotifyPropertyChanged : ViewModelBase, IContractKey
     {
         private string _exchange;
@@ -54,6 +61,18 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        public bool IsOTC
+        {
+            get
+            {
+                bool isOtc = false;
+                if(!string.IsNullOrEmpty(_exchange))
+                {
+                    isOtc = _exchange.StartsWith("otc", StringComparison.InvariantCultureIgnoreCase);
+                }
+                return isOtc;
+            }
+        }
 
         public bool EqualContract(IContractKey contractKey)
         {
