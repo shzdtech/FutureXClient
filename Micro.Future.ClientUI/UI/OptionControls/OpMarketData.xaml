@@ -33,8 +33,8 @@
             <Label Content="产品"></Label>
             <ComboBox x:FieldModifier="public" Name="underlyingContractCB"  SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingContractCB_SelectionChanged"/>
         </WrapPanel>
-        <Label x:Name="labelOption2" Grid.Row="2" Grid.Column="0" Content="期权2"/>
-        <WrapPanel Grid.Row="3" Grid.Column="0">
+        <!--<Label x:Name="labelOption2" Grid.Row="2" Grid.Column="0" Content="期权2"/>-->
+        <WrapPanel Grid.Row="2" Grid.Column="0">
             <Label Content="交易所"></Label>
             <ComboBox Name="underlyingEX1" SelectedIndex="0" Width="auto" VerticalAlignment="Center"/>
             <Label Content="种类"></Label>
@@ -47,22 +47,23 @@
             <Label Content="交易所"></Label>
             <ComboBox Name="exchange1" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="exchange1_SelectionChanged"/>
             <Label Content="产品"></Label>
-            <TextBox x:Name="underlyingTextBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" KeyDown="underlyingTextBox1_KeyDown" />
+            <ComboBox Name="underlying1" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlying1_SelectionChanged"/>
             <Label Content="合约"></Label>
-            <TextBox Name="contractTextBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" KeyDown="contractTextBox1_KeyDown"  />
+            <!--<TextBox Name="contractTextBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" KeyDown="contractTextBox1_KeyDown"  />-->
+            <ComboBox Name="contract1" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="contract1_SelectionChanged"/>
         </WrapPanel>
-        <Label x:Name="labelFuture2" Grid.Row="2" Grid.Column="1" Content="期货2"/>
-        <WrapPanel Grid.Row="3" Grid.Column="1">
+        <!--<Label x:Name="labelFuture2" Grid.Row="2" Grid.Column="1" Content="期货2"/>-->
+        <WrapPanel Grid.Row="2" Grid.Column="1">
             <Label Content="交易所"></Label>
-            <ComboBox Name="exchange2" SelectedIndex="0" Width="auto" VerticalAlignment="Center"/>
+            <ComboBox Name="exchange2" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="exchange2_SelectionChanged"/>
             <Label Content="产品"></Label>
-            <TextBox Name="underlyingTextBox2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" />
+            <ComboBox Name="underlying2" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlying2_SelectionChanged"/>
             <Label Content="合约"></Label>
-            <TextBox Name="contractTextBox2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" />
+            <ComboBox Name="contract2" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="contract2_SelectionChanged"/>
         </WrapPanel>
         <ListView Name="quoteListView1" Grid.Row="0" Grid.Column="2" >
             <ListView.View>
-                <GridView>
+                <GridView x:Name="mdLV1">
                     <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
                     <GridViewColumn Header="{lex:Loc Key=QuoteVolume}">
                         <GridViewColumn.CellTemplate>

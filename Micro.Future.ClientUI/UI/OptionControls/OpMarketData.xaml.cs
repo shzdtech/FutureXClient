@@ -28,7 +28,9 @@ namespace Micro.Future.UI
     {
         private OTCOptionHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
         private IList<ContractInfo> _contractList;
-        private CollectionViewSource _viewSource = new CollectionViewSource();
+        private IList<ContractInfo> _futurecontractList;
+        private CollectionViewSource _viewSource1 = new CollectionViewSource();
+        private CollectionViewSource _viewSource2 = new CollectionViewSource();
 
         public OpMarketData()
         {
@@ -41,22 +43,33 @@ namespace Micro.Future.UI
             get;
         } = new ObservableCollection<CallPutTDOptionVM>();
 
+        public ObservableCollection<MarketDataVM> QuoteVMCollection1
+        {
+            get;
+        } = new ObservableCollection<MarketDataVM>();
+        public ObservableCollection<MarketDataVM> QuoteVMCollection2
+        {
+            get;
+        } = new ObservableCollection<MarketDataVM>();
+
+
         public void Initialize()
         {
             using (var clientCache = new ClientDbContext())
             {
+                _futurecontractList = clientCache.ContractInfo.Where(c => c.ProductType == 0).ToList();
+
                 _contractList = clientCache.ContractInfo.Where(c => c.ProductType == 1).ToList();
             }
 
             underlyingEX.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
-            _viewSource.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
-            quoteListView1.ItemsSource = _viewSource.View;
-            quoteListView2.ItemsSource = _viewSource.View;
-
-
+            exchange1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
+            exchange2.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
+            _viewSource1.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
+            _viewSource2.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
+            quoteListView1.ItemsSource = QuoteVMCollection1;
+            quoteListView2.ItemsSource = QuoteVMCollection2;
         }
-
-
 
         private void underlyingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -87,7 +100,7 @@ namespace Micro.Future.UI
                                   orderby o.StrikePrice
                                   select o.StrikePrice).Distinct().ToList();
 
-                var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();                
+                var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
 
                 var callList = (from o in optionList
                                 where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
@@ -147,7 +160,7 @@ namespace Micro.Future.UI
                                select o.Contract).Distinct().ToList();
                 CallPutTDOptionVMCollection.Clear();
                 var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList);
-                foreach(var vm in retList)
+                foreach (var vm in retList)
                 {
                     CallPutTDOptionVMCollection.Add(vm);
                 }
@@ -159,55 +172,133 @@ namespace Micro.Future.UI
 
         }
 
-        private void contractTextBox1_KeyDown(object sender, KeyEventArgs e)
+
+        private void underlyingEX_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            var exchange = underlyingEX.SelectedValue.ToString();
+            underlyingCB.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+        }
+
+        //private void contractTextBox1_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.Key == Key.Enter)
+        //    {
+        //        if (contractTextBox1.Text == "")
+        //        {
+        //            this.contractTextBox1.Background = new SolidColorBrush(Colors.Red);
+        //            MessageBox.Show("输入合约不能为空");
+        //            this.contractTextBox1.Background = new SolidColorBrush(Colors.White);
+        //            return;
+        //        }
+
+        //        using (var clientCtx = new ClientDbContext())
+        //        {
+        //            var query = from contractInfo in clientCtx.ContractInfo where contractInfo.Contract == contractTextBox1.Text select contractInfo;
+        //            if (query.Any() == false)
+        //            {
+        //                this.contractTextBox1.Background = new SolidColorBrush(Colors.Red);
+        //                MessageBox.Show("输入合约不存在");
+        //                contractTextBox1.Text = "";
+        //                this.contractTextBox1.Background = new SolidColorBrush(Colors.White);
+        //            }
+        //        }
+
+        //        var quote = contractTextBox1.Text;
+
+        //        var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
+        //                   QuoteVMCollection.FirstOrDefault((obj) => string.Compare(obj.Contract, quote, true) == 0);
+
+        //        if (item != null)
+        //        {
+        //            quoteListView1.SelectedItem = item;
+        //        }
+        //        else
+        //        {
+        //            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+        //        }
+        //    }
+        //}
+
+        private void exchange1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var exchange = exchange1.SelectedValue.ToString();
+            underlying1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+        }
+
+        private void underlying1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var productId = underlying1.SelectedValue;
+
+            if (productId != null)
             {
-                if (contractTextBox1.Text == "")
+                var underlyingContracts = (from c in _futurecontractList
+                                           where c.ProductID == productId.ToString()
+                                           select c.Contract).Distinct().ToList();
+
+                contract1.ItemsSource = underlyingContracts;
+
+            }
+        }
+
+        private void contract1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (contract1.SelectedItem != null)
+            {
+                var uc = contract1.SelectedItem.ToString();
+                var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+                QuoteVMCollection1.Clear();
+                handler.SubMarketData(new[] { uc });
+                var quote = handler.QuoteVMCollection.FirstOrDefault(c => c.Contract == uc);
+                if (quote != null)
                 {
-                    this.contractTextBox1.Background = new SolidColorBrush(Colors.Red);
-                    MessageBox.Show("输入合约不能为空");
-                    this.contractTextBox1.Background = new SolidColorBrush(Colors.White);
-                    return;
+                    QuoteVMCollection1.Add(quote);
                 }
+            }
+        }
 
-                using (var clientCtx = new ClientDbContext())
-                {
-                    var query = from contractInfo in clientCtx.ContractInfo where contractInfo.Contract == contractTextBox1.Text select contractInfo;
-                    if (query.Any() == false)
-                    {
-                        this.contractTextBox1.Background = new SolidColorBrush(Colors.Red);
-                        MessageBox.Show("输入合约不存在");
-                        contractTextBox1.Text = "";
-                        this.contractTextBox1.Background = new SolidColorBrush(Colors.White);
-                    }
-                }
+        private void exchange2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var exchange = exchange2.SelectedValue.ToString();
+            underlying2.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
 
-                var quote = contractTextBox1.Text;
+        }
 
+        private void underlying2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var productId = underlying2.SelectedValue;
+
+            if (productId != null)
+            {
+                var underlyingContracts = (from c in _futurecontractList
+                                           where c.ProductID == productId.ToString()
+                                           select c.Contract).Distinct().ToList();
+
+                contract2.ItemsSource = underlyingContracts;
+
+            }
+        }
+
+        private void contract2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var contractId = contract2.SelectedValue;
+
+            if (contractId != null)
+            {
+                string quote = contractId.ToString();
+                QuoteVMCollection2.Clear();
                 var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
                            QuoteVMCollection.FirstOrDefault((obj) => string.Compare(obj.Contract, quote, true) == 0);
 
                 if (item != null)
                 {
-                    quoteListView1.SelectedItem = item;
+                    quoteListView2.SelectedItem = item;
                 }
                 else
                 {
                     MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
                 }
             }
-        }
-
-        private void exchange1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void underlyingEX_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var exchange = underlyingEX.SelectedValue.ToString();
-            underlyingCB.ItemsSource = _contractList.Where(c=>c.Exchange == exchange).Select(c => c.ProductID).Distinct();
         }
     }
 }
