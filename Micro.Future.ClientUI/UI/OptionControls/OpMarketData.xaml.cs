@@ -279,26 +279,21 @@ namespace Micro.Future.UI
             }
         }
 
-        private void contract2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void contract2_SelectionChanged(object sender, SelectionChangedEventArgs e) 
         {
-            var contractId = contract2.SelectedValue;
-
-            if (contractId != null)
+            if (contract2.SelectedItem != null)
             {
-                string quote = contractId.ToString();
+                var uc = contract2.SelectedItem.ToString();
+                var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 QuoteVMCollection2.Clear();
-                var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
-                           QuoteVMCollection.FirstOrDefault((obj) => string.Compare(obj.Contract, quote, true) == 0);
-
-                if (item != null)
+                handler.SubMarketData(new[] { uc });
+                var quote = handler.QuoteVMCollection.FirstOrDefault(c => c.Contract == uc);
+                if (quote != null)
                 {
-                    quoteListView2.SelectedItem = item;
-                }
-                else
-                {
-                    MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+                    QuoteVMCollection2.Add(quote);
                 }
             }
+
         }
     }
 }

@@ -39,7 +39,7 @@
                 <GridView x:Name="option_priceGV"  ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
                     <GridViewColumn x:Name="columnEnable1">
                         <GridViewColumn.Header>
-                            <TextBlock Text="启用">
+                            <TextBlock Text="PBidQT启用">
                                 <TextBlock.Background>
                                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
                                 </TextBlock.Background>
@@ -47,28 +47,21 @@
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox></CheckBox>
+                                <CheckBox IsChecked="{Binding PutStrategyVM.BidEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PBidQT" DisplayMemberBinding="{Binding PutStrategyVM.Enabled}">
-                        <GridViewColumn.Header>
-                            <TextBlock>
-                                <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-                                </TextBlock.Background>PBidQT</TextBlock>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
                     <GridViewColumn x:Name="columnEnable2">
                         <GridViewColumn.Header>
-                            <TextBlock>
-                                <TextBlock.Background>
+                            <TextBlock Text="PAskQT启用">
+                                <TextBlock.Background >
                                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-                                </TextBlock.Background>启用</TextBlock>
+                                </TextBlock.Background>
+                            </TextBlock>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox></CheckBox>
+                                <CheckBox IsChecked="{Binding PutStrategyVM.AskEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -112,7 +105,7 @@
                                 </TextBlock.Background>PAskTheo</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PMidIV" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.MidVol}">
+                    <GridViewColumn x:Name="PMidIV" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.MidVol}">
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
@@ -285,7 +278,7 @@
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                    <SolidColorBrush Color="#FFC55B5B"/>
                                 </TextBlock.Background>CBidIV</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
@@ -293,7 +286,7 @@
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                    <SolidColorBrush Color="#FFC55B5B"/>
                                 </TextBlock.Background>CAskIV</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
@@ -301,7 +294,7 @@
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                    <SolidColorBrush Color="#FFC55B5B"/>
                                 </TextBlock.Background>CBidTheo</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
@@ -309,7 +302,7 @@
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                    <SolidColorBrush Color="#FFC55B5B"/>
                                 </TextBlock.Background>CAskTheo</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
@@ -317,7 +310,7 @@
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                    <SolidColorBrush Color="#FFC55B5B"/>
                                 </TextBlock.Background>CMidIV</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
@@ -325,7 +318,7 @@
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                    <SolidColorBrush Color="#FFC55B5B"/>
                                 </TextBlock.Background>CAskQV</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
@@ -333,7 +326,7 @@
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                    <SolidColorBrush Color="#FFC55B5B"/>
                                 </TextBlock.Background>CBidQV</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
@@ -341,7 +334,7 @@
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                    <SolidColorBrush Color="#FFC55B5B"/>
                                 </TextBlock.Background>CTheta</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
@@ -349,51 +342,41 @@
                         <GridViewColumn.Header>
                             <TextBlock>
                                 <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                                    <SolidColorBrush Color="#FFC55B5B"/>
                                 </TextBlock.Background>CGamma</TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
                     <GridViewColumn x:Name="columnEnable3">
                         <GridViewColumn.Header>
-                            <TextBlock>
+                            <TextBlock Text="CBidQT启用">
                                 <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-                                </TextBlock.Background>启用</TextBlock>
+                                    <SolidColorBrush Color="#FFC55B5B"/>
+                                </TextBlock.Background>
+                            </TextBlock>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox></CheckBox>
+                                <CheckBox>
+                                    <CheckBox IsChecked="{Binding CallStrategyVM.BidEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
+                                </CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="CBidQT" DisplayMemberBinding="{Binding CallStrategyVM.Enabled}">
-                        <GridViewColumn.Header>
-                            <TextBlock>
-                                <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-                                </TextBlock.Background>CBidQT</TextBlock>
-                        </GridViewColumn.Header>
                     </GridViewColumn>
                     <GridViewColumn x:Name="columnEnable4">
                         <GridViewColumn.Header>
-                            <TextBlock>
+                            <TextBlock Text="CAskQT启用">
                                 <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-                                </TextBlock.Background>启用</TextBlock>
+                                    <SolidColorBrush Color="#FFC55B5B"/>
+                                </TextBlock.Background>
+                            </TextBlock>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox></CheckBox>
+                                <CheckBox>
+                                    <CheckBox IsChecked="{Binding CallStrategyVM.AskEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
+                                </CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="CAskQT" DisplayMemberBinding="{Binding CallStrategyVM.Enabled}">
-                        <GridViewColumn.Header>
-                            <TextBlock>
-                                <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-                                </TextBlock.Background>CAskQT</TextBlock>
-                        </GridViewColumn.Header>
                     </GridViewColumn>
                     <GridViewColumn x:Name="PPosition" Header="PPosition" DisplayMemberBinding="{Binding PutPositionVM.Position}"/>
                     <GridViewColumn x:Name="CPosition" Header="CPosition" DisplayMemberBinding="{Binding CallPositionVM.Position}"/>

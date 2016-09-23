@@ -87,7 +87,7 @@ namespace Micro.Future.Message
             quote.MarketDataVM.BidPrice = tradingDeskOption.MarketData.BidPrice;
             quote.MarketDataVM.BidSize = tradingDeskOption.MarketData.BidSize;
             quote.MarketDataVM.BidVol = tradingDeskOption.MarketData.BidVolatility;
-            quote.MarketDataVM.MidVol = (tradingDeskOption.MarketData.BidVolatility + tradingDeskOption.MarketData.AskVolatility)/2;
+            quote.MarketDataVM.MidVol = (tradingDeskOption.MarketData.BidVolatility + tradingDeskOption.MarketData.AskVolatility) / 2;
             quote.MarketDataVM.MidPrice = (tradingDeskOption.MarketData.BidPrice + tradingDeskOption.MarketData.AskPrice) / 2;
 
             quote.TheoDataVM.AskPrice = tradingDeskOption.TheoData.AskPrice;
@@ -97,7 +97,6 @@ namespace Micro.Future.Message
             quote.TheoDataVM.AskGamma = tradingDeskOption.TheoData.AskGamma;
             quote.TheoDataVM.AskTheta = tradingDeskOption.TheoData.AskTheta;
             quote.TheoDataVM.AskVega = tradingDeskOption.TheoData.AskVega;
-
             quote.TheoDataVM.BidPrice = tradingDeskOption.TheoData.BidPrice;
             quote.TheoDataVM.BidSize = tradingDeskOption.TheoData.BidSize;
             quote.TheoDataVM.BidVol = tradingDeskOption.TheoData.BidVolatility;
@@ -105,7 +104,7 @@ namespace Micro.Future.Message
             quote.TheoDataVM.BidGamma = tradingDeskOption.TheoData.BidGamma;
             quote.TheoDataVM.BidTheta = tradingDeskOption.TheoData.BidTheta;
             quote.TheoDataVM.BidVega = tradingDeskOption.TheoData.BidVega;
-            quote.TheoDataVM.MidVol = (tradingDeskOption.TheoData.BidVolatility + tradingDeskOption.TheoData.AskVolatility)/2;
+            quote.TheoDataVM.MidVol = (tradingDeskOption.TheoData.BidVolatility + tradingDeskOption.TheoData.AskVolatility) / 2;
             quote.TheoDataVM.MidPrice = (tradingDeskOption.TheoData.BidPrice + tradingDeskOption.TheoData.AskPrice) / 2;
             OnTradingDeskOptionParamsReceived?.Invoke(quote);
         }
