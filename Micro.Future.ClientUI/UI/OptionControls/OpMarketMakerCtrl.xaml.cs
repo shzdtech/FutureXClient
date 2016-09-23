@@ -97,7 +97,7 @@ namespace Micro.Future.UI
             positionNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PPosition));
             positionNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CPosition));
             QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PBidQT));
-            QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, columnEnable1));
+            //QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, columnEnable1));
             QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PAskQT));
             QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PBidQT));
             QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CBidQT));
