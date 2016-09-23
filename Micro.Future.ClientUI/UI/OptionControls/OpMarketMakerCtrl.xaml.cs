@@ -96,13 +96,9 @@ namespace Micro.Future.UI
             QVNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CAskQV));
             positionNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PPosition));
             positionNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CPosition));
-            QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PBidQT));
-            QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, columnEnable1));
             QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PAskQT));
             QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PBidQT));
             QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CBidQT));
-            QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CBidQT));
-            QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CAskQT));
             QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CAskQT));
 
             marketNode.Initialize();
