@@ -114,7 +114,7 @@ namespace Micro.Future.Message
         public event Action<TradingDeskOptionVM> OnTradingDeskOptionParamsReceived;
 
 
-        public IList<CallPutTDOptionVM> SubCallPutTDOptionData(IList<double> strikeList, IList<string> callList, IList<string> putList)
+        public IList<CallPutTDOptionVM> SubCallPutTDOptionData(IList<double> strikeList, IList<string> callList, IList<string> putList, bool isOTC = false)
         {
             var retList = new List<CallPutTDOptionVM>();
 
@@ -122,11 +122,15 @@ namespace Micro.Future.Message
             {
                 var callOption = new TradingDeskOptionVM { Contract = callList[i] };
                 var putOption = new TradingDeskOptionVM { Contract = putList[i] };
+                var callStrategyVM = StrategyVMCollection.FirstOrDefault(s=>s.Contract == callList[i] && s.IsOTC == isOTC);
+                var putStrategyVM = StrategyVMCollection.FirstOrDefault(s => s.Contract == putList[i] && s.IsOTC == isOTC);
                 retList.Add(new CallPutTDOptionVM()
                 {
                     StrikePrice = strikeList[i],
                     CallOptionVM = callOption,
-                    PutOptionVM = putOption
+                    PutOptionVM = putOption,
+                    CallStrategyVM = callStrategyVM,
+                    PutStrategyVM = putStrategyVM
                 });
             }
 
