@@ -178,6 +178,12 @@ namespace Micro.Future.UI
             var exchange = underlyingEX.SelectedValue.ToString();
             underlyingCB.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
         }
+        private void underlyingEX1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var exchange = underlyingEX1.SelectedValue.ToString();
+            underlyingCB1.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+        }
+
 
         //private void contractTextBox1_KeyDown(object sender, KeyEventArgs e)
         //{

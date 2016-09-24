@@ -22,46 +22,124 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
-            
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="labelOption1" Grid.Row="0" Grid.Column="0" Content="期权1"/>
-        <WrapPanel Grid.Row="1" Grid.Column="0">
-            <Label Content="交易所"></Label>
-            <ComboBox Name="underlyingEX" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingEX_SelectionChanged"/>
-            <Label Content="种类"></Label>
-            <ComboBox Name="underlyingCB" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingCB_SelectionChanged"/>
-            <Label Content="产品"></Label>
-            <ComboBox x:FieldModifier="public" Name="underlyingContractCB"  SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingContractCB_SelectionChanged"/>
+        <WrapPanel Grid.Row="0" Grid.Column="1">
+            <GroupBox x:Name="Op_Exchange">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <HeaderedContentControl Header="交易所"  />
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <ComboBox Name="underlyingEX" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingEX_SelectionChanged"/>
+            </GroupBox>
+            <GroupBox x:Name="Op_Underlying">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <HeaderedContentControl Header="种类"  />
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <ComboBox Name="underlyingCB" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingCB_SelectionChanged"/>
+            </GroupBox>
+            <GroupBox x:Name="Op_UnderlyingContract">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <HeaderedContentControl Header="产品"  />
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <ComboBox x:FieldModifier="public" Name="underlyingContractCB"  SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingContractCB_SelectionChanged"/>
+            </GroupBox>
         </WrapPanel>
-        <!--<Label x:Name="labelOption2" Grid.Row="2" Grid.Column="0" Content="期权2"/>-->
-        <WrapPanel Grid.Row="2" Grid.Column="0">
-            <Label Content="交易所"></Label>
-            <ComboBox Name="underlyingEX1" SelectedIndex="0" Width="auto" VerticalAlignment="Center"/>
-            <Label Content="种类"></Label>
-            <ComboBox Name="underlyingCB1" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingCB1_SelectionChanged"/>
-            <Label Content="产品"></Label>
-            <ComboBox Name="underlyingContractCB1"  SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingContractCB1_SelectionChanged"/>
-        </WrapPanel>
-        <Label x:Name="labelFuture1" Grid.Row="0" Grid.Column="1" Content="期货1"/>
+        <Label x:Name="labelOption2" Grid.Row="1" Grid.Column="0" Content="期权2"/>
         <WrapPanel Grid.Row="1" Grid.Column="1">
-            <Label Content="交易所"></Label>
-            <ComboBox Name="exchange1" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="exchange1_SelectionChanged"/>
-            <Label Content="产品"></Label>
-            <ComboBox Name="underlying1" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlying1_SelectionChanged"/>
-            <Label Content="合约"></Label>
-            <!--<TextBox Name="contractTextBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" KeyDown="contractTextBox1_KeyDown"  />-->
-            <ComboBox Name="contract1" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="contract1_SelectionChanged"/>
+            <GroupBox x:Name="Op_Exchange1">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <HeaderedContentControl Header="交易所"  />
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <ComboBox Name="underlyingEX1" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingEX1_SelectionChanged"/>
+            </GroupBox>
+            <GroupBox x:Name="Op_Underlying1">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <HeaderedContentControl Header="种类"  />
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <ComboBox Name="underlyingCB1" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingCB1_SelectionChanged"/>
+            </GroupBox>
+            <GroupBox x:Name="Op_UnderlyingContract1">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <HeaderedContentControl Header="产品"  />
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <ComboBox x:FieldModifier="public" Name="underlyingContractCB1"  SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlyingContractCB1_SelectionChanged"/>
+            </GroupBox>
         </WrapPanel>
-        <!--<Label x:Name="labelFuture2" Grid.Row="2" Grid.Column="1" Content="期货2"/>-->
-        <WrapPanel Grid.Row="2" Grid.Column="1">
-            <Label Content="交易所"></Label>
+        <Label x:Name="labelFuture1" Grid.Row="0" Grid.Column="2" Content="期货1"/>
+        <WrapPanel Grid.Row="0" Grid.Column="3">
+            <GroupBox x:Name="Exchange1">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <HeaderedContentControl Header="交易所"  />
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <ComboBox Name="exchange1" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="exchange1_SelectionChanged"/>
+            </GroupBox>
+            <GroupBox x:Name="Underlying1">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <HeaderedContentControl Header="种类"  />
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <ComboBox Name="underlying1" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlying1_SelectionChanged"/>
+            </GroupBox>
+            <GroupBox x:Name="Contract1">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <HeaderedContentControl Header="产品"  />
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <ComboBox Name="contract1" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="contract1_SelectionChanged"/>
+            </GroupBox>
+        </WrapPanel>
+        <Label x:Name="labelFuture2" Grid.Row="1" Grid.Column="2" Content="期货2"/>
+        <WrapPanel Grid.Row="1" Grid.Column="3">
+            <GroupBox x:Name="Exchange2">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <HeaderedContentControl Header="交易所"  />
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <ComboBox Name="exchange2" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="exchange2_SelectionChanged"/>
+            </GroupBox>
+            <GroupBox x:Name="Underlying2">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <HeaderedContentControl Header="种类"  />
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <ComboBox Name="underlying2" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlying2_SelectionChanged"/>
+            </GroupBox>
+            <GroupBox x:Name="Contract2">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <HeaderedContentControl Header="产品"  />
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <ComboBox Name="contract2" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="contract2_SelectionChanged"/>
+            </GroupBox>
+            <!--<Label Content="交易所"></Label>
             <ComboBox Name="exchange2" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="exchange2_SelectionChanged"/>
             <Label Content="产品"></Label>
             <ComboBox Name="underlying2" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="underlying2_SelectionChanged"/>
             <Label Content="合约"></Label>
-            <ComboBox Name="contract2" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="contract2_SelectionChanged"/>
+            <ComboBox Name="contract2" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="contract2_SelectionChanged"/>-->
         </WrapPanel>
-        <ListView Name="quoteListView1" Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" >
+        <ListView Name="quoteListView1" Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" >
             <ListView.View>
                 <GridView x:Name="mdLV1">
                     <GridViewColumn Header="{lex:Loc Key=Contract}">
@@ -123,7 +201,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView Name="quoteListView2" Grid.Row="2" Grid.Column="2" >
+        <ListView Name="quoteListView2" Grid.Row="1" Grid.Column="4" >
             <ListView.Resources>
                 <Style TargetType="{x:Type GridViewColumnHeader}">
                     <Setter Property="Visibility" Value="Collapsed"/>
