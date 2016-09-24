@@ -51,8 +51,6 @@ namespace Micro.Future.UI
         {
             get;
         } = new ObservableCollection<MarketDataVM>();
-
-
         public void Initialize()
         {
             using (var clientCache = new ClientDbContext())
@@ -119,7 +117,11 @@ namespace Micro.Future.UI
                 }
             }
         }
-
+        private void underlyingEX1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var exchange = underlyingEX1.SelectedValue.ToString();
+            underlyingCB1.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+        }
         private void underlyingCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var productId = underlyingCB1.SelectedValue;
@@ -166,24 +168,15 @@ namespace Micro.Future.UI
                 }
             }
         }
-
         private void underlyingTextBox1_KeyDown(object sender, KeyEventArgs e)
         {
 
         }
-
-
         private void underlyingEX_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = underlyingEX.SelectedValue.ToString();
             underlyingCB.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
         }
-        private void underlyingEX1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var exchange = underlyingEX1.SelectedValue.ToString();
-            underlyingCB1.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
-        }
-
 
         //private void contractTextBox1_KeyDown(object sender, KeyEventArgs e)
         //{
@@ -224,13 +217,11 @@ namespace Micro.Future.UI
         //        }
         //    }
         //}
-
         private void exchange1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = exchange1.SelectedValue.ToString();
             underlying1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
         }
-
         private void underlying1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var productId = underlying1.SelectedValue;
@@ -245,7 +236,6 @@ namespace Micro.Future.UI
 
             }
         }
-
         private void contract1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -262,14 +252,12 @@ namespace Micro.Future.UI
                 }
             }
         }
-
         private void exchange2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = exchange2.SelectedValue.ToString();
             underlying2.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
 
         }
-
         private void underlying2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var productId = underlying2.SelectedValue;
@@ -284,7 +272,6 @@ namespace Micro.Future.UI
 
             }
         }
-
         private void contract2_SelectionChanged(object sender, SelectionChangedEventArgs e) 
         {
             if (contract2.SelectedItem != null)

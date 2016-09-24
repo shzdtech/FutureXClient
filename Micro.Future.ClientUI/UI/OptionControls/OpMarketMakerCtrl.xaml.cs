@@ -32,8 +32,11 @@ namespace Micro.Future.UI
         private CollectionViewSource _viewSourcePutOption = new CollectionViewSource();
         private CollectionViewSource _viewSourceCallOption = new CollectionViewSource();
         private CollectionViewSource _viewSourceVolatility = new CollectionViewSource();
+        private CollectionViewSource _viewSource1 = new CollectionViewSource();
 
         private IList<ContractInfo> _contractList;
+        private IList<ContractInfo> _OTCcontractList;
+
 
         private IList<ColumnObject> _optionColumns;
 
@@ -41,16 +44,28 @@ namespace Micro.Future.UI
         {
             get;
         } = new ObservableCollection<CallPutTDOptionVM>();
+        public ObservableCollection<MarketDataVM> QuoteVMCollection1
+        {
+            get;
+        } = new ObservableCollection<MarketDataVM>();
+
 
         public void Initialize()
         {
             using (var clientCache = new ClientDbContext())
             {
+                //_contractList = clientCache.ContractInfo.Where(c => c.ProductType == 1).ToList();
                 _contractList = clientCache.GetContractsByProductType((int)ProductType.PRODUCT_OPTIONS);
+                _OTCcontractList = clientCache.GetContractsByProductType((int)ProductType.PRODUCT_OTC_OPTION);
+
             }
 
-            underlyingCB.ItemsSource = _contractList.Select(c => c.ProductID).Distinct();
+            exchangeCB.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
+            underlyingEX1.ItemsSource = _OTCcontractList.Select(c => c.Exchange).Distinct();
+            _viewSource1.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
+            //underlyingCB.ItemsSource = _contractList.Select(c => c.ProductID).Distinct();
             // Initialize Market Data
+            quoteListView1.ItemsSource = QuoteVMCollection1;
             option_priceLV.ItemsSource = CallPutTDOptionVMCollection;
             _otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
 
@@ -136,26 +151,124 @@ namespace Micro.Future.UI
             win.Show();
         }
 
+        private void exchangeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var exchange = exchangeCB.SelectedValue.ToString();
+            underlyingCB.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+
+        }
 
         private void underlyingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var productId = underlyingCB.SelectedItem.ToString();
+            var productId = underlyingCB.SelectedValue;
 
             if (productId != null)
             {
                 var underlyingContracts = (from c in _contractList
-                                           where c.ProductID == productId
+                                           where c.ProductID == productId.ToString()
                                            select c.UnderlyingContract).Distinct().ToList();
 
                 underlyingContractCB.ItemsSource = underlyingContracts;
             }
+            //var productId = underlyingCB.SelectedItem.ToString();
+
+            //if (productId != null)
+            //{
+            //    var underlyingContracts = (from c in _contractList
+            //                               where c.ProductID == productId
+            //                               select c.UnderlyingContract).Distinct().ToList();
+
+            //    underlyingContractCB.ItemsSource = underlyingContracts;
+            //}
         }
 
         private void underlyingContractCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (underlyingContractCB.SelectedItem != null)
+            if (underlyingContractCB.SelectedValue != null)
             {
-                var uc = underlyingContractCB.SelectedItem.ToString();
+                var uc = underlyingContractCB.SelectedValue.ToString();
+
+
+                var optionList = (from c in _contractList
+                                  where c.UnderlyingContract == uc
+                                  select c).ToList();
+
+                var strikeList = (from o in optionList
+                                  orderby o.StrikePrice
+                                  select o.StrikePrice).Distinct().ToList();
+
+                var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
+
+                var callList = (from o in optionList
+                                where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
+                                orderby o.StrikePrice
+                                select o.Contract).Distinct().ToList();
+
+                var putList = (from o in optionList
+                               where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
+                               orderby o.StrikePrice
+                               select o.Contract).Distinct().ToList();
+                CallPutTDOptionVMCollection.Clear();
+                var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList);
+                foreach (var vm in retList)
+                {
+                    CallPutTDOptionVMCollection.Add(vm);
+                }
+            }
+            //if (underlyingContractCB.SelectedItem != null)
+            //{
+            //    var uc = underlyingContractCB.SelectedItem.ToString();
+
+            //    var optionList = (from c in _contractList
+            //                      where c.UnderlyingContract == uc
+            //                      select c).ToList();
+
+            //    var strikeList = (from o in optionList
+            //                      orderby o.StrikePrice
+            //                      select o.StrikePrice).Distinct().ToList();
+
+            //    var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
+
+            //    var callList = (from o in optionList
+            //                    where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
+            //                    orderby o.StrikePrice
+            //                    select o.Contract).Distinct().ToList();
+
+            //    var putList = (from o in optionList
+            //                   where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
+            //                   orderby o.StrikePrice
+            //                   select o.Contract).Distinct().ToList();
+            //    CallPutTDOptionVMCollection.Clear();
+            //    var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList);
+            //    foreach (var vm in retList)
+            //    {
+            //        CallPutTDOptionVMCollection.Add(vm);
+            //    }
+            //}
+        }
+        private void underlyingEX1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var exchange = underlyingEX1.SelectedValue.ToString();
+            underlyingCB1.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+        }
+        private void underlyingCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var productId = underlyingCB1.SelectedValue;
+
+            if (productId != null)
+            {
+                var underlyingContracts = (from c in _contractList
+                                           where c.ProductID == productId.ToString()
+                                           select c.UnderlyingContract).Distinct().ToList();
+
+                underlyingContractCB1.ItemsSource = underlyingContracts;
+            }
+        }
+        public void underlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (underlyingContractCB1.SelectedValue != null)
+            {
+                var uc = underlyingContractCB1.SelectedValue.ToString();
 
                 var optionList = (from c in _contractList
                                   where c.UnderlyingContract == uc
@@ -184,5 +297,6 @@ namespace Micro.Future.UI
                 }
             }
         }
+
     }
 }
