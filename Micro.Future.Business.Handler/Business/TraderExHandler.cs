@@ -171,9 +171,12 @@ namespace Micro.Future.Message
                 {
                     using (var clientCtx = new ClientDbContext())
                     {
-                        foreach (var productType in Enum.GetValues(typeof(ProductType)))
+                        var types = rsp.ContractInfo.Select(c => c.ProductType).Distinct();
+                        foreach (var productType in types)
                         {
-                            var oldContracts = from p in clientCtx.ContractInfo select p;
+                            var oldContracts = from p in clientCtx.ContractInfo
+                                               where p.ProductType == productType
+                                               select p;
 
                             clientCtx.RemoveRange(oldContracts);
                             clientCtx.SaveChanges();
@@ -212,10 +215,10 @@ namespace Micro.Future.Message
                                     ContractType = contract.ContractType
                                 });
                             }
+                            clientCtx.SaveChanges();
                         }
 
                         clientCtx.SetSyncVersion(nameof(ContractInfo), DateTime.Now.Date.ToShortDateString());
-
                         clientCtx.SaveChanges();
                     }
                 });
