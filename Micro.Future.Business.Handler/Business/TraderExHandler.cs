@@ -165,64 +165,67 @@ namespace Micro.Future.Message
         //To invoke the function of saving contract data to local sqlite
         private void OnContractInfo(PBContractInfoList rsp)
         {
-            if (rsp.ContractInfo.Any())
+            Task.Run(() =>
             {
-                Task.Run(() =>
+                using (var clientCtx = new ClientDbContext())
                 {
-                    using (var clientCtx = new ClientDbContext())
+                    var types = rsp.ContractInfo.Select(c => c.ProductType).Distinct().ToList();
+                    foreach (var productType in types)
                     {
-                        var types = rsp.ContractInfo.Select(c => c.ProductType).Distinct();
-                        foreach (var productType in types)
+                        var oldContracts = from p in clientCtx.ContractInfo
+                                           where p.ProductType == productType
+                                           select p;
+
+                        clientCtx.RemoveRange(oldContracts);
+                        clientCtx.SaveChanges();
+
+                        var contractList = from c in rsp.ContractInfo
+                                           where c.ProductType == productType
+                                           select c;
+
+                        foreach (var contract in contractList)
                         {
-                            var oldContracts = from p in clientCtx.ContractInfo
-                                               where p.ProductType == productType
-                                               select p;
-
-                            clientCtx.RemoveRange(oldContracts);
-                            clientCtx.SaveChanges();
-
-                            foreach (var contract in rsp.ContractInfo)
+                            clientCtx.ContractInfo.Add(new ContractInfo()
                             {
-                                clientCtx.ContractInfo.Add(new ContractInfo()
-                                {
-                                    Exchange = contract.Exchange,
-                                    Contract = contract.Contract,
-                                    Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
-                                    ProductID = contract.ProductID,
-                                    ProductType = contract.ProductType,
-                                    DeliveryYear = contract.DeliveryYear,
-                                    DeliveryMonth = contract.DeliveryMonth,
-                                    MaxMarketOrderVolume = contract.MaxMarketOrderVolume,
-                                    MinMarketOrderVolume = contract.MinMarketOrderVolume,
-                                    MaxLimitOrderVolume = contract.MaxMarketOrderVolume,
-                                    MinLimitOrderVolume = contract.MinMarketOrderVolume,
-                                    VolumeMultiple = contract.VolumeMultiple,
-                                    PriceTick = contract.PriceTick,
-                                    CreateDate = contract.CreateDate,
-                                    OpenDate = contract.OpenDate,
-                                    ExpireDate = contract.ExpireDate,
-                                    StartDelivDate = contract.EndDelivDate,
-                                    EndDelivDate = contract.EndDelivDate,
-                                    LifePhase = contract.LifePhase,
-                                    IsTrading = contract.IsTrading,
-                                    PositionType = contract.PositionType,
-                                    PositionDateType = contract.PositionDateType,
-                                    LongMarginRatio = contract.LongMarginRatio,
-                                    ShortMarginRatio = contract.ShortMarginRatio,
-                                    UnderlyingExchange = contract.UnderlyingExchange,
-                                    UnderlyingContract = contract.UnderlyingContract,
-                                    StrikePrice = contract.StrikePrice,
-                                    ContractType = contract.ContractType
-                                });
-                            }
-                            clientCtx.SaveChanges();
+                                Exchange = contract.Exchange,
+                                Contract = contract.Contract,
+                                Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
+                                ProductID = contract.ProductID,
+                                ProductType = contract.ProductType,
+                                DeliveryYear = contract.DeliveryYear,
+                                DeliveryMonth = contract.DeliveryMonth,
+                                MaxMarketOrderVolume = contract.MaxMarketOrderVolume,
+                                MinMarketOrderVolume = contract.MinMarketOrderVolume,
+                                MaxLimitOrderVolume = contract.MaxMarketOrderVolume,
+                                MinLimitOrderVolume = contract.MinMarketOrderVolume,
+                                VolumeMultiple = contract.VolumeMultiple,
+                                PriceTick = contract.PriceTick,
+                                CreateDate = contract.CreateDate,
+                                OpenDate = contract.OpenDate,
+                                ExpireDate = contract.ExpireDate,
+                                StartDelivDate = contract.EndDelivDate,
+                                EndDelivDate = contract.EndDelivDate,
+                                LifePhase = contract.LifePhase,
+                                IsTrading = contract.IsTrading,
+                                PositionType = contract.PositionType,
+                                PositionDateType = contract.PositionDateType,
+                                LongMarginRatio = contract.LongMarginRatio,
+                                ShortMarginRatio = contract.ShortMarginRatio,
+                                UnderlyingExchange = contract.UnderlyingExchange,
+                                UnderlyingContract = contract.UnderlyingContract,
+                                StrikePrice = contract.StrikePrice,
+                                ContractType = contract.ContractType
+                            });
                         }
 
-                        clientCtx.SetSyncVersion(nameof(ContractInfo), DateTime.Now.Date.ToShortDateString());
-                        clientCtx.SaveChanges();
+                        if (contractList.Any())
+                            clientCtx.SaveChanges();
                     }
-                });
-            }
+
+                    clientCtx.SetSyncVersion(nameof(ContractInfo), DateTime.Now.Date.ToShortDateString());
+                    clientCtx.SaveChanges();
+                }
+            });
         }
 
         private void OnPosition(PBPosition rsp)
