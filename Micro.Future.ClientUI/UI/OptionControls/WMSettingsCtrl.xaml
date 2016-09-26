@@ -8,6 +8,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="500">
     <Grid>
+        <Grid.ContextMenu>
+            <ContextMenu StaysOpen="True">
+                <MenuItem Header="波动率模型窗口设置" Click="VolModel_MenuItem_Click" />
+                <Separator />
+            </ContextMenu>
+
+        </Grid.ContextMenu>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />

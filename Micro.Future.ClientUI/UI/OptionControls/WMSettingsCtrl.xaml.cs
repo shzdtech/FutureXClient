@@ -1,7 +1,9 @@
 ﻿using Micro.Future.Message;
 using Micro.Future.ViewModel;
+using Micro.Future.Windows;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Micro.Future.UI
 {
@@ -22,9 +25,32 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class WMSettingsCtrl : UserControl
     {
+        private VolModelSettingsWindow _volModelSettingsWin = new VolModelSettingsWindow();
+        public LayoutContent LayoutContent { get; set; }
         public WMSettingsCtrl()
         {
             InitializeComponent();
+            _volModelSettingsWin.OnNaming += _volModelSettingsWin_OnNaming;
+        }
+        public ObservableCollection<StrategyVM> StrategyVMCollection
+        {
+            get;
+        } = new ObservableCollection<StrategyVM>();
+
+        
+        private AbstractOTCHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
+
+
+        private void _volModelSettingsWin_OnNaming(string volModelName)
+        {
+            if (LayoutContent != null)
+                LayoutContent.Title = _volModelSettingsWin.VolModelTabTitle;
+            var handler = _otcOptionHandler;
+            foreach (var volmodelVM in StrategyVMCollection)
+            {
+                volmodelVM.VolModel = volModelName;
+                handler.UpdateStrategy(volmodelVM);
+            }
         }
         public ModelParamsVM ModelParams
         {
@@ -63,5 +89,11 @@ namespace Micro.Future.UI
         {
             throw new NotImplementedException();
         }
+
+        private void VolModel_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            _volModelSettingsWin.Show();
+        }
+
     }
 }

@@ -67,6 +67,9 @@
     <Compile Include="ViewModel\CountryViewModel.cs" />
     <Compile Include="ViewModel\RegionViewModel.cs" />
     <Compile Include="ViewModel\StateViewModel.cs" />
+    <Compile Include="Windows\VolModelSettingsWindow.xaml.cs">
+      <DependentUpon>VolModelSettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\FilterSettingsWindowForExecution.xaml.cs">
       <DependentUpon>FilterSettingsWindowForExecution.xaml</DependentUpon>
     </Compile>
@@ -87,6 +90,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\ColumnSettingsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\VolModelSettingsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

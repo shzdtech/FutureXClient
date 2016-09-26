@@ -61,6 +61,7 @@ namespace Micro.Future.UI
             }
 
             underlyingEX.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
+            underlyingEX1.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             exchange1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
             exchange2.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
             _viewSource1.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
