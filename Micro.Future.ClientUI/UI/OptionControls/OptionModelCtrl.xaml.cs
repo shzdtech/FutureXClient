@@ -22,25 +22,23 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OptionModelCtrl : UserControl
     {
-        private VolCurvCtrl _volCurvCtrl = new VolCurvCtrl();
-        private OpMarketData _opMarketData = new OpMarketData();
         private OTCOptionHandler _otcHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
         public OptionModelCtrl()
         {
             InitializeComponent();
-            OpMarketControl.underlyingContractCB1.SelectionChanged += UnderlyingContractCB1_SelectionChanged;
+            OpMarketControl.underlyingContractCB.SelectionChanged += UnderlyingContractCB_SelectionChanged;
         }
 
-        private async void UnderlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void UnderlyingContractCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = OpMarketControl.underlyingEX.SelectedValue;
-            var uc = OpMarketControl.underlyingContractCB1.SelectedValue;
+            var uc = OpMarketControl.underlyingContractCB.SelectedValue;
 
             if (exchange != null && uc != null)
             {
-                _volCurvCtrl.SelectOption(uc.ToString());
+                VolCurvLV.SelectOption(uc.ToString());
                 var strategyVM = _otcHandler.StrategyVMCollection.FirstOrDefault(s => s.Contract == uc.ToString() && s.Exchange == exchange.ToString());
-                var modelparamsVM = await _otcHandler.QueryModelParamsAsync(strategyVM.VolModel);
+                //var modelparamsVM = await _otcHandler.QueryModelParamsAsync(strategyVM.VolModel);
                 //WMSettingsLV.DataContext = modelparamsVM;
             }
         }
