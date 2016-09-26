@@ -29,8 +29,9 @@ namespace Micro.Future.UI
         public WMSettingsCtrl()
         {
             InitializeComponent();
-
         }
+        public LayoutContent LayoutContent { get; set; }
+
         public ObservableCollection<StrategyVM> StrategyVMCollection
         {
             get;
@@ -71,11 +72,5 @@ namespace Micro.Future.UI
                 }
             }
         }
-
-        public static explicit operator TabItem(WMSettingsCtrl v)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using Micro.Future.Message;
+﻿using Micro.Future.CustomizedControls.Controls;
+using Micro.Future.Message;
 using Micro.Future.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Micro.Future.UI
 {
     /// <summary>
     /// UserControl1.xaml 的交互逻辑
     /// </summary>
-    public partial class OptionModelCtrl : UserControl
+    public partial class OptionModelCtrl : UserControl, ILayoutAnchorableControl
+
     {
         private OTCOptionHandler _otcHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
         public OptionModelCtrl()
@@ -29,7 +32,19 @@ namespace Micro.Future.UI
             OpMarketControl.underlyingContractCB.SelectionChanged += UnderlyingContractCB_SelectionChanged;
         }
 
-
+        private LayoutAnchorablePane _pane;
+        public LayoutAnchorablePane AnchorablePane
+        {
+            get
+            {
+                return _pane;
+            }
+            set
+            {
+                _pane = value;
+                WMSettingsLV.LayoutContent = _pane.SelectedContent;
+            }
+        }
 
         private async void UnderlyingContractCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

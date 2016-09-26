@@ -10,8 +10,8 @@
              lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
              lex:ResxLocalizationProvider.DefaultDictionary="Resources"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+             d:DesignHeight="300" d:DesignWidth="2500">
+    <Grid Margin="0,0,578,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -147,10 +147,17 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-
         </WrapPanel>
 
-        <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0" BorderThickness="0,0,0,0">
+        <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0">
+            <ListView.Resources>
+                <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="GreenHeaderStyle">
+                    <Setter Property="Background" Value="Green" />
+                </Style>
+                <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="RedHeaderStyle">
+                    <Setter Property="Background" Value="Red" />
+                </Style>
+            </ListView.Resources>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -158,58 +165,23 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView x:Name="option_priceGV"  ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
-                    <GridViewColumn x:Name="PBidQT">
-                        <GridViewColumn.Header>
-                            <TextBlock Text="PBidQT启用">
-                                <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-                                </TextBlock.Background>
-                            </TextBlock>
-                        </GridViewColumn.Header>
+                    <GridViewColumn x:Name="PBidQT" Header="PBidQT启用" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding PutStrategyVM.BidEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PAskQT">
-                        <GridViewColumn.Header>
-                            <TextBlock Text="PAskQT启用">
-                                <TextBlock.Background >
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-                                </TextBlock.Background>
-                            </TextBlock>
-                        </GridViewColumn.Header>
+                    <GridViewColumn x:Name="PAskQT" Header="PAskQT启用" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding PutStrategyVM.AskEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PBidIV" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidVol}">
-                        <GridViewColumn.Header>
-                            <TextBlock>
-                                <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-                                </TextBlock.Background>PBidIV</TextBlock>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="PAskIV" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskVol}">
-                        <GridViewColumn.Header>
-                            <TextBlock>
-                                <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-                                </TextBlock.Background>PAskIV</TextBlock>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
-                    <GridViewColumn x:Name="PBidTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.BidPrice}">
-                        <GridViewColumn.Header>
-                            <TextBlock>
-                                <TextBlock.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-                                </TextBlock.Background>PBidTheo</TextBlock>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
+                    <GridViewColumn x:Name="PBidIV" Header="PBidIV" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidVol}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PAskIV" Header="PAskIV" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskVol}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PBidTheo" Header="PBidTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.BidPrice}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" />
                     <GridViewColumn x:Name="PAskTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskPrice}">
                         <GridViewColumn.Header>
                             <TextBlock>
