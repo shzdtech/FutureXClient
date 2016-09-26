@@ -51,7 +51,7 @@
                         <HeaderedContentControl Header="定价模型"  />
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
-                <TextBox x:Name="pricingModelTB" HorizontalAlignment="Left" Height="auto" TextWrapping="Wrap" Text="" Width="auto"/>
+                <ComboBox Name="pricingModelCB" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="pricingModelCB_SelectionChanged"/>
             </GroupBox>
             <GroupBox x:Name="Op_VolModel">
                 <GroupBox.HeaderTemplate>
@@ -59,7 +59,7 @@
                         <HeaderedContentControl Header="波动率模型"  />
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
-                <TextBox x:Name="volModelTB" HorizontalAlignment="Left" Height="auto" TextWrapping="Wrap" Text="" Width="auto"/>
+                <ComboBox Name="volModelCB" SelectedIndex="0" Width="auto" VerticalAlignment="Center" SelectionChanged="volModelCB_SelectionChanged"/>
             </GroupBox>
             <GroupBox x:Name="Op_Exchange1">
                 <GroupBox.HeaderTemplate>

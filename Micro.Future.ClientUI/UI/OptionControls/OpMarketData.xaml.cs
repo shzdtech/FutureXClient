@@ -221,6 +221,7 @@ namespace Micro.Future.UI
         {
             var exchange = exchange1.SelectedValue.ToString();
             underlying1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+            contract1.ItemsSource = null;
         }
         private void underlying1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -256,6 +257,7 @@ namespace Micro.Future.UI
         {
             var exchange = exchange2.SelectedValue.ToString();
             underlying2.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+            contract2.ItemsSource = null;
 
         }
         private void underlying2_SelectionChanged(object sender, SelectionChangedEventArgs e)

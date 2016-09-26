@@ -35,7 +35,7 @@ namespace Micro.Future.UI
         private CollectionViewSource _viewSource1 = new CollectionViewSource();
 
         private IList<ContractInfo> _contractList;
-        private IList<ContractInfo> _OTCcontractList;
+        private IList<ContractInfo> _futurecontractList;
 
 
         private IList<ColumnObject> _optionColumns;
@@ -48,6 +48,10 @@ namespace Micro.Future.UI
         {
             get;
         } = new ObservableCollection<MarketDataVM>();
+        public ObservableCollection<StrategyVM> StrategyVMCollection
+        {
+            get;
+        } = new ObservableCollection<StrategyVM>();
 
 
         public void Initialize()
@@ -56,16 +60,18 @@ namespace Micro.Future.UI
             {
                 //_contractList = clientCache.ContractInfo.Where(c => c.ProductType == 1).ToList();
                 _contractList = clientCache.GetContractsByProductType((int)ProductType.PRODUCT_OPTIONS);
-                _OTCcontractList = clientCache.GetContractsByProductType((int)ProductType.PRODUCT_OTC_OPTION);
-
+                //_OTCcontractList = clientCache.GetContractsByProductType((int)ProductType.PRODUCT_OTC_OPTION);
+                _futurecontractList = clientCache.ContractInfo.Where(c => c.ProductType == 0).ToList();
             }
 
             exchangeCB.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
-            underlyingEX1.ItemsSource = _OTCcontractList.Select(c => c.Exchange).Distinct();
+            underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
             _viewSource1.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
             //underlyingCB.ItemsSource = _contractList.Select(c => c.ProductID).Distinct();
             // Initialize Market Data
             quoteListView1.ItemsSource = QuoteVMCollection1;
+            pricingModelCB.ItemsSource = StrategyVMCollection.Select(c => c.PricingModel).Distinct();
+            volModelCB.ItemsSource = StrategyVMCollection.Select(c => c.VolModel).Distinct();
             option_priceLV.ItemsSource = CallPutTDOptionVMCollection;
             _otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
 
@@ -249,7 +255,8 @@ namespace Micro.Future.UI
         private void underlyingEX1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = underlyingEX1.SelectedValue.ToString();
-            underlyingCB1.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+            underlyingCB1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+            underlyingContractCB1.ItemsSource = null;
         }
         private void underlyingCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -257,46 +264,61 @@ namespace Micro.Future.UI
 
             if (productId != null)
             {
-                var underlyingContracts = (from c in _contractList
+                var underlyingContracts = (from c in _futurecontractList
                                            where c.ProductID == productId.ToString()
-                                           select c.UnderlyingContract).Distinct().ToList();
+                                           select c.Contract).Distinct().ToList();
 
                 underlyingContractCB1.ItemsSource = underlyingContracts;
             }
         }
         public void underlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (underlyingContractCB1.SelectedValue != null)
+            if (underlyingContractCB1.SelectedItem != null)
             {
-                var uc = underlyingContractCB1.SelectedValue.ToString();
-
-                var optionList = (from c in _contractList
-                                  where c.UnderlyingContract == uc
-                                  select c).ToList();
-
-                var strikeList = (from o in optionList
-                                  orderby o.StrikePrice
-                                  select o.StrikePrice).Distinct().ToList();
-
-                var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
-
-                var callList = (from o in optionList
-                                where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
-                                orderby o.StrikePrice
-                                select o.Contract).Distinct().ToList();
-
-                var putList = (from o in optionList
-                               where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
-                               orderby o.StrikePrice
-                               select o.Contract).Distinct().ToList();
-                CallPutTDOptionVMCollection.Clear();
-                var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList);
-                foreach (var vm in retList)
+                var uc = underlyingContractCB1.SelectedItem.ToString();
+                var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+                QuoteVMCollection1.Clear();
+                handler.SubMarketData(new[] { uc });
+                var quote = handler.QuoteVMCollection.FirstOrDefault(c => c.Contract == uc);
+                if (quote != null)
                 {
-                    CallPutTDOptionVMCollection.Add(vm);
+                    QuoteVMCollection1.Add(quote);
                 }
             }
         }
 
+        private void pricingModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (pricingModelCB.SelectedItem != null)
+            {
+                var pm = pricingModelCB.SelectedItem.ToString();
+                var handler = _otcOptionHandler;
+                foreach (var option in CallPutTDOptionVMCollection)
+                {
+                    option.CallStrategyVM.PricingModel = pm;
+                     handler.UpdateStrategy(option.CallStrategyVM);
+                    option.PutStrategyVM.PricingModel = pm;
+                     handler.UpdateStrategy(option.PutStrategyVM);
+                }
+
+            }
+        }
+
+        private void volModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (volModelCB.SelectedItem != null)
+            {
+                var vm = volModelCB.SelectedItem.ToString();
+                var handler = _otcOptionHandler;
+                foreach (var option in CallPutTDOptionVMCollection)
+                {
+                    option.CallStrategyVM.VolModel = vm;
+                    handler.UpdateStrategy(option.CallStrategyVM);
+                    option.PutStrategyVM.VolModel = vm;
+                    handler.UpdateStrategy(option.PutStrategyVM);
+                }
+
+            }
+        }
     }
 }

@@ -204,6 +204,8 @@ namespace Micro.Future.Message
             strategy.Hedging = sVM.Hedging;
             strategy.AskEnabled = sVM.AskEnabled;
             strategy.BidEnabled = sVM.BidEnabled;
+            strategy.VolModel = sVM.VolModel;
+            strategy.PricingModel = sVM.PricingModel;
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }
