@@ -14,11 +14,6 @@ namespace Micro.Future.Message
 {
     public class MarketDataHandler : MessageHandlerTemplate<MarketDataHandler>
     {
-        public ISet<string> WatchList
-        {
-            get;
-        } = new HashSet<string>();
-
         public ObservableCollection<MarketDataVM> QuoteVMCollection
         {
             get;
@@ -34,9 +29,16 @@ namespace Micro.Future.Message
                 ((uint)BusinessMessageID.MSG_ID_RET_MARKETDATA, RetMDSuccessAction, ErrorMsgAction);
         }
 
-        public void SubMarketData(string instrID)
+        public MarketDataVM SubMarketData(string instrID)
         {
-            SubMarketData(new List<string>() { instrID });
+            MarketDataVM mktVM = QuoteVMCollection.FirstOrDefault(((quote) => string.Compare(quote.Contract, instrID, true) == 0));
+            if (mktVM == null)
+            {
+                mktVM = new MarketDataVM() { Contract = instrID };
+                QuoteVMCollection.Add(mktVM);
+                SubMarketData(new[] { instrID });
+            }
+            return mktVM;
         }
 
         public void SubMarketData(IEnumerable<string> instrIDList)
@@ -53,11 +55,6 @@ namespace Micro.Future.Message
             sst.Columns.Add(instr);
 
             MessageWrapper?.SendMessage((uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA, sst);
-        }
-
-        public void SubMarketData()
-        {
-            SubMarketData(this.WatchList);
         }
 
         public void ResubMarketData()
@@ -97,11 +94,6 @@ namespace Micro.Future.Message
             MessageWrapper?.SendMessage((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, sst);
         }
 
-        public void UnsubMarketData()
-        {
-            UnsubMarketData(this.WatchList);
-        }
-
         protected void SubMDSuccessAction(PBMarketDataList marketList)
         {
             if (QuoteVMCollection != null)
@@ -110,14 +102,14 @@ namespace Micro.Future.Message
                 {
                     foreach (var md in marketList.MarketData)
                     {
-                        if (!QuoteVMCollection.Any((quote) => string.Compare(quote.Contract, md.Contract, true) == 0))
+                        MarketDataVM mktVM = QuoteVMCollection.FirstOrDefault(((quote) => string.Compare(quote.Contract, md.Contract, true) == 0));
+                        if(mktVM == null)
                         {
-                            QuoteVMCollection.Add(new MarketDataVM()
-                            {
-                                Exchange = md.Exchange,
-                                Contract = md.Contract
-                            });
+                            mktVM = new MarketDataVM();
+                            QuoteVMCollection.Add(mktVM);
                         }
+                        mktVM.Exchange = md.Exchange;
+                        mktVM.Contract = md.Contract;
                     }
                 }
             }

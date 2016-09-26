@@ -8,7 +8,7 @@ namespace Micro.Future.ViewModel
 {
     public class OptionPricingVM : PricingVM
     {
-        private double _bidVol;
+        private double _bidVol = .2;
         public double BidVol
         {
             get
@@ -22,7 +22,7 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private double _askVol;
+        private double _askVol = .2;
         public double AskVol
         {
             get
@@ -36,7 +36,7 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private double _midVol;
+        private double _midVol = .2;
         public double MidVol
         {
             get

@@ -12,12 +12,12 @@ namespace Micro.Future.LocalStorage
 {
     public class ClientDbContext : DbContext
     {
-        public ClientDbContext() : base()
+        public ClientDbContext()
         {
-            ConnectionString = "Filename=" + Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Data" + Path.DirectorySeparatorChar + "clientcache.db");
+            ConnectionString = "data source=" + Path.Combine(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Data"), "clientcache.db");
         }
 
-        public ClientDbContext(string connectionString) : base() { ConnectionString = connectionString; }
+        public ClientDbContext(string connectionString) { ConnectionString = connectionString; }
 
         public DbSet<SyncInfo> SyncInfo { get; set; }
 
