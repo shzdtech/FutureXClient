@@ -29,6 +29,8 @@ namespace Micro.Future.UI
             OpMarketControl.underlyingContractCB.SelectionChanged += UnderlyingContractCB_SelectionChanged;
         }
 
+
+
         private async void UnderlyingContractCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = OpMarketControl.underlyingEX.SelectedValue;

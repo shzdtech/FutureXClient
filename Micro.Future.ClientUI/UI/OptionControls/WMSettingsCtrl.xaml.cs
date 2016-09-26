@@ -1,4 +1,5 @@
-﻿using Micro.Future.Message;
+﻿using Micro.Future.CustomizedControls.Controls;
+using Micro.Future.Message;
 using Micro.Future.ViewModel;
 using Micro.Future.Windows;
 using System;
@@ -25,12 +26,10 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class WMSettingsCtrl : UserControl
     {
-        private VolModelSettingsWindow _volModelSettingsWin = new VolModelSettingsWindow();
-        public LayoutContent LayoutContent { get; set; }
         public WMSettingsCtrl()
         {
             InitializeComponent();
-            _volModelSettingsWin.OnNaming += _volModelSettingsWin_OnNaming;
+
         }
         public ObservableCollection<StrategyVM> StrategyVMCollection
         {
@@ -40,18 +39,6 @@ namespace Micro.Future.UI
         
         private AbstractOTCHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
 
-
-        private void _volModelSettingsWin_OnNaming(string volModelName)
-        {
-            if (LayoutContent != null)
-                LayoutContent.Title = _volModelSettingsWin.VolModelTabTitle;
-            var handler = _otcOptionHandler;
-            foreach (var volmodelVM in StrategyVMCollection)
-            {
-                volmodelVM.VolModel = volModelName;
-                handler.UpdateStrategy(volmodelVM);
-            }
-        }
         public ModelParamsVM ModelParams
         {
             get;
@@ -88,11 +75,6 @@ namespace Micro.Future.UI
         public static explicit operator TabItem(WMSettingsCtrl v)
         {
             throw new NotImplementedException();
-        }
-
-        private void VolModel_MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            _volModelSettingsWin.Show();
         }
 
     }

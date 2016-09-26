@@ -15,7 +15,7 @@
         <StackPanel>
             <Label Content="波动率模型名称"/>
             <TextBox x:Name="titleTxt"/>
-            <Button x:Name="OkBtn" Content="保存" IsDefault="True" Click="OkBtn_Click" Margin="35,0,53,0"/>
+            <Button x:Name="OkBtn" Content="保存" IsDefault="True" Margin="35,0,53,0" Click="OkBtn_Click"/>
         </StackPanel>
     </Grid>
 </Window>

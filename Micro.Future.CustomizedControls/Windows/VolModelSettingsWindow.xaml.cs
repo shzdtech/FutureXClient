@@ -6,8 +6,7 @@ namespace Micro.Future.Windows
 {
 
     public partial class VolModelSettingsWindow : Window
-    {
-        public event Action<string> OnNaming;
+    { 
 
         public VolModelSettingsWindow()
         {
@@ -25,10 +24,8 @@ namespace Micro.Future.Windows
 
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
-            Hide();
-            OnNaming?.Invoke(VolModelTabTitle);
+            DialogResult = true;
+            Close();
         }
-
-        
     }
 }
