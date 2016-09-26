@@ -195,7 +195,5 @@ namespace Micro.Future.ViewModel
                 return _updateCommand;
             }
         }
-
-        public bool Enable { get; set; }
     }
 }

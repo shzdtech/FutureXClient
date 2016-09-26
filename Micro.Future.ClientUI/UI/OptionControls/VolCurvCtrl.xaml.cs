@@ -60,12 +60,52 @@ namespace Micro.Future.UI
             theoAskSC.MarkerOutline = CustomOxyMarkers.RDTriangle;
 
             var internalBidSS = theoBidSC.CreateModel() as OxyPlot.Series.ScatterSeries;
-            internalBidSS.MouseDown += InternalScatter_MouseDown;
+            internalBidSS.MouseDown += BidScatter_MouseDown;
             var internalAskSS = theoAskSC.CreateModel() as OxyPlot.Series.ScatterSeries;
-            internalAskSS.MouseDown += InternalScatter_MouseDown;
+            internalAskSS.MouseDown += AskScatter_MouseDown;
 
             _otcHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
 
+        }
+
+        private void BidScatter_MouseDown(object sender, OxyMouseDownEventArgs e)
+        {
+            var bpSC = sender as OxyPlot.Series.ScatterSeries;
+            if (bpSC != null)
+            {
+                TrackerHitResult nearestPoint = bpSC.GetNearestPoint(e.Position, false);
+                if (nearestPoint != null)
+                {
+                    var point = nearestPoint.Item as ScatterPoint;
+                    if (point != null)
+                    {
+                        var strategyVM = (StrategyVM)point.Tag;
+                        strategyVM.BidEnabled = !strategyVM.BidEnabled;
+                        point.Value = strategyVM.BidEnabled ? 1 : 0;
+                        bpSC.PlotModel.InvalidatePlot(false);
+
+                    }
+                }
+            }
+        }
+        private void AskScatter_MouseDown(object sender, OxyMouseDownEventArgs e)
+        {
+            var bpSC = sender as OxyPlot.Series.ScatterSeries;
+            if (bpSC != null)
+            {
+                TrackerHitResult nearestPoint = bpSC.GetNearestPoint(e.Position, false);
+                if (nearestPoint != null)
+                {
+                    var point = nearestPoint.Item as ScatterPoint;
+                    if (point != null)
+                    {
+                        var strategyVM = (StrategyVM)point.Tag;
+                        strategyVM.AskEnabled = !strategyVM.AskEnabled;
+                        point.Value = strategyVM.AskEnabled ? 1 : 0;
+                        bpSC.PlotModel.InvalidatePlot(false);
+                    }
+                }
+            }
         }
 
         private void OnTradingDeskOptionParamsReceived(TradingDeskOptionVM tdOptionVM)
@@ -147,28 +187,6 @@ namespace Micro.Future.UI
         private void ClearPlot()
         {
             _volatilityModelVM.ClearAll();
-        }
-
-
-        private void InternalScatter_MouseDown(object sender, OxyMouseDownEventArgs e)
-        {
-            var bpSC = sender as OxyPlot.Series.ScatterSeries;
-            if (bpSC != null)
-            {
-                TrackerHitResult nearestPoint = bpSC.GetNearestPoint(e.Position, false);
-                if (nearestPoint != null)
-                {
-                    var point = nearestPoint.Item as ScatterPoint;
-                    if (point != null)
-                    {
-                        var strategyVM = (StrategyVM)point.Tag;
-                        strategyVM.Enable = !strategyVM.BidEnabled;
-                        point.Value = strategyVM.BidEnabled ? 1 : 0;
-                        bpSC.PlotModel.InvalidatePlot(false);
-
-                    }
-                }
-            }
         }
     }
 }
