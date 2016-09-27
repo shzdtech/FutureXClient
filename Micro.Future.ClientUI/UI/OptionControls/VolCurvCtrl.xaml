@@ -48,11 +48,6 @@
             <CheckBox x:Name="checkBoxTheoAsk" Content="TheoAskVol" IsChecked="True"/>
             <CheckBox x:Name="checkBoxTheoMid" Content="TheoMidVol" IsChecked="True"/>
         </WrapPanel>
-        <oxy:Plot x:Name="testPlot" Grid.Row="2" MinHeight="200" MinWidth="150">
-            <oxy:Plot.Series>
-                <oxy:LineSeries Name="testCallBidLS"/>
-            </oxy:Plot.Series>
-        </oxy:Plot>
     </Grid>
 </UserControl>
 <!--<oxy:PlotView Grid.Row="1" x:Name="PlotVolatility" Tag="4" MinWidth="200"  MinHeight="430" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
