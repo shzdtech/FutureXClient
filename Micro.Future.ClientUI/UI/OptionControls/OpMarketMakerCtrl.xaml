@@ -10,16 +10,12 @@
              lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
              lex:ResxLocalizationProvider.DefaultDictionary="Resources"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="2500">
-    <Grid Margin="0,0,578,0">
+             d:DesignHeight="300" d:DesignWidth="2000">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-
         <WrapPanel Grid.Row="0">
             <GroupBox x:Name="Op_Exchange">
                 <GroupBox.HeaderTemplate>
@@ -158,13 +154,8 @@
                     <Setter Property="Background" Value="Red" />
                 </Style>
             </ListView.Resources>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                </Style>
-            </ListView.ItemContainerStyle>
             <ListView.View>
-                <GridView x:Name="option_priceGV"  ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+                <GridView x:Name="option_priceGV">
                     <GridViewColumn x:Name="PBidQT" Header="PBidQT启用" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

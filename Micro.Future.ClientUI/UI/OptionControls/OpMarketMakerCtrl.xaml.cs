@@ -56,13 +56,8 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
-            using (var clientCache = new ClientDbContext())
-            {
-                //_contractList = clientCache.ContractInfo.Where(c => c.ProductType == 1).ToList();
-                _contractList = clientCache.GetContractsByProductType((int)ProductType.PRODUCT_OPTIONS);
-                //_OTCcontractList = clientCache.GetContractsByProductType((int)ProductType.PRODUCT_OTC_OPTION);
-                _futurecontractList = clientCache.ContractInfo.Where(c => c.ProductType == 0).ToList();
-            }
+            _contractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
+            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
 
             exchangeCB.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
@@ -85,42 +80,42 @@ namespace Micro.Future.UI
             var positionNode = new ColumnObject(new GridViewColumn() { Header = "持仓" });
             var QTNode = new ColumnObject(new GridViewColumn() { Header = "交易开关" });
 
-            marketNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PBid));
-            marketNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PBidSize));
-            marketNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PAsk));
-            marketNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PAskSize));
-            marketNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CBid));
-            marketNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CBidSize));
-            marketNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CAsk));
-            marketNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CAskSize));
-            ivolNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PBidIV));
-            ivolNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PAskIV));
-            ivolNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PMidIV));
-            ivolNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CBidIV));
-            ivolNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CAskIV));
-            ivolNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CMidIV));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PDelta));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CDelta));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PVega));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CVega));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PGamma));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CGamma));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PTheta));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CTheta));
-            theoPriceNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PBidTheo));
-            theoPriceNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PAskTheo));
-            theoPriceNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CBidTheo));
-            theoPriceNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CAskTheo));
-            QVNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PBidQV));
-            QVNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PAskQV));
-            QVNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CBidQV));
-            QVNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CAskQV));
-            positionNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PPosition));
-            positionNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CPosition));
-            QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PAskQT));
-            QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, PBidQT));
-            QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CBidQT));
-            QTNode.Children.Add(ColumnObject.CreateColumn(option_priceLV, CAskQT));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PBid));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PBidSize));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PAsk));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PAskSize));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CBid));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CBidSize));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CAsk));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CAskSize));
+            ivolNode.Children.Add(ColumnObject.CreateColumn(PBidIV));
+            ivolNode.Children.Add(ColumnObject.CreateColumn(PAskIV));
+            ivolNode.Children.Add(ColumnObject.CreateColumn(PMidIV));
+            ivolNode.Children.Add(ColumnObject.CreateColumn(CBidIV));
+            ivolNode.Children.Add(ColumnObject.CreateColumn(CAskIV));
+            ivolNode.Children.Add(ColumnObject.CreateColumn(CMidIV));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(PDelta));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(CDelta));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(PVega));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(CVega));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(PGamma));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(CGamma));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(PTheta));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(CTheta));
+            theoPriceNode.Children.Add(ColumnObject.CreateColumn(PBidTheo));
+            theoPriceNode.Children.Add(ColumnObject.CreateColumn(PAskTheo));
+            theoPriceNode.Children.Add(ColumnObject.CreateColumn(CBidTheo));
+            theoPriceNode.Children.Add(ColumnObject.CreateColumn(CAskTheo));
+            QVNode.Children.Add(ColumnObject.CreateColumn(PBidQV));
+            QVNode.Children.Add(ColumnObject.CreateColumn(PAskQV));
+            QVNode.Children.Add(ColumnObject.CreateColumn(CBidQV));
+            QVNode.Children.Add(ColumnObject.CreateColumn(CAskQV));
+            positionNode.Children.Add(ColumnObject.CreateColumn(PPosition));
+            positionNode.Children.Add(ColumnObject.CreateColumn(CPosition));
+            QTNode.Children.Add(ColumnObject.CreateColumn(PAskQT));
+            QTNode.Children.Add(ColumnObject.CreateColumn(PBidQT));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CBidQT));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CAskQT));
 
             marketNode.Initialize();
             ivolNode.Initialize();

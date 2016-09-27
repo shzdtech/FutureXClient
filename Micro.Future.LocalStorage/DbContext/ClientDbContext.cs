@@ -22,7 +22,7 @@ namespace Micro.Future.LocalStorage
         public DbSet<SyncInfo> SyncInfo { get; set; }
 
         public DbSet<ClientInfo> ClientInfo { get; set; }
-        
+
         public DbSet<ContractInfo> ContractInfo { get; set; }
 
         public DbSet<PersonalContract> PersonalContract { get; set; }
@@ -44,10 +44,26 @@ namespace Micro.Future.LocalStorage
             //optionsBuilder.UseSqlite("Filename=E:\\Projects\\FutureXClient\\Micro.Future.LocalStorage\\Data\\clientcache.db");
         }
 
-        
+
         public IList<ContractInfo> GetContractsByProductType(int productType)
         {
             return ContractInfo.Where(c => c.ProductType == 1).ToList();
+        }
+
+        private static IDictionary<int, IList<ContractInfo>> _contractCache = new Dictionary<int, IList<ContractInfo>>();
+        public static IList<ContractInfo> GetContractFromCache(int productType)
+        {
+            IList<ContractInfo> ret;
+            _contractCache.TryGetValue(productType, out ret);
+            if (ret == null)
+            {
+                using (var ctx = new ClientDbContext())
+                {
+                    ret = ctx.GetContractsByProductType(productType);
+                }
+            }
+
+            return ret;
         }
 
 
@@ -66,7 +82,7 @@ namespace Micro.Future.LocalStorage
 
             var now = DateTime.Now;
 
-            if(syncItem == null)
+            if (syncItem == null)
             {
                 syncItem = new SyncInfo()
                 {
