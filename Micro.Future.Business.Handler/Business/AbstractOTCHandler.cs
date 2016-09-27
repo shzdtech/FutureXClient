@@ -106,7 +106,7 @@ namespace Micro.Future.Message
                         modelVM.Params.Add(new NamedParamVM()
                         {
                             Name = param.Key,
-                            Value = param.Value,                            
+                            Value = param.Value,
                         });
                     }
 
@@ -143,7 +143,7 @@ namespace Micro.Future.Message
                 PortfolioVMCollection.Add(new PortfolioVM { Name = portfolio.Name });
             }
 
-            
+
         }
 
         public void CreatePortfolios(IEnumerable<PortfolioVM> portfolios)
@@ -169,7 +169,8 @@ namespace Micro.Future.Message
                     strategyVM.Depth = strategy.Depth;
                     strategyVM.BidEnabled = strategy.BidEnabled;
                     strategyVM.AskEnabled = strategy.AskEnabled;
-                    strategyVM.Quantity = strategy.Quantity;
+                    strategyVM.BidQT = strategy.BidQT;
+                    strategyVM.AskQT = strategy.AskQT;
                     break;
                 }
             }
@@ -200,7 +201,8 @@ namespace Micro.Future.Message
             strategy.Exchange = sVM.Exchange;
             strategy.Contract = sVM.Contract;
             strategy.Depth = sVM.Depth;
-            strategy.Quantity = sVM.Quantity;
+            strategy.BidQT = sVM.BidQT;
+            strategy.AskQT = sVM.AskQT;
             strategy.Hedging = sVM.Hedging;
             strategy.AskEnabled = sVM.AskEnabled;
             strategy.BidEnabled = sVM.BidEnabled;
@@ -267,7 +269,8 @@ namespace Micro.Future.Message
                 strategyVM.Depth = strategy.Depth;
                 strategyVM.AskEnabled = strategy.AskEnabled;
                 strategyVM.BidEnabled = strategy.BidEnabled;
-                strategyVM.Quantity = strategy.Quantity;
+                strategyVM.BidQT = strategy.BidQT;
+                strategyVM.AskQT = strategy.AskQT;
                 strategyVM.IVModel = strategy.IvModel;
                 strategyVM.VolModel = strategy.VolModel;
                 strategyVM.PricingModel = strategy.PricingModel;
@@ -357,7 +360,6 @@ namespace Micro.Future.Message
                 {
                     Exchange = md.Exchange,
                     Contract = md.Contract,
-                    Quantity = 1,
                 });
             }
         }

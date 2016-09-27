@@ -75,7 +75,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <WrapPanel>
-                                        <xctk:IntegerUpDown x:Name="QOTCTextBox" Value="{Binding Quantity}" KeyUp ="OnKeyDown" UpdateValueOnEnterKey="True" Minimum="1" ShowButtonSpinner="False"></xctk:IntegerUpDown>
+                                        <xctk:IntegerUpDown x:Name="QOTCTextBox" Value="{Binding BidQT}" KeyUp ="OnKeyDown" UpdateValueOnEnterKey="True" Minimum="1" ShowButtonSpinner="False"></xctk:IntegerUpDown>
                                     </WrapPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>

@@ -12,7 +12,7 @@
             <BooleanToVisibilityConverter x:Key="BoolToVisConvert" />
         </Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
