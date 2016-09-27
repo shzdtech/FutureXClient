@@ -25,7 +25,8 @@ namespace Micro.Future.Simulator
     public partial class MainWindow : Window
     {
         private AbstractSignInManager _simSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<SimMarketDataHandler>());
-        private IDictionary<string, Queue<MarketDataDO>> _simDataDict = new Dictionary<string, Queue<MarketDataDO>>();
+        private IDictionary<string, Queue<MarketData>> _simDataDict = new Dictionary<string, Queue<MarketData>>();
+        private IDictionary<string, Queue<MarketDataOpt>> _simOptDataDict = new Dictionary<string, Queue<MarketDataOpt>>();
         private Timer _timer;
         private uint _counter;
         private bool _sending;
@@ -37,36 +38,84 @@ namespace Micro.Future.Simulator
             SimMarketDataHandler.Instance.RegisterMessageWrapper(_simSignIner.MessageWrapper);
 
             _simSignIner.OnLogged += LoginStatus.OnLogged;
-            _simSignIner.OnLoginError += LoginStatus.OnDisconnected;
-
+            _simSignIner.MessageWrapper.MessageClient.OnDisconnected += LoginStatus.OnDisconnected;
             _simSignIner.SignIn();
 
-            LoadSimMarketData();
+            LoginStatus.OnConnButtonClick += LoginStatus_OnConnButtonClick;
+
+            Task.Run(()=>LoadData());
+            
         }
 
-        void LoadSimMarketData()
+        private void LoginStatus_OnConnButtonClick(object sender, EventArgs e)
         {
-            using (var ctx = new SimulatorDbContext())
-            {
-                try
-                {
-                    var mdList = ctx.MarketData;
+            if (!_simSignIner.MessageWrapper.HasSignIn)
+                _simSignIner.SignIn();
+        }
 
-                    foreach (var md in mdList)
-                    {
-                        Queue<MarketDataDO> mdQueue;
-                        if (!_simDataDict.TryGetValue(md.Contract, out mdQueue))
-                        {
-                            mdQueue = new Queue<MarketDataDO>();
-                            _simDataDict[md.Contract] = mdQueue;
-                        }
-                        mdQueue.Enqueue(md);
-                    }
-                }
-                catch (Exception ex)
+        private void LoadData()
+        {
+            try
+            {
+                Dispatcher.Invoke(() => buttonSwitch.IsEnabled = false);
+                var ctx = new SimulatorDbContext();
+                Dispatcher.Invoke(() => statisticsTB.Text = string.Format("Loading MarketData"));
+                LoadSimMarketData(ctx.MarketData, _simDataDict);
+                Dispatcher.Invoke(() => statisticsTB.Text = string.Format("Loading MarketDataOpt"));
+                LoadSimMarketData(ctx.MarketDataOpt, _simOptDataDict);
+                Dispatcher.Invoke(() => statisticsTB.Text = string.Format("Sim Data Loaded"));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Dispatcher.Invoke(() => buttonSwitch.IsEnabled = true);
+            }
+        }
+
+        void LoadSimMarketData(IEnumerable<MarketData> mdList, IDictionary<string, Queue<MarketData>> mdQueues)
+        {
+            try
+            {
+                mdQueues.Clear();
+                foreach (var md in mdList)
                 {
-                    MessageBox.Show(this, ex.ToString());
+                    Queue<MarketData> mdQueue;
+                    if (!mdQueues.TryGetValue(md.Contract, out mdQueue))
+                    {
+                        mdQueue = new Queue<MarketData>();
+                        mdQueues[md.Contract] = mdQueue;
+                    }
+                    mdQueue.Enqueue(md);
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.ToString());
+            }
+        }
+
+        void LoadSimMarketData(IEnumerable<MarketDataOpt> mdList, IDictionary<string, Queue<MarketDataOpt>> mdQueues)
+        {
+            try
+            {
+                mdQueues.Clear();
+                foreach (var md in mdList)
+                {
+                    Queue<MarketDataOpt> mdQueue;
+                    if (!mdQueues.TryGetValue(md.Contract, out mdQueue))
+                    {
+                        mdQueue = new Queue<MarketDataOpt>();
+                        mdQueues[md.Contract] = mdQueue;
+                    }
+                    mdQueue.Enqueue(md);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.ToString());
             }
         }
 
@@ -90,6 +139,14 @@ namespace Micro.Future.Simulator
         private void SendingSimDataCallback(object state)
         {
             foreach (var pair in _simDataDict)
+            {
+                var queue = pair.Value;
+                var mdo = queue.Dequeue();
+                queue.Enqueue(mdo);
+                SimMarketDataHandler.Instance.SendSimMarketData(mdo);
+            }
+
+            foreach (var pair in _simOptDataDict)
             {
                 var queue = pair.Value;
                 var mdo = queue.Dequeue();

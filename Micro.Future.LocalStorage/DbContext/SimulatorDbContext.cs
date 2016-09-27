@@ -25,6 +25,7 @@ namespace Micro.Future.LocalStorage
         public string ConnectionString { get; protected set; }
         public SimulatorDbContext(string connectionString) { ConnectionString = connectionString; }
 
-        public DbSet<MarketDataDO> MarketData { get; set; }
+        public DbSet<MarketData> MarketData { get; set; }
+        public DbSet<MarketDataOpt> MarketDataOpt { get; set; }
     }
 }

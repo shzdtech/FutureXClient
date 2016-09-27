@@ -175,8 +175,8 @@
                     <GridViewColumn x:Name="PBidTheo" Header="PBidTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.BidPrice}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" />
                     <GridViewColumn x:Name="PAskTheo" Header="PAskTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskPrice}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PMidIV" Header="PMidIV" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.MidVol}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
-                    <GridViewColumn x:Name="PBidQV" Header="PBidIV" DisplayMemberBinding="{Binding PutStrategyVM.Quantity}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
-                    <GridViewColumn x:Name="PAskQV" Header="PAskQV" DisplayMemberBinding="{Binding PutStrategyVM.Quantity}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PBidQV" Header="PBidIV" DisplayMemberBinding="{Binding PutStrategyVM.BidQT}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PAskQV" Header="PAskQV" DisplayMemberBinding="{Binding PutStrategyVM.AskQT}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PTheta" Header="PTheta" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Theta}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PGamma" Header="PGamma" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Gamma}"/>
                     <GridViewColumn x:Name="PVega" Header="PVega" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Vega}"/>
@@ -199,16 +199,14 @@
                     <GridViewColumn x:Name="CBidTheo" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.BidPrice}" Header="CBidTheo" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
                     <GridViewColumn x:Name="CAskTheo" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.AskPrice}" Header="CAskTheo" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
                     <GridViewColumn x:Name="CMidIV" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.MidPrice}" Header="CMidIV" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
-                    <GridViewColumn x:Name="CAskQV" DisplayMemberBinding="{Binding CallStrategyVM.Quantity}" Header="CAskQV" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
-                    <GridViewColumn x:Name="CBidQV" DisplayMemberBinding="{Binding CallStrategyVM.Quantity}" Header="CBidQV" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
+                    <GridViewColumn x:Name="CAskQV" DisplayMemberBinding="{Binding CallStrategyVM.AskQT}" Header="CAskQV" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
+                    <GridViewColumn x:Name="CBidQV" DisplayMemberBinding="{Binding CallStrategyVM.BidQT}" Header="CBidQV" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
                     <GridViewColumn x:Name="CTheta" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Theta}" Header="CTheta" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
                     <GridViewColumn x:Name="CGamma" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Gamma}" Header="CGamma" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
                     <GridViewColumn x:Name="CBidQT" Header="CBidQT启用" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox>
-                                    <CheckBox IsChecked="{Binding CallStrategyVM.BidEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
-                                </CheckBox>
+                                <CheckBox IsChecked="{Binding CallStrategyVM.BidEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
