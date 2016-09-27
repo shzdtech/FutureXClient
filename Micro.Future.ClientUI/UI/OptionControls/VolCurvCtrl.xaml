@@ -14,7 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <oxy:Plot x:Name="volPlot" Grid.Row="0" MinHeight="200" MinWidth="150">
             <oxy:Plot.Series>
