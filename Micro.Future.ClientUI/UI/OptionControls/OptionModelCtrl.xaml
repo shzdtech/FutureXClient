@@ -7,9 +7,11 @@
              xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
              mc:Ignorable="d" 
              xmlns:c="clr-namespace:Micro.Future.UI"
+             ResizeMode="NoResize" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <avalonDock:DockingManager x:Name="dockingManager">
+    <avalonDock:DockingManager x:Name="dockingManager" >
+        <avalonDock:DockingManager.
         <avalonDock:DockingManager.Theme>
             <avalonDock:GenericTheme/>
         </avalonDock:DockingManager.Theme>
