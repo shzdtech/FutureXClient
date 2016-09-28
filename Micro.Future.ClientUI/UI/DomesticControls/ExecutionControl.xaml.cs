@@ -69,7 +69,6 @@ namespace Micro.Future.UI
             //exchangeList.AddRange((from p in (IEnumerable<OrderVM>)_viewSource.Source
             //                       select p.Exchange).Distinct());
             //_executionSettingsWin.ExchangeCollection = exchangeList;
-
             _filterSettingsWinForExecution.Show();
         }
 
