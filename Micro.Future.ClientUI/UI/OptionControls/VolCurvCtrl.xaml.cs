@@ -51,51 +51,97 @@ namespace Micro.Future.UI
             //VegaPosition.Model = _otcHandler.OptionOxyVM.PlotModelBar;
             volPlot.DataContext = VolatilityModelVM;
 
+            theoPutAskSC.MarkerOutline = CustomOxyMarkers.LUTriangle;
+            theoCallAskSC.MarkerOutline = CustomOxyMarkers.RUTriangle;
+            theoPutBidSC.MarkerOutline = CustomOxyMarkers.LDTriangle;
+            theoCallBidSC.MarkerOutline = CustomOxyMarkers.RDTriangle;
 
-            theoBidSC.MarkerOutline = CustomOxyMarkers.LDTriangle;
-            theoAskSC.MarkerOutline = CustomOxyMarkers.RDTriangle;
+            var internalBidSS = theoPutBidSC.CreateModel() as OxyPlot.Series.ScatterSeries;
+            internalBidSS.MouseDown += PutBidScatter_MouseDown;
+            internalBidSS = theoCallBidSC.CreateModel() as OxyPlot.Series.ScatterSeries;
+            internalBidSS.MouseDown += CallBidScatter_MouseDown;
 
-            var internalBidSS = theoBidSC.CreateModel() as OxyPlot.Series.ScatterSeries;
-            internalBidSS.MouseDown += BidScatter_MouseDown;
-            var internalAskSS = theoAskSC.CreateModel() as OxyPlot.Series.ScatterSeries;
-            internalAskSS.MouseDown += AskScatter_MouseDown;
+            var internalAskSS = theoPutAskSC.CreateModel() as OxyPlot.Series.ScatterSeries;
+            internalAskSS.MouseDown += PutAskScatter_MouseDown;
+            internalAskSS = theoCallAskSC.CreateModel() as OxyPlot.Series.ScatterSeries;
+            internalAskSS.MouseDown += CallAskScatter_MouseDown;
 
             _otcHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
 
         }
 
-        private void BidScatter_MouseDown(object sender, OxyMouseDownEventArgs e)
+        private void PutBidScatter_MouseDown(object sender, OxyMouseDownEventArgs e)
         {
-            if (e.Position.X < e.HitTestResult.NearestHitPoint.X)
+            var point = e.HitTestResult.Item as ScatterPoint;
+            if (point != null)
             {
-                var plot = e.HitTestResult.Element as PlotElement;
-                if (plot != null)
+                if (e.Position.X < e.HitTestResult.NearestHitPoint.X && e.Position.DistanceTo(e.HitTestResult.NearestHitPoint) < point.Size)
                 {
-                    var point = e.HitTestResult.Item as ScatterPoint;
-                    if (point != null)
+                    var plot = e.HitTestResult.Element as PlotElement;
+                    if (plot != null)
                     {
+
                         var strategyVM = (StrategyVM)point.Tag;
                         strategyVM.BidEnabled = !strategyVM.BidEnabled;
                         point.Value = strategyVM.BidEnabled ? 1 : 0;
-                        plot.PlotModel.InvalidatePlot(false);
+                        plot.PlotModel.InvalidatePlot(true);
                     }
                 }
             }
         }
-        private void AskScatter_MouseDown(object sender, OxyMouseDownEventArgs e)
+
+        private void CallBidScatter_MouseDown(object sender, OxyMouseDownEventArgs e)
         {
-            if (e.Position.X > e.HitTestResult.NearestHitPoint.X)
+            var point = e.HitTestResult.Item as ScatterPoint;
+            if (point != null)
             {
-                var plot = e.HitTestResult.Element as PlotElement;
-                if (plot != null)
+                if (e.Position.X > e.HitTestResult.NearestHitPoint.X && e.Position.DistanceTo(e.HitTestResult.NearestHitPoint) < point.Size)
                 {
-                    var point = e.HitTestResult.Item as ScatterPoint;
-                    if (point != null)
+                    var plot = e.HitTestResult.Element as PlotElement;
+                    if (plot != null)
+                    {
+
+                        var strategyVM = (StrategyVM)point.Tag;
+                        strategyVM.BidEnabled = !strategyVM.BidEnabled;
+                        point.Value = strategyVM.BidEnabled ? 1 : 0;
+                        plot.PlotModel.InvalidatePlot(true);
+                    }
+                }
+            }
+        }
+        private void PutAskScatter_MouseDown(object sender, OxyMouseDownEventArgs e)
+        {
+            var point = e.HitTestResult.Item as ScatterPoint;
+            if (point != null)
+            {
+                if (e.Position.X < e.HitTestResult.NearestHitPoint.X && e.Position.DistanceTo(e.HitTestResult.NearestHitPoint) < point.Size)
+                {
+                    var plot = e.HitTestResult.Element as PlotElement;
+                    if (plot != null)
                     {
                         var strategyVM = (StrategyVM)point.Tag;
                         strategyVM.AskEnabled = !strategyVM.AskEnabled;
                         point.Value = strategyVM.AskEnabled ? 1 : 0;
-                        plot.PlotModel.InvalidatePlot(false);
+                        plot.PlotModel.InvalidatePlot(true);
+                    }
+                }
+            }
+        }
+
+        private void CallAskScatter_MouseDown(object sender, OxyMouseDownEventArgs e)
+        {
+            var point = e.HitTestResult.Item as ScatterPoint;
+            if (point != null)
+            {
+                if (e.Position.X > e.HitTestResult.NearestHitPoint.X && e.Position.DistanceTo(e.HitTestResult.NearestHitPoint) < point.Size)
+                {
+                    var plot = e.HitTestResult.Element as PlotElement;
+                    if (plot != null)
+                    {
+                        var strategyVM = (StrategyVM)point.Tag;
+                        strategyVM.AskEnabled = !strategyVM.AskEnabled;
+                        point.Value = strategyVM.AskEnabled ? 1 : 0;
+                        plot.PlotModel.InvalidatePlot(true);
                     }
                 }
             }
@@ -103,7 +149,7 @@ namespace Micro.Future.UI
 
         private void OnTradingDeskOptionParamsReceived(TradingDeskOptionVM tdOptionVM)
         {
-            if (CallPutTDOptionVMCollection.Update(tdOptionVM))
+            if (CallPutTDOptionVMCollection.Update(tdOptionVM) != null)
             {
                 var list = CallPutTDOptionVMCollection.ToList();
                 int idx = list.FindIndex((pb) => string.Compare(pb.PutOptionVM.Contract, tdOptionVM.Contract, true) == 0);
@@ -117,11 +163,19 @@ namespace Micro.Future.UI
                     if (!double.IsNaN(tdOptionVM.TheoDataVM.BidVol)) VolatilityModelVM.TheoBidVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.TheoDataVM.BidVol);
                     if (!double.IsNaN(tdOptionVM.TheoDataVM.MidVol))
                     {
-                        var scatterPt = VolatilityModelVM.TheoAskVolScatter[idx];
-                        VolatilityModelVM.TheoAskVolScatter[idx] = new ScatterPoint(datapt.X, tdOptionVM.TheoDataVM.MidVol, scatterPt.Size, scatterPt.Value, scatterPt.Tag);
-                        scatterPt = VolatilityModelVM.TheoBidVolScatter[idx];
-                        VolatilityModelVM.TheoBidVolScatter[idx] = new ScatterPoint(datapt.X, tdOptionVM.TheoDataVM.MidVol, scatterPt.Size, scatterPt.Value, scatterPt.Tag);
-                        VolatilityModelVM.TheoMidVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.TheoDataVM.MidVol);
+                        var scatterPt = VolatilityModelVM.TheoPutAskVolScatter[idx];
+                        VolatilityModelVM.TheoPutAskVolScatter[idx] = new ScatterPoint(datapt.X, tdOptionVM.TheoDataVM.AskVol, scatterPt.Size, scatterPt.Value, scatterPt.Tag);
+
+                        scatterPt = VolatilityModelVM.TheoCallAskVolScatter[idx];
+                        VolatilityModelVM.TheoCallAskVolScatter[idx] = new ScatterPoint(datapt.X, tdOptionVM.TheoDataVM.AskVol, scatterPt.Size, scatterPt.Value, scatterPt.Tag);
+
+                        scatterPt = VolatilityModelVM.TheoPutBidVolScatter[idx];
+                        VolatilityModelVM.TheoPutBidVolScatter[idx] = new ScatterPoint(datapt.X, tdOptionVM.TheoDataVM.BidVol, scatterPt.Size, scatterPt.Value, scatterPt.Tag);
+
+                        scatterPt = VolatilityModelVM.TheoCallBidVolScatter[idx];
+                        VolatilityModelVM.TheoCallBidVolScatter[idx] = new ScatterPoint(datapt.X, tdOptionVM.TheoDataVM.BidVol, scatterPt.Size, scatterPt.Value, scatterPt.Tag);
+
+                        VolatilityModelVM.TheoMidVolLine[idx] = new DataPoint(datapt.X, (tdOptionVM.TheoDataVM.AskVol + tdOptionVM.TheoDataVM.BidVol) / 2);
                     }
                 }
                 else
@@ -137,11 +191,19 @@ namespace Micro.Future.UI
                         if (!double.IsNaN(tdOptionVM.TheoDataVM.BidVol)) VolatilityModelVM.TheoBidVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.TheoDataVM.BidVol);
                         if (!double.IsNaN(tdOptionVM.TheoDataVM.MidVol))
                         {
-                            var scatterPt = VolatilityModelVM.TheoAskVolScatter[idx];
-                            VolatilityModelVM.TheoAskVolScatter[idx] = new ScatterPoint(datapt.X, tdOptionVM.TheoDataVM.MidVol, scatterPt.Size, scatterPt.Value, scatterPt.Tag);
-                            scatterPt = VolatilityModelVM.TheoBidVolScatter[idx];
-                            VolatilityModelVM.TheoBidVolScatter[idx] = new ScatterPoint(datapt.X, tdOptionVM.TheoDataVM.MidVol, scatterPt.Size, scatterPt.Value, scatterPt.Tag);
-                            VolatilityModelVM.TheoMidVolLine[idx] = new DataPoint(datapt.X, tdOptionVM.TheoDataVM.MidVol);
+                            var scatterPt = VolatilityModelVM.TheoPutAskVolScatter[idx];
+                            VolatilityModelVM.TheoPutAskVolScatter[idx] = new ScatterPoint(datapt.X, tdOptionVM.TheoDataVM.AskVol, scatterPt.Size, scatterPt.Value, scatterPt.Tag);
+
+                            scatterPt = VolatilityModelVM.TheoCallAskVolScatter[idx];
+                            VolatilityModelVM.TheoCallBidVolScatter[idx] = new ScatterPoint(datapt.X, tdOptionVM.TheoDataVM.AskVol, scatterPt.Size, scatterPt.Value, scatterPt.Tag);
+
+                            scatterPt = VolatilityModelVM.TheoPutBidVolScatter[idx];
+                            VolatilityModelVM.TheoPutBidVolScatter[idx] = new ScatterPoint(datapt.X, tdOptionVM.TheoDataVM.BidVol, scatterPt.Size, scatterPt.Value, scatterPt.Tag);
+
+                            scatterPt = VolatilityModelVM.TheoCallBidVolScatter[idx];
+                            VolatilityModelVM.TheoCallBidVolScatter[idx] = new ScatterPoint(datapt.X, tdOptionVM.TheoDataVM.BidVol, scatterPt.Size, scatterPt.Value, scatterPt.Tag);
+
+                            VolatilityModelVM.TheoMidVolLine[idx] = new DataPoint(datapt.X, (tdOptionVM.TheoDataVM.AskVol + tdOptionVM.TheoDataVM.BidVol) / 2);
                         }
                     }
                 }
@@ -184,8 +246,18 @@ namespace Micro.Future.UI
                 VolatilityModelVM.TheoAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.AskVol));
                 VolatilityModelVM.TheoBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.BidVol));
                 VolatilityModelVM.TheoMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.MidVol));
-                VolatilityModelVM.TheoAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.TheoDataVM.AskVol, double.NaN, 0, vm.CallStrategyVM));
-                VolatilityModelVM.TheoBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.TheoDataVM.BidVol, double.NaN, 0, vm.CallStrategyVM));
+
+                if (vm.PutStrategyVM != null)
+                {
+                    VolatilityModelVM.TheoPutAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.AskVol, 10, vm.PutStrategyVM.AskEnabled ? 1 : 0, vm.PutStrategyVM));
+                    VolatilityModelVM.TheoPutBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.BidVol, 10, vm.PutStrategyVM.BidEnabled ? 1 : 0, vm.PutStrategyVM));
+                }
+
+                if (vm.CallStrategyVM != null)
+                {
+                    VolatilityModelVM.TheoCallAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.TheoDataVM.AskVol, 10, vm.CallStrategyVM.AskEnabled ? 1 : 0, vm.CallStrategyVM));
+                    VolatilityModelVM.TheoCallBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.TheoDataVM.BidVol, 10, vm.CallStrategyVM.BidEnabled ? 1 : 0, vm.CallStrategyVM));
+                }
             }
         }
 

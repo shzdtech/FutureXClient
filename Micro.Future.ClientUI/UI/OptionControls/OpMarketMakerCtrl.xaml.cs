@@ -27,13 +27,6 @@ namespace Micro.Future.UI
     {
         private OTCOptionHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
 
-        private CollectionViewSource _viewSourcePosition = new CollectionViewSource();
-        private CollectionViewSource _viewSourceRisk = new CollectionViewSource();
-        private CollectionViewSource _viewSourcePutOption = new CollectionViewSource();
-        private CollectionViewSource _viewSourceCallOption = new CollectionViewSource();
-        private CollectionViewSource _viewSourceVolatility = new CollectionViewSource();
-        private CollectionViewSource _viewSource1 = new CollectionViewSource();
-
         private IList<ContractInfo> _contractList;
         private IList<ContractInfo> _futurecontractList;
 
@@ -61,7 +54,6 @@ namespace Micro.Future.UI
 
             exchangeCB.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
-            _viewSource1.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
             //underlyingCB.ItemsSource = _contractList.Select(c => c.ProductID).Distinct();
             // Initialize Market Data
             quoteListView1.ItemsSource = QuoteVMCollection1;

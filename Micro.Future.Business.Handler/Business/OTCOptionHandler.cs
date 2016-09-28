@@ -143,7 +143,7 @@ namespace Micro.Future.Message
 
     public static class OptionVMExtensions
     {
-        public static bool Update(this IEnumerable<CallPutTDOptionVM> collection, TradingDeskOptionVM newVM)
+        public static TradingDeskOptionVM Update(this IEnumerable<CallPutTDOptionVM> collection, TradingDeskOptionVM newVM)
         {
             TradingDeskOptionVM quote = null;
             var cp = collection.FirstOrDefault((pb) => string.Compare(pb.PutOptionVM.Contract, newVM.Contract, true) == 0);
@@ -188,11 +188,9 @@ namespace Micro.Future.Message
                 quote.TheoDataVM.BidGamma = newVM.TheoDataVM.BidGamma;
                 quote.TheoDataVM.BidTheta = newVM.TheoDataVM.BidTheta;
                 quote.TheoDataVM.BidVega = newVM.TheoDataVM.BidVega;
-
-                return true;
             }
 
-            return false;
+            return quote;
         }
     }
 }
