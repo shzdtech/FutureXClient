@@ -18,21 +18,23 @@
         </Grid.RowDefinitions>
         <oxy:Plot x:Name="volPlot" Grid.Row="0" MinHeight="200" MinWidth="150">
             <oxy:Plot.Series>
-                <oxy:LineSeries Name="callBidLS" ItemsSource="{Binding CallBidVolLine}" />
-                <oxy:LineSeries Name="callAskLS" ItemsSource="{Binding CallAskVolLine}" />
+                <oxy:LineSeries Name="callBidLS" ItemsSource="{Binding CallBidVolLine}" Visibility="{Binding ElementName=checkBoxCallBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="callAskLS" ItemsSource="{Binding CallAskVolLine}" Visibility="{Binding ElementName=checkBoxCallAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="callMidLS" ItemsSource="{Binding CallMidVolLine}" Visibility="{Binding ElementName=checkBoxCallMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="putBidLS" ItemsSource="{Binding PutBidVolLine}" Visibility="{Binding ElementName=checkBoxPutBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="putAskLS" ItemsSource="{Binding PutAskVolLine}" Visibility="{Binding ElementName=checkBoxPutAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="putMidLS" ItemsSource="{Binding PutMidVolLine}" Visibility="{Binding ElementName=checkBoxPutMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="theoBidLS"  ItemsSource="{Binding TheoBidVolLine}" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:ScatterSeries Name="theoBidSC" ItemsSource="{Binding TheoBidVolScatter}" ColorAxisKey="redLineColorAxis"  MarkerType="Custom" MarkerSize="10" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:ScatterSeries Name="theoAskSC" ItemsSource="{Binding TheoAskVolScatter}" ColorAxisKey="greenLineColorAxis" MarkerType="Custom" MarkerSize="10" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="theoAskLS" ItemsSource="{Binding TheoAskVolLine}" Visibility="{Binding ElementName=checkBoxTheoAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="theoMidLS" ItemsSource="{Binding TheoMidVolLine}" Visibility="{Binding ElementName=checkBoxTheoMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:ScatterSeries Name="theoPutBidSC" ItemsSource="{Binding TheoPutBidVolScatter}" ColorAxisKey="redLineColorAxis"  MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:ScatterSeries Name="theoCallBidSC" ItemsSource="{Binding TheoCallBidVolScatter}" ColorAxisKey="redLineColorAxis"  MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:ScatterSeries Name="theoPutAskSC" ItemsSource="{Binding TheoPutAskVolScatter}" ColorAxisKey="greenLineColorAxis" MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:ScatterSeries Name="theoCallAskSC" ItemsSource="{Binding TheoCallAskVolScatter}" ColorAxisKey="greenLineColorAxis" MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
             </oxy:Plot.Series>
             <oxy:Plot.Axes>
-                <oxy:LinearColorAxis Key="greenLineColorAxis" Minimum="0.1" Maximum="0.9" HighColor="Green" LowColor="Red" Position ="None"/>
-                <oxy:LinearColorAxis Key="redLineColorAxis" Minimum="0.1" Maximum="0.9" HighColor="Red" LowColor="Black" Position ="None"/>
+                <oxy:LinearColorAxis Key="greenLineColorAxis" Minimum="0.1" Maximum="0.9" HighColor="Green" LowColor="Gray" Position ="None"/>
+                <oxy:LinearColorAxis Key="redLineColorAxis" Minimum="0.1" Maximum="0.9" HighColor="Red" LowColor="Gray" Position ="None"/>
                 <oxy:LinearAxis x:Name="strikeAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Bottom" Title="StrikePrice"/>
                 <oxy:LinearAxis x:Name="voleAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="Volatility"/>
             </oxy:Plot.Axes>

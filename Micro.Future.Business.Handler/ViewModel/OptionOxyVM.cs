@@ -146,9 +146,14 @@ namespace Micro.Future.ViewModel
         public ObservableCollection<DataPoint> TheoMidVolLine { get; }
             = new ObservableCollection<DataPoint>();
 
-        public ObservableCollection<ScatterPoint> TheoAskVolScatter { get; }
+        public ObservableCollection<ScatterPoint> TheoPutAskVolScatter { get; }
             = new ObservableCollection<ScatterPoint>();
-        public ObservableCollection<ScatterPoint> TheoBidVolScatter { get; }
+        public ObservableCollection<ScatterPoint> TheoPutBidVolScatter { get; }
+            = new ObservableCollection<ScatterPoint>();
+
+        public ObservableCollection<ScatterPoint> TheoCallAskVolScatter { get; }
+           = new ObservableCollection<ScatterPoint>();
+        public ObservableCollection<ScatterPoint> TheoCallBidVolScatter { get; }
             = new ObservableCollection<ScatterPoint>();
 
         public void ClearAll()
@@ -162,8 +167,10 @@ namespace Micro.Future.ViewModel
             TheoBidVolLine.Clear();
             TheoAskVolLine.Clear();
             TheoMidVolLine.Clear();
-            TheoAskVolScatter.Clear();
-            TheoBidVolScatter.Clear();
+            TheoPutAskVolScatter.Clear();
+            TheoPutBidVolScatter.Clear();
+            TheoCallAskVolScatter.Clear();
+            TheoCallBidVolScatter.Clear();
         }
 
     }
