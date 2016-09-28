@@ -80,11 +80,13 @@ namespace Micro.Future.UI
                     var plot = e.HitTestResult.Element as PlotElement;
                     if (plot != null)
                     {
-
-                        var strategyVM = (StrategyVM)point.Tag;
-                        strategyVM.BidEnabled = !strategyVM.BidEnabled;
-                        point.Value = strategyVM.BidEnabled ? 1 : 0;
-                        plot.PlotModel.InvalidatePlot(true);
+                        var strategyVM = point.Tag as StrategyVM;
+                        if (strategyVM != null)
+                        {
+                            strategyVM.BidEnabled = !strategyVM.BidEnabled;
+                            point.Value = strategyVM.BidEnabled ? 1 : 0;
+                            plot.PlotModel.InvalidatePlot(true);
+                        }
                     }
                 }
             }
@@ -100,11 +102,13 @@ namespace Micro.Future.UI
                     var plot = e.HitTestResult.Element as PlotElement;
                     if (plot != null)
                     {
-
-                        var strategyVM = (StrategyVM)point.Tag;
-                        strategyVM.BidEnabled = !strategyVM.BidEnabled;
-                        point.Value = strategyVM.BidEnabled ? 1 : 0;
-                        plot.PlotModel.InvalidatePlot(true);
+                        var strategyVM = point.Tag as StrategyVM;
+                        if (strategyVM != null)
+                        {
+                            strategyVM.BidEnabled = !strategyVM.BidEnabled;
+                            point.Value = strategyVM.BidEnabled ? 1 : 0;
+                            plot.PlotModel.InvalidatePlot(true);
+                        }
                     }
                 }
             }
@@ -119,10 +123,13 @@ namespace Micro.Future.UI
                     var plot = e.HitTestResult.Element as PlotElement;
                     if (plot != null)
                     {
-                        var strategyVM = (StrategyVM)point.Tag;
-                        strategyVM.AskEnabled = !strategyVM.AskEnabled;
-                        point.Value = strategyVM.AskEnabled ? 1 : 0;
-                        plot.PlotModel.InvalidatePlot(true);
+                        var strategyVM = point.Tag as StrategyVM;
+                        if (strategyVM != null)
+                        {
+                            strategyVM.AskEnabled = !strategyVM.AskEnabled;
+                            point.Value = strategyVM.AskEnabled ? 1 : 0;
+                            plot.PlotModel.InvalidatePlot(true);
+                        }
                     }
                 }
             }
@@ -138,10 +145,13 @@ namespace Micro.Future.UI
                     var plot = e.HitTestResult.Element as PlotElement;
                     if (plot != null)
                     {
-                        var strategyVM = (StrategyVM)point.Tag;
-                        strategyVM.AskEnabled = !strategyVM.AskEnabled;
-                        point.Value = strategyVM.AskEnabled ? 1 : 0;
-                        plot.PlotModel.InvalidatePlot(true);
+                        var strategyVM = point.Tag as StrategyVM;
+                        if (strategyVM != null)
+                        {
+                            strategyVM.AskEnabled = !strategyVM.AskEnabled;
+                            point.Value = strategyVM.AskEnabled ? 1 : 0;
+                            plot.PlotModel.InvalidatePlot(true);
+                        }
                     }
                 }
             }
