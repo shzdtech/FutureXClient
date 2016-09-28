@@ -25,6 +25,8 @@ namespace Micro.Future.Simulator
                (new SignInOptions
                {
                    FrontServer = configDict["ADDRESS"],
+                   UserName = configDict["USERNAME"],
+                   Password = configDict["PASSWORD"],
                    ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
                });
 
