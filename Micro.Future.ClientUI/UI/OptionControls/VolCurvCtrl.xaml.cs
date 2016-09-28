@@ -247,17 +247,13 @@ namespace Micro.Future.UI
                 VolatilityModelVM.TheoBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.BidVol));
                 VolatilityModelVM.TheoMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.MidVol));
 
-                if (vm.PutStrategyVM != null)
-                {
-                    VolatilityModelVM.TheoPutAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.AskVol, 10, vm.PutStrategyVM.AskEnabled ? 1 : 0, vm.PutStrategyVM));
-                    VolatilityModelVM.TheoPutBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.BidVol, 10, vm.PutStrategyVM.BidEnabled ? 1 : 0, vm.PutStrategyVM));
-                }
+                double value = (vm.PutStrategyVM != null && vm.PutStrategyVM.AskEnabled) ? 1 : 0;
+                VolatilityModelVM.TheoPutAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.AskVol, 10, value, vm.PutStrategyVM));
+                VolatilityModelVM.TheoPutBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.BidVol, 10, value, vm.PutStrategyVM));
 
-                if (vm.CallStrategyVM != null)
-                {
-                    VolatilityModelVM.TheoCallAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.TheoDataVM.AskVol, 10, vm.CallStrategyVM.AskEnabled ? 1 : 0, vm.CallStrategyVM));
-                    VolatilityModelVM.TheoCallBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.TheoDataVM.BidVol, 10, vm.CallStrategyVM.BidEnabled ? 1 : 0, vm.CallStrategyVM));
-                }
+                value = (vm.CallStrategyVM != null && vm.CallStrategyVM.AskEnabled) ? 1 : 0;
+                VolatilityModelVM.TheoCallAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.TheoDataVM.AskVol, 10, value, vm.CallStrategyVM));
+                VolatilityModelVM.TheoCallBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.TheoDataVM.BidVol, 10, value, vm.CallStrategyVM));
             }
         }
 
