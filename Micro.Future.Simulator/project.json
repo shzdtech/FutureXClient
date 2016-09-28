@@ -1,6 +1,6 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "Micro.Future.ClientUI",
+  "description": "Micro.Future.Simulator",
   "authors": [
     "milk"
   ],
@@ -10,10 +10,10 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "Extended.Wpf.Toolkit": "2.9.0",
-    "Microsoft.EntityFrameworkCore": "1.0.1",
-    "WpfLocalizeExtension": "2.3.2",
-    "OxyPlot": "1.0.0-unstable2100"
+    "Google.Protobuf": "3.0.0",
+    "Microsoft.EntityFrameworkCore": "1.0.1"
+  },
+  "tools": {
   },
   "frameworks": {
     "net451": {}

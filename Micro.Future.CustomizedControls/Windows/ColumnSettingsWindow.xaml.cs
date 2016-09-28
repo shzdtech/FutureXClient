@@ -58,7 +58,7 @@ namespace Micro.Future.UI
 
         public static DependencyProperty IsVisibleProperty =
             DependencyProperty.Register("IsVisible", typeof(bool), typeof(ColumnObject),
-            new FrameworkPropertyMetadata(true, 
+            new FrameworkPropertyMetadata(true,
                 FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.Journal,
             new PropertyChangedCallback(OnIsVisibleChanged)));
 
@@ -66,30 +66,26 @@ namespace Micro.Future.UI
         {
             var cobj = (ColumnObject)d;
             bool isChecked = (bool)e.NewValue;
-            if (cobj.collec != null)
+            if (isChecked)
             {
-                if (isChecked)
-                {
-                    //尝试还原位置，此时有可能由于别的列也被隐藏造成位置无效
-                    if (cobj.index < 0 || cobj.index > cobj.collec.Count)
-                        cobj.index = cobj.collec.Count - 1;
-                    cobj.collec.Insert(cobj.index, cobj.Column);
-                }
-                else
-                {
-                    //记住隐藏时列的位置，显示的时候尝试排列在原来位置
-                    cobj.index = cobj.collec.IndexOf(cobj.Column);
-                    if (cobj.index != -1)
-                    {
-                        cobj.collec.RemoveAt(cobj.index);
-                    }
-                }
+                //尝试还原位置，此时有可能由于别的列也被隐藏造成位置无效
+                cobj.Column.Width = cobj.Width;
+                cobj.Column.Header = cobj.OriginalHeader;
+            }
+            else
+            {
+                //记住隐藏时列的位置，显示的时候尝试排列在原来位置
+                var header = new GridViewColumnHeader();
+                header.Visibility = Visibility.Hidden;
+                cobj.Width = cobj.Column.ActualWidth;
+                cobj.OriginalHeader = cobj.Column.Header;
+                cobj.Column.Header = header;
+                cobj.Column.Width = 0;
             }
 
             foreach (var c in cobj.Children)
             {
                 c.SetValue(IsVisibleProperty, isChecked);
-                //OnIsVisibleChanged(c, e);
             }
         }
 
@@ -102,30 +98,29 @@ namespace Micro.Future.UI
             if (lv.View is GridView)
             {
                 var collec = ((GridView)lv.View).Columns;
-                return collec.Select(col => new ColumnObject(col, collec)).ToArray();
+                return collec.Select(col => new ColumnObject(col)).ToArray();
             }
             return null;
         }
 
-        public static ColumnObject CreateColumn(ListView lv, GridViewColumn column)
+        public static ColumnObject CreateColumn(GridViewColumn column)
         {
-            return new ColumnObject(column, ((GridView)lv.View).Columns); ;
+            return new ColumnObject(column);
         }
 
         #region 属性/字段
 
         //GridViewColumn集合
-        GridViewColumnCollection collec;
-        int index;
+        protected object OriginalHeader { get; set; }
+        protected double Width { get; set; }
 
         public GridViewColumn Column { get; private set; }
 
         #endregion
 
-        public ColumnObject(GridViewColumn column, GridViewColumnCollection collec = null)
+        public ColumnObject(GridViewColumn column)
         {
             Column = column;
-            this.collec = collec;
         }
 
         public void Initialize()

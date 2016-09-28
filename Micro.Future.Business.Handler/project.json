@@ -10,6 +10,7 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
+    "Microsoft.EntityFrameworkCore": "1.0.1",
     "Google.Protobuf": "3.0.0",
     "OxyPlot": "1.0.0-unstable2100",
     "WpfLocalizeExtension": "2.3.2"

@@ -37,9 +37,26 @@ namespace Micro.Future.Message
             
         }
 
-        public void SendSimMarketData(MarketDataDO mdo)
+        public void SendSimMarketData(MarketData mdo)
         {
+            if (mdo == null) return;
             var mktData = new PBMarketData();
+            mktData.Exchange = mdo.Exchange;
+            mktData.Contract = mdo.Contract;
+            mktData.AskPrice.Add(mdo.AskPrice);
+            mktData.BidPrice.Add(mdo.BidPrice);
+            mktData.AskVolume.Add(mdo.AskSize);
+            mktData.BidVolume.Add(mdo.BidSize);
+
+            MessageWrapper?.SendMessage((uint)BusinessMessageID.MSG_ID_RET_MARKETDATA, mktData);
+        }
+
+        public void SendSimMarketData(MarketDataOpt mdo)
+        {
+            if (mdo == null) return;
+            var mktData = new PBMarketData();
+            mktData.Exchange = mdo.Exchange;
+            mktData.Contract = mdo.Contract;
             mktData.AskPrice.Add(mdo.AskPrice);
             mktData.BidPrice.Add(mdo.BidPrice);
             mktData.AskVolume.Add(mdo.AskSize);

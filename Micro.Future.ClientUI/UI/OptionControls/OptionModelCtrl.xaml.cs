@@ -54,9 +54,12 @@ namespace Micro.Future.UI
             if (exchange != null && uc != null)
             {
                 VolCurvLV.SelectOption(uc.ToString());
-                var strategyVM = _otcHandler.StrategyVMCollection.FirstOrDefault(s => s.Contract == uc.ToString() && s.Exchange == exchange.ToString());
-                //var modelparamsVM = await _otcHandler.QueryModelParamsAsync(strategyVM.VolModel);
-                //WMSettingsLV.DataContext = modelparamsVM;
+                var callputOpt = VolCurvLV.CallPutTDOptionVMCollection.FirstOrDefault();
+                if(callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
+                {
+                    var modelparamsVM = await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
+                    WMSettingsLV.DataContext = modelparamsVM;
+                }
             }
         }
     }
