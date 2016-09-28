@@ -172,38 +172,38 @@
                     </GridViewColumn>
                     <GridViewColumn x:Name="PBidQV" Header="PBidIV" DisplayMemberBinding="{Binding PutStrategyVM.BidQT}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PAskQV" Header="PAskQV" DisplayMemberBinding="{Binding PutStrategyVM.AskQT}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
-                    <GridViewColumn x:Name="PBidTheo" Header="PBidTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.BidPrice}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" />
-                    <GridViewColumn x:Name="PAskTheo" Header="PAskTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskPrice}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
-                    <GridViewColumn x:Name="PTheta" Header="PTheta" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Theta}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
-                    <GridViewColumn x:Name="PGamma" Header="PGamma" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Gamma}"/>
-                    <GridViewColumn x:Name="PVega" Header="PVega" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Vega}"/>
-                    <GridViewColumn x:Name="PDelta" Header="PDelta" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Delta}"/>
-                    <GridViewColumn x:Name="PBidIV" Header="PBidIV" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidVol}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
-                    <GridViewColumn x:Name="PMidIV" Header="PMidIV" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.MidVol}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
-                    <GridViewColumn x:Name="PAskIV" Header="PAskIV" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskVol}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
-                    <GridViewColumn x:Name="PBid" Header="PBid" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidPrice}"/>
+                    <GridViewColumn x:Name="PBidTheo" Header="PBidTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" />
+                    <GridViewColumn x:Name="PAskTheo" Header="PAskTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskPrice,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PTheta" Header="PTheta" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Theta,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PGamma" Header="PGamma" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Gamma,StringFormat=N2}"/>
+                    <GridViewColumn x:Name="PVega" Header="PVega" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Vega,StringFormat=N2}"/>
+                    <GridViewColumn x:Name="PDelta" Header="PDelta" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Delta,StringFormat=N2}"/>
+                    <GridViewColumn x:Name="PBidIV" Header="PBidIV" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidVol,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PMidIV" Header="PMidIV" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.MidVol,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PAskIV" Header="PAskIV" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskVol,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PBid" Header="PBid" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidPrice,StringFormat=N2}"/>
                     <GridViewColumn x:Name="PBidSize" Header="PBidSize" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidSize}"/>
-                    <GridViewColumn x:Name="PMid" Header="PMid" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.MidPrice}"/>
-                    <GridViewColumn x:Name="PAsk" Header="PAsk" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskPrice}"/>
+                    <GridViewColumn x:Name="PMid" Header="PMid" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.MidPrice,StringFormat=N2}"/>
+                    <GridViewColumn x:Name="PAsk" Header="PAsk" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskPrice,StringFormat=N2}"/>
                     <GridViewColumn x:Name="PAskSize" Header="PAskSize" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskSize}"/>
                     
                     <GridViewColumn x:Name="Strike" Header="Strike" DisplayMemberBinding="{Binding StrikePrice}" />
                     
                     <GridViewColumn x:Name="CAskSize" Header="CAskSize" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskSize}"/>
-                    <GridViewColumn x:Name="CAsk" Header="CAsk" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskPrice}"/>
-                    <GridViewColumn x:Name="CMid" Header="CMid" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.MidPrice}"/>
+                    <GridViewColumn x:Name="CAsk" Header="CAsk" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskPrice,StringFormat=N2}"/>
+                    <GridViewColumn x:Name="CMid" Header="CMid" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.MidPrice,StringFormat=N2}"/>
                     <GridViewColumn x:Name="CBidSize" Header="CBidSize" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidSize}"/>
-                    <GridViewColumn x:Name="CBid" Header="CBid" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidPrice}"/>
-                    <GridViewColumn x:Name="CBidIV" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidVol}" Header="CBidIV" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
-                    <GridViewColumn x:Name="CMidIV" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.MidVol}" Header="CMidIV" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
-                    <GridViewColumn x:Name="CAskIV" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskVol}" Header="CAskIV" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
-                    
-                    <GridViewColumn x:Name="CDelta" Header="CDelta" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Delta}"/>
-                    <GridViewColumn x:Name="CVega" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Vega}" Header="CVega" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
-                    <GridViewColumn x:Name="CTheta" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Theta}" Header="CTheta" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
-                    <GridViewColumn x:Name="CGamma" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Gamma}" Header="CGamma" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
-                    <GridViewColumn x:Name="CBidTheo" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.BidPrice}" Header="CBidTheo" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
-                    <GridViewColumn x:Name="CAskTheo" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.AskPrice}" Header="CAskTheo" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
+                    <GridViewColumn x:Name="CBid" Header="CBid" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidPrice,StringFormat=N2}"/>
+                    <GridViewColumn x:Name="CBidIV" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidVol,StringFormat=N2}" Header="CBidIV" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
+                    <GridViewColumn x:Name="CMidIV" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.MidVol,StringFormat=N2}" Header="CMidIV" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
+                    <GridViewColumn x:Name="CAskIV" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskVol,StringFormat=N2}" Header="CAskIV" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
+
+                    <GridViewColumn x:Name="CDelta" Header="CDelta" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Delta,StringFormat=N2}"/>
+                    <GridViewColumn x:Name="CVega" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Vega,StringFormat=N2}" Header="CVega" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
+                    <GridViewColumn x:Name="CTheta" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Theta,StringFormat=N2}" Header="CTheta" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
+                    <GridViewColumn x:Name="CGamma" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Gamma,StringFormat=N2}" Header="CGamma" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
+                    <GridViewColumn x:Name="CBidTheo" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" Header="CBidTheo" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
+                    <GridViewColumn x:Name="CAskTheo" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.AskPrice,StringFormat=N2}" Header="CAskTheo" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
                     <GridViewColumn x:Name="CAskQV" DisplayMemberBinding="{Binding CallStrategyVM.AskQT}" Header="CAskQV" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
                     <GridViewColumn x:Name="CBidQV" DisplayMemberBinding="{Binding CallStrategyVM.BidQT}" Header="CBidQV" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
                     
