@@ -13,10 +13,11 @@ namespace Micro.Future.UI
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IStatusCollector
     {
         private Config _config = new Config(Settings.Default.ConfigFile);
         private PBSignInManager _accountSignIner = new PBSignInManager();
+        private LoginWindow _currentLoginWindow;
 
         public static int maketDataTabCount = 0;
         
@@ -30,22 +31,38 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
-            _accountSignIner.OnLogged += OnLogged;
             Login();
+        }        
+
+
+        private void Login()
+        {
+            _currentLoginWindow = new LoginWindow(_accountSignIner)
+            {
+                MD5Round = 2,
+                AddressCollection = _config.Content["ACCOUNTSERVER.ADDRESS"].Values
+            };
+
+            _currentLoginWindow.OnLogged += LoginWindow_OnLogged;
+
+            if (!_currentLoginWindow.ShowDialog().Value)
+                Close();
         }
 
-        void OnLogged(IUserInfo userInfo)
+        private void LoginWindow_OnLogged(LoginWindow sender, IUserInfo userInfo)
         {
             var roleType = userInfo.Role.ToString();
             var frameDict = (Dictionary<string, IList<string>>)ConfigurationManager.GetSection("frames/roles");
             IList<string> frames;
             if (frameDict.TryGetValue(roleType, out frames))
             {
+                sender.DataLoadingProgressBar.Maximum = frames.Count - 1;
                 foreach (var frame in frames)
                 {
                     var frameUI = Activator.CreateInstance(Type.GetType(frame)) as IUserFrame;
                     if (frameUI != null)
                     {
+                        frameUI.StatusReporter = this;
                         mainPane.AddContent(frameUI).Title = frameUI.Title;
 
                         if (frameUI.FrameMenus != null)
@@ -62,34 +79,17 @@ namespace Micro.Future.UI
 
                         var entries = _accountSignIner.SignInOptions.FrontServer.Split(':');
                         frameUI.LoginAsync(_accountSignIner.SignInOptions.UserName, _accountSignIner.SignInOptions.Password, entries[0]);
+
+                        sender.DataLoadingProgressBar.Value++;
                     }
 
                 }
             }
-
         }
 
-        
-        public void OpenFrame(IUserFrame Frame)
+        public void ReportStatus(string statusMsg)
         {
-            //MessageBox.Show("OpenFrame");
-            mainPane.AddContent(Frame);
-
-
-        }
-        
-
-
-        private void Login()
-        {
-            LoginWindow loginWindow = new LoginWindow(_accountSignIner)
-            {
-                MD5Round = 2,
-                AddressCollection = _config.Content["ACCOUNTSERVER.ADDRESS"].Values
-            };
-
-            if (!loginWindow.ShowDialog().Value)
-                Close();
+            _currentLoginWindow?.ReportStatus(statusMsg);
         }
     }
 }
