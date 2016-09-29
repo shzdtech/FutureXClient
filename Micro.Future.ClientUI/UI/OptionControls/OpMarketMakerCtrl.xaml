@@ -170,7 +170,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PBidQV" Header="PBidIV" DisplayMemberBinding="{Binding PutStrategyVM.BidQT}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PBidQV" Header="PBidQV" DisplayMemberBinding="{Binding PutStrategyVM.BidQT}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PAskQV" Header="PAskQV" DisplayMemberBinding="{Binding PutStrategyVM.AskQT}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PBidTheo" Header="PBidTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" />
                     <GridViewColumn x:Name="PAskTheo" Header="PAskTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskPrice,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
