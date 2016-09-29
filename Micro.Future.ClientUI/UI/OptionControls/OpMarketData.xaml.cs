@@ -51,6 +51,17 @@ namespace Micro.Future.UI
         {
             get;
         } = new ObservableCollection<MarketDataVM>();
+
+        public ObservableCollection<StrategyVM> StrategyVMCollection1
+        {
+            get;
+        } = new ObservableCollection<StrategyVM>();
+
+        public ObservableCollection<StrategyVM> StrategyVMCollection2
+        {
+            get;
+        } = new ObservableCollection<StrategyVM>();
+
         public void Initialize()
         {
             using (var clientCache = new ClientDbContext())
@@ -243,11 +254,28 @@ namespace Micro.Future.UI
 
             if (contract1.SelectedItem != null)
             {
+                var uexchange = exchange1.SelectedValue.ToString();
                 var uc = contract1.SelectedItem.ToString();
                 var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 QuoteVMCollection1.Clear();
                 var mktDataVM = handler.SubMarketData(uc);
                 QuoteVMCollection1.Add(mktDataVM);
+                var strategyhandler = _otcOptionHandler;
+                foreach (var option in CallPutTDOptionVMCollection)
+                {
+                    var callpcp = option.CallStrategyVM.PricingContractParams.First();
+                    var putpcp = option.PutStrategyVM.PricingContractParams.First();
+                    if (callpcp.Contract != uc)
+                    {
+                        callpcp.Contract = uc;
+                        callpcp.Exchange = uexchange;
+                        putpcp.Contract = uc;
+                        putpcp.Exchange = uexchange;
+                        strategyhandler.UpdateStrategy(option.CallStrategyVM);
+                        strategyhandler.UpdateStrategy(option.PutStrategyVM);
+                    }
+                }
+
             }
         }
         private void exchange2_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -271,16 +299,32 @@ namespace Micro.Future.UI
 
             }
         }
-        private void contract2_SelectionChanged(object sender, SelectionChangedEventArgs e) 
+        private void contract2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (contract2.SelectedItem != null)
             {
+                var uexchange = exchange1.SelectedValue.ToString();
                 var uc = contract2.SelectedItem.ToString();
                 var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 QuoteVMCollection2.Clear();
                 handler.SubMarketData(uc);
                 var mktDataVM = handler.SubMarketData(uc);
                 QuoteVMCollection2.Add(mktDataVM);
+                var strategyhandler = _otcOptionHandler;
+                foreach (var option in CallPutTDOptionVMCollection)
+                {
+                    var callpcp = option.CallStrategyVM.PricingContractParams.First();
+                    var putpcp = option.PutStrategyVM.PricingContractParams.First();
+                    if (callpcp.Contract != uc)
+                    {
+                        callpcp.Contract = uc;
+                        callpcp.Exchange = uexchange;
+                        putpcp.Contract = uc;
+                        putpcp.Exchange = uexchange;
+                        strategyhandler.UpdateStrategy(option.CallStrategyVM);
+                        strategyhandler.UpdateStrategy(option.PutStrategyVM);
+                    }
+                }
             }
 
         }
