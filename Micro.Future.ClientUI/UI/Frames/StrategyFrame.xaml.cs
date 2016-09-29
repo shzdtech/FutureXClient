@@ -18,6 +18,8 @@ namespace Micro.Future.UI
     {
         private AbstractSignInManager _otcSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AbstractOTCHandler>());
 
+
+
         public StrategyFrame()
         {
             if (!DesignerProperties.GetIsInDesignMode(this))
@@ -53,6 +55,11 @@ namespace Micro.Future.UI
             }
         }
 
+        public IStatusCollector StatusReporter
+        {
+            get; set;
+        }
+
         public void LoginAsync(string usernname, string password, string server)
         {
             _otcSignIner.SignInOptions.UserName = usernname;
@@ -80,7 +87,7 @@ namespace Micro.Future.UI
             msgWrapper.MessageClient.OnDisconnected += TdLoginStatus.OnDisconnected;
             _otcSignIner.OnLogged += _otcSignIner_OnLogged;
 
-            handler.RegisterMessageWrapper(msgWrapper);;
+            handler.RegisterMessageWrapper(msgWrapper); ;
         }
 
         private void _otcSignIner_OnLogged(IUserInfo obj)
@@ -104,7 +111,7 @@ namespace Micro.Future.UI
             TDServerLogin();
         }
 
-        
+
 
 
 

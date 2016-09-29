@@ -28,6 +28,10 @@ namespace Micro.Future.UI
             InitializeComponent();
         }
 
+        public IStatusCollector StatusReporter
+        {
+            get; set;
+        }
 
         public string Title
         {
