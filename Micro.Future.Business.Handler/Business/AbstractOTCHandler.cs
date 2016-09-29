@@ -43,7 +43,7 @@ namespace Micro.Future.Message
             get;
         } = new ObservableCollection<OTCPricingVM>();
 
-        public ObservableCollection<PortfolioVM> PortfolioVMCollection
+        public ObservableCollection<PortfolioVM> PortfolioVMCollection   //portfolioVMCollection
         {
             get;
         } = new ObservableCollection<PortfolioVM>();

@@ -27,6 +27,10 @@ namespace Micro.Future.UI
             }
         }
 
+        public IStatusCollector StatusReporter
+        {
+            get; set;
+        }
 
         public string Title
         {

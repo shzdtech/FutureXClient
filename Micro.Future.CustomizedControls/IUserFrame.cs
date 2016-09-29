@@ -12,11 +12,8 @@ namespace Micro.Future.CustomizedControls
 
         IEnumerable<StatusBarItem> StatusBarItems { get; }
 
+        IStatusCollector StatusReporter { get; set; }
+
         void LoginAsync(string usernname, string password, string server = null);
-
-        
-        //event Action<IUserFrame> MenuBtnClicked;
-
-
     }
 }

@@ -33,6 +33,11 @@ namespace Micro.Future.UI
         private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionHandler>());
         // private AbstractSignInManager _ctpSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPOptionDataHandler>());
 
+        public IStatusCollector StatusReporter
+        {
+            get; set;
+        }
+
         public string Title
         {
             get

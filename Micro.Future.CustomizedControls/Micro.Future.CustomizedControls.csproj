@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="Controls\VirtualToggleButton.cs" />
     <Compile Include="IUserFrame.cs" />
+    <Compile Include="IStatusCollector.cs" />
     <Compile Include="ViewModel\CityViewModel.cs" />
     <Compile Include="ViewModel\CountryViewModel.cs" />
     <Compile Include="ViewModel\RegionViewModel.cs" />

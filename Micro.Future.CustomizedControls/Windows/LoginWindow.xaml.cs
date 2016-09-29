@@ -6,13 +6,14 @@ using System.Collections;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
-namespace Micro.Future.UI
+namespace Micro.Future.CustomizedControls
 {
     /// <summary>
     /// Login.xaml 的交互逻辑
     /// </summary>
     public partial class LoginWindow : Window
     {
+        public event Action<LoginWindow, IUserInfo> OnLogged;
         public AbstractSignInManager SignInManager
         {
             get; protected set;
@@ -48,8 +49,7 @@ namespace Micro.Future.UI
         public LoginWindow(AbstractSignInManager signInMgr)
         {
             SignInManager = signInMgr;
-            SignInManager.OnConnected += OnConnected;
-            SignInManager.OnLogged += OnLogged;
+            SignInManager.OnLogged += OnLogSuccess;
             SignInManager.OnLoginError += OnLoginError;
 
             InitializeComponent();
@@ -70,20 +70,13 @@ namespace Micro.Future.UI
             }
         }
 
-        private void OnLogged(IUserInfo obj)
+        private void OnLogSuccess(IUserInfo userinfo)
         {
+            OnLogged?.Invoke(this, userinfo);
             DialogResult = true;
             Close();
         }
 
-        void OnConnected(Exception ex)
-        {
-            if (ex != null)
-            {
-                loginBtn.IsEnabled = true;
-                MessageBox.Show(this, ex.Message);
-            }
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -111,18 +104,9 @@ namespace Micro.Future.UI
             loginBtn.IsEnabled = false;
         }
 
-        private void domesticChkBox_Checked(object sender, RoutedEventArgs e)
+        public void ReportStatus(string statusMsg)
         {
-            forgeinChkBox.IsChecked = false;
-            domesticChkBox.IsChecked = true;
-            //MessageBox.Show("初始化交易窗口设置为盘内行情");
-        }
-
-        private void forgeinChkBox_Checked(object sender, RoutedEventArgs e)
-        {
-            domesticChkBox.IsChecked = false;
-            forgeinChkBox.IsChecked = true;
-            //MessageBox.Show("初始化交易窗口设置为盘外行情");
+            Dispatcher.Invoke(() => DataLoadingStatus.Text = statusMsg);
         }
     }
 }

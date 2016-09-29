@@ -31,6 +31,10 @@ namespace Micro.Future.UI
             }
         }
 
+        public IStatusCollector StatusReporter
+        {
+            get; set;
+        }
 
         public void LoginAsync(string usernname, string password, string server)
         {
