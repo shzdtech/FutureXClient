@@ -206,8 +206,32 @@ namespace Micro.Future.Message
             strategy.Hedging = sVM.Hedging;
             strategy.AskEnabled = sVM.AskEnabled;
             strategy.BidEnabled = sVM.BidEnabled;
+            strategy.IvModel = sVM.IVModel;
             strategy.VolModel = sVM.VolModel;
             strategy.PricingModel = sVM.PricingModel;
+
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
+        }
+
+        public void UpdateStrategyPricingContracts(StrategyVM sVM)
+        {
+            var strategy = new PBStrategy();
+            strategy.Exchange = sVM.Exchange;
+            strategy.Contract = sVM.Contract;
+            strategy.Depth = sVM.Depth;
+            strategy.BidQT = sVM.BidQT;
+            strategy.AskQT = sVM.AskQT;
+            strategy.Hedging = sVM.Hedging;
+            strategy.AskEnabled = sVM.AskEnabled;
+            strategy.BidEnabled = sVM.BidEnabled;
+            strategy.IvModel = sVM.IVModel;
+            strategy.VolModel = sVM.VolModel;
+            strategy.PricingModel = sVM.PricingModel;
+
+            foreach (var pc in strategy.PricingContracts)
+            {
+                strategy.PricingContracts.Add(new PBPricingContract() { Exchange = pc.Exchange, Contract = pc.Contract, Weight = pc.Weight});
+            }
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }

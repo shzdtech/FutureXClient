@@ -268,7 +268,7 @@ namespace Micro.Future.UI
                     {
                         callpcp.Contract = uc;
                         callpcp.Exchange = uexchange;
-                        strategyhandler.UpdateStrategy(option.CallStrategyVM);
+                        strategyhandler.UpdateStrategyPricingContracts(option.CallStrategyVM);
                     }
 
                     var putpcp = option.PutStrategyVM?.PricingContractParams.FirstOrDefault();
@@ -276,7 +276,7 @@ namespace Micro.Future.UI
                     {
                         putpcp.Contract = uc;
                         putpcp.Exchange = uexchange;
-                        strategyhandler.UpdateStrategy(option.PutStrategyVM);
+                        strategyhandler.UpdateStrategyPricingContracts(option.PutStrategyVM);
                     }
                 }
 
@@ -322,7 +322,7 @@ namespace Micro.Future.UI
                     {
                         callpcp.Contract = uc;
                         callpcp.Exchange = uexchange;
-                        strategyhandler.UpdateStrategy(option.CallStrategyVM);
+                        strategyhandler.UpdateStrategyPricingContracts(option.CallStrategyVM);
                     }
 
                     var putpcp = option.PutStrategyVM?.PricingContractParams.FirstOrDefault();
@@ -330,7 +330,7 @@ namespace Micro.Future.UI
                     {
                         putpcp.Contract = uc;
                         putpcp.Exchange = uexchange;
-                        strategyhandler.UpdateStrategy(option.PutStrategyVM);
+                        strategyhandler.UpdateStrategyPricingContracts(option.PutStrategyVM);
                     }
                 }
             }
