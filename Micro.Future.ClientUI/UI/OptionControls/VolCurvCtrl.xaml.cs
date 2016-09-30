@@ -243,17 +243,17 @@ namespace Micro.Future.UI
                 VolatilityModelVM.PutAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol));
                 VolatilityModelVM.PutBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol));
                 VolatilityModelVM.PutMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.MidVol));
-                VolatilityModelVM.TheoAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.AskVol));
-                VolatilityModelVM.TheoBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.BidVol));
-                VolatilityModelVM.TheoMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.MidVol));
+                VolatilityModelVM.TheoAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol));
+                VolatilityModelVM.TheoBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol));
+                VolatilityModelVM.TheoMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.MidVol));
 
                 double value = (vm.PutStrategyVM != null && vm.PutStrategyVM.AskEnabled) ? 1 : 0;
-                VolatilityModelVM.TheoPutAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.AskVol, 10, value, vm.PutStrategyVM));
-                VolatilityModelVM.TheoPutBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.TheoDataVM.BidVol, 10, value, vm.PutStrategyVM));
+                VolatilityModelVM.TheoPutAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol, 10, value, vm.PutStrategyVM));
+                VolatilityModelVM.TheoPutBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol, 10, value, vm.PutStrategyVM));
 
                 value = (vm.CallStrategyVM != null && vm.CallStrategyVM.AskEnabled) ? 1 : 0;
-                VolatilityModelVM.TheoCallAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.TheoDataVM.AskVol, 10, value, vm.CallStrategyVM));
-                VolatilityModelVM.TheoCallBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.TheoDataVM.BidVol, 10, value, vm.CallStrategyVM));
+                VolatilityModelVM.TheoCallAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.AskVol, 10, value, vm.CallStrategyVM));
+                VolatilityModelVM.TheoCallBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.BidVol, 10, value, vm.CallStrategyVM));
             }
         }
 

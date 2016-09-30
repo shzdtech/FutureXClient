@@ -263,15 +263,19 @@ namespace Micro.Future.UI
                 var strategyhandler = _otcOptionHandler;
                 foreach (var option in CallPutTDOptionVMCollection)
                 {
-                    var callpcp = option.CallStrategyVM.PricingContractParams.First();
-                    var putpcp = option.PutStrategyVM.PricingContractParams.First();
-                    if (callpcp.Contract != uc)
+                    var callpcp = option.CallStrategyVM?.PricingContractParams.FirstOrDefault();
+                    if (callpcp != null && callpcp.Contract != uc)
                     {
                         callpcp.Contract = uc;
                         callpcp.Exchange = uexchange;
+                        strategyhandler.UpdateStrategy(option.CallStrategyVM);
+                    }
+
+                    var putpcp = option.PutStrategyVM?.PricingContractParams.FirstOrDefault();
+                    if (putpcp != null && putpcp.Contract != uc)
+                    {
                         putpcp.Contract = uc;
                         putpcp.Exchange = uexchange;
-                        strategyhandler.UpdateStrategy(option.CallStrategyVM);
                         strategyhandler.UpdateStrategy(option.PutStrategyVM);
                     }
                 }
@@ -313,15 +317,19 @@ namespace Micro.Future.UI
                 var strategyhandler = _otcOptionHandler;
                 foreach (var option in CallPutTDOptionVMCollection)
                 {
-                    var callpcp = option.CallStrategyVM.PricingContractParams.First();
-                    var putpcp = option.PutStrategyVM.PricingContractParams.First();
-                    if (callpcp.Contract != uc)
+                    var callpcp = option.CallStrategyVM?.PricingContractParams.FirstOrDefault();
+                    if (callpcp != null && callpcp.Contract != uc)
                     {
                         callpcp.Contract = uc;
                         callpcp.Exchange = uexchange;
+                        strategyhandler.UpdateStrategy(option.CallStrategyVM);
+                    }
+
+                    var putpcp = option.PutStrategyVM?.PricingContractParams.FirstOrDefault();
+                    if (putpcp != null && putpcp.Contract != uc)
+                    {
                         putpcp.Contract = uc;
                         putpcp.Exchange = uexchange;
-                        strategyhandler.UpdateStrategy(option.CallStrategyVM);
                         strategyhandler.UpdateStrategy(option.PutStrategyVM);
                     }
                 }
