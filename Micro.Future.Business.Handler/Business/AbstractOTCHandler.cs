@@ -135,6 +135,15 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)SystemMessageID.MSG_ID_UPDATE_MODELPARAMS, model);
         }
 
+        public void NewWingModelInstance(string modelName)
+        {
+            var modelParam = new ModelParams();
+            modelParam.InstanceName = modelName;
+            modelParam.Model = "wing";
+
+            MessageWrapper.SendMessage((uint)SystemMessageID.MSG_ID_UPDATE_MODELPARAMS, modelParam);
+        }
+
         private void OnQueryPortfolioSuccessAction(PBPortfolioList PB)
         {
             PortfolioVMCollection.Clear();
