@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.Message
 {
-    public abstract class AbstractOTCHandler :
-        AbstractMessageHandler
+    public abstract class AbstractOTCHandler :  AbstractMessageHandler
     {
         protected void OnErrorAction(ExceptionMessage bizErr)
         {
