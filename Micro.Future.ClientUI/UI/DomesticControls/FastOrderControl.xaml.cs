@@ -6,6 +6,7 @@ using System.Windows;
 using System.Text.RegularExpressions;
 using System;
 using System.Windows.Media;
+using System.Collections;
 
 namespace Micro.Future.UI
 {
@@ -86,6 +87,7 @@ namespace Micro.Future.UI
             get;
             private set;
         }
+        public IEnumerable PortfolioVMCollection { get; private set; }
 
         public FastOrderControl()
         {
@@ -128,7 +130,7 @@ namespace Micro.Future.UI
         private void portofolioCB_Loaded(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Start to bound item source");
-            portofolioCB.ItemsSource = ;
+            portofolioCB.ItemsSource = PortfolioVMCollection;
         }
 
         //

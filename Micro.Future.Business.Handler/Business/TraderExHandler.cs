@@ -160,7 +160,7 @@ namespace Micro.Future.Message
         {
 
         }
-
+        //public String[] 
 
         //To invoke the function of saving contract data to local sqlite
         private void OnContractInfo(PBContractInfoList rsp)
