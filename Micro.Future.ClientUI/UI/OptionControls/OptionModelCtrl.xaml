@@ -27,7 +27,7 @@
                     <avalonDock:LayoutPanel  Orientation="Horizontal">
                         <avalonDock:LayoutAnchorablePane x:Name="WMSettingsPane" DockWidth="0.15*">
                             <avalonDock:LayoutAnchorable Title="WingModel Settings">
-                                <c:WMSettingsCtrl x:Name="WMSettingsLV"/>
+                                <c:WMSettingsCtrl x:Name="WMSettingsLV" x:FieldModifier="public"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="VolCurvPane" DockWidth="0.3*">

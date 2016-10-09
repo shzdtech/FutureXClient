@@ -32,18 +32,8 @@ namespace Micro.Future.UI
         }
         public LayoutContent LayoutContent { get; set; }
 
-        public ObservableCollection<StrategyVM> StrategyVMCollection
-        {
-            get;
-        } = new ObservableCollection<StrategyVM>();
+        private OTCOptionHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
 
-        
-        private AbstractOTCHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
-
-        public ModelParamsVM ModelParams
-        {
-            get;
-        } = new ModelParamsVM();
 
         private void OptionWin_KeyDown(object sender, KeyEventArgs e)
         {
@@ -52,23 +42,14 @@ namespace Micro.Future.UI
             {
                 if (e.Key == Key.Escape || e.Key == Key.Enter)
                 {
-
-                    OptionVM optionVM = ctrl.DataContext as OptionVM;
-                    if (optionVM != null)
+                    if (_otcOptionHandler != null)
                     {
                         if (e.Key == Key.Enter)
-                            optionVM.UpdateOptionParam();
-                        else
                         {
-                            ctrl.DataContext = null;
-                            ctrl.DataContext = optionVM;
+                            var modelParamsVM = DataContext as ModelParamsVM;
+                            _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
                         }
                     }
-                    ctrl.Background = Brushes.White;
-                }
-                else
-                {
-                    ctrl.Background = Brushes.MistyRose;
                 }
             }
         }

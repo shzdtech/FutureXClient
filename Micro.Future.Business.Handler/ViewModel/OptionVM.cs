@@ -385,7 +385,7 @@ namespace Micro.Future.ViewModel
 
         public void UpdateOptionParam()
         {
-            //OTCHandler.UpdateOptionParam(this);
+            //OTCHandler.UpdateModelParams(this);
         }
 
         RelayCommand _updateOPCommand;

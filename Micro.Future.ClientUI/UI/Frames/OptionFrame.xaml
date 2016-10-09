@@ -76,7 +76,7 @@
         </avalonDock:DockingManager.Theme>
         <avalonDock:LayoutRoot>
             <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*" CanRepositionItems="False">
-                <avalonDock:LayoutAnchorablePane x:Name="optionPane">
+                <avalonDock:LayoutAnchorablePane x:Name="optionPane" x:FieldModifier="public">
                 </avalonDock:LayoutAnchorablePane>
             </avalonDock:LayoutPanel>
         </avalonDock:LayoutRoot>

@@ -4,6 +4,7 @@ using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
 using Micro.Future.Resources.Localization;
 using Micro.Future.ViewModel;
+using Micro.Future.Windows;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,6 +33,9 @@ namespace Micro.Future.UI
     {
         private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionHandler>());
         // private AbstractSignInManager _ctpSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPOptionDataHandler>());
+        public VolModelSettingsWindow _volModelSettingsWin =
+            new VolModelSettingsWindow();
+        private AbstractOTCHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
 
         public IStatusCollector StatusReporter
         {
@@ -153,12 +157,15 @@ namespace Micro.Future.UI
             TDServerLogin();
         }
 
-        private void Add_Model_Click(object sender, RoutedEventArgs e)
+        private async void Add_Model_Click(object sender, RoutedEventArgs e)
         {
-            //TabItem modelitem = new TabItem();
-            //WMSettingsCtrl ne = new WMSettingsCtrl();
-            //tabControlall.Items.Add(modelitem);
-            optionPane.AddContent(new OptionModelCtrl()).Title = "Model";
+            _volModelSettingsWin.ShowDialog();
+            OptionModelCtrl optionModelCtrl = new OptionModelCtrl();
+            optionPane.AddContent(optionModelCtrl).Title = _volModelSettingsWin.VolModelTabTitle;
+            _otcOptionHandler.NewWingModelInstance(_volModelSettingsWin.VolModelTabTitle);
+            var modelparamsVM = await _otcOptionHandler.QueryModelParamsAsync(_volModelSettingsWin.VolModelTabTitle);
+            optionModelCtrl.WMSettingsLV.DataContext = modelparamsVM;
+
         }
 
 

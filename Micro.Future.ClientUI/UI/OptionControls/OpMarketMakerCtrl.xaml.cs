@@ -49,8 +49,14 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
-            _contractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
-            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            using (var clientCache = new ClientDbContext())
+            {
+                _futurecontractList = clientCache.ContractInfo.Where(c => c.ProductType == 0).ToList();
+
+                _contractList = clientCache.ContractInfo.Where(c => c.ProductType == 1).ToList();
+            }
+            //_contractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
+            //_futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
 
             exchangeCB.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
@@ -311,5 +317,33 @@ namespace Micro.Future.UI
 
             }
         }
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                if (e.Key == Key.Escape || e.Key == Key.Enter)
+                {
+
+                    StrategyVM strategyVM = ctrl.DataContext as StrategyVM;
+                    if (strategyVM != null)
+                    {
+                        if (e.Key == Key.Enter)
+                            strategyVM.UpdateStrategy();
+                        else
+                        {
+                            ctrl.DataContext = null;
+                            ctrl.DataContext = strategyVM;
+                        }
+                    }
+                    ctrl.Background = Brushes.White;
+                }
+                else
+                {
+                    ctrl.Background = Brushes.MistyRose;
+                }
+            }
+        }
+
     }
 }

@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using Micro.Future.CustomizedControls;
 
 namespace Micro.Future.UI
 {
@@ -31,11 +32,16 @@ namespace Micro.Future.UI
         private IList<ContractInfo> _futurecontractList;
         private CollectionViewSource _viewSource1 = new CollectionViewSource();
         private CollectionViewSource _viewSource2 = new CollectionViewSource();
+        public ObservableCollection<StrategyVM> StrategyVMCollection
+        {
+            get;
+        } = new ObservableCollection<StrategyVM>();
 
         public OpMarketData()
         {
             InitializeComponent();
             Initialize();
+            volModelCB.ItemsSource = StrategyVMCollection.Select(c => c.VolModel).Distinct();
         }
 
         public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection
@@ -336,5 +342,27 @@ namespace Micro.Future.UI
             }
 
         }
+        private async void volModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (volModelCB.SelectedItem != null)
+            {
+                var vm = volModelCB.SelectedItem.ToString();
+                var handler = _otcOptionHandler;
+                foreach (var option in CallPutTDOptionVMCollection)
+                {
+                    option.CallStrategyVM.VolModel = vm;
+                    handler.UpdateStrategy(option.CallStrategyVM);
+                    option.PutStrategyVM.VolModel = vm;
+                    handler.UpdateStrategy(option.PutStrategyVM);
+                }
+                OptionModelCtrl optionModelCtrl = new OptionModelCtrl();
+                OptionFrame optionFrame = new OptionFrame();
+                optionFrame.optionPane.AddContent(optionModelCtrl).Title = vm;
+                _otcOptionHandler.NewWingModelInstance(vm);
+                var modelparamsVM = await _otcOptionHandler.QueryModelParamsAsync(vm);
+                optionModelCtrl.WMSettingsLV.DataContext = modelparamsVM;
+            }
+        }
+
     }
 }
