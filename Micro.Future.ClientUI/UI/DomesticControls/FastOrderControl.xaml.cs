@@ -87,7 +87,7 @@ namespace Micro.Future.UI
             get;
             private set;
         }
-        public IEnumerable PortfolioVMCollection { get; private set; }
+        
 
         public FastOrderControl()
         {

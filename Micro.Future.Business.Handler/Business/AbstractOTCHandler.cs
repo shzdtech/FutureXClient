@@ -68,7 +68,6 @@ namespace Micro.Future.Message
                       ((uint)BusinessMessageID.MSG_ID_QUERY_TRADINGDESK, OnQueryTradingDeskSuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBPortfolioList, ExceptionMessage>
                       ((uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO, OnQueryPortfolioSuccessAction, OnErrorAction);
-
         }
 
         public Task<ModelParamsVM> QueryModelParamsAsync(string modelName)
