@@ -353,7 +353,6 @@ namespace Micro.Future.UI
                     option.CallStrategyVM.VolModel = vm;
                     handler.UpdateStrategy(option.CallStrategyVM);
                     option.PutStrategyVM.VolModel = vm;
-                    handler.UpdateStrategy(option.PutStrategyVM);
                 }
                 OptionModelCtrl optionModelCtrl = new OptionModelCtrl();
                 OptionFrame optionFrame = new OptionFrame();
