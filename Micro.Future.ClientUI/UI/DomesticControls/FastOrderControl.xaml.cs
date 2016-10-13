@@ -87,7 +87,7 @@ namespace Micro.Future.UI
             get;
             private set;
         }
-        public IEnumerable PortfolioVMCollection { get; private set; }
+        
 
         public FastOrderControl()
         {
@@ -125,17 +125,5 @@ namespace Micro.Future.UI
         {
 
         }
-
-        //Bound PortofolioCB with 
-        private void portofolioCB_Loaded(object sender, RoutedEventArgs e)
-        {
-            //MessageBox.Show("Start to bound item source");
-            portofolioCB.ItemsSource = PortfolioVMCollection;
-            //MessageBox.Show(PortfolioVMCollection.ToString());
-        }
-
-        //
-
-
     }
 }

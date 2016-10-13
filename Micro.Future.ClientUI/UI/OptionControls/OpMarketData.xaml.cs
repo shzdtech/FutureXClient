@@ -30,18 +30,11 @@ namespace Micro.Future.UI
         private OTCOptionHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
         private IList<ContractInfo> _contractList;
         private IList<ContractInfo> _futurecontractList;
-        private CollectionViewSource _viewSource1 = new CollectionViewSource();
-        private CollectionViewSource _viewSource2 = new CollectionViewSource();
-        public ObservableCollection<StrategyVM> StrategyVMCollection
-        {
-            get;
-        } = new ObservableCollection<StrategyVM>();
 
         public OpMarketData()
         {
             InitializeComponent();
             Initialize();
-            volModelCB.ItemsSource = StrategyVMCollection.Select(c => c.VolModel).Distinct();
         }
 
         public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection
@@ -58,33 +51,19 @@ namespace Micro.Future.UI
             get;
         } = new ObservableCollection<MarketDataVM>();
 
-        public ObservableCollection<StrategyVM> StrategyVMCollection1
-        {
-            get;
-        } = new ObservableCollection<StrategyVM>();
-
-        public ObservableCollection<StrategyVM> StrategyVMCollection2
-        {
-            get;
-        } = new ObservableCollection<StrategyVM>();
-
         public void Initialize()
         {
-            using (var clientCache = new ClientDbContext())
-            {
-                _futurecontractList = clientCache.ContractInfo.Where(c => c.ProductType == 0).ToList();
-
-                _contractList = clientCache.ContractInfo.Where(c => c.ProductType == 1).ToList();
-            }
+            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            _contractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
 
             underlyingEX.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             underlyingEX1.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             exchange1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
             exchange2.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
-            _viewSource1.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
-            _viewSource2.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
             quoteListView1.ItemsSource = QuoteVMCollection1;
             quoteListView2.ItemsSource = QuoteVMCollection2;
+
+            volModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("vm");
         }
 
         private void underlyingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -196,45 +175,6 @@ namespace Micro.Future.UI
             underlyingCB.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
         }
 
-        //private void contractTextBox1_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (e.Key == Key.Enter)
-        //    {
-        //        if (contractTextBox1.Text == "")
-        //        {
-        //            this.contractTextBox1.Background = new SolidColorBrush(Colors.Red);
-        //            MessageBox.Show("输入合约不能为空");
-        //            this.contractTextBox1.Background = new SolidColorBrush(Colors.White);
-        //            return;
-        //        }
-
-        //        using (var clientCtx = new ClientDbContext())
-        //        {
-        //            var query = from contractInfo in clientCtx.ContractInfo where contractInfo.Contract == contractTextBox1.Text select contractInfo;
-        //            if (query.Any() == false)
-        //            {
-        //                this.contractTextBox1.Background = new SolidColorBrush(Colors.Red);
-        //                MessageBox.Show("输入合约不存在");
-        //                contractTextBox1.Text = "";
-        //                this.contractTextBox1.Background = new SolidColorBrush(Colors.White);
-        //            }
-        //        }
-
-        //        var quote = contractTextBox1.Text;
-
-        //        var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
-        //                   QuoteVMCollection.FirstOrDefault((obj) => string.Compare(obj.Contract, quote, true) == 0);
-
-        //        if (item != null)
-        //        {
-        //            quoteListView1.SelectedItem = item;
-        //        }
-        //        else
-        //        {
-        //            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
-        //        }
-        //    }
-        //}
         private void exchange1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = exchange1.SelectedValue.ToString();
@@ -342,24 +282,21 @@ namespace Micro.Future.UI
             }
 
         }
-        private async void volModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void volModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (volModelCB.SelectedItem != null)
+            var modelParam = volModelCB.SelectedItem as ModelParamsVM;
+            if (modelParam != null)
             {
-                var vm = volModelCB.SelectedItem.ToString();
-                var handler = _otcOptionHandler;
                 foreach (var option in CallPutTDOptionVMCollection)
                 {
-                    option.CallStrategyVM.VolModel = vm;
-                    handler.UpdateStrategy(option.CallStrategyVM);
-                    option.PutStrategyVM.VolModel = vm;
+                    if (option.CallStrategyVM == null)
+                        return;
+
+                    option.CallStrategyVM.VolModel = modelParam.InstanceName;
+                    _otcOptionHandler.UpdateStrategy(option.CallStrategyVM);
+                    option.PutStrategyVM.VolModel = modelParam.InstanceName;
+                    _otcOptionHandler.UpdateStrategy(option.PutStrategyVM);
                 }
-                OptionModelCtrl optionModelCtrl = new OptionModelCtrl();
-                OptionFrame optionFrame = new OptionFrame();
-                optionFrame.optionPane.AddContent(optionModelCtrl).Title = vm;
-                _otcOptionHandler.NewWingModelInstance(vm);
-                var modelparamsVM = await _otcOptionHandler.QueryModelParamsAsync(vm);
-                optionModelCtrl.WMSettingsLV.DataContext = modelparamsVM;
             }
         }
 

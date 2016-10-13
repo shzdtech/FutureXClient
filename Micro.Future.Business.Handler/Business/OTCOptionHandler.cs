@@ -14,53 +14,11 @@ namespace Micro.Future.Message
 {
     public class OTCOptionHandler : AbstractOTCHandler
     {
-        public VolatilityLinesVM VolatilityLinesVM
-        {
-            get;
-        } = new VolatilityLinesVM();
-        public OptionOxyVM OptionOxyVM
-        {
-            get;
-        } = new OptionOxyVM();
-        public void OnUpdateOption()
-        {
-            var columnSeries = new ColumnSeries();
-            VolatilityLinesVM.CallAskVolLine.Add(new DataPoint());
-            //for (double i = 0.5; i < 10; i++)
-            //{
-            //    VolatilityLinesVM.CallAskVolLine.Add(new DataPoint(i, 10 - 0.5 * i));
-            //    VolatilityLinesVM.CallBidVolLine.Add(new DataPoint(i, i));
-            //    VolatilityLinesVM.TheoBidVolLine.Add(new DataPoint(i, i));
-            //    VolatilityLinesVM.TheoBidPutVolScatter.Add(new ScatterPoint(i, i, double.NaN, i / 10, true));
-            //    VolatilityLinesVM.TheoBidCallVolScatter.Add(new ScatterPoint(i, i, double.NaN, i / 10, true));
-            //    columnSeries.Items.Add(new ColumnItem { Value = i });
-            //}
-            OptionOxyVM.PlotModelBar.Series.Add(columnSeries);
-        }
-
-        public void OnUpdateTest()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                RiskVMCollection.Add(new RiskVM { Delta = i, DisplayName = i.ToString(), PositionDelta = i, PositionVega = i, Value = i, Vega = i });
-                PositionVMCollection.Add(new PositionVM { Selected = true, StrikePrice = i, ProductType = 0, Style = 0, Position = i });
-                PriceGreekVMCollection.Add(new PriceGreekVM { cAsk = i, cBid = i, cDelta = i, cMid = i, cVega = i, DisplayName = i.ToString(), pAsk = i, pBid = i, pDelta = i, pMid = i, pVega = i, Strike = i });
-                VolatilityVMCollection.Add(new VolatilityVM { DisplayName = i.ToString(), Strike = i, VolAsk = i, volBid = i, VolMid = i });
-            }
-        }
         public ObservableCollection<RiskVM> RiskVMCollection
         {
             get;
         } = new ObservableCollection<RiskVM>();
-        public ObservableCollection<PriceGreekVM> PriceGreekVMCollection
-        {
-            get;
-        } = new ObservableCollection<PriceGreekVM>();
 
-        public ObservableCollection<VolatilityVM> VolatilityVMCollection
-        {
-            get;
-        } = new ObservableCollection<VolatilityVM>();
         public ObservableCollection<PositionVM> PositionVMCollection
         {
             get;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
@@ -14,6 +15,8 @@ namespace Micro.Future.CustomizedControls
 
         IStatusCollector StatusReporter { get; set; }
 
-        void LoginAsync(string usernname, string password, string server = null);
+        TaskCompletionSource<bool> LoginTaskSource { get; }
+
+        Task<bool> LoginAsync(string usernname, string password, string server = null);
     }
 }

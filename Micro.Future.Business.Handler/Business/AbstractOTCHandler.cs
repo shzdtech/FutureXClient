@@ -9,8 +9,10 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.Message
 {
-    public abstract class AbstractOTCHandler :  AbstractMessageHandler
+    public abstract class AbstractOTCHandler : AbstractMessageHandler
     {
+        protected IDictionary<string, ObservableCollection<ModelParamsVM>> _modelDict = new Dictionary<string, ObservableCollection<ModelParamsVM>>();
+
         protected void OnErrorAction(ExceptionMessage bizErr)
         {
             if (bizErr.Description != null)
@@ -27,6 +29,19 @@ namespace Micro.Future.Message
         {
             get;
         } = new ObservableCollection<StrategyVM>();
+
+        public ObservableCollection<ModelParamsVM> GetModelParamsVMCollection(string modelAim = "pm")
+        {
+            ObservableCollection<ModelParamsVM> ret;
+            if(!_modelDict.TryGetValue(modelAim, out ret))
+            {
+                ret = new ObservableCollection<ModelParamsVM>();
+                _modelDict[modelAim] = ret;
+            }
+
+            return ret;
+        }
+
 
         public ObservableCollection<ContractParamVM> ContractParamVMCollection
         {
@@ -49,7 +64,6 @@ namespace Micro.Future.Message
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
-
             MessageWrapper.RegisterAction<PBPricingDataList, ExceptionMessage>
                         ((uint)BusinessMessageID.MSG_ID_SUB_PRICING, OnSubMarketDataSuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBPricingData, ExceptionMessage>
@@ -68,7 +82,6 @@ namespace Micro.Future.Message
                       ((uint)BusinessMessageID.MSG_ID_QUERY_TRADINGDESK, OnQueryTradingDeskSuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBPortfolioList, ExceptionMessage>
                       ((uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO, OnQueryPortfolioSuccessAction, OnErrorAction);
-
         }
 
         public Task<ModelParamsVM> QueryModelParamsAsync(string modelName)
@@ -83,8 +96,7 @@ namespace Micro.Future.Message
             var serialId = NextSerialId;
 
             ModelParams modelParams = new ModelParams();
-            modelParams.Header = new DataHeader();
-            modelParams.Header.SerialId = serialId;
+            modelParams.Header = new DataHeader { SerialId = serialId };
             modelParams.InstanceName = modelName;
 
             #region callback
@@ -94,22 +106,7 @@ namespace Micro.Future.Message
             {
                 if (resp.Header?.SerialId == serialId)
                 {
-                    var modelVM = new ModelParamsVM()
-                    {
-                        InstanceName = resp.InstanceName,
-                        Model = resp.Model,
-                    };
-
-                    foreach (var param in resp.Params)
-                    {
-                        modelVM.Params.Add(new NamedParamVM()
-                        {
-                            Name = param.Key,
-                            Value = param.Value,
-                        });
-                    }
-
-                    tcs.TrySetResult(modelVM);
+                    tcs.TrySetResult(OnQueryModelParamsSuccess(resp));
                 }
             },
             (ExceptionMessage bizErr) =>
@@ -124,6 +121,74 @@ namespace Micro.Future.Message
 
             return tcs.Task;
         }
+
+
+        public Task<IDictionary<string, ObservableCollection<ModelParamsVM>>> QueryAllModelParamsAsync()
+        {
+            var msgId = (uint)SystemMessageID.MSG_ID_QUERY_MODELPARAMS;
+
+            var tcs = new TaskCompletionSource<IDictionary<string, ObservableCollection<ModelParamsVM>>>();
+
+            var serialId = NextSerialId;
+
+            ModelParams modelParams = new ModelParams();
+            modelParams.Header = new DataHeader() { SerialId = serialId };
+
+            #region callback
+            MessageWrapper.RegisterAction<ModelParams, ExceptionMessage>
+            (msgId,
+            (resp) =>
+            {
+                if (resp.Header?.SerialId == serialId)
+                {
+                    OnQueryModelParamsSuccess(resp);
+
+                    if (resp.Header == null || !resp.Header.HasMore)
+                        tcs.TrySetResult(_modelDict);
+                }
+            },
+            (ExceptionMessage bizErr) =>
+            {
+                OnErrorAction(bizErr);
+                tcs.SetResult(null);
+            }
+            );
+            #endregion
+
+            MessageWrapper.SendMessage(msgId, modelParams);
+
+            return tcs.Task;
+        }
+
+
+        protected ModelParamsVM OnQueryModelParamsSuccess(ModelParams resp)
+        {
+            var modelParamsVMCollection = GetModelParamsVMCollection(resp.ModelAim);
+            ModelParamsVM ret = modelParamsVMCollection.FirstOrDefault(c => c.InstanceName == resp.InstanceName);
+            if (ret == null && !string.IsNullOrEmpty(resp.InstanceName))
+            {
+                ret = new ModelParamsVM()
+                {
+                    InstanceName = resp.InstanceName,
+                    Model = resp.Model,
+                    ModelAim = resp.ModelAim
+                };
+
+                foreach (var param in resp.Params)
+                {
+                    ret.Params.Add(new NamedParamVM()
+                    {
+                        Name = param.Key,
+                        Value = param.Value,
+                    });
+                }
+
+                modelParamsVMCollection.Add(ret);
+            }
+
+            return ret;
+        }
+
 
         public void UpdateModelParams(string modelName, string paramName, double paramValue)
         {
@@ -165,6 +230,13 @@ namespace Micro.Future.Message
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSD_ID_PORTFOLIO_NEW, portfolioList);
         }
+
+        //to send the created PortfolioVMCollection
+        public static ObservableCollection<PortfolioVM> getPortfolioVMCollection()
+        {
+            
+        }
+
 
         protected void OnUpdateStrategySuccessAction(PBStrategyList PB)
         {
@@ -238,7 +310,7 @@ namespace Micro.Future.Message
 
             foreach (var pc in strategy.PricingContracts)
             {
-                strategy.PricingContracts.Add(new PBPricingContract() { Exchange = pc.Exchange, Contract = pc.Contract, Weight = pc.Weight});
+                strategy.PricingContracts.Add(new PBPricingContract() { Exchange = pc.Exchange, Contract = pc.Contract, Weight = pc.Weight });
             }
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
@@ -272,6 +344,38 @@ namespace Micro.Future.Message
         protected void OnUpdateSuccessAction(Result result)
         {
 
+        }
+
+        public Task<ObservableCollection<StrategyVM>> QueryStrategyAsync()
+        {
+            var sst = new StringMap();
+            var msgId = (uint)BusinessMessageID.MSG_ID_QUERY_STRATEGY;
+            var tcs = new TaskCompletionSource<ObservableCollection<StrategyVM>>();
+
+            var serialId = NextSerialId;
+            sst.Header = new DataHeader { SerialId = serialId };
+
+            MessageWrapper.RegisterAction<PBStrategyList, ExceptionMessage>
+                (msgId,
+                (resp) =>
+                {
+                    if (resp.Header?.SerialId == serialId)
+                    {
+                        OnQueryStrategySuccessAction(resp);
+                
+                        tcs.TrySetResult(StrategyVMCollection);
+                    }
+                },
+                (bizErr) =>
+                {
+                    OnErrorAction(bizErr);
+                    tcs.SetResult(null);
+                }
+                );
+
+            MessageWrapper.SendMessage(msgId, sst);
+
+            return tcs.Task;
         }
 
         public void QueryStrategy()
@@ -331,6 +435,40 @@ namespace Micro.Future.Message
             var sst = new StringMap();
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO, sst);
         }
+
+        public Task<ObservableCollection<PortfolioVM>> QueryPortfolioAsync()
+        {
+            var sst = new StringMap();
+            var msgId = (uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO;
+            var tcs = new TaskCompletionSource<ObservableCollection<PortfolioVM>>();
+
+            var serialId = NextSerialId;
+            sst.Header = new DataHeader { SerialId = serialId };
+
+            MessageWrapper.RegisterAction<PBPortfolioList, ExceptionMessage>
+                (msgId,
+                (resp) =>
+                {
+                    if (resp.Header?.SerialId == serialId)
+                    {
+                        OnQueryPortfolioSuccessAction(resp);
+
+                        tcs.TrySetResult(PortfolioVMCollection);
+                    }
+                },
+                (bizErr) =>
+                {
+                    OnErrorAction(bizErr);
+                    tcs.SetResult(null);
+                }
+                );
+
+            MessageWrapper.SendMessage(msgId, sst);
+
+            return tcs.Task;
+        }
+
+
 
         protected void OnQueryContractParamSuccessAction(PBContractParamList PB)
         {

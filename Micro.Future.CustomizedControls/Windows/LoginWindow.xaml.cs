@@ -73,8 +73,6 @@ namespace Micro.Future.CustomizedControls
         private void OnLogSuccess(IUserInfo userinfo)
         {
             OnLogged?.Invoke(this, userinfo);
-            DialogResult = true;
-            Close();
         }
 
 

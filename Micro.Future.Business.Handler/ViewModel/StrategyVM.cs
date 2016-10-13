@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace Micro.Future.ViewModel
 {
-    public class PricingContractParamVM : ContractNotifyPropertyChanged
+    public class PricingContractParamVM : ContractKeyVM
     {
         private double _weight;
         public double Weight

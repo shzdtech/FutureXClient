@@ -4,6 +4,7 @@ using Micro.Future.Resources.Localization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -60,7 +61,12 @@ namespace Micro.Future.UI
             get; set;
         }
 
-        public void LoginAsync(string usernname, string password, string server)
+        public TaskCompletionSource<bool> LoginTaskSource
+        {
+            get;
+        } = new TaskCompletionSource<bool>();
+
+        public Task<bool> LoginAsync(string usernname, string password, string server)
         {
             _otcSignIner.SignInOptions.UserName = usernname;
             _otcSignIner.SignInOptions.Password = password;
@@ -70,6 +76,8 @@ namespace Micro.Future.UI
                 _otcSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
             TDServerLogin();
+
+            return LoginTaskSource.Task;
         }
 
         public void Initialize()
@@ -86,15 +94,22 @@ namespace Micro.Future.UI
             _otcSignIner.OnLoginError += TdLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += TdLoginStatus.OnDisconnected;
             _otcSignIner.OnLogged += _otcSignIner_OnLogged;
+            _otcSignIner.OnLoginError += _otcSignIner_OnLoginError;
 
             handler.RegisterMessageWrapper(msgWrapper); ;
         }
 
-        private void _otcSignIner_OnLogged(IUserInfo obj)
+        private void _otcSignIner_OnLoginError(MessageException obj)
+        {
+            LoginTaskSource.TrySetException(obj);
+        }
+
+        private async void _otcSignIner_OnLogged(IUserInfo obj)
         {
             strategyListView.ReloadData();
             contractParamListView.ReloadData();
-            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().QueryPortfolio();
+            await MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().QueryPortfolioAsync();
+            LoginTaskSource.TrySetResult(true);
         }
 
         private void TDServerLogin()
@@ -111,21 +126,5 @@ namespace Micro.Future.UI
             TDServerLogin();
         }
 
-
-
-
-
-        //private void MenuItem_Click_TradingStrategy(object sender, RoutedEventArgs e)
-        //{}
-
-
-        //public openStrategyFrame _openStrategyFrame;
-
-        //public event Action<IUserFrame> MenuBtnClicked;
-
-
     }
-
-
-    //public delegate void openStrategyFrame();
 }

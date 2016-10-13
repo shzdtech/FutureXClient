@@ -33,9 +33,7 @@ namespace Micro.Future.UI
     {
         private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionHandler>());
         // private AbstractSignInManager _ctpSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPOptionDataHandler>());
-        public VolModelSettingsWindow _volModelSettingsWin =
-            new VolModelSettingsWindow();
-        private AbstractOTCHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
+        private AbstractOTCHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
 
         public IStatusCollector StatusReporter
         {
@@ -67,8 +65,12 @@ namespace Micro.Future.UI
             }
         }
 
+        public TaskCompletionSource<bool> LoginTaskSource
+        {
+            get;
+        } = new TaskCompletionSource<bool>();
 
-        public void LoginAsync(string usernname, string password, string server)
+        public Task<bool> LoginAsync(string usernname, string password, string server)
         {
             _tdSignIner.SignInOptions.UserName = usernname;
             _tdSignIner.SignInOptions.Password = password;
@@ -82,6 +84,8 @@ namespace Micro.Future.UI
             //    _ctpSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
             TDServerLogin();
+
+            return LoginTaskSource.Task;
         }
 
         public void Initialize()
@@ -91,18 +95,27 @@ namespace Micro.Future.UI
 
             var msgWrapper = _tdSignIner.MessageWrapper;
             _tdSignIner.OnLogged += OptionLoginStatus.OnLogged;
+            _tdSignIner.OnLoginError += _tdSignIner_OnLoginError;
             _tdSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
             _tdSignIner.OnLogged += _tdSignIner_OnLogged;
 
             msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
-            MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>().RegisterMessageWrapper(msgWrapper);
+            _otcOptionHandler.RegisterMessageWrapper(msgWrapper);
             optionPane.AddContent(new OptionModelCtrl()).Title = "Model";
             optionPane.AddContent(new OpMarketMakerCtrl()).Title = "Market Maker";
         }
 
-        private void _tdSignIner_OnLogged(IUserInfo obj)
+        private void _tdSignIner_OnLoginError(MessageException obj)
         {
-            MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>().QueryStrategy();
+            LoginTaskSource.TrySetException(obj);
+        }
+
+        private async void _tdSignIner_OnLogged(IUserInfo obj)
+        {
+            await _otcOptionHandler.QueryStrategyAsync();
+            await _otcOptionHandler.QueryAllModelParamsAsync();
+
+            LoginTaskSource.TrySetResult(true);
         }
 
         private void TDServerLogin()
@@ -159,18 +172,16 @@ namespace Micro.Future.UI
 
         private async void Add_Model_Click(object sender, RoutedEventArgs e)
         {
-            _volModelSettingsWin.ShowDialog();
-            OptionModelCtrl optionModelCtrl = new OptionModelCtrl();
-            optionPane.AddContent(optionModelCtrl).Title = _volModelSettingsWin.VolModelTabTitle;
-            _otcOptionHandler.NewWingModelInstance(_volModelSettingsWin.VolModelTabTitle);
-            var modelparamsVM = await _otcOptionHandler.QueryModelParamsAsync(_volModelSettingsWin.VolModelTabTitle);
-            optionModelCtrl.WMSettingsLV.DataContext = modelparamsVM;
-
+            VolModelSettingsWindow volModelSettingsWin = new VolModelSettingsWindow();
+            if (volModelSettingsWin.ShowDialog().Value)
+            {
+                OptionModelCtrl optionModelCtrl = new OptionModelCtrl();
+                optionPane.AddContent(optionModelCtrl).Title = volModelSettingsWin.VolModelTabTitle;
+                _otcOptionHandler.NewWingModelInstance(volModelSettingsWin.VolModelTabTitle);
+                var modelparamsVM = await _otcOptionHandler.QueryModelParamsAsync(volModelSettingsWin.VolModelTabTitle);
+                optionModelCtrl.WMSettingsLV.DataContext = modelparamsVM;
+            }
         }
-
-
-
-
     }
 }
 

@@ -3,7 +3,7 @@
 namespace Micro.Future.ViewModel
 {
     //报价
-    public class TradeVM : ContractNotifyPropertyChanged
+    public class TradeVM : ContractKeyVM
     {
         private ulong _tradeID;
         public ulong TradeID

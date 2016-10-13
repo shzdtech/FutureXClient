@@ -57,9 +57,14 @@ namespace Micro.Future.UI
             }
         }
 
-        public void LoginAsync(string usernname, string password, string server)
+        public Task<bool> LoginAsync(string usernname, string password, string server)
         {
-
+            return Task.FromResult(true);
         }
+
+        public TaskCompletionSource<bool> LoginTaskSource
+        {
+            get;
+        } = new TaskCompletionSource<bool>();
     }
 }
