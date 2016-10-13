@@ -7,7 +7,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="500">
-    <Grid x:Name="volModelSettingsGrid" x:FieldModifier="public">
+    <Grid x:Name="volModelSettingsGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
@@ -123,7 +123,7 @@
             </GroupBox>
 
         </StackPanel >
-        <StackPanel x:FieldModifier="public" Name="VolatilityPanel" Grid.Column="1">
+        <StackPanel Name="VolatilityPanel" Grid.Column="1">
             <GroupBox x:Name="Volatility_Reference" Tag="2" Header="Volatility Reference">
                 <xctk:DoubleUpDown x:Name="volatility_Reference"   UpdateValueOnEnterKey="True" FormatString="F2" Value="{Binding Path=[vol_ref].Value}" Tag="vol_ref" Minimum="0" Maximum="1000000" Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>

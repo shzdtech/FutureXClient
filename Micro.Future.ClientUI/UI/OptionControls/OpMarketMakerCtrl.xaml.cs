@@ -41,30 +41,20 @@ namespace Micro.Future.UI
         {
             get;
         } = new ObservableCollection<MarketDataVM>();
-        public ObservableCollection<StrategyVM> StrategyVMCollection
-        {
-            get;
-        } = new ObservableCollection<StrategyVM>();
 
 
         public void Initialize()
         {
-            using (var clientCache = new ClientDbContext())
-            {
-                _futurecontractList = clientCache.ContractInfo.Where(c => c.ProductType == 0).ToList();
-
-                _contractList = clientCache.ContractInfo.Where(c => c.ProductType == 1).ToList();
-            }
-            //_contractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
-            //_futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            _contractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
 
             exchangeCB.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
-            //underlyingCB.ItemsSource = _contractList.Select(c => c.ProductID).Distinct();
+
+            pricingModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("pm");
+
             // Initialize Market Data
             quoteListView1.ItemsSource = QuoteVMCollection1;
-            pricingModelCB.ItemsSource = StrategyVMCollection.Select(c => c.PricingModel).Distinct();
-            volModelCB.ItemsSource = StrategyVMCollection.Select(c => c.VolModel).Distinct();
             option_priceLV.ItemsSource = CallPutTDOptionVMCollection;
             _otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
 
@@ -177,16 +167,6 @@ namespace Micro.Future.UI
 
                 underlyingContractCB.ItemsSource = underlyingContracts;
             }
-            //var productId = underlyingCB.SelectedItem.ToString();
-
-            //if (productId != null)
-            //{
-            //    var underlyingContracts = (from c in _contractList
-            //                               where c.ProductID == productId
-            //                               select c.UnderlyingContract).Distinct().ToList();
-
-            //    underlyingContractCB.ItemsSource = underlyingContracts;
-            //}
         }
 
         private void underlyingContractCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -222,36 +202,6 @@ namespace Micro.Future.UI
                     CallPutTDOptionVMCollection.Add(vm);
                 }
             }
-            //if (underlyingContractCB.SelectedItem != null)
-            //{
-            //    var uc = underlyingContractCB.SelectedItem.ToString();
-
-            //    var optionList = (from c in _contractList
-            //                      where c.UnderlyingContract == uc
-            //                      select c).ToList();
-
-            //    var strikeList = (from o in optionList
-            //                      orderby o.StrikePrice
-            //                      select o.StrikePrice).Distinct().ToList();
-
-            //    var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
-
-            //    var callList = (from o in optionList
-            //                    where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
-            //                    orderby o.StrikePrice
-            //                    select o.Contract).Distinct().ToList();
-
-            //    var putList = (from o in optionList
-            //                   where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
-            //                   orderby o.StrikePrice
-            //                   select o.Contract).Distinct().ToList();
-            //    CallPutTDOptionVMCollection.Clear();
-            //    var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList);
-            //    foreach (var vm in retList)
-            //    {
-            //        CallPutTDOptionVMCollection.Add(vm);
-            //    }
-            //}
         }
         private void underlyingEX1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -286,37 +236,22 @@ namespace Micro.Future.UI
 
         private void pricingModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (pricingModelCB.SelectedItem != null)
+            var modelParam = pricingModelCB.SelectedItem as ModelParamsVM;
+            if (modelParam != null)
             {
-                var pm = pricingModelCB.SelectedItem.ToString();
-                var handler = _otcOptionHandler;
                 foreach (var option in CallPutTDOptionVMCollection)
                 {
-                    option.CallStrategyVM.PricingModel = pm;
-                     handler.UpdateStrategy(option.CallStrategyVM);
-                    option.PutStrategyVM.PricingModel = pm;
-                     handler.UpdateStrategy(option.PutStrategyVM);
-                }
+                    if (option.CallStrategyVM == null)
+                        return;
 
+                    option.CallStrategyVM.PricingModel = modelParam.InstanceName;
+                    _otcOptionHandler.UpdateStrategy(option.CallStrategyVM);
+                    option.PutStrategyVM.PricingModel = modelParam.InstanceName;
+                    _otcOptionHandler.UpdateStrategy(option.PutStrategyVM);
+                }
             }
         }
 
-        private void volModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (volModelCB.SelectedItem != null)
-            {
-                var vm = volModelCB.SelectedItem.ToString();
-                var handler = _otcOptionHandler;
-                foreach (var option in CallPutTDOptionVMCollection)
-                {
-                    option.CallStrategyVM.VolModel = vm;
-                    handler.UpdateStrategy(option.CallStrategyVM);
-                    option.PutStrategyVM.VolModel = vm;
-                    handler.UpdateStrategy(option.PutStrategyVM);
-                }
-
-            }
-        }
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             Control ctrl = sender as Control;

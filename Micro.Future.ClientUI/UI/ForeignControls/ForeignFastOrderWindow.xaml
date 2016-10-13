@@ -34,7 +34,7 @@
             <TextBlock Width="35" Text="{lex:Loc Key=OrderVolume}" VerticalAlignment="Center"></TextBlock>
             <xctk:IntegerUpDown Width="100" FormatString="N0" x:Name="SizeTxt" Value="{Binding Volume}"/>
             <TextBlock Text="{lex:Loc Key=TIF}" Width="35" VerticalAlignment="Center"></TextBlock>
-            <ComboBox Name="TimeTypeCombo" SelectedIndex="0" Grid.ColumnSpan="2" Width="100">
+            <ComboBox x:Name="TimeTypeCombo"  Grid.ColumnSpan="2" Width="100">
                 <ComboBoxItem>GFD</ComboBoxItem>
                 <ComboBoxItem>GTC</ComboBoxItem>
             </ComboBox>

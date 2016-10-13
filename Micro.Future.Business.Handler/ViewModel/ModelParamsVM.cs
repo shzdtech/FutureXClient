@@ -9,6 +9,11 @@ namespace Micro.Future.ViewModel
 {
     public class ModelParamsVM : ViewModelBase
     {
+        public override string ToString()
+        {
+            return _instanceName;
+        }
+
         private string _instanceName;
         public string InstanceName
         {
@@ -19,7 +24,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _instanceName = value;
-                OnPropertyChanged("InstanceName");
+                OnPropertyChanged(nameof(InstanceName));
             }
         }
 
@@ -30,7 +35,18 @@ namespace Micro.Future.ViewModel
             set
             {
                 _model = value;
-                OnPropertyChanged("Model");
+                OnPropertyChanged(nameof(Model));
+            }
+        }
+
+        private string _modelaim;
+        public string ModelAim
+        {
+            get { return _modelaim; }
+            set
+            {
+                _modelaim = value;
+                OnPropertyChanged(nameof(ModelAim));
             }
         }
 

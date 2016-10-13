@@ -11,6 +11,7 @@ using Micro.Future.UI;
 using Micro.Future.Utility;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.CustomizedControls.Windows;
+using System.Threading.Tasks;
 
 namespace Micro.Future.UI
 {
@@ -36,7 +37,7 @@ namespace Micro.Future.UI
             get; set;
         }
 
-        public void LoginAsync(string usernname, string password, string server)
+        public Task<bool> LoginAsync(string usernname, string password, string server)
         {
             _ctpMdSignIner.SignInOptions.UserName = _ctpTradeSignIner.SignInOptions.UserName = usernname;
             _ctpMdSignIner.SignInOptions.Password = _ctpTradeSignIner.SignInOptions.Password = password;
@@ -50,6 +51,8 @@ namespace Micro.Future.UI
 
             MarketDataServerLogin();
             TradingServerLogin();
+
+            return LoginTaskSource.Task;
         }
 
         public IEnumerable<MenuItem> FrameMenus
@@ -67,6 +70,11 @@ namespace Micro.Future.UI
                 return Resources["exStatusBarItems"] as IEnumerable<StatusBarItem>;
             }
         }
+
+        public TaskCompletionSource<bool> LoginTaskSource
+        {
+            get;
+        } = new TaskCompletionSource<bool>();
 
         public DomesticMarketFrame()
         {
@@ -99,6 +107,7 @@ namespace Micro.Future.UI
             msgWrapper = _ctpTradeSignIner.MessageWrapper;
 
             _ctpTradeSignIner.OnLogged += _ctpTradeSignIner_OnLogged;
+            _ctpTradeSignIner.OnLoginError += _ctpTradeSignIner_OnLoginError;
             _ctpTradeSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
             _ctpTradeSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
@@ -108,6 +117,10 @@ namespace Micro.Future.UI
             FastOrderCtl.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
         }
 
+        private void _ctpTradeSignIner_OnLoginError(MessageException obj)
+        {
+            LoginTaskSource.TrySetException(obj);
+        }
 
         private void MarketDataServerLogin()
         {
@@ -138,7 +151,7 @@ namespace Micro.Future.UI
         }
 
 
-        private void _ctpTradeSignIner_OnLogged(IUserInfo obj)
+        private async void _ctpTradeSignIner_OnLogged(IUserInfo obj)
         {
             clientFundLV.ReloadData();
             positionsWindow.ReloadData();
@@ -149,8 +162,10 @@ namespace Micro.Future.UI
 
             if (MFUtilities.GetSyncVersion(nameof(ContractInfo)) != today)
             {
-                FastOrderCtl.TradeHandler.QueryContractInfo();
+                await FastOrderCtl.TradeHandler.SyncContractInfoAsync();
             }
+
+            LoginTaskSource.TrySetResult(true);
         }
 
         private void MenuItem_Click_Contract(object sender, RoutedEventArgs e)

@@ -4,10 +4,10 @@
         Title="内盘登录" Height="260" Width="300" WindowStartupLocation="CenterScreen" Topmost="True">
     <StackPanel>
         <Label>行情服务器</Label>
-        <ComboBox Name="MktFrontIDCombo" SelectedIndex="0">
+        <ComboBox x:Name="MktFrontIDCombo" >
         </ComboBox>
         <Label>交易服务器</Label>
-        <ComboBox Name="TrdFrontIDCombo" SelectedIndex="0">
+        <ComboBox x:Name="TrdFrontIDCombo" >
         </ComboBox>
         <Label>BrokerID</Label>
         <TextBox Name="brokerTxt" Text="6090"></TextBox>

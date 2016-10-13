@@ -125,17 +125,5 @@ namespace Micro.Future.UI
         {
 
         }
-
-        //Bound PortofolioCB with 
-        private void portofolioCB_Loaded(object sender, RoutedEventArgs e)
-        {
-            //MessageBox.Show("Start to bound item source");
-            portofolioCB.ItemsSource = PortfolioVMCollection;
-            //MessageBox.Show(PortfolioVMCollection.ToString());
-        }
-
-        //
-
-
     }
 }

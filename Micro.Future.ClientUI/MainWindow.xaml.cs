@@ -45,25 +45,28 @@ namespace Micro.Future.UI
 
             _currentLoginWindow.OnLogged += LoginWindow_OnLogged;
 
-            if (!_currentLoginWindow.ShowDialog().Value)
-                Close();
+           _currentLoginWindow.ShowDialog();
         }
 
-        private void LoginWindow_OnLogged(LoginWindow sender, IUserInfo userInfo)
+        private async void LoginWindow_OnLogged(LoginWindow sender, IUserInfo userInfo)
         {
             var roleType = userInfo.Role.ToString();
             var frameDict = (Dictionary<string, IList<string>>)ConfigurationManager.GetSection("frames/roles");
             IList<string> frames;
             if (frameDict.TryGetValue(roleType, out frames))
             {
-                sender.DataLoadingProgressBar.Maximum = frames.Count - 1;
+                sender.DataLoadingProgressBar.Maximum = frames.Count;
                 foreach (var frame in frames)
                 {
+                    sender.DataLoadingProgressBar.Value++;
+
                     var frameUI = Activator.CreateInstance(Type.GetType(frame)) as IUserFrame;
                     if (frameUI != null)
                     {
                         frameUI.StatusReporter = this;
                         mainPane.AddContent(frameUI).Title = frameUI.Title;
+
+                        ReportStatus("Loading " + frameUI.Title + " ...");
 
                         if (frameUI.FrameMenus != null)
                         {
@@ -78,13 +81,13 @@ namespace Micro.Future.UI
                         }
 
                         var entries = _accountSignIner.SignInOptions.FrontServer.Split(':');
-                        frameUI.LoginAsync(_accountSignIner.SignInOptions.UserName, _accountSignIner.SignInOptions.Password, entries[0]);
-
-                        sender.DataLoadingProgressBar.Value++;
+                        await frameUI.LoginAsync(_accountSignIner.SignInOptions.UserName, _accountSignIner.SignInOptions.Password, entries[0]);  
                     }
 
                 }
             }
+
+            sender.Close();
         }
 
         public void ReportStatus(string statusMsg)

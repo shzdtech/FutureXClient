@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.ViewModel
 {
-    public class PricingVM : ContractNotifyPropertyChanged
+    public class PricingVM : ContractKeyVM
     {
         private DoubleChange _askPrice = new DoubleChange();
         public DoubleChange AskPrice

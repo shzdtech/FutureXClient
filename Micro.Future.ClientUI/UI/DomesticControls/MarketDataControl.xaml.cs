@@ -34,8 +34,6 @@ namespace Micro.Future.UI
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow();
-        
-
 
         public MarketDataControl()
         {

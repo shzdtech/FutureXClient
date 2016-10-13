@@ -7,7 +7,6 @@ namespace Micro.Future.Windows
 
     public partial class VolModelSettingsWindow : Window
     { 
-
         public VolModelSettingsWindow()
         {
             InitializeComponent();
@@ -25,7 +24,6 @@ namespace Micro.Future.Windows
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
-            Close();
         }
     }
 }

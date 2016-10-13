@@ -31,7 +31,7 @@ namespace Micro.Future.ViewModel
         bool EqualContract(string exchange, string contract);
     }
 
-    public class ContractNotifyPropertyChanged : ViewModelBase, IContractKey
+    public class ContractKeyVM : ViewModelBase, IContractKey
     {
         private string _exchange;
         public string Exchange

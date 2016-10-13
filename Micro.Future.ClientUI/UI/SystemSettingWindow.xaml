@@ -4,7 +4,7 @@
         Title="系统设置" Height="150" Width="300" 
         WindowStartupLocation="CenterScreen" Topmost="True">
     <StackPanel Orientation="Vertical">
-        <ComboBox Name="themesCombo" SelectedIndex="0">
+        <ComboBox x:Name="themesCombo" >
             <ComboBoxItem>Generic</ComboBoxItem>
             <ComboBoxItem>VS2010</ComboBoxItem>
             <ComboBoxItem>Aero</ComboBoxItem>

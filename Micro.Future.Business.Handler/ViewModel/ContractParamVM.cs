@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace Micro.Future.ViewModel
 {
-    public class ContractParamVM : ContractNotifyPropertyChanged
+    public class ContractParamVM : ContractKeyVM
     {
         private double _gamma;
         public double Gamma

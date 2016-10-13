@@ -1,7 +1,7 @@
 ﻿namespace Micro.Future.ViewModel
 {
 
-    public class FundVM : ContractNotifyPropertyChanged
+    public class FundVM : ContractKeyVM
     {
 
         private int _eof;

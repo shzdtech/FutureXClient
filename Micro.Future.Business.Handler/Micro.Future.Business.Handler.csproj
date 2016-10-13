@@ -74,7 +74,7 @@
     <Compile Include="ViewModel\CallPutOptionVM.cs" />
     <Compile Include="ViewModel\ModelParamsVM.cs" />
     <Compile Include="ViewModel\OptionMarketVM.cs" />
-    <Compile Include="ViewModel\ContractNotifyPropertyChanged.cs" />
+    <Compile Include="ViewModel\ContractKeyVM.cs" />
     <Compile Include="ViewModel\ContractParamVM.cs" />
     <Compile Include="ViewModel\FundVM.cs" />
     <Compile Include="ViewModel\MarketDataVM.cs" />

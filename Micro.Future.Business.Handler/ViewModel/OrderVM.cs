@@ -9,7 +9,7 @@ using System.Windows.Input;
 namespace Micro.Future.ViewModel
 {
     //报价
-    public class OrderVM : ContractNotifyPropertyChanged
+    public class OrderVM : ContractKeyVM
     {
         public OrderVM(TraderExHandler trdHdl)
         {
