@@ -64,7 +64,6 @@ namespace Micro.Future.Message
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
-
             MessageWrapper.RegisterAction<PBPricingDataList, ExceptionMessage>
                         ((uint)BusinessMessageID.MSG_ID_SUB_PRICING, OnSubMarketDataSuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBPricingData, ExceptionMessage>
@@ -231,6 +230,13 @@ namespace Micro.Future.Message
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSD_ID_PORTFOLIO_NEW, portfolioList);
         }
+
+        //to send the created PortfolioVMCollection
+        public static ObservableCollection<PortfolioVM> getPortfolioVMCollection()
+        {
+            
+        }
+
 
         protected void OnUpdateStrategySuccessAction(PBStrategyList PB)
         {
