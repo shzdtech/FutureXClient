@@ -47,7 +47,7 @@ namespace Micro.Future.LocalStorage
 
         public IList<ContractInfo> GetContractsByProductType(int productType)
         {
-            return ContractInfo.Where(c => c.ProductType == 1).ToList();
+            return ContractInfo.Where(c => c.ProductType == productType).ToList();
         }
 
         private static IDictionary<int, IList<ContractInfo>> _contractCache = new Dictionary<int, IList<ContractInfo>>();

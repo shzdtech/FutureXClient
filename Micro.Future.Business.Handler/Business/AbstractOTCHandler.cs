@@ -62,8 +62,6 @@ namespace Micro.Future.Message
             get;
         } = new ObservableCollection<PortfolioVM>();
 
-        public static ObservableCollection<PortfolioVM> staticPortfolioVMCollection = null;
-
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
             MessageWrapper.RegisterAction<PBPricingDataList, ExceptionMessage>
@@ -160,7 +158,6 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage(msgId, modelParams);
 
             return tcs.Task;
-
         }
 
 
@@ -218,7 +215,7 @@ namespace Micro.Future.Message
             {
                 PortfolioVMCollection.Add(new PortfolioVM { Name = portfolio.Name });
             }
-            staticPortfolioVMCollection = PortfolioVMCollection;
+
 
         }
 
@@ -233,13 +230,6 @@ namespace Micro.Future.Message
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSD_ID_PORTFOLIO_NEW, portfolioList);
         }
-
-        //to send the created PortfolioVMCollection
-        public static ObservableCollection<PortfolioVM> getPortfolioVMCollection()
-        {
-            return staticPortfolioVMCollection;
-        }
-
 
         protected void OnUpdateStrategySuccessAction(PBStrategyList PB)
         {

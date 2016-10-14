@@ -123,7 +123,7 @@ namespace Micro.Future.UI
 
         private void portofolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //portofolioCB.ItemsSource = 
+            portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection;
         }
     }
 }
