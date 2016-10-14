@@ -231,13 +231,6 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSD_ID_PORTFOLIO_NEW, portfolioList);
         }
 
-        //to send the created PortfolioVMCollection
-        public static ObservableCollection<PortfolioVM> getPortfolioVMCollection()
-        {
-            
-        }
-
-
         protected void OnUpdateStrategySuccessAction(PBStrategyList PB)
         {
             foreach (var strategy in PB.Strategy)
