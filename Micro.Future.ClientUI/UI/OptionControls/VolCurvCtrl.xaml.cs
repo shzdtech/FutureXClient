@@ -41,8 +41,15 @@ namespace Micro.Future.UI
         {
             get;
         } = new ObservableCollection<CallPutTDOptionVM>();
+        public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection1
+        {
+            get;
+        } = new ObservableCollection<CallPutTDOptionVM>();
+
 
         public VolatilityLinesVM VolatilityModelVM { get; } = new VolatilityLinesVM();
+        public VolatilityLinesVM VolatilityModelVM1 { get; } = new VolatilityLinesVM();
+
 
         public void Initialize()
         {
@@ -50,7 +57,9 @@ namespace Micro.Future.UI
 
             //VegaPosition.Model = _otcHandler.OptionOxyVM.PlotModelBar;
             volPlot.DataContext = VolatilityModelVM;
-
+            theoAskLS1.ItemsSource = VolatilityModelVM1.TheoAskVolLine;
+            theoBidLS1.ItemsSource = VolatilityModelVM1.TheoBidVolLine;
+            theoMidLS1.ItemsSource = VolatilityModelVM1.TheoMidVolLine;
             theoPutAskSC.MarkerOutline = CustomOxyMarkers.LUTriangle;
             theoCallAskSC.MarkerOutline = CustomOxyMarkers.RUTriangle;
             theoPutBidSC.MarkerOutline = CustomOxyMarkers.LDTriangle;
@@ -256,10 +265,45 @@ namespace Micro.Future.UI
                 VolatilityModelVM.TheoCallBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.BidVol, 10, value, vm.CallStrategyVM));
             }
         }
+        public void SelectOption1(string contract)
+        {
+            var optionList = (from c in _contractList
+                              where c.UnderlyingContract == contract
+                              select c).ToList();
+
+            var strikeList = (from o in optionList
+                              orderby o.StrikePrice
+                              select o.StrikePrice).Distinct().ToList();
+
+            var callList = (from o in optionList
+                            where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
+                            orderby o.StrikePrice
+                            select o.Contract).Distinct().ToList();
+
+            var putList = (from o in optionList
+                           where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
+                           orderby o.StrikePrice
+                           select o.Contract).Distinct().ToList();
+
+            ClearPlot1();
+            CallPutTDOptionVMCollection1.Clear();
+            var retList = _otcHandler.SubCallPutTDOptionData(strikeList, callList, putList);
+            foreach (var vm in retList)
+            {
+                CallPutTDOptionVMCollection1.Add(vm);
+                VolatilityModelVM1.TheoAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol));
+                VolatilityModelVM1.TheoBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol));
+                VolatilityModelVM1.TheoMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.MidVol));
+            }
+        }
 
         private void ClearPlot()
         {
             VolatilityModelVM.ClearAll();
+        }
+        private void ClearPlot1()
+        {
+            VolatilityModelVM1.ClearAll();
         }
     }
 }

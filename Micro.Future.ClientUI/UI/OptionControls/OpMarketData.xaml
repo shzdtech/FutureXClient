@@ -26,117 +26,52 @@
         </Grid.ColumnDefinitions>
         <Label x:Name="labelOption1" Grid.Row="0" Grid.Column="0" Content="期权1"/>
         <WrapPanel Grid.Row="0" Grid.Column="1">
-            <GroupBox x:Name="Op_Exchange">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="交易所"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Op_Exchange" Header="交易所">
                 <ComboBox x:Name="underlyingEX"  SelectionChanged="underlyingEX_SelectionChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Op_Underlying">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="种类"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Op_Underlying" Header="种类">
                 <ComboBox x:Name="underlyingCB"  SelectionChanged="underlyingCB_SelectionChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Op_UnderlyingContract">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="产品"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Op_UnderlyingContract" Header="产品">
                 <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Op_VolModel">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="波动率模型"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Op_VolModel" Header="波动率模型">
                 <ComboBox x:Name="volModelCB" DisplayMemberPath="InstanceName" SelectionChanged="volModelCB_SelectionChanged"/>
             </GroupBox>
         </WrapPanel>
         <Label x:Name="labelOption2" Grid.Row="1" Grid.Column="0" Content="期权2"/>
         <WrapPanel Grid.Row="1" Grid.Column="1">
-            <GroupBox x:Name="Op_Exchange1">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="交易所"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Op_Exchange1" Header="交易所">
                 <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Op_Underlying1">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="种类"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Op_Underlying1" Header="种类">
                 <ComboBox x:Name="underlyingCB1"  SelectionChanged="underlyingCB1_SelectionChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Op_UnderlyingContract1">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="产品"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Op_UnderlyingContract1" Header="产品">
                 <ComboBox x:Name="underlyingContractCB1"   SelectionChanged="underlyingContractCB1_SelectionChanged"/>
             </GroupBox>
         </WrapPanel>
         <Label x:Name="labelFuture1" Grid.Row="0" Grid.Column="2" Content="期货1"/>
         <WrapPanel Grid.Row="0" Grid.Column="3">
-            <GroupBox x:Name="Exchange1">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="交易所"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Exchange1" Header="交易所">
                 <ComboBox x:Name="exchange1"  SelectionChanged="exchange1_SelectionChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Underlying1">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="种类"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Underlying1" Header="种类">
                 <ComboBox x:Name="underlying1"  SelectionChanged="underlying1_SelectionChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Contract1">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="产品"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Contract1" Header="产品">
                 <ComboBox x:Name="contract1"  SelectionChanged="contract1_SelectionChanged"/>
             </GroupBox>
         </WrapPanel>
         <Label x:Name="labelFuture2" Grid.Row="1" Grid.Column="2" Content="期货2"/>
         <WrapPanel Grid.Row="1" Grid.Column="3">
-            <GroupBox x:Name="Exchange2">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="交易所"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Exchange2" Header="交易所">
                 <ComboBox x:Name="exchange2"  SelectionChanged="exchange2_SelectionChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Underlying2">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="种类"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Underlying2" Header="种类">
                 <ComboBox x:Name="underlying2"  SelectionChanged="underlying2_SelectionChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Contract2">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="产品"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Contract2" Header="产品">
                 <ComboBox x:Name="contract2"  SelectionChanged="contract2_SelectionChanged"/>
             </GroupBox>
             <!--<Label Content="交易所"></Label>
@@ -202,7 +137,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView Name="quoteListView2" Grid.Row="1" Grid.Column="4" >
+        <ListView Name="quoteListView2" Grid.Row="1" Grid.Column="4">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{lex:Loc Key=Contract}">

@@ -216,7 +216,6 @@ namespace Micro.Future.Message
                 PortfolioVMCollection.Add(new PortfolioVM { Name = portfolio.Name });
             }
 
-
         }
 
         public void CreatePortfolios(IEnumerable<PortfolioVM> portfolios)
@@ -229,12 +228,6 @@ namespace Micro.Future.Message
             }
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSD_ID_PORTFOLIO_NEW, portfolioList);
-        }
-
-        //to send the created PortfolioVMCollection
-        public static ObservableCollection<PortfolioVM> getPortfolioVMCollection()
-        {
-            
         }
 
 
