@@ -17,6 +17,7 @@ namespace Micro.Future.UI
     {
         private string _currentContract;
 
+
         public TraderExHandler TradeHandler
         {
             get
@@ -92,6 +93,12 @@ namespace Micro.Future.UI
         public FastOrderControl()
         {
             InitializeComponent();
+            //To bound data for portolioCB          
+            //MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection.ToString());  
+            
+            portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection;
+
+
         }
 
         private void labelupperprice_MouseDown(object sender, MouseButtonEventArgs e)
@@ -121,9 +128,8 @@ namespace Micro.Future.UI
                 stackPanelPrices.DataContext = null;
         }
 
-        private void portofolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection;
-        }
+
+
+
     }
 }
