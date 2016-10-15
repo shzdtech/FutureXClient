@@ -203,7 +203,7 @@ namespace Micro.Future.UI
         {
             ListBox box = sender as ListBox;
             string itemvalue = box.SelectedValue as string;
-            this.textBlock1.Text = itemvalue;
+            this.PopupFastOrderContract.Text = itemvalue;
             this.FastOrderContract.Text = itemvalue;
             pop.IsOpen = false;
         }

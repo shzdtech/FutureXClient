@@ -29,7 +29,7 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0" Width="300" Height="30">
             <Label VerticalAlignment="Center" Content="{lex:Loc Key=Contract}" Width="35"></Label>
             <TextBox Name="FastOrderContract" Width="100" Text="{Binding Contract}" TextChanged="FastOrderContract_TextChanged" VerticalAlignment="Center" KeyUp="FastOrderContract_KeyUp"></TextBox>
-            <TextBlock Height="23" HorizontalAlignment="Left" Margin="75,44,0,0" Name="textBlock1" Text="TextBlock" VerticalAlignment="Top" Width="155" />
+            <TextBlock Height="23" HorizontalAlignment="Left" Margin="75,44,0,0" Name="PopupFastOrderContract" Text="TextBlock" VerticalAlignment="Top" Width="155" />
             <Label Content="{lex:Loc Key=Portofolio}" HorizontalAlignment="Center" Margin="0,8,0,0"/>
             <ComboBox x:Name="portofolioCB"  Width="74" VerticalAlignment="Center" Margin="0,4" />
         </StackPanel>
