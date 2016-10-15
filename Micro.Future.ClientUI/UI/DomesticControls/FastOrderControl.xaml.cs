@@ -7,6 +7,9 @@ using System.Text.RegularExpressions;
 using System;
 using System.Windows.Media;
 using System.Collections;
+using System.Collections.Generic;
+using System.Windows.Controls.Primitives;
+using System.Linq;
 
 namespace Micro.Future.UI
 {
@@ -88,7 +91,14 @@ namespace Micro.Future.UI
             get;
             private set;
         }
+
         
+
+
+            
+        
+
+
 
         public FastOrderControl()
         {
@@ -126,10 +136,76 @@ namespace Micro.Future.UI
         {
             if (_currentContract != null && FastOrderContract.Text != _currentContract)
                 stackPanelPrices.DataContext = null;
+
+            //MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().ContractVMCollection.Count.ToString());
+
         }
 
 
+        //function for Popup
+        public List<string> listContract;
+        public Popup pop = new Popup();
+
+        public void addContractContent()
+        {
+            listContract = new List<string>();
+            listContract.Add("cu1706");
+            listContract.Add("cu1707");
+            listContract.Add("cu1708");
+            listContract.Add("cu1709");
+        }
+
+        private void FastOrderContract_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (listContract==null)
+            {
+
+                addContractContent();
+            }
+            else
+            {
+                var item = listContract.Where(a => a.Contains(FastOrderContract.Text));
+                if (item.ToList<string>().Count > 0)
+                {
+                    pop = this.createPopup(pop, item.ToList<string>(), FastOrderContract);
+                    pop.IsOpen = true;
+                }
+                else
+                {
+                    pop.IsOpen = false;
+                }
+            }
+        }
 
 
+        public Popup createPopup(Popup pop, List<string> listSource, UIElement element)
+        {
+            Border border = new Border();
+            border.BorderBrush = new SolidColorBrush(Colors.Black);
+            //border.BorderThickness = new Thickness(1.0);//设置边框宽度  
+            StackPanel panel1 = new StackPanel();
+            panel1.Children.Clear();
+            panel1.Background = new SolidColorBrush(Colors.LightGray);
+            ListBox listbox = new ListBox();
+            listbox.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            listbox.MinWidth = 100;
+            listbox.Height = 120;
+            listbox.ItemsSource = listSource;
+            listbox.MouseDoubleClick += new MouseButtonEventHandler(listbox_MouseDoubleClick);
+            panel1.Children.Add(listbox);
+            border.Child = panel1;
+            pop.Child = border;
+            pop.PlacementTarget = element;
+            return pop;
+        }
+
+        public void listbox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ListBox box = sender as ListBox;
+            string itemvalue = box.SelectedValue as string;
+            this.textBlock1.Text = itemvalue;
+            this.FastOrderContract.Text = itemvalue;
+            pop.IsOpen = false;
+        }
     }
 }

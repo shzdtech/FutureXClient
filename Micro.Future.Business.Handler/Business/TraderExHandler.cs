@@ -88,7 +88,6 @@ namespace Micro.Future.Message
         {
 
         }
-        //public String[] 
 
         //To invoke the function of saving contract data to local sqlite
         private void OnSyncContractInfo(PBContractInfoList rsp)
@@ -144,13 +143,11 @@ namespace Micro.Future.Message
                         });
 
                         ContractVMCollection.Add(new ContractVM { ContractName = contract.Contract });
-                        //Console.WriteLine(ContractVMCollection.Count + "***********************");
+                        
                     }
 
                     if (contractList.Any())
                         clientCtx.SaveChanges();
-
-
 
                 }
 
