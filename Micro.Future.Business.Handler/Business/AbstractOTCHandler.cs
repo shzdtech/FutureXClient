@@ -208,16 +208,7 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)SystemMessageID.MSG_ID_UPDATE_MODELPARAMS, modelParam);
         }
 
-        private void OnQueryPortfolioSuccessAction(PBPortfolioList PB)
-        {
-            PortfolioVMCollection.Clear();
-            foreach (var portfolio in PB.Portfolio)
-            {
-                PortfolioVMCollection.Add(new PortfolioVM { Name = portfolio.Name });
-            }
-
-
-        }
+        
 
         public void CreatePortfolios(IEnumerable<PortfolioVM> portfolios)
         {
@@ -230,6 +221,18 @@ namespace Micro.Future.Message
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSD_ID_PORTFOLIO_NEW, portfolioList);
         }
+
+        private void OnQueryPortfolioSuccessAction(PBPortfolioList PB)
+        {
+            //this.CreatePortfolios();
+            PortfolioVMCollection.Clear();
+            foreach (var portfolio in PB.Portfolio)
+            {
+                PortfolioVMCollection.Add(new PortfolioVM { Name = portfolio.Name });
+                //Console.WriteLine(PortfolioVMCollection.Count);
+            }
+        }
+
 
         protected void OnUpdateStrategySuccessAction(PBStrategyList PB)
         {

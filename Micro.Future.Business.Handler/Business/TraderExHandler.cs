@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using System.Threading.Tasks;
+//try to invoke contractVM
+using Micro.Future.Business.Handler.ViewModel;
 
 namespace Micro.Future.Message
 {
@@ -33,6 +35,12 @@ namespace Micro.Future.Message
         {
             get;
         } = new ObservableCollection<FundVM>();
+
+        //to add VMCollection for ContractName
+        public ObservableCollection<ContractVM> ContractVMCollection
+        {
+            get;
+        } = new ObservableCollection<ContractVM>();
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
@@ -80,7 +88,6 @@ namespace Micro.Future.Message
         {
 
         }
-        //public String[] 
 
         //To invoke the function of saving contract data to local sqlite
         private void OnSyncContractInfo(PBContractInfoList rsp)
@@ -134,10 +141,14 @@ namespace Micro.Future.Message
                             StrikePrice = contract.StrikePrice,
                             ContractType = contract.ContractType
                         });
+
+                        ContractVMCollection.Add(new ContractVM { ContractName = contract.Contract });
+                        
                     }
 
                     if (contractList.Any())
                         clientCtx.SaveChanges();
+
                 }
 
                 clientCtx.SetSyncVersion(nameof(ContractInfo), DateTime.Now.Date.ToShortDateString());

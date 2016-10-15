@@ -72,6 +72,7 @@
     <Compile Include="protos\PBMsgTrader.cs" />
     <Compile Include="ViewModel\AddOrderViewModel.cs" />
     <Compile Include="ViewModel\CallPutOptionVM.cs" />
+    <Compile Include="ViewModel\ContractVM.cs" />
     <Compile Include="ViewModel\ModelParamsVM.cs" />
     <Compile Include="ViewModel\OptionMarketVM.cs" />
     <Compile Include="ViewModel\ContractKeyVM.cs" />
