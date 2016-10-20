@@ -62,6 +62,9 @@
             <GroupBox x:Name="Contract1" Header="产品">
                 <ComboBox x:Name="contract1"  SelectionChanged="contract1_SelectionChanged"/>
             </GroupBox>
+            <GroupBox x:Name="Adjustment1" Header="调整量">
+                <TextBox x:Name="admustment1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  Width="54"/>
+            </GroupBox>
         </WrapPanel>
         <Label x:Name="labelFuture2" Grid.Row="1" Grid.Column="2" Content="期货2"/>
         <WrapPanel Grid.Row="1" Grid.Column="3">
@@ -73,6 +76,9 @@
             </GroupBox>
             <GroupBox x:Name="Contract2" Header="产品">
                 <ComboBox x:Name="contract2"  SelectionChanged="contract2_SelectionChanged"/>
+            </GroupBox>
+            <GroupBox x:Name="Adjustment2" Header="调整量">
+                <TextBox x:Name="admustment2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  Width="54"/>
             </GroupBox>
             <!--<Label Content="交易所"></Label>
             <ComboBox x:Name="exchange2"  SelectionChanged="exchange2_SelectionChanged"/>

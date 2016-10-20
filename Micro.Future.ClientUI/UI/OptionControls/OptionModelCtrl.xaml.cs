@@ -31,6 +31,7 @@ namespace Micro.Future.UI
             InitializeComponent();
             OpMarketControl.underlyingContractCB.SelectionChanged += UnderlyingContractCB_SelectionChanged;
             OpMarketControl.underlyingContractCB1.SelectionChanged += UnderlyingContractCB1_SelectionChanged;
+            OpMarketControl.volModelCB.SelectionChanged += VolModelCB_SelectionChanged;
         }
 
         private LayoutAnchorablePane _pane;
@@ -71,6 +72,14 @@ namespace Micro.Future.UI
             if (exchange != null && uc != null)
             {
                 VolCurvLV.SelectOption1(uc.ToString());
+            }
+        }
+        private void VolModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var volModel = OpMarketControl.volModelCB.SelectedItem as ModelParamsVM;
+            if (volModel != null)
+            {                
+                WMSettingsLV.DataContext = volModel;
             }
         }
 

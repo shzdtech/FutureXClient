@@ -29,11 +29,12 @@ namespace Micro.Future.UI
         public WMSettingsCtrl()
         {
             InitializeComponent();
+            volModelSettingsGrid.DataContext = VolatilityModelVM;
         }
         public LayoutContent LayoutContent { get; set; }
 
         private OTCOptionHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
-
+        public VolatilityLinesVM VolatilityModelVM { get; } = new VolatilityLinesVM();
 
         private void OptionWin_KeyDown(object sender, KeyEventArgs e)
         {
@@ -53,5 +54,6 @@ namespace Micro.Future.UI
                 }
             }
         }
+
     }
 }

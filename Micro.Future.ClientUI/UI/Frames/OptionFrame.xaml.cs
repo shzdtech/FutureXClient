@@ -182,6 +182,12 @@ namespace Micro.Future.UI
                 optionModelCtrl.WMSettingsLV.DataContext = modelparamsVM;
             }
         }
+
+        private void Add_Quote_Click(object sender, RoutedEventArgs e)
+        {
+            OpMarketMakerCtrl opMarketMakerCtrl = new OpMarketMakerCtrl();
+            optionPane.AddContent(opMarketMakerCtrl).Title = "OptionQuote";
+        }
     }
 }
 
