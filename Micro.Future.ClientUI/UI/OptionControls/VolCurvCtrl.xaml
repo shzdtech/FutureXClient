@@ -24,9 +24,12 @@
                 <oxy:LineSeries Name="putBidLS" ItemsSource="{Binding PutBidVolLine}" Visibility="{Binding ElementName=checkBoxPutBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="putAskLS" ItemsSource="{Binding PutAskVolLine}" Visibility="{Binding ElementName=checkBoxPutAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="putMidLS" ItemsSource="{Binding PutMidVolLine}" Visibility="{Binding ElementName=checkBoxPutMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:LineSeries Name="theoBidLS"  ItemsSource="{Binding TheoBidVolLine}" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:LineSeries Name="theoAskLS" ItemsSource="{Binding TheoAskVolLine}" Visibility="{Binding ElementName=checkBoxTheoAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:LineSeries Name="theoMidLS" ItemsSource="{Binding TheoMidVolLine}" Visibility="{Binding ElementName=checkBoxTheoMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="theoBidLS"  ItemsSource="{Binding TheoBidVolLine}" Visibility="{Binding ElementName=checkBoxTheoBid1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="theoAskLS" ItemsSource="{Binding TheoAskVolLine}" Visibility="{Binding ElementName=checkBoxTheoAsk1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="theoMidLS" ItemsSource="{Binding TheoMidVolLine}" Visibility="{Binding ElementName=checkBoxTheoMid1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="theoBidLS1"  Visibility="{Binding ElementName=checkBoxTheoBid2, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="theoAskLS1"  Visibility="{Binding ElementName=checkBoxTheoAsk2, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:LineSeries Name="theoMidLS1"  Visibility="{Binding ElementName=checkBoxTheoMid2, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:ScatterSeries Name="theoPutBidSC" ItemsSource="{Binding TheoPutBidVolScatter}" ColorAxisKey="redLineColorAxis"  MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:ScatterSeries Name="theoCallBidSC" ItemsSource="{Binding TheoCallBidVolScatter}" ColorAxisKey="greenLineColorAxis"  MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:ScatterSeries Name="theoPutAskSC" ItemsSource="{Binding TheoPutAskVolScatter}" ColorAxisKey="redLineColorAxis" MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
@@ -46,9 +49,12 @@
             <CheckBox x:Name="checkBoxPutBid" Content="PutBidVol" IsChecked="True"/>
             <CheckBox x:Name="checkBoxPutAsk" Content="PutAskVol" IsChecked="True"/>
             <CheckBox x:Name="checkBoxPutMid" Content="PutMidVol" IsChecked="True"/>
-            <CheckBox x:Name="checkBoxTheoBid" Content="TheoBidVol" IsChecked="True"/>
-            <CheckBox x:Name="checkBoxTheoAsk" Content="TheoAskVol" IsChecked="True"/>
-            <CheckBox x:Name="checkBoxTheoMid" Content="TheoMidVol" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxTheoBid1" Content="TheoBidVol1" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxTheoAsk1" Content="TheoAskVol1" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxTheoMid1" Content="TheoMidVol1" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxTheoBid2" Content="TheoBidVol2" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxTheoAsk2" Content="TheoAskVol2" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxTheoMid2" Content="TheoMidVol2" IsChecked="True"/>
         </WrapPanel>
     </Grid>
 </UserControl>

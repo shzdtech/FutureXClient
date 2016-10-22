@@ -282,7 +282,7 @@ namespace Micro.Future.UI
             }
 
         }
-        private void volModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void volModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var modelParam = volModelCB.SelectedItem as ModelParamsVM;
             if (modelParam != null)

@@ -42,6 +42,17 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private double _gamma;
+        public double Gamma
+        {
+            get { return _gamma; }
+            set
+            {
+                _gamma = value;
+                OnPropertyChanged("Gamma");
+            }
+        }
+
         private double _positionDelta;
         public double PositionDelta
         {

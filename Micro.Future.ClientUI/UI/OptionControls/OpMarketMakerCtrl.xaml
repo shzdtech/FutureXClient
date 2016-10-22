@@ -18,60 +18,25 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0">
-            <GroupBox x:Name="Op_Exchange">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="交易所"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Op_Exchange" Header="交易所">
                 <ComboBox x:Name="exchangeCB"  SelectionChanged="exchangeCB_SelectionChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Op_Underlying">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="种类"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Op_Underlying" Header="种类">
                 <ComboBox x:Name="underlyingCB" SelectionChanged="underlyingCB_SelectionChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Op_UnderlyingContract">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="产品"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Op_UnderlyingContract" Header="产品">
                 <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Op_PricingModel">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="定价模型"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Op_PricingModel" Header="定价模型">
                 <ComboBox x:Name="pricingModelCB" DisplayMemberPath="InstanceName" SelectionChanged="pricingModelCB_SelectionChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Op_Exchange1">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="交易所"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Op_Exchange1" Header="交易所">
                 <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Op_Underlying1">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="种类"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Op_Underlying1" Header="种类">
                 <ComboBox x:Name="underlyingCB1"  SelectionChanged="underlyingCB1_SelectionChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Op_UnderlyingContract1">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <HeaderedContentControl Header="产品"  />
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
+            <GroupBox x:Name="Op_UnderlyingContract1" Header="产品">
                 <ComboBox x:Name="underlyingContractCB1" SelectionChanged="underlyingContractCB1_SelectionChanged"/>
             </GroupBox>
             <ListView Name="quoteListView1">
