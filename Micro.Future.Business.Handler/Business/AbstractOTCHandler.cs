@@ -208,7 +208,14 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)SystemMessageID.MSG_ID_UPDATE_MODELPARAMS, modelParam);
         }
 
-        
+        public void CreatePortfolio(string portfolio)
+        {
+            var portfolioList = new PBPortfolioList();
+
+            portfolioList.Portfolio.Add(new PBPortfolio { Name = portfolio });
+
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSD_ID_PORTFOLIO_NEW, portfolioList);
+        }
 
         public void CreatePortfolios(IEnumerable<PortfolioVM> portfolios)
         {
