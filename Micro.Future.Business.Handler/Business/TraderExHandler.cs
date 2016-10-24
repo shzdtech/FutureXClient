@@ -9,6 +9,7 @@ using Micro.Future.LocalStorage.DataObject;
 using System.Threading.Tasks;
 //try to invoke contractVM
 using Micro.Future.Business.Handler.ViewModel;
+using System.Collections.Generic;
 
 namespace Micro.Future.Message
 {
@@ -37,10 +38,14 @@ namespace Micro.Future.Message
         } = new ObservableCollection<FundVM>();
 
         //to add VMCollection for ContractName
+        /*
         public ObservableCollection<ContractVM> ContractVMCollection
         {
             get;
         } = new ObservableCollection<ContractVM>();
+        */
+
+        public List<string> contractNameList { get; } = new List<string>();
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
@@ -142,9 +147,11 @@ namespace Micro.Future.Message
                             ContractType = contract.ContractType
                         });
 
-                        ContractVMCollection.Add(new ContractVM { ContractName = contract.Contract });
-                        
-                    }
+                        //ContractVMCollection.Add(new ContractVM { ContractName = contract.Contract });
+                        contractNameList.Add(contract.Contract);
+                        Console.WriteLine(contract.Contract);
+                        Console.WriteLine(contractNameList.Count);
+    }
 
                     if (contractList.Any())
                         clientCtx.SaveChanges();

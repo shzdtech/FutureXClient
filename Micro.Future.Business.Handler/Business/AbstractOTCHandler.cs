@@ -42,7 +42,6 @@ namespace Micro.Future.Message
             return ret;
         }
 
-
         public ObservableCollection<ContractParamVM> ContractParamVMCollection
         {
             get;
@@ -61,6 +60,9 @@ namespace Micro.Future.Message
         {
             get;
         } = new ObservableCollection<PortfolioVM>();
+
+        
+
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
