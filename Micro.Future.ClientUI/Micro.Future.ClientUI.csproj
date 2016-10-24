@@ -114,6 +114,15 @@
     <Compile Include="UI\DomesticControls\ExecutionControl.xaml.cs">
       <DependentUpon>ExecutionControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Hedge\OPHedgeLV.xaml.cs">
+      <DependentUpon>OPHedgeLV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Hedge\OPRiskLV.xaml.cs">
+      <DependentUpon>OPRiskLV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Hedge\OPPositionLV.xaml.cs">
+      <DependentUpon>OPPositionLV.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
@@ -134,6 +143,9 @@
     </Compile>
     <Compile Include="UI\OptionControls\OptionModelCtrl.xaml.cs">
       <DependentUpon>OptionModelCtrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\OptionControls\OpHedgeCtrl.xaml.cs">
+      <DependentUpon>OpHedgeCtrl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\OptionControls\VolCurvCtrl.xaml.cs">
       <DependentUpon>VolCurvCtrl.xaml</DependentUpon>
@@ -199,6 +211,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UI\Hedge\OPHedgeLV.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Hedge\OPRiskLV.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Hedge\OPPositionLV.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\InputBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -232,6 +256,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\OptionControls\OptionModelCtrl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\OptionControls\OpHedgeCtrl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
