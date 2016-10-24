@@ -18,7 +18,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _name = value;
-                OnPropertyChanged("Name");
+                OnPropertyChanged(nameof(Name));
             }
         }
     }
