@@ -51,25 +51,19 @@ namespace Micro.Future.Message
             MessageWrapper.RegisterAction<PBAccountInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_ACCOUNT_INFO, OnFund, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
-                ((uint)BusinessMessageID.MSG_ID_QUERY_ORDER, OnQueryOrder, ErrorMsgAction);
+                ((uint)BusinessMessageID.MSG_ID_QUERY_ORDER, OnReturnOrder, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
-                ((uint)BusinessMessageID.MSG_ID_ORDER_NEW, OnQueryOrder, ErrorMsgAction);
+                ((uint)BusinessMessageID.MSG_ID_ORDER_NEW, OnReturnOrder, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_ORDER_UPDATE, OnUpdateOrder, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBTradeInfo, ExceptionMessage>
-                ((uint)BusinessMessageID.MSG_ID_QUERY_TRADE, OnQueryTrade, ErrorMsgAction);
+                ((uint)BusinessMessageID.MSG_ID_QUERY_TRADE, OnReturnTrade, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBTradeInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_TRADE_RTN, OnReturnTrade, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
-                ((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, OnCancel, ErrorMsgAction);
+                ((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, OnUpdateOrder, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBPosition, ExceptionMessage>
                ((uint)BusinessMessageID.MSG_ID_POSITION_UPDATED, OnPosition, ErrorMsgAction);
-        }
-
-
-        private void OnCancel(PBOrderInfo rsp)
-        {
-            OnUpdateOrder(rsp);
         }
 
         private void ErrorMsgAction(ExceptionMessage bizErr)
@@ -231,43 +225,40 @@ namespace Micro.Future.Message
                 });
             }
         }
-        private void OnQueryOrder(PBOrderInfo rsp)
+        private void OnReturnOrder(PBOrderInfo rsp)
         {
-            if (OrderVMCollection != null)
+            lock (OrderVMCollection)
             {
-                lock (OrderVMCollection)
+                if (!OrderVMCollection.Any(order =>
+                         (rsp.OrderSysID != 0 && rsp.OrderSysID == order.OrderSysID) ||
+                         (rsp.OrderID == order.OrderID && rsp.SessionID == order.SessionID)))
                 {
-                    if (!OrderVMCollection.Any(order =>
-                             (rsp.OrderSysID != 0 && rsp.OrderSysID == order.OrderSysID) ||
-                             (rsp.OrderID == order.OrderID && rsp.SessionID == order.SessionID)))
+                    var orderVM = new OrderVM(this)
                     {
-                        var orderVM = new OrderVM(this)
-                        {
-                            OrderID = rsp.OrderID,
-                            OrderSysID = rsp.OrderSysID,
-                            Portfolio = rsp.Portfolio,
-                            SessionID = rsp.SessionID,
-                            Direction = (DirectionType)rsp.Direction,
-                            LimitPrice = rsp.LimitPrice,
-                            Volume = rsp.Volume,
-                            VolumeTraded = rsp.VolumeTraded,
-                            VolumeRemain = rsp.VolumeRemain,
-                            ExecType = (OrderExecType)rsp.ExecType,
-                            TIF = (OrderTIFType)rsp.Tif,
-                            TradingType = (TradingType)rsp.TradingType,
-                            Active = rsp.Active,
-                            Status = (OrderStatus)rsp.OrderStatus,
-                            OffsetFlag = (OrderOffsetType)rsp.Openclose,
-                            InsertTime = rsp.InsertTime,
-                            UpdateTime = rsp.UpdateTime,
-                            CancelTime = rsp.CancelTime,
-                            Exchange = rsp.Exchange,
-                            Contract = rsp.Contract,
-                            Message = Encoding.UTF8.GetString(rsp.Message.ToByteArray()),
-                        };
+                        OrderID = rsp.OrderID,
+                        OrderSysID = rsp.OrderSysID,
+                        Portfolio = rsp.Portfolio,
+                        SessionID = rsp.SessionID,
+                        Direction = (DirectionType)rsp.Direction,
+                        LimitPrice = rsp.LimitPrice,
+                        Volume = rsp.Volume,
+                        VolumeTraded = rsp.VolumeTraded,
+                        VolumeRemain = rsp.VolumeRemain,
+                        ExecType = (OrderExecType)rsp.ExecType,
+                        TIF = (OrderTIFType)rsp.Tif,
+                        TradingType = (TradingType)rsp.TradingType,
+                        Active = rsp.Active,
+                        Status = (OrderStatus)rsp.OrderStatus,
+                        OffsetFlag = (OrderOffsetType)rsp.Openclose,
+                        InsertTime = rsp.InsertTime,
+                        UpdateTime = rsp.UpdateTime,
+                        CancelTime = rsp.CancelTime,
+                        Exchange = rsp.Exchange,
+                        Contract = rsp.Contract,
+                        Message = Encoding.UTF8.GetString(rsp.Message.ToByteArray()),
+                    };
 
-                        OrderVMCollection.Add(orderVM);
-                    }
+                    OrderVMCollection.Add(orderVM);
                 }
             }
         }
@@ -275,78 +266,48 @@ namespace Micro.Future.Message
 
         private void OnUpdateOrder(PBOrderInfo rsp)
         {
-            if (OrderVMCollection != null)
-            {
-                lock (OrderVMCollection)
-                {
-                    var orderVM = OrderVMCollection.FirstOrDefault(order =>
+            var orderVM = OrderVMCollection.FirstOrDefault(order =>
                             (rsp.OrderSysID != 0 && rsp.OrderSysID == order.OrderSysID) ||
                             (rsp.OrderID == order.OrderID && rsp.SessionID == order.SessionID));
-                    if (orderVM != null)
-                    {
-                        orderVM.Active = rsp.Active;
-                        orderVM.Status = (OrderStatus)rsp.OrderStatus;
-                        orderVM.OrderSysID = rsp.OrderSysID;
-                        orderVM.UpdateTime = rsp.UpdateTime;
-                        orderVM.Message = Encoding.UTF8.GetString(rsp.Message.ToByteArray());
-                    }
-                }
-            }
-        }
-
-        private void OnQueryTrade(PBTradeInfo rsp)
-        {
-            if (TradeVMCollection != null)
+            if (orderVM != null)
             {
-                lock (TradeVMCollection)
-                {
-                    if (!TradeVMCollection.Any(trade => trade.TradeID == rsp.TradeID))
-                    {
-                        TradeVMCollection.Add(
-                                new TradeVM()
-                                {
-                                    OrderID = rsp.OrderID,
-                                    Exchange = rsp.Exchange,
-                                    OrderSysID = rsp.OrderSysID,
-                                    Portfolio = rsp.Portfolio,
-                                    Direction = (DirectionType)rsp.Direction,
-                                    Price = rsp.Price,
-                                    Volume = rsp.Volume,
-                                    TradingType = (TradingType)rsp.TradeType,
-                                    TradeID = rsp.TradeID,
-                                    Contract = rsp.Contract,
-                                    TradeDate = rsp.TradeDate,
-                                    OpenClose = (OrderOffsetType)rsp.Openclose,
-                                    Commission = rsp.Commission,
-                                    //InsertTime = rsp.,
-                                    //UpdateTime = rsp.,
-                                });
-                    }
-                }
+                orderVM.Active = rsp.Active;
+                orderVM.Status = (OrderStatus)rsp.OrderStatus;
+                orderVM.OrderSysID = rsp.OrderSysID;
+                orderVM.UpdateTime = rsp.UpdateTime;
+                orderVM.Message = Encoding.UTF8.GetString(rsp.Message.ToByteArray());
+            }
+            else
+            {
+                OnReturnOrder(rsp);
             }
         }
 
         private void OnReturnTrade(PBTradeInfo rsp)
         {
-            if (TradeVMCollection != null)
+            lock (TradeVMCollection)
             {
-                TradeVMCollection.Add(
-                                new TradeVM()
-                                {
-                                    OrderID = rsp.OrderID,
-                                    Exchange = rsp.Exchange,
-                                    Contract = rsp.Contract,
-                                    TradeID = rsp.TradeID,
-                                    OrderSysID = rsp.OrderSysID,
-                                    Portfolio = rsp.Portfolio,
-                                    Direction = (DirectionType)rsp.Direction,
-                                    Price = rsp.Price,
-                                    Volume = rsp.Volume,
-                                    TradingType = (TradingType)rsp.TradeType,
-                                    TradeDate = rsp.TradeDate,
-                                    TradeTime = rsp.TradeTime,
-                                    OpenClose = (OrderOffsetType)rsp.Openclose
-                                });
+                if (!TradeVMCollection.Any(trade => trade.TradeID == rsp.TradeID))
+                {
+                    TradeVMCollection.Add(
+                        new TradeVM()
+                        {
+                            OrderID = rsp.OrderID,
+                            Exchange = rsp.Exchange,
+                            Contract = rsp.Contract,
+                            TradeID = rsp.TradeID,
+                            OrderSysID = rsp.OrderSysID,
+                            Portfolio = rsp.Portfolio,
+                            Direction = (DirectionType)rsp.Direction,
+                            Price = rsp.Price,
+                            Volume = rsp.Volume,
+                            TradingType = (TradingType)rsp.TradeType,
+                            TradeDate = rsp.TradeDate,
+                            TradeTime = rsp.TradeTime,
+                            OpenClose = (OrderOffsetType)rsp.Openclose,
+                            Commission = rsp.Commission,
+                        });
+                }
             }
         }
 
