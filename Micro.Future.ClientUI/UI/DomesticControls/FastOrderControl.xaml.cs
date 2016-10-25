@@ -143,12 +143,20 @@ namespace Micro.Future.UI
 
 
         //function for Popup
-        public List<string> listContract;
-        public Popup pop = new Popup();
+        
 
         private void FastOrderContract_KeyUp(object sender, KeyEventArgs e)
         {
-            if (listContract==null)
+            this.showPopup();
+        }
+
+
+
+        public List<string> listContract;
+        public Popup pop = new Popup();
+        public void showPopup()
+        {
+            if (listContract == null)
             {
                 listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().contractNameList;
             }
@@ -166,6 +174,8 @@ namespace Micro.Future.UI
                 }
             }
         }
+
+
 
 
         public Popup createPopup(Popup pop, List<string> listSource, UIElement element)
