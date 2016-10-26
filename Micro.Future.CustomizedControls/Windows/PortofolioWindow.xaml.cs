@@ -23,44 +23,23 @@ namespace Micro.Future.CustomizedControls.Windows
     /// <summary>
     /// Window1.xaml 的交互逻辑
     /// </summary>
-    public partial class PortoforlioWindow : Window, IReloadData
+    public partial class PortoforlioWindow : Window
     {
-        private ColumnObject[] mColumns;
-        private CollectionViewSource _viewSource = new CollectionViewSource();
 
         public PortoforlioWindow()
         {
             InitializeComponent();
 
-            _viewSource.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
-            portofolioListView.ItemsSource = _viewSource.View;
-            mColumns = ColumnObject.GetColumns(portofolioListView);
         }
 
+        //private IEnumerable<PortfolioVM> SeletedQuoteVM
+        //{
+        //    get
+        //    {
+        //        var selectedItems = portofolioTextBox.SelectedText;
 
-        private void MenuItem_Click_Delete(object sender, RoutedEventArgs e)
-        {
-            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
-                UnsubMarketData(SeletedQuoteVM);
-        }
-
-        public void ReloadData()
-        {
-            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
-                ResubMarketData();
-        }
-
-        private IEnumerable<MarketDataVM> SeletedQuoteVM
-        {
-            get
-            {
-                var selectedItems = portofolioListView.SelectedItems;
-                for (int i = 0; i < selectedItems.Count; i++)
-                {
-                    yield return selectedItems[i] as MarketDataVM;
-                }
-            }
-        }
+        //    }
+        //}
 
 
         private void Button_Click_Add(object sender, RoutedEventArgs e)
@@ -73,32 +52,8 @@ namespace Micro.Future.CustomizedControls.Windows
                 return;
             }
 
-            using (var clientCtx = new ClientDbContext())
-            {
-                var query = from contractInfo in clientCtx.ContractInfo where contractInfo.Contract == portofolioTextBox.Text select contractInfo;
-                if (query.Any() == false)
-                {
-                    this.portofolioTextBox.Background = new SolidColorBrush(Colors.Red);
-                    MessageBox.Show("输入不存在");
-                    portofolioTextBox.Text = "";
-                    this.portofolioTextBox.Background = new SolidColorBrush(Colors.White);
-                }
-            }
-
-            var quote = portofolioTextBox.Text;
-
-            var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
-                       QuoteVMCollection.FirstOrDefault((obj) => string.Compare(obj.Contract, quote, true) == 0);
-
-
-            if (item != null)
-            {
-                portofolioListView.SelectedItem = item;
-            }
-            else
-            {
-                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
-            }
+            MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().CreatePortfolio(portofolioTextBox.Text);
+            this.Close();
         }
     }
 }

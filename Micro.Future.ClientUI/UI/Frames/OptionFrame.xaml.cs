@@ -103,6 +103,7 @@ namespace Micro.Future.UI
             _otcOptionHandler.RegisterMessageWrapper(msgWrapper);
             optionPane.AddContent(new OptionModelCtrl()).Title = "Model";
             optionPane.AddContent(new OpMarketMakerCtrl()).Title = "Market Maker";
+            optionPane.AddContent(new OpHedgeCtrl()).Title = "Hedge";
         }
 
         private void _tdSignIner_OnLoginError(MessageException obj)

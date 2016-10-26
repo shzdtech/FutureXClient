@@ -15,21 +15,21 @@
                 <avalonDock:LayoutPanel DockWidth="Auto" DockHeight="Auto" >
                     <avalonDock:LayoutAnchorablePane >
                         <avalonDock:LayoutAnchorable Title="仓位">
-                            <c:OTCTradingStrategyLV x:Name="strategyListView"/>
+                            <c:OPPositionLV x:Name="opPositionListView"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
                 <avalonDock:LayoutPanel DockWidth="4*">
                     <avalonDock:LayoutAnchorablePane>
-                        <avalonDock:LayoutAnchorable Title="参数">
-                            <c:OTCTradingDeskContractParam x:Name="contractParamListView"/>
+                        <avalonDock:LayoutAnchorable Title="风险">
+                            <c:OPRiskLV x:Name="opRiskListView"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
                 <avalonDock:LayoutPanel DockWidth="4*">
                     <avalonDock:LayoutAnchorablePane>
-                        <avalonDock:LayoutAnchorable Title="行情">
-                            <c:MarketDataControl x:Name="MarketDataLV"/>
+                        <avalonDock:LayoutAnchorable Title="对冲">
+                            <c:OPHedgeLV x:Name="opHedgeListView"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
