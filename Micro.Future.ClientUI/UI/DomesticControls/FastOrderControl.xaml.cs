@@ -208,5 +208,11 @@ namespace Micro.Future.UI
             this.FastOrderContract.Text = itemvalue;
             pop.IsOpen = false;
         }
+
+        private void FastOrderContract_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (this.pop != null)
+                this.pop = null;
+        }
     }
 }
