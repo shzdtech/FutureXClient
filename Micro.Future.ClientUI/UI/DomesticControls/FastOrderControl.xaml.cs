@@ -143,24 +143,22 @@ namespace Micro.Future.UI
 
 
         //function for Popup
-        public List<string> listContract;
-        public Popup pop = new Popup();
-
-        public void addContractContent()
-        {
-            listContract = new List<string>();
-            listContract.Add("cu1706");
-            listContract.Add("cu1707");
-            listContract.Add("cu1708");
-            listContract.Add("cu1709");
-        }
+        
 
         private void FastOrderContract_KeyUp(object sender, KeyEventArgs e)
         {
-            if (listContract==null)
-            {
+            this.showPopup();
+        }
 
-                addContractContent();
+
+
+        public List<string> listContract;
+        public Popup pop = new Popup();
+        public void showPopup()
+        {
+            if (listContract == null)
+            {
+                listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().contractNameList;
             }
             else
             {
@@ -176,6 +174,9 @@ namespace Micro.Future.UI
                 }
             }
         }
+
+
+        
 
 
         public Popup createPopup(Popup pop, List<string> listSource, UIElement element)
@@ -206,6 +207,12 @@ namespace Micro.Future.UI
             this.PopupFastOrderContract.Text = itemvalue;
             this.FastOrderContract.Text = itemvalue;
             pop.IsOpen = false;
+        }
+
+        private void FastOrderContract_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (this.pop != null)
+                this.pop = null;
         }
     }
 }

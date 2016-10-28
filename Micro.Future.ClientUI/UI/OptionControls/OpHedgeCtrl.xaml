@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="Micro.Future.UI.OpHedgeCtrl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:c="clr-namespace:Micro.Future.UI"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Micro.Future.UI"
+             xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <avalonDock:DockingManager x:Name="optHedgeDM">
+        <avalonDock:LayoutRoot>
+            <avalonDock:LayoutPanel Orientation="Vertical">
+                <avalonDock:LayoutPanel DockWidth="Auto" DockHeight="Auto" >
+                    <avalonDock:LayoutAnchorablePane >
+                        <avalonDock:LayoutAnchorable Title="仓位">
+                            <c:OPPositionLV x:Name="opPositionListView"/>
+                        </avalonDock:LayoutAnchorable>
+                    </avalonDock:LayoutAnchorablePane>
+                </avalonDock:LayoutPanel>
+                <avalonDock:LayoutPanel DockWidth="4*">
+                    <avalonDock:LayoutAnchorablePane>
+                        <avalonDock:LayoutAnchorable Title="风险">
+                            <c:OPRiskLV x:Name="opRiskListView"/>
+                        </avalonDock:LayoutAnchorable>
+                    </avalonDock:LayoutAnchorablePane>
+                </avalonDock:LayoutPanel>
+                <avalonDock:LayoutPanel DockWidth="4*">
+                    <avalonDock:LayoutAnchorablePane>
+                        <avalonDock:LayoutAnchorable Title="对冲">
+                            <c:OPHedgeLV x:Name="opHedgeListView"/>
+                        </avalonDock:LayoutAnchorable>
+                    </avalonDock:LayoutAnchorablePane>
+                </avalonDock:LayoutPanel>
+            </avalonDock:LayoutPanel>
+        </avalonDock:LayoutRoot>
+    </avalonDock:DockingManager>
+
+</UserControl>
