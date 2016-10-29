@@ -153,10 +153,13 @@ namespace Micro.Future.UI
             this.showPopup();
         }
 
-        //To Remove PopUp
-        private void FastOrderContract_LostFocus(object sender, RoutedEventArgs e)
+        //To remove Popup
+        private void FastOrderContract_MouseLeave(object sender, MouseEventArgs e)
         {
-            removePopup();
+            if (this.pop.IsMouseOver == false)
+            {
+                this.removePopup();
+            }
         }
 
         private void removePopup()
@@ -227,5 +230,6 @@ namespace Micro.Future.UI
         }
 
         
+
     }
 }
