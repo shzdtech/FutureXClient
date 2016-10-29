@@ -174,6 +174,7 @@ namespace Micro.Future.UI
         }
 
 
+        
 
 
         public Popup createPopup(Popup pop, List<string> listSource, UIElement element)
@@ -207,8 +208,12 @@ namespace Micro.Future.UI
         }
 
 
-        //To Remove the PopUp
-        
+        //To Remove PopUp
+        private void FastOrderContract_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (this.pop != null)
+                this.pop = null;
+        }
 
 
 
