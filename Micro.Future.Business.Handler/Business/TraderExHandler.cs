@@ -143,9 +143,7 @@ namespace Micro.Future.Message
 
                         //ContractVMCollection.Add(new ContractVM { ContractName = contract.Contract });
                         contractNameList.Add(contract.Contract);
-                        Console.WriteLine(contract.Contract);
-                        Console.WriteLine(contractNameList.Count);
-    }
+                    }
 
                     if (contractList.Any())
                         clientCtx.SaveChanges();
