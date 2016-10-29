@@ -45,7 +45,7 @@ namespace Micro.Future.Message
         } = new ObservableCollection<ContractVM>();
         */
 
-        public List<string> contractNameList { get; } = new List<string>();
+        private List<string> contractNameList;
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
@@ -87,6 +87,35 @@ namespace Micro.Future.Message
         {
 
         }
+
+        //To read contract data into contractNameList
+        public List<String> getContractNameList()
+        {
+            if(this.contractNameList==null)
+            {
+                this.contractNameList = new List<string>();
+
+                using (var clientCtx = new ClientDbContext())
+                {
+                    var contractNames = from p in clientCtx.ContractInfo
+                                        select p.Contract ;
+
+
+                    foreach (var contractName in contractNames)
+                    {
+                        this.contractNameList.Add(contractName);
+                        Console.WriteLine(contractName+"##############################");
+                        Console.WriteLine(this.contractNameList.Count+"**********************************");
+                    }
+
+                }
+
+            }
+            
+            return this.contractNameList;
+        }
+
+
 
         //To invoke the function of saving contract data to local sqlite
         private void OnSyncContractInfo(PBContractInfoList rsp)
@@ -140,9 +169,6 @@ namespace Micro.Future.Message
                             StrikePrice = contract.StrikePrice,
                             ContractType = contract.ContractType
                         });
-
-                        //ContractVMCollection.Add(new ContractVM { ContractName = contract.Contract });
-                        contractNameList.Add(contract.Contract);
                     }
 
                     if (contractList.Any())

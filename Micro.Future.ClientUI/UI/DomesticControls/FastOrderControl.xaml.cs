@@ -176,13 +176,9 @@ namespace Micro.Future.UI
         {
             if (listContract == null)
             {
-                //listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().contractNameList;
-                
-                listContract = new List<string>();
-                listContract.Add("cu1706");
-                listContract.Add("cu1707");
-                listContract.Add("cu1708");
-                listContract.Add("cu1709");
+                if()
+                listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList();
+                MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().contractNameList.Count.ToString());
             }
            
             
