@@ -150,8 +150,6 @@ namespace Micro.Future.UI
             this.showPopup();
         }
 
-
-
         public List<string> listContract;
         public Popup pop = new Popup();
         public void showPopup()
@@ -207,5 +205,12 @@ namespace Micro.Future.UI
             this.FastOrderContract.Text = itemvalue;
             pop.IsOpen = false;
         }
+
+
+        //To Remove the PopUp
+        
+
+
+
     }
 }
