@@ -143,41 +143,60 @@ namespace Micro.Future.UI
 
 
         //function for Popup
-        
-
-        private void FastOrderContract_KeyUp(object sender, KeyEventArgs e)
-        {
-            this.showPopup();
-        }
 
         public List<string> listContract;
         public Popup pop = new Popup();
-        public void showPopup()
+
+        private void FastOrderContract_KeyUp(object sender, KeyEventArgs e)
         {
-            if (listContract == null)
+            //MessageBox.Show("Pop");
+            this.showPopup();
+        }
+
+        //To Remove PopUp
+        private void FastOrderContract_LostFocus(object sender, RoutedEventArgs e)
+        {
+            removePopup();
+        }
+
+        private void removePopup()
+        {
+            if (pop != null)
             {
-                listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().contractNameList;
-            }
-            else
-            {
-                var item = listContract.Where(a => a.Contains(FastOrderContract.Text));
-                if (item.ToList<string>().Count > 0)
-                {
-                    pop = this.createPopup(pop, item.ToList<string>(), FastOrderContract);
-                    pop.IsOpen = true;
-                }
-                else
-                {
-                    pop.IsOpen = false;
-                }
+                //MessageBox.Show("Pop is not null");
+                this.pop.IsOpen = false;
+                //PopupFastOrderContract.
             }
         }
 
+        private void showPopup()
+        {
+            if (listContract == null)
+            {
+                //listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().contractNameList;
+                
+                listContract = new List<string>();
+                listContract.Add("cu1706");
+                listContract.Add("cu1707");
+                listContract.Add("cu1708");
+                listContract.Add("cu1709");
+            }
+           
+            
+           var item = listContract.Where(a => a.Contains(FastOrderContract.Text));
+           if (item.ToList<string>().Count > 0)
+           {
+                pop = this.createPopup(pop, item.ToList<string>(), FastOrderContract);
+                pop.IsOpen = true;
+           }
+           else
+           {
+                pop.IsOpen = false;
+           }
+            
+        }
 
-        
-
-
-        public Popup createPopup(Popup pop, List<string> listSource, UIElement element)
+        private Popup createPopup(Popup pop, List<string> listSource, UIElement element)
         {
             Border border = new Border();
             border.BorderBrush = new SolidColorBrush(Colors.Black);
@@ -202,20 +221,11 @@ namespace Micro.Future.UI
         {
             ListBox box = sender as ListBox;
             string itemvalue = box.SelectedValue as string;
-            this.PopupFastOrderContract.Text = itemvalue;
+            //this.PopupFastOrderContract.Text = itemvalue;
             this.FastOrderContract.Text = itemvalue;
             pop.IsOpen = false;
         }
 
-
-        //To Remove PopUp
-        private void FastOrderContract_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (this.pop != null)
-                this.pop = null;
-        }
-
-
-
+        
     }
 }
