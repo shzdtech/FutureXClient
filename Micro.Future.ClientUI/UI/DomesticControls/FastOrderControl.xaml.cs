@@ -209,10 +209,15 @@ namespace Micro.Future.UI
             pop.IsOpen = false;
         }
 
+
+        //To Remove PopUp
         private void FastOrderContract_LostFocus(object sender, RoutedEventArgs e)
         {
             if (this.pop != null)
                 this.pop = null;
         }
+
+
+
     }
 }
