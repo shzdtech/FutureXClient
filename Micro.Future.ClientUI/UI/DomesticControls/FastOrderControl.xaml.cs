@@ -232,7 +232,10 @@ namespace Micro.Future.UI
             pop.IsOpen = false;
         }
 
-        
-
+        private void portofolioCB_KeyDown(object sender, KeyEventArgs e)
+        {
+            MessageBox.Show("itemsource");
+            this.portofolioCB.ItemsSource = "";
+        }
     }
 }
