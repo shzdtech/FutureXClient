@@ -174,14 +174,12 @@ namespace Micro.Future.UI
 
         private void showPopup()
         {
-            if (listContract == null)
-            {
-                
-                listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList();
-                MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList().Count.ToString());
-            }
+           if (listContract == null)
+           {
+               listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList();
+               MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList().Count.ToString());
+           }
            
-            
            var item = listContract.Where(a => a.Contains(FastOrderContract.Text));
            if (item.ToList<string>().Count > 0)
            {
