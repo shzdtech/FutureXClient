@@ -174,11 +174,19 @@ namespace Micro.Future.UI
 
         private void showPopup()
         {
-           if (listContract == null)
-           {
-               listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList();
-               MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList().Count.ToString());
-           }
+            if (listContract == null)
+            {
+                if (MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList() != null)
+                {
+                    listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList();
+                    MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList().Count.ToString());
+                }
+                else
+                {
+                    MessageBox.Show("listContract is exist");
+                }
+                
+            }
            
            var item = listContract.Where(a => a.Contains(FastOrderContract.Text));
            if (item.ToList<string>().Count > 0)
@@ -223,7 +231,10 @@ namespace Micro.Future.UI
             pop.IsOpen = false;
         }
 
-        
-
+        private void portofolioCB_KeyDown(object sender, KeyEventArgs e)
+        {
+            MessageBox.Show("itemsource");
+            this.portofolioCB.ItemsSource = "";
+        }
     }
 }
