@@ -237,7 +237,6 @@ namespace Micro.Future.UI
             if(this.portofolioCB.ItemsSource == null)
             {
                 this.portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection;
-
             }
             
         }
