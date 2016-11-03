@@ -234,7 +234,7 @@ namespace Micro.Future.UI
         private void portofolioCB_KeyDown(object sender, KeyEventArgs e)
         {
             MessageBox.Show("itemsource");
-            this.portofolioCB.ItemsSource = "";
+            this.portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection;
         }
     }
 }
