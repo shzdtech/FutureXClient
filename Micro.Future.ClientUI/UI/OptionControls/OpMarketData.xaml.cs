@@ -64,6 +64,7 @@ namespace Micro.Future.UI
             quoteListView2.ItemsSource = QuoteVMCollection2;
 
             volModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("vm");
+            
         }
 
         private void underlyingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)

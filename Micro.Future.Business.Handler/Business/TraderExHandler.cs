@@ -104,8 +104,8 @@ namespace Micro.Future.Message
                     foreach (var contractName in contractNames)
                     {
                         this.contractNameList.Add(contractName);
-                        Console.WriteLine(contractName+"##############################");
-                        Console.WriteLine(this.contractNameList.Count+"**********************************");
+                        //Console.WriteLine(contractName+"##############################");
+                        //Console.WriteLine(this.contractNameList.Count+"**********************************");
                     }
 
                 }
