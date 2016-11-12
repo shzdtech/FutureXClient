@@ -27,7 +27,7 @@
         <Label x:Name="labelOption1" Grid.Row="0" Grid.Column="0" Content="期权1"/>
         <WrapPanel Grid.Row="0" Grid.Column="1">
             <GroupBox x:Name="Op_Exchange" Header="交易所">
-                <ComboBox x:Name="underlyingEX"  SelectionChanged="underlyingEX_SelectionChanged"/>
+                <ComboBox x:Name="underlyingEX"  SelectionChanged="underlyingEX_SelectionChanged" KeyDown="underlyingEX_KeyDown"/>
             </GroupBox>
             <GroupBox x:Name="Op_Underlying" Header="种类">
                 <ComboBox x:Name="underlyingCB"  SelectionChanged="underlyingCB_SelectionChanged"/>
@@ -36,7 +36,7 @@
                 <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged"/>
             </GroupBox>
             <GroupBox x:Name="Op_VolModel" Header="波动率模型">
-                <ComboBox x:Name="volModelCB" DisplayMemberPath="InstanceName" SelectionChanged="volModelCB_SelectionChanged"/>
+                <ComboBox x:Name="volModelCB" DisplayMemberPath="InstanceName" SelectionChanged="volModelCB_SelectionChanged" KeyDown="volModelCB_KeyDown"/>
             </GroupBox>
         </WrapPanel>
         <Label x:Name="labelOption2" Grid.Row="1" Grid.Column="0" Content="期权2"/>

@@ -301,5 +301,25 @@ namespace Micro.Future.UI
             }
         }
 
+        private void volModelCB_KeyDown(object sender, KeyEventArgs e)
+        {
+            //MessageBox.Show(e.Key.ToString());
+            if (e.Key.ToString() == "Back")
+            {
+                //MessageBox.Show(this.volModelCB.SelectedItem.ToString());
+                this.volModelCB.SelectedItem = null;
+
+            }
+        }
+
+        private void underlyingEX_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key.ToString() == "Back")
+            {
+                //MessageBox.Show(this.volModelCB.SelectedItem.ToString());
+                this.underlyingEX.SelectedItem = null;
+
+            }
+        }
     }
 }
