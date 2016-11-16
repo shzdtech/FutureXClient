@@ -36,7 +36,10 @@
                 <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged" KeyDown="underlyingContractCB_KeyDown"/>
             </GroupBox>
             <GroupBox x:Name="Op_VolModel" Header="波动率模型">
-                <ComboBox x:Name="volModelCB" DisplayMemberPath="InstanceName" SelectionChanged="volModelCB_SelectionChanged" KeyDown="volModelCB_KeyDown"/>
+                <ComboBox x:Name="volModelCB" DisplayMemberPath="InstanceName" SelectionChanged="volModelCB_SelectionChanged" KeyDown="volModelCB_KeyDown">
+                    <ListBoxItem>Please Select</ListBoxItem>
+                    <!--<CollectionContainer Collection="{Binding Source={}}" />-->
+                </ComboBox>
             </GroupBox>
         </WrapPanel>
         <Label x:Name="labelOption2" Grid.Row="1" Grid.Column="0" Content="期权2"/>
