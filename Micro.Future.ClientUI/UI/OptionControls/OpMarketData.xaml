@@ -27,40 +27,40 @@
         <Label x:Name="labelOption1" Grid.Row="0" Grid.Column="0" Content="期权1"/>
         <WrapPanel Grid.Row="0" Grid.Column="1">
             <GroupBox x:Name="Op_Exchange" Header="交易所">
-                <ComboBox x:Name="underlyingEX"  SelectionChanged="underlyingEX_SelectionChanged"/>
+                <ComboBox x:Name="underlyingEX"  SelectionChanged="underlyingEX_SelectionChanged" KeyDown="underlyingEX_KeyDown"/>
             </GroupBox>
             <GroupBox x:Name="Op_Underlying" Header="种类">
-                <ComboBox x:Name="underlyingCB"  SelectionChanged="underlyingCB_SelectionChanged"/>
+                <ComboBox x:Name="underlyingCB"  SelectionChanged="underlyingCB_SelectionChanged" KeyDown="underlyingCB_KeyDown"/>
             </GroupBox>
             <GroupBox x:Name="Op_UnderlyingContract" Header="产品">
-                <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged"/>
+                <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged" KeyDown="underlyingContractCB_KeyDown"/>
             </GroupBox>
             <GroupBox x:Name="Op_VolModel" Header="波动率模型">
-                <ComboBox x:Name="volModelCB" DisplayMemberPath="InstanceName" SelectionChanged="volModelCB_SelectionChanged"/>
+                <ComboBox x:Name="volModelCB" DisplayMemberPath="InstanceName" SelectionChanged="volModelCB_SelectionChanged" KeyDown="volModelCB_KeyDown"/>
             </GroupBox>
         </WrapPanel>
         <Label x:Name="labelOption2" Grid.Row="1" Grid.Column="0" Content="期权2"/>
         <WrapPanel Grid.Row="1" Grid.Column="1">
             <GroupBox x:Name="Op_Exchange1" Header="交易所">
-                <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged"/>
+                <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged" KeyDown="underlyingEX1_KeyDown"/>
             </GroupBox>
             <GroupBox x:Name="Op_Underlying1" Header="种类">
-                <ComboBox x:Name="underlyingCB1"  SelectionChanged="underlyingCB1_SelectionChanged"/>
+                <ComboBox x:Name="underlyingCB1"  SelectionChanged="underlyingCB1_SelectionChanged" KeyDown="underlyingCB1_KeyDown"/>
             </GroupBox>
             <GroupBox x:Name="Op_UnderlyingContract1" Header="产品">
-                <ComboBox x:Name="underlyingContractCB1"   SelectionChanged="underlyingContractCB1_SelectionChanged"/>
+                <ComboBox x:Name="underlyingContractCB1"   SelectionChanged="underlyingContractCB1_SelectionChanged" KeyDown="underlyingContractCB1_KeyDown"/>
             </GroupBox>
         </WrapPanel>
         <Label x:Name="labelFuture1" Grid.Row="0" Grid.Column="2" Content="期货1"/>
         <WrapPanel Grid.Row="0" Grid.Column="3">
             <GroupBox x:Name="Exchange1" Header="交易所">
-                <ComboBox x:Name="exchange1"  SelectionChanged="exchange1_SelectionChanged"/>
+                <ComboBox x:Name="exchange1"  SelectionChanged="exchange1_SelectionChanged" KeyDown="exchange1_KeyDown"/>
             </GroupBox>
             <GroupBox x:Name="Underlying1" Header="种类">
-                <ComboBox x:Name="underlying1"  SelectionChanged="underlying1_SelectionChanged"/>
+                <ComboBox x:Name="underlying1"  SelectionChanged="underlying1_SelectionChanged" KeyDown="underlying1_KeyDown"/>
             </GroupBox>
             <GroupBox x:Name="Contract1" Header="产品">
-                <ComboBox x:Name="contract1"  SelectionChanged="contract1_SelectionChanged"/>
+                <ComboBox x:Name="contract1"  SelectionChanged="contract1_SelectionChanged" KeyDown="contract1_KeyDown"/>
             </GroupBox>
             <GroupBox x:Name="Adjustment1" Header="调整量">
                 <TextBox x:Name="admustment1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  Width="54"/>
@@ -69,13 +69,13 @@
         <Label x:Name="labelFuture2" Grid.Row="1" Grid.Column="2" Content="期货2"/>
         <WrapPanel Grid.Row="1" Grid.Column="3">
             <GroupBox x:Name="Exchange2" Header="交易所">
-                <ComboBox x:Name="exchange2"  SelectionChanged="exchange2_SelectionChanged"/>
+                <ComboBox x:Name="exchange2"  SelectionChanged="exchange2_SelectionChanged" KeyDown="exchange2_KeyDown"/>
             </GroupBox>
             <GroupBox x:Name="Underlying2" Header="种类">
-                <ComboBox x:Name="underlying2"  SelectionChanged="underlying2_SelectionChanged"/>
+                <ComboBox x:Name="underlying2"  SelectionChanged="underlying2_SelectionChanged" KeyDown="underlying2_KeyDown"/>
             </GroupBox>
             <GroupBox x:Name="Contract2" Header="产品">
-                <ComboBox x:Name="contract2"  SelectionChanged="contract2_SelectionChanged"/>
+                <ComboBox x:Name="contract2"  SelectionChanged="contract2_SelectionChanged" KeyDown="contract2_KeyDown"/>
             </GroupBox>
             <GroupBox x:Name="Adjustment2" Header="调整量">
                 <TextBox x:Name="admustment2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  Width="54"/>

@@ -36,6 +36,25 @@ namespace Micro.Future.UI
             }
         }
 
+
+        public FastOrderControl()
+        {
+            InitializeComponent();
+            //To bound data for portolioCB          
+            //MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection.ToString());  
+            this.Initialize();
+            portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection;
+
+
+        }
+
+        private void Initialize()
+        {
+            listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList();
+            MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList().Count.ToString());
+        }
+
+
         private void Callback_OnOrderError(Exception obj)
         {
             if (obj.Message.Equals("订单合约不能为空") | obj.Message.Equals("输入合约不存在"))
@@ -100,16 +119,7 @@ namespace Micro.Future.UI
 
 
 
-        public FastOrderControl()
-        {
-            InitializeComponent();
-            //To bound data for portolioCB          
-            //MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection.ToString());  
-            
-            portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection;
-
-
-        }
+  
 
         private void labelupperprice_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -178,8 +188,8 @@ namespace Micro.Future.UI
             {
                 if (MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList() != null)
                 {
+                    
                     listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList();
-                    MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList().Count.ToString());
                 }
                 else
                 {
