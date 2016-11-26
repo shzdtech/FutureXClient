@@ -281,8 +281,8 @@
             }
         }
 
-        private string _tradingDay;
-        public string TradingDay
+        private int _tradingDay;
+        public int TradingDay
         {
             get { return _tradingDay; }
             set
