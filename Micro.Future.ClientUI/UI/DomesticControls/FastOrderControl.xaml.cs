@@ -43,15 +43,11 @@ namespace Micro.Future.UI
             //To bound data for portolioCB          
             //MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection.ToString());  
             this.Initialize();
-            portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection;
-
-
         }
 
         private void Initialize()
         {
-            listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList();
-            MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList().Count.ToString());
+            portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection;
         }
 
 
