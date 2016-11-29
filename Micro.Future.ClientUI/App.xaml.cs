@@ -45,25 +45,18 @@ namespace Micro.Future
 
             if (config.Content.TryGetValue("CTPOPTIONSERVER", out configDict))
             {
-                configDict = config.Content["CTPOPTIONSERVER"];
                 MessageHandlerContainer.Register<CTPOptionDataHandler, CTPOptionDataHandler>(GenSignInOption(configDict));
             }
 
-            configDict = config.Content["CTSMDSERVER"];
-            MessageHandlerContainer.Register<CTSMarketDataHandler, CTSMarketDataHandler>
-               (new SignInOptions
-               {
-                   FrontServer = configDict["ADDRESS"],
-                   ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
-               });
+            if (config.Content.TryGetValue("CTSMDSERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<CTSMarketDataHandler, CTSMarketDataHandler>(GenSignInOption(configDict));
+            }
 
-            configDict = config.Content["CTSTRADESERVER"];
-            MessageHandlerContainer.Register<CTSTradeHandler, CTSTradeHandler>
-               (new SignInOptions
-               {
-                   FrontServer = configDict["ADDRESS"],
-                   ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
-               });
+            if (config.Content.TryGetValue("CTSTRADESERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<CTSTradeHandler, CTSTradeHandler>(GenSignInOption(configDict));
+            }
 
             MessageHandlerContainer.DefaultInstance.Refresh();
 
