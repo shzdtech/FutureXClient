@@ -3,6 +3,7 @@ using Micro.Future.Message;
 using Micro.Future.Properties;
 using Micro.Future.Utility;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace Micro.Future
@@ -16,44 +17,37 @@ namespace Micro.Future
         {
             Config config = new Config(Settings.Default.ConfigFile);
 
-            var configDict = config.Content["OTCSERVER"];
-            MessageHandlerContainer.Register<AbstractOTCHandler, OTCContractHandler>
-                (new SignInOptions {
-                    FrontServer = configDict["ADDRESS"],
-                    ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
-                });
+            Dictionary<string, string> configDict;
+            if (config.Content.TryGetValue("ACCOUNTSERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<AccountHandler, AccountHandler>(GenSignInOption(configDict));
+            }
 
-            configDict = config.Content["OTCOPTIONSERVER"];
-            MessageHandlerContainer.Register<OTCOptionHandler, OTCOptionHandler>
-                (new SignInOptions
-                {
-                    FrontServer = configDict["ADDRESS"],
-                    ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
-                });
+            if (config.Content.TryGetValue("OTCSERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<AbstractOTCHandler, OTCContractHandler>(GenSignInOption(configDict));
+            }
 
-            configDict = config.Content["CTPMDSERVER"];
-            MessageHandlerContainer.Register<MarketDataHandler, MarketDataHandler>
-                (new SignInOptions
-                {
-                    FrontServer = configDict["ADDRESS"],
-                    ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
-                });
+            if (config.Content.TryGetValue("OTCOPTIONSERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<OTCOptionHandler, OTCOptionHandler>(GenSignInOption(configDict));
+            }
 
-            configDict = config.Content["CTPOPTIONSERVER"];
-            MessageHandlerContainer.Register<CTPOptionDataHandler, CTPOptionDataHandler>
-                (new SignInOptions
-                {
-                    FrontServer = configDict["ADDRESS"],
-                    ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
-                });
+            if (config.Content.TryGetValue("CTPMDSERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<MarketDataHandler, MarketDataHandler>(GenSignInOption(configDict));
+            }
 
-            configDict = config.Content["CTPTRADESERVER"];
-            MessageHandlerContainer.Register<TraderExHandler, TraderExHandler>
-               (new SignInOptions
-               {
-                   FrontServer = configDict["ADDRESS"],
-                   ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
-               });
+            if (config.Content.TryGetValue("CTPTRADESERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<TraderExHandler, TraderExHandler>(GenSignInOption(configDict));
+            }
+
+            if (config.Content.TryGetValue("CTPOPTIONSERVER", out configDict))
+            {
+                configDict = config.Content["CTPOPTIONSERVER"];
+                MessageHandlerContainer.Register<CTPOptionDataHandler, CTPOptionDataHandler>(GenSignInOption(configDict));
+            }
 
             configDict = config.Content["CTSMDSERVER"];
             MessageHandlerContainer.Register<CTSMarketDataHandler, CTSMarketDataHandler>
@@ -76,5 +70,14 @@ namespace Micro.Future
             base.OnStartup(e);
         }
 
+        private SignInOptions GenSignInOption(IDictionary<string, string> configDict)
+        {
+            return new SignInOptions
+            {
+                FrontServer = configDict["ADDRESS"],
+                ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"]),
+                EncryptPassword = configDict.ContainsKey("HASH_PASSWORD") ? bool.Parse(configDict["HASH_PASSWORD"]) : false
+            };
+        }
     }
 }

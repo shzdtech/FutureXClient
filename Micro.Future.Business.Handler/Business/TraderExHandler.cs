@@ -201,6 +201,7 @@ namespace Micro.Future.Message
 
                     positionVM.Direction = (PositionDirectionType)rsp.Direction;
                     positionVM.Position = rsp.Position;
+                    // positionVM.TodayPosition = rsp.TdPosition;
                     positionVM.YdPosition = rsp.YdPosition;
                     positionVM.PositionDateFlag = (PositionDateFlagType)rsp.PositionDateFlag;
                     positionVM.OpenVolume = rsp.OpenVolume;

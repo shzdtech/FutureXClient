@@ -12,6 +12,7 @@ using Micro.Future.Utility;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.CustomizedControls.Windows;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Micro.Future.UI
 {
@@ -154,8 +155,11 @@ namespace Micro.Future.UI
         private async void _ctpTradeSignIner_OnLogged(IUserInfo obj)
         {
             clientFundLV.ReloadData();
+            Thread.Sleep(1200);
             positionsWindow.ReloadData();
+            Thread.Sleep(1200);
             tradeWindow.ReloadData();
+            Thread.Sleep(1200);
             executionWindow.ReloadData();
 
             var today = DateTime.Now.Date.ToShortDateString();

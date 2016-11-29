@@ -46,6 +46,7 @@
     <Compile Include="Business\CTSTradeHandler.cs" />
     <Compile Include="Business\CTSMarketDataHandler.cs" />
     <Compile Include="Business\CTPOptionDataHandler.cs" />
+    <Compile Include="Business\AccountHandler.cs" />
     <Compile Include="Business\MarketDataHandler.cs" />
     <Compile Include="Business\OrderEnums.cs" />
     <Compile Include="Business\OTCContractHandler.cs" />
