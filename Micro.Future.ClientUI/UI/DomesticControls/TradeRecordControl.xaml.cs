@@ -43,11 +43,11 @@ namespace Micro.Future.UI
             mColumns = ColumnObject.GetColumns(TradeTreeView);
         }
 
-        private void _filterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
+        private void _filterSettingsWin_OnFiltering(string tabTitle, string exchange, string portfolio, string underlying, string contract)
         {
             if (LayoutContent != null)
                 LayoutContent.Title = _filterSettingsWin.FilterTabTitle;
-            Filter(tabTitle, exchange, underlying, contract);
+            Filter(tabTitle, exchange, portfolio, underlying, contract);
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -94,7 +94,7 @@ namespace Micro.Future.UI
             };
         }
         
-        public void Filter(string tabTitle, string exchange, string underlying, string contract)
+        public void Filter(string tabTitle, string exchange, string portfolio, string underlying, string contract)
         {
             if (TradeTreeView == null)
             {
@@ -121,6 +121,7 @@ namespace Micro.Future.UI
                 TradeVM tvm = o as TradeVM;
 
                 if (tvm.Exchange.ContainsAny(exchange) &&
+                    tvm.Exchange.ContainsAny(portfolio) &&
                     tvm.Contract.ContainsAny(contract) &&
                     tvm.Contract.ContainsAny(underlying))
                 {

@@ -12,7 +12,16 @@
                 lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
                 lex:ResxLocalizationProvider.DefaultDictionary="Resources"
                 Name="clientGlobalMarket">
-
+    <UserControl.Resources>
+        <x:Array Type="{x:Type StatusBarItem}" x:Key="exStatusBarItems">
+            <StatusBarItem>
+                <Controls:LoginStatus x:Name="ctsLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_CTP_MD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_CTP_MD_Unconnected}" Connected="False" OnConnButtonClick="ctpMdLoginStatus_OnConnButtonClick"/>
+            </StatusBarItem>
+            <StatusBarItem >
+                <Controls:LoginStatus x:Name="ctsTradeLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_CTP_TD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_CTP_TD_Unconnected}" Connected="False" OnConnButtonClick="ctpTradingLoginStatus_OnConnButtonClick"/>
+            </StatusBarItem>
+        </x:Array>
+    </UserControl.Resources>
     <avalonDock:DockingManager x:Name="dockingManager">
         <avalonDock:DockingManager.Theme>
             <avalonDock:GenericTheme/>
@@ -27,17 +36,15 @@
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
                 <avalonDock:LayoutPanel Orientation="Vertical" DockHeight="*" >
-                    <avalonDock:LayoutPanel >
-                        <avalonDock:LayoutAnchorablePane x:Name="globalquotePane">
-                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Quote}">
-                                <c:MarketDataControl x:Name="globalMarketDataLV"/>
-                            </avalonDock:LayoutAnchorable>
-                        </avalonDock:LayoutAnchorablePane>
-                    </avalonDock:LayoutPanel>
-                    <avalonDock:LayoutPanel DockWidth="*" >
+                    <avalonDock:LayoutPanel Orientation="Horizontal" >
                         <avalonDock:LayoutAnchorablePane x:Name="globalfastorderPane" DockWidth="0.23*" DockHeight="1*" >
                             <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}">
                                 <c:ForeignFastOrderWindow x:Name="GlobalFastOrderCtl"  />
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                        <avalonDock:LayoutAnchorablePane x:Name="globalquotePane">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Quote}">
+                                <c:MarketDataControl x:Name="globalMarketDataLV"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>

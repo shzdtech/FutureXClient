@@ -72,7 +72,7 @@
                     <GridViewColumn Header="{lex:Loc Key=Status}" DisplayMemberBinding="{Binding Path=Status, Converter={StaticResource enumItemsConverter}}"/>
                     <GridViewColumn Header="{lex:Loc Key=Message}" DisplayMemberBinding="{Binding Message}"/>
                     <GridViewColumn Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}"/>
-                    <GridViewColumn Header="Portofolio" DisplayMemberBinding="{Binding Portofolio}"/>
+                    <GridViewColumn Header="Portfolio" DisplayMemberBinding="{Binding Portfolio}"/>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>

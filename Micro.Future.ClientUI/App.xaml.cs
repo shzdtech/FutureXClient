@@ -1,4 +1,5 @@
-﻿using Micro.Future.Message;
+﻿using Micro.Future.Business.Handler.Business;
+using Micro.Future.Message;
 using Micro.Future.Properties;
 using Micro.Future.Utility;
 using System;
@@ -48,6 +49,22 @@ namespace Micro.Future
 
             configDict = config.Content["CTPTRADESERVER"];
             MessageHandlerContainer.Register<TraderExHandler, TraderExHandler>
+               (new SignInOptions
+               {
+                   FrontServer = configDict["ADDRESS"],
+                   ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
+               });
+
+            configDict = config.Content["CTSMDSERVER"];
+            MessageHandlerContainer.Register<CTSMarketDataHandler, CTSMarketDataHandler>
+               (new SignInOptions
+               {
+                   FrontServer = configDict["ADDRESS"],
+                   ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"])
+               });
+
+            configDict = config.Content["CTSTRADESERVER"];
+            MessageHandlerContainer.Register<CTSTradeHandler, CTSTradeHandler>
                (new SignInOptions
                {
                    FrontServer = configDict["ADDRESS"],

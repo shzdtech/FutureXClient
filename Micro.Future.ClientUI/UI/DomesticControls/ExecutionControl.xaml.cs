@@ -46,11 +46,11 @@ namespace Micro.Future.UI
             mColumns = ColumnObject.GetColumns(ExecutionTreeView);
         }
 
-        private void _executionSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
+        private void _executionSettingsWin_OnFiltering(string tabTitle, string exchange, string portfolio, string underlying, string contract)
         {
             if (LayoutContent != null)
                 LayoutContent.Title = _filterSettingsWinForExecution.FilterTitle;
-            Filter(tabTitle, exchange, underlying, contract);
+            Filter(tabTitle, exchange, portfolio, underlying, contract);
         }
 
         private void RadioButton_Checked_AllOrder(object sender, RoutedEventArgs e)
@@ -72,7 +72,7 @@ namespace Micro.Future.UI
             _filterSettingsWinForExecution.Show();
         }
 
-        public void Filter(string tabTitle,string exchange, string underlying, string contract)
+        public void Filter(string tabTitle,string exchange, string portfolio, string underlying, string contract)
         {
             if (ExecutionTreeView == null)
             {
@@ -99,6 +99,7 @@ namespace Micro.Future.UI
                 OrderVM evm = o as OrderVM;
 
                 if (evm.Exchange.ContainsAny(exchange) &&
+                    evm.Exchange.ContainsAny(portfolio) &&
                     evm.Contract.ContainsAny(contract) &&
                     evm.Contract.ContainsAny(underlying))
                 {

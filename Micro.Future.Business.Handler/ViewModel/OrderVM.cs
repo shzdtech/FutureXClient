@@ -230,6 +230,7 @@ namespace Micro.Future.ViewModel
         }
 
 
+
         private void sendOrder(object param)
         {
             //this.Direction = (string)directStr == "1" ? DirectionType.BUY : DirectionType.SELL;

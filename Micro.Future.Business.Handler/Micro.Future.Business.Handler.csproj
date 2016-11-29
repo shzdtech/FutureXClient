@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\AbstractOTCHandler.cs" />
+    <Compile Include="Business\CTSTradeHandler.cs" />
+    <Compile Include="Business\CTSMarketDataHandler.cs" />
     <Compile Include="Business\CTPOptionDataHandler.cs" />
     <Compile Include="Business\MarketDataHandler.cs" />
     <Compile Include="Business\OrderEnums.cs" />

@@ -7,7 +7,7 @@ namespace Micro.Future.Windows
 
     public partial class FilterSettingsWindow : Window
     {
-        public event Action<string, string, string, string> OnFiltering;
+        public event Action<string, string, string, string, string> OnFiltering;
 
         public FilterSettingsWindow()
         {
@@ -50,10 +50,20 @@ namespace Micro.Future.Windows
             set { contractTxt.Text = value; }
         }
 
+        public string FilterPortfolio
+        {
+            get
+            {
+                return portfolioTxt.Text;
+            }
+            set { portfolioTxt.Text = value; }
+        }
+
+
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             Hide();
-            OnFiltering?.Invoke(FilterTabTitle, FilterExchange, FilterUnderlying, FilterContract);
+            OnFiltering?.Invoke(FilterTabTitle, FilterExchange, FilterPortfolio, FilterUnderlying, FilterContract);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -74,6 +84,8 @@ namespace Micro.Future.Windows
             exchangecombo.Text = "";
             underlyingTxt.Text = "";
             contractTxt.Text = "";
+            portfolioTxt.Text = "";
+
         }
     }
 }

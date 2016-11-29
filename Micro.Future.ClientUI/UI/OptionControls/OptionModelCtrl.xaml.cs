@@ -74,14 +74,14 @@ namespace Micro.Future.UI
                 VolCurvLV.SelectOption1(uc.ToString());
             }
         }
-        private void VolModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var volModel = OpMarketControl.volModelCB.SelectedItem as ModelParamsVM;
-            if (volModel != null)
-            {                
-                WMSettingsLV.DataContext = volModel;
+            private void VolModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+            {
+                var volModel = OpMarketControl.volModelCB.SelectedItem as ModelParamsVM;
+                if (volModel != null)
+                {                
+                    WMSettingsLV.DataContext = volModel;
+                }
             }
-        }
 
     }
 }

@@ -2,6 +2,12 @@
 using System.Windows.Controls;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
+using Micro.Future.Windows;
+using Xceed.Wpf.AvalonDock.Layout;
+using System;
+using System.ComponentModel;
+using System.Windows.Data;
+using Micro.Future.Utility;
 
 namespace Micro.Future.UI
 {
@@ -11,14 +17,36 @@ namespace Micro.Future.UI
     public partial class OPPositionLV : UserControl
     {
         private ColumnObject[] mColumns;
+        private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow() { CancelClosing = true };
+        private CollectionViewSource _viewSource = new CollectionViewSource();
+        public LayoutContent LayoutContent { get; set; }
+        public LayoutAnchorablePane AnchorablePane { get; set; }
+
 
         public OPPositionLV()
         {
             InitializeComponent();
-            PositionListView.ItemsSource = MessageHandlerContainer.
-                DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
-
+            _viewSource.Source = MessageHandlerContainer.DefaultInstance
+            .Get<TraderExHandler>().PositionVMCollection;
+            PositionListView.ItemsSource = _viewSource.View;
+            _filterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
             mColumns = ColumnObject.GetColumns(PositionListView);
+        }
+
+        public event Action<PositionVM> OnPositionSelected;
+
+        private void PositionListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (OnPositionSelected != null)
+            {
+                PositionVM positionVM = PositionListView.SelectedItem as PositionVM;
+                OnPositionSelected(positionVM);
+            }
+        }
+        public void ReloadData()
+        {
+            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection.Clear();
+            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryPosition();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -26,18 +54,50 @@ namespace Micro.Future.UI
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
             win.Show();
         }
+        private void _filterSettingsWin_OnFiltering(string tabTitle, string exchange, string portfolio, string underlying, string contract)
+        {
+            if (LayoutContent != null)
+                LayoutContent.Title = _filterSettingsWin.FilterTabTitle;
+            Filter(tabTitle, exchange, portfolio, underlying, contract);
+        }
+        public void Filter(string tabTitle, string exchange, string portfolio, string underlying, string contract)
+        {
+            if (PositionListView == null)
+            {
+                return;
+            }
 
-        //private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        //{
-        //    PositionVM vm = PositionListView.SelectedItem as PositionVM;
-        //    if (vm != null)
-        //    {
-        //        MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().CloseMarketOrder(vm);
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("请选择持仓合约", "错误");
-        //    }
-        //}
+            for (int count = 0; count < this.AnchorablePane.ChildrenCount; count++)
+            {
+                MessageBox.Show(this.AnchorablePane.Children[count].Title);
+                if (this.AnchorablePane.Children[count].Title.Equals(tabTitle))
+                {
+                    MessageBox.Show("已存在同名窗口,请重新输入.");
+                    return;
+                }
+            }
+            this.AnchorablePane.SelectedContent.Title = tabTitle;
+
+            ICollectionView view = _viewSource.View;
+            view.Filter = delegate (object o)
+            {
+                if (contract == null)
+                    return true;
+
+                PositionVM pvm = o as PositionVM;
+
+                if (pvm.Exchange.ContainsAny(exchange) &&
+                    pvm.Contract.ContainsAny(portfolio) &&
+                    pvm.Contract.ContainsAny(underlying) &&                    
+                    pvm.Contract.ContainsAny(contract))
+                {
+                    return true;
+                }
+
+                return false;
+            };
+        }
+
+
     }
 }

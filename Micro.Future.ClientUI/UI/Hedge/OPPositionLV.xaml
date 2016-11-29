@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="800">
     <Grid>
-        <ListView Name="PositionListView" ItemsSource="{Binding PositionVMCollection}" >
+        <ListView Name="PositionListView" ItemsSource="{Binding PositionVMCollection}" SelectionChanged="PositionListView_SelectionChanged" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="交易所" DisplayMemberBinding="{Binding RawData.Exchange}"/>
