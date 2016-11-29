@@ -79,16 +79,19 @@ namespace Micro.Future.CustomizedControls
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string frontserver = LoginCombo.Text;
+            string brokerId = userBroker.Text;
             string uid = userTxt.Text;
             string password = passwordTxt.Password;
 
             if (SignInManager.SignInOptions.FrontServer != frontserver ||
+                SignInManager.SignInOptions.BrokerID != brokerId ||
                 SignInManager.SignInOptions.UserName != uid ||
                 SignInManager.SignInOptions.Password != password)
             {
                 SignInManager.SignInOptions.FrontServer = frontserver;
+                SignInManager.SignInOptions.BrokerID = brokerId;
                 SignInManager.SignInOptions.UserName = uid;
-                if (MD5Round > 0)
+                if (SignInManager.SignInOptions.EncryptPassword)
                 {
                     _hashEncoder.Option.Iteration = MD5Round;
                     password = _hashEncoder.Encode(password);

@@ -16,7 +16,7 @@ namespace Micro.Future.UI
     public partial class MainWindow : Window, IStatusCollector
     {
         private Config _config = new Config(Settings.Default.ConfigFile);
-        private PBSignInManager _accountSignIner = new PBSignInManager();
+        private PBSignInManager _accountSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AccountHandler>());
         private LoginWindow _currentLoginWindow;
 
         public static int maketDataTabCount = 0;

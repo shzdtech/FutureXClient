@@ -47,7 +47,7 @@ namespace Micro.Future.UI
 
         private void Initialize()
         {
-            portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection;
+            portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
         }
 
 

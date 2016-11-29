@@ -19,6 +19,8 @@
         <StackPanel Grid.Row="0">
             <Label Content="{lex:Loc Key=Login_Server}"/>
             <ComboBox x:Name="LoginCombo" SelectedIndex="0" IsEditable="True"/>
+            <Label Content="{lex:Loc Key=BrokerId}"/>
+            <TextBox x:Name="userBroker"/>
             <Label Content="{lex:Loc Key=UserName}"/>
             <TextBox x:Name="userTxt"/>
             <Label Content="{lex:Loc Key=PassWord}"/>
