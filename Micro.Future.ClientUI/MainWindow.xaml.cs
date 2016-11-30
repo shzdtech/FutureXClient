@@ -88,7 +88,7 @@ namespace Micro.Future.UI
                         }
                         catch (AggregateException ex)
                         {
-                            MessageBox.Show(sender, ex.Message);
+                            MessageBox.Show(this, ex.Message);
                         }
                     }
                 }
