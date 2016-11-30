@@ -20,7 +20,7 @@ namespace Micro.Future.UI
         private LoginWindow _currentLoginWindow;
 
         public static int maketDataTabCount = 0;
-        
+
 
         public MainWindow()
         {
@@ -32,7 +32,7 @@ namespace Micro.Future.UI
         public void Initialize()
         {
             Login();
-        }        
+        }
 
 
         private void Login()
@@ -45,7 +45,7 @@ namespace Micro.Future.UI
 
             _currentLoginWindow.OnLogged += LoginWindow_OnLogged;
 
-           _currentLoginWindow.ShowDialog();
+            _currentLoginWindow.ShowDialog();
         }
 
         private async void LoginWindow_OnLogged(LoginWindow sender, IUserInfo userInfo)
@@ -81,9 +81,16 @@ namespace Micro.Future.UI
                         }
 
                         var entries = _accountSignIner.SignInOptions.FrontServer.Split(':');
-                        await frameUI.LoginAsync(_accountSignIner.SignInOptions.UserName, _accountSignIner.SignInOptions.Password, entries[0]);  
-                    }
 
+                        try
+                        {
+                            await frameUI.LoginAsync(_accountSignIner.SignInOptions.UserName, _accountSignIner.SignInOptions.Password, entries[0]);
+                        }
+                        catch (AggregateException ex)
+                        {
+                            MessageBox.Show(sender, ex.Message);
+                        }
+                    }
                 }
             }
 
