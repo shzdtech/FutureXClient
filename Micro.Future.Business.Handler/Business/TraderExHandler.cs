@@ -91,14 +91,14 @@ namespace Micro.Future.Message
         //To read contract data into contractNameList
         public List<String> getContractNameList()
         {
-            if(this.contractNameList==null)
+            if (this.contractNameList == null)
             {
                 this.contractNameList = new List<string>();
 
                 using (var clientCtx = new ClientDbContext())
                 {
                     var contractNames = from p in clientCtx.ContractInfo
-                                        select p.Contract ;
+                                        select p.Contract;
 
 
                     foreach (var contractName in contractNames)
@@ -111,7 +111,7 @@ namespace Micro.Future.Message
                 }
 
             }
-            
+
             return this.contractNameList;
         }
 
@@ -183,16 +183,20 @@ namespace Micro.Future.Message
 
         private void OnPosition(PBPosition rsp)
         {
-
-            if (PositionVMCollection != null)
+            lock (PositionVMCollection)
             {
-                lock (PositionVMCollection)
-                {
-                    PositionVM positionVM = PositionVMCollection.FirstOrDefault(position =>
-                        position.Contract == rsp.Contract &&
-                            (int)position.Direction == rsp.Direction &&
-                            (int)position.PositionDateFlag == rsp.PositionDateFlag);
+                PositionVM positionVM = PositionVMCollection.FirstOrDefault(position =>
+                    position.Contract == rsp.Contract &&
+                        (int)position.Direction == rsp.Direction &&
+                        (int)position.PositionDateFlag == rsp.PositionDateFlag);
 
+                if (rsp.Position == 0)
+                {
+                    if (positionVM != null)
+                        PositionVMCollection.Remove(positionVM);
+                }
+                else
+                {
                     if (positionVM == null)
                     {
                         positionVM = new PositionVM();
