@@ -57,13 +57,13 @@ namespace Micro.Future.Message
     public enum TradingType
     {
         [LocalizableDescription(@"TRADINGTYPE_MANUAL", typeof(Enums))]
-        TRADINGTYPE_MANUAL = 0,
+        MANUAL = 0,
         [LocalizableDescription(@"TRADINGTYPE_QUOTE", typeof(Enums))]
-        TRADINGTYPE_QUOTE = 1,
+        QUOTE = 1,
         [LocalizableDescription(@"TRADINGTYPE_AUTO", typeof(Enums))]
-        TRADINGTYPE_AUTO = 2,
+        AUTO = 2,
         [LocalizableDescription(@"TRADINGTYPE_HEDGE", typeof(Enums))]
-        TRADINGTYPE_HEDGE = 3,
+        HEDGE = 3,
     };
 
     public enum OrderOffsetType

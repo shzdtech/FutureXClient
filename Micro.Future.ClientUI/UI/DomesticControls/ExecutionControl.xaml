@@ -66,7 +66,7 @@
                     <GridViewColumn Header="{lex:Loc Key=VolumeRemain}" DisplayMemberBinding="{Binding VolumeRemain}"/>
                     <GridViewColumn Header="{lex:Loc Key=ExecType}" DisplayMemberBinding="{Binding ExecType}"/>
                     <GridViewColumn Header="{lex:Loc Key=TIF}" DisplayMemberBinding="{Binding TIF}"/>
-                    <GridViewColumn Header="{lex:Loc Key=TradingType}" DisplayMemberBinding="{Binding TradingType}"/>
+                    <GridViewColumn Header="{lex:Loc Key=TradingType}" DisplayMemberBinding="{Binding Path=TradingType, Converter={StaticResource enumItemsConverter}}"/>
                     <GridViewColumn Header="{lex:Loc Key=Active}" DisplayMemberBinding="{Binding Active}"/>
                     <GridViewColumn Header="{lex:Loc Key=LimitPrice}" DisplayMemberBinding="{Binding LimitPrice}" />
                     <GridViewColumn Header="{lex:Loc Key=Status}" DisplayMemberBinding="{Binding Path=Status, Converter={StaticResource enumItemsConverter}}"/>
