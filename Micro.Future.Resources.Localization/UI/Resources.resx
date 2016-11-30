@@ -226,7 +226,7 @@
     <value>挂单时间</value>
   </data>
   <data name="LimitPrice" xml:space="preserve">
-    <value>保单价格</value>
+    <value>报单价格</value>
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>登录</value>

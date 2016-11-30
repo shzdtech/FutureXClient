@@ -592,7 +592,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 保单价格 的本地化字符串。
+        ///   查找类似 报单价格 的本地化字符串。
         /// </summary>
         internal static string LimitPrice {
             get {

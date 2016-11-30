@@ -76,7 +76,7 @@
                     <GridViewColumn Header="{lex:Loc Key=AccountID}" DisplayMemberBinding="{Binding AccountID}"/>
                     <GridViewColumn Header="{lex:Loc Key=PreMortgage}" DisplayMemberBinding="{Binding PreMortgage}"/>
                     <GridViewColumn Header="{lex:Loc Key=PreCredit}" DisplayMemberBinding="{Binding PreCredit}"/>
-                    <GridViewColumn Header="{lex:Loc Key=PreDeposit}" DisplayMemberBinding="{Binding PreDeposit}"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreDeposit}" DisplayMemberBinding="{Binding PreDeposit}" HeaderStringFormat="N"/>
                     <GridViewColumn Header="{lex:Loc Key=PreBalance}" DisplayMemberBinding="{Binding PreBalance}"/>
                     <GridViewColumn Header="{lex:Loc Key=PreMargin}" DisplayMemberBinding="{Binding PreMargin}"/>
                     <GridViewColumn Header="{lex:Loc Key=InterestBase}" DisplayMemberBinding="{Binding InterestBase}"/>
@@ -87,7 +87,7 @@
                     <GridViewColumn Header="{lex:Loc Key=FrozenCommission}" DisplayMemberBinding="{Binding FrozenCommission}"/>
                     <GridViewColumn Header="{lex:Loc Key=CurrMargin}" DisplayMemberBinding="{Binding CurrMargin}"/>
                     <GridViewColumn Header="{lex:Loc Key=CashIn}" DisplayMemberBinding="{Binding CashIn}"/>
-                    <GridViewColumn Header="{lex:Loc Key=CloseProfit}" DisplayMemberBinding="{Binding CloseProfit}"/>
+                    <GridViewColumn Header="{lex:Loc Key=CloseProfit}" DisplayMemberBinding="{Binding CloseProfit}" HeaderStringFormat="N"/>
                     <GridViewColumn Header="{lex:Loc Key=PositionProfit}" DisplayMemberBinding="{Binding PositionProfit}"/>
                     <GridViewColumn Header="{lex:Loc Key=Balance}" DisplayMemberBinding="{Binding Balance}"/>
                     <GridViewColumn Header="{lex:Loc Key=Available}" DisplayMemberBinding="{Binding Available}"/>
