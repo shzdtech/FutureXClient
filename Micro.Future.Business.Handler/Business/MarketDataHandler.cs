@@ -8,12 +8,13 @@ using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.UI;
 using Micro.Future.LocalStorage;
 using Micro.Future;
-
+using System.Threading;
 
 namespace Micro.Future.Message
 {
     public class MarketDataHandler : MessageHandlerTemplate<MarketDataHandler>
     {
+        public const int RETRY_TIMES = 5;
         public ObservableCollection<MarketDataVM> QuoteVMCollection
         {
             get;
@@ -37,6 +38,11 @@ namespace Micro.Future.Message
                 mktVM = new MarketDataVM() { Contract = instrID };
                 QuoteVMCollection.Add(mktVM);
                 SubMarketData(new[] { instrID });
+                for (int i=0; i < RETRY_TIMES; i++)
+                {
+                    Thread.Sleep(100);
+                    mktVM = QuoteVMCollection.FirstOrDefault(((quote) => string.Compare(quote.Contract, instrID, true) == 0));
+                }
             }
             return mktVM;
         }
