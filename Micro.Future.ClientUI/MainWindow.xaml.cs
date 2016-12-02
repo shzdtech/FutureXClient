@@ -86,7 +86,7 @@ namespace Micro.Future.UI
                         {
                             await frameUI.LoginAsync(_accountSignIner.SignInOptions.UserName, _accountSignIner.SignInOptions.Password, entries[0]);
                         }
-                        catch (AggregateException ex)
+                        catch (Exception ex)
                         {
                             MessageBox.Show(this, ex.Message);
                         }
