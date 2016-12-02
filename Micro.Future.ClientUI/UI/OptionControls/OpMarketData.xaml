@@ -37,7 +37,7 @@
             </GroupBox>
             <GroupBox x:Name="Op_VolModel" Header="波动率模型">
                 <ComboBox x:Name="volModelCB" DisplayMemberPath="InstanceName" SelectionChanged="volModelCB_SelectionChanged" KeyDown="volModelCB_KeyDown">
-                    <ListBoxItem>Please Select</ListBoxItem>
+                    <!--<ListBoxItem>Please Select</ListBoxItem>-->
                     <!--<CollectionContainer Collection="{Binding Source={}}" />-->
                 </ComboBox>
             </GroupBox>
