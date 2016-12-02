@@ -88,6 +88,17 @@ namespace Micro.Future.UI
             if (positionVM != null)
             {
                 OrderVM.Contract = positionVM.Contract;
+                var quote = OrderVM.Contract;
+                var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote); ;
+                if (item != null)
+                {
+                    stackPanelPrices.DataContext = item;
+                }
+                //else
+                //{
+                //    MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+                //}
+
                 OrderVM.OffsetFlag = OrderOffsetType.CLOSE;
 
                 if (positionVM.Direction == PositionDirectionType.PD_SHORT)
