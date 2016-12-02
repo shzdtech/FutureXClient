@@ -42,7 +42,7 @@ namespace Micro.Future.UI
             InitializeComponent();
             //To bound data for portolioCB          
             //MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection.ToString());  
-            this.Initialize();
+            Initialize();
         }
 
         private void Initialize()
@@ -105,17 +105,7 @@ namespace Micro.Future.UI
         {
             get;
             private set;
-        }
-
-        
-
-
-            
-        
-
-
-
-  
+        }  
 
         private void labelupperprice_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -150,101 +140,101 @@ namespace Micro.Future.UI
 
         //function for Popup
 
-        public List<string> listContract;
-        public Popup pop = new Popup();
+        //public List<string> listContract;
+        //public Popup pop = new Popup();
 
-        private void FastOrderContract_KeyUp(object sender, KeyEventArgs e)
-        {
-            //MessageBox.Show("Pop");
-            this.showPopup();
-        }
+        //private void FastOrderContract_KeyUp(object sender, KeyEventArgs e)
+        //{
+        //    //MessageBox.Show("Pop");
+        //    this.showPopup();
+        //}
 
-        //To remove Popup
-        private void FastOrderContract_MouseLeave(object sender, MouseEventArgs e)
-        {
-            if (this.pop.IsMouseOver == false)
-            {
-                this.removePopup();
-            }
-        }
+        ////To remove Popup
+        //private void FastOrderContract_MouseLeave(object sender, MouseEventArgs e)
+        //{
+        //    if (this.pop.IsMouseOver == false)
+        //    {
+        //        this.removePopup();
+        //    }
+        //}
 
-        private void removePopup()
-        {
-            if (pop != null)
-            {
-                //MessageBox.Show("Pop is not null");
-                this.pop.IsOpen = false;
-                //PopupFastOrderContract.
-            }
-        }
+        //private void removePopup()
+        //{
+        //    if (pop != null)
+        //    {
+        //        //MessageBox.Show("Pop is not null");
+        //        this.pop.IsOpen = false;
+        //        //PopupFastOrderContract.
+        //    }
+        //}
 
-        private void showPopup()
-        {
-            if (listContract == null)
-            {
-                if (MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList() != null)
-                {
+        //private void showPopup()
+        //{
+        //    if (listContract == null)
+        //    {
+        //        if (MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList() != null)
+        //        {
                     
-                    listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList();
-                }
-                else
-                {
-                    MessageBox.Show("listContract is exist");
-                }
+        //            listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList();
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("listContract is exist");
+        //        }
                 
-            }
+        //    }
            
-           var item = listContract.Where(a => a.Contains(FastOrderContract.Text));
-           if (item.ToList<string>().Count > 0)
-           {
-                pop = this.createPopup(pop, item.ToList<string>(), FastOrderContract);
-                pop.IsOpen = true;
-           }
-           else
-           {
-                pop.IsOpen = false;
-           }
+        //   var item = listContract.Where(a => a.Contains(FastOrderContract.Text));
+        //   if (item.ToList<string>().Count > 0)
+        //   {
+        //        pop = this.createPopup(pop, item.ToList<string>(), FastOrderContract);
+        //        pop.IsOpen = true;
+        //   }
+        //   else
+        //   {
+        //        pop.IsOpen = false;
+        //   }
             
-        }
+        //}
 
-        private Popup createPopup(Popup pop, List<string> listSource, UIElement element)
-        {
-            Border border = new Border();
-            border.BorderBrush = new SolidColorBrush(Colors.Black);
-            //border.BorderThickness = new Thickness(1.0);//设置边框宽度  
-            StackPanel panel1 = new StackPanel();
-            panel1.Children.Clear();
-            panel1.Background = new SolidColorBrush(Colors.LightGray);
-            ListBox listbox = new ListBox();
-            listbox.Background = new SolidColorBrush(Colors.WhiteSmoke);
-            listbox.MinWidth = 100;
-            listbox.Height = 120;
-            listbox.ItemsSource = listSource;
-            listbox.MouseDoubleClick += new MouseButtonEventHandler(listbox_MouseDoubleClick);
-            panel1.Children.Add(listbox);
-            border.Child = panel1;
-            pop.Child = border;
-            pop.PlacementTarget = element;
-            return pop;
-        }
+        //private Popup createPopup(Popup pop, List<string> listSource, UIElement element)
+        //{
+        //    Border border = new Border();
+        //    border.BorderBrush = new SolidColorBrush(Colors.Black);
+        //    //border.BorderThickness = new Thickness(1.0);//设置边框宽度  
+        //    StackPanel panel1 = new StackPanel();
+        //    panel1.Children.Clear();
+        //    panel1.Background = new SolidColorBrush(Colors.LightGray);
+        //    ListBox listbox = new ListBox();
+        //    listbox.Background = new SolidColorBrush(Colors.WhiteSmoke);
+        //    listbox.MinWidth = 100;
+        //    listbox.Height = 120;
+        //    listbox.ItemsSource = listSource;
+        //    listbox.MouseDoubleClick += new MouseButtonEventHandler(listbox_MouseDoubleClick);
+        //    panel1.Children.Add(listbox);
+        //    border.Child = panel1;
+        //    pop.Child = border;
+        //    pop.PlacementTarget = element;
+        //    return pop;
+        //}
 
-        public void listbox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            ListBox box = sender as ListBox;
-            string itemvalue = box.SelectedValue as string;
-            //this.PopupFastOrderContract.Text = itemvalue;
-            this.FastOrderContract.Text = itemvalue;
-            pop.IsOpen = false;
-        }
+        //public void listbox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        //{
+        //    ListBox box = sender as ListBox;
+        //    string itemvalue = box.SelectedValue as string;
+        //    //this.PopupFastOrderContract.Text = itemvalue;
+        //    this.FastOrderContract.Text = itemvalue;
+        //    pop.IsOpen = false;
+        //}
 
-        private void portofolioCB_KeyDown(object sender, KeyEventArgs e)
-        {
-            MessageBox.Show("itemsource");
-            if(this.portofolioCB.ItemsSource == null)
-            {
-                this.portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection;
-            }
+        //private void portofolioCB_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    MessageBox.Show("itemsource");
+        //    if(this.portofolioCB.ItemsSource == null)
+        //    {
+        //        this.portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection;
+        //    }
             
-        }
+        //}
     }
 }
