@@ -19,25 +19,25 @@
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0">
             <GroupBox x:Name="Op_Exchange" Header="交易所">
-                <ComboBox x:Name="exchangeCB"  SelectionChanged="exchangeCB_SelectionChanged" KeyDown="exchangeCB_KeyDown"/>
+                <ComboBox x:Name="exchangeCB"  SelectionChanged="exchangeCB_SelectionChanged" />
             </GroupBox>
             <GroupBox x:Name="Op_Underlying" Header="种类">
-                <ComboBox x:Name="underlyingCB" SelectionChanged="underlyingCB_SelectionChanged" KeyDown="underlyingCB_KeyDown"/>
+                <ComboBox x:Name="underlyingCB" SelectionChanged="underlyingCB_SelectionChanged" />
             </GroupBox>
             <GroupBox x:Name="Op_UnderlyingContract" Header="产品">
-                <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged" KeyDown="underlyingContractCB_KeyDown"/>
+                <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged" />
             </GroupBox>
             <GroupBox x:Name="Op_PricingModel" Header="定价模型">
-                <ComboBox x:Name="pricingModelCB" DisplayMemberPath="InstanceName" SelectionChanged="pricingModelCB_SelectionChanged" KeyDown="pricingModelCB_KeyDown"/>
+                <ComboBox x:Name="pricingModelCB" DisplayMemberPath="InstanceName" SelectionChanged="pricingModelCB_SelectionChanged" />
             </GroupBox>
             <GroupBox x:Name="Op_Exchange1" Header="交易所">
-                <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged" KeyDown="underlyingEX1_KeyDown"/>
+                <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged" />
             </GroupBox>
             <GroupBox x:Name="Op_Underlying1" Header="种类">
-                <ComboBox x:Name="underlyingCB1"  SelectionChanged="underlyingCB1_SelectionChanged" KeyDown="underlyingCB1_KeyDown"/>
+                <ComboBox x:Name="underlyingCB1"  SelectionChanged="underlyingCB1_SelectionChanged" />
             </GroupBox>
             <GroupBox x:Name="Op_UnderlyingContract1" Header="产品">
-                <ComboBox x:Name="underlyingContractCB1" SelectionChanged="underlyingContractCB1_SelectionChanged" KeyDown="underlyingContractCB1_KeyDown"/>
+                <ComboBox x:Name="underlyingContractCB1" SelectionChanged="underlyingContractCB1_SelectionChanged" />
             </GroupBox>
             <ListView Name="quoteListView1">
                 <ListView.View>
