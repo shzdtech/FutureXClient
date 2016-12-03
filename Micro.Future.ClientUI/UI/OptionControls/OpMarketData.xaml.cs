@@ -292,7 +292,6 @@ namespace Micro.Future.UI
                 {
                     if (option.CallStrategyVM == null)
                         return;
-
                     option.CallStrategyVM.VolModel = modelParam.InstanceName;
                     _otcOptionHandler.UpdateStrategy(option.CallStrategyVM);
                     option.PutStrategyVM.VolModel = modelParam.InstanceName;
@@ -301,84 +300,6 @@ namespace Micro.Future.UI
             }
         }
 
-        private void volModelCB_KeyDown(object sender, KeyEventArgs e)
-        {
-            //MessageBox.Show(e.Key.ToString());
-            if (e.Key.ToString() == "Back")
-            {
-                //MessageBox.Show(this.volModelCB.SelectedItem.ToString());
-                this.volModelCB.SelectedItem = null;
-
-            }
-        }
-
-        private void underlyingEX_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back")
-            {
-                //MessageBox.Show(this.volModelCB.SelectedItem.ToString());
-                this.underlyingEX.SelectedItem = null;
-
-            }
-        }
-
-        private void underlyingCB_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back")
-            {
-                //MessageBox.Show(this.volModelCB.SelectedItem.ToString());
-                this.underlyingCB.SelectedItem = null;
-            }
-        }
-
-        private void underlyingContractCB_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back")  this.underlyingContractCB.SelectedItem = null; 
-        }
-
-        private void underlyingEX1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.underlyingEX1.SelectedItem = null;
-        }
-
-        private void underlyingCB1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.underlyingCB1.SelectedItem = null;
-        }
-
-        private void underlyingContractCB1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.underlyingContractCB1.SelectedItem = null;
-        }
-
-        private void exchange1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.exchange1.SelectedItem = null;
-        }
-
-        private void underlying1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.underlying1.SelectedItem = null;
-        }
-
-        private void contract1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.contract1.SelectedItem = null;
-        }
-
-        private void exchange2_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.exchange2.SelectedItem = null;
-        }
-
-        private void underlying2_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.underlying2.SelectedItem = null;
-        }
-
-        private void contract2_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.contract2.SelectedItem = null;
-        }
+        
     }
 }
