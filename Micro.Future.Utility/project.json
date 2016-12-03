@@ -10,8 +10,8 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "Microsoft.EntityFrameworkCore": "1.0.1",
     "log4net": "2.0.5",
+    "Microsoft.EntityFrameworkCore": "1.1.0",
     "WpfLocalizeExtension": "2.3.2"
   },
   "frameworks": {
