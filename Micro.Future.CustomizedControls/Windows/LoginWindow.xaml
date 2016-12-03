@@ -10,7 +10,7 @@
     lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"
     Style="{StaticResource {x:Type Window}}"
-    WindowStartupLocation="CenterScreen" Topmost="True" Width="250" Height="250" Icon="/Images/Logo.png">
+    WindowStartupLocation="CenterScreen" Topmost="True" Width="250" Height="266" Icon="/Images/Logo.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -25,14 +25,14 @@
             <TextBox x:Name="userTxt"/>
             <Label Content="{lex:Loc Key=PassWord}"/>
             <PasswordBox x:Name="passwordTxt"/>
-            <Button x:Name="loginBtn" Content="{lex:Loc Key=LogIn}" Click="Button_Click" IsDefault="True"/>
             <Label Content="语言/Language"/>
-            <ComboBox ItemsSource="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=MergedAvailableCultures}"
-        SelectedItem="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=Culture}" 
+            <ComboBox ItemsSource="{Binding MergedAvailableCultures, Source={x:Static lex:LocalizeDictionary.Instance}}"
+        SelectedItem="{Binding Culture, Source={x:Static lex:LocalizeDictionary.Instance}}" 
         DisplayMemberPath="NativeName" Margin="0" VerticalAlignment="Bottom" />
+            <Button x:Name="loginBtn" Content="{lex:Loc Key=LogIn}" Click="Button_Click" IsDefault="True"/>
         </StackPanel>
         <StatusBar Grid.Row="1">
-            <StatusBarItem>
+            <StatusBarItem Height="18">
                 <Grid>
                     <ProgressBar x:Name="DataLoadingProgressBar" x:FieldModifier="public"/>
                     <TextBlock x:Name="DataLoadingStatus" x:FieldModifier="public"/>
