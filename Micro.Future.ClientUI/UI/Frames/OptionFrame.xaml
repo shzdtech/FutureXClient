@@ -18,9 +18,9 @@
     <UserControl.Resources>
         <x:Array Type="{x:Type MenuItem}" x:Key="exOptionMenuItems">
             <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=TradingOption}">
-                <MenuItem Header="添加Model" Click="Add_Model_Click">
+                <MenuItem Header="{lex:Loc Key=AddModel}" Click="Add_Model_Click">
                 </MenuItem>
-                <MenuItem Header="添加行情" Click="Add_Quote_Click">
+                <MenuItem Header="{lex:Loc Key=AddQuote}" Click="Add_Quote_Click">
                 </MenuItem>
             </MenuItem>
         </x:Array>

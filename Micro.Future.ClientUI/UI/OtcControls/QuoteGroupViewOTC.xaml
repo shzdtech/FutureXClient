@@ -6,7 +6,12 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:s="clr-namespace:System;assembly=mscorlib"
              xmlns:loc="clr-namespace:Micro.Future.UI;assembly=Micro.Future.UIObject"
-             xmlns:data="clr-namespace:Micro.Future.ViewModel"   
+             xmlns:data="clr-namespace:Micro.Future.ViewModel" 
+             xmlns:lex="http://wpflocalizeextension.codeplex.com" 
+             lex:LocalizeDictionary.DesignCulture="zh_CN"
+             lex:LocalizeDictionary.OutputMissingKeys="True"
+             lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1300">
     <DockPanel>
@@ -35,7 +40,7 @@
                             <DataTemplate>
                                 <WrapPanel>
                                     <xctk:IntegerUpDown x:Name="QOTCTextBox" Value="{Binding Quantity}"></xctk:IntegerUpDown>
-                                    <Button Content="更新" Command="{Binding UpdateQCommand}"></Button>
+                                    <Button Content="{lex:Loc Key=Refresh}" Command="{Binding UpdateQCommand}"></Button>
                                 </WrapPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

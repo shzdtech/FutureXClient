@@ -5,6 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Micro"
              xmlns:view="clr-namespace:Micro.Future.ViewModel"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com" 
+             lex:LocalizeDictionary.DesignCulture="zh_CN"
+             lex:LocalizeDictionary.OutputMissingKeys="True"
+             lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="800">
     <Grid>
@@ -13,10 +18,10 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <RadioButton GroupName="executionClass"  IsChecked="True" Content="所有订单" Checked="RadioButton_Checked"/>
-            <RadioButton GroupName="executionClass"  Content="已成交单" Checked="RadioButton_Checked_1" />
-            <RadioButton GroupName="executionClass"  Content="已撤销单"  Checked="RadioButton_Checked_2"/>
-            <RadioButton GroupName="executionClass" Content="已拒绝单" Checked="RadioButton_Checked_3"/>
+            <RadioButton GroupName="executionClass"  IsChecked="True" Content="{lex:Loc Key=AllExecution}" Checked="RadioButton_Checked"/>
+            <RadioButton GroupName="executionClass"  Content="{lex:Loc Key=Traded}" Checked="RadioButton_Checked_1" />
+            <RadioButton GroupName="executionClass"  Content="{lex:Loc Key=CanceledOrder}"  Checked="RadioButton_Checked_2"/>
+            <RadioButton GroupName="executionClass" Content="{lex:Loc Key=RejectedOrder}" Checked="RadioButton_Checked_3"/>
         </StackPanel>
         <ListView Name="ExecutionTreeView" Grid.Row="1" GridViewColumnHeader.Click="ExecutionTreeView_Click" ItemsSource="{Binding OrderVMCollection}">         
             <ListView.View>
@@ -44,23 +49,23 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="订单编号" DisplayMemberBinding="{Binding OrderID}"/>
-                    <GridViewColumn Header="合约代码" DisplayMemberBinding="{Binding OrderSysID}"/>
-                    <GridViewColumn Header="买卖" DisplayMemberBinding="{Binding Direction}"/>
-                    <GridViewColumn Header="时间戳" DisplayMemberBinding="{Binding InsertTime}"/>
-                    <GridViewColumn Header="成交数量" DisplayMemberBinding="{Binding VolumeTraded}"/>
-                    <GridViewColumn Header="剩余数量" DisplayMemberBinding="{Binding VolumeRemain}"/>
-                    <GridViewColumn Header="价格" DisplayMemberBinding="{Binding LimitPrice, StringFormat= {}{0:C}}" />
-                    <GridViewColumn Header="成交价格" DisplayMemberBinding="{Binding Price, StringFormat= {}{0:C}}" />
-                    <GridViewColumn Header="状态" DisplayMemberBinding="{Binding Status}" Width="200"/>
+                    <GridViewColumn Header="{lex:Loc Key=OrderID}" DisplayMemberBinding="{Binding OrderID}"/>
+                    <GridViewColumn Header="{lex:Loc Key=OrderSysID}" DisplayMemberBinding="{Binding OrderSysID}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Direction}"/>
+                    <GridViewColumn Header="{lex:Loc Key=InsertTime}" DisplayMemberBinding="{Binding InsertTime}"/>
+                    <GridViewColumn Header="{lex:Loc Key=VolumeTraded}" DisplayMemberBinding="{Binding VolumeTraded}"/>
+                    <GridViewColumn Header="{lex:Loc Key=VolumeRemain}" DisplayMemberBinding="{Binding VolumeRemain}"/>
+                    <GridViewColumn Header="{lex:Loc Key=LimitPrice}" DisplayMemberBinding="{Binding LimitPrice, StringFormat= {}{0:C}}" />
+                    <GridViewColumn Header="{lex:Loc Key=Price}" DisplayMemberBinding="{Binding Price, StringFormat= {}{0:C}}" />
+                    <GridViewColumn Header="{lex:Loc Key=Status}" DisplayMemberBinding="{Binding Status}" Width="200"/>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
                 <ContextMenu StaysOpen="True">
                     <!--<MenuItem Header="修改订单" />-->
-                    <MenuItem Header="取消订单" Click="MenuItem_Click" />
+                    <MenuItem Header="{lex:Loc Key=CancelOrder}" Click="MenuItem_Click" />
                     <Separator />
-                    <MenuItem Header="列显示设置" Click="MenuItem_Click_1" />
+                    <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItem_Click_1" />
                     <Separator></Separator>
                 </ContextMenu>
             </ListView.ContextMenu>

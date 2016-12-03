@@ -43,7 +43,7 @@
                         </MenuItem>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="添加Portfolio" Click="MenuItem_Click_Portfolio">
+                <MenuItem Header="{lex:Loc Key=AddPortfolio}" Click="MenuItem_Click_Portfolio">
                 </MenuItem>
             </MenuItem>
         </x:Array>

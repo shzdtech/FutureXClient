@@ -18,7 +18,7 @@
             <Label Content="{lex:Loc Key=Exchange}"/>
             <TextBox x:Name="exchangecombo"/>
             <!--<ComboBox x:Name="exchangecombo" SelectedIndex="0" IsEditable="True"/>-->
-            <Label Content="持仓组合"/>
+            <Label Content="{lex:Loc Key=Portfolio}"/>
             <TextBox x:Name="portfolioTxt"/>
             <Label Content="{lex:Loc Key=Underlying}"/>
             <TextBox x:Name="underlyingTxt"/>

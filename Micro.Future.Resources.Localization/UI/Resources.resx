@@ -597,4 +597,88 @@
   <data name="Portofolio" xml:space="preserve">
     <value>持仓组合</value>
   </data>
+  <data name="AddModel" xml:space="preserve">
+    <value>添加模型</value>
+  </data>
+  <data name="AddPortfolio" xml:space="preserve">
+    <value>添加组合</value>
+  </data>
+  <data name="AddQuote" xml:space="preserve">
+    <value>添加行情</value>
+  </data>
+  <data name="Adjustment" xml:space="preserve">
+    <value>调整量</value>
+  </data>
+  <data name="AskEnable" xml:space="preserve">
+    <value>启用Ask报价</value>
+  </data>
+  <data name="BidEnable" xml:space="preserve">
+    <value>启用Bid报价</value>
+  </data>
+  <data name="CAskQTEnable" xml:space="preserve">
+    <value>CAskQT启用</value>
+  </data>
+  <data name="CBidQTEnable" xml:space="preserve">
+    <value>CBidQT启用</value>
+  </data>
+  <data name="Future1" xml:space="preserve">
+    <value>期货1</value>
+  </data>
+  <data name="Future2" xml:space="preserve">
+    <value>期货2</value>
+  </data>
+  <data name="Hedge" xml:space="preserve">
+    <value>对冲</value>
+  </data>
+  <data name="Instrument" xml:space="preserve">
+    <value>合约</value>
+  </data>
+  <data name="MarketData" xml:space="preserve">
+    <value>行情</value>
+  </data>
+  <data name="Option1" xml:space="preserve">
+    <value>期权1</value>
+  </data>
+  <data name="Option2" xml:space="preserve">
+    <value>期权2</value>
+  </data>
+  <data name="Param" xml:space="preserve">
+    <value>参数</value>
+  </data>
+  <data name="PAskQTEnable" xml:space="preserve">
+    <value>PAskQT启用</value>
+  </data>
+  <data name="PBidQTEnable" xml:space="preserve">
+    <value>PBidQT启用</value>
+  </data>
+  <data name="PricingModel" xml:space="preserve">
+    <value>定价模型</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>产品</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="Risk" xml:space="preserve">
+    <value>风险</value>
+  </data>
+  <data name="SettlementPrice" xml:space="preserve">
+    <value>本次结算价</value>
+  </data>
+  <data name="Strategy" xml:space="preserve">
+    <value>策略</value>
+  </data>
+  <data name="VolModel" xml:space="preserve">
+    <value>波动率模型</value>
+  </data>
+  <data name="CanceledOrder" xml:space="preserve">
+    <value>已撤销单</value>
+  </data>
+  <data name="RejectedOrder" xml:space="preserve">
+    <value>已拒绝单</value>
+  </data>
+  <data name="VolModelSettings" xml:space="preserve">
+    <value>波动率模型设置</value>
+  </data>
 </root>

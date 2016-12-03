@@ -597,4 +597,88 @@
   <data name="Portofolio" xml:space="preserve">
     <value>Portofolio</value>
   </data>
+  <data name="AddModel" xml:space="preserve">
+    <value>AddModel</value>
+  </data>
+  <data name="AddPortfolio" xml:space="preserve">
+    <value>AddPortfolio</value>
+  </data>
+  <data name="AddQuote" xml:space="preserve">
+    <value>AddQuote</value>
+  </data>
+  <data name="Adjustment" xml:space="preserve">
+    <value>Adjustment</value>
+  </data>
+  <data name="AskEnable" xml:space="preserve">
+    <value>AskEnable</value>
+  </data>
+  <data name="BidEnable" xml:space="preserve">
+    <value>BidEnable</value>
+  </data>
+  <data name="CAskQTEnable" xml:space="preserve">
+    <value>CAskQTEnable</value>
+  </data>
+  <data name="CBidQTEnable" xml:space="preserve">
+    <value>CBidQTEnable</value>
+  </data>
+  <data name="Future1" xml:space="preserve">
+    <value>Future1</value>
+  </data>
+  <data name="Future2" xml:space="preserve">
+    <value>Future2</value>
+  </data>
+  <data name="Hedge" xml:space="preserve">
+    <value>Hedge</value>
+  </data>
+  <data name="Instrument" xml:space="preserve">
+    <value>Instrument</value>
+  </data>
+  <data name="MarketData" xml:space="preserve">
+    <value>MarketData</value>
+  </data>
+  <data name="Option1" xml:space="preserve">
+    <value>Option1</value>
+  </data>
+  <data name="Option2" xml:space="preserve">
+    <value>Option2</value>
+  </data>
+  <data name="Param" xml:space="preserve">
+    <value>Param</value>
+  </data>
+  <data name="PAskQTEnable" xml:space="preserve">
+    <value>PAskQTEnable</value>
+  </data>
+  <data name="PBidQTEnable" xml:space="preserve">
+    <value>PBidQTEnable</value>
+  </data>
+  <data name="PricingModel" xml:space="preserve">
+    <value>PricingModel</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Risk" xml:space="preserve">
+    <value>Risk</value>
+  </data>
+  <data name="SettlementPrice" xml:space="preserve">
+    <value>SettlementPrice</value>
+  </data>
+  <data name="Strategy" xml:space="preserve">
+    <value>Strategy</value>
+  </data>
+  <data name="VolModel" xml:space="preserve">
+    <value>VolModel</value>
+  </data>
+  <data name="CanceledOrder" xml:space="preserve">
+    <value>Canceled Orders</value>
+  </data>
+  <data name="RejectedOrder" xml:space="preserve">
+    <value>Rejected Orders</value>
+  </data>
+  <data name="VolModelSettings" xml:space="preserve">
+    <value>Vol Model Settings</value>
+  </data>
 </root>

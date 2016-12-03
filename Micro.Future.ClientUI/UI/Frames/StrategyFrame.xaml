@@ -31,21 +31,21 @@
             <avalonDock:LayoutPanel Orientation="Vertical">
                 <avalonDock:LayoutPanel DockWidth="Auto" DockHeight="Auto" >
                     <avalonDock:LayoutAnchorablePane >
-                        <avalonDock:LayoutAnchorable Title="策略">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Strategy}">
                             <c:OTCTradingStrategyLV x:Name="strategyListView"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
                 <avalonDock:LayoutPanel DockWidth="4*">
                     <avalonDock:LayoutAnchorablePane>
-                        <avalonDock:LayoutAnchorable Title="参数">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Param}">
                             <c:OTCTradingDeskContractParam x:Name="contractParamListView"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
                 <avalonDock:LayoutPanel DockWidth="4*">
                     <avalonDock:LayoutAnchorablePane>
-                        <avalonDock:LayoutAnchorable Title="行情">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=MarketData}">
                             <c:MarketDataControl x:Name="MarketDataLV"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>

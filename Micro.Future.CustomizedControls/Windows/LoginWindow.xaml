@@ -10,7 +10,7 @@
     lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"
     Style="{StaticResource {x:Type Window}}"
-    WindowStartupLocation="CenterScreen" Topmost="True" Width="250" Height="250" Icon="/Images/Logo.png">
+    WindowStartupLocation="CenterScreen" Topmost="True" Width="250" Height="265" Icon="/Images/Logo.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

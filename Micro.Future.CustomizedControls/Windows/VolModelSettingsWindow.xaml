@@ -10,12 +10,12 @@
         lex:LocalizeDictionary.OutputMissingKeys="True"
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-        Title="波动率模型窗口设置" Height="238.877" Width="300" WindowStyle="ToolWindow">
+        Title="{lex:Loc Key=VolModelSettings}" Height="238.877" Width="300" WindowStyle="ToolWindow">
     <Grid>
         <StackPanel>
-            <Label Content="波动率模型名称"/>
+            <Label Content="{lex:Loc Key=VolModel}"/>
             <TextBox x:Name="titleTxt"/>
-            <Button x:Name="OkBtn" Content="保存" IsDefault="True" Margin="35,0,53,0" Click="OkBtn_Click"/>
+            <Button x:Name="OkBtn" Content="{lex:Loc Key=Enter}" IsDefault="True" Margin="35,0,53,0" Click="OkBtn_Click"/>
         </StackPanel>
     </Grid>
 </Window>

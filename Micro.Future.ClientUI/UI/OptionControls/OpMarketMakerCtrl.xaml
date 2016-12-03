@@ -18,25 +18,25 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0">
-            <GroupBox x:Name="Op_Exchange" Header="交易所">
+            <GroupBox x:Name="Op_Exchange" Header="{lex:Loc Key=Exchange}">
                 <ComboBox x:Name="exchangeCB"  SelectionChanged="exchangeCB_SelectionChanged" KeyDown="exchangeCB_KeyDown"/>
             </GroupBox>
-            <GroupBox x:Name="Op_Underlying" Header="种类">
+            <GroupBox x:Name="Op_Underlying" Header="{lex:Loc Key=Underlying}">
                 <ComboBox x:Name="underlyingCB" SelectionChanged="underlyingCB_SelectionChanged" KeyDown="underlyingCB_KeyDown"/>
             </GroupBox>
-            <GroupBox x:Name="Op_UnderlyingContract" Header="产品">
+            <GroupBox x:Name="Op_UnderlyingContract" Header="{lex:Loc Key=Product}">
                 <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged" KeyDown="underlyingContractCB_KeyDown"/>
             </GroupBox>
-            <GroupBox x:Name="Op_PricingModel" Header="定价模型">
+            <GroupBox x:Name="Op_PricingModel" Header="{lex:Loc Key=PricingModel}">
                 <ComboBox x:Name="pricingModelCB" DisplayMemberPath="InstanceName" SelectionChanged="pricingModelCB_SelectionChanged" KeyDown="pricingModelCB_KeyDown"/>
             </GroupBox>
-            <GroupBox x:Name="Op_Exchange1" Header="交易所">
+            <GroupBox x:Name="Op_Exchange1" Header="{lex:Loc Key=Exchange}">
                 <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged" KeyDown="underlyingEX1_KeyDown"/>
             </GroupBox>
-            <GroupBox x:Name="Op_Underlying1" Header="种类">
+            <GroupBox x:Name="Op_Underlying1" Header="{lex:Loc Key=Underlying}">
                 <ComboBox x:Name="underlyingCB1"  SelectionChanged="underlyingCB1_SelectionChanged" KeyDown="underlyingCB1_KeyDown"/>
             </GroupBox>
-            <GroupBox x:Name="Op_UnderlyingContract1" Header="产品">
+            <GroupBox x:Name="Op_UnderlyingContract1" Header="{lex:Loc Key=Product}">
                 <ComboBox x:Name="underlyingContractCB1" SelectionChanged="underlyingContractCB1_SelectionChanged" KeyDown="underlyingContractCB1_KeyDown"/>
             </GroupBox>
             <ListView Name="quoteListView1">
@@ -114,14 +114,14 @@
             </ListView.Resources>
             <ListView.View>
                 <GridView x:Name="option_priceGV">
-                    <GridViewColumn x:Name="PBidQT" Header="PBidQT启用" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                    <GridViewColumn x:Name="PBidQT" Header="{lex:Loc Key=PBidQTEnable}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding PutStrategyVM.BidEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PAskQT" Header="PAskQT启用" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                    <GridViewColumn x:Name="PAskQT" Header="{lex:Loc Key=PAskQTEnable}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding PutStrategyVM.AskEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
@@ -196,14 +196,14 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CBidQT" Header="CBidQT启用" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                    <GridViewColumn x:Name="CBidQT" Header="{lex:Loc Key=CBidQTEnable}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding CallStrategyVM.BidEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CAskQT" Header="CAskQT启用" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                    <GridViewColumn x:Name="CAskQT" Header="{lex:Loc Key=CAskQTEnable}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding CallStrategyVM.AskEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}" />
