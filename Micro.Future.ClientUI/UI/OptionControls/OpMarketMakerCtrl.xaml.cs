@@ -280,39 +280,6 @@ namespace Micro.Future.UI
             }
         }
 
-        private void exchangeCB_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.exchangeCB.SelectedItem = null;
-        }
-
-        private void underlyingCB_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.exchangeCB.SelectedItem = null;
-        }
-
-        private void underlyingContractCB_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.underlyingCB.SelectedItem = null;
-        }
-
-        private void pricingModelCB_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.pricingModelCB.SelectedItem = null;
-        }
-
-        private void underlyingEX1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.underlyingEX1.SelectedItem = null;
-        }
-
-        private void underlyingCB1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.underlyingCB1.SelectedItem = null;
-        }
-
-        private void underlyingContractCB1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Back") this.underlyingContractCB1.SelectedItem = null;
-        }
+        
     }
 }
