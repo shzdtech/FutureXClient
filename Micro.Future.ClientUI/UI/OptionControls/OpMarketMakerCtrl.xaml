@@ -19,25 +19,25 @@
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0">
             <GroupBox x:Name="Op_Exchange" Header="{lex:Loc Key=Exchange}">
-                <ComboBox x:Name="exchangeCB"  SelectionChanged="exchangeCB_SelectionChanged" KeyDown="exchangeCB_KeyDown"/>
+                <ComboBox x:Name="exchangeCB"  SelectionChanged="exchangeCB_SelectionChanged"/>
             </GroupBox>
             <GroupBox x:Name="Op_Underlying" Header="{lex:Loc Key=Underlying}">
-                <ComboBox x:Name="underlyingCB" SelectionChanged="underlyingCB_SelectionChanged" KeyDown="underlyingCB_KeyDown"/>
+                <ComboBox x:Name="underlyingCB" SelectionChanged="underlyingCB_SelectionChanged"/>
             </GroupBox>
             <GroupBox x:Name="Op_UnderlyingContract" Header="{lex:Loc Key=Product}">
-                <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged" KeyDown="underlyingContractCB_KeyDown"/>
+                <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged"/>
             </GroupBox>
             <GroupBox x:Name="Op_PricingModel" Header="{lex:Loc Key=PricingModel}">
-                <ComboBox x:Name="pricingModelCB" DisplayMemberPath="InstanceName" SelectionChanged="pricingModelCB_SelectionChanged" KeyDown="pricingModelCB_KeyDown"/>
+                <ComboBox x:Name="pricingModelCB" DisplayMemberPath="InstanceName" SelectionChanged="pricingModelCB_SelectionChanged"/>
             </GroupBox>
             <GroupBox x:Name="Op_Exchange1" Header="{lex:Loc Key=Exchange}">
-                <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged" KeyDown="underlyingEX1_KeyDown"/>
+                <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged"/>
             </GroupBox>
             <GroupBox x:Name="Op_Underlying1" Header="{lex:Loc Key=Underlying}">
-                <ComboBox x:Name="underlyingCB1"  SelectionChanged="underlyingCB1_SelectionChanged" KeyDown="underlyingCB1_KeyDown"/>
+                <ComboBox x:Name="underlyingCB1"  SelectionChanged="underlyingCB1_SelectionChanged"/>
             </GroupBox>
             <GroupBox x:Name="Op_UnderlyingContract1" Header="{lex:Loc Key=Product}">
-                <ComboBox x:Name="underlyingContractCB1" SelectionChanged="underlyingContractCB1_SelectionChanged" KeyDown="underlyingContractCB1_KeyDown"/>
+                <ComboBox x:Name="underlyingContractCB1" SelectionChanged="underlyingContractCB1_SelectionChanged"/>
             </GroupBox>
             <ListView Name="quoteListView1">
                 <ListView.View>
