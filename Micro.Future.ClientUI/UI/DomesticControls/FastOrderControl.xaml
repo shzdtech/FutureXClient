@@ -29,7 +29,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Width="300" Height="30">
             <Label VerticalAlignment="Center" Content="{lex:Loc Key=Contract}" Width="35"></Label>
-            <TextBox Name="FastOrderContract" Width="100" Text="{Binding Contract}" TextChanged="FastOrderContract_TextChanged" VerticalAlignment="Center"></TextBox>
+            <TextBox Name="FastOrderContract" Width="100" Text="{Binding Contract,UpdateSourceTrigger=PropertyChanged}" TextChanged="FastOrderContract_TextChanged" VerticalAlignment="Center" behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TestItems}"></TextBox>
             <Label Content="{lex:Loc Key=Portofolio}" HorizontalAlignment="Center" Margin="0,8,0,0"/>
             <ComboBox x:Name="portofolioCB"  Width="74" VerticalAlignment="Center" Margin="0,4" />
             <!--<TextBlock Height="15" HorizontalAlignment="Left" Margin="75,35,0,-20" x:Name="PopupFastOrderContract" Text="TextBlock" VerticalAlignment="Top" Width="56" RenderTransformOrigin="0.5,0.5" />-->
