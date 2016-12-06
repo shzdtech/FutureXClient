@@ -6,6 +6,7 @@
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:local="clr-namespace:Micro.Future.Utility;assembly=Micro.Future.Utility"
     xmlns:lex="http://wpflocalizeextension.codeplex.com" 
+    xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
     lex:LocalizeDictionary.DesignCulture="zh_CN"
     lex:LocalizeDictionary.OutputMissingKeys="True"
     lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
