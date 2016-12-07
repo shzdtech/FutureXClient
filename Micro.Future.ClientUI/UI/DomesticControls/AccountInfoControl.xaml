@@ -81,6 +81,7 @@
                     <GridViewColumn Header="{lex:Loc Key=PreMargin}" DisplayMemberBinding="{Binding PreMargin, StringFormat={}{0:N}}"/>
                     <GridViewColumn Header="{lex:Loc Key=InterestBase}" DisplayMemberBinding="{Binding InterestBase}"/>
                     <GridViewColumn Header="{lex:Loc Key=Deposit}" DisplayMemberBinding="{Binding Deposit, StringFormat={}{0:N}}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Commission}" DisplayMemberBinding="{Binding Commission, StringFormat={}{0:N}}"/>
                     <GridViewColumn Header="{lex:Loc Key=Withdraw}" DisplayMemberBinding="{Binding Withdraw, StringFormat={}{0:N}}"/>
                     <GridViewColumn Header="{lex:Loc Key=FrozenMargin}" DisplayMemberBinding="{Binding FrozenMargin, StringFormat={}{0:N}}"/>
                     <GridViewColumn Header="{lex:Loc Key=FrozenCash}" DisplayMemberBinding="{Binding FrozenCash, StringFormat={}{0:N}}"/>
