@@ -10,6 +10,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Controls.Primitives;
 using System.Linq;
+using Micro.Future.LocalStorage;
+using Micro.Future.LocalStorage.DataObject;
 
 namespace Micro.Future.UI
 {
@@ -19,7 +21,8 @@ namespace Micro.Future.UI
     public partial class FastOrderControl : UserControl
     {
         private string _currentContract;
-
+        private IList<ContractInfo> _futurecontractList;
+        private IEnumerable<string> SuggestItems;
 
         public TraderExHandler TradeHandler
         {
@@ -48,6 +51,8 @@ namespace Micro.Future.UI
         private void Initialize()
         {
             portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
+            this._futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            this.SuggestItems = _futurecontractList.Select(ci => ci.Contract).Distinct();
         }
 
 
