@@ -229,6 +229,7 @@ namespace Micro.Future.Message
             {
                 FundVMCollection.Add(new FundVM()
                 {
+                    Commission = rsp.Commission,
                     BrokerID = rsp.BrokerID,
                     AccountID = rsp.AccountID,
                     PreMortgage = rsp.PreMortgage,
