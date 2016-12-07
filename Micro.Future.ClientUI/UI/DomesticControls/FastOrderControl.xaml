@@ -44,7 +44,7 @@
             </ComboBox>
         </StackPanel>
 
-        <Grid Grid.Row="2" Height="30">
+        <Grid Grid.Row="3" Height="30">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -58,7 +58,7 @@
                              IsChecked="{Binding Path=OffsetFlag,Converter={StaticResource enumBooleanConverter}, ConverterParameter=CLOSETODAY}" VerticalAlignment="Center" Width="42.4" Height="16" HorizontalAlignment="Left" />
         </Grid>
 
-        <Grid Grid.Row="3" Height="30">
+        <Grid Grid.Row="2" Height="30">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
