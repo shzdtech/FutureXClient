@@ -51,6 +51,7 @@ namespace Micro.Future.LocalStorage
         }
 
         private static IDictionary<int, IList<ContractInfo>> _contractCache = new Dictionary<int, IList<ContractInfo>>();
+
         public static IList<ContractInfo> GetContractFromCache(int productType)
         {
             IList<ContractInfo> ret;
