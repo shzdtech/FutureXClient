@@ -3,16 +3,12 @@ using System.Windows.Input;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
 using System.Windows;
-using System.Text.RegularExpressions;
 using System;
 using System.Windows.Media;
-using System.Collections;
 using System.Collections.Generic;
-using System.Windows.Controls.Primitives;
 using System.Linq;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
-using System.Collections.ObjectModel;
 
 namespace Micro.Future.UI
 {
@@ -24,8 +20,7 @@ namespace Micro.Future.UI
         private string _currentContract;
         private IList<ContractInfo> _futurecontractList;
         private List<string> SuggestContract;
-        private List<string> SuggestContract1;
-
+//        private IEnumerable<string> SuggestContract;
 
         public TraderExHandler TradeHandler
         {
@@ -58,9 +53,18 @@ namespace Micro.Future.UI
             this.SuggestContract = _futurecontractList.Select(ci => ci.Contract).Distinct().ToList();
             //MessageBox.Show(_futurecontractList.Select(ci => ci.Contract).Distinct().Count().ToString());
             //MessageBox.Show(this.SuggestContract.Count().ToString());
-            SuggestContract1.Add("cu1702");
-            SuggestContract1.Add("cu1703");
-            SuggestContract1.Add("cu1701");
+            //SuggestContract1.Add("cu1702");
+            //SuggestContract1.Add("cu1703");
+            //SuggestContract = _futurecontractList.Select(ci => ci.Contract).Distinct();
+            //for (int index = 0; index < SuggestContract.Count; index++)
+            //{
+            //MessageBox.Show(SuggestContract[index]);
+            //}
+            WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteItemsSource(FastOrderContract, SuggestContract);
+            //                     behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding SuggestContract1}"
+            //                     behaviors: AutoCompleteBehavior.AutoCompleteStringComparison = "InvariantCultureIgnoreCase"
+            WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteStringComparison(FastOrderContract, StringComparison.InvariantCultureIgnoreCase);
+
 
         }
 
