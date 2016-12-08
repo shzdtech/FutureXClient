@@ -29,30 +29,7 @@
         </StackPanel>-->
         <ListView Name="TradeTreeView" Grid.Row="1" GridViewColumnHeader.Click="TradeTreeView_Click" ItemsSource="{Binding TradeVMCollection}">
             <ListView.View>
-                <GridView>
-                    <GridViewColumn>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <!--<Button Width="35" Height="15" Click="Button_Click" CommandParameter="{Binding BrokerOrderSeq}" >
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="{x:Type Button}">
-                                            <Border>
-                                                <Image x:Name="myimage" />
-                                            </Border>
-                                            <ControlTemplate.Triggers >
-                                                <DataTrigger Binding="{Binding Path=Flag}" Value="False">
-                                                    <Setter TargetName="myimage" Property="Source" Value="" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding Path=Flag}" Value="True">
-                                                    <Setter TargetName="myimage" Property="Source" Value="" />
-                                                </DataTrigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>-->
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                <GridView AllowsColumnReorder="True">
                     <GridViewColumn Header="{lex:Loc Key=TradeID}" DisplayMemberBinding="{Binding TradeID}"/>
                     <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
                     <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}"/>

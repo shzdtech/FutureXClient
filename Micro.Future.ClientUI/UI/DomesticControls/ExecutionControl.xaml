@@ -30,29 +30,6 @@
         <ListView Name="ExecutionTreeView" Grid.Row="1" GridViewColumnHeader.Click="ExecutionTreeView_Click" ItemsSource="{Binding OrderVMCollection}">         
             <ListView.View>
                 <GridView>
-                    <GridViewColumn>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <!--<Button Width="35" Height="15" Click="Button_Click" CommandParameter="{Binding BrokerOrderSeq}" >
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="{x:Type Button}">
-                                            <Border>
-                                                <Image x:Name="myimage" />
-                                            </Border>
-                                            <ControlTemplate.Triggers >
-                                                <DataTrigger Binding="{Binding Path=Flag}" Value="False">
-                                                    <Setter TargetName="myimage" Property="Source" Value="" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding Path=Flag}" Value="True">
-                                                    <Setter TargetName="myimage" Property="Source" Value="" />
-                                                </DataTrigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>-->
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
                     <GridViewColumn Header="{lex:Loc Key=OrderID}" DisplayMemberBinding="{Binding OrderID}"/>
                     <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
                     <GridViewColumn Header="{lex:Loc Key=OrderSysID}" DisplayMemberBinding="{Binding OrderSysID}"/>
