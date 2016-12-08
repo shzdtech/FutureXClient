@@ -22,7 +22,7 @@ namespace Micro.Future.UI
     {
         private string _currentContract;
         private IList<ContractInfo> _futurecontractList;
-        private IEnumerable<string> SuggestItems;
+        private List<string> SuggestContract;
 
         public TraderExHandler TradeHandler
         {
@@ -52,9 +52,10 @@ namespace Micro.Future.UI
         {
             portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
             this._futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            this.SuggestItems = _futurecontractList.Select(ci => ci.Contract).Distinct();
+            this.SuggestContract = _futurecontractList.Select(ci => ci.Contract).Distinct().ToList();
             //MessageBox.Show(_futurecontractList.Select(ci => ci.Contract).Distinct().Count().ToString());
-            //MessageBox.Show(this.SuggestItems.Count().ToString());
+            //MessageBox.Show(this.SuggestContract.Count().ToString());
+
         }
 
 
