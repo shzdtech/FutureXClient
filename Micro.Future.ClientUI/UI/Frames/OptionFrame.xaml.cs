@@ -31,9 +31,13 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OptionFrame : UserControl, IUserFrame
     {
-        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionHandler>());
+        private AbstractSignInManager _otcOptionSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionHandler>());
         // private AbstractSignInManager _ctpSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPOptionDataHandler>());
         private AbstractOTCHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
+
+        //private List<PBSignInManager> _signIns = new List<PBSignInManager>();
+        //private List<AbstractOTCHandler> _otcHdls = new List<AbstractOTCHandler>();
+        //private int _cnt = 0;
 
         public IStatusCollector StatusReporter
         {
@@ -72,32 +76,58 @@ namespace Micro.Future.UI
 
         public Task<bool> LoginAsync(string usernname, string password, string server)
         {
-            _tdSignIner.SignInOptions.UserName = usernname;
-            _tdSignIner.SignInOptions.Password = password;
+            _otcOptionSignIner.SignInOptions.UserName = usernname;
+            _otcOptionSignIner.SignInOptions.Password = password;
 
-            var entries = _tdSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            var entries = _otcOptionSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
-                _tdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+                _otcOptionSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
             //entries = _ctpSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             //if (server != null && entries.Length < 2)
             //    _ctpSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+            //Test(_tdSignIner.SignInOptions);
 
             TDServerLogin();
 
             return LoginTaskSource.Task;
         }
 
+        //public void Test(SignInOptions signInOpt)
+        //{
+        //    for (int i = 0; i < 50; i++)
+        //    {
+        //        PBSignInManager tradeSignIner = new PBSignInManager(signInOpt);
+        //        tradeSignIner.OnLogged += Test_OnLogged;
+        //        _signIns.Add(tradeSignIner);
+        //        tradeSignIner.SignIn();
+        //        var hdl = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
+        //        hdl.RegisterMessageWrapper(tradeSignIner.MessageWrapper);
+        //        _otcHdls.Add(hdl);
+        //    }
+        //}
+
+        //private void Test_OnLogged(IUserInfo userInfo)
+        //{
+        //    Console.WriteLine("Test Logged: " + userInfo.Name);
+
+        //    if (++_cnt == 50)
+        //    {
+        //        foreach (var hdl in _otcHdls)
+        //            hdl.QueryStrategy();
+        //    }
+        //}
+
         public void Initialize()
         {
             // Initialize Market Data
 
 
-            var msgWrapper = _tdSignIner.MessageWrapper;
-            _tdSignIner.OnLogged += OptionLoginStatus.OnLogged;
-            _tdSignIner.OnLoginError += _tdSignIner_OnLoginError;
-            _tdSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
-            _tdSignIner.OnLogged += _tdSignIner_OnLogged;
+            var msgWrapper = _otcOptionSignIner.MessageWrapper;
+            _otcOptionSignIner.OnLogged += OptionLoginStatus.OnLogged;
+            _otcOptionSignIner.OnLoginError += _tdSignIner_OnLoginError;
+            _otcOptionSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
+            _otcOptionSignIner.OnLogged += _tdSignIner_OnLogged;
 
             msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
             _otcOptionHandler.RegisterMessageWrapper(msgWrapper);
@@ -121,10 +151,10 @@ namespace Micro.Future.UI
 
         private void TDServerLogin()
         {
-            if (!_tdSignIner.MessageWrapper.HasSignIn)
+            if (!_otcOptionSignIner.MessageWrapper.HasSignIn)
             {
                 OptionLoginStatus.Prompt = "正在连接TradingDesk服务器...";
-                _tdSignIner.SignIn();
+                _otcOptionSignIner.SignIn();
             }
         }
 

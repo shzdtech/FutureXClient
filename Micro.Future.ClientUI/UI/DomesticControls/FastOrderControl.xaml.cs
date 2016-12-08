@@ -3,12 +3,9 @@ using System.Windows.Input;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
 using System.Windows;
-using System.Text.RegularExpressions;
 using System;
 using System.Windows.Media;
-using System.Collections;
 using System.Collections.Generic;
-using System.Windows.Controls.Primitives;
 using System.Linq;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
@@ -22,7 +19,8 @@ namespace Micro.Future.UI
     {
         private string _currentContract;
         private IList<ContractInfo> _futurecontractList;
-        private IEnumerable<string> SuggestItems;
+        private List<string> SuggestContract;
+//        private IEnumerable<string> SuggestContract;
 
         public TraderExHandler TradeHandler
         {
@@ -52,7 +50,22 @@ namespace Micro.Future.UI
         {
             portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
             this._futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            this.SuggestItems = _futurecontractList.Select(ci => ci.Contract).Distinct();
+            this.SuggestContract = _futurecontractList.Select(ci => ci.Contract).Distinct().ToList();
+            //MessageBox.Show(_futurecontractList.Select(ci => ci.Contract).Distinct().Count().ToString());
+            //MessageBox.Show(this.SuggestContract.Count().ToString());
+            //SuggestContract1.Add("cu1702");
+            //SuggestContract1.Add("cu1703");
+            //SuggestContract = _futurecontractList.Select(ci => ci.Contract).Distinct();
+            //for (int index = 0; index < SuggestContract.Count; index++)
+            //{
+            //MessageBox.Show(SuggestContract[index]);
+            //}
+            WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteItemsSource(FastOrderContract, SuggestContract);
+            //                     behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding SuggestContract1}"
+            //                     behaviors: AutoCompleteBehavior.AutoCompleteStringComparison = "InvariantCultureIgnoreCase"
+            WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteStringComparison(FastOrderContract, StringComparison.InvariantCultureIgnoreCase);
+
+
         }
 
 
@@ -144,6 +157,7 @@ namespace Micro.Future.UI
             LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
         }
 
+        
         private void FastOrderContract_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (_currentContract != null && FastOrderContract.Text != _currentContract)
@@ -152,7 +166,7 @@ namespace Micro.Future.UI
             //MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().ContractVMCollection.Count.ToString());
 
         }
-
+        
 
         //function for Popup
 
