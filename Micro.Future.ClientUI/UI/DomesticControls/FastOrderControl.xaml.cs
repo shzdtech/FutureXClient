@@ -12,6 +12,7 @@ using System.Windows.Controls.Primitives;
 using System.Linq;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
+using System.Collections.ObjectModel;
 
 namespace Micro.Future.UI
 {
@@ -23,6 +24,8 @@ namespace Micro.Future.UI
         private string _currentContract;
         private IList<ContractInfo> _futurecontractList;
         private List<string> SuggestContract;
+        private List<string> SuggestContract1;
+
 
         public TraderExHandler TradeHandler
         {
@@ -55,6 +58,9 @@ namespace Micro.Future.UI
             this.SuggestContract = _futurecontractList.Select(ci => ci.Contract).Distinct().ToList();
             //MessageBox.Show(_futurecontractList.Select(ci => ci.Contract).Distinct().Count().ToString());
             //MessageBox.Show(this.SuggestContract.Count().ToString());
+            SuggestContract1.Add("cu1702");
+            SuggestContract1.Add("cu1703");
+            SuggestContract1.Add("cu1701");
 
         }
 

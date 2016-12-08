@@ -32,7 +32,7 @@
             <TextBox Name="FastOrderContract" Width="100" 
                      Text="{Binding Contract,UpdateSourceTrigger=PropertyChanged}" 
                      VerticalAlignment="Center"
-                     behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding SuggestContract}"
+                     behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding SuggestContract1}"
                      behaviors:AutoCompleteBehavior.AutoCompleteStringComparison="InvariantCultureIgnoreCase"
                      TextChanged="FastOrderContract_TextChanged"/>
             <Label Content="{lex:Loc Key=Portofolio}" HorizontalAlignment="Center" Margin="0,8,0,0"/>
