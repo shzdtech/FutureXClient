@@ -53,6 +53,8 @@ namespace Micro.Future.UI
             portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
             this._futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             this.SuggestItems = _futurecontractList.Select(ci => ci.Contract).Distinct();
+            //MessageBox.Show(_futurecontractList.Select(ci => ci.Contract).Distinct().Count().ToString());
+            //MessageBox.Show(this.SuggestItems.Count().ToString());
         }
 
 
@@ -144,6 +146,7 @@ namespace Micro.Future.UI
             LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
         }
 
+        
         private void FastOrderContract_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (_currentContract != null && FastOrderContract.Text != _currentContract)
@@ -152,7 +155,7 @@ namespace Micro.Future.UI
             //MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().ContractVMCollection.Count.ToString());
 
         }
-
+        
 
         //function for Popup
 
