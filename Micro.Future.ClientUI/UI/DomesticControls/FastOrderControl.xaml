@@ -32,7 +32,6 @@
             <TextBox Name="FastOrderContract" Width="100" 
                      Text="{Binding Contract, UpdateSourceTrigger=PropertyChanged}" 
                      VerticalAlignment="Center"
-                     
                      TextChanged="FastOrderContract_TextChanged"/>
             <Label Content="{lex:Loc Key=Portofolio}" HorizontalAlignment="Center" Margin="0,8,0,0"/>
             <ComboBox x:Name="portofolioCB"  Width="74" VerticalAlignment="Center" Margin="0,4" />
