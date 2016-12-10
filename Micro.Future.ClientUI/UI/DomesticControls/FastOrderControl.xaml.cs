@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
-
+using WpfControls;
 
 namespace Micro.Future.UI
 {
@@ -20,9 +20,9 @@ namespace Micro.Future.UI
     {
         private string _currentContract;
         private IList<ContractInfo> _futurecontractList;
-        private List<string> SuggestContract;
-//        private IEnumerable<string> SuggestContract;
-        
+        //private List<string> SuggestContract;
+        //        private IEnumerable<string> SuggestContract;
+        private ISuggestionProvider provider;
 
 
         public TraderExHandler TradeHandler
@@ -53,17 +53,19 @@ namespace Micro.Future.UI
         {
             portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
             this._futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            this.SuggestContract = _futurecontractList.Select(ci => ci.Contract).Distinct().ToList();
+            //this.SuggestContract = _futurecontractList.Select(ci => ci.Contract).Distinct().ToList();
 
             //behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding SuggestContract1}"
-            WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteItemsSource(FastOrderContract, SuggestContract);
-
+            //WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteItemsSource(FastOrderContract, SuggestContract);
             //behaviors: AutoCompleteBehavior.AutoCompleteStringComparison = "InvariantCultureIgnoreCase"
-            WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteStringComparison(FastOrderContract, StringComparison.InvariantCultureIgnoreCase);
+            //WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteStringComparison(FastOrderContract, StringComparison.InvariantCultureIgnoreCase);
+            //回调函数
+            //FastOrderContract.Provider = new SuggestionProvider(  (string c)=>{ return _futurecontractList.Select(ci => ci.Contract.StartsWith(c));}  );
+            this.provider = new SuggestionProvider((string c) => { return _futurecontractList.Where(ci => ci.Contract.StartsWith(c)).Select(cn=>cn.Contract); });
+            FastOrderContract.Provider = this.provider;
+            
 
-            FastOrderContract.
 
-                
         }
 
 
@@ -155,16 +157,13 @@ namespace Micro.Future.UI
             LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
         }
 
-        
+        /*
         private void FastOrderContract_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (_currentContract != null && FastOrderContract.Text != _currentContract)
                 stackPanelPrices.DataContext = null;
-
-            //MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().ContractVMCollection.Count.ToString());
-
         }
-        
+        */
 
         //function for Popup
 
