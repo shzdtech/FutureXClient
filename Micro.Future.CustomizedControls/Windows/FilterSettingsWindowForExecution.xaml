@@ -10,7 +10,7 @@
         lex:LocalizeDictionary.OutputMissingKeys="True"
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-        Title="{lex:Loc Key=FilterSettings}" Height="300" Width="300" WindowStyle="ToolWindow">
+        Title="{lex:Loc Key=FilterSettings}" Height="325" Width="300" WindowStyle="ToolWindow">
     <Grid>
         <StackPanel>
             <Label Content="{lex:Loc Key=WindowTitle}"/>
@@ -24,8 +24,8 @@
             <TextBox x:Name="underlyingTxt"/>
             <Label Content="{lex:Loc Key=Contract}"/>
             <TextBox x:Name="contractTxt"/>
-            <Label Content="{lex:Loc Key=ExecutionStatus}"/>
-            <TextBox x:Name="statusTxt"/>
+            <!--<Label Content="{lex:Loc Key=ExecutionStatus}"/>-->
+            <!--<TextBox x:Name="statusTxt"/>-->
             <Button x:Name="OkBtn" Content="{lex:Loc Key=Enter}" IsDefault="True" Click="OkBtn_Click" Margin="35,0,53,0"/>
             <Button x:Name="ResetBtn" Content="{lex:Loc Key=Reset}" IsDefault="False" Click="ResetBtn_Click" Height="23" RenderTransformOrigin="0.478,-0.65" Margin="35,0,53,0" />
         </StackPanel>
