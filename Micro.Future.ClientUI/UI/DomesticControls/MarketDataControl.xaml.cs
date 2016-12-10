@@ -59,10 +59,8 @@ namespace Micro.Future.UI
 
         }
 
-
         private void Initialize()
         {
-            
             this._futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             //this.SuggestContract = _futurecontractList.Select(ci => ci.Contract).Distinct().ToList();
 
@@ -74,9 +72,6 @@ namespace Micro.Future.UI
             //FastOrderContract.Provider = new SuggestionProvider(  (string c)=>{ return _futurecontractList.Select(ci => ci.Contract.StartsWith(c));}  );
             this.provider = new SuggestionProvider((string c) => { return _futurecontractList.Where(ci => ci.Contract.StartsWith(c)).Select(cn => cn.Contract); });
             contractTextBox.Provider = this.provider;
-
-
-
         }
 
         public ICollectionViewLiveShaping QuoteChanged { get; set; }
