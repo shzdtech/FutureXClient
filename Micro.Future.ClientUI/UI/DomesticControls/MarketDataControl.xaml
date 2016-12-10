@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"  
-             xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+             xmlns:lex="http://wpflocalizeextension.codeplex.com" 
+             xmlns:wpf="http://wpfcontrols.com/"
              lex:LocalizeDictionary.DesignCulture="zh_CN"
              lex:LocalizeDictionary.OutputMissingKeys="True"
              lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
@@ -19,7 +20,7 @@
             </Grid.RowDefinitions>
             <WrapPanel Grid.Row="0">
                 <Label Content="{lex:Loc Key=Contract}"></Label>
-                <TextBox Name="contractTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" />
+                <wpf:AutoCompleteTextBox Name="contractTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" />
                 <Button Content="{lex:Loc Key=Add}" Click="Button_Click_Add" IsDefault="True"/>
             </WrapPanel>
 
