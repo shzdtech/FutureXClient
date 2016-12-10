@@ -10,6 +10,7 @@ using System.Linq;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 
+
 namespace Micro.Future.UI
 {
     /// <summary>
@@ -21,6 +22,8 @@ namespace Micro.Future.UI
         private IList<ContractInfo> _futurecontractList;
         private List<string> SuggestContract;
 //        private IEnumerable<string> SuggestContract;
+        
+
 
         public TraderExHandler TradeHandler
         {
@@ -58,7 +61,9 @@ namespace Micro.Future.UI
             //behaviors: AutoCompleteBehavior.AutoCompleteStringComparison = "InvariantCultureIgnoreCase"
             WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteStringComparison(FastOrderContract, StringComparison.InvariantCultureIgnoreCase);
 
+            FastOrderContract.
 
+                
         }
 
 
