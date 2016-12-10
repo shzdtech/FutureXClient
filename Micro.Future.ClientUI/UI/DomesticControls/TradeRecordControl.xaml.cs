@@ -25,7 +25,9 @@ namespace Micro.Future.UI
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow();
-        private FilterSettingsWindowForTradeRecord _filterSettingWinForTradeRecord = new FilterSettingsWindowForTradeRecord();
+        //private FilterSettingsWindowForTradeRecord _filterSettingWinForTradeRecord = new FilterSettingsWindowForTradeRecord();
+        
+
 
         public LayoutContent LayoutContent { get; set; }
 
@@ -67,7 +69,7 @@ namespace Micro.Future.UI
             //                       select p.Exchange).Distinct());
             //_tradeSettingsWin.ExchangeCollection = exchangeList;
 
-            _filterSettingWinForTradeRecord.Show();
+            _filterSettingsWin.Show();
         }
 
         public void FilterByStatus(IEnumerable<OrderOffsetType> statuses)
