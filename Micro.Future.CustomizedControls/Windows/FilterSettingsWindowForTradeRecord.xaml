@@ -23,10 +23,10 @@
             <TextBox x:Name="underlyingTxt"/>
             <Label Content="{lex:Loc Key=Contract}"/>
             <TextBox x:Name="contractTxt"/>
-            <Label Content="{lex:Loc Key=StartTime}"/>
+            <!--<Label Content="{lex:Loc Key=StartTime}"/>
             <Calendar Name="StartTime" />
             <Label Content="{lex:Loc Key=EndTime}"/>
-            <Calendar Name="EndTime" />
+            <Calendar Name="EndTime" />-->
             <Button x:Name="OkBtn" Content="{lex:Loc Key=Enter}" IsDefault="True" Click="OkBtn_Click" Margin="58,0,53,0"/>
             <Button x:Name="ResetBtn" Content="{lex:Loc Key=Reset}" IsDefault="False" Click="ResetBtn_Click" Height="23" RenderTransformOrigin="0.478,-0.65" Margin="58,0,53,0" />
         </StackPanel>

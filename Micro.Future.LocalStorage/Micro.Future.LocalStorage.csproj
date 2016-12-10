@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataObject\FilterSettings.cs" />
     <Compile Include="DataObject\ClientInfo.cs" />
     <Compile Include="DataObject\ContractInfo.cs" />
     <Compile Include="DataObject\MarketDataDO.cs" />

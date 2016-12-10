@@ -27,6 +27,8 @@ namespace Micro.Future.LocalStorage
 
         public DbSet<PersonalContract> PersonalContract { get; set; }
 
+        public DbSet<FilterSettings> FilterSettings { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Composite primary key 
