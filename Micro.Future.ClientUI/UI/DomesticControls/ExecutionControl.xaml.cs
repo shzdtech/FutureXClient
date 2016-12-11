@@ -234,24 +234,10 @@ namespace Micro.Future.UI
 
         private void ExecutionTreeView_Click(object sender, RoutedEventArgs e)
         {
-            if (e.OriginalSource is GridViewColumnHeader)
+            var head = e.OriginalSource as GridViewColumnHeader;
+            if (head != null)
             {
-                //Get clicked column
-                GridViewColumn clickedColumn = (e.OriginalSource as GridViewColumnHeader).Column;
-                if (clickedColumn != null)
-                {
-                    //Get binding property of clicked column
-                    string bindingProperty = (clickedColumn.DisplayMemberBinding as Binding).Path.Path;
-                    SortDescriptionCollection sdc = ExecutionTreeView.Items.SortDescriptions;
-                    ListSortDirection sortDirection = ListSortDirection.Ascending;
-                    if (sdc.Count > 0)
-                    {
-                        SortDescription sd = sdc[0];
-                        sortDirection = (ListSortDirection)((((int)sd.Direction) + 1) % 2);
-                        sdc.Clear();
-                    }
-                    sdc.Add(new SortDescription(bindingProperty, sortDirection));
-                }
+                GridViewUtility.Sort(head.Column, ExecutionTreeView.Items);
             }
         }
 

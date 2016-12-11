@@ -17,7 +17,7 @@
     </UserControl.Resources>
     
     <Grid>
-        <ListView Name="PositionListView" SelectionChanged="PositionListView_SelectionChanged" >
+        <ListView Name="PositionListView" GridViewColumnHeader.Click = "PositionListView_Click"  SelectionChanged="PositionListView_SelectionChanged" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" />
