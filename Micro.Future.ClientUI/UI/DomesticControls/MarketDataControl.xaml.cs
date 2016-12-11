@@ -23,6 +23,7 @@ using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.CustomizedControls;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
+using WpfControls;
 
 namespace Micro.Future.UI
 {
@@ -34,10 +35,13 @@ namespace Micro.Future.UI
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow();
+        private IList<ContractInfo> _futurecontractList;
+        private ISuggestionProvider provider;
 
         public MarketDataControl()
         {
             InitializeComponent();
+            Initialize();
 
             _viewSource.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
             _filterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
@@ -53,6 +57,21 @@ namespace Micro.Future.UI
 
             mColumns = ColumnObject.GetColumns(quoteListView);
 
+        }
+
+        private void Initialize()
+        {
+            this._futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            //this.SuggestContract = _futurecontractList.Select(ci => ci.Contract).Distinct().ToList();
+
+            //behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding SuggestContract1}"
+            //WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteItemsSource(FastOrderContract, SuggestContract);
+            //behaviors: AutoCompleteBehavior.AutoCompleteStringComparison = "InvariantCultureIgnoreCase"
+            //WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteStringComparison(FastOrderContract, StringComparison.InvariantCultureIgnoreCase);
+            //回调函数
+            //FastOrderContract.Provider = new SuggestionProvider(  (string c)=>{ return _futurecontractList.Select(ci => ci.Contract.StartsWith(c));}  );
+            this.provider = new SuggestionProvider((string c) => { return _futurecontractList.Where(ci => ci.Contract.StartsWith(c)).Select(cn => cn.Contract); });
+            contractTextBox.Provider = this.provider;
         }
 
         public ICollectionViewLiveShaping QuoteChanged { get; set; }

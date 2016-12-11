@@ -6,7 +6,7 @@
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:local="clr-namespace:Micro.Future.Utility;assembly=Micro.Future.Utility"
     xmlns:lex="http://wpflocalizeextension.codeplex.com" 
-    xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
+    xmlns:wpf="http://wpfcontrols.com/"
     lex:LocalizeDictionary.DesignCulture="zh_CN"
     lex:LocalizeDictionary.OutputMissingKeys="True"
     lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
@@ -29,10 +29,11 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Width="300" Height="30">
             <Label VerticalAlignment="Center" Content="{lex:Loc Key=Contract}" Width="35"></Label>
-            <TextBox Name="FastOrderContract" Width="100" 
+            <wpf:AutoCompleteTextBox Name="FastOrderContract" Width="100" 
                      Text="{Binding Contract, UpdateSourceTrigger=PropertyChanged}" 
                      VerticalAlignment="Center"
-                     TextChanged="FastOrderContract_TextChanged"/>
+                     />
+            
             <Label Content="{lex:Loc Key=Portofolio}" HorizontalAlignment="Center" Margin="0,8,0,0"/>
             <ComboBox x:Name="portofolioCB"  Width="74" VerticalAlignment="Center" Margin="0,4" />
         </StackPanel>
