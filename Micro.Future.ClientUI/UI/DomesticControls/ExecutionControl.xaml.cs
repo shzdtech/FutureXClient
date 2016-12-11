@@ -15,6 +15,7 @@ using Micro.Future.CustomizedControls;
 using Micro.Future.CustomizedControls.Controls;
 using System;
 using Micro.Future.Resources.Localization;
+using Micro.Future.LocalStorage;
 
 namespace Micro.Future.UI
 {
@@ -44,13 +45,14 @@ namespace Micro.Future.UI
             ExecutionTreeView.ItemsSource = _viewSource.View;
 
             mColumns = ColumnObject.GetColumns(ExecutionTreeView);
+
         }
 
-        private void _executionSettingsWin_OnFiltering(string tabTitle, string exchange, string portfolio, string underlying, string contract)
+        private void _executionSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
         {
             if (LayoutContent != null)
                 LayoutContent.Title = _filterSettingsWindow.FilterTabTitle;
-            Filter(tabTitle, exchange, portfolio, underlying, contract);
+            Filter(tabTitle, exchange, underlying, contract);
         }
 
         private void RadioButton_Checked_AllOrder(object sender, RoutedEventArgs e)
@@ -72,7 +74,7 @@ namespace Micro.Future.UI
             _filterSettingsWindow.Show();
         }
 
-        public void Filter(string tabTitle,string exchange, string portfolio, string underlying, string contract)
+        public void Filter(string tabTitle,string exchange, string underlying, string contract)
         {
             if (ExecutionTreeView == null)
             {

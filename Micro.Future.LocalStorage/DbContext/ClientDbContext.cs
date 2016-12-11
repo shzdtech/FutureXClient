@@ -104,5 +104,27 @@ namespace Micro.Future.LocalStorage
 
             return now;
         }
+
+        public static void SaveFilterSettings(int Id, string title, string exchange, string contract, string underlying)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                var filterinfo = clientCtx.FilterSettings.FirstOrDefault(t => t.Id == Id);
+                if (filterinfo == null)
+                {
+                    filterinfo = new FilterSettings();
+                    //insert new record
+                    clientCtx.FilterSettings.Add(filterinfo);
+                }
+
+                filterinfo.Title = title;
+                filterinfo.Exchange = exchange;
+                filterinfo.Underlying = underlying;
+                filterinfo.Contract = contract;
+
+                clientCtx.SaveChanges();
+            }
+        }
     }
 }
+

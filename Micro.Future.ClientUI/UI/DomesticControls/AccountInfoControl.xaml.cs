@@ -2,6 +2,8 @@
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
 using System.Windows;
+using System.Threading;
+using System;
 
 namespace Micro.Future.UI
 {
@@ -11,6 +13,7 @@ namespace Micro.Future.UI
     public partial class AccountInfoControl : UserControl, IReloadData
     {
         private ColumnObject[] mColumns;
+        private Timer _timer;
 
         public AccountInfoControl()
         {
@@ -20,11 +23,17 @@ namespace Micro.Future.UI
                 MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().FundVMCollection;
 
             mColumns = ColumnObject.GetColumns(FundListView);
+            int interval = 2000;
+            _timer = new Timer(ReloadDataCallback, null, interval, interval);
+        }
+
+        private void ReloadDataCallback(object state)
+        {
+            Dispatcher.Invoke(ReloadData);
         }
 
         public void ReloadData()
         {
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().FundVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryAccountInfo();
         }
 

@@ -1,26 +1,45 @@
-﻿using System;
+﻿using Micro.Future.LocalStorage;
+using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Micro.Future.LocalStorage.DataObject;
+using System.Threading.Tasks;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Micro.Future.Windows
 {
 
     public partial class FilterSettingsWindow : Window
     {
-        public event Action<string, string, string, string, string> OnFiltering;
+        public event Action<string, string, string, string> OnFiltering;
 
         public FilterSettingsWindow()
         {
             InitializeComponent();
+            using (var clientCtx = new ClientDbContext())
+            {
+                FilterSettingsList = clientCtx.FilterSettings.ToList();
+                titleCombo.ItemsSource = FilterSettingsList.Select(t => t.Title);
+            }
         }
+
+        public IList<FilterSettings> FilterSettingsList
+        {
+            get;
+            set;
+        }
+
 
         public string FilterTabTitle
         {
             get
             {
-                return titleTxt.Text;
+                return titleCombo.Text;
             }
-            set { titleTxt.Text = value; }
+            set { titleCombo.Text = value; }
         }
 
         public string FilterExchange
@@ -50,20 +69,27 @@ namespace Micro.Future.Windows
             set { contractTxt.Text = value; }
         }
 
-        public string FilterPortfolio
+        //public string FilterPortfolio
+        //{
+        //    get
+        //    {
+        //        return portfolioTxt.Text;
+        //    }
+        //    set { portfolioTxt.Text = value; }
+        //}
+
+        public int FilterId
         {
-            get
-            {
-                return portfolioTxt.Text;
-            }
-            set { portfolioTxt.Text = value; }
+            get;
+            set;
         }
 
 
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             Hide();
-            OnFiltering?.Invoke(FilterTabTitle, FilterExchange, FilterPortfolio, FilterUnderlying, FilterContract);
+            OnFiltering?.Invoke(FilterTabTitle, FilterExchange, FilterUnderlying, FilterContract);
+            ClientDbContext.SaveFilterSettings(FilterId, FilterTabTitle, FilterExchange, FilterContract, FilterUnderlying);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -72,7 +98,7 @@ namespace Micro.Future.Windows
             e.Cancel = CancelClosing;
             base.OnClosing(e);
         }
-        
+
         public bool CancelClosing
         {
             get; set;
@@ -80,11 +106,26 @@ namespace Micro.Future.Windows
 
         private void ResetBtn_Click(object sender, RoutedEventArgs e)
         {
-            titleTxt.Text = "";
+            titleCombo.Text = "";
             exchangecombo.Text = "";
             underlyingTxt.Text = "";
             contractTxt.Text = "";
-            portfolioTxt.Text = "";
+            //portfolioTxt.Text = "";
+
+        }
+
+        private void titleCombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if(titleCombo.SelectedIndex >=0)
+            {
+                var filtersetting = FilterSettingsList[titleCombo.SelectedIndex];
+                FilterId = filtersetting.Id;
+                exchangecombo.Text = filtersetting.Exchange;
+                underlyingTxt.Text = filtersetting.Underlying;
+                contractTxt.Text = filtersetting.Contract;
+            }
+
+            //exchangecombo.Text = FilterSettingsList[titleCombo.];
 
         }
     }

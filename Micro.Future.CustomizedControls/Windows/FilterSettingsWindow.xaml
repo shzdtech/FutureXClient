@@ -4,22 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Micro.Future.Windows"
-        mc:Ignorable="d"
-        xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+        xmlns:lex="http://wpflocalizeextension.codeplex.com" 
         lex:LocalizeDictionary.DesignCulture="zh_CN"
         lex:LocalizeDictionary.OutputMissingKeys="True"
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
-        lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+        lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+        mc:Ignorable="d"    
         Title="{lex:Loc Key=FilterSettings}" Height="284.619" Width="300" WindowStyle="ToolWindow">
     <Grid>
         <StackPanel>
             <Label Content="{lex:Loc Key=WindowTitle}"/>
-            <TextBox x:Name="titleTxt"/>
+            <ComboBox x:Name="titleCombo" SelectionChanged="titleCombo_SelectionChanged" IsEditable="True"  />
             <Label Content="{lex:Loc Key=Exchange}"/>
             <TextBox x:Name="exchangecombo"/>
             <!--<ComboBox x:Name="exchangecombo" SelectedIndex="0" IsEditable="True"/>-->
-            <Label Content="{lex:Loc Key=Portfolio}"/>
-            <TextBox x:Name="portfolioTxt"/>
+            <!--<Label Content="{lex:Loc Key=Portfolio}"/>
+            <TextBox x:Name="portfolioTxt"/>-->
             <Label Content="{lex:Loc Key=Underlying}"/>
             <TextBox x:Name="underlyingTxt"/>
             <Label Content="{lex:Loc Key=Contract}"/>

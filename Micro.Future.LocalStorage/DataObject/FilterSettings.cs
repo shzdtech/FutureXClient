@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Micro.Future.LocalStorage.DataObject
 {
     public class FilterSettings
@@ -16,5 +17,9 @@ namespace Micro.Future.LocalStorage.DataObject
         public string Underlying { get; set; }
 
         public string Title { get; set; }
+
+        public string UserID { get; set; }
+
+        public int Id { get; set; }
     }
 }

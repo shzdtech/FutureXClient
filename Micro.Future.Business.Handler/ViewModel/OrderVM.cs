@@ -231,7 +231,7 @@ namespace Micro.Future.ViewModel
 
 
 
-        private void sendOrder(object param)
+        public void SendOrder(object param = null)
         {
             //this.Direction = (string)directStr == "1" ? DirectionType.BUY : DirectionType.SELL;
             TradeHandler?.CreateOrder(this);
@@ -244,7 +244,7 @@ namespace Micro.Future.ViewModel
             {
                 if (_sendOrderCommand == null)
                 {
-                    _sendOrderCommand = new RelayCommand(sendOrder);
+                    _sendOrderCommand = new RelayCommand(SendOrder);
                 }
                 return _sendOrderCommand;
             }

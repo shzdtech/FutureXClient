@@ -83,7 +83,7 @@
                 <Label x:Name="LabelAskPrice" Content="{Binding AskPrice}" MouseDown="LabelAskPrice_MouseDown" />
                 <Label x:Name="LabelLowerPrice" Content="{Binding LowerLimitPrice}" MouseDown="labellowerprice_MouseDown" />
             </StackPanel>
-            <Button x:Name="BuySummitButton" Content="{lex:Loc Key=Order}" Command="{Binding SendOrderCommand}" MinWidth="100" />
+            <Button x:Name="BuySummitButton" Content="{lex:Loc Key=Order}" MinWidth="100" Click="SendOrderButton" />
         </StackPanel>
     </Grid>
 </UserControl>

@@ -159,7 +159,17 @@ namespace Micro.Future.UI
             //MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().ContractVMCollection.Count.ToString());
 
         }
-        
+
+        private void SendOrderButton(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult dr = MessageBox.Show("是否确认下单", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            if (dr == MessageBoxResult.OK)
+            {
+                OrderVM.SendOrder();
+            }
+
+        }
+
 
         //function for Popup
 
@@ -197,16 +207,16 @@ namespace Micro.Future.UI
         //    {
         //        if (MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList() != null)
         //        {
-                    
+
         //            listContract = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().getContractNameList();
         //        }
         //        else
         //        {
         //            MessageBox.Show("listContract is exist");
         //        }
-                
+
         //    }
-           
+
         //   var item = listContract.Where(a => a.Contains(FastOrderContract.Text));
         //   if (item.ToList<string>().Count > 0)
         //   {
@@ -217,7 +227,7 @@ namespace Micro.Future.UI
         //   {
         //        pop.IsOpen = false;
         //   }
-            
+
         //}
 
         //private Popup createPopup(Popup pop, List<string> listSource, UIElement element)
@@ -257,7 +267,7 @@ namespace Micro.Future.UI
         //    {
         //        this.portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection;
         //    }
-            
+
         //}
     }
 }

@@ -57,9 +57,9 @@ namespace Micro.Future.UI
 
         public ICollectionViewLiveShaping QuoteChanged { get; set; }
 
-        private void _fiterSettingsWin_OnFiltering(string tabTitle, string exchange, string portfolio, string underlying, string contract)
+        private void _fiterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
         {
-            Filter(tabTitle, exchange, portfolio, underlying, contract);
+            Filter(tabTitle, exchange, underlying, contract);
         }
 
         public event Action<MarketDataVM> OnQuoteSelected;
@@ -170,7 +170,7 @@ namespace Micro.Future.UI
         }
 
         //DataType is for window style, tabIndex is for 
-        public void Filter(string tabTitle, string exchange, string portfolio,string underlying, string contract)
+        public void Filter(string tabTitle, string exchange, string underlying, string contract)
         {
             for (int count = 0; count < this.AnchorablePane.ChildrenCount; count++)
             {
@@ -196,7 +196,6 @@ namespace Micro.Future.UI
                 MarketDataVM qvm = o as MarketDataVM;
 
                 if (qvm.Exchange.ContainsAny(exchange) &&
-                    qvm.Exchange.ContainsAny(portfolio) &&
                     qvm.Contract.ContainsAny(contract) &&
                     qvm.Contract.ContainsAny(underlying))
                 {
