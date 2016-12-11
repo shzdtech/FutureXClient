@@ -32,6 +32,17 @@
         <Setter Property="TextAlignment" Value="Right" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding Direction}" Value="1">
+                <!--<DataTrigger.EnterActions>
+                    <BeginStoryboard x:Name="bidDownStory">
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="Background" Duration="0:0:1" From="{x:Null}" To="Red">
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <StopStoryboard BeginStoryboardName="bidDownStory" />
+                </DataTrigger.ExitActions>-->
                 <Setter Property="Background" Value="Red" />
             </DataTrigger>
             <DataTrigger Binding="{Binding Direction}" Value="-1">

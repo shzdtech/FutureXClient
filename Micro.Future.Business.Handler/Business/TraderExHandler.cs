@@ -231,13 +231,15 @@ namespace Micro.Future.Message
                 fund = new FundVM
                 {
                     BrokerID = rsp.BrokerID,
+                    AccountID = rsp.AccountID,
+                    SettlementID = rsp.SettlementID,
             };
 
                 FundVMCollection.Add(fund);
             }
             fund.Commission = rsp.Commission;
             
-            fund.AccountID = rsp.AccountID;
+            
             fund.PreMortgage = rsp.PreMortgage;
             fund.PreCredit = rsp.PreCredit;
             fund.PreDeposit = rsp.PreDeposit;
@@ -258,7 +260,6 @@ namespace Micro.Future.Message
             fund.WithdrawQuota = rsp.WithdrawQuota;
             fund.Reserve = rsp.Reserve;
             fund.TradingDay = rsp.TradingDay;
-            fund.SettlementID = rsp.SettlementID;
             fund.Credit = rsp.Credit;
             fund.Mortgage = rsp.Mortgage;
             fund.ExchangeMargin = rsp.ExchangeMargin;

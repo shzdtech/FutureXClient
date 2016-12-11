@@ -157,7 +157,6 @@ namespace Micro.Future.UI
             LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
         }
 
-        /*
         private void FastOrderContract_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (_currentContract != null && FastOrderContract.Text != _currentContract)
