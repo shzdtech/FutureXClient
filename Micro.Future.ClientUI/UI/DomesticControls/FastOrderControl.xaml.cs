@@ -51,18 +51,11 @@ namespace Micro.Future.UI
             portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
             this._futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             this.SuggestContract = _futurecontractList.Select(ci => ci.Contract).Distinct().ToList();
-            //MessageBox.Show(_futurecontractList.Select(ci => ci.Contract).Distinct().Count().ToString());
-            //MessageBox.Show(this.SuggestContract.Count().ToString());
-            //SuggestContract1.Add("cu1702");
-            //SuggestContract1.Add("cu1703");
-            //SuggestContract = _futurecontractList.Select(ci => ci.Contract).Distinct();
-            //for (int index = 0; index < SuggestContract.Count; index++)
-            //{
-            //MessageBox.Show(SuggestContract[index]);
-            //}
+
+            //behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding SuggestContract1}"
             WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteItemsSource(FastOrderContract, SuggestContract);
-            //                     behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding SuggestContract1}"
-            //                     behaviors: AutoCompleteBehavior.AutoCompleteStringComparison = "InvariantCultureIgnoreCase"
+
+            //behaviors: AutoCompleteBehavior.AutoCompleteStringComparison = "InvariantCultureIgnoreCase"
             WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteStringComparison(FastOrderContract, StringComparison.InvariantCultureIgnoreCase);
 
 

@@ -84,7 +84,7 @@ namespace Micro.Future.Windows
             portfolioTxt.Text = "";
             underlyingTxt.Text = "";
             contractTxt.Text = "";
-            statusTxt.Text = "";
+            //statusTxt.Text = "";
 
         }
     }
