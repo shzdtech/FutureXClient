@@ -163,5 +163,14 @@ namespace Micro.Future.UI
                 return false;
             };
         }
+
+        private void PositionListView_Click(object sender, RoutedEventArgs e)
+        {
+            var head = e.OriginalSource as GridViewColumnHeader;
+            if (head != null)
+            {
+                GridViewUtility.Sort(head.Column, PositionListView.Items);
+            }
+        }
     }
 }
