@@ -266,7 +266,11 @@ namespace Micro.Future.UI
 
         private void TradeTreeView_Click(object sender, RoutedEventArgs e)
         {
-
+            var head = e.OriginalSource as GridViewColumnHeader;
+            if (head != null)
+            {
+                GridViewUtility.Sort(head.Column, TradeTreeView.Items);
+            }
         }
 
         public void ReloadData()
