@@ -4,6 +4,8 @@ using Micro.Future.Message;
 using System.Windows;
 using System.Threading;
 using System;
+using System.Windows.Data;
+using System.Collections.ObjectModel;
 
 namespace Micro.Future.UI
 {
@@ -14,14 +16,23 @@ namespace Micro.Future.UI
     {
         private ColumnObject[] mColumns;
         private Timer _timer;
+        public ObservableCollection<FundVM> FundVMCollection
+        {
+            get;
+        } = new ObservableCollection<FundVM>();
+
+        public string PersistanceId
+        {
+            get;
+            set;
+        }
 
         public AccountInfoControl()
         {
             InitializeComponent();
-
-            FundListView.ItemsSource =
-                MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().FundVMCollection;
-
+            var fund = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().FundVM;
+            FundVMCollection.Add(fund);
+            FundListView.ItemsSource = FundVMCollection;
             mColumns = ColumnObject.GetColumns(FundListView);
             int interval = 2000;
             _timer = new Timer(ReloadDataCallback, null, interval, interval);

@@ -26,6 +26,11 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
         }
+        public string PersistanceId
+        {
+            get;
+            set;
+        }
 
         public AbstractOTCHandler OTCHandler { get; set; }
 

@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\AvalonLayoutExtenstions.cs" />
+    <Compile Include="Controls\IReloadableCtrl.cs" />
     <Compile Include="Controls\ILayoutAnchorableControl.cs" />
     <Compile Include="Controls\LoginStatus.xaml.cs">
       <DependentUpon>LoginStatus.xaml</DependentUpon>
@@ -84,6 +85,9 @@
     </Compile>
     <Compile Include="Windows\PortofolioWindow.xaml.cs">
       <DependentUpon>PortofolioWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FutureAccountInfo.xaml.cs">
+      <DependentUpon>FutureAccountInfo.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\LoginStatus.xaml">
       <SubType>Designer</SubType>
@@ -125,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\PortofolioWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FutureAccountInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -17,6 +17,10 @@ namespace Micro.Future.Message
     {
         public event Action<Exception> OnOrderError;
 
+ public FundVM FundVM         {
+            get;
+        } = new FundVM();        
+
         public ObservableCollection<TradeVM> TradeVMCollection
         {
             get;
@@ -195,47 +199,38 @@ namespace Micro.Future.Message
         }
         private void OnFund(PBAccountInfo rsp)
         {
-            var fund = FundVMCollection.FirstOrDefault((pb) => string.Compare(pb.AccountID, rsp.AccountID, true) == 0);
-            if (fund == null)
-            {
-                fund = new FundVM
-                {
-                    BrokerID = rsp.BrokerID,
-                    AccountID = rsp.AccountID,
-                    SettlementID = rsp.SettlementID,
-            };
 
-                FundVMCollection.Add(fund);
-            }
-            fund.Commission = rsp.Commission;
-            
-            
-            fund.PreMortgage = rsp.PreMortgage;
-            fund.PreCredit = rsp.PreCredit;
-            fund.PreDeposit = rsp.PreDeposit;
-            fund.PreBalance = rsp.PreBalance;
-            fund.PreMargin = rsp.PreMargin;
-            fund.InterestBase = rsp.InterestBase;
-            fund.Deposit = rsp.Deposit;
-            fund.Withdraw = rsp.Withdraw;
-            fund.FrozenMargin = rsp.FrozenMargin;
-            fund.FrozenCash = rsp.FrozenCash;
-            fund.FrozenCommission = rsp.FrozenCommission;
-            fund.CurrMargin = rsp.CurrMargin;
-            fund.CashIn = rsp.CashIn;
-            fund.CloseProfit = rsp.CloseProfit;
-            fund.PositionProfit = rsp.PositionProfit;
-            fund.Balance = rsp.Balance;
-            fund.Available = rsp.Available;
-            fund.WithdrawQuota = rsp.WithdrawQuota;
-            fund.Reserve = rsp.Reserve;
-            fund.TradingDay = rsp.TradingDay;
-            fund.Credit = rsp.Credit;
-            fund.Mortgage = rsp.Mortgage;
-            fund.ExchangeMargin = rsp.ExchangeMargin;
-            fund.DeliveryMargin = rsp.DeliveryMargin;
-            fund.ExchangeDeliveryMargin = rsp.ExchangeDeliveryMargin;
-            fund.ReserveBalance = rsp.ReserveBalance;
+            FundVM.Commission = rsp.Commission;
+            FundVM.BrokerID = rsp.BrokerID;
+            FundVM.AccountID = rsp.AccountID;
+            FundVM.SettlementID = rsp.SettlementID;
+            FundVM.PreMortgage = rsp.PreMortgage;
+            FundVM.PreCredit = rsp.PreCredit;
+            FundVM.PreDeposit = rsp.PreDeposit;
+            FundVM.PreBalance = rsp.PreBalance;
+            FundVM.PreMargin = rsp.PreMargin;
+            FundVM.InterestBase = rsp.InterestBase;
+            FundVM.Deposit = rsp.Deposit;
+            FundVM.Withdraw = rsp.Withdraw;
+            FundVM.FrozenMargin = rsp.FrozenMargin;
+            FundVM.FrozenCash = rsp.FrozenCash;
+            FundVM.FrozenCommission = rsp.FrozenCommission;
+            FundVM.CurrMargin = rsp.CurrMargin;
+            FundVM.CashIn = rsp.CashIn;
+            FundVM.CloseProfit = rsp.CloseProfit;
+            FundVM.PositionProfit = rsp.PositionProfit;
+            FundVM.Balance = rsp.Balance;
+            FundVM.Available = rsp.Available;
+            FundVM.WithdrawQuota = rsp.WithdrawQuota;
+            FundVM.Reserve = rsp.Reserve;
+            FundVM.TradingDay = rsp.TradingDay;
+            FundVM.Credit = rsp.Credit;
+            FundVM.Mortgage = rsp.Mortgage;
+            FundVM.ExchangeMargin = rsp.ExchangeMargin;
+            FundVM.DeliveryMargin = rsp.DeliveryMargin;
+            FundVM.ExchangeDeliveryMargin = rsp.ExchangeDeliveryMargin;
+            FundVM.ReserveBalance = rsp.ReserveBalance;
+            FundVM.StaticBalance = rsp.PreBalance - rsp.PreCredit - rsp.PreCredit + rsp.Mortgage - rsp.Withdraw + rsp.Deposit;
         }
         private void OnReturnOrder(PBOrderInfo rsp)
         {

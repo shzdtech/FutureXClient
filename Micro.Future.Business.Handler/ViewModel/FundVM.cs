@@ -368,5 +368,16 @@
                 OnPropertyChanged("ReserveBalance");
             }
         }
+
+        private double _staticBalance;
+        public double StaticBalance
+        {
+            get { return _staticBalance; }
+            set
+            {
+                _staticBalance = value;
+                OnPropertyChanged("StaticBalance");
+            }
+        }
     }
 }

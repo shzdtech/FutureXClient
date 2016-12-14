@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Micro.Future.ViewModel
+namespace Micro.Future.CustomizedControls.Controls
 {
-    public interface IReloadData
+    public interface IReloadableCtrl
     {
-        void ReloadData();
-        string PersistanceId { get; set; }
+        string ControlId { get; set; }
     }
+
 }

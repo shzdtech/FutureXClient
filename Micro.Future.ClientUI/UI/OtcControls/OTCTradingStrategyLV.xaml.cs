@@ -34,6 +34,11 @@ namespace Micro.Future.UI
         }
 
         public AbstractOTCHandler OTCHandler { get; set; }
+        public string PersistanceId
+        {
+            get;
+            set;
+        }
 
         public void ReloadData()
         {

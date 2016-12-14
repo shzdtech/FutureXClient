@@ -28,10 +28,16 @@ namespace Micro.Future.UI
 
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private FilterSettingsWindow _filterSettingsWindow = new FilterSettingsWindow();
-
+        private FilterSettingsWindow _filterSettingsWin =
+    new FilterSettingsWindow() { PersistanceId = typeof(ExecutionControl).Name, CancelClosing = true };
         public LayoutContent LayoutContent { get; set; }
 
         public LayoutAnchorablePane AnchorablePane{ get; set;}
+        public string PersistanceId
+        {
+            get;
+            set;
+        }
 
         public ExecutionControl()
         {
@@ -246,7 +252,9 @@ namespace Micro.Future.UI
             OrderVM item = ExecutionTreeView.SelectedItem as OrderVM;
             if ((item != null) && item.Active)
             {
-                MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().CancelOrder(item);
+                MessageBoxResult dr = MessageBox.Show("是否确认取消订单", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                if (dr == MessageBoxResult.OK)
+                    MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().CancelOrder(item);
             }
             else
             {
@@ -273,6 +281,13 @@ namespace Micro.Future.UI
         {
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryOrder();
+            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, PersistanceId);
+            foreach (var fs in filtersettings)
+            {
+                var executionctrl = new PositionControl();
+                AnchorablePane.AddContent(executionctrl).Title = fs.Title;
+                executionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+            }
         }
     }
 }

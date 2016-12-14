@@ -36,17 +36,28 @@ namespace Micro.Future.UI
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow();
         private IList<ContractInfo> _futurecontractList;
-        private ISuggestionProvider provider;
+        protected readonly MarketContract _userContractDbCtx;
+        public string PersistanceId
+        {
+            get;
+            set;
+        }
+
 
         public MarketDataControl()
         {
             InitializeComponent();
-            Initialize();
+            Initialize();            
+        }
+
+        private void Initialize()
+        {
+            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            contractTextBox.Provider = new SuggestionProvider((string c) => { return _futurecontractList.Where(ci => ci.Contract.StartsWith(c)).Select(cn => cn.Contract); });
 
             _viewSource.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
             _filterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
-            quoteListView.ItemsSource = _viewSource.View;
-
+            quoteListView.ItemsSource = _viewSource.View;            
             QuoteChanged = _viewSource.View as ICollectionViewLiveShaping;
             if (QuoteChanged.CanChangeLiveFiltering)
             {
@@ -56,25 +67,20 @@ namespace Micro.Future.UI
             }
 
             mColumns = ColumnObject.GetColumns(quoteListView);
-
-        }
-
-        private void Initialize()
-        {
-            this._futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            //this.SuggestContract = _futurecontractList.Select(ci => ci.Contract).Distinct().ToList();
-
-            //behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding SuggestContract1}"
-            //WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteItemsSource(FastOrderContract, SuggestContract);
-            //behaviors: AutoCompleteBehavior.AutoCompleteStringComparison = "InvariantCultureIgnoreCase"
-            //WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteStringComparison(FastOrderContract, StringComparison.InvariantCultureIgnoreCase);
-            //回调函数
-            //FastOrderContract.Provider = new SuggestionProvider(  (string c)=>{ return _futurecontractList.Select(ci => ci.Contract.StartsWith(c));}  );
-            this.provider = new SuggestionProvider((string c) => { return _futurecontractList.Where(ci => ci.Contract.StartsWith(c)).Select(cn => cn.Contract); });
-            contractTextBox.Provider = this.provider;
         }
 
         public ICollectionViewLiveShaping QuoteChanged { get; set; }
+
+    public virtual void LoadUserContracts()
+        {
+
+                var contracts = ClientDbContext.GetUserContracts(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id);
+                if (contracts != null)
+            {
+                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(contracts);
+            }
+        }
+
 
         private void _fiterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
         {
@@ -84,7 +90,7 @@ namespace Micro.Future.UI
         public event Action<MarketDataVM> OnQuoteSelected;
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {   
+        {
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
             win.Show();
         }
@@ -96,6 +102,7 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
+            LoadUserContracts();
             MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
                 ResubMarketData();
         }
@@ -120,31 +127,18 @@ namespace Micro.Future.UI
 
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
-            if (contractTextBox.Text == "")
+            string quote = contractTextBox.SelectedItem == null ? contractTextBox.Text : contractTextBox.SelectedItem.ToString();
+            if (!_futurecontractList.Any(c => c.Contract == quote))
             {
                 this.contractTextBox.Background = new SolidColorBrush(Colors.Red);
-                MessageBox.Show("输入合约不能为空");
+                MessageBox.Show("输入合约" + quote + "不存在");
+                contractTextBox.Text = "";
                 this.contractTextBox.Background = new SolidColorBrush(Colors.White);
                 return;
             }
-
-            using (var clientCtx = new ClientDbContext())
-            {
-                var query = from contractInfo in clientCtx.ContractInfo where contractInfo.Contract == contractTextBox.Text select contractInfo;
-                if (query.Any()==false)
-                {
-                    this.contractTextBox.Background = new SolidColorBrush(Colors.Red);
-                    MessageBox.Show("输入合约不存在");
-                    contractTextBox.Text = "";
-                    this.contractTextBox.Background = new SolidColorBrush(Colors.White);
-                }
-            }
-
-            var quote = contractTextBox.Text;
-
+            ClientDbContext.SaveMarketContract(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, quote);
             var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
                        QuoteVMCollection.FirstOrDefault((obj) => string.Compare(obj.Contract, quote, true) == 0);
-
 
             if (item != null)
             {
@@ -152,7 +146,7 @@ namespace Micro.Future.UI
             }
             else
             {
-                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);     
+                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
             }
         }
 
@@ -184,7 +178,7 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_ShowCustomizedContractTab(object sender, RoutedEventArgs e)
         {
-            if(AnchorablePane!=null)
+            if (AnchorablePane != null)
                 AnchorablePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
@@ -194,7 +188,7 @@ namespace Micro.Future.UI
             for (int count = 0; count < this.AnchorablePane.ChildrenCount; count++)
             {
                 if (this.AnchorablePane.Children[count].Title.Equals(tabTitle))
-                { 
+                {
                     MessageBox.Show("已存在同名窗口,请重新输入.");
                     return;
                 }
@@ -248,8 +242,17 @@ namespace Micro.Future.UI
                 return false;
             };
         }
-        
-        
-        
+
+        private void quoteListView_Click(object sender, RoutedEventArgs e)
+        {
+            var head = e.OriginalSource as GridViewColumnHeader;
+            if (head != null)
+            {
+                GridViewUtility.Sort(head.Column, quoteListView.Items);
+            }
+        }
+
+
+
     }
 }

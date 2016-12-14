@@ -29,11 +29,16 @@ namespace Micro.Future.LocalStorage
 
         public DbSet<FilterSettings> FilterSettings { get; set; }
 
+        public DbSet<MarketContract> MarketContract { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Composite primary key 
             modelBuilder.Entity<ContractInfo>().HasKey(c => new { c.Exchange, c.Contract });
             modelBuilder.Entity<PersonalContract>().HasKey(p => new { p.UserID, p.Contract });
+            modelBuilder.Entity<MarketContract>().HasKey(m => new { m.AccountID, m.Contract });
+
         }
 
         public string ConnectionString { get; protected set; }
@@ -105,7 +110,7 @@ namespace Micro.Future.LocalStorage
             return now;
         }
 
-        public static void SaveFilterSettings(int Id, string title, string exchange, string contract, string underlying)
+        public static void SaveFilterSettings(string ctrlID, int Id, string title, string exchange, string contract, string underlying)
         {
             using (var clientCtx = new ClientDbContext())
             {
@@ -116,7 +121,7 @@ namespace Micro.Future.LocalStorage
                     //insert new record
                     clientCtx.FilterSettings.Add(filterinfo);
                 }
-
+                filterinfo.CtrlID = ctrlID;
                 filterinfo.Title = title;
                 filterinfo.Exchange = exchange;
                 filterinfo.Underlying = underlying;
@@ -125,6 +130,45 @@ namespace Micro.Future.LocalStorage
                 clientCtx.SaveChanges();
             }
         }
+
+        public static void SaveMarketContract(string userID, string contract)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                var marketcontract = clientCtx.MarketContract.FirstOrDefault(t => t.Contract == contract);
+                if (marketcontract == null)
+                {
+                    marketcontract = new MarketContract();
+                    //insert new record
+                    clientCtx.MarketContract.Add(marketcontract);
+                }
+
+                marketcontract.AccountID = userID;
+                marketcontract.Contract = contract;
+
+                clientCtx.SaveChanges();
+            }
+        }
+
+        public static IEnumerable<string> GetUserContracts(string userId)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                return (from u in clientCtx.MarketContract
+                        where u.AccountID == userId
+                        select u.Contract).ToList();
+            }
+                
+        }
+        public static IList<FilterSettings> GetFilterSettings(string userId, string ctrlID)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                return (clientCtx.FilterSettings.Where(c => c.UserID == userId && c.CtrlID == ctrlID)).ToList();
+            }
+        }
+
+
     }
 }
 

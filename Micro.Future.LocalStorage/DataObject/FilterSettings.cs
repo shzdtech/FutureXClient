@@ -21,5 +21,7 @@ namespace Micro.Future.LocalStorage.DataObject
         public string UserID { get; set; }
 
         public int Id { get; set; }
+
+        public string CtrlID { get; set; }
     }
 }

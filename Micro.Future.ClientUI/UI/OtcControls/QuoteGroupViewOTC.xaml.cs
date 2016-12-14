@@ -32,6 +32,11 @@ namespace Micro.Future.UI
         }
 
         public event Action<OTCPricingVM> OnQuoteSelected;
+        public string PersistanceId
+        {
+            get;
+            set;
+        }
 
         public void ReloadData()
         {

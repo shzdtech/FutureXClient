@@ -21,10 +21,10 @@
             <WrapPanel Grid.Row="0">
                 <Label Content="{lex:Loc Key=Contract}"></Label>
                 <wpf:AutoCompleteTextBox Name="contractTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" />
-                <Button Content="{lex:Loc Key=Add}" Click="Button_Click_Add" IsDefault="True"/>
+                <Button Content="{lex:Loc Key=Add}" Click="Button_Click_Add"/>
             </WrapPanel>
 
-            <ListView Name="quoteListView" Grid.Row="1" SelectionChanged="quoteListView_SelectionChanged" Margin="0,0.4,0,-286">
+            <ListView Name="quoteListView" Grid.Row="1" SelectionChanged="quoteListView_SelectionChanged" Margin="0,0.4,0,-286" GridViewColumnHeader.Click="quoteListView_Click">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>

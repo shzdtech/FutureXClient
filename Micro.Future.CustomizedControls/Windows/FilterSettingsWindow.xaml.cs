@@ -8,11 +8,13 @@ using Micro.Future.LocalStorage.DataObject;
 using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using Micro.Future.Message;
+using Micro.Future.ViewModel;
 
 namespace Micro.Future.Windows
 {
 
-    public partial class FilterSettingsWindow : Window
+    public partial class FilterSettingsWindow : Window, IReloadData
     {
         public event Action<string, string, string, string> OnFiltering;
 
@@ -24,6 +26,11 @@ namespace Micro.Future.Windows
                 FilterSettingsList = clientCtx.FilterSettings.ToList();
                 titleCombo.ItemsSource = FilterSettingsList.Select(t => t.Title);
             }
+        }
+
+
+        public void ReloadData()
+        {
         }
 
         public IList<FilterSettings> FilterSettingsList
@@ -84,12 +91,16 @@ namespace Micro.Future.Windows
             set;
         }
 
-
+        public string UserID
+        {
+            get;
+            set;
+        }
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             Hide();
-            OnFiltering?.Invoke(FilterTabTitle, FilterExchange, FilterUnderlying, FilterContract);
-            ClientDbContext.SaveFilterSettings(FilterId, FilterTabTitle, FilterExchange, FilterContract, FilterUnderlying);
+            OnFiltering?.Invoke(FilterTabTitle, FilterExchange, FilterUnderlying, FilterContract);            
+            ClientDbContext.SaveFilterSettings(PersistanceId, FilterId, FilterTabTitle, FilterExchange, FilterContract, FilterUnderlying);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -103,6 +114,7 @@ namespace Micro.Future.Windows
         {
             get; set;
         }
+        public string PersistanceId { get; set; }
 
         private void ResetBtn_Click(object sender, RoutedEventArgs e)
         {

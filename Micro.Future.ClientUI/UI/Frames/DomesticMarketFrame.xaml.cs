@@ -255,5 +255,11 @@ namespace Micro.Future.UI
             PortoforlioWindow win = new PortoforlioWindow();
             win.Show();
         }
+
+        private void MenuItem_Click_FutureAccount(object sender, RoutedEventArgs e)
+        {
+            FutureAccountInfoWindow win = new FutureAccountInfoWindow();
+            win.Show();
+        }
     }
 }

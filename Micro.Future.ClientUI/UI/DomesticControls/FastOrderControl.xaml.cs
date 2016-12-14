@@ -20,10 +20,6 @@ namespace Micro.Future.UI
     {
         private string _currentContract;
         private IList<ContractInfo> _futurecontractList;
-        //private List<string> SuggestContract;
-        //        private IEnumerable<string> SuggestContract;
-        private ISuggestionProvider provider;
-
 
         public TraderExHandler TradeHandler
         {
@@ -53,19 +49,7 @@ namespace Micro.Future.UI
         {
             portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
             this._futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            //this.SuggestContract = _futurecontractList.Select(ci => ci.Contract).Distinct().ToList();
-
-            //behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding SuggestContract1}"
-            //WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteItemsSource(FastOrderContract, SuggestContract);
-            //behaviors: AutoCompleteBehavior.AutoCompleteStringComparison = "InvariantCultureIgnoreCase"
-            //WPFTextBoxAutoComplete.AutoCompleteBehavior.SetAutoCompleteStringComparison(FastOrderContract, StringComparison.InvariantCultureIgnoreCase);
-            //回调函数
-            //FastOrderContract.Provider = new SuggestionProvider(  (string c)=>{ return _futurecontractList.Select(ci => ci.Contract.StartsWith(c));}  );
-            this.provider = new SuggestionProvider((string c) => { return _futurecontractList.Where(ci => ci.Contract.StartsWith(c)).Select(cn=>cn.Contract); });
-            FastOrderContract.Provider = this.provider;
-            
-
-
+            FastOrderContract.Provider = new SuggestionProvider((string c) => { return _futurecontractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
         }
 
 
@@ -95,8 +79,9 @@ namespace Micro.Future.UI
             if (quoteVM != null)
             {
                 _currentContract = quoteVM.Contract;
-                stackPanelPrices.DataContext = quoteVM;
                 OrderVM.Contract = quoteVM.Contract;
+                FastOrderContract.Text = OrderVM.Contract;
+                stackPanelPrices.DataContext = quoteVM;                
                 OrderVM.LimitPrice = quoteVM.LastPrice;
             }
         }
@@ -107,9 +92,10 @@ namespace Micro.Future.UI
             {
                 OrderVM.Contract = positionVM.Contract;
                 var quote = OrderVM.Contract;
-                var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote); ;
+                var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote); 
                 if (item != null)
                 {
+                    FastOrderContract.Text = quote;
                     stackPanelPrices.DataContext = item;
                 }
                 //else
@@ -132,7 +118,8 @@ namespace Micro.Future.UI
 
         private void SendOrder(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult dr = MessageBox.Show("是否确认下单", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            string msg = string.Format("是否确认下单?\n价格：{0}，手数：{1}", OrderVM.LimitPrice, OrderVM.Volume);
+            MessageBoxResult dr = MessageBox.Show(msg, "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
             if (dr == MessageBoxResult.OK)
             {
                 OrderVM.SendOrder();
@@ -166,5 +153,65 @@ namespace Micro.Future.UI
         {
             LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
         }
+
+        private void LoadContract()
+        {
+            var contract = FastOrderContract.SelectedItem == null ? FastOrderContract.Text : FastOrderContract.SelectedItem.ToString();
+            if (_futurecontractList.Any(c => c.Contract == contract))
+            {
+                OrderVM.Contract = contract;
+                var quote = OrderVM.Contract;
+                var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+                if (item != null)
+                {
+                    stackPanelPrices.DataContext = item;
+                }
+            }
+        }
+
+        private void FastOrderContract_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                LoadContract();
+            }
+        }
+
+        private void FastOrderContract_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            LoadContract();
+        }
+
+        private void checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+            //var quote = FastOrderContract.Text;
+            //var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+                if (OrderVM.Direction == DirectionType.BUY)
+                {
+                    LimitTxt.Text = LabelAskPrice.Content.ToString();
+                }
+                else
+                {
+                    LimitTxt.Text = LabelBidPrice.Content.ToString();
+                }
+            
+        }
+
+        private void BuyChecked(object sender, RoutedEventArgs e)
+        {
+            if(checkBox.IsChecked.Value)
+            {
+                LimitTxt.Text = LabelAskPrice.Content.ToString();
+            }
+        }
+
+        private void SellChecked(object sender, RoutedEventArgs e)
+        {
+            if (checkBox.IsChecked.Value)
+            {
+                LimitTxt.Text = LabelBidPrice.Content.ToString();
+            }
+        }
+
     }
 }

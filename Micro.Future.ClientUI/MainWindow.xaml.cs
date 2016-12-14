@@ -101,5 +101,14 @@ namespace Micro.Future.UI
         {
             _currentLoginWindow?.ReportStatus(statusMsg);
         }
+
+        private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult dr = MessageBox.Show("是否退出", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            if (dr != MessageBoxResult.OK)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

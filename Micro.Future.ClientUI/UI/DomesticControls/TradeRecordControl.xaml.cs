@@ -13,7 +13,7 @@ using Micro.Future.Utility;
 using Micro.Future.CustomizedControls;
 using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.Resources.Localization;
-
+using Micro.Future.LocalStorage;
 
 namespace Micro.Future.UI
 {
@@ -26,7 +26,11 @@ namespace Micro.Future.UI
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow();
         //private FilterSettingsWindowForTradeRecord _filterSettingWinForTradeRecord = new FilterSettingsWindowForTradeRecord();
-        
+        public string PersistanceId
+        {
+            get;
+            set;
+        }
 
 
         public LayoutContent LayoutContent { get; set; }
@@ -277,6 +281,13 @@ namespace Micro.Future.UI
         {
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().TradeVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryTrade();
+            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, PersistanceId);
+            foreach (var fs in filtersettings)
+            {
+                var traderecordctrl = new TradeRecordControl();
+                AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
+                traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+            }
         }
     }
 }

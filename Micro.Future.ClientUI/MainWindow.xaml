@@ -12,7 +12,7 @@
                 WindowStartupLocation="CenterScreen" WindowState="Maximized"
                 Icon="/Micro.Future.ClientUI;component/Images/Logo.png"
                 Name="clientMainWindow"
-                Title="U.F.O.">
+                Title="U.F.O." Closing="OnClosing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>

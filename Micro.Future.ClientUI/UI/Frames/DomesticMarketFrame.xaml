@@ -18,9 +18,9 @@
         <x:Array Type="{x:Type MenuItem}" x:Key="exMenuItems">
             <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=DomesticTradingMarket}">
                 <MenuItem Header="{lex:Loc Key=AddWindow}">
-                    <MenuItem Header="{lex:Loc Key=QuoteWindow}">
-                        <MenuItem Header="{lex:Loc Key=Optional}" Click="MenuItem_Click_Contract">
-                        </MenuItem>
+                    <MenuItem Header="{lex:Loc Key=QuoteWindow}" Click="MenuItem_Click_Contract">
+                        <!--<MenuItem Header="{lex:Loc Key=Optional}" Click="MenuItem_Click_Contract">
+                        </MenuItem>-->
                     </MenuItem>
                     <MenuItem Header="{lex:Loc Key=ExecutionWindow}">
                         <MenuItem Header="{lex:Loc Key=AllExecution}" Click="MenuItem_Click_Execution">
@@ -30,20 +30,24 @@
                         <MenuItem Header="{lex:Loc Key=Traded}" Click="MenuItem_Click_Traded">
                         </MenuItem>
                     </MenuItem>
-                    <MenuItem Header="{lex:Loc Key=TradedWindow}">
-                        <MenuItem Header="{lex:Loc Key=AllTraded}" Click="MenuItem_Click_AllTraded">
+                    <MenuItem Header="{lex:Loc Key=TradedWindow}" Click="MenuItem_Click_AllTraded">
+                        <!--<MenuItem Header="{lex:Loc Key=AllTraded}" Click="MenuItem_Click_AllTraded">
                         </MenuItem>
                         <MenuItem Header="{lex:Loc Key=Traded_Open}" Click="MenuItem_Click_Open">
                         </MenuItem>
                         <MenuItem Header="{lex:Loc Key=Traded_Close}" Click="MenuItem_Click_Close">
-                        </MenuItem>
+                        </MenuItem>-->
                     </MenuItem>
-                    <MenuItem Header="{lex:Loc Key=PositionWindow}">
-                        <MenuItem Header="{lex:Loc Key=Position}" Click="MenuItem_Click_Position">
-                        </MenuItem>
+                    <MenuItem Header="{lex:Loc Key=PositionWindow}" Click="MenuItem_Click_Position">
+                        <!--<MenuItem Header="{lex:Loc Key=Position}" Click="MenuItem_Click_Position">
+                        </MenuItem>-->
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=AddPortfolio}" Click="MenuItem_Click_Portfolio">
+                </MenuItem>
+                <MenuItem Header="{lex:Loc Key=AccountManagement}">
+                    <MenuItem Header="{lex:Loc Key=FutureAccountInfo}" Click="MenuItem_Click_FutureAccount">
+                    </MenuItem>
                 </MenuItem>
             </MenuItem>
         </x:Array>

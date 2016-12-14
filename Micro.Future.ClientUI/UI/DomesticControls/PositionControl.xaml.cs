@@ -13,6 +13,7 @@ using Micro.Future.Utility;
 using Micro.Future.CustomizedControls;
 using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.Resources.Localization;
+using Micro.Future.LocalStorage;
 
 namespace Micro.Future.UI
 {
@@ -24,11 +25,17 @@ namespace Micro.Future.UI
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private FilterSettingsWindow _filterSettingsWin =
-            new FilterSettingsWindow() { CancelClosing = true };
+            new FilterSettingsWindow() { PersistanceId = typeof(PositionControl).Name,CancelClosing = true };
 
         public LayoutContent LayoutContent { get; set; }
 
         public LayoutAnchorablePane AnchorablePane { get; set; }
+
+        public string PersistanceId
+        {
+            get;
+            set;
+        }
 
         public PositionControl()
         {
@@ -67,6 +74,13 @@ namespace Micro.Future.UI
         {
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryPosition();
+            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, PersistanceId);
+            foreach (var fs in filtersettings)
+            {
+                var positionctrl = new PositionControl();
+                AnchorablePane.AddContent(positionctrl).Title = fs.Title;
+                positionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+            }
         }
 
         private void MenuItem_Click_Columns(object sender, RoutedEventArgs e)

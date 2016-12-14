@@ -681,4 +681,22 @@
   <data name="VolModelSettings" xml:space="preserve">
     <value>Vol Model Settings</value>
   </data>
+  <data name="MarketPrice" xml:space="preserve">
+    <value>MarketPrice</value>
+  </data>
+  <data name="AccountManagement" xml:space="preserve">
+    <value>Account Management</value>
+  </data>
+  <data name="FutureAccountInfo" xml:space="preserve">
+    <value>Future Account Info</value>
+  </data>
+  <data name="Opening" xml:space="preserve">
+    <value>Opening</value>
+  </data>
+  <data name="ExchangeDeliveryMargin" xml:space="preserve">
+    <value>ExchangeDeliveryMargin</value>
+  </data>
+  <data name="StaticBalance" xml:space="preserve">
+    <value>StaticBalance</value>
+  </data>
 </root>
