@@ -100,6 +100,7 @@ namespace Micro.Future.UI
             var msgWrapper = _ctpMdSignIner.MessageWrapper;
             
             _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
+            _ctpMdSignIner.OnLogged += _ctpMdSignIner_OnLogged;
             _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += ctpLoginStatus.OnDisconnected;
             MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().RegisterMessageWrapper(msgWrapper);
@@ -116,6 +117,11 @@ namespace Micro.Future.UI
 
 
             FastOrderCtl.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+        }
+
+        private void _ctpMdSignIner_OnLogged(IUserInfo obj)
+        {
+            marketDataLV.ReloadData();
         }
 
         private void _ctpTradeSignIner_OnLoginError(MessageException obj)
@@ -154,7 +160,6 @@ namespace Micro.Future.UI
 
         private async void _ctpTradeSignIner_OnLogged(IUserInfo obj)
         {
-            marketDataLV.ReloadData();
             Thread.Sleep(1200);
             clientFundLV.ReloadData();
             Thread.Sleep(1200);
