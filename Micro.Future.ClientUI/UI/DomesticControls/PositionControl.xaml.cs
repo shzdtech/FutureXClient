@@ -25,7 +25,7 @@ namespace Micro.Future.UI
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private FilterSettingsWindow _filterSettingsWin =
-            new FilterSettingsWindow() { PersistanceId = typeof(PositionControl).Name,CancelClosing = true };
+            new FilterSettingsWindow() { PersistanceId = typeof(PositionControl).Name, CancelClosing = true };
 
         public LayoutContent LayoutContent { get; set; }
 
@@ -74,7 +74,7 @@ namespace Micro.Future.UI
         {
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryPosition();
-            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
             foreach (var fs in filtersettings)
             {
                 var positionctrl = new PositionControl();

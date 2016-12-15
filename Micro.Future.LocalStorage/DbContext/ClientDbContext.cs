@@ -135,18 +135,17 @@ namespace Micro.Future.LocalStorage
         {
             using (var clientCtx = new ClientDbContext())
             {
-                var marketcontract = clientCtx.MarketContract.FirstOrDefault(t => t.Contract == contract);
+                var marketcontract = clientCtx.MarketContract.FirstOrDefault(t => t.AccountID == userID && t.Contract == contract);
                 if (marketcontract == null)
                 {
-                    marketcontract = new MarketContract();
-                    //insert new record
+                    marketcontract = new MarketContract
+                    {
+                        AccountID = userID,
+                        Contract = contract
+                    };
                     clientCtx.MarketContract.Add(marketcontract);
+                    clientCtx.SaveChanges();
                 }
-
-                marketcontract.AccountID = userID;
-                marketcontract.Contract = contract;
-
-                clientCtx.SaveChanges();
             }
         }
 
@@ -154,11 +153,9 @@ namespace Micro.Future.LocalStorage
         {
             using (var clientCtx = new ClientDbContext())
             {
-                return (from u in clientCtx.MarketContract
-                        where u.AccountID == userId
-                        select u.Contract).ToList();
+                return clientCtx.MarketContract.Where(u => u.AccountID == userId).Select(u => u.Contract).ToList();
             }
-                
+
         }
         public static IList<FilterSettings> GetFilterSettings(string userId, string ctrlID)
         {

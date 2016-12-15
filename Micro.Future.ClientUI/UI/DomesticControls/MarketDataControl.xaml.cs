@@ -47,14 +47,14 @@ namespace Micro.Future.UI
         public MarketDataControl()
         {
             InitializeComponent();
-            Initialize();            
+            Initialize();
         }
 
         private void Initialize()
         {
             _viewSource.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
             _filterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
-            quoteListView.ItemsSource = _viewSource.View;            
+            quoteListView.ItemsSource = _viewSource.View;
             QuoteChanged = _viewSource.View as ICollectionViewLiveShaping;
             if (QuoteChanged.CanChangeLiveFiltering)
             {
@@ -71,11 +71,10 @@ namespace Micro.Future.UI
 
         public ICollectionViewLiveShaping QuoteChanged { get; set; }
 
-    public virtual void LoadUserContracts()
+        public virtual void LoadUserContracts()
         {
-
-                var contracts = ClientDbContext.GetUserContracts(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id);
-                if (contracts != null)
+            var contracts = ClientDbContext.GetUserContracts(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id);
+            if (contracts != null)
             {
                 MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(contracts);
             }
@@ -129,13 +128,12 @@ namespace Micro.Future.UI
             string quote = contractTextBox.SelectedItem == null ? contractTextBox.Text : contractTextBox.SelectedItem.ToString();
             if (!_futurecontractList.Any(c => c.Contract == quote))
             {
-                this.contractTextBox.Background = new SolidColorBrush(Colors.Red);
                 MessageBox.Show("输入合约" + quote + "不存在");
-                contractTextBox.Text = "";
-                this.contractTextBox.Background = new SolidColorBrush(Colors.White);
                 return;
             }
+
             ClientDbContext.SaveMarketContract(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, quote);
+
             var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
                        QuoteVMCollection.FirstOrDefault((obj) => string.Compare(obj.Contract, quote, true) == 0);
 
@@ -147,6 +145,7 @@ namespace Micro.Future.UI
             {
                 MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
             }
+
         }
 
         private void quoteListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
