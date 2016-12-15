@@ -24,7 +24,8 @@ namespace Micro.Future.UI
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
-        private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow();
+        private FilterSettingsWindow _filterSettingsWin =
+            new FilterSettingsWindow() { PersistanceId = typeof(TradeRecordControl).Name, CancelClosing = true };
         //private FilterSettingsWindowForTradeRecord _filterSettingWinForTradeRecord = new FilterSettingsWindowForTradeRecord();
         public string PersistanceId
         {
@@ -37,7 +38,7 @@ namespace Micro.Future.UI
 
         public LayoutAnchorablePane AnchorablePane { get; set; }
 
-        public TradeRecordControl()
+        public TradeRecordControl(int filterId)
         {
             InitializeComponent();
 
@@ -47,6 +48,12 @@ namespace Micro.Future.UI
             TradeTreeView.ItemsSource = _viewSource.View;
 
             mColumns = ColumnObject.GetColumns(TradeTreeView);
+
+            _filterSettingsWin.FilterId = filterId;
+        }
+
+        public TradeRecordControl() : this(0)
+        {
         }
 
         private void _filterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
@@ -99,7 +106,7 @@ namespace Micro.Future.UI
                 return false;
             };
         }
-        
+
         public void Filter(string tabTitle, string exchange, string underlying, string contract)
         {
             if (TradeTreeView == null)
@@ -107,15 +114,12 @@ namespace Micro.Future.UI
                 return;
             }
 
-            for (int count = 0; count < this.AnchorablePane.ChildrenCount; count++)
-            {
-                if (this.AnchorablePane.Children[count].Title.Equals(tabTitle))
-                {
-                    MessageBox.Show("已存在同名窗口,请重新输入.");
-                    return;
-                }
-            }
             this.AnchorablePane.SelectedContent.Title = tabTitle;
+            _filterSettingsWin.FilterTabTitle = tabTitle;
+            _filterSettingsWin.FilterExchange = exchange;
+            _filterSettingsWin.FilterUnderlying = underlying;
+            _filterSettingsWin.FilterContract = contract;
+
 
             ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
@@ -284,7 +288,7 @@ namespace Micro.Future.UI
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, PersistanceId);
             foreach (var fs in filtersettings)
             {
-                var traderecordctrl = new TradeRecordControl();
+                var traderecordctrl = new TradeRecordControl(fs.Id);
                 AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
                 traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
             }

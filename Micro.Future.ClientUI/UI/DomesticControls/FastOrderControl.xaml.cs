@@ -92,26 +92,29 @@ namespace Micro.Future.UI
             {
                 OrderVM.Contract = positionVM.Contract;
                 var quote = OrderVM.Contract;
-                var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote); 
-                if (item != null)
+                if (quote != null)
                 {
-                    FastOrderContract.Text = quote;
-                    stackPanelPrices.DataContext = item;
-                }
-                //else
-                //{
-                //    MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
-                //}
+                    var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+                    if (item != null)
+                    {
+                        FastOrderContract.Text = quote;
+                        stackPanelPrices.DataContext = item;
+                    }
+                    //else
+                    //{
+                    //    MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+                    //}
 
-                OrderVM.OffsetFlag = OrderOffsetType.CLOSE;
+                    OrderVM.OffsetFlag = OrderOffsetType.CLOSE;
 
-                if (positionVM.Direction == PositionDirectionType.PD_SHORT)
-                {
-                    OrderVM.Direction = DirectionType.BUY;
-                }
-                else
-                {
-                    OrderVM.Direction = DirectionType.SELL;
+                    if (positionVM.Direction == PositionDirectionType.PD_SHORT)
+                    {
+                        OrderVM.Direction = DirectionType.BUY;
+                    }
+                    else
+                    {
+                        OrderVM.Direction = DirectionType.SELL;
+                    }
                 }
             }
         }

@@ -21,11 +21,6 @@ namespace Micro.Future.Windows
         public FilterSettingsWindow()
         {
             InitializeComponent();
-            using (var clientCtx = new ClientDbContext())
-            {
-                FilterSettingsList = clientCtx.FilterSettings.ToList();
-                titleCombo.ItemsSource = FilterSettingsList.Select(t => t.Title);
-            }
         }
 
 
@@ -100,7 +95,7 @@ namespace Micro.Future.Windows
         {
             Hide();
             OnFiltering?.Invoke(FilterTabTitle, FilterExchange, FilterUnderlying, FilterContract);            
-            ClientDbContext.SaveFilterSettings(PersistanceId, FilterId, FilterTabTitle, FilterExchange, FilterContract, FilterUnderlying);
+            ClientDbContext.SaveFilterSettings(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, PersistanceId, FilterId, FilterTabTitle, FilterExchange, FilterContract, FilterUnderlying);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -126,19 +121,19 @@ namespace Micro.Future.Windows
 
         }
 
-        private void titleCombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if(titleCombo.SelectedIndex >=0)
-            {
-                var filtersetting = FilterSettingsList[titleCombo.SelectedIndex];
-                FilterId = filtersetting.Id;
-                exchangecombo.Text = filtersetting.Exchange;
-                underlyingTxt.Text = filtersetting.Underlying;
-                contractTxt.Text = filtersetting.Contract;
-            }
+        //private void titleCombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        //{
+        //    if(titleCombo.SelectedIndex >=0)
+        //    {
+        //        var filtersetting = FilterSettingsList[titleCombo.SelectedIndex];
+        //        FilterId = filtersetting.Id;
+        //        exchangecombo.Text = filtersetting.Exchange;
+        //        underlyingTxt.Text = filtersetting.Underlying;
+        //        contractTxt.Text = filtersetting.Contract;
+        //    }
 
             //exchangecombo.Text = FilterSettingsList[titleCombo.];
 
-        }
+        //}
     }
 }

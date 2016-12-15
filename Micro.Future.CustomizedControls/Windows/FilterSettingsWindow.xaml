@@ -14,7 +14,8 @@
     <Grid>
         <StackPanel>
             <Label Content="{lex:Loc Key=WindowTitle}"/>
-            <ComboBox x:Name="titleCombo" SelectionChanged="titleCombo_SelectionChanged" IsEditable="True"  />
+            <TextBox x:Name="titleCombo" Height="23" />
+            <!--<ComboBox x:Name="titleCombo" SelectionChanged="titleCombo_SelectionChanged" IsEditable="True"  />-->
             <Label Content="{lex:Loc Key=Exchange}"/>
             <TextBox x:Name="exchangecombo"/>
             <!--<ComboBox x:Name="exchangecombo" SelectedIndex="0" IsEditable="True"/>-->

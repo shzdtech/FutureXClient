@@ -34,9 +34,11 @@ namespace Micro.Future.UI
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
-        private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow();
         private IList<ContractInfo> _futurecontractList;
         protected readonly MarketContract _userContractDbCtx;
+        private FilterSettingsWindow _filterSettingsWin = 
+            new FilterSettingsWindow() { PersistanceId = typeof(MarketDataControl).Name, CancelClosing = true };
+
         public string PersistanceId
         {
             get;
@@ -44,10 +46,15 @@ namespace Micro.Future.UI
         }
 
 
-        public MarketDataControl()
+        public MarketDataControl(int filterId)
         {
             InitializeComponent();
             Initialize();
+            _filterSettingsWin.FilterId = filterId;
+        }
+
+        public MarketDataControl() : this(0)
+        {
         }
 
         private void Initialize()
@@ -64,6 +71,7 @@ namespace Micro.Future.UI
             }
 
             mColumns = ColumnObject.GetColumns(quoteListView);
+            
 
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             contractTextBox.Provider = new SuggestionProvider((string c) => { return _futurecontractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
@@ -183,20 +191,17 @@ namespace Micro.Future.UI
         //DataType is for window style, tabIndex is for 
         public void Filter(string tabTitle, string exchange, string underlying, string contract)
         {
-            for (int count = 0; count < this.AnchorablePane.ChildrenCount; count++)
-            {
-                if (this.AnchorablePane.Children[count].Title.Equals(tabTitle))
-                {
-                    MessageBox.Show("已存在同名窗口,请重新输入.");
-                    return;
-                }
-            }
             this.AnchorablePane.SelectedContent.Title = tabTitle;
 
             if (quoteListView == null)
             {
                 return;
             }
+
+            _filterSettingsWin.FilterTabTitle = tabTitle;
+            _filterSettingsWin.FilterExchange = exchange;
+            _filterSettingsWin.FilterUnderlying = underlying;
+            _filterSettingsWin.FilterContract = contract;
 
             ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)

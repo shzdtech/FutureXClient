@@ -37,7 +37,7 @@ namespace Micro.Future.UI
             set;
         }
 
-        public PositionControl()
+        public PositionControl(int filterId)
         {
             InitializeComponent();
 
@@ -57,8 +57,13 @@ namespace Micro.Future.UI
             }
 
             mColumns = ColumnObject.GetColumns(PositionListView);
+            _filterSettingsWin.FilterId = filterId;
+
         }
 
+        public PositionControl() : this(0)
+        {
+        }
         public ICollectionViewLiveShaping PositionChanged { get; set; }
         private void _filterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
         {
@@ -77,7 +82,7 @@ namespace Micro.Future.UI
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
             foreach (var fs in filtersettings)
             {
-                var positionctrl = new PositionControl();
+                var positionctrl = new PositionControl(fs.Id);
                 AnchorablePane.AddContent(positionctrl).Title = fs.Title;
                 positionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
             }
@@ -125,15 +130,11 @@ namespace Micro.Future.UI
                 return;
             }
 
-            for (int count = 0; count < this.AnchorablePane.ChildrenCount; count++)
-            {
-                if (this.AnchorablePane.Children[count].Title.Equals(tabTitle))
-                {
-                    MessageBox.Show("已存在同名窗口,请重新输入.");
-                    return;
-                }
-            }
             this.AnchorablePane.SelectedContent.Title = tabTitle;
+            _filterSettingsWin.FilterTabTitle = tabTitle;
+            _filterSettingsWin.FilterExchange = exchange;
+            _filterSettingsWin.FilterUnderlying = underlying;
+            _filterSettingsWin.FilterContract = contract;
 
             ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
