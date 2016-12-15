@@ -154,6 +154,7 @@ namespace Micro.Future.UI
 
         private async void _ctpTradeSignIner_OnLogged(IUserInfo obj)
         {
+            marketDataLV.ReloadData();
             Thread.Sleep(1200);
             clientFundLV.ReloadData();
             Thread.Sleep(1200);
