@@ -79,8 +79,8 @@
             <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment="1" Value="{Binding LimitPrice}" VerticalAlignment="Center" />
             <StackPanel x:Name="stackPanelPrices" MinWidth="50">
                 <Label x:Name="LabelUpperPrice" Content="{Binding UpperLimitPrice}" MouseDown="labelupperprice_MouseDown" />
-                <Label x:Name="LabelAskPrice" Content="{Binding AskPrice}" MouseDown="LabelAskPrice_MouseDown" />
-                <Label x:Name="LabelBidPrice" Content="{Binding BidPrice}" MouseDown="LabelBidPrice_MouseDown" />
+                <Label x:Name="LabelAskPrice" Content="{Binding AskPrice.Value}" MouseDown="LabelAskPrice_MouseDown" />
+                <Label x:Name="LabelBidPrice" Content="{Binding BidPrice.Value}" MouseDown="LabelBidPrice_MouseDown" />
                 <Label x:Name="LabelLowerPrice" Content="{Binding LowerLimitPrice}" MouseDown="labellowerprice_MouseDown" />
             </StackPanel>
             <Button x:Name="BuySummitButton" Content="{lex:Loc Key=Order}" MinWidth="100" Click="SendOrder" />
