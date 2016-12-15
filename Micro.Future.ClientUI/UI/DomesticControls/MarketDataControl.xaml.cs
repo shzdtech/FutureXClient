@@ -52,9 +52,6 @@ namespace Micro.Future.UI
 
         private void Initialize()
         {
-            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            contractTextBox.Provider = new SuggestionProvider((string c) => { return _futurecontractList.Where(ci => ci.Contract.StartsWith(c)).Select(cn => cn.Contract); });
-
             _viewSource.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
             _filterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
             quoteListView.ItemsSource = _viewSource.View;            
@@ -67,6 +64,9 @@ namespace Micro.Future.UI
             }
 
             mColumns = ColumnObject.GetColumns(quoteListView);
+
+            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            contractTextBox.Provider = new SuggestionProvider((string c) => { return _futurecontractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
         }
 
         public ICollectionViewLiveShaping QuoteChanged { get; set; }
@@ -103,8 +103,7 @@ namespace Micro.Future.UI
         public void ReloadData()
         {
             LoadUserContracts();
-            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
-                ResubMarketData();
+            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().ResubMarketData();
         }
 
         private IEnumerable<MarketDataVM> SeletedQuoteVM
