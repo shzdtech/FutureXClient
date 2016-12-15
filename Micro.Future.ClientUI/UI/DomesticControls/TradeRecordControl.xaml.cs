@@ -50,6 +50,7 @@ namespace Micro.Future.UI
             mColumns = ColumnObject.GetColumns(TradeTreeView);
 
             _filterSettingsWin.FilterId = filterId;
+
         }
 
         public TradeRecordControl() : this(0)
