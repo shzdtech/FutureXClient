@@ -80,6 +80,8 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryPosition();
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
+            if (filtersettings.Any())
+                AnchorablePane.RemoveChildAt(0);
             foreach (var fs in filtersettings)
             {
                 var positionctrl = new PositionControl(fs.Id);
@@ -111,7 +113,12 @@ namespace Micro.Future.UI
                 AnchorablePane.AddContent(new PositionControl()).Title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
+        private void MenuItem_Click_DeleteWindow(object sender, RoutedEventArgs e)
+        {
 
+            ClientDbContext.DeleteFilterSettings(_filterSettingsWin.FilterId);
+            AnchorablePane.RemoveChild(AnchorablePane.SelectedContent);
+        }
 
 
         private void PositionListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

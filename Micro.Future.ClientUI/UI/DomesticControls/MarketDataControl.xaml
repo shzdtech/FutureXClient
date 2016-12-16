@@ -89,6 +89,8 @@
                         <Separator />
                         <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItem_Click_Columns" />
                         <Separator></Separator>
+                        <MenuItem Header="{lex:Loc Key=DeleteWindow}" Click="MenuItem_Click_DeleteWindow" />
+                        <Separator></Separator>
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>

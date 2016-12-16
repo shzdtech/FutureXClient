@@ -272,6 +272,12 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
                 AnchorablePane.AddContent(new TradeRecordControl()).Title = WPFUtility.GetLocalizedString("AllTraded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
+        private void MenuItem_Click_DeleteWindow(object sender, RoutedEventArgs e)
+        {
+
+            ClientDbContext.DeleteFilterSettings(_filterSettingsWin.FilterId);
+            AnchorablePane.RemoveChild(AnchorablePane.SelectedContent);
+        }
 
         private void TradeTreeView_Click(object sender, RoutedEventArgs e)
         {
@@ -287,6 +293,8 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().TradeVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryTrade();
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, PersistanceId);
+            if (filtersettings.Any())
+                AnchorablePane.RemoveChildAt(0);
             foreach (var fs in filtersettings)
             {
                 var traderecordctrl = new TradeRecordControl(fs.Id);

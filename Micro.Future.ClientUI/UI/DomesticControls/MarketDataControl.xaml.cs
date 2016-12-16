@@ -111,6 +111,15 @@ namespace Micro.Future.UI
         {
             LoadUserContracts();
             MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().ResubMarketData();
+            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, PersistanceId);
+            if (filtersettings.Any())
+                AnchorablePane.RemoveChildAt(0);
+            foreach (var fs in filtersettings)
+            {
+                var marketdatactrl = new MarketDataControl(fs.Id);
+                AnchorablePane.AddContent(marketdatactrl).Title = fs.Title;
+                marketdatactrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+            }
         }
 
         private IEnumerable<MarketDataVM> SeletedQuoteVM
@@ -171,6 +180,12 @@ namespace Micro.Future.UI
             win.Show();
         }
 
+        private void MenuItem_Click_DeleteWindow(object sender, RoutedEventArgs e)
+        {
+
+            ClientDbContext.DeleteFilterSettings(_filterSettingsWin.FilterId);
+            AnchorablePane.RemoveChild(AnchorablePane.SelectedContent);
+        }
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
         {
             var exchangeList = new List<string> { string.Empty };

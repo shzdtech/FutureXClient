@@ -307,6 +307,8 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryOrder();
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, PersistanceId);
+            if (filtersettings.Any())
+                AnchorablePane.RemoveChildAt(0);
             foreach (var fs in filtersettings)
             {
                 var executionctrl = new ExecutionControl(fs.Id);
