@@ -31,7 +31,6 @@ namespace Micro.Future.LocalStorage
 
         public DbSet<MarketContract> MarketContract { get; set; }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Composite primary key 
@@ -57,17 +56,38 @@ namespace Micro.Future.LocalStorage
             return ContractInfo.Where(c => c.ProductType == productType).ToList();
         }
 
-        private static IDictionary<int, IList<ContractInfo>> _contractCache = new Dictionary<int, IList<ContractInfo>>();
+        public static IDictionary<int, IList<ContractInfo>> ContractCache
+        { get; } = new Dictionary<int, IList<ContractInfo>>();
 
         public static IList<ContractInfo> GetContractFromCache(int productType)
         {
             IList<ContractInfo> ret;
-            _contractCache.TryGetValue(productType, out ret);
+            ContractCache.TryGetValue(productType, out ret);
             if (ret == null)
             {
                 using (var ctx = new ClientDbContext())
                 {
                     ret = ctx.GetContractsByProductType(productType);
+                    ContractCache[productType] = ret;
+                }
+            }
+
+            return ret;
+        }
+
+        public static IDictionary<string, ContractInfo> ContractDict
+        { get; } = new Dictionary<string, ContractInfo>();
+
+        public static ContractInfo FindContract(string contract)
+        {
+            ContractInfo ret;
+            if (!ContractDict.TryGetValue(contract, out ret))
+            {
+                using (var ctx = new ClientDbContext())
+                {
+                    ret = ctx.ContractInfo.FirstOrDefault(c => c.Contract == contract);
+                    if (ret != null)
+                        ContractDict[ret.Contract] = ret;
                 }
             }
 

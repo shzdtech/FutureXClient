@@ -19,10 +19,8 @@ namespace Micro.Future.UI
     /// <summary>
     /// FastOrder.xaml 的交互逻辑
     /// </summary>
-    public partial class FastOrderControl : UserControl, INotifyPropertyChanged
-
+    public partial class FastOrderControl : UserControl
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         private string _currentContract;
         private IList<ContractInfo> _futurecontractList;
 

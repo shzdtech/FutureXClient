@@ -17,9 +17,10 @@ namespace Micro.Future.Message
     {
         public event Action<Exception> OnOrderError;
 
- public FundVM FundVM         {
+        public FundVM FundVM
+        {
             get;
-        } = new FundVM();        
+        } = new FundVM();
 
         public ObservableCollection<TradeVM> TradeVMCollection
         {
@@ -91,7 +92,7 @@ namespace Micro.Future.Message
         }
 
         //To read contract data into contractNameList
-         //To invoke the function of saving contract data to local sqlite
+        //To invoke the function of saving contract data to local sqlite
         private void OnSyncContractInfo(PBContractInfoList rsp)
         {
             using (var clientCtx = new ClientDbContext())
@@ -148,6 +149,7 @@ namespace Micro.Future.Message
                     if (contractList.Any())
                         clientCtx.SaveChanges();
 
+                    ClientDbContext.GetContractFromCache(productType);
                 }
 
                 clientCtx.SetSyncVersion(nameof(ContractInfo), DateTime.Now.Date.ToShortDateString());
@@ -173,13 +175,20 @@ namespace Micro.Future.Message
                 {
                     if (positionVM == null)
                     {
-                        positionVM = new PositionVM();
+                        positionVM = new PositionVM
+                        {
+                            Contract = rsp.Contract,
+                            Exchange = rsp.Exchange
+                        };
                         PositionVMCollection.Add(positionVM);
                     }
 
+                    var contractInfo = ClientDbContext.FindContract(positionVM.Contract);
+                    int multiple = contractInfo == null ? 1 : contractInfo.VolumeMultiple;
+
                     positionVM.Direction = (PositionDirectionType)rsp.Direction;
                     positionVM.Position = rsp.Position;
-                    // positionVM.TodayPosition = rsp.TdPosition;
+                    positionVM.TodayPosition = rsp.TdPosition;
                     positionVM.YdPosition = rsp.YdPosition;
                     positionVM.PositionDateFlag = (PositionDateFlagType)rsp.PositionDateFlag;
                     positionVM.OpenVolume = rsp.OpenVolume;
@@ -192,8 +201,8 @@ namespace Micro.Future.Message
                     positionVM.CloseProfit = rsp.CloseProfit;
                     positionVM.UseMargin = rsp.UseMargin;
                     positionVM.HedgeFlag = (HedgeType)rsp.HedgeFlag;
-                    positionVM.Contract = rsp.Contract;
-                    positionVM.Exchange = rsp.Exchange;
+                    positionVM.MeanCost = rsp.Cost / rsp.Position / multiple;
+
                 }
             }
         }
