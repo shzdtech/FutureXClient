@@ -10,14 +10,19 @@ using System.Linq;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using WpfControls;
+using System.ComponentModel;
+using System.Windows.Data;
+using Xceed.Wpf.Toolkit;
 
 namespace Micro.Future.UI
 {
     /// <summary>
     /// FastOrder.xaml 的交互逻辑
     /// </summary>
-    public partial class FastOrderControl : UserControl
+    public partial class FastOrderControl : UserControl, INotifyPropertyChanged
+
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         private string _currentContract;
         private IList<ContractInfo> _futurecontractList;
 
@@ -32,7 +37,7 @@ namespace Micro.Future.UI
                 OrderVM = new OrderVM(value);
                 OrderVM.Volume = 1;
                 DataContext = OrderVM;
-                value.OnOrderError += Callback_OnOrderError; 
+                value.OnOrderError += Callback_OnOrderError;
             }
         }
 
@@ -53,18 +58,21 @@ namespace Micro.Future.UI
         }
 
 
+
         private void Callback_OnOrderError(Exception obj)
         {
             if (obj.Message.Equals("订单合约不能为空") | obj.Message.Equals("输入合约不存在"))
-            { FastOrderContract.Background = new SolidColorBrush(Colors.Red);
-                MessageBox.Show(obj.Message);
-                FastOrderContract.Background = new SolidColorBrush(Colors.White); }
+            {
+                FastOrderContract.Background = new SolidColorBrush(Colors.Red);
+                System.Windows.MessageBox.Show(obj.Message);
+                FastOrderContract.Background = new SolidColorBrush(Colors.White);
+            }
             if (obj.Message.Equals("订单数量不正确"))
             {
                 SizeTxt.Background = new SolidColorBrush(Colors.Red);
-                MessageBox.Show(obj.Message);
+                System.Windows.MessageBox.Show(obj.Message);
                 SizeTxt.Background = new SolidColorBrush(Colors.White);
-            } 
+            }
 
         }
 
@@ -81,7 +89,7 @@ namespace Micro.Future.UI
                 _currentContract = quoteVM.Contract;
                 OrderVM.Contract = quoteVM.Contract;
                 FastOrderContract.Text = OrderVM.Contract;
-                stackPanelPrices.DataContext = quoteVM;                
+                stackPanelPrices.DataContext = quoteVM;
                 OrderVM.LimitPrice = quoteVM.LastPrice;
             }
         }
@@ -122,7 +130,7 @@ namespace Micro.Future.UI
         private void SendOrder(object sender, RoutedEventArgs e)
         {
             string msg = string.Format("是否确认下单?\n价格：{0}，手数：{1}", OrderVM.LimitPrice, OrderVM.Volume);
-            MessageBoxResult dr = MessageBox.Show(msg, "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            MessageBoxResult dr = System.Windows.MessageBox.Show(msg, "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
             if (dr == MessageBoxResult.OK)
             {
                 OrderVM.SendOrder();
@@ -134,7 +142,7 @@ namespace Micro.Future.UI
         {
             get;
             private set;
-        }  
+        }
 
         private void labelupperprice_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -174,7 +182,7 @@ namespace Micro.Future.UI
 
         private void FastOrderContract_KeyUp(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 LoadContract();
             }
@@ -189,20 +197,20 @@ namespace Micro.Future.UI
         {
             //var quote = FastOrderContract.Text;
             //var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
-                if (OrderVM.Direction == DirectionType.BUY)
-                {
-                    LimitTxt.Text = LabelAskPrice.Content.ToString();
-                }
-                else
-                {
-                    LimitTxt.Text = LabelBidPrice.Content.ToString();
-                }
-            
+            if (OrderVM.Direction == DirectionType.BUY)
+            {
+                LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("AskPrice.Value"));
+            }
+            else
+            {
+                LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("BidPrice.Value"));
+            }
+
         }
 
         private void BuyChecked(object sender, RoutedEventArgs e)
         {
-            if(checkBox.IsChecked.Value)
+            if (checkBox.IsChecked.Value)
             {
                 LimitTxt.Text = LabelAskPrice.Content.ToString();
             }
