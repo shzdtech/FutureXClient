@@ -132,6 +132,17 @@ namespace Micro.Future.LocalStorage
             }
         }
 
+        public static void DeleteFilterSettings(int Id)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                var filterinfo = clientCtx.FilterSettings.FirstOrDefault(t => t.Id == Id);
+                if (filterinfo != null)
+                    clientCtx.FilterSettings.Remove(filterinfo);
+                clientCtx.SaveChanges();
+            }
+        }
+
         public static void SaveMarketContract(string userID, string contract)
         {
             using (var clientCtx = new ClientDbContext())

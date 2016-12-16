@@ -699,4 +699,7 @@
   <data name="StaticBalance" xml:space="preserve">
     <value>StaticBalance</value>
   </data>
+  <data name="DeleteWindow" xml:space="preserve">
+    <value>Delete Window</value>
+  </data>
 </root>

@@ -699,4 +699,7 @@
   <data name="StaticBalance" xml:space="preserve">
     <value>静态权益</value>
   </data>
+  <data name="DeleteWindow" xml:space="preserve">
+    <value>删除窗口</value>
+  </data>
 </root>

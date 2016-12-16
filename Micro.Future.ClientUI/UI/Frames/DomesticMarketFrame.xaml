@@ -88,8 +88,8 @@
                     </avalonDock:LayoutPanel>
                     <avalonDock:LayoutPanel Orientation="Vertical">
                         <avalonDock:LayoutAnchorablePane x:Name="executionPane">
-                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=ExecutionWindow}">
-                                <c:ExecutionControl x:Name="executionWindow"/>
+                            <avalonDock:LayoutAnchorable  Title="{lex:Loc Key=ExecutionWindow}">
+                                <c:ExecutionControl  x:Name="executionWindow"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>

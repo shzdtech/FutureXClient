@@ -27,9 +27,7 @@ namespace Micro.Future.UI
         private ColumnObject[] mColumns;
 
         private CollectionViewSource _viewSource = new CollectionViewSource();
-        private FilterSettingsWindow _filterSettingsWindow = new FilterSettingsWindow();
-        private FilterSettingsWindow _filterSettingsWin =
-    new FilterSettingsWindow() { PersistanceId = typeof(ExecutionControl).Name, CancelClosing = true };
+        private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow() { PersistanceId = typeof(ExecutionControl).Name, CancelClosing = true };
         public LayoutContent LayoutContent { get; set; }
 
         public LayoutAnchorablePane AnchorablePane{ get; set;}
@@ -38,6 +36,7 @@ namespace Micro.Future.UI
             get;
             set;
         }
+        public IEnumerable<OrderStatus> OrderStatuses { get; set; }
 
         public ExecutionControl(int filterId)
         {
@@ -46,7 +45,7 @@ namespace Micro.Future.UI
             _viewSource.Source = MessageHandlerContainer.DefaultInstance
                 .Get<TraderExHandler>().OrderVMCollection;
 
-            _filterSettingsWindow.OnFiltering += _executionSettingsWin_OnFiltering;
+            _filterSettingsWin.OnFiltering += _executionSettingsWin_OnFiltering;
 
             ExecutionTreeView.ItemsSource = _viewSource.View;
 
@@ -62,9 +61,9 @@ namespace Micro.Future.UI
 
         private void _executionSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
         {
-            if (LayoutContent != null)
-                LayoutContent.Title = _filterSettingsWindow.FilterTabTitle;
-            Filter(tabTitle, exchange, underlying, contract);
+            if (AnchorablePane != null)
+                AnchorablePane.SelectedContent.Title = tabTitle;
+            Filter();
         }
 
         private void RadioButton_Checked_AllOrder(object sender, RoutedEventArgs e)
@@ -83,21 +82,56 @@ namespace Micro.Future.UI
             //exchangeList.AddRange((from p in (IEnumerable<OrderVM>)_viewSource.Source
             //                       select p.Exchange).Distinct());
             //_executionSettingsWin.ExchangeCollection = exchangeList;
-            _filterSettingsWindow.Show();
+            _filterSettingsWin.Show();
         }
 
-        public void Filter(string tabTitle,string exchange, string underlying, string contract)
+        //public void Filter(string tabTitle,string exchange, string underlying, string contract, IEnumerable<OrderStatus> status)
+        //{
+        //    if (ExecutionTreeView == null)
+        //    {
+        //        return;
+        //    }
+
+        //    this.AnchorablePane.SelectedContent.Title = tabTitle;
+        //    _filterSettingsWin.FilterTabTitle = tabTitle;
+        //    _filterSettingsWin.FilterExchange = exchange;
+        //    _filterSettingsWin.FilterUnderlying = underlying;
+        //    _filterSettingsWin.FilterContract = contract;
+
+        //    ICollectionView view = _viewSource.View;
+        //    view.Filter = delegate (object o)
+        //    {
+        //        if (contract == null)
+        //            return true;
+
+        //        OrderVM evm = o as OrderVM;
+
+        //        if (evm.Exchange.ContainsAny(exchange) &&
+        //            evm.Contract.ContainsAny(contract) &&
+        //            evm.Contract.ContainsAny(underlying) &&
+        //            ((status == null) || status.Contains(evm.Status)))
+        //        {
+        //            return true;
+        //        }
+
+        //        return false;
+        //    };
+        //}
+
+        public void Filter()
         {
             if (ExecutionTreeView == null)
             {
                 return;
             }
 
-            this.AnchorablePane.SelectedContent.Title = tabTitle;
-            _filterSettingsWin.FilterTabTitle = tabTitle;
-            _filterSettingsWin.FilterExchange = exchange;
-            _filterSettingsWin.FilterUnderlying = underlying;
-            _filterSettingsWin.FilterContract = contract;
+            var tabTitle = _filterSettingsWin.FilterTabTitle;
+            var exchange = _filterSettingsWin.FilterExchange;
+            var underlying = _filterSettingsWin.FilterUnderlying;
+            var contract = _filterSettingsWin.FilterContract;
+
+            
+
 
             ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
@@ -109,7 +143,8 @@ namespace Micro.Future.UI
 
                 if (evm.Exchange.ContainsAny(exchange) &&
                     evm.Contract.ContainsAny(contract) &&
-                    evm.Contract.ContainsAny(underlying))
+                    evm.Contract.ContainsAny(underlying) &&
+                    ((OrderStatuses == null) || OrderStatuses.Contains(evm.Status)))
                 {
                     return true;
                 }
@@ -117,7 +152,6 @@ namespace Micro.Future.UI
                 return false;
             };
         }
-
         public void FilterByContract(string contract)
         {
             if (ExecutionTreeView == null)
@@ -144,43 +178,28 @@ namespace Micro.Future.UI
 
         public void FilterByStatus(IEnumerable<OrderStatus> statuses)
         {
-            if (ExecutionTreeView == null)
-            {
-                return;
-            }
-
-            ICollectionView view = CollectionViewSource.GetDefaultView(ExecutionTreeView.ItemsSource);
-            view.Filter = delegate (object o)
-            {
-                if (statuses == null)
-                    return true;
-
-                OrderVM ovm = o as OrderVM;
-
-                if (statuses.Contains(ovm.Status))
-                {
-                    return true;
-                }
-
-                return false;
-            };
+            OrderStatuses = statuses;
+            Filter();
         }
 
         private void RadioButton_Checked_TradedOrder(object sender, RoutedEventArgs e)
         {
-            FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED });
+            OrderStatuses = new HashSet<OrderStatus> { OrderStatus.ALL_TRADED };
+            FilterByStatus(OrderStatuses);
+
         }
 
         private void RadioButton_Checked_CanceledOrder(object sender, RoutedEventArgs e)
         {
-            FilterByStatus(new List<OrderStatus> { OrderStatus.CANCELED });
+            OrderStatuses = new HashSet<OrderStatus> { OrderStatus.CANCELED };
+            FilterByStatus(OrderStatuses);
         }
 
         private void RadioButton_Checked_RejectedOrder(object sender, RoutedEventArgs e)
         {
-            FilterByStatus(new List<OrderStatus> { OrderStatus.OPEN_REJECTED,
-                OrderStatus.CANCEL_REJECTED,
-                OrderStatus.REJECTED });
+            OrderStatuses = new HashSet<OrderStatus> { OrderStatus.CANCEL_REJECTED,
+                OrderStatus.REJECTED };
+            FilterByStatus(OrderStatuses);
         }
 
         private void RadioButton_Checked_ActiveOrder(object sender, RoutedEventArgs e)
@@ -268,6 +287,12 @@ namespace Micro.Future.UI
             win.Show();
         }
 
+        private void MenuItem_Click_DeleteWindow(object sender, RoutedEventArgs e)
+        {
+
+            ClientDbContext.DeleteFilterSettings(_filterSettingsWin.FilterId);
+            AnchorablePane.RemoveChild(AnchorablePane.SelectedContent);
+        }
 
         private void MenuItem_Click_ShowAllExecution(object sender, RoutedEventArgs e)
         {
@@ -284,9 +309,9 @@ namespace Micro.Future.UI
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, PersistanceId);
             foreach (var fs in filtersettings)
             {
-                var executionctrl = new PositionControl(fs.Id);
+                var executionctrl = new ExecutionControl(fs.Id);
                 AnchorablePane.AddContent(executionctrl).Title = fs.Title;
-                executionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+                executionctrl.Filter();
             }
         }
     }

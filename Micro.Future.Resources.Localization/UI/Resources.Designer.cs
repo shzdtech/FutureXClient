@@ -457,6 +457,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 删除窗口 的本地化字符串。
+        /// </summary>
+        internal static string DeleteWindow {
+            get {
+                return ResourceManager.GetString("DeleteWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 入金金额 的本地化字符串。
         /// </summary>
         internal static string Deposit {
