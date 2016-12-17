@@ -1114,6 +1114,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 持仓均价 的本地化字符串。
+        /// </summary>
+        internal static string PositionAvPrice {
+            get {
+                return ResourceManager.GetString("PositionAvPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 持仓成本 的本地化字符串。
         /// </summary>
         internal static string PositionCost {

@@ -44,7 +44,10 @@ namespace Micro.Future.UI
             get;
             set;
         }
-
+        public ObservableCollection<MarketDataVM> QuoteVMCollection
+        {
+            get;
+        } = new ObservableCollection<MarketDataVM>();
 
         public MarketDataControl(int filterId)
         {
@@ -59,9 +62,10 @@ namespace Micro.Future.UI
 
         private void Initialize()
         {
+            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             _viewSource.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
             _filterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
-            quoteListView.ItemsSource = _viewSource.View;
+            quoteListView.ItemsSource = QuoteVMCollection;
             QuoteChanged = _viewSource.View as ICollectionViewLiveShaping;
             if (QuoteChanged.CanChangeLiveFiltering)
             {
@@ -160,7 +164,8 @@ namespace Micro.Future.UI
             }
             else
             {
-                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+                var mktDataVM = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+                QuoteVMCollection.Add(mktDataVM);
             }
 
         }

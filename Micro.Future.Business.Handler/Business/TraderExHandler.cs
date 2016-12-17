@@ -17,9 +17,10 @@ namespace Micro.Future.Message
     {
         public event Action<Exception> OnOrderError;
 
- public FundVM FundVM         {
+        public FundVM FundVM
+        {
             get;
-        } = new FundVM();        
+        } = new FundVM();
 
         public ObservableCollection<TradeVM> TradeVMCollection
         {
@@ -91,7 +92,7 @@ namespace Micro.Future.Message
         }
 
         //To read contract data into contractNameList
-         //To invoke the function of saving contract data to local sqlite
+        //To invoke the function of saving contract data to local sqlite
         private void OnSyncContractInfo(PBContractInfoList rsp)
         {
             using (var clientCtx = new ClientDbContext())
@@ -188,12 +189,14 @@ namespace Micro.Future.Message
                     positionVM.CloseAmount = rsp.CloseAmount;
                     positionVM.Cost = rsp.Cost;
                     positionVM.OpenCost = rsp.OpenCost;
-                    positionVM.Profit = rsp.Profit;
+                    //positionVM.Profit = rsp.Profit;
                     positionVM.CloseProfit = rsp.CloseProfit;
                     positionVM.UseMargin = rsp.UseMargin;
                     positionVM.HedgeFlag = (HedgeType)rsp.HedgeFlag;
                     positionVM.Contract = rsp.Contract;
                     positionVM.Exchange = rsp.Exchange;
+                    //positionVM.Profit = (rsp.limitprice - positionVM.PositionAvPrice) * rsp.Position * rsp.mutiplier;
+
                 }
             }
         }

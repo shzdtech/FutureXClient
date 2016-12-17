@@ -315,5 +315,16 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private double _positionAvPrice;
+        public double PositionAvPrice
+        {
+            get { return _positionAvPrice; }
+            set
+            {
+                _positionAvPrice = value;
+                OnPropertyChanged("PositionAvPrice");
+            }
+        }
+
     }
 }

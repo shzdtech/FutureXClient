@@ -379,5 +379,6 @@
                 OnPropertyChanged("StaticBalance");
             }
         }
+
     }
 }

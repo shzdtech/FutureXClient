@@ -702,4 +702,7 @@
   <data name="DeleteWindow" xml:space="preserve">
     <value>Delete Window</value>
   </data>
+  <data name="PositionAvPrice" xml:space="preserve">
+    <value>PositionAveragePrice</value>
+  </data>
 </root>

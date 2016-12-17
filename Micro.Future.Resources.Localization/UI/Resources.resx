@@ -702,4 +702,7 @@
   <data name="DeleteWindow" xml:space="preserve">
     <value>删除窗口</value>
   </data>
+  <data name="PositionAvPrice" xml:space="preserve">
+    <value>持仓均价</value>
+  </data>
 </root>
