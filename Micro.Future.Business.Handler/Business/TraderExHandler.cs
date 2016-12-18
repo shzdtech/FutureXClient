@@ -185,7 +185,6 @@ namespace Micro.Future.Message
 
                     var contractInfo = ClientDbContext.FindContract(positionVM.Contract);
                     int multiple = contractInfo == null ? 1 : contractInfo.VolumeMultiple;
-
                     positionVM.Direction = (PositionDirectionType)rsp.Direction;
                     positionVM.Position = rsp.Position;
                     positionVM.TodayPosition = rsp.TdPosition;
