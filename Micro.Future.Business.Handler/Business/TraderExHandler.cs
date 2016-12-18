@@ -149,6 +149,7 @@ namespace Micro.Future.Message
                     if (contractList.Any())
                         clientCtx.SaveChanges();
 
+                    ClientDbContext.GetContractFromCache(productType);
                 }
 
                 clientCtx.SetSyncVersion(nameof(ContractInfo), DateTime.Now.Date.ToShortDateString());
@@ -174,9 +175,16 @@ namespace Micro.Future.Message
                 {
                     if (positionVM == null)
                     {
-                        positionVM = new PositionVM();
+                        positionVM = new PositionVM
+                        {
+                            Contract = rsp.Contract,
+                            Exchange = rsp.Exchange
+                        };
                         PositionVMCollection.Add(positionVM);
                     }
+
+                    var contractInfo = ClientDbContext.FindContract(positionVM.Contract);
+                    int multiple = contractInfo == null ? 1 : contractInfo.VolumeMultiple;
 
                     positionVM.Direction = (PositionDirectionType)rsp.Direction;
                     positionVM.Position = rsp.Position;
@@ -193,9 +201,7 @@ namespace Micro.Future.Message
                     positionVM.CloseProfit = rsp.CloseProfit;
                     positionVM.UseMargin = rsp.UseMargin;
                     positionVM.HedgeFlag = (HedgeType)rsp.HedgeFlag;
-                    positionVM.Contract = rsp.Contract;
-                    positionVM.Exchange = rsp.Exchange;
-                    //positionVM.Profit = (rsp.limitprice - positionVM.PositionAvPrice) * rsp.Position * rsp.mutiplier;
+                    positionVM.MeanCost = rsp.Cost / rsp.Position / multiple;
 
                 }
             }

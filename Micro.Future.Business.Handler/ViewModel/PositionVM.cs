@@ -53,8 +53,8 @@ namespace Micro.Future.ViewModel
             get { return _todayPosition; }
             set
             {
-                _todayPosition = _position - _ydPosition;
-                OnPropertyChanged("Todayposition");
+                _todayPosition = value;
+                OnPropertyChanged(nameof(TodayPosition));
             }
         }
 
@@ -66,7 +66,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _positionDateFlag = value;
-                OnPropertyChanged("PositionDateFlag");
+                OnPropertyChanged(nameof(PositionDateFlag));
             }
         }
 
@@ -315,16 +315,18 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private double _positionAvPrice;
-        public double PositionAvPrice
+        private double _meanCost;
+        public double MeanCost
         {
-            get { return _positionAvPrice; }
+            get
+            {
+                return _meanCost;
+            }
             set
             {
-                _positionAvPrice = value;
-                OnPropertyChanged("PositionAvPrice");
+                _meanCost = value;
+                OnPropertyChanged(nameof(MeanCost));
             }
         }
-
     }
 }
