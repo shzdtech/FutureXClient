@@ -180,7 +180,7 @@ namespace Micro.Future.Message
 
                     positionVM.Direction = (PositionDirectionType)rsp.Direction;
                     positionVM.Position = rsp.Position;
-                    // positionVM.TodayPosition = rsp.TdPosition;
+                    positionVM.TodayPosition = rsp.TdPosition;
                     positionVM.YdPosition = rsp.YdPosition;
                     positionVM.PositionDateFlag = (PositionDateFlagType)rsp.PositionDateFlag;
                     positionVM.OpenVolume = rsp.OpenVolume;
@@ -189,7 +189,7 @@ namespace Micro.Future.Message
                     positionVM.CloseAmount = rsp.CloseAmount;
                     positionVM.Cost = rsp.Cost;
                     positionVM.OpenCost = rsp.OpenCost;
-                    //positionVM.Profit = rsp.Profit;
+                    positionVM.Profit = rsp.Profit;
                     positionVM.CloseProfit = rsp.CloseProfit;
                     positionVM.UseMargin = rsp.UseMargin;
                     positionVM.HedgeFlag = (HedgeType)rsp.HedgeFlag;
