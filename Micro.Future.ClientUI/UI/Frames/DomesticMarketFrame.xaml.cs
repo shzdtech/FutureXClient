@@ -240,14 +240,14 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Open(object sender, RoutedEventArgs e)
         {
             var tradeWin = new TradeRecordControl();
-            tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.OPEN });
+            tradeWin.FilterByStatus(new List<OrderOpenCloseType> { OrderOpenCloseType.OPEN });
             tradePane.AddContent(tradeWin).Title = WPFUtility.GetLocalizedString("Open", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
         private void MenuItem_Click_Close(object sender, RoutedEventArgs e)
         {
             var tradeWin = new TradeRecordControl();
-            tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.CLOSE });
+            tradeWin.FilterByStatus(new List<OrderOpenCloseType> { OrderOpenCloseType.CLOSE });
             tradePane.AddContent(tradeWin).Title = WPFUtility.GetLocalizedString("Close", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 

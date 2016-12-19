@@ -66,7 +66,7 @@ namespace Micro.Future.Message
         HEDGE = 3,
     };
 
-    public enum OrderOffsetType
+    public enum OrderOpenCloseType
     {
         ///开仓
         [LocalizableDescription(@"OpenClose_OPEN", typeof(Enums))]

@@ -10,15 +10,15 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "Extended.Wpf.Toolkit": "2.9.0",
+    "Extended.Wpf.Toolkit": "3.0.0",
     "Microsoft.EntityFrameworkCore": "1.1.0",
     "OxyPlot.Wpf": "1.0.0",
+    "WpfControls.AutoCompleteTextBox": "1.0.0.7",
     "WpfLocalizeExtension": "2.3.2",
-    "WPFTextBoxAutoComplete": "1.0.2",
-    "WpfControls.AutoCompleteTextBox": "1.0.0.7"
+    "WPFTextBoxAutoComplete": "1.0.2"
   },
   "frameworks": {
-    "net451": {}
+    "net461": {}
   },
   "runtimes": {
     "win-anycpu": {},

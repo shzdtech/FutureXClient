@@ -173,14 +173,14 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private OrderOffsetType _offsetFlag;
-        public OrderOffsetType OffsetFlag
+        private OrderOpenCloseType _openClose;
+        public OrderOpenCloseType OpenClose
         {
-            get { return _offsetFlag; }
+            get { return _openClose; }
             set
             {
-                _offsetFlag = value;
-                OnPropertyChanged("OffsetFlag");
+                _openClose = value;
+                OnPropertyChanged(nameof(OpenClose));
             }
         }
 

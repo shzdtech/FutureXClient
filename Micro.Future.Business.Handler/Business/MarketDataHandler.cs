@@ -3,27 +3,28 @@ using System.Linq;
 using System.Text;
 using Micro.Future.ViewModel;
 using Micro.Future.Message.Business;
-using System.Collections.ObjectModel;
-using Micro.Future.LocalStorage.DataObject;
-using Micro.Future.UI;
-using Micro.Future.LocalStorage;
-using Micro.Future;
 using System.Threading;
+using System;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace Micro.Future.Message
 {
     public class MarketDataHandler : MessageHandlerTemplate<MarketDataHandler>
     {
         public const int RETRY_TIMES = 5;
-        public ObservableCollection<MarketDataVM> QuoteVMCollection
+        //public ObservableCollection<MarketDataVM> QuoteVMCollection
+        //{
+        //    get;
+        //} = new ObservableCollection<MarketDataVM>();
+
+        public ConcurrentDictionary<string, WeakReference<MarketDataVM>> MarketDataMap
         {
             get;
-        } = new ObservableCollection<MarketDataVM>();
+        } = new ConcurrentDictionary<string, WeakReference<MarketDataVM>>();
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
-            MessageWrapper.RegisterAction<PBMarketDataList, ExceptionMessage>
-            ((uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA, SubMDSuccessAction, ErrorMsgAction);
             MessageWrapper.RegisterAction<SimpleStringTable, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, UnsubMDSuccessAction, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBMarketData, ExceptionMessage>
@@ -32,22 +33,50 @@ namespace Micro.Future.Message
 
         public MarketDataVM SubMarketData(string instrID)
         {
-            MarketDataVM mktVM = QuoteVMCollection.FirstOrDefault(((quote) => string.Compare(quote.Contract, instrID, true) == 0));
-            if (mktVM == null)
-            {
-                mktVM = new MarketDataVM() { Contract = instrID };
-                QuoteVMCollection.Add(mktVM);
-                SubMarketData(new[] { instrID });
-                for (int i=0; i < RETRY_TIMES; i++)
-                {
-                    Thread.Sleep(100);
-                    mktVM = QuoteVMCollection.FirstOrDefault(((quote) => string.Compare(quote.Contract, instrID, true) == 0));
-                }
-            }
-            return mktVM;
+            var mktDataList = SubMarketData(new string[] { instrID });
+            return mktDataList.FirstOrDefault();
         }
 
-        public void SubMarketData(IEnumerable<string> instrIDList)
+        public IList<MarketDataVM> SubMarketData(IEnumerable<string> instrIDList, int timeout = 5000)
+        {
+            var task = SubMarketDataAsync(instrIDList);
+            return task.Wait(timeout) && task.Exception == null ? task.Result : new List<MarketDataVM>();
+        }
+
+
+        public Task<IList<MarketDataVM>> SubMarketDataAsync(IEnumerable<string> instrIDList)
+        {
+            var msgId = (uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA;
+
+            var tcs = new TaskCompletionSource<IList<MarketDataVM>>();
+
+            var serialId = NextSerialId;
+
+            #region callback
+            MessageWrapper.RegisterAction<PBMarketDataList, ExceptionMessage>
+            (msgId,
+            (resp) =>
+            {
+                if (resp.Header?.SerialId == serialId)
+                {
+                    tcs.TrySetResult(SubMDSuccessAction(resp));
+                }
+            },
+            (bizErr) =>
+            {
+                if (bizErr.SerialId == serialId)
+                    tcs.TrySetException(new MessageException(bizErr.MessageId, ErrorType.BIZ_ERROR, bizErr.Errorcode, bizErr.Description.ToStringUtf8()));
+            }
+            );
+            #endregion
+
+            SendMessage(serialId, msgId, instrIDList);
+
+            return tcs.Task;
+        }
+
+
+        public void SendMessage(uint serialId, uint msgId, IEnumerable<string> instrIDList)
         {
             var instr = new NamedStringVector();
             instr.Name = (FieldName.INSTRUMENT_ID);
@@ -58,18 +87,15 @@ namespace Micro.Future.Message
             }
 
             var sst = new SimpleStringTable();
+            sst.Header = new DataHeader { SerialId = serialId };
             sst.Columns.Add(instr);
 
-            MessageWrapper?.SendMessage((uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA, sst);
+            MessageWrapper.SendMessage(msgId, sst);
         }
 
-        public void ResubMarketData()
+        public IList<MarketDataVM> ResubMarketData()
         {
-            int cnt = QuoteVMCollection.Count;
-            for (int i = 0; i < cnt; i++)
-            {
-                SubMarketData(QuoteVMCollection[i].Contract);
-            }
+            return SubMarketData(MarketDataMap.Keys);
         }
 
         public void UnsubMarketData(IEnumerable<MarketDataVM> quoteCollection)
@@ -77,7 +103,8 @@ namespace Micro.Future.Message
             List<string> instrList = new List<string>();
             foreach (var quoteVM in quoteCollection)
             {
-                QuoteVMCollection.Remove(quoteVM);
+                WeakReference<MarketDataVM> mktData;
+                MarketDataMap.TryRemove(quoteVM.Contract, out mktData);
                 instrList.Add(quoteVM.Contract);
             }
 
@@ -86,74 +113,75 @@ namespace Micro.Future.Message
 
         public void UnsubMarketData(IEnumerable<string> instrIDList)
         {
-            var instr = new NamedStringVector();
-            instr.Name = (FieldName.INSTRUMENT_ID);
-
-            foreach (string instrID in instrIDList)
-            {
-                instr.Entry.Add(instrID);
-            }
-
-            var sst = new SimpleStringTable();
-            sst.Columns.Add(instr);
-
-            MessageWrapper?.SendMessage((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, sst);
+            SendMessage(NextSerialId, (uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, instrIDList);
         }
 
-        protected void SubMDSuccessAction(PBMarketDataList marketList)
+        public MarketDataVM FindMarketData(string contract)
         {
-            if (QuoteVMCollection != null)
+            WeakReference<MarketDataVM> mktVMRef;
+            MarketDataVM mktVM = null;
+            if (MarketDataMap.TryGetValue(contract, out mktVMRef))
+                mktVMRef.TryGetTarget(out mktVM);
+
+            return mktVM;
+        }
+
+        protected IList<MarketDataVM> SubMDSuccessAction(PBMarketDataList marketList)
+        {
+            var ret = new List<MarketDataVM>();
+            foreach (var md in marketList.MarketData)
             {
-                lock (QuoteVMCollection)
+                MarketDataVM mktVM = FindMarketData(md.Contract);
+                if (mktVM == null)
                 {
-                    foreach (var md in marketList.MarketData)
+                    mktVM = new MarketDataVM
                     {
-                        MarketDataVM mktVM = QuoteVMCollection.FirstOrDefault(((quote) => string.Compare(quote.Contract, md.Contract, true) == 0));
-                        if(mktVM == null)
-                        {
-                            mktVM = new MarketDataVM();
-                            QuoteVMCollection.Add(mktVM);
-                        }
-                        mktVM.Exchange = md.Exchange;
-                        mktVM.Contract = md.Contract;
-                    }
+                        Exchange = md.Exchange,
+                        Contract = md.Contract
+                    };
+                    MarketDataMap[md.Contract] = new WeakReference<MarketDataVM>(mktVM);
                 }
+
+                ret.Add(mktVM);
             }
+
+            return ret;
         }
 
         protected void UnsubMDSuccessAction(SimpleStringTable strTbl)
         {
-            if (QuoteVMCollection != null)
+            foreach (var contract in strTbl.Columns[0].Entry)
             {
-                lock (QuoteVMCollection)
-                {
-                    foreach (var contract in strTbl.Columns[0].Entry)
-                    {
-                        var quote = QuoteVMCollection.FirstOrDefault((pb) => string.Compare(pb.Contract, contract, true) == 0);
-                        if (quote != null)
-                            QuoteVMCollection.Remove(quote);
-                    }
-                }
+                WeakReference<MarketDataVM> mktVMRef;
+                MarketDataMap.TryRemove(contract, out mktVMRef);
             }
         }
 
         protected void RetMDSuccessAction(PBMarketData md)
         {
-            var quote = QuoteVMCollection.FirstOrDefault((pb) => string.Compare(pb.Contract, md.Contract, true) == 0);
-            if (quote != null)
+            WeakReference<MarketDataVM> mktVMRef;
+            if (MarketDataMap.TryGetValue(md.Contract, out mktVMRef))
             {
-                quote.LastPrice = md.MatchPrice;
-                quote.BidPrice = md.BidPrice[0];
-                quote.AskPrice = md.AskPrice[0];
-                quote.BidSize = md.BidVolume[0];
-                quote.AskSize = md.AskVolume[0];
-                quote.Volume = md.Volume;
-                quote.OpenValue = md.OpenValue;
-                quote.PreCloseValue = md.PreCloseValue;
-                quote.HighValue = md.HighValue;
-                quote.LowValue = md.LowValue;
-                quote.UpperLimitPrice = md.HighLimit;
-                quote.LowerLimitPrice = md.LowLimit;
+                MarketDataVM mktVM = null;
+                if (mktVMRef.TryGetTarget(out mktVM))
+                {
+                    mktVM.LastPrice = md.MatchPrice;
+                    mktVM.BidPrice = md.BidPrice[0];
+                    mktVM.AskPrice = md.AskPrice[0];
+                    mktVM.BidSize = md.BidVolume[0];
+                    mktVM.AskSize = md.AskVolume[0];
+                    mktVM.Volume = md.Volume;
+                    mktVM.OpenValue = md.OpenValue;
+                    mktVM.PreCloseValue = md.PreCloseValue;
+                    mktVM.HighValue = md.HighValue;
+                    mktVM.LowValue = md.LowValue;
+                    mktVM.UpperLimitPrice = md.HighLimit;
+                    mktVM.LowerLimitPrice = md.LowLimit;
+                }
+                else
+                {
+                    UnsubMarketData(new[] { md.Contract });
+                }
             }
         }
 
@@ -163,32 +191,8 @@ namespace Micro.Future.Message
             {
                 var msg = bizErr.Description.ToByteArray();
                 if (msg.Length > 0)
-                    RaiseOnError(
-                        new MessageException(bizErr.MessageId, ErrorType.UNSPECIFIED_ERROR, bizErr.Errorcode,
+                    RaiseOnError(new MessageException(bizErr.MessageId, ErrorType.UNSPECIFIED_ERROR, bizErr.Errorcode,
                         Encoding.UTF8.GetString(msg)));
-            }
-        }
-
-
-        // 保存个人合约信息
-        private void saveContract()
-        {
-            using (var clientCtx = new ClientDbContext())
-            {
-                var queryPersonalContract = from query in clientCtx.PersonalContract select query;
-
-                if (queryPersonalContract.Any() == true)
-                {
-                    clientCtx.PersonalContract.RemoveRange(queryPersonalContract);
-                    clientCtx.SaveChanges();
-                }
-
-                foreach (var data in MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection)
-                {
-                    clientCtx.PersonalContract.Add(new PersonalContract() { UserID = int.Parse(MessageWrapper.User.Id), Contract = data.Contract });
-                }
-
-                clientCtx.SaveChanges();
             }
         }
     }

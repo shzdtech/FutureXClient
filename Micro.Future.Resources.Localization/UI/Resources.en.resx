@@ -243,8 +243,8 @@
   <data name="Message" xml:space="preserve">
     <value>Message</value>
   </data>
-  <data name="OffsetFlag" xml:space="preserve">
-    <value>OffsetFlag</value>
+  <data name="OpenClose" xml:space="preserve">
+    <value>OpenClose</value>
   </data>
   <data name="OpenAmount" xml:space="preserve">
     <value>OpenAmount</value>

@@ -13,7 +13,7 @@
     "Microsoft.EntityFrameworkCore": "1.1.0"
   },
   "frameworks": {
-    "net451": {}
+    "net461": {}
   },
   "runtimes": {
     "win-anycpu": {},

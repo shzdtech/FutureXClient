@@ -37,7 +37,7 @@
                     <GridViewColumn Header="{lex:Loc Key=VolumeTraded}" DisplayMemberBinding="{Binding VolumeTraded}"/>
                     <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}"/>
                     <GridViewColumn Header="{lex:Loc Key=InsertTime}" DisplayMemberBinding="{Binding InsertTime}"/>
-                    <GridViewColumn Header="{lex:Loc Key=OffsetFlag}" DisplayMemberBinding="{Binding OffsetFlag}"/>
+                    <GridViewColumn Header="{lex:Loc Key=OpenClose}" DisplayMemberBinding="{Binding OpenClose}"/>
                     <GridViewColumn Header="{lex:Loc Key=UpdateTime}" DisplayMemberBinding="{Binding UpdateTime}"/>
                     <GridViewColumn Header="{lex:Loc Key=CancelTime}" DisplayMemberBinding="{Binding CancelTime}"/>
                     <GridViewColumn Header="{lex:Loc Key=VolumeRemain}" DisplayMemberBinding="{Binding VolumeRemain}"/>

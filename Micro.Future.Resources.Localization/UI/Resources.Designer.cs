@@ -844,15 +844,6 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 开平 的本地化字符串。
-        /// </summary>
-        internal static string OffsetFlag {
-            get {
-                return ResourceManager.GetString("OffsetFlag", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 开仓 的本地化字符串。
         /// </summary>
         internal static string Open {

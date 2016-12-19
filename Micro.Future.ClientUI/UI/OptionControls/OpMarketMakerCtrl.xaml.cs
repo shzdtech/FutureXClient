@@ -230,7 +230,8 @@ namespace Micro.Future.UI
                 var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 QuoteVMCollection1.Clear();
                 var mktDataVM = handler.SubMarketData(uc);
-                QuoteVMCollection1.Add(mktDataVM);
+                if (mktDataVM != null)
+                    QuoteVMCollection1.Add(mktDataVM);
             }
         }
 
@@ -280,6 +281,6 @@ namespace Micro.Future.UI
             }
         }
 
-        
+
     }
 }

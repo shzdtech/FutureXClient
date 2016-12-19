@@ -46,7 +46,7 @@ namespace Micro.Future.UI
             if (positionVM != null)
             {
                 OrderVM.Contract = positionVM.Contract;
-                OrderVM.OffsetFlag = OrderOffsetType.CLOSE;
+                OrderVM.OpenClose = OrderOpenCloseType.CLOSE;
 
                 if (positionVM.Direction == PositionDirectionType.PD_SHORT)
                 {

@@ -84,7 +84,7 @@ namespace Micro.Future.UI
             _filterSettingsWin.Show();
         }
 
-        public void FilterByStatus(IEnumerable<OrderOffsetType> statuses)
+        public void FilterByStatus(IEnumerable<OrderOpenCloseType> statuses)
         {
             if (TradeTreeView == null)
             {
@@ -167,7 +167,7 @@ namespace Micro.Future.UI
 
         private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
         {
-            FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.OPEN });
+            FilterByStatus(new List<OrderOpenCloseType> { OrderOpenCloseType.OPEN });
         }
 
 
@@ -254,7 +254,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_OpenTrade(object sender, RoutedEventArgs e)
         {
             var tradeWin = new TradeRecordControl();
-            tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.OPEN });
+            tradeWin.FilterByStatus(new List<OrderOpenCloseType> { OrderOpenCloseType.OPEN });
             if (AnchorablePane != null)
                 AnchorablePane.AddContent(tradeWin).Title = WPFUtility.GetLocalizedString("Open", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
@@ -262,7 +262,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_CloseTrade(object sender, RoutedEventArgs e)
         {
             var tradeWin = new TradeRecordControl();
-            tradeWin.FilterByStatus(new List<OrderOffsetType> { OrderOffsetType.CLOSE });
+            tradeWin.FilterByStatus(new List<OrderOpenCloseType> { OrderOpenCloseType.CLOSE });
             if (AnchorablePane != null)
                 AnchorablePane.AddContent(tradeWin).Title = WPFUtility.GetLocalizedString("Close", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
