@@ -258,8 +258,10 @@ namespace Micro.Future.UI
                 var uc = contract2.SelectedItem.ToString();
                 var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 QuoteVMCollection2.Clear();
-                handler.SubMarketData(uc);
                 var mktDataVM = handler.SubMarketData(uc);
+                if (mktDataVM == null)
+                    return;
+
                 QuoteVMCollection2.Add(mktDataVM);
                 var strategyhandler = _otcOptionHandler;
                 foreach (var option in CallPutTDOptionVMCollection)

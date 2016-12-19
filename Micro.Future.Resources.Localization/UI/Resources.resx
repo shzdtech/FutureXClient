@@ -246,7 +246,7 @@
   <data name="Message" xml:space="preserve">
     <value>状态信息</value>
   </data>
-  <data name="OffsetFlag" xml:space="preserve">
+  <data name="OpenClose" xml:space="preserve">
     <value>开平</value>
   </data>
   <data name="OpenAmount" xml:space="preserve">

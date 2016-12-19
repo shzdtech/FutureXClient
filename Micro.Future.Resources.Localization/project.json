@@ -12,7 +12,7 @@
   "dependencies": {
   },
   "frameworks": {
-    "net451": {
+    "net461": {
       "imports": "portable-net45+netcore45+wpa81+wp8"
     }
   },

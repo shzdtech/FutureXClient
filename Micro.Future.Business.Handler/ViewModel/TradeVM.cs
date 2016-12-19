@@ -117,8 +117,8 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private OrderOffsetType _openClose;
-        public OrderOffsetType OpenClose
+        private OrderOpenCloseType _openClose;
+        public OrderOpenCloseType OpenClose
         {
             get { return _openClose; }
             set

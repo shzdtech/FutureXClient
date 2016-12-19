@@ -264,7 +264,7 @@ namespace Micro.Future.Message
                         TradingType = (TradingType)rsp.TradingType,
                         Active = rsp.Active,
                         Status = (OrderStatus)rsp.OrderStatus,
-                        OffsetFlag = (OrderOffsetType)rsp.Openclose,
+                        OpenClose = (OrderOpenCloseType)rsp.Openclose,
                         InsertTime = rsp.InsertTime,
                         UpdateTime = rsp.UpdateTime,
                         CancelTime = rsp.CancelTime,
@@ -319,7 +319,7 @@ namespace Micro.Future.Message
                             TradingType = (TradingType)rsp.TradeType,
                             TradeDate = rsp.TradeDate,
                             TradeTime = rsp.TradeTime,
-                            OpenClose = (OrderOffsetType)rsp.Openclose,
+                            OpenClose = (OrderOpenCloseType)rsp.Openclose,
                             Commission = rsp.Commission,
                         });
                 }
@@ -435,7 +435,7 @@ namespace Micro.Future.Message
                 pb.Volume = orderVM.Volume;
                 pb.ExecType = (int)orderVM.ExecType;
                 pb.Direction = (int)orderVM.Direction;
-                pb.Openclose = (int)orderVM.OffsetFlag;
+                pb.Openclose = (int)orderVM.OpenClose;
 
                 MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb);
             }

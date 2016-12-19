@@ -24,6 +24,7 @@ using Micro.Future.CustomizedControls;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using WpfControls;
+using System.Threading.Tasks;
 
 namespace Micro.Future.UI
 {
@@ -36,7 +37,7 @@ namespace Micro.Future.UI
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private IList<ContractInfo> _futurecontractList;
         protected readonly MarketContract _userContractDbCtx;
-        private FilterSettingsWindow _filterSettingsWin = 
+        private FilterSettingsWindow _filterSettingsWin =
             new FilterSettingsWindow() { PersistanceId = typeof(MarketDataControl).Name, CancelClosing = true };
 
         public string PersistanceId
@@ -63,9 +64,9 @@ namespace Micro.Future.UI
         private void Initialize()
         {
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            _viewSource.Source = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().QuoteVMCollection;
             _filterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
             quoteListView.ItemsSource = QuoteVMCollection;
+            _viewSource.Source = QuoteVMCollection;
             QuoteChanged = _viewSource.View as ICollectionViewLiveShaping;
             if (QuoteChanged.CanChangeLiveFiltering)
             {
@@ -75,7 +76,7 @@ namespace Micro.Future.UI
             }
 
             mColumns = ColumnObject.GetColumns(quoteListView);
-            
+
 
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             contractTextBox.Provider = new SuggestionProvider((string c) => { return _futurecontractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
@@ -85,10 +86,21 @@ namespace Micro.Future.UI
 
         public virtual void LoadUserContracts()
         {
-            var contracts = ClientDbContext.GetUserContracts(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id);
-            if (contracts != null)
+            var userId = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper?.User?.Id;
+            if (userId == null)
+                return;
+
+            var contracts = ClientDbContext.GetUserContracts(userId);
+            if (contracts.Any())
             {
-                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(contracts);
+                Task.Run(() =>
+                {
+                    var list = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(contracts);
+                    foreach (var mktVM in list)
+                    {
+                        Dispatcher.Invoke(() => QuoteVMCollection.Add(mktVM));
+                    }
+                });
             }
         }
 
@@ -114,8 +126,8 @@ namespace Micro.Future.UI
         public void ReloadData()
         {
             LoadUserContracts();
-            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().ResubMarketData();
-            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, PersistanceId);
+            // MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().ResubMarketData();
+            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, PersistanceId);
             if (filtersettings.Any())
                 AnchorablePane.RemoveChildAt(0);
             foreach (var fs in filtersettings)
@@ -155,8 +167,7 @@ namespace Micro.Future.UI
 
             ClientDbContext.SaveMarketContract(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, quote);
 
-            var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
-                       QuoteVMCollection.FirstOrDefault((obj) => string.Compare(obj.Contract, quote, true) == 0);
+            var item = QuoteVMCollection.FirstOrDefault(c => c.Contract == quote);
 
             if (item != null)
             {
@@ -164,8 +175,14 @@ namespace Micro.Future.UI
             }
             else
             {
-                var mktDataVM = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
-                QuoteVMCollection.Add(mktDataVM);
+                Task.Run(() =>
+                {
+                    var mktDataVM = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+                    if (mktDataVM != null)
+                    {
+                        Dispatcher.Invoke(() => QuoteVMCollection.Add(mktDataVM));
+                    }
+                });
             }
 
         }

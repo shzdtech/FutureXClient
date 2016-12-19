@@ -13,6 +13,7 @@ using WpfControls;
 using System.ComponentModel;
 using System.Windows.Data;
 using Xceed.Wpf.Toolkit;
+using System.Threading.Tasks;
 
 namespace Micro.Future.UI
 {
@@ -100,18 +101,25 @@ namespace Micro.Future.UI
                 var quote = OrderVM.Contract;
                 if (quote != null)
                 {
-                    var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
-                    if (item != null)
+                    Task.Run(() =>
                     {
-                        FastOrderContract.Text = quote;
-                        stackPanelPrices.DataContext = item;
-                    }
+                        var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+                        if (item != null)
+                        {
+                            Dispatcher.Invoke(() =>
+                            {
+                                FastOrderContract.Text = quote;
+                                stackPanelPrices.DataContext = item;
+                            });
+                        }
+                    });
+
                     //else
                     //{
                     //    MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
                     //}
 
-                    OrderVM.OffsetFlag = OrderOffsetType.CLOSE;
+                    OrderVM.OpenClose = OrderOpenCloseType.CLOSE;
 
                     if (positionVM.Direction == PositionDirectionType.PD_SHORT)
                     {
@@ -170,11 +178,14 @@ namespace Micro.Future.UI
             {
                 OrderVM.Contract = contract;
                 var quote = OrderVM.Contract;
-                var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
-                if (item != null)
+                Task.Run(() =>
                 {
-                    stackPanelPrices.DataContext = item;
-                }
+                    var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+                    if (item != null)
+                    {
+                        Dispatcher.Invoke(() => stackPanelPrices.DataContext = item);
+                    }
+                });
             }
         }
 
