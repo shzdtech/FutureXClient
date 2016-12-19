@@ -125,11 +125,8 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
-            LoadUserContracts();
             // MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().ResubMarketData();
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
-            if (filtersettings.Any())
-                AnchorablePane.RemoveChildAt(0);
             foreach (var fs in filtersettings)
             {
                 var marketdatactrl = new MarketDataControl(fs.Id);
@@ -137,6 +134,11 @@ namespace Micro.Future.UI
                 marketdatactrl.LoadUserContracts();
                 marketdatactrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
             }
+            if (filtersettings.Any())
+                AnchorablePane.RemoveChildAt(0);
+            else
+                LoadUserContracts();
+
         }
 
         private IEnumerable<MarketDataVM> SeletedQuoteVM
