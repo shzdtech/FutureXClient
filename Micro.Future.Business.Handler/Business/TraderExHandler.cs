@@ -175,7 +175,7 @@ namespace Micro.Future.Message
                 {
                     if (positionVM == null)
                     {
-                        var contractInfo = ClientDbContext.FindContract(positionVM.Contract);
+                        var contractInfo = ClientDbContext.FindContract(rsp.Contract);
                         positionVM = new PositionVM
                         {
                             Contract = rsp.Contract,
