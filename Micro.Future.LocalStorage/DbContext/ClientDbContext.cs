@@ -36,7 +36,7 @@ namespace Micro.Future.LocalStorage
             // Composite primary key 
             modelBuilder.Entity<ContractInfo>().HasKey(c => new { c.Exchange, c.Contract });
             modelBuilder.Entity<PersonalContract>().HasKey(p => new { p.UserID, p.Contract });
-            modelBuilder.Entity<MarketContract>().HasKey(m => new { m.AccountID, m.Contract });
+            modelBuilder.Entity<MarketContract>().HasKey(m => new { m.AccountID, m.Contract, m.TabID });
 
         }
 
@@ -68,7 +68,8 @@ namespace Micro.Future.LocalStorage
                 using (var ctx = new ClientDbContext())
                 {
                     ret = ctx.GetContractsByProductType(productType);
-                    ContractCache[productType] = ret;
+                    if (ret.Any())
+                        ContractCache[productType] = ret;
                 }
             }
 
@@ -130,11 +131,11 @@ namespace Micro.Future.LocalStorage
             return now;
         }
 
-        public static void SaveFilterSettings(string userID, string ctrlID, int Id, string title, string exchange, string contract, string underlying)
+        public static void SaveFilterSettings(string userID, string ctrlID, string id, string title, string exchange, string contract, string underlying)
         {
             using (var clientCtx = new ClientDbContext())
             {
-                var filterinfo = clientCtx.FilterSettings.FirstOrDefault(t => t.Id == Id);
+                var filterinfo = clientCtx.FilterSettings.FirstOrDefault(t => t.Id == id);
                 if (filterinfo == null)
                 {
                     filterinfo = new FilterSettings();
@@ -152,28 +153,29 @@ namespace Micro.Future.LocalStorage
             }
         }
 
-        public static void DeleteFilterSettings(int Id)
+        public static void DeleteFilterSettings(string id)
         {
             using (var clientCtx = new ClientDbContext())
             {
-                var filterinfo = clientCtx.FilterSettings.FirstOrDefault(t => t.Id == Id);
+                var filterinfo = clientCtx.FilterSettings.FirstOrDefault(t => t.Id == id);
                 if (filterinfo != null)
                     clientCtx.FilterSettings.Remove(filterinfo);
                 clientCtx.SaveChanges();
             }
         }
 
-        public static void SaveMarketContract(string userID, string contract)
+        public static void SaveMarketContract(string userID, string contract, string tabID)
         {
             using (var clientCtx = new ClientDbContext())
             {
-                var marketcontract = clientCtx.MarketContract.FirstOrDefault(t => t.AccountID == userID && t.Contract == contract);
+                var marketcontract = clientCtx.MarketContract.FirstOrDefault(t => t.AccountID == userID && t.Contract == contract && t.TabID == tabID);
                 if (marketcontract == null)
                 {
                     marketcontract = new MarketContract
                     {
                         AccountID = userID,
-                        Contract = contract
+                        Contract = contract,
+                        TabID = tabID,
                     };
                     clientCtx.MarketContract.Add(marketcontract);
                     clientCtx.SaveChanges();
@@ -181,11 +183,11 @@ namespace Micro.Future.LocalStorage
             }
         }
 
-        public static IEnumerable<string> GetUserContracts(string userId)
+        public static IEnumerable<string> GetUserContracts(string userId, string tabID)
         {
             using (var clientCtx = new ClientDbContext())
             {
-                return clientCtx.MarketContract.Where(u => u.AccountID == userId).Select(u => u.Contract).ToList();
+                return clientCtx.MarketContract.Where(u => u.AccountID == userId && u.TabID == tabID).Select(u => u.Contract).ToList();
             }
 
         }

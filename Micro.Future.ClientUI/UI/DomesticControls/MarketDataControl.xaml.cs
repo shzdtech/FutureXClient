@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using Xceed.Wpf.AvalonDock.Layout;
 using Micro.Future.ViewModel;
@@ -35,7 +28,13 @@ namespace Micro.Future.UI
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
-        private IList<ContractInfo> _futurecontractList;
+        public IList<ContractInfo> FuturecontractList
+        {
+            get
+            {
+                return ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            }
+        }
         protected readonly MarketContract _userContractDbCtx;
         private FilterSettingsWindow _filterSettingsWin =
             new FilterSettingsWindow() { PersistanceId = typeof(MarketDataControl).Name, CancelClosing = true };
@@ -45,25 +44,25 @@ namespace Micro.Future.UI
             get;
             set;
         }
+
         public ObservableCollection<MarketDataVM> QuoteVMCollection
         {
             get;
         } = new ObservableCollection<MarketDataVM>();
 
-        public MarketDataControl(int filterId)
+        public MarketDataControl(string filterId)
         {
             InitializeComponent();
             Initialize();
             _filterSettingsWin.FilterId = filterId;
         }
 
-        public MarketDataControl() : this(0)
+        public MarketDataControl() : this(Guid.NewGuid().ToString())
         {
         }
 
         private void Initialize()
         {
-            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             _filterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
             quoteListView.ItemsSource = QuoteVMCollection;
             _viewSource.Source = QuoteVMCollection;
@@ -77,9 +76,7 @@ namespace Micro.Future.UI
 
             mColumns = ColumnObject.GetColumns(quoteListView);
 
-
-            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            contractTextBox.Provider = new SuggestionProvider((string c) => { return _futurecontractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
+            contractTextBox.Provider = new SuggestionProvider((string c) => { return FuturecontractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
         }
 
         public ICollectionViewLiveShaping QuoteChanged { get; set; }
@@ -90,7 +87,7 @@ namespace Micro.Future.UI
             if (userId == null)
                 return;
 
-            var contracts = ClientDbContext.GetUserContracts(userId);
+            var contracts = ClientDbContext.GetUserContracts(userId, _filterSettingsWin.FilterId);
             if (contracts.Any())
             {
                 Task.Run(() =>
@@ -107,6 +104,9 @@ namespace Micro.Future.UI
 
         private void _fiterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
         {
+            if (AnchorablePane != null)
+                AnchorablePane.SelectedContent.Title = tabTitle;
+
             Filter(tabTitle, exchange, underlying, contract);
         }
 
@@ -127,13 +127,14 @@ namespace Micro.Future.UI
         {
             LoadUserContracts();
             // MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().ResubMarketData();
-            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
             if (filtersettings.Any())
                 AnchorablePane.RemoveChildAt(0);
             foreach (var fs in filtersettings)
             {
                 var marketdatactrl = new MarketDataControl(fs.Id);
                 AnchorablePane.AddContent(marketdatactrl).Title = fs.Title;
+                marketdatactrl.LoadUserContracts();
                 marketdatactrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
             }
         }
@@ -159,13 +160,15 @@ namespace Micro.Future.UI
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
             string quote = contractTextBox.SelectedItem == null ? contractTextBox.Text : contractTextBox.SelectedItem.ToString();
-            if (!_futurecontractList.Any(c => c.Contract == quote))
+            if (!FuturecontractList.Any(c => c.Contract == quote))
             {
                 MessageBox.Show("输入合约" + quote + "不存在");
                 return;
             }
 
-            ClientDbContext.SaveMarketContract(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, quote);
+            ClientDbContext.SaveMarketContract(
+                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id,
+                quote, _filterSettingsWin.FilterId);
 
             var item = QuoteVMCollection.FirstOrDefault(c => c.Contract == quote);
 
@@ -214,7 +217,7 @@ namespace Micro.Future.UI
             //exchangeList.AddRange((from p in (IEnumerable<QuoteViewModel>)_viewSource.Source
             //                       select p.Exchange).Distinct());
             //_quoteSettingsWin.ExchangeCollection = exchangeList;
-
+            _filterSettingsWin.FilterTabTitle = AnchorablePane?.SelectedContent.Title;
             _filterSettingsWin.Show();
         }
 
@@ -222,14 +225,15 @@ namespace Micro.Future.UI
         private void MenuItem_Click_ShowCustomizedContractTab(object sender, RoutedEventArgs e)
         {
             if (AnchorablePane != null)
-                AnchorablePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            {
+                AnchorablePane.AddContent(new MarketDataControl()).Title
+                    = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            }
         }
 
         //DataType is for window style, tabIndex is for 
         public void Filter(string tabTitle, string exchange, string underlying, string contract)
         {
-            this.AnchorablePane.SelectedContent.Title = tabTitle;
-
             if (quoteListView == null)
             {
                 return;
@@ -247,6 +251,11 @@ namespace Micro.Future.UI
                     return true;
 
                 MarketDataVM qvm = o as MarketDataVM;
+
+                if (qvm == null)
+                {
+                    return true;
+                }
 
                 if (qvm.Exchange.ContainsAny(exchange) &&
                     qvm.Contract.ContainsAny(contract) &&

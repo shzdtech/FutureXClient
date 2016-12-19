@@ -38,7 +38,7 @@ namespace Micro.Future.UI
         }
         public IEnumerable<OrderStatus> OrderStatuses { get; set; }
 
-        public ExecutionControl(int filterId)
+        public ExecutionControl(string filterId)
         {
             InitializeComponent();
 
@@ -62,7 +62,7 @@ namespace Micro.Future.UI
 
         }
 
-        public ExecutionControl() : this(0)
+        public ExecutionControl() : this(Guid.NewGuid().ToString())
         {
         }
 
@@ -92,6 +92,7 @@ namespace Micro.Future.UI
             //exchangeList.AddRange((from p in (IEnumerable<OrderVM>)_viewSource.Source
             //                       select p.Exchange).Distinct());
             //_executionSettingsWin.ExchangeCollection = exchangeList;
+            _filterSettingsWin.FilterTabTitle = AnchorablePane?.SelectedContent.Title;
             _filterSettingsWin.Show();
         }
 
@@ -316,7 +317,7 @@ namespace Micro.Future.UI
         {
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryOrder();
-            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
             if (filtersettings.Any())
                 AnchorablePane.RemoveChildAt(0);
             foreach (var fs in filtersettings)

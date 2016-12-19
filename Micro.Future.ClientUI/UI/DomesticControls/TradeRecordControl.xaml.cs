@@ -14,6 +14,7 @@ using Micro.Future.CustomizedControls;
 using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.Resources.Localization;
 using Micro.Future.LocalStorage;
+using System;
 
 namespace Micro.Future.UI
 {
@@ -24,9 +25,9 @@ namespace Micro.Future.UI
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
-        private FilterSettingsWindow _filterSettingsWin =
-            new FilterSettingsWindow() { PersistanceId = typeof(TradeRecordControl).Name, CancelClosing = true };
-        //private FilterSettingsWindowForTradeRecord _filterSettingWinForTradeRecord = new FilterSettingsWindowForTradeRecord();
+        public FilterSettingsWindow FilterSettingsWin
+        { get; } = new FilterSettingsWindow() { PersistanceId = typeof(TradeRecordControl).Name, CancelClosing = true };
+
         public string PersistanceId
         {
             get;
@@ -38,29 +39,29 @@ namespace Micro.Future.UI
 
         public LayoutAnchorablePane AnchorablePane { get; set; }
 
-        public TradeRecordControl(int filterId)
+        public TradeRecordControl(string filterId)
         {
             InitializeComponent();
 
             _viewSource.Source = MessageHandlerContainer.DefaultInstance?.Get<TraderExHandler>()?.TradeVMCollection;
 
-            _filterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
+            FilterSettingsWin.OnFiltering += FilterSettingsWin_OnFiltering;
             TradeTreeView.ItemsSource = _viewSource.View;
 
             mColumns = ColumnObject.GetColumns(TradeTreeView);
 
-            _filterSettingsWin.FilterId = filterId;
+            FilterSettingsWin.FilterId = filterId;
 
         }
 
-        public TradeRecordControl() : this(0)
+        public TradeRecordControl() : this(Guid.NewGuid().ToString())
         {
         }
 
-        private void _filterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
+        private void FilterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
         {
             if (LayoutContent != null)
-                LayoutContent.Title = _filterSettingsWin.FilterTabTitle;
+                LayoutContent.Title = FilterSettingsWin.FilterTabTitle;
             Filter(tabTitle, exchange, underlying, contract);
         }
 
@@ -80,8 +81,8 @@ namespace Micro.Future.UI
             //exchangeList.AddRange((from p in (IEnumerable<TradeVM>)_viewSource.Source
             //                       select p.Exchange).Distinct());
             //_tradeSettingsWin.ExchangeCollection = exchangeList;
-
-            _filterSettingsWin.Show();
+            FilterSettingsWin.FilterTabTitle = AnchorablePane?.SelectedContent.Title;
+            FilterSettingsWin.Show();
         }
 
         public void FilterByStatus(IEnumerable<OrderOpenCloseType> statuses)
@@ -116,10 +117,10 @@ namespace Micro.Future.UI
             }
 
             this.AnchorablePane.SelectedContent.Title = tabTitle;
-            _filterSettingsWin.FilterTabTitle = tabTitle;
-            _filterSettingsWin.FilterExchange = exchange;
-            _filterSettingsWin.FilterUnderlying = underlying;
-            _filterSettingsWin.FilterContract = contract;
+            FilterSettingsWin.FilterTabTitle = tabTitle;
+            FilterSettingsWin.FilterExchange = exchange;
+            FilterSettingsWin.FilterUnderlying = underlying;
+            FilterSettingsWin.FilterContract = contract;
 
 
             ICollectionView view = _viewSource.View;
@@ -275,7 +276,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_DeleteWindow(object sender, RoutedEventArgs e)
         {
 
-            ClientDbContext.DeleteFilterSettings(_filterSettingsWin.FilterId);
+            ClientDbContext.DeleteFilterSettings(FilterSettingsWin.FilterId);
             AnchorablePane.RemoveChild(AnchorablePane.SelectedContent);
         }
 
@@ -292,7 +293,7 @@ namespace Micro.Future.UI
         {
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().TradeVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryTrade();
-            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
             if (filtersettings.Any())
                 AnchorablePane.RemoveChildAt(0);
             foreach (var fs in filtersettings)

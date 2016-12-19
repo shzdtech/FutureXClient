@@ -35,6 +35,12 @@ namespace Micro.Future.ViewModel
             return oc.FirstOrDefault(c => c.EqualContract(exchange, contract));
         }
 
+        public static IEnumerable<T> FindByContract<T>(this ObservableCollection<T> oc, string contract)
+            where T : IContractKey
+        {
+            return oc.Where(c => c.Contract == contract);
+        }
+
         public static bool ExistOrder<T>(this ObservableCollection<T> oc, ulong orderId)
             where T : OrderVM
         {

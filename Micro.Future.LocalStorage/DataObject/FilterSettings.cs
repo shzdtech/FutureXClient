@@ -9,6 +9,7 @@ namespace Micro.Future.LocalStorage.DataObject
 {
     public class FilterSettings
     {
+        public string Id { get; set; }
         ///交易所代码
         public string Exchange { get; set; }
         ///合约代码
@@ -19,8 +20,6 @@ namespace Micro.Future.LocalStorage.DataObject
         public string Title { get; set; }
 
         public string UserID { get; set; }
-
-        public int Id { get; set; }
 
         public string CtrlID { get; set; }
     }

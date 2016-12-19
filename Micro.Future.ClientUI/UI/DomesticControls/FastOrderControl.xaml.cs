@@ -14,6 +14,9 @@ using System.ComponentModel;
 using System.Windows.Data;
 using Xceed.Wpf.Toolkit;
 using System.Threading.Tasks;
+using Micro.Future.Utility;
+using System.Threading;
+using System.Globalization;
 
 namespace Micro.Future.UI
 {
@@ -23,8 +26,13 @@ namespace Micro.Future.UI
     public partial class FastOrderControl : UserControl
     {
         private string _currentContract;
-        private IList<ContractInfo> _futurecontractList;
-
+        public IList<ContractInfo> FuturecontractList
+        {
+            get
+            {
+                return ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            }
+        }
         public TraderExHandler TradeHandler
         {
             get
@@ -52,8 +60,7 @@ namespace Micro.Future.UI
         private void Initialize()
         {
             portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
-            FastOrderContract.Provider = new SuggestionProvider((string c) => { return _futurecontractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
-            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            FastOrderContract.Provider = new SuggestionProvider((string c) => { return FuturecontractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
         }
 
 
@@ -101,6 +108,8 @@ namespace Micro.Future.UI
                 var quote = OrderVM.Contract;
                 if (quote != null)
                 {
+                    FastOrderContract.Text = quote;
+                    OrderVM.Volume = positionVM.Position;
                     Task.Run(() =>
                     {
                         var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
@@ -108,7 +117,6 @@ namespace Micro.Future.UI
                         {
                             Dispatcher.Invoke(() =>
                             {
-                                FastOrderContract.Text = quote;
                                 stackPanelPrices.DataContext = item;
                             });
                         }
@@ -135,7 +143,11 @@ namespace Micro.Future.UI
 
         private void SendOrder(object sender, RoutedEventArgs e)
         {
-            string msg = string.Format("是否确认下单?\n价格：{0}，手数：{1}, 方向：{2}，开平{3}", LimitTxt.Text, OrderVM.Volume, OrderVM.Direction, OrderVM.OffsetFlag);
+            OrderVM.LimitPrice = LimitTxt.Value.Value;
+            var cvt = new EnumToFriendlyNameConverter();
+            string msg = string.Format("是否确认下单?\n价格：{0}，手数：{1}, 方向：{2}，开平：{3}", OrderVM.LimitPrice, OrderVM.Volume,
+                cvt.Convert(OrderVM.Direction, typeof(DirectionType), null, CultureInfo.CurrentUICulture),
+                cvt.Convert(OrderVM.OpenClose, typeof(OrderOpenCloseType), null, CultureInfo.CurrentUICulture));
             MessageBoxResult dr = System.Windows.MessageBox.Show(msg, "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
             if (dr == MessageBoxResult.OK)
             {
@@ -174,7 +186,7 @@ namespace Micro.Future.UI
         private void LoadContract()
         {
             var contract = FastOrderContract.SelectedItem == null ? FastOrderContract.Text : FastOrderContract.SelectedItem.ToString();
-            if (_futurecontractList.Any(c => c.Contract == contract))
+            if (FuturecontractList.Any(c => c.Contract == contract))
             {
                 OrderVM.Contract = contract;
                 var quote = OrderVM.Contract;

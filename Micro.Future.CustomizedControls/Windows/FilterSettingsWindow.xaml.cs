@@ -80,11 +80,11 @@ namespace Micro.Future.Windows
         //    set { portfolioTxt.Text = value; }
         //}
 
-        public int FilterId
+        public string FilterId
         {
             get;
             set;
-        }
+        } = Guid.NewGuid().ToString();
 
         public string UserID
         {

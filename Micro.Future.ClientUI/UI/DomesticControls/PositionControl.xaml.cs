@@ -14,6 +14,7 @@ using Micro.Future.CustomizedControls;
 using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.Resources.Localization;
 using Micro.Future.LocalStorage;
+using System.Collections.ObjectModel;
 
 namespace Micro.Future.UI
 {
@@ -26,6 +27,9 @@ namespace Micro.Future.UI
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private FilterSettingsWindow _filterSettingsWin =
             new FilterSettingsWindow() { PersistanceId = typeof(PositionControl).Name, CancelClosing = true };
+        private ObservableCollection<PositionVM> _positionCollection
+            = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
+        private IList<MarketDataVM> _marketDataList;
 
         public LayoutContent LayoutContent { get; set; }
 
@@ -37,12 +41,14 @@ namespace Micro.Future.UI
             set;
         }
 
-        public PositionControl(int filterId)
+        public PositionControl(string filterId)
         {
             InitializeComponent();
 
-            _viewSource.Source = MessageHandlerContainer.DefaultInstance
-            .Get<TraderExHandler>().PositionVMCollection;
+            _viewSource.Source = _positionCollection;
+
+            MessageHandlerContainer.DefaultInstance
+            .Get<MarketDataHandler>().OnNewMarketData += PositionControl_OnNewMarketData;
 
             _filterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
 
@@ -61,7 +67,19 @@ namespace Micro.Future.UI
 
         }
 
-        public PositionControl() : this(0)
+        private void PositionControl_OnNewMarketData(MarketDataVM mktDataVM)
+        {
+            var positions = _positionCollection.FindByContract(mktDataVM.Contract);
+            foreach(var positionVM in positions)
+            {
+                if (positionVM.Direction == PositionDirectionType.PD_LONG)
+                { positionVM.Profit = (mktDataVM.LastPrice - positionVM.MeanCost) * positionVM.Position * positionVM.Multiplier; }
+                else if (positionVM.Direction == PositionDirectionType.PD_SHORT)
+                { positionVM.Profit = (positionVM.MeanCost- mktDataVM.LastPrice) * positionVM.Position * positionVM.Multiplier; }
+            }
+        }
+
+        public PositionControl() : this(Guid.NewGuid().ToString())
         {
         }
         public ICollectionViewLiveShaping PositionChanged { get; set; }
@@ -69,7 +87,7 @@ namespace Micro.Future.UI
         {
             if (LayoutContent != null)
                 LayoutContent.Title = _filterSettingsWin.FilterTabTitle;
-            Filter(tabTitle, exchange,underlying, contract);
+            Filter(tabTitle, exchange, underlying, contract);
         }
 
         public event Action<PositionVM> OnPositionSelected;
@@ -88,6 +106,8 @@ namespace Micro.Future.UI
                 AnchorablePane.AddContent(positionctrl).Title = fs.Title;
                 positionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
             }
+            _marketDataList = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>()
+                .SubMarketData(_positionCollection.Select(c=>c.Contract).Distinct());
         }
 
         private void MenuItem_Click_Columns(object sender, RoutedEventArgs e)
@@ -102,7 +122,7 @@ namespace Micro.Future.UI
             //exchangeList.AddRange((from p in (IEnumerable<PositionVM>)_viewSource.Source
             //                       select p.Exchange).Distinct());
             //_positionSettingsWin.ExchangeCollection = exchangeList;
-
+            _filterSettingsWin.FilterTabTitle = AnchorablePane?.SelectedContent.Title;
             _filterSettingsWin.Show();
         }
 
@@ -123,11 +143,8 @@ namespace Micro.Future.UI
 
         private void PositionListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (OnPositionSelected != null)
-            {
-                PositionVM positionVM = PositionListView.SelectedItem as PositionVM;
-                OnPositionSelected(positionVM);
-            }
+            PositionVM positionVM = PositionListView.SelectedItem as PositionVM;
+            OnPositionSelected?.Invoke(positionVM);
         }
 
         public void Filter(string tabTitle, string exchange, string underlying, string contract)

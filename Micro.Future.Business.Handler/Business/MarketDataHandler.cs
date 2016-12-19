@@ -17,6 +17,7 @@ namespace Micro.Future.Message
         //{
         //    get;
         //} = new ObservableCollection<MarketDataVM>();
+        public event Action<MarketDataVM> OnNewMarketData;
 
         public ConcurrentDictionary<string, WeakReference<MarketDataVM>> MarketDataMap
         {
@@ -37,10 +38,12 @@ namespace Micro.Future.Message
             return mktDataList.FirstOrDefault();
         }
 
-        public IList<MarketDataVM> SubMarketData(IEnumerable<string> instrIDList, int timeout = 5000)
+        public IList<MarketDataVM> SubMarketData(IEnumerable<string> instrIDList, int timeout = 10000)
         {
             var task = SubMarketDataAsync(instrIDList);
-            return task.Wait(timeout) && task.Exception == null ? task.Result : new List<MarketDataVM>();
+            bool suc = task.Wait(timeout);
+            
+            return suc && task.Exception == null ? task.Result : new List<MarketDataVM>();
         }
 
 
@@ -177,6 +180,8 @@ namespace Micro.Future.Message
                     mktVM.LowValue = md.LowValue;
                     mktVM.UpperLimitPrice = md.HighLimit;
                     mktVM.LowerLimitPrice = md.LowLimit;
+
+                    OnNewMarketData?.Invoke(mktVM);
                 }
                 else
                 {

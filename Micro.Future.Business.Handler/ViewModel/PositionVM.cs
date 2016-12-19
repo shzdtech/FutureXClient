@@ -328,5 +328,11 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(MeanCost));
             }
         }
+
+        public int Multiplier
+        {
+            get;
+            set;
+        }
     }
 }

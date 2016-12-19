@@ -10,6 +10,7 @@ namespace Micro.Future.LocalStorage.DataObject
     {
         public string Contract { get; set; }
         public string AccountID { get; set; }
+        public string TabID { get; set; }
 
     }
 }

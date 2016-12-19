@@ -175,16 +175,16 @@ namespace Micro.Future.Message
                 {
                     if (positionVM == null)
                     {
+                        var contractInfo = ClientDbContext.FindContract(positionVM.Contract);
                         positionVM = new PositionVM
                         {
                             Contract = rsp.Contract,
-                            Exchange = rsp.Exchange
+                            Exchange = rsp.Exchange,
+                            Multiplier = contractInfo == null ? 1 : contractInfo.VolumeMultiple
                         };
                         PositionVMCollection.Add(positionVM);
                     }
-
-                    var contractInfo = ClientDbContext.FindContract(positionVM.Contract);
-                    int multiple = contractInfo == null ? 1 : contractInfo.VolumeMultiple;
+                   
                     positionVM.Direction = (PositionDirectionType)rsp.Direction;
                     positionVM.Position = rsp.Position;
                     positionVM.TodayPosition = rsp.TdPosition;
@@ -200,7 +200,7 @@ namespace Micro.Future.Message
                     positionVM.CloseProfit = rsp.CloseProfit;
                     positionVM.UseMargin = rsp.UseMargin;
                     positionVM.HedgeFlag = (HedgeType)rsp.HedgeFlag;
-                    positionVM.MeanCost = rsp.Cost / rsp.Position / multiple;
+                    positionVM.MeanCost = rsp.Cost / rsp.Position / positionVM.Multiplier;
 
                 }
             }
@@ -409,36 +409,30 @@ namespace Micro.Future.Message
                 return;
             }
 
-            double tickPrice = 0;
+
             double price = 0;
 
-            using (var clientCtx = new ClientDbContext())
+            var contractInfo = ClientDbContext.FindContract(orderVM.Contract);
+            if (contractInfo != null)
             {
-                tickPrice = (from contract in clientCtx.ContractInfo
-                             where contract.Contract == orderVM.Contract
-                             select contract.PriceTick).FirstOrDefault();
-
-                if (tickPrice != 0)
-                {
-                    price = Math.Round((orderVM.LimitPrice / tickPrice)) * tickPrice;
-                }
-                else
-                {
-                    OnOrderError?.Invoke(new Exception("输入合约不存在"));
-                    return;
-                }
-
-                var pb = new PBOrderRequest();
-                pb.Contract = orderVM.Contract;
-                pb.LimitPrice = orderVM.LimitPrice;
-                pb.Tif = (int)orderVM.TIF;
-                pb.Volume = orderVM.Volume;
-                pb.ExecType = (int)orderVM.ExecType;
-                pb.Direction = (int)orderVM.Direction;
-                pb.Openclose = (int)orderVM.OpenClose;
-
-                MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb);
+                price = Math.Round(orderVM.LimitPrice / contractInfo.PriceTick) * contractInfo.PriceTick;
             }
+            else
+            {
+                OnOrderError?.Invoke(new Exception("输入合约不存在"));
+                return;
+            }
+
+            var pb = new PBOrderRequest();
+            pb.Contract = orderVM.Contract;
+            pb.LimitPrice = orderVM.LimitPrice;
+            pb.Tif = (int)orderVM.TIF;
+            pb.Volume = orderVM.Volume;
+            pb.ExecType = (int)orderVM.ExecType;
+            pb.Direction = (int)orderVM.Direction;
+            pb.Openclose = (int)orderVM.OpenClose;
+
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb);
         }
 
 
