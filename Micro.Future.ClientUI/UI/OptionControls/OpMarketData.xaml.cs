@@ -64,7 +64,7 @@ namespace Micro.Future.UI
             quoteListView2.ItemsSource = QuoteVMCollection2;
 
             volModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("vm");
-            
+
         }
 
         private void underlyingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -198,35 +198,39 @@ namespace Micro.Future.UI
         }
         private void contract1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             if (contract1.SelectedItem != null)
             {
                 var uexchange = exchange1.SelectedValue.ToString();
                 var uc = contract1.SelectedItem.ToString();
                 var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 QuoteVMCollection1.Clear();
-                var mktDataVM = handler.SubMarketData(uc);
-                QuoteVMCollection1.Add(mktDataVM);
-                var strategyhandler = _otcOptionHandler;
-                foreach (var option in CallPutTDOptionVMCollection)
+                Task.Run(() =>
                 {
-                    var callpcp = option.CallStrategyVM?.PricingContractParams.FirstOrDefault();
-                    if (callpcp != null && callpcp.Contract != uc)
+                    var mktDataVM = handler.SubMarketData(uc);
+                    Dispatcher.Invoke(() =>
                     {
-                        callpcp.Contract = uc;
-                        callpcp.Exchange = uexchange;
-                        strategyhandler.UpdateStrategyPricingContracts(option.CallStrategyVM);
-                    }
+                        QuoteVMCollection1.Add(mktDataVM);
+                        var strategyhandler = _otcOptionHandler;
+                        foreach (var option in CallPutTDOptionVMCollection)
+                        {
+                            var callpcp = option.CallStrategyVM?.PricingContractParams.FirstOrDefault();
+                            if (callpcp != null && callpcp.Contract != uc)
+                            {
+                                callpcp.Contract = uc;
+                                callpcp.Exchange = uexchange;
+                                strategyhandler.UpdateStrategyPricingContracts(option.CallStrategyVM);
+                            }
 
-                    var putpcp = option.PutStrategyVM?.PricingContractParams.FirstOrDefault();
-                    if (putpcp != null && putpcp.Contract != uc)
-                    {
-                        putpcp.Contract = uc;
-                        putpcp.Exchange = uexchange;
-                        strategyhandler.UpdateStrategyPricingContracts(option.PutStrategyVM);
-                    }
-                }
-
+                            var putpcp = option.PutStrategyVM?.PricingContractParams.FirstOrDefault();
+                            if (putpcp != null && putpcp.Contract != uc)
+                            {
+                                putpcp.Contract = uc;
+                                putpcp.Exchange = uexchange;
+                                strategyhandler.UpdateStrategyPricingContracts(option.PutStrategyVM);
+                            }
+                        }
+                    });
+                });
             }
         }
         private void exchange2_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -258,32 +262,37 @@ namespace Micro.Future.UI
                 var uc = contract2.SelectedItem.ToString();
                 var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 QuoteVMCollection2.Clear();
-                var mktDataVM = handler.SubMarketData(uc);
-                if (mktDataVM == null)
-                    return;
-
-                QuoteVMCollection2.Add(mktDataVM);
-                var strategyhandler = _otcOptionHandler;
-                foreach (var option in CallPutTDOptionVMCollection)
+                Task.Run(() =>
                 {
-                    var callpcp = option.CallStrategyVM?.PricingContractParams.FirstOrDefault();
-                    if (callpcp != null && callpcp.Contract != uc)
-                    {
-                        callpcp.Contract = uc;
-                        callpcp.Exchange = uexchange;
-                        strategyhandler.UpdateStrategyPricingContracts(option.CallStrategyVM);
-                    }
+                    var mktDataVM = handler.SubMarketData(uc);
+                    if (mktDataVM == null)
+                        return;
 
-                    var putpcp = option.PutStrategyVM?.PricingContractParams.FirstOrDefault();
-                    if (putpcp != null && putpcp.Contract != uc)
+                    Dispatcher.Invoke(() =>
                     {
-                        putpcp.Contract = uc;
-                        putpcp.Exchange = uexchange;
-                        strategyhandler.UpdateStrategyPricingContracts(option.PutStrategyVM);
-                    }
-                }
+                        QuoteVMCollection2.Add(mktDataVM);
+                        var strategyhandler = _otcOptionHandler;
+                        foreach (var option in CallPutTDOptionVMCollection)
+                        {
+                            var callpcp = option.CallStrategyVM?.PricingContractParams.FirstOrDefault();
+                            if (callpcp != null && callpcp.Contract != uc)
+                            {
+                                callpcp.Contract = uc;
+                                callpcp.Exchange = uexchange;
+                                strategyhandler.UpdateStrategyPricingContracts(option.CallStrategyVM);
+                            }
+
+                            var putpcp = option.PutStrategyVM?.PricingContractParams.FirstOrDefault();
+                            if (putpcp != null && putpcp.Contract != uc)
+                            {
+                                putpcp.Contract = uc;
+                                putpcp.Exchange = uexchange;
+                                strategyhandler.UpdateStrategyPricingContracts(option.PutStrategyVM);
+                            }
+                        }
+                    });
+                });
             }
-
         }
         private void volModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -302,6 +311,6 @@ namespace Micro.Future.UI
             }
         }
 
-        
+
     }
 }
