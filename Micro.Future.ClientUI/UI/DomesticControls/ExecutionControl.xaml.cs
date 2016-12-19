@@ -16,6 +16,7 @@ using Micro.Future.CustomizedControls.Controls;
 using System;
 using Micro.Future.Resources.Localization;
 using Micro.Future.LocalStorage;
+using System.Threading.Tasks;
 
 namespace Micro.Future.UI
 {
@@ -38,7 +39,7 @@ namespace Micro.Future.UI
         }
         public IEnumerable<OrderStatus> OrderStatuses { get; set; }
 
-        public ExecutionControl(string filterId)
+        public ExecutionControl(string filterId, string tabTitle = null, string exchange = null, string underlying = null, string contract = null)
         {
             InitializeComponent();
 
@@ -59,6 +60,10 @@ namespace Micro.Future.UI
             mColumns = ColumnObject.GetColumns(ExecutionTreeView);
 
             _filterSettingsWin.FilterId = filterId;
+            _filterSettingsWin.FilterTabTitle = tabTitle;
+            _filterSettingsWin.FilterExchange = exchange;
+            _filterSettingsWin.FilterUnderlying = underlying;
+            _filterSettingsWin.FilterContract = contract;
 
         }
 
@@ -317,15 +322,19 @@ namespace Micro.Future.UI
         {
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryOrder();
+
+            Task.Delay(3000).Wait();
+
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
-            if (filtersettings.Any())
-                AnchorablePane.RemoveChildAt(0);
+
             foreach (var fs in filtersettings)
             {
-                var executionctrl = new ExecutionControl(fs.Id);
+                var executionctrl = new ExecutionControl(fs.Id, fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
                 AnchorablePane.AddContent(executionctrl).Title = fs.Title;
                 executionctrl.Filter();
             }
+            if (filtersettings.Any())
+                AnchorablePane.RemoveChildAt(0);
         }
     }
 }
