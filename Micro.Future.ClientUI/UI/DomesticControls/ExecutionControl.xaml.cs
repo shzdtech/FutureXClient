@@ -49,6 +49,13 @@ namespace Micro.Future.UI
 
             ExecutionTreeView.ItemsSource = _viewSource.View;
 
+            ExecutionChanged = _viewSource.View as ICollectionViewLiveShaping;
+            if (ExecutionChanged.CanChangeLiveFiltering)
+            {
+                ExecutionChanged.LiveFilteringProperties.Add("Status");
+                ExecutionChanged.IsLiveFiltering = true;
+            }
+
             mColumns = ColumnObject.GetColumns(ExecutionTreeView);
 
             _filterSettingsWin.FilterId = filterId;
@@ -58,6 +65,9 @@ namespace Micro.Future.UI
         public ExecutionControl() : this(0)
         {
         }
+
+        public ICollectionViewLiveShaping ExecutionChanged { get; set; }
+
 
         private void _executionSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
         {
@@ -121,7 +131,7 @@ namespace Micro.Future.UI
         public void Filter()
         {
             if (ExecutionTreeView == null)
-            {
+            {                                            
                 return;
             }
 

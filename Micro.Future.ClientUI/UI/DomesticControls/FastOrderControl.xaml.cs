@@ -127,7 +127,7 @@ namespace Micro.Future.UI
 
         private void SendOrder(object sender, RoutedEventArgs e)
         {
-            string msg = string.Format("是否确认下单?\n价格：{0}，手数：{1}", OrderVM.LimitPrice, OrderVM.Volume);
+            string msg = string.Format("是否确认下单?\n价格：{0}，手数：{1}, 方向：{2}，开平{3}", LimitTxt.Text, OrderVM.Volume, OrderVM.Direction, OrderVM.OffsetFlag);
             MessageBoxResult dr = System.Windows.MessageBox.Show(msg, "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
             if (dr == MessageBoxResult.OK)
             {
