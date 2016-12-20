@@ -169,7 +169,7 @@ namespace Micro.Future.UI
 
         private void AddQuote()
         {
-            string quote = contractTextBox.SelectedItem == null ? contractTextBox.Text : contractTextBox.SelectedItem.ToString();
+            string quote = contractTextBox.SelectedItem == null ? contractTextBox.Filter : contractTextBox.SelectedItem.ToString();
             if (!FuturecontractList.Any(c => c.Contract == quote))
             {
                 MessageBox.Show("输入合约" + quote + "不存在");

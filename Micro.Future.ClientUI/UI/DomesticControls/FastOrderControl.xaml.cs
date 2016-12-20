@@ -94,7 +94,7 @@ namespace Micro.Future.UI
             {
                 _currentContract = quoteVM.Contract;
                 OrderVM.Contract = quoteVM.Contract;
-                FastOrderContract.Text = OrderVM.Contract;
+                FastOrderContract.SelectedItem = OrderVM.Contract;
                 stackPanelPrices.DataContext = quoteVM;
                 OrderVM.LimitPrice = quoteVM.LastPrice;
             }
@@ -108,7 +108,7 @@ namespace Micro.Future.UI
                 var quote = OrderVM.Contract;
                 if (quote != null)
                 {
-                    FastOrderContract.Text = quote;
+                    FastOrderContract.SelectedItem = quote;
                     OrderVM.Volume = positionVM.Position;
                     Task.Run(() =>
                     {
@@ -185,7 +185,7 @@ namespace Micro.Future.UI
 
         private void LoadContract()
         {
-            var contract = FastOrderContract.SelectedItem == null ? FastOrderContract.Text : FastOrderContract.SelectedItem.ToString();
+            var contract = FastOrderContract.SelectedItem == null ? FastOrderContract.Filter : FastOrderContract.SelectedItem.ToString();
             if (FuturecontractList.Any(c => c.Contract == contract))
             {
                 OrderVM.Contract = contract;
