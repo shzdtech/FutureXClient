@@ -229,12 +229,9 @@ namespace Micro.Future.UI
                 var uc = underlyingContractCB1.SelectedItem.ToString();
                 var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 QuoteVMCollection1.Clear();
-                Task.Run(() =>
-                {
-                    var mktDataVM = handler.SubMarketData(uc);
-                    if (mktDataVM != null)
-                        Dispatcher.Invoke(() => QuoteVMCollection1.Add(mktDataVM));
-                });
+                var mktDataVM = handler.SubMarketData(uc);
+                if (mktDataVM != null)
+                    QuoteVMCollection1.Add(mktDataVM);
             }
         }
 
