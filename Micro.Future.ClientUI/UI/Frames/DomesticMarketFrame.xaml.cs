@@ -95,6 +95,10 @@ namespace Micro.Future.UI
             executionWindow.AnchorablePane = executionPane;
             tradeWindow.AnchorablePane = tradePane;
             positionsWindow.AnchorablePane = positionPane;
+            quotePane.Children[0].Title = WPFUtility.GetLocalizedString("Quote", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            executionPane.Children[0].Title = WPFUtility.GetLocalizedString("ExecutionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            tradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            positionPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
 
             // Initialize Market Data
             var msgWrapper = _ctpMdSignIner.MessageWrapper;
