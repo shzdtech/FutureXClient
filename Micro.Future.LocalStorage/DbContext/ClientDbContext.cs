@@ -138,7 +138,10 @@ namespace Micro.Future.LocalStorage
                 var filterinfo = clientCtx.FilterSettings.FirstOrDefault(t => t.Id == id);
                 if (filterinfo == null)
                 {
-                    filterinfo = new FilterSettings();
+                    filterinfo = new FilterSettings
+                    {
+                        Id = id
+                    };
                     //insert new record
                     clientCtx.FilterSettings.Add(filterinfo);
                 }

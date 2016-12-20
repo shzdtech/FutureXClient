@@ -176,8 +176,7 @@ namespace Micro.Future.UI
                 return;
             }
 
-            ClientDbContext.SaveMarketContract(
-                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id,
+            ClientDbContext.SaveMarketContract(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id,
                 quote, _filterSettingsWin.FilterId);
 
             var item = QuoteVMCollection.FirstOrDefault(c => c.Contract == quote);
@@ -188,14 +187,11 @@ namespace Micro.Future.UI
             }
             else
             {
-                Task.Run(() =>
+                var mktDataVM = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+                if (mktDataVM != null)
                 {
-                    var mktDataVM = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
-                    if (mktDataVM != null)
-                    {
-                        Dispatcher.Invoke(() => QuoteVMCollection.Add(mktDataVM));
-                    }
-                });
+                    QuoteVMCollection.Add(mktDataVM);
+                }
             }
         }
         private void Button_Click_Add(object sender, RoutedEventArgs e)
