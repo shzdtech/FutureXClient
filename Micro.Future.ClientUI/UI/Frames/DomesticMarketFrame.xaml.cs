@@ -90,7 +90,7 @@ namespace Micro.Future.UI
         {
             // Initailize UI events
             marketDataLV.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
-            positionsWindow.OnPositionSelected += FastOrderCtl.OnPositionSelected;
+            PositionControl.OnPositionSelected += FastOrderCtl.OnPositionSelected;
             marketDataLV.AnchorablePane = quotePane;
             executionWindow.AnchorablePane = executionPane;
             tradeWindow.AnchorablePane = tradePane;

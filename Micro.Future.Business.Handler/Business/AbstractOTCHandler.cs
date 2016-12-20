@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Micro.Future.Message
 {
@@ -86,14 +87,14 @@ namespace Micro.Future.Message
                       ((uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO, OnQueryPortfolioSuccessAction, OnErrorAction);
         }
 
-        public Task<ModelParamsVM> QueryModelParamsAsync(string modelName)
+        public Task<ModelParamsVM> QueryModelParamsAsync(string modelName, int timeout = 10000)
         {
             if (string.IsNullOrEmpty(modelName))
                 return Task.FromResult<ModelParamsVM>(null);
 
             var msgId = (uint)SystemMessageID.MSG_ID_QUERY_MODELPARAMS;
 
-            var tcs = new TaskCompletionSource<ModelParamsVM>();
+            var tcs = new TaskCompletionSource<ModelParamsVM>(new CancellationTokenSource(timeout));
 
             var serialId = NextSerialId;
 
@@ -125,11 +126,11 @@ namespace Micro.Future.Message
         }
 
 
-        public Task<IDictionary<string, ObservableCollection<ModelParamsVM>>> QueryAllModelParamsAsync()
+        public Task<IDictionary<string, ObservableCollection<ModelParamsVM>>> QueryAllModelParamsAsync(int timeout = 10000)
         {
             var msgId = (uint)SystemMessageID.MSG_ID_QUERY_MODELPARAMS;
 
-            var tcs = new TaskCompletionSource<IDictionary<string, ObservableCollection<ModelParamsVM>>>();
+            var tcs = new TaskCompletionSource<IDictionary<string, ObservableCollection<ModelParamsVM>>>(new CancellationTokenSource(timeout));
 
             var serialId = NextSerialId;
 
@@ -351,11 +352,11 @@ namespace Micro.Future.Message
 
         }
 
-        public Task<ObservableCollection<StrategyVM>> QueryStrategyAsync()
+        public Task<ObservableCollection<StrategyVM>> QueryStrategyAsync(int timeout = 10000)
         {
             var sst = new StringMap();
             var msgId = (uint)BusinessMessageID.MSG_ID_QUERY_STRATEGY;
-            var tcs = new TaskCompletionSource<ObservableCollection<StrategyVM>>();
+            var tcs = new TaskCompletionSource<ObservableCollection<StrategyVM>>(new CancellationTokenSource(timeout));
 
             var serialId = NextSerialId;
             sst.Header = new DataHeader { SerialId = serialId };
@@ -441,11 +442,11 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO, sst);
         }
 
-        public Task<ObservableCollection<PortfolioVM>> QueryPortfolioAsync()
+        public Task<ObservableCollection<PortfolioVM>> QueryPortfolioAsync(int timeout = 10000)
         {
             var sst = new StringMap();
             var msgId = (uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO;
-            var tcs = new TaskCompletionSource<ObservableCollection<PortfolioVM>>();
+            var tcs = new TaskCompletionSource<ObservableCollection<PortfolioVM>>(new CancellationTokenSource(timeout));
 
             var serialId = NextSerialId;
             sst.Header = new DataHeader { SerialId = serialId };

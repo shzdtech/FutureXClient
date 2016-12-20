@@ -81,7 +81,7 @@ namespace Micro.Future.UI
 
         public ICollectionViewLiveShaping QuoteChanged { get; set; }
 
-        public virtual void LoadUserContracts()
+        public virtual async void LoadUserContracts()
         {
             var userId = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper?.User?.Id;
             if (userId == null)
@@ -90,14 +90,11 @@ namespace Micro.Future.UI
             var contracts = ClientDbContext.GetUserContracts(userId, _filterSettingsWin.FilterId);
             if (contracts.Any())
             {
-                Task.Run(() =>
+                var list = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketDataAsync(contracts);
+                foreach (var mktVM in list)
                 {
-                    var list = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(contracts);
-                    foreach (var mktVM in list)
-                    {
-                        Dispatcher.Invoke(() => QuoteVMCollection.Add(mktVM));
-                    }
-                });
+                    Dispatcher.Invoke(() => QuoteVMCollection.Add(mktVM));
+                }
             }
         }
 
@@ -125,6 +122,9 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
+            while (AnchorablePane.ChildrenCount > 1)
+                AnchorablePane.Children.RemoveAt(1);
+
             // MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().ResubMarketData();
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
             foreach (var fs in filtersettings)

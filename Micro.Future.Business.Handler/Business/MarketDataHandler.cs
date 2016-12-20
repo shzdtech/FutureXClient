@@ -38,20 +38,20 @@ namespace Micro.Future.Message
             return mktDataList.FirstOrDefault();
         }
 
-        public IList<MarketDataVM> SubMarketData(IEnumerable<string> instrIDList, int timeout = 10000)
+        public IList<MarketDataVM> SubMarketData(IEnumerable<string> instrIDList)
         {
             var task = SubMarketDataAsync(instrIDList);
-            bool suc = task.Wait(timeout);
+            task.Wait();
             
-            return suc && task.Exception == null ? task.Result : new List<MarketDataVM>();
+            return task.IsCompleted ? task.Result : new List<MarketDataVM>();
         }
 
 
-        public Task<IList<MarketDataVM>> SubMarketDataAsync(IEnumerable<string> instrIDList)
+        public Task<IList<MarketDataVM>> SubMarketDataAsync(IEnumerable<string> instrIDList, int timeout = 10000)
         {
             var msgId = (uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA;
 
-            var tcs = new TaskCompletionSource<IList<MarketDataVM>>();
+            var tcs = new TaskCompletionSource<IList<MarketDataVM>>(new CancellationTokenSource(timeout));
 
             var serialId = NextSerialId;
 

@@ -15,6 +15,8 @@ using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.Resources.Localization;
 using Micro.Future.LocalStorage;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Micro.Future.UI
 {
@@ -27,9 +29,17 @@ namespace Micro.Future.UI
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private FilterSettingsWindow _filterSettingsWin =
             new FilterSettingsWindow() { PersistanceId = typeof(PositionControl).Name, CancelClosing = true };
-        private ObservableCollection<PositionVM> _positionCollection
-            = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
-        private IList<MarketDataVM> _marketDataList;
+        private static ObservableCollection<PositionVM> PositionCollection
+        {
+            get;
+        } = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
+
+        public static TraderExHandler TradeHandler
+        {
+            get;
+        } = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+
+        private static IList<MarketDataVM> _marketDataList = new List<MarketDataVM>();
 
         public LayoutContent LayoutContent { get; set; }
 
@@ -45,7 +55,7 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
 
-            _viewSource.Source = _positionCollection;
+            _viewSource.Source = PositionCollection;
 
             MessageHandlerContainer.DefaultInstance
             .Get<MarketDataHandler>().OnNewMarketData += PositionControl_OnNewMarketData;
@@ -67,15 +77,19 @@ namespace Micro.Future.UI
 
         }
 
-        private void PositionControl_OnNewMarketData(MarketDataVM mktDataVM)
+        public static void PositionControl_OnNewMarketData(MarketDataVM mktDataVM)
         {
-            var positions = _positionCollection.FindByContract(mktDataVM.Contract);
-            foreach(var positionVM in positions)
+            var positions = PositionCollection.FindByContract(mktDataVM.Contract);
+            foreach (var positionVM in positions)
             {
                 if (positionVM.Direction == PositionDirectionType.PD_LONG)
-                { positionVM.Profit = (mktDataVM.LastPrice - positionVM.MeanCost) * positionVM.Position * positionVM.Multiplier; }
+                {
+                    positionVM.Profit = (mktDataVM.LastPrice - positionVM.MeanCost) * positionVM.Position * positionVM.Multiplier;
+                }
                 else if (positionVM.Direction == PositionDirectionType.PD_SHORT)
-                { positionVM.Profit = (positionVM.MeanCost- mktDataVM.LastPrice) * positionVM.Position * positionVM.Multiplier; }
+                {
+                    positionVM.Profit = (positionVM.MeanCost - mktDataVM.LastPrice) * positionVM.Position * positionVM.Multiplier;
+                }
             }
         }
 
@@ -90,24 +104,36 @@ namespace Micro.Future.UI
             Filter(tabTitle, exchange, underlying, contract);
         }
 
-        public event Action<PositionVM> OnPositionSelected;
+        public static event Action<PositionVM> OnPositionSelected;
 
 
         public void ReloadData()
         {
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection.Clear();
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryPosition();
-            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
-            if (filtersettings.Any())
-                AnchorablePane.RemoveChildAt(0);
+            TradeHandler.PositionVMCollection.Clear();
+            TradeHandler.QueryPosition();
+
+            while (AnchorablePane.ChildrenCount > 1)
+                AnchorablePane.Children.RemoveAt(1);
+
+            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
+
             foreach (var fs in filtersettings)
             {
                 var positionctrl = new PositionControl(fs.Id);
                 AnchorablePane.AddContent(positionctrl).Title = fs.Title;
                 positionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
             }
-            _marketDataList = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>()
-                .SubMarketData(_positionCollection.Select(c=>c.Contract).Distinct());
+            if (filtersettings.Any())
+                AnchorablePane.RemoveChildAt(0);
+
+            LoadMarketData();
+        }
+
+        private async void LoadMarketData()
+        {
+            await Task.Delay(5000);
+            _marketDataList = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>()
+                .SubMarketDataAsync(PositionCollection.Select(c=>c.Contract).Distinct());
         }
 
         private void MenuItem_Click_Columns(object sender, RoutedEventArgs e)

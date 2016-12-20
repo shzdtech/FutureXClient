@@ -16,6 +16,7 @@ using Micro.Future.Resources.Localization;
 using Micro.Future.LocalStorage;
 using System;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Micro.Future.UI
 {
@@ -295,16 +296,22 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().TradeVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryTrade();
 
-            Task.Delay(3000).Wait();
-            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
-            foreach (var fs in filtersettings)
+            while (AnchorablePane.ChildrenCount > 1)
+                AnchorablePane.Children.RemoveAt(1);
+
+            Task.Run(() =>
             {
-                var traderecordctrl = new TradeRecordControl(fs.Id);
-                AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
-                traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
-            }
-            if (filtersettings.Any())
-                AnchorablePane.RemoveChildAt(0);
+                Thread.Sleep(3000);
+                var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
+                foreach (var fs in filtersettings)
+                {
+                    var traderecordctrl = new TradeRecordControl(fs.Id);
+                    AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
+                    traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+                }
+                if (filtersettings.Any())
+                    AnchorablePane.RemoveChildAt(0);
+            });
         }
     }
 }
