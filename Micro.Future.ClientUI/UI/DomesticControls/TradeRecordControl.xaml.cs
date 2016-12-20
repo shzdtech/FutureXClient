@@ -36,9 +36,6 @@ namespace Micro.Future.UI
             set;
         }
 
-
-        public LayoutContent LayoutContent { get; set; }
-
         public LayoutAnchorablePane AnchorablePane { get; set; }
 
         public TradeRecordControl(string filterId)
@@ -62,8 +59,8 @@ namespace Micro.Future.UI
 
         private void FilterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
         {
-            if (LayoutContent != null)
-                LayoutContent.Title = FilterSettingsWin.FilterTabTitle;
+            if (AnchorablePane != null)
+                AnchorablePane.SelectedContent.Title = tabTitle;
             Filter(tabTitle, exchange, underlying, contract);
         }
 
@@ -299,19 +296,15 @@ namespace Micro.Future.UI
             while (AnchorablePane.ChildrenCount > 1)
                 AnchorablePane.Children.RemoveAt(1);
 
-            Task.Run(() =>
+            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
+            foreach (var fs in filtersettings)
             {
-                Thread.Sleep(3000);
-                var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
-                foreach (var fs in filtersettings)
-                {
-                    var traderecordctrl = new TradeRecordControl(fs.Id);
-                    AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
-                    traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
-                }
-                if (filtersettings.Any())
-                    AnchorablePane.RemoveChildAt(0);
-            });
+                var traderecordctrl = new TradeRecordControl(fs.Id);
+                AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
+                traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+            }
+            if (filtersettings.Any())
+                AnchorablePane.RemoveChildAt(0);
         }
     }
 }

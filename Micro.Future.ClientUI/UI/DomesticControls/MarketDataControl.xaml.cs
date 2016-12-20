@@ -66,7 +66,6 @@ namespace Micro.Future.UI
         private void Initialize()
         {
             _filterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
-            quoteListView.ItemsSource = QuoteVMCollection;
             _viewSource.Source = QuoteVMCollection;
             QuoteChanged = _viewSource.View as ICollectionViewLiveShaping;
             if (QuoteChanged.CanChangeLiveFiltering)
@@ -75,6 +74,7 @@ namespace Micro.Future.UI
                 QuoteChanged.LiveFilteringProperties.Add("Contract");
                 QuoteChanged.IsLiveFiltering = true;
             }
+            quoteListView.ItemsSource = _viewSource.View;
 
             mColumns = ColumnObject.GetColumns(quoteListView);
 
@@ -226,7 +226,6 @@ namespace Micro.Future.UI
         }
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
         {
-            var exchangeList = new List<string> { string.Empty };
             //exchangeList.AddRange((from p in (IEnumerable<QuoteViewModel>)_viewSource.Source
             //                       select p.Exchange).Distinct());
             //_quoteSettingsWin.ExchangeCollection = exchangeList;

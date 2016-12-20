@@ -21,12 +21,20 @@ namespace Micro.Future.UI
 
         public static int maketDataTabCount = 0;
 
+        private bool _logged;
+
 
         public MainWindow()
         {
             InitializeComponent();
             Title += " (" + MFUtilities.ClientVersion + ")";
             Initialize();
+        }
+
+        private void _currentLoginWindow_Closed(object sender, EventArgs e)
+        {
+            if (!_logged)
+                Close();
         }
 
         public void Initialize()
@@ -42,7 +50,7 @@ namespace Micro.Future.UI
                 MD5Round = 2,
                 AddressCollection = _config.Content["ACCOUNTSERVER.ADDRESS"].Values
             };
-
+            _currentLoginWindow.Closed += _currentLoginWindow_Closed;
             _currentLoginWindow.OnLogged += LoginWindow_OnLogged;
 
             _currentLoginWindow.ShowDialog();
@@ -84,7 +92,9 @@ namespace Micro.Future.UI
 
                         try
                         {
-                            await frameUI.LoginAsync(_accountSignIner.SignInOptions.UserName, _accountSignIner.SignInOptions.Password, entries[0]);
+                            _logged = await frameUI.LoginAsync(_accountSignIner.SignInOptions.UserName, _accountSignIner.SignInOptions.Password, entries[0]);
+                            if (!_logged)
+                                Close();
                         }
                         catch (Exception ex)
                         {

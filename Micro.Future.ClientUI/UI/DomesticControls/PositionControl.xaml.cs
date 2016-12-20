@@ -99,8 +99,10 @@ namespace Micro.Future.UI
         public ICollectionViewLiveShaping PositionChanged { get; set; }
         private void _filterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
         {
-            if (LayoutContent != null)
-                LayoutContent.Title = _filterSettingsWin.FilterTabTitle;
+            //if (LayoutContent != null)
+            //    LayoutContent.Title = _filterSettingsWin.FilterTabTitle;
+            if (AnchorablePane != null)
+                AnchorablePane.SelectedContent.Title = tabTitle;
             Filter(tabTitle, exchange, underlying, contract);
         }
 
@@ -144,7 +146,6 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
         {
-            var exchangeList = new List<string> { string.Empty };
             //exchangeList.AddRange((from p in (IEnumerable<PositionVM>)_viewSource.Source
             //                       select p.Exchange).Distinct());
             //_positionSettingsWin.ExchangeCollection = exchangeList;

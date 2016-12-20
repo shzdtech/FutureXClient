@@ -147,9 +147,6 @@ namespace Micro.Future.UI
             var underlying = _filterSettingsWin.FilterUnderlying;
             var contract = _filterSettingsWin.FilterContract;
 
-            
-
-
             ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
             {
@@ -327,20 +324,16 @@ namespace Micro.Future.UI
             while (AnchorablePane.ChildrenCount > 1)
                 AnchorablePane.Children.RemoveAt(1);
 
-            Task.Run(() =>
-            {
-                Thread.Sleep(3000);
-                var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
 
-                foreach (var fs in filtersettings)
-                {
-                    var executionctrl = new ExecutionControl(fs.Id, fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
-                    AnchorablePane.AddContent(executionctrl).Title = fs.Title;
-                    executionctrl.Filter();
-                }
-                if (filtersettings.Any())
-                    AnchorablePane.RemoveChildAt(0);
-            });
+            foreach (var fs in filtersettings)
+            {
+                var executionctrl = new ExecutionControl(fs.Id, fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+                AnchorablePane.AddContent(executionctrl).Title = fs.Title;
+                executionctrl.Filter();
+            }
+            if (filtersettings.Any())
+                AnchorablePane.RemoveChildAt(0);
         }
     }
 }
