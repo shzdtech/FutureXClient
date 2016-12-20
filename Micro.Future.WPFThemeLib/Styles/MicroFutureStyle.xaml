@@ -32,21 +32,34 @@
         <Setter Property="TextAlignment" Value="Right" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding Direction}" Value="1">
-                <!--<DataTrigger.EnterActions>
-                    <BeginStoryboard x:Name="bidDownStory">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Red"/>
+                    </Setter.Value>
+                </Setter>
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
                         <Storyboard>
-                            <ColorAnimation Storyboard.TargetProperty="Background" Duration="0:0:1" From="{x:Null}" To="Red">
+                            <ColorAnimation Storyboard.TargetProperty="Background.Color" Duration="0:0:2" From="Red" To="White">
                             </ColorAnimation>
                         </Storyboard>
                     </BeginStoryboard>
                 </DataTrigger.EnterActions>
-                <DataTrigger.ExitActions>
-                    <StopStoryboard BeginStoryboardName="bidDownStory" />
-                </DataTrigger.ExitActions>-->
-                <Setter Property="Background" Value="Red" />
             </DataTrigger>
             <DataTrigger Binding="{Binding Direction}" Value="-1">
-                <Setter Property="Background" Value="Green" />
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Green"/>
+                    </Setter.Value>
+                </Setter>
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="Background.Color" Duration="0:0:2" From="Green" To="White">
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
             </DataTrigger>
         </Style.Triggers>
     </Style>
