@@ -81,26 +81,26 @@
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="quotePane">
-                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Quote}">
+                            <avalonDock:LayoutAnchorable>
                                 <c:MarketDataControl x:Name="marketDataLV"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>
                     <avalonDock:LayoutPanel Orientation="Vertical">
                         <avalonDock:LayoutAnchorablePane x:Name="executionPane">
-                            <avalonDock:LayoutAnchorable  Title="{lex:Loc Key=ExecutionWindow}">
+                            <avalonDock:LayoutAnchorable >
                                 <c:ExecutionControl  x:Name="executionWindow"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>
                     <avalonDock:LayoutPanel Orientation="Horizontal">
                         <avalonDock:LayoutAnchorablePane x:Name="tradePane">
-                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=TradeWindow}">
+                            <avalonDock:LayoutAnchorable>
                                 <c:TradeRecordControl x:Name="tradeWindow"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
-                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=PositionWindow}">
+                            <avalonDock:LayoutAnchorable>
                                 <c:PositionControl x:Name="positionsWindow"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
