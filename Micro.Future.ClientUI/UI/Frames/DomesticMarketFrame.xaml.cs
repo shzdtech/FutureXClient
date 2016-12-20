@@ -89,8 +89,8 @@ namespace Micro.Future.UI
         public void Initialize()
         {
             // Initailize UI events
-            marketDataLV.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
-            positionsWindow.OnPositionSelected += FastOrderCtl.OnPositionSelected;
+            MarketDataControl.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
+            PositionControl.OnPositionSelected += FastOrderCtl.OnPositionSelected;
             marketDataLV.AnchorablePane = quotePane;
             executionWindow.AnchorablePane = executionPane;
             tradeWindow.AnchorablePane = tradePane;
@@ -228,7 +228,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Traded(object sender, RoutedEventArgs e)
         {
             var executionWin = new ExecutionControl();
-            executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED });
+            executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED, OrderStatus.PARTIAL_TRADED });
             executionPane.AddContent(executionWin).Title = WPFUtility.GetLocalizedString("Traded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 

@@ -90,7 +90,7 @@ namespace Micro.Future.UI
             Filter(tabTitle, exchange, underlying, contract);
         }
 
-        public event Action<PositionVM> OnPositionSelected;
+        public static event Action<PositionVM> OnPositionSelected;
 
 
         public void ReloadData()

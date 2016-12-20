@@ -18,6 +18,8 @@ using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using WpfControls;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Windows.Input;
 
 namespace Micro.Future.UI
 {
@@ -110,7 +112,7 @@ namespace Micro.Future.UI
             Filter(tabTitle, exchange, underlying, contract);
         }
 
-        public event Action<MarketDataVM> OnQuoteSelected;
+        public static event Action<MarketDataVM> OnQuoteSelected;
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -119,8 +121,11 @@ namespace Micro.Future.UI
         }
         private void MenuItem_Click_Delete(object sender, RoutedEventArgs e)
         {
-            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
-                UnsubMarketData(SeletedQuoteVM);
+            foreach (var mktVM in SeletedQuoteVM)
+                QuoteVMCollection.Remove(mktVM);
+
+            //MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
+            //    UnsubMarketData(SeletedQuoteVM);
         }
 
         public void ReloadData()
@@ -145,11 +150,14 @@ namespace Micro.Future.UI
         {
             get
             {
-                var selectedItems = quoteListView.SelectedItems;
-                for (int i = 0; i < selectedItems.Count; i++)
-                {
-                    yield return selectedItems[i] as MarketDataVM;
-                }
+                var marketList = new List<MarketDataVM>();
+                if (quoteListView.SelectedItems != null)
+                    foreach (var mktVM in quoteListView.SelectedItems)
+                    {
+                        marketList.Add((MarketDataVM)mktVM);
+                    }
+
+                return marketList;
             }
         }
 
@@ -159,7 +167,7 @@ namespace Micro.Future.UI
             set;
         }
 
-        private void Button_Click_Add(object sender, RoutedEventArgs e)
+        private void AddQuote()
         {
             string quote = contractTextBox.SelectedItem == null ? contractTextBox.Text : contractTextBox.SelectedItem.ToString();
             if (!FuturecontractList.Any(c => c.Contract == quote))
@@ -189,7 +197,10 @@ namespace Micro.Future.UI
                     }
                 });
             }
-
+        }
+        private void Button_Click_Add(object sender, RoutedEventArgs e)
+        {
+            AddQuote();
         }
 
         private void quoteListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -303,7 +314,17 @@ namespace Micro.Future.UI
             }
         }
 
+        private void AddQuote_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                AddQuote();
+            }
+        }
 
-
+        private void contractTextBox_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            AddQuote();
+        }
     }
 }
