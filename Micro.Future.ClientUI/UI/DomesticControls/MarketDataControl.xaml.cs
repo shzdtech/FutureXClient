@@ -238,6 +238,8 @@ namespace Micro.Future.UI
         {
             if (AnchorablePane != null)
             {
+                var mktCtrl = new MarketDataControl();
+                mktCtrl._filterSettingsWin.Save();
                 AnchorablePane.AddContent(new MarketDataControl()).Title
                     = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             }
