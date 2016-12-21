@@ -64,13 +64,12 @@ namespace Micro.Future.UI
 
             PositionListView.ItemsSource = _viewSource.View;
 
-
-            PositionChanged = _viewSource.View as ICollectionViewLiveShaping;
-            if (PositionChanged.CanChangeLiveFiltering)
-            {
-                PositionChanged.LiveFilteringProperties.Add("Direction");
-                PositionChanged.IsLiveFiltering = true;
-            }
+            //PositionChanged = _viewSource.View as ICollectionViewLiveShaping;
+            //if (PositionChanged.CanChangeLiveFiltering)
+            //{
+            //    PositionChanged.LiveFilteringProperties.Add("Direction");
+            //    PositionChanged.IsLiveFiltering = true;
+            //}
 
             mColumns = ColumnObject.GetColumns(PositionListView);
             _filterSettingsWin.FilterId = filterId;
