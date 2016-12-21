@@ -110,9 +110,9 @@ namespace Micro.Future.UI
                 {
                     FastOrderContract.SelectedItem = quote;
                     OrderVM.Volume = positionVM.Position;
-                    Task.Run(() =>
+                    Task.Run(async () =>
                     {
-                        var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+                        var item = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketDataAsync(quote);
                         if (item != null)
                         {
                             Dispatcher.Invoke(() =>
@@ -183,21 +183,18 @@ namespace Micro.Future.UI
             LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
         }
 
-        private void LoadContract()
+        private async void LoadContract()
         {
             var contract = FastOrderContract.SelectedItem == null ? FastOrderContract.Filter : FastOrderContract.SelectedItem.ToString();
             if (FuturecontractList.Any(c => c.Contract == contract))
             {
                 OrderVM.Contract = contract;
                 var quote = OrderVM.Contract;
-                Task.Run(() =>
+                var item = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketDataAsync(quote);
+                if (item != null)
                 {
-                    var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
-                    if (item != null)
-                    {
-                        Dispatcher.Invoke(() => stackPanelPrices.DataContext = item);
-                    }
-                });
+                    stackPanelPrices.DataContext = item;
+                }
             }
         }
 

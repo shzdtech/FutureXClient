@@ -167,7 +167,7 @@ namespace Micro.Future.UI
             set;
         }
 
-        private void AddQuote()
+        private async void AddQuote()
         {
             string quote = contractTextBox.SelectedItem == null ? contractTextBox.Filter : contractTextBox.SelectedItem.ToString();
             if (!FuturecontractList.Any(c => c.Contract == quote))
@@ -187,7 +187,7 @@ namespace Micro.Future.UI
             }
             else
             {
-                var mktDataVM = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+                var mktDataVM = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketDataAsync(quote);
                 if (mktDataVM != null)
                 {
                     QuoteVMCollection.Add(mktDataVM);

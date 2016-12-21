@@ -32,18 +32,10 @@ namespace Micro.Future.Message
                 ((uint)BusinessMessageID.MSG_ID_RET_MARKETDATA, RetMDSuccessAction, ErrorMsgAction);
         }
 
-        public MarketDataVM SubMarketData(string instrID)
+        public async Task<MarketDataVM> SubMarketDataAsync(string instrID)
         {
-            var mktDataList = SubMarketData(new string[] { instrID });
-            return mktDataList.FirstOrDefault();
-        }
-
-        public IList<MarketDataVM> SubMarketData(IEnumerable<string> instrIDList)
-        {
-            var task = SubMarketDataAsync(instrIDList);
-            task.Wait();
-            
-            return task.IsCompleted ? task.Result : new List<MarketDataVM>();
+            var mktDataList = await SubMarketDataAsync(new string[] { instrID });
+            return mktDataList?.FirstOrDefault();
         }
 
 
@@ -51,7 +43,7 @@ namespace Micro.Future.Message
         {
             var msgId = (uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA;
 
-            var tcs = new TaskCompletionSource<IList<MarketDataVM>>(new CancellationTokenSource(timeout));
+            var tcs = new TimeoutTaskCompletionSource<IList<MarketDataVM>>(timeout);
 
             var serialId = NextSerialId;
 
@@ -96,9 +88,9 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage(msgId, sst);
         }
 
-        public IList<MarketDataVM> ResubMarketData()
+        public Task<IList<MarketDataVM>> ResubMarketData()
         {
-            return SubMarketData(MarketDataMap.Keys);
+            return SubMarketDataAsync(MarketDataMap.Keys);
         }
 
         public void UnsubMarketData(IEnumerable<MarketDataVM> quoteCollection)

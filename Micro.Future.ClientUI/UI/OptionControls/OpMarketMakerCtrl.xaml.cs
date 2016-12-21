@@ -222,14 +222,14 @@ namespace Micro.Future.UI
                 underlyingContractCB1.ItemsSource = underlyingContracts;
             }
         }
-        public void underlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public async void underlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (underlyingContractCB1.SelectedItem != null)
             {
                 var uc = underlyingContractCB1.SelectedItem.ToString();
                 var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 QuoteVMCollection1.Clear();
-                var mktDataVM = handler.SubMarketData(uc);
+                var mktDataVM = await handler.SubMarketDataAsync(uc);
                 if (mktDataVM != null)
                     QuoteVMCollection1.Add(mktDataVM);
             }

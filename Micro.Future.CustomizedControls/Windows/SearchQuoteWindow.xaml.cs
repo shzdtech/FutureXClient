@@ -32,7 +32,7 @@ namespace Micro.Future.UI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(_selectedSymbol);
+            //MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(_selectedSymbol);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

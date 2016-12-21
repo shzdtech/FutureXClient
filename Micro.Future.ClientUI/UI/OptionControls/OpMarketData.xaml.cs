@@ -196,7 +196,7 @@ namespace Micro.Future.UI
 
             }
         }
-        private void contract1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void contract1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (contract1.SelectedItem != null)
             {
@@ -205,7 +205,7 @@ namespace Micro.Future.UI
                 var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 QuoteVMCollection1.Clear();
 
-                var mktDataVM = handler.SubMarketData(uc);
+                var mktDataVM = await handler.SubMarketDataAsync(uc);
                 if (mktDataVM != null)
                 {
                     QuoteVMCollection1.Add(mktDataVM);
@@ -252,7 +252,7 @@ namespace Micro.Future.UI
 
             }
         }
-        private void contract2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void contract2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (contract2.SelectedItem != null)
             {
@@ -260,7 +260,7 @@ namespace Micro.Future.UI
                 var uc = contract2.SelectedItem.ToString();
                 var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 QuoteVMCollection2.Clear();
-                var mktDataVM = handler.SubMarketData(uc);
+                var mktDataVM = await handler.SubMarketDataAsync(uc);
                 if (mktDataVM != null)
                 {
                     QuoteVMCollection2.Add(mktDataVM);
