@@ -94,7 +94,12 @@ namespace Micro.Future.Windows
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             Hide();
-            OnFiltering?.Invoke(FilterTabTitle, FilterExchange, FilterUnderlying, FilterContract);            
+            OnFiltering?.Invoke(FilterTabTitle, FilterExchange, FilterUnderlying, FilterContract);
+            Save();
+        }
+
+        public void Save()
+        {
             ClientDbContext.SaveFilterSettings(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, PersistanceId, FilterId, FilterTabTitle, FilterExchange, FilterContract, FilterUnderlying);
         }
 
