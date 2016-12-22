@@ -87,9 +87,9 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private long upperlimitprice;
+        private double upperlimitprice;
 
-        public long UpperLimitPrice
+        public double UpperLimitPrice
         {
             get { return upperlimitprice; }
             set
@@ -99,9 +99,9 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private long lowerlimitprice;
+        private double lowerlimitprice;
 
-        public long LowerLimitPrice
+        public double LowerLimitPrice
         {
             get { return lowerlimitprice; }
             set

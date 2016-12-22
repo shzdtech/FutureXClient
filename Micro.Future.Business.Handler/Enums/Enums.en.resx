@@ -222,4 +222,10 @@
   <data name="OrderStatus_SUBMITTING" xml:space="preserve">
     <value>Submitting</value>
   </data>
+  <data name="PSD_HISTORY" xml:space="preserve">
+    <value>Position History</value>
+  </data>
+  <data name="PSD_TODAY" xml:space="preserve">
+    <value>Position Today</value>
+  </data>
 </root>

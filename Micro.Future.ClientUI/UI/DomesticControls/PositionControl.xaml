@@ -32,7 +32,7 @@
                     <GridViewColumn Header="{lex:Loc Key=PositionCost}" DisplayMemberBinding="{Binding Cost}" />
                     <GridViewColumn Header="{lex:Loc Key=OpenCost}" DisplayMemberBinding="{Binding OpenCost}" />
                     <GridViewColumn Header="{lex:Loc Key=PositionProfit}" DisplayMemberBinding="{Binding Profit, StringFormat={}{0:N}}" />
-                    <GridViewColumn Header="{lex:Loc Key=CloseProfit}" DisplayMemberBinding="{Binding CloseProfit}" />
+                    <GridViewColumn Header="{lex:Loc Key=CloseProfit}" DisplayMemberBinding="{Binding CloseProfit, StringFormat={}{0:N}}" />
                     <GridViewColumn Header="{lex:Loc Key=UseMargin}" DisplayMemberBinding="{Binding UseMargin}" />
                     <GridViewColumn Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" />
                     <!--<GridViewColumn Header="投机套保标志" DisplayMemberBinding="{Binding HedgeFlag}"/>-->

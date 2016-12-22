@@ -219,4 +219,10 @@
   <data name="OrderStatus_SUBMITTING" xml:space="preserve">
     <value>正在提交</value>
   </data>
+  <data name="PSD_HISTORY" xml:space="preserve">
+    <value>历史持仓</value>
+  </data>
+  <data name="PSD_TODAY" xml:space="preserve">
+    <value>今日持仓</value>
+  </data>
 </root>

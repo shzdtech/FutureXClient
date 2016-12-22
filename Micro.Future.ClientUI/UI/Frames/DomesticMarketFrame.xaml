@@ -100,7 +100,7 @@
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
-                            <avalonDock:LayoutAnchorable>
+                            <avalonDock:LayoutAnchorable Closing="ClosingPositionPane">
                                 <c:PositionControl x:Name="positionsWindow"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>

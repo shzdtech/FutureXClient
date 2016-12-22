@@ -37,11 +37,11 @@
                     <GridViewColumn Header="{lex:Loc Key=VolumeTraded}" DisplayMemberBinding="{Binding VolumeTraded}"/>
                     <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}"/>
                     <GridViewColumn Header="{lex:Loc Key=InsertTime}" DisplayMemberBinding="{Binding InsertTime}"/>
-                    <GridViewColumn Header="{lex:Loc Key=OpenClose}" DisplayMemberBinding="{Binding OpenClose}"/>
+                    <GridViewColumn Header="{lex:Loc Key=OpenClose}" DisplayMemberBinding="{Binding OpenClose, Converter={StaticResource enumItemsConverter}}"/>
                     <GridViewColumn Header="{lex:Loc Key=UpdateTime}" DisplayMemberBinding="{Binding UpdateTime}"/>
                     <GridViewColumn Header="{lex:Loc Key=CancelTime}" DisplayMemberBinding="{Binding CancelTime}"/>
                     <GridViewColumn Header="{lex:Loc Key=VolumeRemain}" DisplayMemberBinding="{Binding VolumeRemain}"/>
-                    <GridViewColumn Header="{lex:Loc Key=ExecType}" DisplayMemberBinding="{Binding ExecType}"/>
+                    <GridViewColumn Header="{lex:Loc Key=ExecType}" DisplayMemberBinding="{Binding ExecType, Converter={StaticResource enumItemsConverter}}"/>
                     <GridViewColumn Header="{lex:Loc Key=TIF}" DisplayMemberBinding="{Binding TIF}"/>
                     <GridViewColumn Header="{lex:Loc Key=TradingType}" DisplayMemberBinding="{Binding Path=TradingType, Converter={StaticResource enumItemsConverter}}"/>
                     <GridViewColumn Header="{lex:Loc Key=Active}" DisplayMemberBinding="{Binding Active}"/>

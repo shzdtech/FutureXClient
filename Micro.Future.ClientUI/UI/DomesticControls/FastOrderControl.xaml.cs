@@ -164,23 +164,27 @@ namespace Micro.Future.UI
 
         private void labelupperprice_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            LimitTxt.Value = double.Parse(LabelUpperPrice.Content.ToString());
+            if (!checkBox.IsChecked.Value)
+            { LimitTxt.Value = double.Parse(LabelUpperPrice.Content.ToString()); }
         }
 
         private void labellowerprice_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            LimitTxt.Value = double.Parse(LabelLowerPrice.Content.ToString());
+            if (!checkBox.IsChecked.Value)
+                LimitTxt.Value = double.Parse(LabelLowerPrice.Content.ToString());
         }
 
 
         private void LabelBidPrice_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            LimitTxt.Value = double.Parse(LabelBidPrice.Content.ToString());
+            if (!checkBox.IsChecked.Value)
+                LimitTxt.Value = double.Parse(LabelBidPrice.Content.ToString());
         }
 
         private void LabelAskPrice_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
+            if (!checkBox.IsChecked.Value)
+                LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
         }
 
         private async void LoadContract()
@@ -219,8 +223,8 @@ namespace Micro.Future.UI
             {
                 LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("AskPrice.Value"));
             }
-            else
-            {
+            else if (OrderVM.Direction == DirectionType.SELL)
+            {                
                 LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("BidPrice.Value"));
             }
 
@@ -241,6 +245,5 @@ namespace Micro.Future.UI
                 LimitTxt.Text = LabelBidPrice.Content.ToString();
             }
         }
-
     }
 }

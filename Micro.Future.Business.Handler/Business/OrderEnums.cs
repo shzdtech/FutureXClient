@@ -119,8 +119,10 @@ namespace Micro.Future.Message
     public enum PositionDateFlagType
     {
         ///今日持仓
+        [LocalizableDescription(@"PSD_TODAY", typeof(Enums))]
         PSD_TODAY = 0,
         ///历史持仓
+        [LocalizableDescription(@"PSD_HISTORY", typeof(Enums))]
         PSD_HISTORY = 1
     };
 

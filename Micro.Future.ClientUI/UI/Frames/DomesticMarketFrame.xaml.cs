@@ -13,6 +13,8 @@ using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.CustomizedControls.Windows;
 using System.Threading.Tasks;
 using System.Threading;
+using Micro.Future.LocalStorage;
+using Micro.Future.Windows;
 
 namespace Micro.Future.UI
 {
@@ -270,6 +272,11 @@ namespace Micro.Future.UI
         {
             FutureAccountInfoWindow win = new FutureAccountInfoWindow();
             win.Show();
+        }
+
+        private void ClosingPositionPane(object sender, CancelEventArgs e)
+        {
+            positionsWindow.DeletePositionDB();
         }
     }
 }

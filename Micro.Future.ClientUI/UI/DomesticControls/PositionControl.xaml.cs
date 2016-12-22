@@ -134,7 +134,7 @@ namespace Micro.Future.UI
         {
             await Task.Delay(5000);
             _marketDataList = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>()
-                .SubMarketDataAsync(PositionCollection.Select(c=>c.Contract).Distinct());
+                .SubMarketDataAsync(PositionCollection.Select(c => c.Contract).Distinct());
         }
 
         private void MenuItem_Click_Columns(object sender, RoutedEventArgs e)
@@ -164,6 +164,11 @@ namespace Micro.Future.UI
 
             ClientDbContext.DeleteFilterSettings(_filterSettingsWin.FilterId);
             AnchorablePane.RemoveChild(AnchorablePane.SelectedContent);
+        }
+
+        public void DeletePositionDB()
+        {
+            ClientDbContext.DeleteFilterSettings(_filterSettingsWin.FilterId);
         }
 
 

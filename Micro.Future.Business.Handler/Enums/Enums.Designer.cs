@@ -331,6 +331,24 @@ namespace Micro.Future.Business.Handler.Enums {
         }
         
         /// <summary>
+        ///   查找类似 历史持仓 的本地化字符串。
+        /// </summary>
+        internal static string PSD_HISTORY {
+            get {
+                return ResourceManager.GetString("PSD_HISTORY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 今日持仓 的本地化字符串。
+        /// </summary>
+        internal static string PSD_TODAY {
+            get {
+                return ResourceManager.GetString("PSD_TODAY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 自动 的本地化字符串。
         /// </summary>
         internal static string TRADINGTYPE_AUTO {

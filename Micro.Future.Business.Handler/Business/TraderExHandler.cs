@@ -274,8 +274,6 @@ namespace Micro.Future.Message
                 }
             }
         }
-
-
         private void OnUpdateOrder(PBOrderInfo rsp)
         {
             var orderVM = OrderVMCollection.FirstOrDefault(order =>
@@ -294,7 +292,6 @@ namespace Micro.Future.Message
                 OnReturnOrder(rsp);
             }
         }
-
         private void OnReturnTrade(PBTradeInfo rsp)
         {
             lock (TradeVMCollection)

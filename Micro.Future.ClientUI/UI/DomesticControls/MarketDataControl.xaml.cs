@@ -129,7 +129,6 @@ namespace Micro.Future.UI
         {
             while (AnchorablePane.ChildrenCount > 1)
                 AnchorablePane.Children.RemoveAt(1);
-
             // MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().ResubMarketData();
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
             foreach (var fs in filtersettings)
@@ -234,10 +233,11 @@ namespace Micro.Future.UI
         {
             if (AnchorablePane != null)
             {
-                var mktCtrl = new MarketDataControl();
-                mktCtrl._filterSettingsWin.Save();
                 AnchorablePane.AddContent(new MarketDataControl()).Title
                     = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                var mktCtrl = new MarketDataControl();
+                mktCtrl._filterSettingsWin.FilterTabTitle = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                mktCtrl._filterSettingsWin.Save();
             }
         }
 
