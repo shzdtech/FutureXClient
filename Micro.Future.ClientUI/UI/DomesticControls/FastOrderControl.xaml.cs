@@ -189,7 +189,10 @@ namespace Micro.Future.UI
 
         private async void LoadContract()
         {
-            var contract = FastOrderContract.SelectedItem == null ? FastOrderContract.Filter : FastOrderContract.SelectedItem.ToString();
+            if(FastOrderContract.SelectedItem == null)
+                FastOrderContract.SelectedItem = FastOrderContract.Filter;
+
+            var contract = FastOrderContract.SelectedItem.ToString();
             if (FuturecontractList.Any(c => c.Contract == contract))
             {
                 OrderVM.Contract = contract;
