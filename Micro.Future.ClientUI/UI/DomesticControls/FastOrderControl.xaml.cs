@@ -143,15 +143,18 @@ namespace Micro.Future.UI
 
         private void SendOrder(object sender, RoutedEventArgs e)
         {
-            OrderVM.LimitPrice = LimitTxt.Value.Value;
-            var cvt = new EnumToFriendlyNameConverter();
-            string msg = string.Format("是否确认下单?\n价格：{0}，手数：{1}, 方向：{2}，开平：{3}", OrderVM.LimitPrice, OrderVM.Volume,
-                cvt.Convert(OrderVM.Direction, typeof(DirectionType), null, CultureInfo.CurrentUICulture),
-                cvt.Convert(OrderVM.OpenClose, typeof(OrderOpenCloseType), null, CultureInfo.CurrentUICulture));
-            MessageBoxResult dr = System.Windows.MessageBox.Show(msg, "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-            if (dr == MessageBoxResult.OK)
+            if (LimitTxt.Value != null)
             {
-                OrderVM.SendOrder();
+                OrderVM.LimitPrice = LimitTxt.Value.Value;
+                var cvt = new EnumToFriendlyNameConverter();
+                string msg = string.Format("是否确认下单?\n合约：{0}，价格：{1}，手数：{2}, 方向：{3}，开平：{4}", OrderVM.Contract, OrderVM.LimitPrice, OrderVM.Volume,
+                    cvt.Convert(OrderVM.Direction, typeof(DirectionType), null, CultureInfo.CurrentUICulture),
+                    cvt.Convert(OrderVM.OpenClose, typeof(OrderOpenCloseType), null, CultureInfo.CurrentUICulture));
+                MessageBoxResult dr = System.Windows.MessageBox.Show(msg, "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                if (dr == MessageBoxResult.OK)
+                {
+                    OrderVM.SendOrder();
+                }
             }
         }
 
