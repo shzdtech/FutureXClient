@@ -206,7 +206,9 @@ namespace Micro.Future.UI
                 var item = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketDataAsync(quote);
                 if (item != null)
                 {
+                    var contractInfo = ClientDbContext.FindContract(quote);
                     stackPanelPrices.DataContext = item;
+                    LimitTxt.Increment = contractInfo == null ? 1 : contractInfo.PriceTick;
                 }
             }
         }
@@ -216,7 +218,6 @@ namespace Micro.Future.UI
             if (e.Key == Key.Enter)
             {
                 LoadContract();
-                //FastOrderContract.;
             }
         }
 
