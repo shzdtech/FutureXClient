@@ -221,11 +221,11 @@ namespace Micro.Future.UI
             //var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
             if (OrderVM.Direction == DirectionType.BUY)
             {
-                LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("AskPrice.Value"));
+                LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("AskPrice.Value") { Mode = BindingMode.OneWay });
             }
             else if (OrderVM.Direction == DirectionType.SELL)
-            {                
-                LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("BidPrice.Value"));
+            {
+                LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("BidPrice.Value") { Mode = BindingMode.OneWay });
             }
 
         }
@@ -233,17 +233,18 @@ namespace Micro.Future.UI
         private void BuyChecked(object sender, RoutedEventArgs e)
         {
             if (checkBox.IsChecked.Value)
-            {
-                LimitTxt.Text = LabelAskPrice.Content.ToString();
-            }
+                LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("AskPrice.Value") { Mode = BindingMode.OneWay });
         }
 
         private void SellChecked(object sender, RoutedEventArgs e)
         {
             if (checkBox.IsChecked.Value)
-            {
-                LimitTxt.Text = LabelBidPrice.Content.ToString();
-            }
+                LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("BidPrice.Value") { Mode = BindingMode.OneWay });
+        }
+
+        private void checkBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            BindingOperations.ClearAllBindings(LimitTxt);
         }
     }
 }

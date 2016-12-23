@@ -226,14 +226,18 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_Opened(object sender, RoutedEventArgs e)
         {
+            var title = WPFUtility.GetLocalizedString("Opened", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var executionWin = new ExecutionControl();
+            executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENED, OrderStatus.PARTIAL_TRADED, OrderStatus.PARTIAL_TRADING });
-            executionPane.AddContent(executionWin).Title = WPFUtility.GetLocalizedString("Opened", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            executionPane.AddContent(executionWin).Title = title;
         }
 
         private void MenuItem_Click_Traded(object sender, RoutedEventArgs e)
         {
+            var title = WPFUtility.GetLocalizedString("ALL_TRADED", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var executionWin = new ExecutionControl();
+            executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED, OrderStatus.PARTIAL_TRADED });
             executionPane.AddContent(executionWin).Title = WPFUtility.GetLocalizedString("Traded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }

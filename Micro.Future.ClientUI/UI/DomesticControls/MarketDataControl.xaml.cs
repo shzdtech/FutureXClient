@@ -38,7 +38,7 @@ namespace Micro.Future.UI
             }
         }
         protected readonly MarketContract _userContractDbCtx;
-        private FilterSettingsWindow _filterSettingsWin =
+        public FilterSettingsWindow FilterSettingsWin { get; } =
             new FilterSettingsWindow() { PersistanceId = typeof(MarketDataControl).Name, CancelClosing = true };
 
         public string PersistanceId
@@ -56,7 +56,7 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             Initialize();
-            _filterSettingsWin.FilterId = filterId;
+            FilterSettingsWin.FilterId = filterId;
         }
 
         public MarketDataControl() : this(Guid.NewGuid().ToString())
@@ -65,7 +65,7 @@ namespace Micro.Future.UI
 
         private void Initialize()
         {
-            _filterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
+            FilterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
             _viewSource.Source = QuoteVMCollection;
             QuoteChanged = _viewSource.View as ICollectionViewLiveShaping;
             if (QuoteChanged.CanChangeLiveFiltering)
@@ -89,7 +89,7 @@ namespace Micro.Future.UI
             if (userId == null)
                 return;
 
-            var contracts = ClientDbContext.GetUserContracts(userId, _filterSettingsWin.FilterId);
+            var contracts = ClientDbContext.GetUserContracts(userId, FilterSettingsWin.FilterId);
             if (contracts.Any())
             {
                 var list = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketDataAsync(contracts);
@@ -130,7 +130,7 @@ namespace Micro.Future.UI
             while (AnchorablePane.ChildrenCount > 1)
                 AnchorablePane.Children.RemoveAt(1);
             // MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().ResubMarketData();
-            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
             foreach (var fs in filtersettings)
             {
                 var marketdatactrl = new MarketDataControl(fs.Id);
@@ -176,7 +176,7 @@ namespace Micro.Future.UI
             }
 
             ClientDbContext.SaveMarketContract(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id,
-                quote, _filterSettingsWin.FilterId);
+                quote, FilterSettingsWin.FilterId);
 
             var item = QuoteVMCollection.FirstOrDefault(c => c.Contract == quote);
 
@@ -216,7 +216,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_DeleteWindow(object sender, RoutedEventArgs e)
         {
 
-            ClientDbContext.DeleteFilterSettings(_filterSettingsWin.FilterId);
+            ClientDbContext.DeleteFilterSettings(FilterSettingsWin.FilterId);
             AnchorablePane.RemoveChild(AnchorablePane.SelectedContent);
         }
         private void MenuItem_Click_Settings(object sender, RoutedEventArgs e)
@@ -224,8 +224,8 @@ namespace Micro.Future.UI
             //exchangeList.AddRange((from p in (IEnumerable<QuoteViewModel>)_viewSource.Source
             //                       select p.Exchange).Distinct());
             //_quoteSettingsWin.ExchangeCollection = exchangeList;
-            _filterSettingsWin.FilterTabTitle = AnchorablePane?.SelectedContent.Title;
-            _filterSettingsWin.Show();
+            FilterSettingsWin.FilterTabTitle = AnchorablePane?.SelectedContent.Title;
+            FilterSettingsWin.Show();
         }
 
 
@@ -233,11 +233,14 @@ namespace Micro.Future.UI
         {
             if (AnchorablePane != null)
             {
-                AnchorablePane.AddContent(new MarketDataControl()).Title
-                    = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                var title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                var marketDataControl = new MarketDataControl();
+                AnchorablePane.AddContent(new MarketDataControl()).Title = title;
+                marketDataControl.FilterSettingsWin.FilterTabTitle = title;
+                marketDataControl.FilterSettingsWin.Save();
                 var mktCtrl = new MarketDataControl();
-                mktCtrl._filterSettingsWin.FilterTabTitle = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                mktCtrl._filterSettingsWin.Save();
+                mktCtrl.FilterSettingsWin.FilterTabTitle = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                mktCtrl.FilterSettingsWin.Save();
             }
         }
 
@@ -249,10 +252,10 @@ namespace Micro.Future.UI
                 return;
             }
 
-            _filterSettingsWin.FilterTabTitle = tabTitle;
-            _filterSettingsWin.FilterExchange = exchange;
-            _filterSettingsWin.FilterUnderlying = underlying;
-            _filterSettingsWin.FilterContract = contract;
+            FilterSettingsWin.FilterTabTitle = tabTitle;
+            FilterSettingsWin.FilterExchange = exchange;
+            FilterSettingsWin.FilterUnderlying = underlying;
+            FilterSettingsWin.FilterContract = contract;
 
             ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)

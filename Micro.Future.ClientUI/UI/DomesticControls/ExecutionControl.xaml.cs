@@ -29,10 +29,10 @@ namespace Micro.Future.UI
         private ColumnObject[] mColumns;
 
         private CollectionViewSource _viewSource = new CollectionViewSource();
-        private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow() { PersistanceId = typeof(ExecutionControl).Name, CancelClosing = true };
+        public FilterSettingsWindow FilterSettingsWin { get; } = new FilterSettingsWindow() { PersistanceId = typeof(ExecutionControl).Name, CancelClosing = true };
         public LayoutContent LayoutContent { get; set; }
 
-        public LayoutAnchorablePane AnchorablePane{ get; set;}
+        public LayoutAnchorablePane AnchorablePane { get; set; }
         public string PersistanceId
         {
             get;
@@ -47,7 +47,7 @@ namespace Micro.Future.UI
             _viewSource.Source = MessageHandlerContainer.DefaultInstance
                 .Get<TraderExHandler>().OrderVMCollection;
 
-            _filterSettingsWin.OnFiltering += _executionSettingsWin_OnFiltering;
+            FilterSettingsWin.OnFiltering += _executionSettingsWin_OnFiltering;
 
             ExecutionTreeView.ItemsSource = _viewSource.View;
 
@@ -60,11 +60,11 @@ namespace Micro.Future.UI
 
             mColumns = ColumnObject.GetColumns(ExecutionTreeView);
 
-            _filterSettingsWin.FilterId = filterId;
-            _filterSettingsWin.FilterTabTitle = tabTitle;
-            _filterSettingsWin.FilterExchange = exchange;
-            _filterSettingsWin.FilterUnderlying = underlying;
-            _filterSettingsWin.FilterContract = contract;
+            FilterSettingsWin.FilterId = filterId;
+            FilterSettingsWin.FilterTabTitle = tabTitle;
+            FilterSettingsWin.FilterExchange = exchange;
+            FilterSettingsWin.FilterUnderlying = underlying;
+            FilterSettingsWin.FilterContract = contract;
 
         }
 
@@ -98,8 +98,8 @@ namespace Micro.Future.UI
             //exchangeList.AddRange((from p in (IEnumerable<OrderVM>)_viewSource.Source
             //                       select p.Exchange).Distinct());
             //_executionSettingsWin.ExchangeCollection = exchangeList;
-            _filterSettingsWin.FilterTabTitle = AnchorablePane?.SelectedContent.Title;
-            _filterSettingsWin.Show();
+            FilterSettingsWin.FilterTabTitle = AnchorablePane?.SelectedContent.Title;
+            FilterSettingsWin.Show();
         }
 
         //public void Filter(string tabTitle,string exchange, string underlying, string contract, IEnumerable<OrderStatus> status)
@@ -138,14 +138,14 @@ namespace Micro.Future.UI
         public void Filter()
         {
             if (ExecutionTreeView == null)
-            {                                            
+            {
                 return;
             }
 
-            var tabTitle = _filterSettingsWin.FilterTabTitle;
-            var exchange = _filterSettingsWin.FilterExchange;
-            var underlying = _filterSettingsWin.FilterUnderlying;
-            var contract = _filterSettingsWin.FilterContract;
+            var tabTitle = FilterSettingsWin.FilterTabTitle;
+            var exchange = FilterSettingsWin.FilterExchange;
+            var underlying = FilterSettingsWin.FilterUnderlying;
+            var contract = FilterSettingsWin.FilterContract;
 
             ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
@@ -304,14 +304,20 @@ namespace Micro.Future.UI
         private void MenuItem_Click_DeleteWindow(object sender, RoutedEventArgs e)
         {
 
-            ClientDbContext.DeleteFilterSettings(_filterSettingsWin.FilterId);
+            ClientDbContext.DeleteFilterSettings(FilterSettingsWin.FilterId);
             AnchorablePane.RemoveChild(AnchorablePane.SelectedContent);
         }
 
         private void MenuItem_Click_ShowAllExecution(object sender, RoutedEventArgs e)
         {
             if (AnchorablePane != null)
-                AnchorablePane.AddContent(new ExecutionControl()).Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            {
+                var title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                var executionControl = new ExecutionControl();
+                AnchorablePane.AddContent(new ExecutionControl()).Title = title;
+                executionControl.FilterSettingsWin.FilterTabTitle = title;
+                executionControl.FilterSettingsWin.Save();
+            }
         }
 
 
@@ -324,7 +330,7 @@ namespace Micro.Future.UI
             while (AnchorablePane.ChildrenCount > 1)
                 AnchorablePane.Children.RemoveAt(1);
 
-            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
 
             foreach (var fs in filtersettings)
             {

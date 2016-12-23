@@ -270,7 +270,13 @@ namespace Micro.Future.UI
         private void MenuItem_Click_AllTrade(object sender, RoutedEventArgs e)
         {
             if (AnchorablePane != null)
-                AnchorablePane.AddContent(new TradeRecordControl()).Title = WPFUtility.GetLocalizedString("AllTraded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            {
+                var title = WPFUtility.GetLocalizedString("AllTraded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                var tradeRecordControltrl = new TradeRecordControl();
+                AnchorablePane.AddContent(new TradeRecordControl()).Title = title;
+                tradeRecordControltrl.FilterSettingsWin.FilterTabTitle = title;
+                tradeRecordControltrl.FilterSettingsWin.Save();
+            }
         }
         private void MenuItem_Click_DeleteWindow(object sender, RoutedEventArgs e)
         {

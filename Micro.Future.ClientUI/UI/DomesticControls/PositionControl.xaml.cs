@@ -27,8 +27,8 @@ namespace Micro.Future.UI
     {
         private ColumnObject[] mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
-        private FilterSettingsWindow _filterSettingsWin =
-            new FilterSettingsWindow() { PersistanceId = typeof(PositionControl).Name, CancelClosing = true };
+        private FilterSettingsWindow FilterSettingsWin { get; }
+           = new FilterSettingsWindow() { PersistanceId = typeof(PositionControl).Name, CancelClosing = true };
         private static ObservableCollection<PositionVM> PositionCollection
         {
             get;
@@ -60,7 +60,7 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance
             .Get<MarketDataHandler>().OnNewMarketData += PositionControl_OnNewMarketData;
 
-            _filterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
+            FilterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
 
             PositionListView.ItemsSource = _viewSource.View;
 
@@ -72,7 +72,7 @@ namespace Micro.Future.UI
             //}
 
             mColumns = ColumnObject.GetColumns(PositionListView);
-            _filterSettingsWin.FilterId = filterId;
+            FilterSettingsWin.FilterId = filterId;
 
         }
 
@@ -116,7 +116,7 @@ namespace Micro.Future.UI
             while (AnchorablePane.ChildrenCount > 1)
                 AnchorablePane.Children.RemoveAt(1);
 
-            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, _filterSettingsWin.PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
 
             foreach (var fs in filtersettings)
             {
@@ -148,27 +148,33 @@ namespace Micro.Future.UI
             //exchangeList.AddRange((from p in (IEnumerable<PositionVM>)_viewSource.Source
             //                       select p.Exchange).Distinct());
             //_positionSettingsWin.ExchangeCollection = exchangeList;
-            _filterSettingsWin.FilterTabTitle = AnchorablePane?.SelectedContent.Title;
-            _filterSettingsWin.Show();
+            FilterSettingsWin.FilterTabTitle = AnchorablePane?.SelectedContent.Title;
+            FilterSettingsWin.Show();
         }
 
 
         private void MenuItem_Click_Position(object sender, RoutedEventArgs e)
         {
             if (AnchorablePane != null)
-                AnchorablePane.AddContent(new PositionControl()).Title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            {
+                var title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                var positionctrl = new PositionControl();
+                AnchorablePane.AddContent(positionctrl).Title = title;
+                positionctrl.FilterSettingsWin.FilterTabTitle = title;
+                positionctrl.FilterSettingsWin.Save();
+            }
         }
 
         private void MenuItem_Click_DeleteWindow(object sender, RoutedEventArgs e)
         {
 
-            ClientDbContext.DeleteFilterSettings(_filterSettingsWin.FilterId);
+            ClientDbContext.DeleteFilterSettings(FilterSettingsWin.FilterId);
             AnchorablePane.RemoveChild(AnchorablePane.SelectedContent);
         }
 
         public void DeletePositionDB()
         {
-            ClientDbContext.DeleteFilterSettings(_filterSettingsWin.FilterId);
+            ClientDbContext.DeleteFilterSettings(FilterSettingsWin.FilterId);
         }
 
 
@@ -186,10 +192,10 @@ namespace Micro.Future.UI
             }
 
             this.AnchorablePane.SelectedContent.Title = tabTitle;
-            _filterSettingsWin.FilterTabTitle = tabTitle;
-            _filterSettingsWin.FilterExchange = exchange;
-            _filterSettingsWin.FilterUnderlying = underlying;
-            _filterSettingsWin.FilterContract = contract;
+            FilterSettingsWin.FilterTabTitle = tabTitle;
+            FilterSettingsWin.FilterExchange = exchange;
+            FilterSettingsWin.FilterUnderlying = underlying;
+            FilterSettingsWin.FilterContract = contract;
 
             ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)

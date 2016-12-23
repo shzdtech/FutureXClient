@@ -70,7 +70,7 @@
             <RadioButton Grid.Column="1" Name="radioButtonSell" Content="{lex:Loc Key=Sell}"
                              IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=SELL}" 
                              VerticalAlignment="Center" GroupName="BuySellGroup" Width="42.4" Height="16" HorizontalAlignment="Left" Checked="SellChecked" />
-            <CheckBox x:Name="checkBox" Content="{lex:Loc Key=MarketPrice}" Checked="checkBox_Checked" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Margin="0,7,0,0"/>
+            <CheckBox x:Name="checkBox" Content="{lex:Loc Key=MarketPrice}" Checked="checkBox_Checked" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Margin="0,7,0,0" Unchecked="checkBox_Unchecked"/>
 
         </Grid>
 
