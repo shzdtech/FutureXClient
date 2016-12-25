@@ -159,47 +159,47 @@ namespace Micro.Future.Message
 
         private void OnPosition(PBPosition rsp)
         {
-            PositionVM positionVM = PositionVMCollection.FirstOrDefault(position =>
-                position.Contract == rsp.Contract &&
-                    (int)position.Direction == rsp.Direction &&
-                    (int)position.PositionDateFlag == rsp.PositionDateFlag);
+            lock (this)
+            {
+                PositionVM positionVM = PositionVMCollection.FirstOrDefault(position =>
+                    position.Contract == rsp.Contract && (int)position.Direction == rsp.Direction);
 
-            if (rsp.Position == 0)
-            {
-                if (positionVM != null)
-                    PositionVMCollection.Remove(positionVM);
-            }
-            else
-            {
-                if (positionVM == null)
+                if (rsp.Position == 0)
                 {
-                    var contractInfo = ClientDbContext.FindContract(rsp.Contract);
-                    positionVM = new PositionVM
-                    {
-                        Contract = rsp.Contract,
-                        Exchange = rsp.Exchange,
-                        Multiplier = contractInfo == null ? 1 : contractInfo.VolumeMultiple
-                    };
-                    PositionVMCollection.Add(positionVM);
+                    if (positionVM != null)
+                        PositionVMCollection.Remove(positionVM);
                 }
+                else
+                {
+                    if (positionVM == null)
+                    {
+                        var contractInfo = ClientDbContext.FindContract(rsp.Contract);
+                        positionVM = new PositionVM
+                        {
+                            Contract = rsp.Contract,
+                            Exchange = rsp.Exchange,
+                            Direction = (PositionDirectionType)rsp.Direction,
+                            HedgeFlag = (HedgeType)rsp.HedgeFlag,
+                            PositionDateFlag = (PositionDateFlagType)rsp.PositionDateFlag,
+                            Multiplier = contractInfo == null ? 1 : contractInfo.VolumeMultiple
+                        };
+                        PositionVMCollection.Add(positionVM);
+                    }
 
-                positionVM.Direction = (PositionDirectionType)rsp.Direction;
-                positionVM.Position = rsp.Position;
-                positionVM.TodayPosition = rsp.TdPosition;
-                positionVM.YdPosition = rsp.YdPosition;
-                positionVM.PositionDateFlag = (PositionDateFlagType)rsp.PositionDateFlag;
-                positionVM.OpenVolume = rsp.OpenVolume;
-                positionVM.CloseVolume = rsp.CloseVolume;
-                positionVM.OpenAmount = rsp.OpenAmount;
-                positionVM.CloseAmount = rsp.CloseAmount;
-                positionVM.Cost = rsp.Cost;
-                positionVM.OpenCost = rsp.OpenCost;
-                positionVM.Profit = rsp.Profit;
-                positionVM.CloseProfit = rsp.CloseProfit;
-                positionVM.UseMargin = rsp.UseMargin;
-                positionVM.HedgeFlag = (HedgeType)rsp.HedgeFlag;
-                positionVM.MeanCost = rsp.Cost / rsp.Position / positionVM.Multiplier;
-
+                    positionVM.Position = rsp.Position;
+                    positionVM.TodayPosition = rsp.TdPosition;
+                    positionVM.YdPosition = rsp.YdPosition;
+                    positionVM.OpenVolume = rsp.OpenVolume;
+                    positionVM.CloseVolume = rsp.CloseVolume;
+                    positionVM.OpenAmount = rsp.OpenAmount;
+                    positionVM.CloseAmount = rsp.CloseAmount;
+                    positionVM.Cost = rsp.Cost;
+                    positionVM.OpenCost = rsp.OpenCost;
+                    positionVM.Profit = rsp.Profit;
+                    positionVM.CloseProfit = rsp.CloseProfit;
+                    positionVM.UseMargin = rsp.UseMargin;
+                    positionVM.MeanCost = rsp.Cost / rsp.Position / positionVM.Multiplier;
+                }
             }
         }
         private void OnFund(PBAccountInfo rsp)
