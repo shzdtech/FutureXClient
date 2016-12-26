@@ -236,12 +236,12 @@ namespace Micro.Future.UI
             {
                 var title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
                 var marketDataControl = new MarketDataControl();
-                AnchorablePane.AddContent(new MarketDataControl()).Title = title;
+                AnchorablePane.AddContent(marketDataControl).Title = title;
                 marketDataControl.FilterSettingsWin.FilterTabTitle = title;
                 marketDataControl.FilterSettingsWin.Save();
-                var mktCtrl = new MarketDataControl();
-                mktCtrl.FilterSettingsWin.FilterTabTitle = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                mktCtrl.FilterSettingsWin.Save();
+                //var mktCtrl = new MarketDataControl();
+                //mktCtrl.FilterSettingsWin.FilterTabTitle = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                //mktCtrl.FilterSettingsWin.Save();
             }
         }
 
