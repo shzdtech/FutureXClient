@@ -159,7 +159,7 @@ namespace Micro.Future.Message
 
         private void OnPosition(PBPosition rsp)
         {
-            lock (this)
+            lock (PositionVMCollection)
             {
                 PositionVM positionVM = PositionVMCollection.FirstOrDefault(position =>
                     position.Contract == rsp.Contract && (int)position.Direction == rsp.Direction);
@@ -204,7 +204,6 @@ namespace Micro.Future.Message
         }
         private void OnFund(PBAccountInfo rsp)
         {
-
             FundVM.Commission = rsp.Commission;
             FundVM.BrokerID = rsp.BrokerID;
             FundVM.AccountID = rsp.AccountID;
@@ -276,20 +275,23 @@ namespace Micro.Future.Message
         }
         private void OnUpdateOrder(PBOrderInfo rsp)
         {
-            var orderVM = OrderVMCollection.FirstOrDefault(order =>
+            lock (OrderVMCollection)
+            {
+                var orderVM = OrderVMCollection.FirstOrDefault(order =>
                             (rsp.OrderSysID != 0 && rsp.OrderSysID == order.OrderSysID) ||
                             (rsp.OrderID == order.OrderID && rsp.SessionID == order.SessionID));
-            if (orderVM != null)
-            {
-                orderVM.Active = rsp.Active;
-                orderVM.Status = (OrderStatus)rsp.OrderStatus;
-                orderVM.OrderSysID = rsp.OrderSysID;
-                orderVM.UpdateTime = rsp.UpdateTime;
-                orderVM.Message = Encoding.UTF8.GetString(rsp.Message.ToByteArray());
-            }
-            else
-            {
-                OnReturnOrder(rsp);
+                if (orderVM != null)
+                {
+                    orderVM.Active = rsp.Active;
+                    orderVM.Status = (OrderStatus)rsp.OrderStatus;
+                    orderVM.OrderSysID = rsp.OrderSysID;
+                    orderVM.UpdateTime = rsp.UpdateTime;
+                    orderVM.Message = Encoding.UTF8.GetString(rsp.Message.ToByteArray());
+                }
+                else
+                {
+                    OnReturnOrder(rsp);
+                }
             }
         }
         private void OnReturnTrade(PBTradeInfo rsp)
