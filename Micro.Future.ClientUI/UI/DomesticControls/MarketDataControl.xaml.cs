@@ -235,13 +235,10 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var marketDataControl = new MarketDataControl();
-                AnchorablePane.AddContent(new MarketDataControl()).Title = title;
+                var marketDataControl = new MarketDataControl(Guid.NewGuid().ToString());
+                AnchorablePane.AddContent(marketDataControl).Title = title;
                 marketDataControl.FilterSettingsWin.FilterTabTitle = title;
                 marketDataControl.FilterSettingsWin.Save();
-                var mktCtrl = new MarketDataControl();
-                mktCtrl.FilterSettingsWin.FilterTabTitle = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                mktCtrl.FilterSettingsWin.Save();
             }
         }
 

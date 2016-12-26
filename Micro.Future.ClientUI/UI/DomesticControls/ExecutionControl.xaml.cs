@@ -313,8 +313,8 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var executionControl = new ExecutionControl();
-                AnchorablePane.AddContent(new ExecutionControl()).Title = title;
+                var executionControl = new ExecutionControl(Guid.NewGuid().ToString());
+                AnchorablePane.AddContent(executionControl).Title = title;
                 executionControl.FilterSettingsWin.FilterTabTitle = title;
                 executionControl.FilterSettingsWin.Save();
             }

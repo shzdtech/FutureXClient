@@ -158,7 +158,7 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var positionctrl = new PositionControl();
+                var positionctrl = new PositionControl(Guid.NewGuid().ToString());
                 AnchorablePane.AddContent(positionctrl).Title = title;
                 positionctrl.FilterSettingsWin.FilterTabTitle = title;
                 positionctrl.FilterSettingsWin.Save();

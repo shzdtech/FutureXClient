@@ -253,7 +253,7 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_OpenTrade(object sender, RoutedEventArgs e)
         {
-            var tradeWin = new TradeRecordControl();
+            var tradeWin = new TradeRecordControl(Guid.NewGuid().ToString());
             tradeWin.FilterByStatus(new List<OrderOpenCloseType> { OrderOpenCloseType.OPEN });
             if (AnchorablePane != null)
                 AnchorablePane.AddContent(tradeWin).Title = WPFUtility.GetLocalizedString("Open", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
