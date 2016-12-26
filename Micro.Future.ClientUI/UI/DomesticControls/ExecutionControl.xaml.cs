@@ -68,7 +68,7 @@ namespace Micro.Future.UI
 
         }
 
-        public ExecutionControl() : this(Guid.NewGuid().ToString())
+        public ExecutionControl() : this("394B67D4-87AA-47DB-B1DD-5A213714D02E")
         {
         }
 

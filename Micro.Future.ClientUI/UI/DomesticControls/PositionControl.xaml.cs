@@ -92,7 +92,7 @@ namespace Micro.Future.UI
             }
         }
 
-        public PositionControl() : this(Guid.NewGuid().ToString())
+        public PositionControl() : this("6210A109-5291-4CEF-866E-9CEC7EF3A602")
         {
         }
         public ICollectionViewLiveShaping PositionChanged { get; set; }

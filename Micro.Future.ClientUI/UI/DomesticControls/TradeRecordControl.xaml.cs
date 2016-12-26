@@ -53,7 +53,7 @@ namespace Micro.Future.UI
 
         }
 
-        public TradeRecordControl() : this(Guid.NewGuid().ToString())
+        public TradeRecordControl() : this("E0FD10D9-8D28-4DDE-B2BC-96FAC72992C8")
         {
         }
 

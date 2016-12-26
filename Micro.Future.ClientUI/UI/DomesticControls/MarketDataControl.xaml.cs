@@ -59,7 +59,7 @@ namespace Micro.Future.UI
             FilterSettingsWin.FilterId = filterId;
         }
 
-        public MarketDataControl() : this(Guid.NewGuid().ToString())
+        public MarketDataControl() : this("D97F60E1-0433-4886-99E6-C4AD46A7D33A")
         {
         }
 
