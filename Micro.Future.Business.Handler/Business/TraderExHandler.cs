@@ -37,6 +37,8 @@ namespace Micro.Future.Message
             get;
         } = new ObservableCollection<PositionVM>();
 
+        public ISet<string> PositionContractSet { get; } = new HashSet<string>();
+
         public ObservableCollection<FundVM> FundVMCollection
         {
             get;
@@ -159,15 +161,20 @@ namespace Micro.Future.Message
 
         private void OnPosition(PBPosition rsp)
         {
-            lock (PositionVMCollection)
+            lock (PositionContractSet)
             {
-                PositionVM positionVM = PositionVMCollection.FirstOrDefault(position =>
-                    position.Contract == rsp.Contract && (int)position.Direction == rsp.Direction);
+                PositionVM positionVM = PositionVMCollection.FirstOrDefault(p =>
+                    p.Contract == rsp.Contract && (int)p.Direction == rsp.Direction);
 
                 if (rsp.Position == 0)
                 {
                     if (positionVM != null)
                         PositionVMCollection.Remove(positionVM);
+
+                    if (!PositionVMCollection.Any(p => p.Contract == rsp.Contract))
+                    {
+                        PositionContractSet.Remove(rsp.Contract);
+                    }
                 }
                 else
                 {
@@ -184,6 +191,7 @@ namespace Micro.Future.Message
                             Multiplier = contractInfo == null ? 1 : contractInfo.VolumeMultiple
                         };
                         PositionVMCollection.Add(positionVM);
+                        PositionContractSet.Add(rsp.Contract);
                     }
 
                     positionVM.Position = rsp.Position;

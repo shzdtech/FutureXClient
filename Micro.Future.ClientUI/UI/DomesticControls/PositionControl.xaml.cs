@@ -34,6 +34,11 @@ namespace Micro.Future.UI
             get;
         } = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
 
+        private static ISet<string> PositionContractSet
+        {
+            get;
+        } = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionContractSet;
+
         public static TraderExHandler TradeHandler
         {
             get;
@@ -78,16 +83,19 @@ namespace Micro.Future.UI
 
         public static void PositionControl_OnNewMarketData(MarketDataVM mktDataVM)
         {
-            var positions = PositionCollection.FindByContract(mktDataVM.Contract);
-            foreach (var positionVM in positions)
+            if (PositionContractSet.Contains(mktDataVM.Contract))
             {
-                if (positionVM.Direction == PositionDirectionType.PD_LONG)
+                var positions = PositionCollection.FindByContract(mktDataVM.Contract);
+                foreach (var positionVM in positions)
                 {
-                    positionVM.Profit = (mktDataVM.LastPrice - positionVM.MeanCost) * positionVM.Position * positionVM.Multiplier;
-                }
-                else if (positionVM.Direction == PositionDirectionType.PD_SHORT)
-                {
-                    positionVM.Profit = (positionVM.MeanCost - mktDataVM.LastPrice) * positionVM.Position * positionVM.Multiplier;
+                    if (positionVM.Direction == PositionDirectionType.PD_LONG)
+                    {
+                        positionVM.Profit = (mktDataVM.LastPrice - positionVM.MeanCost) * positionVM.Position * positionVM.Multiplier;
+                    }
+                    else if (positionVM.Direction == PositionDirectionType.PD_SHORT)
+                    {
+                        positionVM.Profit = (positionVM.MeanCost - mktDataVM.LastPrice) * positionVM.Position * positionVM.Multiplier;
+                    }
                 }
             }
         }
