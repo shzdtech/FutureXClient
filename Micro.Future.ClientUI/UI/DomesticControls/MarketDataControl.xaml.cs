@@ -59,7 +59,7 @@ namespace Micro.Future.UI
             FilterSettingsWin.FilterId = filterId;
         }
 
-        public MarketDataControl() : this(Guid.NewGuid().ToString())
+        public MarketDataControl() : this("D97F60E1-0433-4886-99E6-C4AD46A7D33A")
         {
         }
 
@@ -235,13 +235,10 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var marketDataControl = new MarketDataControl();
+                var marketDataControl = new MarketDataControl(Guid.NewGuid().ToString());
                 AnchorablePane.AddContent(marketDataControl).Title = title;
                 marketDataControl.FilterSettingsWin.FilterTabTitle = title;
                 marketDataControl.FilterSettingsWin.Save();
-                //var mktCtrl = new MarketDataControl();
-                //mktCtrl.FilterSettingsWin.FilterTabTitle = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                //mktCtrl.FilterSettingsWin.Save();
             }
         }
 

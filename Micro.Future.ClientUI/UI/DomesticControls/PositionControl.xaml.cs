@@ -92,7 +92,7 @@ namespace Micro.Future.UI
             }
         }
 
-        public PositionControl() : this(Guid.NewGuid().ToString())
+        public PositionControl() : this("6210A109-5291-4CEF-866E-9CEC7EF3A602")
         {
         }
         public ICollectionViewLiveShaping PositionChanged { get; set; }
@@ -158,7 +158,7 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var positionctrl = new PositionControl();
+                var positionctrl = new PositionControl(Guid.NewGuid().ToString());
                 AnchorablePane.AddContent(positionctrl).Title = title;
                 positionctrl.FilterSettingsWin.FilterTabTitle = title;
                 positionctrl.FilterSettingsWin.Save();

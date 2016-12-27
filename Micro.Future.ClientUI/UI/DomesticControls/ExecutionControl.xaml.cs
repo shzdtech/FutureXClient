@@ -68,7 +68,7 @@ namespace Micro.Future.UI
 
         }
 
-        public ExecutionControl() : this(Guid.NewGuid().ToString())
+        public ExecutionControl() : this("394B67D4-87AA-47DB-B1DD-5A213714D02E")
         {
         }
 
@@ -313,7 +313,7 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var executionControl = new ExecutionControl();
+                var executionControl = new ExecutionControl(Guid.NewGuid().ToString());
                 AnchorablePane.AddContent(executionControl).Title = title;
                 executionControl.FilterSettingsWin.FilterTabTitle = title;
                 executionControl.FilterSettingsWin.Save();
@@ -327,8 +327,8 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryOrder();
 
-            //while (AnchorablePane.ChildrenCount > 1)
-            //    AnchorablePane.Children.RemoveAt(1);
+            while (AnchorablePane.ChildrenCount > 1)
+                AnchorablePane.Children.RemoveAt(1);
 
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
 

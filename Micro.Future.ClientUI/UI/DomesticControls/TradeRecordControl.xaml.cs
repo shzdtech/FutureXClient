@@ -53,7 +53,7 @@ namespace Micro.Future.UI
 
         }
 
-        public TradeRecordControl() : this(Guid.NewGuid().ToString())
+        public TradeRecordControl() : this("E0FD10D9-8D28-4DDE-B2BC-96FAC72992C8")
         {
         }
 
@@ -253,7 +253,7 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_OpenTrade(object sender, RoutedEventArgs e)
         {
-            var tradeWin = new TradeRecordControl();
+            var tradeWin = new TradeRecordControl(Guid.NewGuid().ToString());
             tradeWin.FilterByStatus(new List<OrderOpenCloseType> { OrderOpenCloseType.OPEN });
             if (AnchorablePane != null)
                 AnchorablePane.AddContent(tradeWin).Title = WPFUtility.GetLocalizedString("Open", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);

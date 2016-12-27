@@ -84,7 +84,7 @@ namespace Micro.Future.Windows
         {
             get;
             set;
-        } = Guid.NewGuid().ToString();
+        }
 
         public string UserID
         {
