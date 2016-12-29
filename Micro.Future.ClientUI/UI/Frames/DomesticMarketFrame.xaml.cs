@@ -231,6 +231,7 @@ namespace Micro.Future.UI
             executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENED, OrderStatus.PARTIAL_TRADED, OrderStatus.PARTIAL_TRADING });
             executionPane.AddContent(executionWin).Title = title;
+            executionWin.Save();
         }
 
         private void MenuItem_Click_Traded(object sender, RoutedEventArgs e)
@@ -239,7 +240,8 @@ namespace Micro.Future.UI
             var executionWin = new ExecutionControl();
             executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED, OrderStatus.PARTIAL_TRADED });
-            executionPane.AddContent(executionWin).Title = WPFUtility.GetLocalizedString("Traded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            executionPane.AddContent(executionWin).Title = WPFUtility.GetLocalizedString("ALL_TRADED", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            executionWin.Save();
         }
 
         private void MenuItem_Click_AllTraded(object sender, RoutedEventArgs e)

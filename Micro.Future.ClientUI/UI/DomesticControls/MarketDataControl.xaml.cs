@@ -28,7 +28,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class MarketDataControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
-        private ColumnObject[] mColumns;
+        private IList< ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public IList<ContractInfo> FuturecontractList
         {
@@ -118,8 +118,13 @@ namespace Micro.Future.UI
         }
         private void MenuItem_Click_Delete(object sender, RoutedEventArgs e)
         {
+            string userId = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper?.User?.Id;
+            string tabId = FilterSettingsWin.FilterId;
             foreach (var mktVM in SeletedQuoteVM)
+            {
                 QuoteVMCollection.Remove(mktVM);
+                ClientDbContext.DeleteUserContracts(userId, tabId, mktVM.Contract);
+            }
 
             //MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().
             //    UnsubMarketData(SeletedQuoteVM);
@@ -138,9 +143,9 @@ namespace Micro.Future.UI
                 marketdatactrl.LoadUserContracts();
                 marketdatactrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
             }
-            if (filtersettings.Any())
-                AnchorablePane.RemoveChildAt(0);
-            else
+            //if (filtersettings.Any())
+            //    AnchorablePane.RemoveChildAt(0);
+            //else
                 LoadUserContracts();
 
         }

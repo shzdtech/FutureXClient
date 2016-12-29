@@ -19,9 +19,11 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class ColumnSettingsWindow : Window
     {
-        public ColumnSettingsWindow(IEnumerable<ColumnObject> columns)
+        private IList<ColumnObject> _columns;
+        public ColumnSettingsWindow(IList<ColumnObject> columns)
         {
             InitializeComponent();
+            _columns = columns;
             treeColumns.ItemsSource = columns;
         }
     }
@@ -85,7 +87,7 @@ namespace Micro.Future.UI
 
             foreach (var c in cobj.Children)
             {
-                c.SetValue(IsVisibleProperty, isChecked);
+                c.SetValue(IsVisibleProperty, isChecked);                
             }
         }
 
@@ -93,34 +95,42 @@ namespace Micro.Future.UI
         #endregion
 
         //从ListView中获取ColumnObject对象
-        public static ColumnObject[] GetColumns(ListView lv)
+        public static IList<ColumnObject> GetColumns(ListView lv)
         {
             if (lv.View is GridView)
             {
                 var collec = ((GridView)lv.View).Columns;
-                return collec.Select(col => new ColumnObject(col)).ToArray();
+                var listCol = new List<ColumnObject>();
+                for(int i=0;i<collec.Count;i++)
+                {
+                    listCol.Add(new ColumnObject(collec[i], i));
+                }
+
+                return listCol;
             }
             return null;
         }
 
         public static ColumnObject CreateColumn(GridViewColumn column)
         {
-            return new ColumnObject(column);
+            return new ColumnObject(column, -1);
         }
 
         #region 属性/字段
-
+        
         //GridViewColumn集合
-        protected object OriginalHeader { get; set; }
-        protected double Width { get; set; }
+        public int OriginalIndex { get; set; }
+        public object OriginalHeader { get; set; }
+        public double Width { get; set; }
 
         public GridViewColumn Column { get; private set; }
 
         #endregion
 
-        public ColumnObject(GridViewColumn column)
+        public ColumnObject(GridViewColumn column, int originalIdx = -1)
         {
             Column = column;
+            OriginalIndex = originalIdx;
         }
 
         public void Initialize()

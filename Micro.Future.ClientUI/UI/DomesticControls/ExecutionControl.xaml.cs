@@ -26,7 +26,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class ExecutionControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
-        private ColumnObject[] mColumns;
+        private IList< ColumnObject> mColumns;
 
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public FilterSettingsWindow FilterSettingsWin { get; } = new FilterSettingsWindow() { PersistanceId = typeof(ExecutionControl).Name, CancelClosing = true };
@@ -194,6 +194,19 @@ namespace Micro.Future.UI
         {
             OrderStatuses = statuses;
             Filter();
+            
+        }
+
+        public void Save()
+        {
+            FilterSettingsWin.Save();
+            if (OrderStatuses!=null)
+            {
+                foreach (var status in OrderStatuses)
+                {
+                    ClientDbContext.SaveOrderStatus(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, (int)status, FilterSettingsWin.FilterId);
+                }
+            }
         }
 
         private void RadioButton_Checked_TradedOrder(object sender, RoutedEventArgs e)
@@ -320,8 +333,6 @@ namespace Micro.Future.UI
             }
         }
 
-
-
         public void ReloadData()
         {
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Clear();
@@ -331,15 +342,15 @@ namespace Micro.Future.UI
                 AnchorablePane.Children.RemoveAt(1);
 
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
+            var userId = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id;
 
             foreach (var fs in filtersettings)
             {
                 var executionctrl = new ExecutionControl(fs.Id, fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
                 AnchorablePane.AddContent(executionctrl).Title = fs.Title;
-                executionctrl.Filter();
+                var statuses = ClientDbContext.GetOrderStatus(userId, fs.Id);
+                executionctrl.FilterByStatus((IEnumerable<OrderStatus>)statuses);
             }
-            if (filtersettings.Any())
-                AnchorablePane.RemoveChildAt(0);
         }
     }
 }

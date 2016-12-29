@@ -17,6 +17,7 @@ using Micro.Future.LocalStorage;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Collections.Specialized;
 
 namespace Micro.Future.UI
 {
@@ -25,7 +26,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class PositionControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
-        private ColumnObject[] mColumns;
+        private IList< ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         private FilterSettingsWindow FilterSettingsWin { get; }
            = new FilterSettingsWindow() { PersistanceId = typeof(PositionControl).Name, CancelClosing = true };
@@ -44,7 +45,7 @@ namespace Micro.Future.UI
             get;
         } = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
 
-        private static IList<MarketDataVM> _marketDataList = new List<MarketDataVM>();
+        private static ISet<MarketDataVM> _marketDataList = new HashSet<MarketDataVM>();
 
         public LayoutContent LayoutContent { get; set; }
 
@@ -68,6 +69,7 @@ namespace Micro.Future.UI
             FilterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
 
             PositionListView.ItemsSource = _viewSource.View;
+            PositionCollection.CollectionChanged += PositionCollectionChanged;
 
             //PositionChanged = _viewSource.View as ICollectionViewLiveShaping;
             //if (PositionChanged.CanChangeLiveFiltering)
@@ -79,6 +81,15 @@ namespace Micro.Future.UI
             mColumns = ColumnObject.GetColumns(PositionListView);
             FilterSettingsWin.FilterId = filterId;
 
+        }
+
+        private static void PositionCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if(e.Action == NotifyCollectionChangedAction.Add)
+            {
+                PositionVM position = e.NewItems[0] as PositionVM;
+                LoadMarketData(position.Contract);
+            }
         }
 
         public static void OnNewMarketData(MarketDataVM mktDataVM)
@@ -135,17 +146,12 @@ namespace Micro.Future.UI
                 AnchorablePane.AddContent(positionctrl).Title = fs.Title;
                 positionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
             }
-            if (filtersettings.Any())
-                AnchorablePane.RemoveChildAt(0);
-
-            LoadMarketData();
         }
 
-        private async void LoadMarketData()
+        private static async void LoadMarketData(string contract)
         {
-            await Task.Delay(5000);
-            _marketDataList = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>()
-                .SubMarketDataAsync(PositionCollection.Select(c => c.Contract).Distinct());
+            _marketDataList.Add(await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>()
+                .SubMarketDataAsync(contract));
         }
 
         private void MenuItem_Click_Columns(object sender, RoutedEventArgs e)

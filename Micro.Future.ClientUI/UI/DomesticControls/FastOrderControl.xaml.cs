@@ -92,11 +92,31 @@ namespace Micro.Future.UI
         {
             if (quoteVM != null)
             {
+                checkBox.IsEnabled = true;
+                radioButtonBuy.IsChecked = true;
+                //radioButtonSell.IsChecked = false;
+                RadioA.IsChecked = true;
+                //RadioB.IsChecked = false;
+                //RadioC.IsChecked = false;
                 _currentContract = quoteVM.Contract;
                 OrderVM.Contract = quoteVM.Contract;
                 FastOrderContract.SelectedItem = OrderVM.Contract;
                 stackPanelPrices.DataContext = quoteVM;
                 OrderVM.LimitPrice = quoteVM.LastPrice;
+                var contractInfo = ClientDbContext.FindContract(OrderVM.Contract);
+                LimitTxt.Increment = contractInfo == null ? 1 : contractInfo.PriceTick;
+                if (radioButtonBuy.IsChecked.Value)
+                {
+                    if (LabelAskPrice.Content != null)
+                        LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
+                }
+                else if (radioButtonSell.IsChecked.Value)
+                {
+                    if (LabelBidPrice.Content != null)
+                        LimitTxt.Value = double.Parse(LabelBidPrice.Content.ToString());
+                }
+                if (checkBox.IsChecked.Value)
+                    LimitTxt.Increment = null;
             }
         }
 
@@ -108,8 +128,14 @@ namespace Micro.Future.UI
                 var quote = OrderVM.Contract;
                 if (quote != null)
                 {
+                    checkBox.IsEnabled = true;
+                    radioButtonBuy.IsChecked = true;
+                    //radioButtonSell.IsChecked = false;
+                    RadioA.IsChecked = true;
+                    //RadioB.IsChecked = false;
+                    //RadioC.IsChecked = false;
                     FastOrderContract.SelectedItem = quote;
-                    OrderVM.Volume = positionVM.Position;
+                    //OrderVM.Volume = positionVM.Position;
                     Task.Run(async () =>
                     {
                         var item = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketDataAsync(quote);
@@ -118,6 +144,20 @@ namespace Micro.Future.UI
                             Dispatcher.Invoke(() =>
                             {
                                 stackPanelPrices.DataContext = item;
+                                var contractInfo = ClientDbContext.FindContract(quote);
+                                LimitTxt.Increment = contractInfo == null ? 1 : contractInfo.PriceTick;
+                                if (radioButtonBuy.IsChecked.Value)
+                                {
+                                    if (LabelAskPrice.Content != null)
+                                        LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
+                                }
+                                else if (radioButtonSell.IsChecked.Value)
+                                {
+                                    if (LabelBidPrice.Content != null)
+                                        LimitTxt.Value = double.Parse(LabelBidPrice.Content.ToString());
+                                }
+                                if (checkBox.IsChecked.Value)
+                                    LimitTxt.Increment = null;
                             });
                         }
                     });
@@ -127,16 +167,16 @@ namespace Micro.Future.UI
                     //    MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
                     //}
 
-                    OrderVM.OpenClose = OrderOpenCloseType.CLOSE;
+                    //OrderVM.OpenClose = OrderOpenCloseType.CLOSE;
 
-                    if (positionVM.Direction == PositionDirectionType.PD_SHORT)
-                    {
-                        OrderVM.Direction = DirectionType.BUY;
-                    }
-                    else
-                    {
-                        OrderVM.Direction = DirectionType.SELL;
-                    }
+                    //if (positionVM.Direction == PositionDirectionType.PD_SHORT)
+                    //{
+                    //    OrderVM.Direction = DirectionType.BUY;
+                    //}
+                    //else
+                    //{
+                    //    OrderVM.Direction = DirectionType.SELL;
+                    //}
                 }
             }
         }
@@ -144,7 +184,7 @@ namespace Micro.Future.UI
         private void SendOrder(object sender, RoutedEventArgs e)
         {
             var contract = FastOrderContract.SelectedItem == null ? FastOrderContract.Filter : FastOrderContract.SelectedItem.ToString();
-            if (LimitTxt.Value != null& !string.IsNullOrEmpty(contract) & SizeTxt!=null)
+            if (LimitTxt.Value != null & !string.IsNullOrEmpty(contract) & SizeTxt != null)
             {
                 OrderVM.LimitPrice = LimitTxt.Value.Value;
                 OrderVM.Contract = contract;
@@ -195,8 +235,10 @@ namespace Micro.Future.UI
 
         private async void LoadContract()
         {
-            if(FastOrderContract.SelectedItem == null)
-                FastOrderContract.SelectedItem = FastOrderContract.Filter;
+            if (FastOrderContract.SelectedItem == null)
+            {
+                FastOrderContract.SelectedItem = FastOrderContract.Filter ?? string.Empty;
+            }
 
             var contract = FastOrderContract.SelectedItem.ToString();
             if (FuturecontractList.Any(c => c.Contract == contract))
@@ -206,10 +248,22 @@ namespace Micro.Future.UI
                 var item = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketDataAsync(quote);
                 if (item != null)
                 {
-                    var contractInfo = ClientDbContext.FindContract(quote);
                     stackPanelPrices.DataContext = item;
+                    var contractInfo = ClientDbContext.FindContract(quote);
                     LimitTxt.Increment = contractInfo == null ? 1 : contractInfo.PriceTick;
+                    checkBox.IsEnabled = true;
+                    radioButtonBuy.IsChecked = true;
+                    //radioButtonSell.IsChecked = false;
+                    RadioA.IsChecked = true;
+                    //RadioB.IsChecked = false;
+                    //RadioC.IsChecked = false;
+                    LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("AskPrice.Value") { Mode = BindingMode.OneWay });
                 }
+            }
+            else
+            {
+                checkBox.IsChecked = false;
+                checkBox.IsEnabled = false;
             }
         }
 
@@ -218,44 +272,88 @@ namespace Micro.Future.UI
             if (e.Key == Key.Enter)
             {
                 LoadContract();
+                if (radioButtonBuy.IsChecked.Value)
+                {
+                    if (LabelAskPrice.Content != null)
+                        LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
+                }
+                else if (radioButtonSell.IsChecked.Value)
+                {
+                    if (LabelBidPrice.Content != null)
+                        LimitTxt.Value = double.Parse(LabelBidPrice.Content.ToString());
+                }
             }
         }
 
         private void FastOrderContract_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             LoadContract();
+            if (radioButtonBuy.IsChecked.Value)
+            {
+                if (LabelAskPrice.Content != null)
+                    LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
+            }
+            else if (radioButtonSell.IsChecked.Value)
+            {
+                if (LabelBidPrice.Content != null)
+                    LimitTxt.Value = double.Parse(LabelBidPrice.Content.ToString());
+            }
+
         }
 
         private void checkBox_Checked(object sender, RoutedEventArgs e)
         {
             //var quote = FastOrderContract.Text;
             //var item = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketData(quote);
+            //if (!string.IsNullOrEmpty(FastOrderContract.Text))
+            //{
+            //checkBox.IsEnabled = true;
             if (OrderVM.Direction == DirectionType.BUY)
             {
                 LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("AskPrice.Value") { Mode = BindingMode.OneWay });
+                LimitTxt.Increment = null;
             }
             else if (OrderVM.Direction == DirectionType.SELL)
             {
                 LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("BidPrice.Value") { Mode = BindingMode.OneWay });
+                LimitTxt.Increment = null;
             }
-
+            //}
+            //else
+            //    checkBox.IsEnabled = false;
         }
 
         private void BuyChecked(object sender, RoutedEventArgs e)
         {
             if (checkBox.IsChecked.Value)
                 LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("AskPrice.Value") { Mode = BindingMode.OneWay });
+            else if (LabelAskPrice.Content != null)
+                LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
         }
 
         private void SellChecked(object sender, RoutedEventArgs e)
         {
             if (checkBox.IsChecked.Value)
                 LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("BidPrice.Value") { Mode = BindingMode.OneWay });
+            else if (LabelBidPrice.Content != null)
+                LimitTxt.Value = double.Parse(LabelBidPrice.Content.ToString());
         }
 
         private void checkBox_Unchecked(object sender, RoutedEventArgs e)
         {
             BindingOperations.ClearAllBindings(LimitTxt);
+            var contractInfo = ClientDbContext.FindContract(OrderVM.Contract ?? string.Empty);
+            LimitTxt.Increment = contractInfo == null ? 1 : contractInfo.PriceTick;            
+                if (radioButtonBuy.IsChecked.Value)
+            {
+                if (LabelAskPrice.Content != null)
+                    LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
+            }
+                else if (radioButtonSell.IsChecked.Value)
+            {
+                if (LabelBidPrice.Content != null)
+                    LimitTxt.Value = double.Parse(LabelBidPrice.Content.ToString());
+            }
         }
     }
 }

@@ -64,19 +64,19 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <RadioButton Grid.Column="0" Name="radioButtonBuy" Content="{lex:Loc Key=Buy}" 
-                             IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=BUY}"
+            <RadioButton Grid.Column="0" Name="radioButtonBuy" Content="{lex:Loc Key=Buy}" IsEnabled="True"
+                             IsChecked= "{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=BUY}"
                              VerticalAlignment="Center" GroupName="BuySellGroup" Width="42.4" Height="16" HorizontalAlignment="Left" Checked="BuyChecked" />
             <RadioButton Grid.Column="1" Name="radioButtonSell" Content="{lex:Loc Key=Sell}"
                              IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=SELL}" 
                              VerticalAlignment="Center" GroupName="BuySellGroup" Width="42.4" Height="16" HorizontalAlignment="Left" Checked="SellChecked" />
-            <CheckBox x:Name="checkBox" Content="{lex:Loc Key=MarketPrice}" Checked="checkBox_Checked" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Margin="0,7,0,0" Unchecked="checkBox_Unchecked"/>
+            <CheckBox x:Name="checkBox" IsEnabled="False" Content="{lex:Loc Key=MarketPrice}" Checked="checkBox_Checked" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Margin="0,7,0,0" Unchecked="checkBox_Unchecked"/>
 
         </Grid>
 
         <StackPanel  x:Name="stackPanelPrices" Grid.Row="4" Orientation="Horizontal" Height="60">
             <Label Content="{lex:Loc Key=Price}" Width="35" VerticalAlignment="Center"/>
-            <xctk:DoubleUpDown Name="LimitTxt" Width="100" Increment="1" Value="{Binding LimitPrice}" VerticalAlignment="Center"/>
+            <xctk:DoubleUpDown Name="LimitTxt" Width="100" Value="{Binding LimitPrice}" VerticalAlignment="Center"/>
             <StackPanel MinWidth="40">
                 <Label x:Name="LabelUpperPrice" Content="{Binding UpperLimitPrice}" MouseDown="labelupperprice_MouseDown" />
                 <Label x:Name="LabelAskPrice" Content="{Binding AskPrice.Value}" MouseDown="LabelAskPrice_MouseDown" />
@@ -89,7 +89,7 @@
                 <Label x:Name="LabelBidPriceVol" Content="{Binding BidSize}" HorizontalAlignment="Center" />
                 <Label x:Name="Null2" Content=" "/>
             </StackPanel>
-                <Button x:Name="BuySummitButton" Content="{lex:Loc Key=Order}" MinWidth="100" Click="SendOrder" />
+            <Button x:Name="BuySummitButton" Content="{lex:Loc Key=Order}" MinWidth="100" Click="SendOrder" />
         </StackPanel>
     </Grid>
 </UserControl>

@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
+using System.Collections.Generic;
 
 namespace Micro.Future.UI
 {
@@ -10,7 +11,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class TDPositionWindow : UserControl
     {
-        private ColumnObject[] mColumns;
+        private IList<ColumnObject> mColumns;
 
         public TDPositionWindow()
         {

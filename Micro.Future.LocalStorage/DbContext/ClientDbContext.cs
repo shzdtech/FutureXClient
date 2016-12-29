@@ -30,6 +30,7 @@ namespace Micro.Future.LocalStorage
         public DbSet<FilterSettings> FilterSettings { get; set; }
 
         public DbSet<MarketContract> MarketContract { get; set; }
+        public DbSet<OrderStatusFilter> OrderStatusFilter { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +38,7 @@ namespace Micro.Future.LocalStorage
             modelBuilder.Entity<ContractInfo>().HasKey(c => new { c.Exchange, c.Contract });
             modelBuilder.Entity<PersonalContract>().HasKey(p => new { p.UserID, p.Contract });
             modelBuilder.Entity<MarketContract>().HasKey(m => new { m.AccountID, m.Contract, m.TabID });
+            modelBuilder.Entity<OrderStatusFilter>().HasKey(o => new { o.AccountID, o.Orderstatus, o.TabID });
 
         }
 
@@ -194,6 +196,18 @@ namespace Micro.Future.LocalStorage
             }
 
         }
+
+        public static void DeleteUserContracts(string userId, string tabID, string contract)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                var contractinfo = clientCtx.MarketContract.FirstOrDefault(t => t.AccountID == userId
+                &&t.Contract==contract&&t.TabID==tabID);
+                if (contractinfo != null)
+                    clientCtx.MarketContract.Remove(contractinfo);
+                clientCtx.SaveChanges();
+            }
+        }
         public static IList<FilterSettings> GetFilterSettings(string userId, string ctrlID)
         {
             using (var clientCtx = new ClientDbContext())
@@ -201,7 +215,43 @@ namespace Micro.Future.LocalStorage
                 return (clientCtx.FilterSettings.Where(c => c.UserID == userId && c.CtrlID == ctrlID)).ToList();
             }
         }
+        public static void SaveOrderStatus(string userID, int status, string tabID)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                var orderstatus = clientCtx.OrderStatusFilter.FirstOrDefault(t => t.AccountID == userID && t.Orderstatus == status && t.TabID == tabID);
+                if (orderstatus == null)
+                {
+                    orderstatus = new OrderStatusFilter
+                    {
+                        AccountID = userID,
+                        Orderstatus = status,
+                        TabID = tabID,
+                    };
+                    clientCtx.OrderStatusFilter.Add(orderstatus);
+                    clientCtx.SaveChanges();
+                }
+            }
+        }
+        public static void DeleteOrderStatus(string userId, string tabID, int status)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                var orderstatus = clientCtx.OrderStatusFilter.FirstOrDefault(t => t.AccountID == userId
+                && t.Orderstatus == status && t.TabID == tabID);
+                if (orderstatus != null)
+                    clientCtx.OrderStatusFilter.Remove(orderstatus);
+                clientCtx.SaveChanges();
+            }
+        }
+        public static IEnumerable<int> GetOrderStatus(string userId, string tabID)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                return clientCtx.OrderStatusFilter.Where(u => u.AccountID == userId && u.TabID == tabID).Select(u => u.Orderstatus).ToList();
+            }
 
+        }
 
     }
 }

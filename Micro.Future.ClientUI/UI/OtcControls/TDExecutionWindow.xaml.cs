@@ -4,6 +4,7 @@ using System.Windows.Data;
 using System.ComponentModel;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
+using System.Collections.Generic;
 
 namespace Micro.Future.UI
 {
@@ -12,7 +13,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class TDExecutionWindow : UserControl
     {
-        private ColumnObject[] mColumns;
+        private IList<ColumnObject> mColumns;
 
         public TDExecutionWindow()
         {

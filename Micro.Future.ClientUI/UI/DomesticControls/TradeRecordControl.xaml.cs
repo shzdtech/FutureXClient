@@ -25,7 +25,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class TradeRecordControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
-        private ColumnObject[] mColumns;
+        private IList< ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public FilterSettingsWindow FilterSettingsWin
         { get; } = new FilterSettingsWindow() { PersistanceId = typeof(TradeRecordControl).Name, CancelClosing = true };
@@ -309,8 +309,6 @@ namespace Micro.Future.UI
                 AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
                 traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
             }
-            if (filtersettings.Any())
-                AnchorablePane.RemoveChildAt(0);
         }
     }
 }

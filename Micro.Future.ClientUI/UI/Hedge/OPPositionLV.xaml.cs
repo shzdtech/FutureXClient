@@ -8,6 +8,7 @@ using System;
 using System.ComponentModel;
 using System.Windows.Data;
 using Micro.Future.Utility;
+using System.Collections.Generic;
 
 namespace Micro.Future.UI
 {
@@ -16,7 +17,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OPPositionLV : UserControl
     {
-        private ColumnObject[] mColumns;
+        private IList<ColumnObject> mColumns;
         private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow() { CancelClosing = true };
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public LayoutContent LayoutContent { get; set; }

@@ -6,6 +6,7 @@ using System.Threading;
 using System;
 using System.Windows.Data;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace Micro.Future.UI
 {
@@ -14,7 +15,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class AccountInfoControl : UserControl, IReloadData
     {
-        private ColumnObject[] mColumns;
+        private IList<ColumnObject> mColumns;
         private Timer _timer;
         public ObservableCollection<FundVM> FundVMCollection
         {
