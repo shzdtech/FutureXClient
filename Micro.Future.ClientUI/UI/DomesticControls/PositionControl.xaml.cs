@@ -63,7 +63,7 @@ namespace Micro.Future.UI
             _viewSource.Source = PositionCollection;
 
             MessageHandlerContainer.DefaultInstance
-            .Get<MarketDataHandler>().OnNewMarketData += PositionControl_OnNewMarketData;
+            .Get<MarketDataHandler>().OnNewMarketData += OnNewMarketData;
 
             FilterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
 
@@ -81,23 +81,26 @@ namespace Micro.Future.UI
 
         }
 
-        public static void PositionControl_OnNewMarketData(MarketDataVM mktDataVM)
+        public static void OnNewMarketData(MarketDataVM mktDataVM)
         {
-            if (PositionContractSet.Contains(mktDataVM.Contract))
+            Task.Run(() =>
             {
-                var positions = PositionCollection.FindByContract(mktDataVM.Contract);
-                foreach (var positionVM in positions)
+                if (PositionContractSet.Contains(mktDataVM.Contract))
                 {
-                    if (positionVM.Direction == PositionDirectionType.PD_LONG)
+                    var positions = PositionCollection.FindByContract(mktDataVM.Contract);
+                    foreach (var positionVM in positions)
                     {
-                        positionVM.Profit = (mktDataVM.LastPrice - positionVM.MeanCost) * positionVM.Position * positionVM.Multiplier;
-                    }
-                    else if (positionVM.Direction == PositionDirectionType.PD_SHORT)
-                    {
-                        positionVM.Profit = (positionVM.MeanCost - mktDataVM.LastPrice) * positionVM.Position * positionVM.Multiplier;
+                        if (positionVM.Direction == PositionDirectionType.PD_LONG)
+                        {
+                            positionVM.Profit = (mktDataVM.LastPrice - positionVM.MeanCost) * positionVM.Position * positionVM.Multiplier;
+                        }
+                        else if (positionVM.Direction == PositionDirectionType.PD_SHORT)
+                        {
+                            positionVM.Profit = (positionVM.MeanCost - mktDataVM.LastPrice) * positionVM.Position * positionVM.Multiplier;
+                        }
                     }
                 }
-            }
+            });
         }
 
         public PositionControl() : this("6210A109-5291-4CEF-866E-9CEC7EF3A602")
