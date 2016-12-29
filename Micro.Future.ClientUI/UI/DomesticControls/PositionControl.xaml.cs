@@ -94,24 +94,24 @@ namespace Micro.Future.UI
 
         public static void OnNewMarketData(MarketDataVM mktDataVM)
         {
-            Task.Run(() =>
-            {
-                if (PositionContractSet.Contains(mktDataVM.Contract))
-                {
-                    var positions = PositionCollection.FindByContract(mktDataVM.Contract);
-                    foreach (var positionVM in positions)
-                    {
-                        if (positionVM.Direction == PositionDirectionType.PD_LONG)
-                        {
-                            positionVM.Profit = (mktDataVM.LastPrice - positionVM.MeanCost) * positionVM.Position * positionVM.Multiplier;
-                        }
-                        else if (positionVM.Direction == PositionDirectionType.PD_SHORT)
-                        {
-                            positionVM.Profit = (positionVM.MeanCost - mktDataVM.LastPrice) * positionVM.Position * positionVM.Multiplier;
-                        }
-                    }
-                }
-            });
+            //Task.Run(() =>
+            //{
+            //    if (PositionContractSet.Contains(mktDataVM.Contract))
+            //    {
+            //        var positions = PositionCollection.FindByContract(mktDataVM.Contract);
+            //        foreach (var positionVM in positions)
+            //        {
+            //            if (positionVM.Direction == PositionDirectionType.PD_LONG)
+            //            {
+            //                positionVM.Profit = (mktDataVM.LastPrice - positionVM.MeanCost) * positionVM.Position * positionVM.Multiplier;
+            //            }
+            //            else if (positionVM.Direction == PositionDirectionType.PD_SHORT)
+            //            {
+            //                positionVM.Profit = (positionVM.MeanCost - mktDataVM.LastPrice) * positionVM.Position * positionVM.Multiplier;
+            //            }
+            //        }
+            //    }
+            //});
         }
 
         public PositionControl() : this("6210A109-5291-4CEF-866E-9CEC7EF3A602")

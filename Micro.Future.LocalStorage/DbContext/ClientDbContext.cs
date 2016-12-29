@@ -31,6 +31,8 @@ namespace Micro.Future.LocalStorage
 
         public DbSet<MarketContract> MarketContract { get; set; }
         public DbSet<OrderStatusFilter> OrderStatusFilter { get; set; }
+        public DbSet<ColumnSettingsInfo> ColumnSettingsInfo { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,6 +41,8 @@ namespace Micro.Future.LocalStorage
             modelBuilder.Entity<PersonalContract>().HasKey(p => new { p.UserID, p.Contract });
             modelBuilder.Entity<MarketContract>().HasKey(m => new { m.AccountID, m.Contract, m.TabID });
             modelBuilder.Entity<OrderStatusFilter>().HasKey(o => new { o.AccountID, o.Orderstatus, o.TabID });
+            modelBuilder.Entity<ColumnSettingsInfo>().HasKey(c => new { c.AccountID, c.ColumnIdx, c.TabID });
+
 
         }
 
@@ -249,6 +253,44 @@ namespace Micro.Future.LocalStorage
             using (var clientCtx = new ClientDbContext())
             {
                 return clientCtx.OrderStatusFilter.Where(u => u.AccountID == userId && u.TabID == tabID).Select(u => u.Orderstatus).ToList();
+            }
+
+        }
+
+        public static void SaveColumnSettings(string userID, string tabID, int columnIdx)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                var columnInfo = clientCtx.ColumnSettingsInfo.FirstOrDefault(t => t.AccountID == userID  && t.TabID == tabID && t.ColumnIdx == columnIdx);
+                if (columnInfo == null)
+                {
+                    columnInfo = new ColumnSettingsInfo
+                    {
+                        AccountID = userID,
+                        ColumnIdx = columnIdx,
+                        TabID = tabID,
+                    };
+                    clientCtx.ColumnSettingsInfo.Add(columnInfo);
+                    clientCtx.SaveChanges();
+                }
+            }
+        }
+        public static void DeleteColumnSettings(string userId, string tabID, int columnIdx)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                var columnInfo = clientCtx.ColumnSettingsInfo.FirstOrDefault(t => t.AccountID == userId
+                && t.ColumnIdx == columnIdx && t.TabID == tabID);
+                if (columnInfo != null)
+                    clientCtx.ColumnSettingsInfo.Remove(columnInfo);
+                clientCtx.SaveChanges();
+            }
+        }
+        public static IList<ColumnSettingsInfo> GetColumnSettings(string userId, string tabID)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                return clientCtx.ColumnSettingsInfo.Where(u => u.AccountID == userId && u.TabID == tabID).ToList();
             }
 
         }

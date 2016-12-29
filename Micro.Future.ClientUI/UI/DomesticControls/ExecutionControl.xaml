@@ -57,6 +57,8 @@
                     <!--<MenuItem Header="修改订单" />-->
                     <MenuItem Header="{lex:Loc Key=CancelOrder}" Click="MenuItem_Click_CancelOrder" />
                     <Separator />
+                    <!--<MenuItem Header="{lex:Loc Key=CancelAllOrder}" Click="MenuItem_Click_CancelAllOrder" />
+                    <Separator />-->
                     <MenuItem Header="{lex:Loc Key=AddFilter}" Click="MenuItem_Click_ShowAllExecution" />
                     <Separator />
                     <MenuItem Header="{lex:Loc Key=FilterSettings}" Click="MenuItem_Click_Settings" />

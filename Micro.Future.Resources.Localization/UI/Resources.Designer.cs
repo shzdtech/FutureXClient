@@ -268,6 +268,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 取消全部订单 的本地化字符串。
+        /// </summary>
+        internal static string CancelAllOrder {
+            get {
+                return ResourceManager.GetString("CancelAllOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已撤销单 的本地化字符串。
         /// </summary>
         internal static string CanceledOrder {

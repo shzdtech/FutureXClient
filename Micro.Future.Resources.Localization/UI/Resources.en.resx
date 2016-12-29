@@ -249,9 +249,6 @@
   <data name="OpenAmount" xml:space="preserve">
     <value>OpenAmount</value>
   </data>
-  <data name="OpenClose" xml:space="preserve">
-    <value>OpenClose</value>
-  </data>
   <data name="OpenCost" xml:space="preserve">
     <value>OpenCost</value>
   </data>
@@ -704,5 +701,8 @@
   </data>
   <data name="PositionAvPrice" xml:space="preserve">
     <value>PositionAveragePrice</value>
+  </data>
+  <data name="CancelAllOrder" xml:space="preserve">
+    <value>CancelAllOrder</value>
   </data>
 </root>

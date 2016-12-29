@@ -308,6 +308,12 @@ namespace Micro.Future.UI
             }
         }
 
+        private void MenuItem_Click_CancelAllOrder(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
         private void MenuItem_Click_Columns(object sender, RoutedEventArgs e)
         {
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
@@ -349,7 +355,7 @@ namespace Micro.Future.UI
                 var executionctrl = new ExecutionControl(fs.Id, fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
                 AnchorablePane.AddContent(executionctrl).Title = fs.Title;
                 var statuses = ClientDbContext.GetOrderStatus(userId, fs.Id);
-                executionctrl.FilterByStatus((IEnumerable<OrderStatus>)statuses);
+                executionctrl.FilterByStatus(statuses.Select(c=> (OrderStatus)c));
             }
         }
     }

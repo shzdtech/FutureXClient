@@ -252,9 +252,6 @@
   <data name="OpenAmount" xml:space="preserve">
     <value>开仓金额</value>
   </data>
-  <data name="OpenClose" xml:space="preserve">
-    <value>开平</value>
-  </data>
   <data name="OpenCost" xml:space="preserve">
     <value>开仓成本</value>
   </data>
@@ -704,5 +701,8 @@
   </data>
   <data name="PositionAvPrice" xml:space="preserve">
     <value>持仓均价</value>
+  </data>
+  <data name="CancelAllOrder" xml:space="preserve">
+    <value>取消全部订单</value>
   </data>
 </root>
