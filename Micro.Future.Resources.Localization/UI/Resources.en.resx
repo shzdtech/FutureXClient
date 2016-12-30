@@ -705,4 +705,7 @@
   <data name="CancelAllOrder" xml:space="preserve">
     <value>CancelAllOrder</value>
   </data>
+  <data name="ClosePosition" xml:space="preserve">
+    <value>ClosePosition</value>
+  </data>
 </root>

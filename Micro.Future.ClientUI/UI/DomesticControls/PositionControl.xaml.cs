@@ -26,9 +26,9 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class PositionControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
-        private IList< ColumnObject> mColumns;
+        private IList<ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
-        private FilterSettingsWindow FilterSettingsWin { get; }
+        public FilterSettingsWindow FilterSettingsWin { get; }
            = new FilterSettingsWindow() { PersistanceId = typeof(PositionControl).Name, CancelClosing = true };
         private static ObservableCollection<PositionVM> PositionCollection
         {
@@ -56,7 +56,6 @@ namespace Micro.Future.UI
             get;
             set;
         }
-
         public PositionControl(string filterId)
         {
             InitializeComponent();
@@ -85,7 +84,7 @@ namespace Micro.Future.UI
 
         private static void PositionCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if(e.Action == NotifyCollectionChangedAction.Add)
+            if (e.Action == NotifyCollectionChangedAction.Add)
             {
                 PositionVM position = e.NewItems[0] as PositionVM;
                 LoadMarketData(position.Contract);
@@ -168,7 +167,91 @@ namespace Micro.Future.UI
             FilterSettingsWin.FilterTabTitle = AnchorablePane?.SelectedContent.Title;
             FilterSettingsWin.Show();
         }
-
+        private void MenuItem_Click_ClosePosition(object sender, RoutedEventArgs e)
+        {
+            PositionVM positionVM = PositionListView.SelectedItem as PositionVM;
+            var orderVM = new OrderVM(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
+            if (positionVM != null)
+            {
+                if (positionVM.Position != 0)
+                {
+                    var mktdataVM = _marketDataList.FirstOrDefault(c => c.Contract == positionVM.Contract);
+                    if (mktdataVM != null)
+                    {
+                        if (positionVM.Direction == PositionDirectionType.PD_LONG)
+                        {
+                            if(positionVM.Position!=0 )
+                            {
+                                var cvt = new EnumToFriendlyNameConverter();
+                                string msg = string.Format("委托确认\n昨仓 合约：{0}，价格：{1}，方向：卖, 手数：{2}，开平：平仓\n今仓 合约：{3}，价格：{4}，方向：卖, 手数：{5}，开平：平今",
+                                    positionVM.Contract, mktdataVM.BidPrice, positionVM.YdPosition, positionVM.Contract, mktdataVM.BidPrice, positionVM.TodayPosition);
+                                MessageBoxResult dr = System.Windows.MessageBox.Show(msg, "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                                if (dr == MessageBoxResult.OK)
+                                {
+                                    if (positionVM.YdPosition != 0 & mktdataVM.BidSize != 0)
+                                    {
+                                        orderVM.OpenClose = OrderOpenCloseType.CLOSEYESTERDAY;
+                                        orderVM.Contract = positionVM.Contract;
+                                        orderVM.Volume = positionVM.YdPosition;
+                                        orderVM.Direction = DirectionType.SELL;
+                                        orderVM.LimitPrice = mktdataVM.BidPrice;
+                                        orderVM.TIF = OrderTIFType.GFD;
+                                        orderVM.ExecType = OrderExecType.LIMIT;
+                                        orderVM.SendOrder();
+                                    }
+                                    if (positionVM.TodayPosition != 0 & mktdataVM.BidSize != 0)
+                                    {
+                                        orderVM.OpenClose = OrderOpenCloseType.CLOSETODAY;
+                                        orderVM.Contract = positionVM.Contract;
+                                        orderVM.Volume = positionVM.TodayPosition;
+                                        orderVM.Direction = DirectionType.SELL;
+                                        orderVM.LimitPrice = mktdataVM.BidPrice;
+                                        orderVM.TIF = OrderTIFType.GFD;
+                                        orderVM.ExecType = OrderExecType.LIMIT;
+                                        orderVM.SendOrder();
+                                    }
+                                }
+                            }
+                        }
+                        if (positionVM.Direction == PositionDirectionType.PD_SHORT)
+                        {
+                            if (positionVM.Position != 0)
+                            {
+                                var cvt = new EnumToFriendlyNameConverter();
+                                string msg = string.Format("委托确认\n昨仓 合约：{0}，价格：{1}，方向：买, 手数：{2}，开平：平仓\n今仓 合约：{3}，价格：{4}，方向：买, 手数：{5}，开平：平今",
+                                    positionVM.Contract, mktdataVM.AskPrice, positionVM.YdPosition, positionVM.Contract, mktdataVM.AskPrice, positionVM.TodayPosition);
+                                MessageBoxResult dr = System.Windows.MessageBox.Show(msg, "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                                if (dr == MessageBoxResult.OK)
+                                {
+                                    if (positionVM.YdPosition != 0 & mktdataVM.AskSize != 0)
+                                    {
+                                        orderVM.OpenClose = OrderOpenCloseType.CLOSEYESTERDAY;
+                                        orderVM.Contract = positionVM.Contract;
+                                        orderVM.Volume = positionVM.YdPosition;
+                                        orderVM.Direction = DirectionType.BUY;
+                                        orderVM.LimitPrice = mktdataVM.AskPrice;
+                                        orderVM.TIF = OrderTIFType.GFD;
+                                        orderVM.ExecType = OrderExecType.LIMIT;
+                                        orderVM.SendOrder();
+                                    }
+                                    if (positionVM.TodayPosition != 0 & mktdataVM.AskSize != 0)
+                                    {
+                                        orderVM.OpenClose = OrderOpenCloseType.CLOSETODAY;
+                                        orderVM.Contract = positionVM.Contract;
+                                        orderVM.Volume = positionVM.TodayPosition;
+                                        orderVM.Direction = DirectionType.BUY;
+                                        orderVM.LimitPrice = mktdataVM.AskPrice;
+                                        orderVM.TIF = OrderTIFType.GFD;
+                                        orderVM.ExecType = OrderExecType.LIMIT;
+                                        orderVM.SendOrder();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         private void MenuItem_Click_Position(object sender, RoutedEventArgs e)
         {

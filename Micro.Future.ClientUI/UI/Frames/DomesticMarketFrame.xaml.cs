@@ -187,7 +187,13 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_Contract(object sender, RoutedEventArgs e)
         {
-            quotePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            //quotePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var marketDataWin = new MarketDataControl(Guid.NewGuid().ToString());
+            marketDataWin.FilterSettingsWin.Title += "(" + title + ")";
+            marketDataWin.FilterSettingsWin.FilterTabTitle = title;
+            quotePane.AddContent(marketDataWin).Title = title;
+            marketDataWin.FilterSettingsWin.Save();
         }
 
 
@@ -221,13 +227,19 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_Execution(object sender, RoutedEventArgs e)
         {
-            executionPane.AddContent(new ExecutionControl()).Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            //executionPane.AddContent(new ExecutionControl(Guid.NewGuid().ToString())).Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var executionWin = new ExecutionControl(Guid.NewGuid().ToString());
+            executionWin.FilterSettingsWin.Title += "(" + title + ")";
+            executionWin.FilterSettingsWin.FilterTabTitle = title;
+            executionPane.AddContent(executionWin).Title = title;
+            executionWin.Save();
         }
 
         private void MenuItem_Click_Opened(object sender, RoutedEventArgs e)
         {
             var title = WPFUtility.GetLocalizedString("Opened", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var executionWin = new ExecutionControl();
+            var executionWin = new ExecutionControl(Guid.NewGuid().ToString());
             executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterSettingsWin.FilterTabTitle = title;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENED, OrderStatus.PARTIAL_TRADED, OrderStatus.PARTIAL_TRADING });
@@ -238,7 +250,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Traded(object sender, RoutedEventArgs e)
         {
             var title = WPFUtility.GetLocalizedString("TRADED", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var executionWin = new ExecutionControl();
+            var executionWin = new ExecutionControl(Guid.NewGuid().ToString());
             executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterSettingsWin.FilterTabTitle = title;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED, OrderStatus.PARTIAL_TRADED });
@@ -248,7 +260,13 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_AllTraded(object sender, RoutedEventArgs e)
         {
-            tradePane.AddContent(new TradeRecordControl()).Title = WPFUtility.GetLocalizedString("AllTraded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            //tradePane.AddContent(new TradeRecordControl()).Title = WPFUtility.GetLocalizedString("AllTraded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var title = WPFUtility.GetLocalizedString("AllTraded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var tradeRecordWin = new TradeRecordControl(Guid.NewGuid().ToString());
+            tradeRecordWin.FilterSettingsWin.Title += "(" + title + ")";
+            tradeRecordWin.FilterSettingsWin.FilterTabTitle = title;
+            tradePane.AddContent(tradeRecordWin).Title = title;
+            tradeRecordWin.FilterSettingsWin.Save();
         }
 
         private void MenuItem_Click_Open(object sender, RoutedEventArgs e)
@@ -267,7 +285,13 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_Position(object sender, RoutedEventArgs e)
         {
-            positionPane.AddContent(new PositionControl()).Title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            //positionPane.AddContent(new PositionControl()).Title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var positionWin = new PositionControl(Guid.NewGuid().ToString());
+            positionWin.FilterSettingsWin.Title += "(" + title + ")";
+            positionWin.FilterSettingsWin.FilterTabTitle = title;
+            positionPane.AddContent(positionWin).Title = title;
+            positionWin.FilterSettingsWin.Save();
         }
 
         private void MenuItem_Click_Portfolio(object sender, RoutedEventArgs e)

@@ -158,7 +158,7 @@ namespace Micro.Future.UI
                 if (evm.Exchange.ContainsAny(exchange) &&
                     evm.Contract.ContainsAny(contract) &&
                     evm.Contract.ContainsAny(underlying) &&
-                    ((OrderStatuses == null) || OrderStatuses.Contains(evm.Status)))
+                    ((OrderStatuses == null) || !OrderStatuses.Any() || OrderStatuses.Contains(evm.Status)))
                 {
                     return true;
                 }
@@ -310,7 +310,11 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_CancelAllOrder(object sender, RoutedEventArgs e)
         {
-
+            var OrdersActive = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Where(o => o.Active);
+            foreach(var orderactive in OrdersActive)
+            {
+                MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().CancelOrder(orderactive);
+            }
         }
 
 

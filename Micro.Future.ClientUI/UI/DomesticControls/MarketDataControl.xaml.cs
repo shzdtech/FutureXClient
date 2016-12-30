@@ -175,9 +175,9 @@ namespace Micro.Future.UI
         {
             string quote = contractTextBox.SelectedItem == null ? contractTextBox.Filter : contractTextBox.SelectedItem.ToString();
             if (!FuturecontractList.Any((c) => string.Compare(c.Contract, quote, true) == 0))
-
             {
                 MessageBox.Show("输入合约" + quote + "不存在");
+                contractTextBox.Filter = string.Empty;
                 return;
             }
 
@@ -321,7 +321,10 @@ namespace Micro.Future.UI
         {
             if (e.Key == System.Windows.Input.Key.Enter)
             {
-                AddQuote();
+                if(!string.IsNullOrEmpty(contractTextBox.Filter))
+                {
+                    AddQuote();
+                }
             }
         }
 

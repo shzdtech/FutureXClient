@@ -705,4 +705,7 @@
   <data name="CancelAllOrder" xml:space="preserve">
     <value>取消全部订单</value>
   </data>
+  <data name="ClosePosition" xml:space="preserve">
+    <value>一键平仓</value>
+  </data>
 </root>

@@ -358,6 +358,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 一键平仓 的本地化字符串。
+        /// </summary>
+        internal static string ClosePosition {
+            get {
+                return ResourceManager.GetString("ClosePosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 平仓盈亏 的本地化字符串。
         /// </summary>
         internal static string CloseProfit {
