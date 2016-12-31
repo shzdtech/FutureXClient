@@ -311,10 +311,22 @@ namespace Micro.Future.UI
         private void MenuItem_Click_CancelAllOrder(object sender, RoutedEventArgs e)
         {
             var OrdersActive = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Where(o => o.Active);
-            foreach(var orderactive in OrdersActive)
+            if (!OrdersActive.Any())
             {
-                MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().CancelOrder(orderactive);
+                MessageBoxResult dr = MessageBox.Show("是否确认取消所有订单", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                if (dr == MessageBoxResult.OK)
+                {
+                    foreach (var orderactive in OrdersActive)
+                    {
+                        MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().CancelOrder(orderactive);
+                    }
+                }
             }
+            else
+            {
+                MessageBox.Show("无可取消的订单", "错误");
+            }
+
         }
 
 
