@@ -63,7 +63,7 @@ namespace Micro.Future.UI
             }
         }
 
-        public Task<bool> LoginAsync(string usernname, string password, string server)
+        public Task<bool> LoginAsync(string brokerId, string usernname, string password, string server)
         {
             _ctsMdSignIner.SignInOptions.UserName = _ctsTradeSignIner.SignInOptions.UserName = "SZhou";
             _ctsMdSignIner.SignInOptions.Password = _ctsTradeSignIner.SignInOptions.Password = "sean91";

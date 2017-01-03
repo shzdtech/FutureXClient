@@ -17,6 +17,6 @@ namespace Micro.Future.CustomizedControls
 
         TaskCompletionSource<bool> LoginTaskSource { get; }
 
-        Task<bool> LoginAsync(string usernname, string password, string server = null);
+        Task<bool> LoginAsync(string brokerId, string usernname, string password, string server = null);
     }
 }
