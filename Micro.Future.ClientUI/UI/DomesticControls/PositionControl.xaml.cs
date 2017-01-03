@@ -26,6 +26,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class PositionControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
+        private const string DEFAULT_ID = "6210A109-5291-4CEF-866E-9CEC7EF3A602";
         private IList<ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public FilterSettingsWindow FilterSettingsWin { get; }
@@ -113,7 +114,7 @@ namespace Micro.Future.UI
             //});
         }
 
-        public PositionControl() : this("6210A109-5291-4CEF-866E-9CEC7EF3A602")
+        public PositionControl() : this(DEFAULT_ID)
         {
         }
         public ICollectionViewLiveShaping PositionChanged { get; set; }
@@ -144,6 +145,9 @@ namespace Micro.Future.UI
                 var positionctrl = new PositionControl(fs.Id);
                 AnchorablePane.AddContent(positionctrl).Title = fs.Title;
                 positionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+
+                if (fs.Id == DEFAULT_ID)
+                    AnchorablePane.Children.RemoveAt(0);
             }
         }
 
