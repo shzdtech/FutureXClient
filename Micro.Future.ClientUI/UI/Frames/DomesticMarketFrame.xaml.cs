@@ -40,8 +40,9 @@ namespace Micro.Future.UI
             get; set;
         }
 
-        public Task<bool> LoginAsync(string usernname, string password, string server)
+        public Task<bool> LoginAsync(string brokerId, string usernname, string password, string server)
         {
+            _ctpMdSignIner.SignInOptions.BrokerID = _ctpTradeSignIner.SignInOptions.BrokerID = brokerId;
             _ctpMdSignIner.SignInOptions.UserName = _ctpTradeSignIner.SignInOptions.UserName = usernname;
             _ctpMdSignIner.SignInOptions.Password = _ctpTradeSignIner.SignInOptions.Password = password;
             var entries = _ctpMdSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);

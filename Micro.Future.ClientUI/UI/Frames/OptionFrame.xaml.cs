@@ -74,8 +74,9 @@ namespace Micro.Future.UI
             get;
         } = new TaskCompletionSource<bool>();
 
-        public Task<bool> LoginAsync(string usernname, string password, string server)
+        public Task<bool> LoginAsync(string brokerId, string usernname, string password, string server)
         {
+            _otcOptionSignIner.SignInOptions.BrokerID = brokerId;
             _otcOptionSignIner.SignInOptions.UserName = usernname;
             _otcOptionSignIner.SignInOptions.Password = password;
 
