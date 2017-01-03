@@ -25,6 +25,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class TradeRecordControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
+        private const string DEFAULT_ID = "E0FD10D9-8D28-4DDE-B2BC-96FAC72992C8";
         private IList< ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public FilterSettingsWindow FilterSettingsWin
@@ -53,7 +54,7 @@ namespace Micro.Future.UI
 
         }
 
-        public TradeRecordControl() : this("E0FD10D9-8D28-4DDE-B2BC-96FAC72992C8")
+        public TradeRecordControl() : this(DEFAULT_ID)
         {
         }
 
@@ -308,6 +309,9 @@ namespace Micro.Future.UI
                 var traderecordctrl = new TradeRecordControl(fs.Id);
                 AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
                 traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+
+                if(fs.Id == DEFAULT_ID)
+                    AnchorablePane.Children.RemoveAt(0);
             }
         }
     }
