@@ -372,8 +372,16 @@ namespace Micro.Future.UI
                 AnchorablePane.AddContent(executionctrl).Title = fs.Title;
                 var statuses = ClientDbContext.GetOrderStatus(userId, fs.Id);
                 executionctrl.FilterByStatus(statuses.Select(c=> (OrderStatus)c));
-                var title = WPFUtility.GetLocalizedString(statuses.Select(c => (OrderStatus)c).ToString(), LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                executionctrl.FilterSettingsWin.Title += " (" + title + ")";
+                if (statuses.Contains((int)OrderStatus.OPENED))
+                {
+                    var titleopen = WPFUtility.GetLocalizedString("Opened", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                    executionctrl.FilterSettingsWin.Title += "  " + titleopen + " ";
+                }
+                else if((statuses.Contains((int)OrderStatus.ALL_TRADED)) || (statuses.Contains((int)OrderStatus.PARTIAL_TRADING)))
+                {
+                    var titletraded = WPFUtility.GetLocalizedString("TRADED", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                    executionctrl.FilterSettingsWin.Title += "  " + titletraded + " ";
+                }
             }
         }
     }
