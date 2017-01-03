@@ -11,6 +11,5 @@ namespace Micro.Future.LocalStorage.DataObject
         public int Orderstatus { get; set; }
         public string AccountID { get; set; }
         public string TabID { get; set; }
-
     }
 }

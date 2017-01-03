@@ -372,6 +372,8 @@ namespace Micro.Future.UI
                 AnchorablePane.AddContent(executionctrl).Title = fs.Title;
                 var statuses = ClientDbContext.GetOrderStatus(userId, fs.Id);
                 executionctrl.FilterByStatus(statuses.Select(c=> (OrderStatus)c));
+                var title = WPFUtility.GetLocalizedString(statuses.Select(c => (OrderStatus)c).ToString(), LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                executionctrl.FilterSettingsWin.Title += " (" + title + ")";
             }
         }
     }
