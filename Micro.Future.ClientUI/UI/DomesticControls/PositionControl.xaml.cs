@@ -140,6 +140,8 @@ namespace Micro.Future.UI
 
             var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
 
+            bool found = false;
+
             foreach (var fs in filtersettings)
             {
                 var positionctrl = new PositionControl(fs.Id);
@@ -147,8 +149,11 @@ namespace Micro.Future.UI
                 positionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
 
                 if (fs.Id == DEFAULT_ID)
-                    AnchorablePane.Children.RemoveAt(0);
+                    found = true;
             }
+
+            if(found)
+                AnchorablePane.Children.RemoveAt(0);
         }
 
         private static async void LoadMarketData(string contract)
