@@ -311,7 +311,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_CancelAllOrder(object sender, RoutedEventArgs e)
         {
             var OrdersActive = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Where(o => o.Active);
-            if (!OrdersActive.Any())
+            if (OrdersActive.Any())
             {
                 MessageBoxResult dr = MessageBox.Show("是否确认取消所有订单", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
                 if (dr == MessageBoxResult.OK)
@@ -372,6 +372,16 @@ namespace Micro.Future.UI
                 AnchorablePane.AddContent(executionctrl).Title = fs.Title;
                 var statuses = ClientDbContext.GetOrderStatus(userId, fs.Id);
                 executionctrl.FilterByStatus(statuses.Select(c=> (OrderStatus)c));
+                if (statuses.Contains((int)OrderStatus.OPENED))
+                {
+                    var titleopen = WPFUtility.GetLocalizedString("Opened", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                    executionctrl.FilterSettingsWin.Title += "  " + titleopen + " ";
+                }
+                else if((statuses.Contains((int)OrderStatus.ALL_TRADED)) || (statuses.Contains((int)OrderStatus.PARTIAL_TRADING)))
+                {
+                    var titletraded = WPFUtility.GetLocalizedString("TRADED", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+                    executionctrl.FilterSettingsWin.Title += "  " + titletraded + " ";
+                }
             }
         }
     }
