@@ -232,6 +232,10 @@ namespace Micro.Future.UI
                                     orderVM.SendOrder();
                                 }
                             }
+                            if (positionVM.TodayPosition != 0 && mktdataVM.BidSize != 0 && positionVM.YdPosition != 0)
+                            {
+
+                            }
                         }
                         if (positionVM.Direction == PositionDirectionType.PD_SHORT)
                         {
