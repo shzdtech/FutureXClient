@@ -135,25 +135,27 @@ namespace Micro.Future.UI
             TradeHandler.PositionVMCollection.Clear();
             TradeHandler.QueryPosition();
 
-            //if (AnchorablePane.ChildrenCount > 1)
-            //    AnchorablePane.Children.Clear();
-
             var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
 
-            bool found = false;
-
-            foreach (var fs in filtersettings)
+            if (filtersettings.Any())
             {
-                var positionctrl = new PositionControl(fs.Id);
-                AnchorablePane.AddContent(positionctrl).Title = fs.Title;
-                positionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+                AnchorablePane.Children.Clear();
 
-                if (fs.Id == DEFAULT_ID)
-                    found = true;
+                bool found = false;
+
+                foreach (var fs in filtersettings)
+                {
+                    var positionctrl = new PositionControl(fs.Id);
+                    AnchorablePane.AddContent(positionctrl).Title = fs.Title;
+                    positionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+
+                    if (fs.Id == DEFAULT_ID)
+                        found = true;
+                }
+
+                if (found)
+                    AnchorablePane.Children.RemoveAt(0);
             }
-
-            if(found)
-                AnchorablePane.Children.RemoveAt(0);
         }
 
         private static async void LoadMarketData(string contract)
