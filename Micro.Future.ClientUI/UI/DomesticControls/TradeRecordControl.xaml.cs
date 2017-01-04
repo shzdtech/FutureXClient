@@ -300,8 +300,8 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().TradeVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryTrade();
 
-            while (AnchorablePane.ChildrenCount > 1)
-                AnchorablePane.Children.RemoveAt(1);
+            //while (AnchorablePane.ChildrenCount > 1)
+            //    AnchorablePane.Children.RemoveAt(1);
 
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
             foreach (var fs in filtersettings)

@@ -135,8 +135,8 @@ namespace Micro.Future.UI
             TradeHandler.PositionVMCollection.Clear();
             TradeHandler.QueryPosition();
 
-            if (AnchorablePane.ChildrenCount > 1)
-                AnchorablePane.Children.Clear();
+            //if (AnchorablePane.ChildrenCount > 1)
+            //    AnchorablePane.Children.Clear();
 
             var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
 
