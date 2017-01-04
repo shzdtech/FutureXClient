@@ -135,27 +135,30 @@ namespace Micro.Future.UI
             TradeHandler.PositionVMCollection.Clear();
             TradeHandler.QueryPosition();
 
+            LayoutAnchorable defaultTab = 
+                AnchorablePane.Children.FirstOrDefault(pane => ((PositionControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
+
+            AnchorablePane.Children.Clear();
+            if (defaultTab != null)
+                AnchorablePane.Children.Add(defaultTab);
+
+
             var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
 
-            if (filtersettings.Any())
+            bool found = false;
+
+            foreach (var fs in filtersettings)
             {
-                AnchorablePane.Children.Clear();
+                var positionctrl = new PositionControl(fs.Id);
+                AnchorablePane.AddContent(positionctrl).Title = fs.Title;
+                positionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
 
-                bool found = false;
-
-                foreach (var fs in filtersettings)
-                {
-                    var positionctrl = new PositionControl(fs.Id);
-                    AnchorablePane.AddContent(positionctrl).Title = fs.Title;
-                    positionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
-
-                    if (fs.Id == DEFAULT_ID)
-                        found = true;
-                }
-
-                if (found)
-                    AnchorablePane.Children.RemoveAt(0);
+                if (fs.Id == DEFAULT_ID)
+                    found = true;
             }
+
+            if (found)
+                AnchorablePane.Children.Remove(defaultTab);
         }
 
         private static async void LoadMarketData(string contract)
@@ -191,7 +194,7 @@ namespace Micro.Future.UI
                     {
                         if (positionVM.Direction == PositionDirectionType.PD_LONG)
                         {
-                            if(positionVM.Position!=0 )
+                            if (positionVM.Position != 0)
                             {
                                 var cvt = new EnumToFriendlyNameConverter();
                                 string msg = string.Format("委托确认\n昨仓 合约：{0}，价格：{1}，方向：卖, 手数：{2}，开平：平仓\n今仓 合约：{3}，价格：{4}，方向：卖, 手数：{5}，开平：平今",
