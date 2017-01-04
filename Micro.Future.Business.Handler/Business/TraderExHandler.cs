@@ -57,7 +57,7 @@ namespace Micro.Future.Message
             MessageWrapper.RegisterAction<PBMarketInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_EXCHANGE, OnMarketInfo, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBPosition, ExceptionMessage>
-                ((uint)BusinessMessageID.MSG_ID_QUERY_POSITION, OnPosition, ErrorMsgAction);
+                ((uint)BusinessMessageID.MSG_ID_QUERY_POSITION, OnQueryPosition, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBAccountInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_ACCOUNT_INFO, OnFund, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
@@ -73,7 +73,7 @@ namespace Micro.Future.Message
             MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, OnUpdateOrder, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBPosition, ExceptionMessage>
-               ((uint)BusinessMessageID.MSG_ID_POSITION_UPDATED, OnPosition, ErrorMsgAction);
+               ((uint)BusinessMessageID.MSG_ID_POSITION_UPDATED, OnUpdatePosition, ErrorMsgAction);
         }
 
         private void ErrorMsgAction(ExceptionMessage bizErr)
@@ -159,7 +159,17 @@ namespace Micro.Future.Message
             }
         }
 
-        private void OnPosition(PBPosition rsp)
+        private void OnQueryPosition(PBPosition rsp)
+        {
+            Task.Run(() => UpdatePosition(rsp));
+        }
+
+        private void OnUpdatePosition(PBPosition rsp)
+        {
+            Task.Run(() => UpdatePosition(rsp));
+        }
+
+        private void UpdatePosition(PBPosition rsp)
         {
             lock (PositionContractSet)
             {
