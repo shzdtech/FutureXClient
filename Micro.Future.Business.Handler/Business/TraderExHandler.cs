@@ -161,17 +161,17 @@ namespace Micro.Future.Message
 
         private void OnQueryPosition(PBPosition rsp)
         {
-            Task.Run(() => UpdatePosition(rsp));
+            UpdatePosition(rsp);
         }
 
         private void OnUpdatePosition(PBPosition rsp)
         {
-            Task.Run(() => UpdatePosition(rsp));
+            UpdatePosition(rsp);
         }
 
         private void UpdatePosition(PBPosition rsp)
         {
-            lock (PositionContractSet)
+            lock (PositionVMCollection)
             {
                 PositionVM positionVM = PositionVMCollection.FirstOrDefault(p =>
                     p.Contract == rsp.Contract && (int)p.Direction == rsp.Direction);
