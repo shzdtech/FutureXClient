@@ -134,6 +134,31 @@ namespace Micro.Future.UI
             }
         }
 
+        public static void SaveAll(IList<ColumnObject> cols, string userid, string id)
+        {
+            ClientDbContext.DeleteAllColumnSettings(userid, id);
+
+            foreach (var col in cols)
+            {
+                if(!col.Visible)
+                {
+                    col.Save(userid, id);
+                }
+            }
+        }
+
+        public static void RestoreAll(IList<ColumnObject> cols, string userid, string id)
+        {
+            var hidecols = ClientDbContext.GetColumnSettings(userid, id);
+            foreach (var col in hidecols)
+            {
+                if(col.ColumnIdx >=0 && col.ColumnIdx < cols.Count)
+                {
+                    cols[col.ColumnIdx].Hide();
+                }
+            }
+        }
+
         public void Remove(string userid, string id)
         {
             if (OriginalIndex >= 0)
