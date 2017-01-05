@@ -160,20 +160,26 @@ namespace Micro.Future.Message
                 MarketDataVM mktVM = null;
                 if (mktVMRef.TryGetTarget(out mktVM))
                 {
-                    mktVM.LastPrice = md.MatchPrice;
-                    mktVM.BidPrice = md.BidPrice[0];
-                    mktVM.AskPrice = md.AskPrice[0];
-                    mktVM.BidSize = md.BidVolume[0];
-                    mktVM.AskSize = md.AskVolume[0];
-                    mktVM.Volume = md.Volume;
-                    mktVM.OpenValue = md.OpenValue;
-                    mktVM.PreCloseValue = md.PreCloseValue;
-                    mktVM.HighValue = md.HighValue;
-                    mktVM.LowValue = md.LowValue;
-                    mktVM.UpperLimitPrice = md.HighLimit;
-                    mktVM.LowerLimitPrice = md.LowLimit;
+                    if (mktVM.LastPrice != md.MatchPrice ||
+                        mktVM.BidPrice != md.BidPrice[0] ||
+                        mktVM.AskPrice != md.AskPrice[0] ||
+                        mktVM.Volume != md.Volume)
+                    {
+                        mktVM.LastPrice = md.MatchPrice;
+                        mktVM.BidPrice = md.BidPrice[0];
+                        mktVM.AskPrice = md.AskPrice[0];
+                        mktVM.BidSize = md.BidVolume[0];
+                        mktVM.AskSize = md.AskVolume[0];
+                        mktVM.Volume = md.Volume;
+                        mktVM.OpenValue = md.OpenValue;
+                        mktVM.PreCloseValue = md.PreCloseValue;
+                        mktVM.HighValue = md.HighValue;
+                        mktVM.LowValue = md.LowValue;
+                        mktVM.UpperLimitPrice = md.HighLimit;
+                        mktVM.LowerLimitPrice = md.LowLimit;
 
-                    OnNewMarketData?.Invoke(mktVM);
+                        OnNewMarketData?.Invoke(mktVM);
+                    }
                 }
                 else
                 {

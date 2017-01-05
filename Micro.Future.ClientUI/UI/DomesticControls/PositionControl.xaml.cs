@@ -94,24 +94,27 @@ namespace Micro.Future.UI
 
         public static void OnNewMarketData(MarketDataVM mktDataVM)
         {
-            //Task.Run(() =>
-            //{
-            //    if (PositionContractSet.Contains(mktDataVM.Contract))
-            //    {
-            //        var positions = PositionCollection.FindByContract(mktDataVM.Contract);
-            //        foreach (var positionVM in positions)
-            //        {
-            //            if (positionVM.Direction == PositionDirectionType.PD_LONG)
-            //            {
-            //                positionVM.Profit = (mktDataVM.LastPrice - positionVM.MeanCost) * positionVM.Position * positionVM.Multiplier;
-            //            }
-            //            else if (positionVM.Direction == PositionDirectionType.PD_SHORT)
-            //            {
-            //                positionVM.Profit = (positionVM.MeanCost - mktDataVM.LastPrice) * positionVM.Position * positionVM.Multiplier;
-            //            }
-            //        }
-            //    }
-            //});
+            if (PositionContractSet.Contains(mktDataVM.Contract))
+            {
+                Task.Run(() =>
+                {
+                    lock (PositionCollection)
+                    {
+                        var positions = PositionCollection.FindByContract(mktDataVM.Contract);
+                        foreach (var positionVM in positions)
+                        {
+                            if (positionVM.Direction == PositionDirectionType.PD_LONG)
+                            {
+                                positionVM.Profit = (mktDataVM.LastPrice - positionVM.MeanCost) * positionVM.Position * positionVM.Multiplier;
+                            }
+                            else if (positionVM.Direction == PositionDirectionType.PD_SHORT)
+                            {
+                                positionVM.Profit = (positionVM.MeanCost - mktDataVM.LastPrice) * positionVM.Position * positionVM.Multiplier;
+                            }
+                        }
+                    }
+                });
+            }
         }
 
         public PositionControl() : this(DEFAULT_ID)

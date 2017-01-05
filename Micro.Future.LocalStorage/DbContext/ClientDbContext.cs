@@ -206,7 +206,7 @@ namespace Micro.Future.LocalStorage
             using (var clientCtx = new ClientDbContext())
             {
                 var contractinfo = clientCtx.MarketContract.FirstOrDefault(t => t.AccountID == userId
-                &&t.Contract==contract&&t.TabID==tabID);
+                && t.Contract == contract && t.TabID == tabID);
                 if (contractinfo != null)
                     clientCtx.MarketContract.Remove(contractinfo);
                 clientCtx.SaveChanges();
@@ -261,7 +261,7 @@ namespace Micro.Future.LocalStorage
         {
             using (var clientCtx = new ClientDbContext())
             {
-                var columnInfo = clientCtx.ColumnSettingsInfo.FirstOrDefault(t => t.AccountID == userID  && t.TabID == tabID && t.ColumnIdx == columnIdx);
+                var columnInfo = clientCtx.ColumnSettingsInfo.FirstOrDefault(t => t.AccountID == userID && t.TabID == tabID && t.ColumnIdx == columnIdx);
                 if (columnInfo == null)
                 {
                     columnInfo = new ColumnSettingsInfo
@@ -286,6 +286,17 @@ namespace Micro.Future.LocalStorage
                 clientCtx.SaveChanges();
             }
         }
+
+        public static void DeleteAllColumnSettings(string userId, string tabID)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                var columnInfos = clientCtx.ColumnSettingsInfo.Where(t => t.AccountID == userId && t.TabID == tabID);
+                clientCtx.ColumnSettingsInfo.RemoveRange(columnInfos);
+                clientCtx.SaveChanges();
+            }
+        }
+
         public static IList<ColumnSettingsInfo> GetColumnSettings(string userId, string tabID)
         {
             using (var clientCtx = new ClientDbContext())
