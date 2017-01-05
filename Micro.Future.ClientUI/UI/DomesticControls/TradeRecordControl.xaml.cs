@@ -273,7 +273,7 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("AllTraded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var tradeRecordControltrl = new TradeRecordControl();
+                var tradeRecordControltrl = new TradeRecordControl(Guid.NewGuid().ToString());
                 AnchorablePane.AddContent(tradeRecordControltrl).Title = title;
                 tradeRecordControltrl.FilterSettingsWin.FilterTabTitle = title;
                 tradeRecordControltrl.FilterSettingsWin.Save();
