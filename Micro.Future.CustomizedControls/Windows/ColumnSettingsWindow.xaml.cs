@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Micro.Future.LocalStorage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,32 +31,6 @@ namespace Micro.Future.UI
 
     public class ColumnObject : DependencyObject
     {
-        //not necessary
-        //#region 附加属性
-        //public static DependencyProperty ItemsSourceFromColumnsProperty =
-        //    DependencyProperty.RegisterAttached("ItemsSourceFromColumns", typeof(ListView), typeof(ColumnObject),
-        //    new PropertyMetadata(OnItemsSourceFromColumnsChanged));
-
-        //static void OnItemsSourceFromColumnsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    //ColumnObject[] cols = null;
-
-        //    //if (e.NewValue is ListView && ((cols = GetColumns((ListView)e.NewValue)) != null))
-        //    //    ((ItemsControl)d).ItemsSource = cols;
-        //}
-
-        //public static ListView GetItemsSourceFromColumns(ItemsControl ic)
-        //{
-        //    return (ListView)ic.GetValue(ItemsSourceFromColumnsProperty);
-        //}
-
-        //public static void SetItemsSourceFromColumns(ItemsControl ic, ListView lv)
-        //{
-        //    ic.SetValue(ItemsSourceFromColumnsProperty, lv);
-        //}
-
-        //#endregion
-
         #region IsVisible 依赖属性
 
         public static DependencyProperty IsVisibleProperty =
@@ -70,24 +45,16 @@ namespace Micro.Future.UI
             bool isChecked = (bool)e.NewValue;
             if (isChecked)
             {
-                //尝试还原位置，此时有可能由于别的列也被隐藏造成位置无效
-                cobj.Column.Width = cobj.Width;
-                cobj.Column.Header = cobj.OriginalHeader;
+                cobj.Restore();
             }
             else
             {
-                //记住隐藏时列的位置，显示的时候尝试排列在原来位置
-                var header = new GridViewColumnHeader();
-                header.Visibility = Visibility.Hidden;
-                cobj.Width = cobj.Column.ActualWidth;
-                cobj.OriginalHeader = cobj.Column.Header;
-                cobj.Column.Header = header;
-                cobj.Column.Width = 0;
+                cobj.Hide();
             }
 
             foreach (var c in cobj.Children)
             {
-                c.SetValue(IsVisibleProperty, isChecked);                
+                c.SetValue(IsVisibleProperty, isChecked);
             }
         }
 
@@ -101,7 +68,7 @@ namespace Micro.Future.UI
             {
                 var collec = ((GridView)lv.View).Columns;
                 var listCol = new List<ColumnObject>();
-                for(int i=0;i<collec.Count;i++)
+                for (int i = 0; i < collec.Count; i++)
                 {
                     listCol.Add(new ColumnObject(collec[i], i));
                 }
@@ -117,7 +84,7 @@ namespace Micro.Future.UI
         }
 
         #region 属性/字段
-        
+
         //GridViewColumn集合
         public int OriginalIndex { get; set; }
         public object OriginalHeader { get; set; }
@@ -142,7 +109,56 @@ namespace Micro.Future.UI
             }
         }
 
+        public void Hide()
+        {
+            //记住隐藏时列的位置，显示的时候尝试排列在原来位置
+            var header = new GridViewColumnHeader();
+            header.Visibility = Visibility.Hidden;
+            Width = Column.ActualWidth;
+            OriginalHeader = Column.Header;
+            Column.Header = header;
+            Column.Width = 0;
+        }
+
+        public void Restore()
+        {
+            Column.Width = Width;
+            Column.Header = OriginalHeader;
+        }
+
+        public void Save(string userid, string id)
+        {
+            if (OriginalIndex >= 0)
+            {
+                ClientDbContext.SaveColumnSettings(userid, id, OriginalIndex);
+            }
+        }
+
+        public void Remove(string userid, string id)
+        {
+            if (OriginalIndex >= 0)
+            {
+                ClientDbContext.DeleteColumnSettings(userid, id, OriginalIndex);
+            }
+        }
+
+        public bool Visible
+        {
+            get
+            {
+                bool ret = true;
+                var header = OriginalHeader as GridViewColumnHeader;
+                if (header != null)
+                {
+                    ret = header.Visibility == Visibility.Visible;
+                }
+
+                return ret;
+            }
+        }
+
         public IList<ColumnObject> Children { get; private set; } = new List<ColumnObject>();
+
         public ColumnObject Parent { get; private set; }
     }
 }
