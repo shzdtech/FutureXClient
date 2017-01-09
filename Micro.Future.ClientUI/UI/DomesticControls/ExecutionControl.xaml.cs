@@ -27,6 +27,7 @@ namespace Micro.Future.UI
     public partial class ExecutionControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
         private IList< ColumnObject> mColumns;
+        private const string DEFAULT_ID = "394B67D4-87AA-47DB-B1DD-5A213714D02E";
 
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public FilterSettingsWindow FilterSettingsWin { get; } = new FilterSettingsWindow() { PersistanceId = typeof(ExecutionControl).Name, CancelClosing = true };
@@ -68,7 +69,7 @@ namespace Micro.Future.UI
 
         }
 
-        public ExecutionControl() : this("394B67D4-87AA-47DB-B1DD-5A213714D02E")
+        public ExecutionControl() : this(DEFAULT_ID)
         {
         }
 
@@ -360,16 +361,23 @@ namespace Micro.Future.UI
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Clear();
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryOrder();
 
-            while (AnchorablePane.ChildrenCount > 1)
-                AnchorablePane.Children.RemoveAt(1);
+            LayoutAnchorable defaultTab =
+                AnchorablePane.Children.FirstOrDefault(pane => ((ExecutionControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
+
+            AnchorablePane.Children.Clear();
+            if (defaultTab != null)
+                AnchorablePane.Children.Add(defaultTab);
 
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
             var userId = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id;
+            bool found = false;
 
             foreach (var fs in filtersettings)
             {
                 var executionctrl = new ExecutionControl(fs.Id, fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
                 AnchorablePane.AddContent(executionctrl).Title = fs.Title;
+                if (fs.Id == DEFAULT_ID)
+                    found = true;
                 var statuses = ClientDbContext.GetOrderStatus(userId, fs.Id);
                 executionctrl.FilterByStatus(statuses.Select(c=> (OrderStatus)c));
                 if (statuses.Contains((int)OrderStatus.OPENED))
@@ -383,6 +391,8 @@ namespace Micro.Future.UI
                     executionctrl.FilterSettingsWin.Title += "  " + titletraded + " ";
                 }
             }
+            if (found)
+                AnchorablePane.Children.Remove(defaultTab);
         }
     }
 }

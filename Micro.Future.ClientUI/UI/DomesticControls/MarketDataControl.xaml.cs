@@ -28,6 +28,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class MarketDataControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
+        private const string DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33A";
         private IList< ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public IList<ContractInfo> FuturecontractList
@@ -59,7 +60,7 @@ namespace Micro.Future.UI
             FilterSettingsWin.FilterId = filterId;
         }
 
-        public MarketDataControl() : this("D97F60E1-0433-4886-99E6-C4AD46A7D33A")
+        public MarketDataControl() : this(DEFAULT_ID)
         {
         }
 
@@ -132,21 +133,27 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
-            while (AnchorablePane.ChildrenCount > 1)
-                AnchorablePane.Children.RemoveAt(1);
+            LayoutAnchorable defaultTab =
+                AnchorablePane.Children.FirstOrDefault(pane => ((MarketDataControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
+            AnchorablePane.Children.Clear();
+            if (defaultTab != null)
+                AnchorablePane.Children.Add(defaultTab);
             // MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().ResubMarketData();
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
+            bool found = false;
             foreach (var fs in filtersettings)
             {
                 var marketdatactrl = new MarketDataControl(fs.Id);
                 AnchorablePane.AddContent(marketdatactrl).Title = fs.Title;
                 marketdatactrl.LoadUserContracts();
                 marketdatactrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+                if (fs.Id == DEFAULT_ID)
+                    found = true;
             }
-            //if (filtersettings.Any())
-            //    AnchorablePane.RemoveChildAt(0);
-            //else
-                LoadUserContracts();
+            if (found)
+                AnchorablePane.Children.Remove(defaultTab);
+
+            LoadUserContracts();
 
         }
 

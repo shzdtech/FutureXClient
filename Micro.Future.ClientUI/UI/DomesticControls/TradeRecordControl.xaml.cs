@@ -26,7 +26,7 @@ namespace Micro.Future.UI
     public partial class TradeRecordControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
         private const string DEFAULT_ID = "E0FD10D9-8D28-4DDE-B2BC-96FAC72992C8";
-        private IList< ColumnObject> mColumns;
+        private IList<ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public FilterSettingsWindow FilterSettingsWin
         { get; } = new FilterSettingsWindow() { PersistanceId = typeof(TradeRecordControl).Name, CancelClosing = true };
@@ -273,7 +273,7 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("AllTraded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var tradeRecordControltrl = new TradeRecordControl();
+                var tradeRecordControltrl = new TradeRecordControl(Guid.NewGuid().ToString());
                 AnchorablePane.AddContent(tradeRecordControltrl).Title = title;
                 tradeRecordControltrl.FilterSettingsWin.FilterTabTitle = title;
                 tradeRecordControltrl.FilterSettingsWin.Save();
@@ -302,17 +302,29 @@ namespace Micro.Future.UI
 
             //while (AnchorablePane.ChildrenCount > 1)
             //    AnchorablePane.Children.RemoveAt(1);
+            LayoutAnchorable defaultTab = 
+                AnchorablePane.Children.FirstOrDefault(pane => ((TradeRecordControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
+
+            AnchorablePane.Children.Clear();
+            if (defaultTab != null)
+                AnchorablePane.Children.Add(defaultTab);
 
             var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
+
+            bool found = false;
+
             foreach (var fs in filtersettings)
             {
                 var traderecordctrl = new TradeRecordControl(fs.Id);
                 AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
                 traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
 
-                if(fs.Id == DEFAULT_ID)
-                    AnchorablePane.Children.RemoveAt(0);
+                if (fs.Id == DEFAULT_ID)
+                    found = true;
             }
+
+            if (found)
+                AnchorablePane.Children.Remove(defaultTab);
         }
     }
 }
