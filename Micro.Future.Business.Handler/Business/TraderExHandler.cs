@@ -343,6 +343,8 @@ namespace Micro.Future.Message
         public void QueryAccountInfo()
         {
             var sst = new StringMap();
+            sst.Header = new DataHeader();
+            sst.Header.SerialId = NextSerialId;
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_ACCOUNT_INFO, sst);
 
         }
@@ -350,6 +352,8 @@ namespace Micro.Future.Message
         public void QueryPosition()
         {
             var sst = new StringMap();
+            sst.Header = new DataHeader();
+            sst.Header.SerialId = NextSerialId;
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_POSITION, sst);
 
         }
@@ -357,6 +361,8 @@ namespace Micro.Future.Message
         public void QueryOrder()
         {
             var sst = new StringMap();
+            sst.Header = new DataHeader();
+            sst.Header.SerialId = NextSerialId;
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_ORDER, sst);
 
         }
@@ -364,6 +370,8 @@ namespace Micro.Future.Message
         public void QueryTrade()
         {
             var sst = new StringMap();
+            sst.Header = new DataHeader();
+            sst.Header.SerialId = NextSerialId;
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_TRADE, sst);
 
         }
@@ -372,6 +380,8 @@ namespace Micro.Future.Message
         {
 
             var sst = new StringMap();
+            sst.Header = new DataHeader();
+            sst.Header.SerialId = NextSerialId;
             var msgId = (uint)BusinessMessageID.MSG_ID_QUERY_INSTRUMENT;
 
             var tcs = new TaskCompletionSource<bool>();

@@ -73,6 +73,10 @@ namespace Micro.Future.UI
             IList<string> frames;
             if (frameDict.TryGetValue(roleType, out frames))
             {
+                mainPane.Children.Clear();
+                mainMenu.Items.Clear();
+                statusBar.Items.Clear();
+
                 sender.DataLoadingProgressBar.Maximum = frames.Count;
                 foreach (var frame in frames)
                 {
