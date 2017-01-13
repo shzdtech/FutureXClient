@@ -417,6 +417,7 @@ namespace Micro.Future.Message
                 strategyVM.VolModel = strategy.VolModel;
                 strategyVM.PricingModel = strategy.PricingModel;
 
+                strategyVM.PricingContractParams.Clear();
                 foreach (var wtContract in strategy.PricingContracts)
                 {
                     strategyVM.PricingContractParams.Add(

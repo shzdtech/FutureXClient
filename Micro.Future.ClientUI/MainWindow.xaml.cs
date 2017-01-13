@@ -34,7 +34,17 @@ namespace Micro.Future.UI
         private void _currentLoginWindow_Closed(object sender, EventArgs e)
         {
             if (!_logged)
-                Close();
+            {
+                MessageBoxResult dr = MessageBox.Show("是否退出", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                if (dr == MessageBoxResult.OK)
+                {
+                    Application.Current.Shutdown();
+                }
+                else
+                {
+                    Login();
+                }
+            }
         }
 
         public void Initialize()
@@ -63,6 +73,10 @@ namespace Micro.Future.UI
             IList<string> frames;
             if (frameDict.TryGetValue(roleType, out frames))
             {
+                mainPane.Children.Clear();
+                mainMenu.Items.Clear();
+                statusBar.Items.Clear();
+
                 sender.DataLoadingProgressBar.Maximum = frames.Count;
                 foreach (var frame in frames)
                 {
@@ -114,10 +128,13 @@ namespace Micro.Future.UI
 
         private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBoxResult dr = MessageBox.Show("是否退出", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-            if (dr != MessageBoxResult.OK)
+            if (_logged)
             {
-                e.Cancel = true;
+                MessageBoxResult dr = MessageBox.Show("是否退出", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                if (dr != MessageBoxResult.OK)
+                {
+                    e.Cancel = true;
+                }
             }
         }
     }

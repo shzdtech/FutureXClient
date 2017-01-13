@@ -16,13 +16,17 @@ namespace Micro.Future.Configuration
 
             foreach (XmlNode role in section.ChildNodes)
             {
-                var roleType = role.Attributes["type"].Value;
-                var frameList = new List<string>();
-                foreach(XmlNode frame in role.ChildNodes)
+                if (role.NodeType == XmlNodeType.Element)
                 {
-                    frameList.Add(frame.InnerText.Trim());
+                    var roleType = role.Attributes["type"].Value;
+                    var frameList = new List<string>();
+                    foreach (XmlNode frame in role.ChildNodes)
+                    {
+                        if (frame.NodeType == XmlNodeType.Element)
+                            frameList.Add(frame.InnerText.Trim());
+                    }
+                    ret[roleType] = frameList;
                 }
-                ret[roleType] = frameList;
             }
 
             return ret;
