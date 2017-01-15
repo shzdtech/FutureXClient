@@ -10,7 +10,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <avalonDock:DockingManager x:Name="dockingManager" >
-        
+
         <avalonDock:DockingManager.Theme>
             <avalonDock:GenericTheme/>
         </avalonDock:DockingManager.Theme>
@@ -24,7 +24,7 @@
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
                 <avalonDock:LayoutPanel Orientation="Vertical">
-                    <avalonDock:LayoutPanel  Orientation="Horizontal">
+                    <avalonDock:LayoutPanel Orientation="Horizontal">
                         <avalonDock:LayoutAnchorablePane x:Name="WMSettingsPane" DockWidth="0.15*">
                             <avalonDock:LayoutAnchorable Title="WingModel Settings">
                                 <c:WMSettingsCtrl x:Name="WMSettingsLV" x:FieldModifier="public"/>

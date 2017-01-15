@@ -41,7 +41,7 @@ namespace Micro.Future.UI
 
         private void ReloadDataCallback(object state)
         {
-            Dispatcher.Invoke(ReloadData);
+            ReloadData();
         }
 
         public void ReloadData()

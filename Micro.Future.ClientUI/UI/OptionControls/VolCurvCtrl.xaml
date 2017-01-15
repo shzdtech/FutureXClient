@@ -30,10 +30,10 @@
                 <oxy:LineSeries Name="theoBidLS1"  Visibility="{Binding ElementName=checkBoxTheoBid2, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="theoAskLS1"  Visibility="{Binding ElementName=checkBoxTheoAsk2, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="theoMidLS1"  Visibility="{Binding ElementName=checkBoxTheoMid2, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:ScatterSeries Name="theoPutBidSC" ItemsSource="{Binding TheoPutBidVolScatter}" ColorAxisKey="redLineColorAxis"  MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:ScatterSeries Name="theoCallBidSC" ItemsSource="{Binding TheoCallBidVolScatter}" ColorAxisKey="greenLineColorAxis"  MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:ScatterSeries Name="theoPutAskSC" ItemsSource="{Binding TheoPutAskVolScatter}" ColorAxisKey="redLineColorAxis" MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <oxy:ScatterSeries Name="theoCallAskSC" ItemsSource="{Binding TheoCallAskVolScatter}" ColorAxisKey="greenLineColorAxis" MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:ScatterSeries Name="theoPutBidSC" ItemsSource="{Binding TheoPutBidVolScatter}" ColorAxisKey="redLineColorAxis"  MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoBid1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:ScatterSeries Name="theoCallBidSC" ItemsSource="{Binding TheoCallBidVolScatter}" ColorAxisKey="greenLineColorAxis"  MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoBid1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:ScatterSeries Name="theoPutAskSC" ItemsSource="{Binding TheoPutAskVolScatter}" ColorAxisKey="redLineColorAxis" MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoAsk1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <oxy:ScatterSeries Name="theoCallAskSC" ItemsSource="{Binding TheoCallAskVolScatter}" ColorAxisKey="greenLineColorAxis" MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoAsk1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
             </oxy:Plot.Series>
             <oxy:Plot.Axes>
                 <oxy:LinearColorAxis Key="greenLineColorAxis" Minimum="0.1" Maximum="0.9" HighColor="Green" LowColor="Gray" Position ="None"/>

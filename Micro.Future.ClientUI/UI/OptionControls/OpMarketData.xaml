@@ -10,10 +10,10 @@
              lex:ResxLocalizationProvider.DefaultDictionary="Resources"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="600">
+    <DockPanel>
+        <ScrollViewer>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
@@ -209,4 +209,6 @@
             </ListView.View>
         </ListView>
     </Grid>
+        </ScrollViewer>
+    </DockPanel>            
 </UserControl>
