@@ -202,6 +202,24 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)SystemMessageID.MSG_ID_UPDATE_MODELPARAMS, model);
         }
 
+        public void UpdateTempModelParams(string modelName, string paramName, double paramValue)
+        {
+            var model = new ModelParams();
+            model.InstanceName = modelName;
+            model.Params[paramName] = paramValue;
+
+            MessageWrapper.SendMessage((uint)SystemMessageID.MSG_ID_UPDATE_TEMPMODELPARAMS, model);
+        }
+
+        public void RemoveTempModel(string modelName)
+        {
+            var model = new ModelParams();
+            model.InstanceName = modelName;
+
+            MessageWrapper.SendMessage((uint)SystemMessageID.MSG_ID_UPDATE_TEMPMODELPARAMS, model);
+        }
+
+
         public void NewWingModelInstance(string modelName)
         {
             var modelParam = new ModelParams();
