@@ -10,5 +10,6 @@ namespace Micro.Future.ViewModel
     {
         public OptionPricingVM MarketDataVM { get; } = new OptionPricingVM();
         public OptionPricingVM TheoDataVM { get; } = new OptionPricingVM();
+        public OptionPricingVM TempTheoDataVM { get; set; }
     }
 }

@@ -64,6 +64,20 @@ namespace Micro.Future.Message
             quote.TheoDataVM.BidVega = tradingDeskOption.TheoData.BidVega;
             quote.TheoDataVM.MidVol = (tradingDeskOption.TheoData.BidVolatility + tradingDeskOption.TheoData.AskVolatility) / 2;
             quote.TheoDataVM.MidPrice = (tradingDeskOption.TheoData.BidPrice + tradingDeskOption.TheoData.AskPrice) / 2;
+
+            if (tradingDeskOption.TheoDataTemp != null)
+            {
+                if (quote.TempTheoDataVM == null)
+                    quote.TempTheoDataVM = new OptionPricingVM();
+
+                quote.TempTheoDataVM.AskVol = tradingDeskOption.TheoDataTemp.AskVolatility;
+                quote.TempTheoDataVM.BidVol = tradingDeskOption.TheoDataTemp.BidVolatility;
+            }
+            else
+            {
+                quote.TempTheoDataVM = null;
+            }
+
             OnTradingDeskOptionParamsReceived?.Invoke(quote);
         }
 
@@ -79,7 +93,7 @@ namespace Micro.Future.Message
             {
                 var callOption = new TradingDeskOptionVM { Contract = callList[i] };
                 var putOption = new TradingDeskOptionVM { Contract = putList[i] };
-                var callStrategyVM = StrategyVMCollection.FirstOrDefault(s=>s.Contract == callList[i] && s.IsOTC == isOTC);
+                var callStrategyVM = StrategyVMCollection.FirstOrDefault(s => s.Contract == callList[i] && s.IsOTC == isOTC);
                 var putStrategyVM = StrategyVMCollection.FirstOrDefault(s => s.Contract == putList[i] && s.IsOTC == isOTC);
                 retList.Add(new CallPutTDOptionVM()
                 {
