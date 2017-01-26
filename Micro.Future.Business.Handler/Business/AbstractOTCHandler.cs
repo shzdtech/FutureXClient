@@ -36,7 +36,7 @@ namespace Micro.Future.Message
         public ObservableCollection<ModelParamsVM> GetModelParamsVMCollection(string modelAim = "pm")
         {
             ObservableCollection<ModelParamsVM> ret;
-            if(!_modelDict.TryGetValue(modelAim, out ret))
+            if (!_modelDict.TryGetValue(modelAim, out ret))
             {
                 ret = new ObservableCollection<ModelParamsVM>();
                 _modelDict[modelAim] = ret;
@@ -64,7 +64,7 @@ namespace Micro.Future.Message
             get;
         } = new ObservableCollection<PortfolioVM>();
 
-        
+
 
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
@@ -200,6 +200,16 @@ namespace Micro.Future.Message
             var model = new ModelParams();
             model.InstanceName = modelName;
             model.Params[paramName] = paramValue;
+
+            MessageWrapper.SendMessage((uint)SystemMessageID.MSG_ID_UPDATE_MODELPARAMS, model);
+        }
+
+        public void UpdateModelParams(string modelName, IDictionary<string, double> keyvalues)
+        {
+            var model = new ModelParams();
+            model.InstanceName = modelName;
+            foreach (var pair in keyvalues)
+                model.Params[pair.Key] = pair.Value;
 
             MessageWrapper.SendMessage((uint)SystemMessageID.MSG_ID_UPDATE_MODELPARAMS, model);
         }
@@ -388,7 +398,7 @@ namespace Micro.Future.Message
                     if (resp.Header?.SerialId == serialId)
                     {
                         OnQueryStrategySuccessAction(resp);
-                
+
                         tcs.TrySetResult(StrategyVMCollection);
                     }
                 },
