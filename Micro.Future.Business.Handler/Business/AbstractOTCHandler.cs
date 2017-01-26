@@ -12,6 +12,8 @@ namespace Micro.Future.Message
 {
     public abstract class AbstractOTCHandler : AbstractMessageHandler
     {
+        public event Action<StrategyVM> OnStrategyUpdated;
+
         protected IDictionary<string, ObservableCollection<ModelParamsVM>> _modelDict = new Dictionary<string, ObservableCollection<ModelParamsVM>>();
 
         protected void OnErrorAction(ExceptionMessage bizErr)
@@ -275,7 +277,7 @@ namespace Micro.Future.Message
                     strategyVM.AskEnabled = strategy.AskEnabled;
                     strategyVM.BidQT = strategy.BidQT;
                     strategyVM.AskQT = strategy.AskQT;
-                    break;
+                    OnStrategyUpdated?.Invoke(strategyVM);
                 }
             }
         }
