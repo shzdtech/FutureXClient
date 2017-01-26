@@ -48,7 +48,7 @@ namespace Micro.Future.UI
                         if (e.Key == Key.Enter)
                         {
                             var modelParamsVM = DataContext as ModelParamsVM;
-                            _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
+                            _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
                         }
                     }
                 }
@@ -63,8 +63,23 @@ namespace Micro.Future.UI
                 if (_otcOptionHandler != null)
                 {
                     var modelParamsVM = DataContext as ModelParamsVM;
-                    _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
+                    _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
                 }
+            }
+        }
+
+        private void SetReference_Click(object sender, RoutedEventArgs e)
+        {
+
+
+        }
+
+        private void RevertCurrent_Click(object sender, RoutedEventArgs e)
+        {
+            if (_otcOptionHandler != null)
+            {
+                var modelParamsVM = DataContext as ModelParamsVM;
+                _otcOptionHandler.RemoveTempModel(modelParamsVM.InstanceName);
             }
         }
     }

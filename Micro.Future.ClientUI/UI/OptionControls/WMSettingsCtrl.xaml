@@ -5,6 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Micro.Future.UI"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com" 
+             lex:LocalizeDictionary.DesignCulture="zh_CN"
+             lex:LocalizeDictionary.OutputMissingKeys="True"
+             lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="500" >
     <DockPanel>
@@ -169,6 +174,8 @@
                     <GroupBox x:Name="Up_Slope" Header="Up Slope">
                         <xctk:DoubleUpDown x:Name="up_Slope" Tag="up_slope"  UpdateValueOnEnterKey="True" FormatString="F3"  Value="{Binding Path=[up_slope].Value}"  Minimum="-1000000" Maximum="1000000"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     </GroupBox>
+                    <Button x:Name="button" Content="{lex:Loc Key=SetReference}" Click="SetReference_Click" />
+                    <Button x:Name="button1" Content="{lex:Loc Key=RevertCurrent}" Click="RevertCurrent_Click" />
                 </StackPanel>
                 <StackPanel x:Name="VolatilityPanel1" Grid.Column="2">
                     <Label Name="volatilityOffset" Content="Volatility Offset"/>

@@ -1312,6 +1312,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 确认参数 的本地化字符串。
+        /// </summary>
+        internal static string RevertCurrent {
+            get {
+                return ResourceManager.GetString("RevertCurrent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 风险 的本地化字符串。
         /// </summary>
         internal static string Risk {
@@ -1416,6 +1425,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Server_TradingDesk_DisConnected {
             get {
                 return ResourceManager.GetString("Server_TradingDesk_DisConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 调试参数 的本地化字符串。
+        /// </summary>
+        internal static string SetReference {
+            get {
+                return ResourceManager.GetString("SetReference", resourceCulture);
             }
         }
         

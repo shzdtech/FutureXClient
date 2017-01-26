@@ -132,9 +132,9 @@ namespace Micro.Future.UI
 
             msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
             _otcOptionHandler.RegisterMessageWrapper(msgWrapper);
-            optionPane.AddContent(new OptionModelCtrl()).Title = "Model";
-            optionPane.AddContent(new OpMarketMakerCtrl()).Title = "Market Maker";
-            optionPane.AddContent(new OpHedgeCtrl()).Title = "Hedge";
+            //optionPane.AddContent(new OptionModelCtrl()).Title = "Model";
+            //optionPane.AddContent(new OpMarketMakerCtrl()).Title = "Market Maker";
+            //optionPane.AddContent(new OpHedgeCtrl()).Title = "Hedge";
         }
 
         private void _tdSignIner_OnLoginError(MessageException obj)
@@ -208,7 +208,7 @@ namespace Micro.Future.UI
             if (volModelSettingsWin.ShowDialog().Value)
             {
                 OptionModelCtrl optionModelCtrl = new OptionModelCtrl();
-                optionPane.AddContent(optionModelCtrl).Title = volModelSettingsWin.VolModelTabTitle;
+                //optionPane.AddContent(optionModelCtrl).Title = volModelSettingsWin.VolModelTabTitle;
                 _otcOptionHandler.NewWingModelInstance(volModelSettingsWin.VolModelTabTitle);
                 var modelparamsVM = await _otcOptionHandler.QueryModelParamsAsync(volModelSettingsWin.VolModelTabTitle);
                 optionModelCtrl.WMSettingsLV.DataContext = modelparamsVM;
@@ -218,8 +218,9 @@ namespace Micro.Future.UI
         private void Add_Quote_Click(object sender, RoutedEventArgs e)
         {
             OpMarketMakerCtrl opMarketMakerCtrl = new OpMarketMakerCtrl();
-            optionPane.AddContent(opMarketMakerCtrl).Title = "OptionQuote";
+            //optionPane.AddContent(opMarketMakerCtrl).Title = "OptionQuote";
         }
+
     }
 }
 

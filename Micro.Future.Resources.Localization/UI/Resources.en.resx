@@ -708,4 +708,10 @@
   <data name="ClosePosition" xml:space="preserve">
     <value>ClosePosition</value>
   </data>
+  <data name="RevertCurrent" xml:space="preserve">
+    <value>Revert Current</value>
+  </data>
+  <data name="SetReference" xml:space="preserve">
+    <value>Set Reference</value>
+  </data>
 </root>

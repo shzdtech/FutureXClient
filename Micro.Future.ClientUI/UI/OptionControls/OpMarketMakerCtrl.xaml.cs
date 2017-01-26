@@ -25,6 +25,11 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OpMarketMakerCtrl : UserControl
     {
+        public event Action<string, bool> OnPutBidStatusChanged;
+        public event Action<string, bool> OnPutAskStatusChanged;
+        public event Action<string, bool> OnCallBidStatusChanged;
+        public event Action<string, bool> OnCallAskStatusChanged;
+
         private OTCOptionHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
 
         private IList<ContractInfo> _contractList;
@@ -279,6 +284,55 @@ namespace Micro.Future.UI
                     ctrl.Background = Brushes.MistyRose;
                 }
             }
+        }
+
+        private void PutBidCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            var checkbox = sender as CheckBox;
+            if (checkbox != null)
+                OnPutBidStatusChanged?.Invoke(checkbox.Tag.ToString(), checkbox.IsChecked.Value);
+        }
+        private void PutBidCheckBox_UnChecked(object sender, RoutedEventArgs e)
+        {
+            var checkbox = sender as CheckBox;
+            if (checkbox != null)
+                OnPutBidStatusChanged?.Invoke(checkbox.Tag.ToString(), false);
+        }
+        private void PutAskCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            var checkbox = sender as CheckBox;
+            if (checkbox != null)
+                OnPutAskStatusChanged?.Invoke(checkbox.Tag.ToString(), checkbox.IsChecked.Value);
+        }
+        private void PutAskCheckBox_UnChecked(object sender, RoutedEventArgs e)
+        {
+            var checkbox = sender as CheckBox;
+            if (checkbox != null)
+                OnPutAskStatusChanged?.Invoke(checkbox.Tag.ToString(), false);
+        }
+        private void CallBidCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            var checkbox = sender as CheckBox;
+            if (checkbox != null)
+                OnCallBidStatusChanged?.Invoke(checkbox.Tag.ToString(), checkbox.IsChecked.Value);
+        }
+        private void CallBidCheckBox_UnChecked(object sender, RoutedEventArgs e)
+        {
+            var checkbox = sender as CheckBox;
+            if (checkbox != null)
+                OnCallBidStatusChanged?.Invoke(checkbox.Tag.ToString(), false);
+        }
+        private void CallAskCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            var checkbox = sender as CheckBox;
+            if (checkbox != null)
+                OnCallAskStatusChanged?.Invoke(checkbox.Tag.ToString(), checkbox.IsChecked.Value);
+        }
+        private void CallAskCheckBox_UnChecked(object sender, RoutedEventArgs e)
+        {
+            var checkbox = sender as CheckBox;
+            if (checkbox != null)
+                OnCallAskStatusChanged?.Invoke(checkbox.Tag.ToString(), false);
         }
 
 

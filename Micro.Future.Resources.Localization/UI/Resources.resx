@@ -708,4 +708,10 @@
   <data name="ClosePosition" xml:space="preserve">
     <value>一键平仓</value>
   </data>
+  <data name="RevertCurrent" xml:space="preserve">
+    <value>确认参数</value>
+  </data>
+  <data name="SetReference" xml:space="preserve">
+    <value>调试参数</value>
+  </data>
 </root>

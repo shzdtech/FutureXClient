@@ -117,14 +117,14 @@
                     <GridViewColumn x:Name="PBidQT" Header="{lex:Loc Key=PBidQTEnable}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding PutStrategyVM.BidEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
+                                <CheckBox IsChecked="{Binding PutStrategyVM.BidEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}" Tag="{Binding PutStrategyVM.Contract}" Checked="PutBidCheckBox_Checked" Unchecked="PutBidCheckBox_UnChecked"></CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="PAskQT" Header="{lex:Loc Key=PAskQTEnable}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding PutStrategyVM.AskEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
+                                <CheckBox IsChecked="{Binding PutStrategyVM.AskEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}" Checked="PutAskCheckBox_Checked" Unchecked="PutAskCheckBox_UnChecked"></CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -199,14 +199,14 @@
                     <GridViewColumn x:Name="CBidQT" Header="{lex:Loc Key=CBidQTEnable}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding CallStrategyVM.BidEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}" />
+                                <CheckBox IsChecked="{Binding CallStrategyVM.BidEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}" Checked="CallBidCheckBox_Checked" Unchecked="CallBidCheckBox_UnChecked" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="CAskQT" Header="{lex:Loc Key=CAskQTEnable}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding CallStrategyVM.AskEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}" />
+                                <CheckBox IsChecked="{Binding CallStrategyVM.AskEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}" Checked="CallAskCheckBox_Checked" Unchecked="CallAskCheckBox_UnChecked" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

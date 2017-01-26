@@ -22,6 +22,10 @@
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=AddQuote}" Click="Add_Quote_Click">
                 </MenuItem>
+                <!--<MenuItem Header="{lex:Loc Key=SetReference}" Click="SetReference_Click">
+                </MenuItem>
+                <MenuItem Header="{lex:Loc Key=RevertCurrent}" Click="RevertCurrent_Click">
+                </MenuItem>-->
             </MenuItem>
         </x:Array>
         <x:Array Type="{x:Type StatusBarItem}" x:Key="exOptionStatusBarItems">
@@ -30,7 +34,7 @@
             </StatusBarItem>
         </x:Array>
     </UserControl.Resources>
-    <!--<TabControl x:Name="tabControlall">
+    <TabControl x:Name="tabControlall">
         <TabItem Header="Wing Model" x:Name="wingModel">
             <avalonDock:DockingManager x:Name="dockingManager">
                 <avalonDock:DockingManager.Theme>
@@ -71,8 +75,8 @@
 
 
         </TabItem>
-    </TabControl>-->
-    <avalonDock:DockingManager x:Name="dockingManager" >
+    </TabControl>
+    <!--<avalonDock:DockingManager x:Name="dockingManager" >
         <avalonDock:DockingManager.Theme>
             <avalonDock:GenericTheme/>
         </avalonDock:DockingManager.Theme>
@@ -82,5 +86,5 @@
                 </avalonDock:LayoutAnchorablePane>
             </avalonDock:LayoutPanel>
         </avalonDock:LayoutRoot>
-    </avalonDock:DockingManager>
+    </avalonDock:DockingManager>-->
 </UserControl>
