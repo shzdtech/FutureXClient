@@ -32,7 +32,7 @@ namespace Micro.Future.UI
             //volModelSettingsGrid.DataContext = VolatilityModelVM;
         }
         public LayoutContent LayoutContent { get; set; }
-
+        private IDictionary<string, double> TempSettings { get; set; } = new Dictionary<string, double>();
         private OTCOptionHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
         //public ModelParamsVM VolatilityModelVM { get; } = new ModelParamsVM();
 
@@ -48,6 +48,7 @@ namespace Micro.Future.UI
                         if (e.Key == Key.Enter)
                         {
                             var modelParamsVM = DataContext as ModelParamsVM;
+                            TempSettings[ctrl.Tag.ToString()] = modelParamsVM[ctrl.Tag.ToString()].Value;
                             _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
                         }
                     }
@@ -63,6 +64,7 @@ namespace Micro.Future.UI
                 if (_otcOptionHandler != null)
                 {
                     var modelParamsVM = DataContext as ModelParamsVM;
+                    TempSettings[ctrl.Tag.ToString()] = modelParamsVM[ctrl.Tag.ToString()].Value;
                     _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
                 }
             }
@@ -70,7 +72,12 @@ namespace Micro.Future.UI
 
         private void SetReference_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_otcOptionHandler != null)
+            {
+                var modelParamsVM = DataContext as ModelParamsVM;
+                _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, TempSettings);
+                _otcOptionHandler.RemoveTempModel(modelParamsVM.InstanceName);
+            }
 
         }
 
