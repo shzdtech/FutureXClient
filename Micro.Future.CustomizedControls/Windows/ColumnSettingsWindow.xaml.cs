@@ -27,6 +27,16 @@ namespace Micro.Future.UI
             _columns = columns;
             treeColumns.ItemsSource = columns;
         }
+
+        private void column_checked(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void column_unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
     public class ColumnObject : DependencyObject

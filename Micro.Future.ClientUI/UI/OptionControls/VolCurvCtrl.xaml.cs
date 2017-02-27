@@ -30,6 +30,7 @@ namespace Micro.Future.UI
     public partial class VolCurvCtrl : UserControl
     {
         private IList<ContractInfo> _contractList;
+        private AbstractOTCHandler _abstractOTCHandler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
         private OTCOptionHandler _otcHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
         public VolCurvCtrl()
         {
@@ -54,7 +55,7 @@ namespace Micro.Future.UI
         public void Initialize()
         {
             _contractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
-
+            _abstractOTCHandler.OnStrategyUpdated += _bidStrategyUpdate;
             //VegaPosition.Model = _otcHandler.OptionOxyVM.PlotModelBar;
             volPlot.DataContext = VolatilityModelVM;
             //theoAskLS1.ItemsSource = VolatilityModelVM1.TheoAskVolLine;
@@ -86,6 +87,13 @@ namespace Micro.Future.UI
         //        point.Value = status ? 1 : 0;
         //    }
         //}
+        private void _bidStrategyUpdate(StrategyVM strategyVM)
+        {
+            var contract = strategyVM.Contract;
+            var strikeprice = strategyVM.BidPrice;
+            //VolatilityModelVM.TheoCallAskVolScatter.Where
+
+        }
         private void PutBidScatter_MouseDown(object sender, OxyMouseDownEventArgs e)
         {
             var point = e.HitTestResult.Item as ScatterPoint;
