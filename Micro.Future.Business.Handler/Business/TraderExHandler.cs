@@ -7,8 +7,6 @@ using System.Collections.ObjectModel;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using System.Threading.Tasks;
-//try to invoke contractVM
-using Micro.Future.Business.Handler.ViewModel;
 using System.Collections.Generic;
 
 namespace Micro.Future.Message
