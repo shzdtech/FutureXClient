@@ -51,7 +51,9 @@ namespace Micro.Future.UI
         public void Initialize()
         {
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            _contractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
+            var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
+            var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
+            _contractList = options.Union(otcOptions).ToList();
 
             exchangeCB.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
@@ -176,35 +178,52 @@ namespace Micro.Future.UI
 
         private void underlyingContractCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (underlyingContractCB.SelectedValue != null)
+            var contract = underlyingContractCB.SelectedValue;
+            if (contract != null)
             {
-                var uc = underlyingContractCB.SelectedValue.ToString();
+                var expireDate = (from c in _contractList
+                                  where c.UnderlyingContract == contract.ToString() && c.Exchange == exchangeCB.SelectedValue.ToString()
+                                  select c.ExpireDate).Distinct().ToList();
 
+                expireDateCB.ItemsSource = expireDate;
+            }
 
-                var optionList = (from c in _contractList
-                                  where c.UnderlyingContract == uc
-                                  select c).ToList();
-
-                var strikeList = (from o in optionList
-                                  orderby o.StrikePrice
-                                  select o.StrikePrice).Distinct().ToList();
-
-                var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
-
-                var callList = (from o in optionList
-                                where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
-                                orderby o.StrikePrice
-                                select o.Contract).Distinct().ToList();
-
-                var putList = (from o in optionList
-                               where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
-                               orderby o.StrikePrice
-                               select o.Contract).Distinct().ToList();
-                CallPutTDOptionVMCollection.Clear();
-                var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList);
-                foreach (var vm in retList)
+        }
+        private void expireDateCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var exchange = exchangeCB.SelectedValue?.ToString();
+            if (exchange != null)
+            {
+                if (expireDateCB.SelectedValue != null)
                 {
-                    CallPutTDOptionVMCollection.Add(vm);
+                    var ed = expireDateCB.SelectedValue.ToString();
+                    var uc = underlyingContractCB.SelectedValue.ToString();
+
+                    var optionList = (from c in _contractList
+                                      where c.UnderlyingContract == uc && c.ExpireDate == ed && c.Exchange == exchange
+                                      select c).ToList();
+
+                    var strikeList = (from o in optionList
+                                      orderby o.StrikePrice
+                                      select o.StrikePrice).Distinct().ToList();
+
+                    var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
+
+                    var callList = (from o in optionList
+                                    where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
+                                    orderby o.StrikePrice
+                                    select o.Contract).Distinct().ToList();
+
+                    var putList = (from o in optionList
+                                   where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
+                                   orderby o.StrikePrice
+                                   select o.Contract).Distinct().ToList();
+                    CallPutTDOptionVMCollection.Clear();
+                    var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList, exchange);
+                    foreach (var vm in retList)
+                    {
+                        CallPutTDOptionVMCollection.Add(vm);
+                    }
                 }
             }
         }

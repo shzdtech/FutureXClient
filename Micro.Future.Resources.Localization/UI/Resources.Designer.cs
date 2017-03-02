@@ -601,6 +601,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 到期日 的本地化字符串。
+        /// </summary>
+        internal static string ExpireDate {
+            get {
+                return ResourceManager.GetString("ExpireDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 快速下单 的本地化字符串。
         /// </summary>
         internal static string FastOrder {
@@ -1312,7 +1321,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 确认参数 的本地化字符串。
+        ///   查找类似 RevertCurrent 的本地化字符串。
         /// </summary>
         internal static string RevertCurrent {
             get {
@@ -1429,7 +1438,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 调试参数 的本地化字符串。
+        ///   查找类似 Set Reference 的本地化字符串。
         /// </summary>
         internal static string SetReference {
             get {

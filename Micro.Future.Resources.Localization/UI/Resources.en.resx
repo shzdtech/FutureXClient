@@ -714,4 +714,7 @@
   <data name="SetReference" xml:space="preserve">
     <value>Set Reference</value>
   </data>
+  <data name="ExpireDate" xml:space="preserve">
+    <value>ExpireDate</value>
+  </data>
 </root>

@@ -146,6 +146,7 @@ namespace Micro.Future.UI
         {
             await _otcOptionHandler.QueryStrategyAsync();
             await _otcOptionHandler.QueryAllModelParamsAsync();
+            await _otcOptionHandler.SyncContractInfoAsync();
 
             LoginTaskSource.TrySetResult(true);
         }

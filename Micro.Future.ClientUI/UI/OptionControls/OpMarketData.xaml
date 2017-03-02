@@ -12,37 +12,40 @@
              d:DesignHeight="100" d:DesignWidth="600">
     <DockPanel>
         <ScrollViewer>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-        <Label x:Name="labelOption1" Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key=Option1}"/>
-        <WrapPanel Grid.Row="0" Grid.Column="1">
-            <GroupBox x:Name="Op_Exchange" Header="{lex:Loc Key=Exchange}">
-                <ComboBox x:Name="underlyingEX"  SelectionChanged="underlyingEX_SelectionChanged"/>
-            </GroupBox>
-            <GroupBox x:Name="Op_Underlying" Header="{lex:Loc Key=Underlying}">
-                <ComboBox x:Name="underlyingCB"  SelectionChanged="underlyingCB_SelectionChanged"/>
-            </GroupBox>
-            <GroupBox x:Name="Op_UnderlyingContract" Header="{lex:Loc Key=Product}">
-                <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged"/>
-            </GroupBox>
-            <GroupBox x:Name="Op_VolModel" Header="{lex:Loc Key=VolModel}">
-                <ComboBox x:Name="volModelCB" DisplayMemberPath="InstanceName" SelectionChanged="volModelCB_SelectionChanged">
-                    <!--<ListBoxItem>Please Select</ListBoxItem>-->
-                    <!--<CollectionContainer Collection="{Binding Source={}}" />-->
-                </ComboBox>
-            </GroupBox>
-        </WrapPanel>
-        <!--<Label x:Name="labelOption2" Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key=Option2}"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="labelOption1" Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key=Option1}"/>
+                <WrapPanel Grid.Row="0" Grid.Column="1">
+                    <GroupBox x:Name="Op_Exchange" Header="{lex:Loc Key=Exchange}">
+                        <ComboBox x:Name="underlyingEX"  SelectionChanged="underlyingEX_SelectionChanged"/>
+                    </GroupBox>
+                    <GroupBox x:Name="Op_Underlying" Header="{lex:Loc Key=Underlying}">
+                        <ComboBox x:Name="underlyingCB"  SelectionChanged="underlyingCB_SelectionChanged"/>
+                    </GroupBox>
+                    <GroupBox x:Name="Op_UnderlyingContract" Header="{lex:Loc Key=Product}">
+                        <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged"/>
+                    </GroupBox>
+                    <GroupBox x:Name="Op_ExpireDate" Header="{lex:Loc Key=ExpireDate}">
+                        <ComboBox x:Name="expireDateCB" SelectionChanged="expireDateCB_SelectionChanged"/>
+                    </GroupBox>
+                    <GroupBox x:Name="Op_VolModel" Header="{lex:Loc Key=VolModel}">
+                        <ComboBox x:Name="volModelCB" DisplayMemberPath="InstanceName" SelectionChanged="volModelCB_SelectionChanged">
+                            <!--<ListBoxItem>Please Select</ListBoxItem>-->
+                            <!--<CollectionContainer Collection="{Binding Source={}}" />-->
+                        </ComboBox>
+                    </GroupBox>
+                </WrapPanel>
+                <!--<Label x:Name="labelOption2" Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key=Option2}"/>
         <WrapPanel Grid.Row="1" Grid.Column="1">
             <GroupBox x:Name="Op_Exchange1" Header="{lex:Loc Key=Exchange}">
                 <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged"/>
@@ -54,22 +57,22 @@
                 <ComboBox x:Name="underlyingContractCB1"   SelectionChanged="underlyingContractCB1_SelectionChanged"/>
             </GroupBox>
         </WrapPanel>-->
-        <Label x:Name="labelFuture1" Grid.Row="0" Grid.Column="2" Content="{lex:Loc Key=Future1}"/>
-        <WrapPanel Grid.Row="0" Grid.Column="3">
-            <GroupBox x:Name="Exchange1" Header="{lex:Loc Key=Exchange}">
-                <ComboBox x:Name="exchange1"  SelectionChanged="exchange1_SelectionChanged"/>
-            </GroupBox>
-            <GroupBox x:Name="Underlying1" Header="{lex:Loc Key=Underlying}">
-                <ComboBox x:Name="underlying1"  SelectionChanged="underlying1_SelectionChanged"/>
-            </GroupBox>
-            <GroupBox x:Name="Contract1" Header="{lex:Loc Key=Product}">
-                <ComboBox x:Name="contract1"  SelectionChanged="contract1_SelectionChanged"/>
-            </GroupBox>
-            <GroupBox x:Name="Adjustment1" Header="{lex:Loc Key=Adjustment}">
-                <TextBox x:Name="admustment1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  Width="54"/>
-            </GroupBox>
-        </WrapPanel>
-        <!--<Label x:Name="labelFuture2" Grid.Row="1" Grid.Column="2" Content="{lex:Loc Key=Future2}"/>
+                <Label x:Name="labelFuture1" Grid.Row="0" Grid.Column="2" Content="{lex:Loc Key=Future1}"/>
+                <WrapPanel Grid.Row="0" Grid.Column="3">
+                    <GroupBox x:Name="Exchange1" Header="{lex:Loc Key=Exchange}">
+                        <ComboBox x:Name="exchange1"  SelectionChanged="exchange1_SelectionChanged"/>
+                    </GroupBox>
+                    <GroupBox x:Name="Underlying1" Header="{lex:Loc Key=Underlying}">
+                        <ComboBox x:Name="underlying1"  SelectionChanged="underlying1_SelectionChanged"/>
+                    </GroupBox>
+                    <GroupBox x:Name="Contract1" Header="{lex:Loc Key=Product}">
+                        <ComboBox x:Name="contract1"  SelectionChanged="contract1_SelectionChanged"/>
+                    </GroupBox>
+                    <GroupBox x:Name="Adjustment1" Header="{lex:Loc Key=Adjustment}">
+                        <TextBox x:Name="admustment1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  Width="54"/>
+                    </GroupBox>
+                </WrapPanel>
+                <!--<Label x:Name="labelFuture2" Grid.Row="1" Grid.Column="2" Content="{lex:Loc Key=Future2}"/>
         <WrapPanel Grid.Row="1" Grid.Column="3">
             <GroupBox x:Name="Exchange2" Header="{lex:Loc Key=Exchange}">
                 <ComboBox x:Name="exchange2"  SelectionChanged="exchange2_SelectionChanged"/>
@@ -84,63 +87,63 @@
                         <TextBox x:Name="admustment2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  Width="54"/>
                     </GroupBox>
                 </WrapPanel>-->
-        <ListView Name="quoteListView1" Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" >
-            <ListView.View>
-                <GridView x:Name="mdLV1">
-                    <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" />
-                    <GridViewColumn Header="{lex:Loc Key=QuoteVolume}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Volume}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="{lex:Loc Key=MatchPrice}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Value}" DataContext="{Binding MatchPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="{lex:Loc Key=BidPrice}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Value}" DataContext="{Binding BidPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="{lex:Loc Key=BidSize}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding BidSize}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="{lex:Loc Key=AskPrice}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Value}" DataContext="{Binding AskPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="{lex:Loc Key=AskSize}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding AskSize}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="{lex:Loc Key=Exchange}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Exchange}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <!--<ListView Name="quoteListView2" Grid.Row="1" Grid.Column="4">
+                <ListView Name="quoteListView1" Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" >
+                    <ListView.View>
+                        <GridView x:Name="mdLV1">
+                            <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" />
+                            <GridViewColumn Header="{lex:Loc Key=QuoteVolume}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Volume}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{lex:Loc Key=MatchPrice}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Value}" DataContext="{Binding MatchPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{lex:Loc Key=BidPrice}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Value}" DataContext="{Binding BidPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{lex:Loc Key=BidSize}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding BidSize}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{lex:Loc Key=AskPrice}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Value}" DataContext="{Binding AskPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{lex:Loc Key=AskSize}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding AskSize}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{lex:Loc Key=Exchange}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Exchange}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <!--<ListView Name="quoteListView2" Grid.Row="1" Grid.Column="4">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{lex:Loc Key=Contract}">
@@ -202,7 +205,7 @@
                 </GridView>
             </ListView.View>
         </ListView>-->
-    </Grid>
+            </Grid>
         </ScrollViewer>
-    </DockPanel>            
+    </DockPanel>
 </UserControl>

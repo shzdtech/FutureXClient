@@ -77,6 +77,14 @@ namespace Micro.Future.UI
             internalAskSS.MouseDown += CallAskScatter_MouseDown;
 
             _otcHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
+            _otcHandler.OnStrategyUpdated += _otcHandler_OnStrategyUpdated;
+        }
+        private void _otcHandler_OnStrategyUpdated(StrategyVM strategyVM)
+        {
+
+            //var point = e.HitTestResult.Item as ScatterPoint;
+            //point.Value = strategyVM.BidEnabled ? 1 : 0;
+            //plot.PlotModel.InvalidatePlot(true);
 
         }
         //private void OnPutBidStatus(string contract, bool status)
@@ -242,10 +250,10 @@ namespace Micro.Future.UI
         }
 
 
-        public void SelectOption(string contract)
+        public void SelectOption(string contract, string expiredate, string exchange)
         {
             var optionList = (from c in _contractList
-                              where c.UnderlyingContract == contract
+                              where c.UnderlyingContract == contract && c.ExpireDate == expiredate && c.Exchange == exchange
                               select c).ToList();
 
             var strikeList = (from o in optionList
@@ -264,7 +272,7 @@ namespace Micro.Future.UI
 
             ClearPlot();
             CallPutTDOptionVMCollection.Clear();
-            var retList = _otcHandler.SubCallPutTDOptionData(strikeList, callList, putList);
+            var retList = _otcHandler.SubCallPutTDOptionData(strikeList, callList, putList, exchange);
             foreach (var vm in retList)
             {
                 CallPutTDOptionVMCollection.Add(vm);
@@ -291,40 +299,40 @@ namespace Micro.Future.UI
                 VolatilityModelVM.TheoCallBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.BidVol, 10, value, vm.CallStrategyVM));
             }
         }
-        public void SelectOption1(string contract)
-        {
-            var optionList = (from c in _contractList
-                              where c.UnderlyingContract == contract
-                              select c).ToList();
+        //public void SelectOption1(string contract)
+        //{
+        //    var optionList = (from c in _contractList
+        //                      where c.UnderlyingContract == contract
+        //                      select c).ToList();
 
-            var strikeList = (from o in optionList
-                              orderby o.StrikePrice
-                              select o.StrikePrice).Distinct().ToList();
+        //    var strikeList = (from o in optionList
+        //                      orderby o.StrikePrice
+        //                      select o.StrikePrice).Distinct().ToList();
 
-            var callList = (from o in optionList
-                            where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
-                            orderby o.StrikePrice
-                            select o.Contract).Distinct().ToList();
+        //    var callList = (from o in optionList
+        //                    where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
+        //                    orderby o.StrikePrice
+        //                    select o.Contract).Distinct().ToList();
 
-            var putList = (from o in optionList
-                           where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
-                           orderby o.StrikePrice
-                           select o.Contract).Distinct().ToList();
+        //    var putList = (from o in optionList
+        //                   where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
+        //                   orderby o.StrikePrice
+        //                   select o.Contract).Distinct().ToList();
 
-            ClearPlot1();
-            CallPutTDOptionVMCollection1.Clear();
-            var retList = _otcHandler.SubCallPutTDOptionData(strikeList, callList, putList);
-            foreach (var vm in retList)
-            {
-                CallPutTDOptionVMCollection1.Add(vm);
-                VolatilityModelVM1.TheoAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol));
-                VolatilityModelVM1.TheoBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol));
-                VolatilityModelVM1.TheoMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.MidVol));
-                VolatilityModelVM1.TheoAskVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol));
-                VolatilityModelVM1.TheoBidVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol));
-                VolatilityModelVM1.TheoMidVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.MidVol));
-            }
-        }
+        //    ClearPlot1();
+        //    CallPutTDOptionVMCollection1.Clear();
+        //    var retList = _otcHandler.SubCallPutTDOptionData(strikeList, callList, putList);
+        //    foreach (var vm in retList)
+        //    {
+        //        CallPutTDOptionVMCollection1.Add(vm);
+        //        VolatilityModelVM1.TheoAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol));
+        //        VolatilityModelVM1.TheoBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol));
+        //        VolatilityModelVM1.TheoMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.MidVol));
+        //        VolatilityModelVM1.TheoAskVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol));
+        //        VolatilityModelVM1.TheoBidVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol));
+        //        VolatilityModelVM1.TheoMidVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.MidVol));
+        //    }
+        //}
 
         private void ClearPlot()
         {
@@ -333,6 +341,13 @@ namespace Micro.Future.UI
         private void ClearPlot1()
         {
             VolatilityModelVM1.ClearAll();
+        }
+
+        public void ClearTempVolLine()
+        {
+            VolatilityModelVM.TheoMidVolLine1.Clear();
+            VolatilityModelVM.TheoAskVolLine1.Clear();
+            VolatilityModelVM.TheoBidVolLine1.Clear();
         }
     }
 }

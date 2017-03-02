@@ -54,7 +54,9 @@ namespace Micro.Future.UI
         public void Initialize()
         {
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            _contractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
+            var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
+            var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
+            _contractList = options.Union(otcOptions).ToList();
 
             underlyingEX.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             //underlyingEX1.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
@@ -83,13 +85,28 @@ namespace Micro.Future.UI
 
         private void underlyingContractCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (underlyingContractCB.SelectedValue != null)
+            var contract = underlyingContractCB.SelectedValue;
+            if (contract != null)
             {
-                var uc = underlyingContractCB.SelectedValue.ToString();
+                var expireDate = (from c in _contractList
+                                           where c.UnderlyingContract == contract.ToString() && c.Exchange == underlyingEX.SelectedValue.ToString()
+                                           select c.ExpireDate).Distinct().ToList();
 
+                expireDateCB.ItemsSource = expireDate;
+            }
+
+
+        }
+        private void expireDateCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (expireDateCB.SelectedValue != null)
+            {
+                var ed = expireDateCB.SelectedValue.ToString();
+                var uc = underlyingContractCB.SelectedValue.ToString();
+                var exchange = underlyingEX.SelectedValue.ToString();
 
                 var optionList = (from c in _contractList
-                                  where c.UnderlyingContract == uc
+                                  where c.UnderlyingContract == uc && c.ExpireDate == ed && c.Exchange == exchange
                                   select c).ToList();
 
                 var strikeList = (from o in optionList
@@ -108,13 +125,14 @@ namespace Micro.Future.UI
                                orderby o.StrikePrice
                                select o.Contract).Distinct().ToList();
                 CallPutTDOptionVMCollection.Clear();
-                var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList);
+                var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList, underlyingEX.SelectedValue.ToString());
                 foreach (var vm in retList)
                 {
                     CallPutTDOptionVMCollection.Add(vm);
                 }
             }
         }
+
         //private void underlyingEX1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         //{
         //    var exchange = underlyingEX1.SelectedValue.ToString();

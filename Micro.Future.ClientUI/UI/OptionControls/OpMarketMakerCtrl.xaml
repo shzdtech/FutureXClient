@@ -27,6 +27,9 @@
             <GroupBox x:Name="Op_UnderlyingContract" Header="{lex:Loc Key=Product}">
                 <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged"/>
             </GroupBox>
+            <GroupBox x:Name="Op_ExpireDate" Header="{lex:Loc Key=ExpireDate}">
+                <ComboBox x:Name="expireDateCB" SelectionChanged="expireDateCB_SelectionChanged"/>
+            </GroupBox>
             <GroupBox x:Name="Op_PricingModel" Header="{lex:Loc Key=PricingModel}">
                 <ComboBox x:Name="pricingModelCB" DisplayMemberPath="InstanceName" SelectionChanged="pricingModelCB_SelectionChanged"/>
             </GroupBox>

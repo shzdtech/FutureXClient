@@ -29,9 +29,10 @@ namespace Micro.Future.UI
         public OptionModelCtrl()
         {
             InitializeComponent();
-            OpMarketControl.underlyingContractCB.SelectionChanged += UnderlyingContractCB_SelectionChanged;
+            OpMarketControl.expireDateCB.SelectionChanged += ExpireDateCB_SelectionChanged;
             //OpMarketControl.underlyingContractCB1.SelectionChanged += UnderlyingContractCB1_SelectionChanged;
             OpMarketControl.volModelCB.SelectionChanged += VolModelCB_SelectionChanged;
+            WMSettingsLV.revertCurrentBtn.Click += RevertCurrentBtn_Click;
         }
 
         private LayoutAnchorablePane _pane;
@@ -48,14 +49,15 @@ namespace Micro.Future.UI
             }
         }
 
-        private async void UnderlyingContractCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void ExpireDateCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = OpMarketControl.underlyingEX.SelectedValue;
             var uc = OpMarketControl.underlyingContractCB.SelectedValue;
+            var ed = OpMarketControl.expireDateCB.SelectedValue;
 
-            if (exchange != null && uc != null)
+            if (exchange != null && uc != null && ed != null)
             {
-                VolCurvLV.SelectOption(uc.ToString());
+                VolCurvLV.SelectOption(uc.ToString(), ed.ToString(), exchange.ToString());
                 var callputOpt = VolCurvLV.CallPutTDOptionVMCollection.FirstOrDefault();
                 if(callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
                 {
@@ -80,8 +82,11 @@ namespace Micro.Future.UI
                 if (volModel != null)
                 {                
                     WMSettingsLV.DataContext = volModel;
-                }
+                   }
             }
-
+        private void RevertCurrentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            VolCurvLV.ClearTempVolLine();
+        }
     }
 }
