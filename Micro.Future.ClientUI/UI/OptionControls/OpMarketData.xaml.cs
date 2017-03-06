@@ -190,6 +190,9 @@ namespace Micro.Future.UI
         }
         private void underlyingEX_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            underlyingCB.ItemsSource = null;
+            underlyingContractCB.ItemsSource = null;
+            expireDateCB.ItemsSource = null;
             var exchange = underlyingEX.SelectedValue.ToString();
             underlyingCB.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
         }
