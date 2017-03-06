@@ -57,7 +57,7 @@ namespace Micro.Future.UI
 
             if (exchange != null && uc != null && ed != null)
             {
-                VolCurvLV.SelectOption(uc.ToString(), ed.ToString(), exchange.ToString());
+                VolCurvLV.SelectOption(exchange.ToString(), uc.ToString(), ed.ToString());
                 var callputOpt = VolCurvLV.CallPutTDOptionVMCollection.FirstOrDefault();
                 if(callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
                 {
