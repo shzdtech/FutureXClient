@@ -55,7 +55,6 @@ namespace Micro.Future.UI
         public void Initialize()
         {
             _contractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
-            _abstractOTCHandler.OnStrategyUpdated += _bidStrategyUpdate;
             //VegaPosition.Model = _otcHandler.OptionOxyVM.PlotModelBar;
             volPlot.DataContext = VolatilityModelVM;
             //theoAskLS1.ItemsSource = VolatilityModelVM1.TheoAskVolLine;
@@ -81,11 +80,24 @@ namespace Micro.Future.UI
         }
         private void _otcHandler_OnStrategyUpdated(StrategyVM strategyVM)
         {
-
-            //var point = e.HitTestResult.Item as ScatterPoint;
-            //point.Value = strategyVM.BidEnabled ? 1 : 0;
-            //plot.PlotModel.InvalidatePlot(true);
-
+            var contract = strategyVM.Contract;
+            var exchange = strategyVM.Exchange;
+            var pointPA = VolatilityModelVM.TheoPutAskVolScatter.
+                FirstOrDefault(c => ((StrategyVM)c.Tag).Contract == contract && ((StrategyVM)c.Tag).Exchange == exchange);
+            var pointPB = VolatilityModelVM.TheoPutBidVolScatter.
+                FirstOrDefault(c => ((StrategyVM)c.Tag).Contract == contract && ((StrategyVM)c.Tag).Exchange == exchange);
+            var pointCA = VolatilityModelVM.TheoCallAskVolScatter.
+                FirstOrDefault(c => ((StrategyVM)c.Tag).Contract == contract && ((StrategyVM)c.Tag).Exchange == exchange);
+            var pointCB = VolatilityModelVM.TheoCallBidVolScatter.
+                FirstOrDefault(c => ((StrategyVM)c.Tag).Contract == contract && ((StrategyVM)c.Tag).Exchange == exchange);
+            if (pointPA != null)
+                pointPA.Value = strategyVM.AskEnabled ? 1 : 0;
+            if (pointPB != null)
+                pointPB.Value = strategyVM.BidEnabled ? 1 : 0;
+            if (pointCA != null)
+                pointCA.Value = strategyVM.AskEnabled ? 1 : 0;
+            if (pointCB != null)
+                pointCB.Value = strategyVM.BidEnabled ? 1 : 0;
         }
         //private void OnPutBidStatus(string contract, bool status)
         //{
@@ -95,13 +107,6 @@ namespace Micro.Future.UI
         //        point.Value = status ? 1 : 0;
         //    }
         //}
-        private void _bidStrategyUpdate(StrategyVM strategyVM)
-        {
-            var contract = strategyVM.Contract;
-            var strikeprice = strategyVM.BidPrice;
-            //VolatilityModelVM.TheoCallAskVolScatter.Where
-
-        }
         private void PutBidScatter_MouseDown(object sender, OxyMouseDownEventArgs e)
         {
             var point = e.HitTestResult.Item as ScatterPoint;
