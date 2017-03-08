@@ -69,7 +69,10 @@ namespace Micro.Future.UI
                 }
             }
         }
-
+        private void DeleteTempSettings()
+        {
+            TempSettings.Clear();
+        }
         private void SetReference_Click(object sender, RoutedEventArgs e)
         {
             if (_otcOptionHandler != null)
@@ -77,16 +80,36 @@ namespace Micro.Future.UI
                 var modelParamsVM = DataContext as ModelParamsVM;
                 _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, TempSettings);
                 _otcOptionHandler.RemoveTempModel(modelParamsVM.InstanceName);
+                DeleteTempSettings();
             }
 
         }
-
         private void RevertCurrent_Click(object sender, RoutedEventArgs e)
         {
             if (_otcOptionHandler != null)
             {
                 var modelParamsVM = DataContext as ModelParamsVM;
                 _otcOptionHandler.RemoveTempModel(modelParamsVM.InstanceName);
+                DeleteTempSettings();
+            }
+        }
+
+        private void DataContext_Changed(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+
+        private void Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                if (_otcOptionHandler != null)
+                {
+                    var modelParamsVM = DataContext as ModelParamsVM;
+                    TempSettings[ctrl.Tag.ToString()] = modelParamsVM[ctrl.Tag.ToString()].Value;
+                    _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
+                }
             }
         }
     }

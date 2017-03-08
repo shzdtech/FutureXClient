@@ -27,7 +27,6 @@ namespace Micro.Future.UI
             _columns = columns;
             treeColumns.ItemsSource = columns;
         }
-
         private void column_checked(object sender, RoutedEventArgs e)
         {
             

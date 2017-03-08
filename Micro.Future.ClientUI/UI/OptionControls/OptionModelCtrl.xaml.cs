@@ -33,6 +33,7 @@ namespace Micro.Future.UI
             //OpMarketControl.underlyingContractCB1.SelectionChanged += UnderlyingContractCB1_SelectionChanged;
             OpMarketControl.volModelCB.SelectionChanged += VolModelCB_SelectionChanged;
             WMSettingsLV.revertCurrentBtn.Click += RevertCurrentBtn_Click;
+            WMSettingsLV.setReferenceBtn.Click += SetCurrentBtn_Click;
         }
 
         private LayoutAnchorablePane _pane;
@@ -84,7 +85,25 @@ namespace Micro.Future.UI
                     WMSettingsLV.DataContext = volModel;
                    }
             }
-        private void RevertCurrentBtn_Click(object sender, RoutedEventArgs e)
+        private async void RevertCurrentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            VolCurvLV.ClearTempVolLine();
+            var exchange = OpMarketControl.underlyingEX.SelectedValue;
+            var uc = OpMarketControl.underlyingContractCB.SelectedValue;
+            var ed = OpMarketControl.expireDateCB.SelectedValue;
+
+            if (exchange != null && uc != null && ed != null)
+            {
+                var callputOpt = VolCurvLV.CallPutTDOptionVMCollection.FirstOrDefault();
+                if (callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
+                {
+                    var modelparamsVM = await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
+                    WMSettingsLV.DataContext = modelparamsVM;
+                }
+            }
+        }
+
+        private void SetCurrentBtn_Click(object sender, RoutedEventArgs e)
         {
             VolCurvLV.ClearTempVolLine();
         }
