@@ -256,7 +256,7 @@ namespace Micro.Future.UI
         }
 
 
-        public void SelectOption(string contract, string expiredate, string exchange)
+        public void SelectOption(string exchange, string contract, string expiredate)
         {
             var optionList = (from c in _contractList
                               where c.UnderlyingContract == contract && c.ExpireDate == expiredate && c.Exchange == exchange
