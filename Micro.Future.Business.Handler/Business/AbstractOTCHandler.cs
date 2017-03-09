@@ -171,16 +171,25 @@ namespace Micro.Future.Message
         protected ModelParamsVM OnQueryModelParamsSuccess(ModelParams resp)
         {
             var modelParamsVMCollection = GetModelParamsVMCollection(resp.ModelAim);
-            ModelParamsVM ret = modelParamsVMCollection.FirstOrDefault(c => c.InstanceName == resp.InstanceName);
-            if (ret == null && !string.IsNullOrEmpty(resp.InstanceName))
+            ModelParamsVM ret = null; 
+            if (!string.IsNullOrEmpty(resp.InstanceName))
             {
-                ret = new ModelParamsVM()
+                ret = modelParamsVMCollection.FirstOrDefault(c => c.InstanceName == resp.InstanceName);
+                if (ret == null)
                 {
-                    InstanceName = resp.InstanceName,
-                    Model = resp.Model,
-                    ModelAim = resp.ModelAim
-                };
-
+                    ret = new ModelParamsVM()
+                    {
+                        InstanceName = resp.InstanceName,
+                        Model = resp.Model,
+                        ModelAim = resp.ModelAim
+                    };
+                    modelParamsVMCollection.Add(ret);
+                }
+                else
+                {
+                    ret.Params.Clear();
+                }
+                
                 foreach (var param in resp.Params)
                 {
                     ret.Params.Add(new NamedParamVM()
@@ -188,9 +197,7 @@ namespace Micro.Future.Message
                         Name = param.Key,
                         Value = param.Value,
                     });
-                }
-
-                modelParamsVMCollection.Add(ret);
+                } 
             }
 
             return ret;
