@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Xceed.Wpf.AvalonDock.Layout;
+using Xceed.Wpf.Toolkit;
 
 namespace Micro.Future.UI
 {
@@ -101,14 +102,31 @@ namespace Micro.Future.UI
 
         private void Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
         {
+            var ctrl = sender as DoubleUpDown;
+            if (ctrl != null)
+            {
+                if (_otcOptionHandler != null)
+                {
+                    var modelParamsVM = DataContext as ModelParamsVM;
+                    TempSettings[ctrl.Tag.ToString()] = ctrl.Value.Value; // modelParamsVM[ctrl.Tag.ToString()].Value;
+                    _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), ctrl.Value.Value);
+                }
+            }
+        }
+
+        private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
             Control ctrl = sender as Control;
             if (ctrl != null)
             {
                 if (_otcOptionHandler != null)
                 {
                     var modelParamsVM = DataContext as ModelParamsVM;
-                    TempSettings[ctrl.Tag.ToString()] = modelParamsVM[ctrl.Tag.ToString()].Value;
-                    _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
+                    if (modelParamsVM != null)
+                    {
+                        TempSettings[ctrl.Tag.ToString()] = modelParamsVM[ctrl.Tag.ToString()].Value;
+                        _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
+                    }
                 }
             }
         }

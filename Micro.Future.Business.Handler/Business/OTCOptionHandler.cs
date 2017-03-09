@@ -92,8 +92,8 @@ namespace Micro.Future.Message
 
             for (int i = 0; i < callList.Count; i++)
             {
-                var callOption = new TradingDeskOptionVM { Contract = callList[i] };
-                var putOption = new TradingDeskOptionVM { Contract = putList[i] };
+                var callOption = new TradingDeskOptionVM { Contract = callList[i], Exchange = exchange };
+                var putOption = new TradingDeskOptionVM { Contract = putList[i], Exchange = exchange };
                 var callStrategyVM = StrategyVMCollection.FirstOrDefault(s => s.Contract == callList[i] && s.Exchange == exchange);
                 var putStrategyVM = StrategyVMCollection.FirstOrDefault(s => s.Contract == putList[i] && s.Exchange == exchange);
                 retList.Add(new CallPutTDOptionVM()
