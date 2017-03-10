@@ -97,6 +97,7 @@
     <Compile Include="ViewModel\TradeVM.cs" />
     <Compile Include="ViewModel\TradingDeskVM.cs" />
     <Compile Include="ViewModel\VolatilityVM.cs" />
+    <Compile Include="ViewModel\WingsReturnVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
