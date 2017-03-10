@@ -87,17 +87,17 @@ namespace Micro.Future.UI
             }
         private async void RevertCurrentBtn_Click(object sender, RoutedEventArgs e)
         {
-            VolCurvLV.ClearTempVolLine();
             var exchange = OpMarketControl.underlyingEX.SelectedValue;
             var uc = OpMarketControl.underlyingContractCB.SelectedValue;
             var ed = OpMarketControl.expireDateCB.SelectedValue;
-
+            VolCurvLV.TempCurveReset(exchange.ToString(), uc.ToString(), ed.ToString());
             if (exchange != null && uc != null && ed != null)
             {
                 var callputOpt = VolCurvLV.CallPutTDOptionVMCollection.FirstOrDefault();
                 if (callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
                 {
                     var modelparamsVM = await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
+                    WMSettingsLV.DataContext = null;
                     WMSettingsLV.DataContext = modelparamsVM;
                 }
             }
@@ -105,7 +105,12 @@ namespace Micro.Future.UI
 
         private void SetCurrentBtn_Click(object sender, RoutedEventArgs e)
         {
-            VolCurvLV.ClearTempVolLine();
+            //VolCurvLV.ClearTempVolLine();
+            var exchange = OpMarketControl.underlyingEX.SelectedValue;
+            var uc = OpMarketControl.underlyingContractCB.SelectedValue;
+            var ed = OpMarketControl.expireDateCB.SelectedValue;
+            VolCurvLV.ScatterReset(exchange.ToString(), uc.ToString(), ed.ToString());
+
         }
     }
 }

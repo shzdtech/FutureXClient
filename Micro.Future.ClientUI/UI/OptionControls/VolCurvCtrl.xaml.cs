@@ -305,6 +305,73 @@ namespace Micro.Future.UI
                 VolatilityModelVM.TheoCallBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.BidVol, 10, value, vm.CallStrategyVM));
             }
         }
+        public void TempCurveReset(string exchange, string contract, string expiredate)
+        {
+            var optionList = (from c in _contractList
+                              where c.UnderlyingContract == contract && c.ExpireDate == expiredate && c.Exchange == exchange
+                              select c).ToList();
+
+            var strikeList = (from o in optionList
+                              orderby o.StrikePrice
+                              select o.StrikePrice).Distinct().ToList();
+
+            var callList = (from o in optionList
+                            where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
+                            orderby o.StrikePrice
+                            select o.Contract).Distinct().ToList();
+
+            var putList = (from o in optionList
+                           where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
+                           orderby o.StrikePrice
+                           select o.Contract).Distinct().ToList();
+
+            var retList = _otcHandler.SubCallPutTDOptionData(strikeList, callList, putList, exchange);
+            VolatilityModelVM.TheoAskVolLine1.Clear();
+            VolatilityModelVM.TheoBidVolLine1.Clear();
+            VolatilityModelVM.TheoMidVolLine1.Clear();
+
+            foreach (var vm in retList)
+            {
+                //CallPutTDOptionVMCollection.Add(vm);
+                VolatilityModelVM.TheoAskVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol));
+                VolatilityModelVM.TheoBidVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol));
+                VolatilityModelVM.TheoMidVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.MidVol));            }
+        }
+        public void ScatterReset(string exchange, string contract, string expiredate)
+        {
+            var optionList = (from c in _contractList
+                              where c.UnderlyingContract == contract && c.ExpireDate == expiredate && c.Exchange == exchange
+                              select c).ToList();
+
+            var strikeList = (from o in optionList
+                              orderby o.StrikePrice
+                              select o.StrikePrice).Distinct().ToList();
+
+            var callList = (from o in optionList
+                            where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
+                            orderby o.StrikePrice
+                            select o.Contract).Distinct().ToList();
+
+            var putList = (from o in optionList
+                           where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
+                           orderby o.StrikePrice
+                           select o.Contract).Distinct().ToList();
+
+            ClearScatter();
+            var retList = _otcHandler.SubCallPutTDOptionData(strikeList, callList, putList, exchange);
+            foreach (var vm in retList)
+            {
+                double value = (vm.PutStrategyVM != null && vm.PutStrategyVM.AskEnabled) ? 1 : 0;
+                VolatilityModelVM.TheoPutAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol, 10, value, vm.PutStrategyVM));
+                VolatilityModelVM.TheoPutBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol, 10, value, vm.PutStrategyVM));
+
+                value = (vm.CallStrategyVM != null && vm.CallStrategyVM.AskEnabled) ? 1 : 0;
+                VolatilityModelVM.TheoCallAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.AskVol, 10, value, vm.CallStrategyVM));
+                VolatilityModelVM.TheoCallBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.BidVol, 10, value, vm.CallStrategyVM));
+            }
+        }
+
+
         //public void SelectOption1(string contract)
         //{
         //    var optionList = (from c in _contractList
@@ -355,5 +422,13 @@ namespace Micro.Future.UI
             VolatilityModelVM.TheoAskVolLine1.Clear();
             VolatilityModelVM.TheoBidVolLine1.Clear();
         }
+        public void ClearScatter()
+        {
+            VolatilityModelVM.TheoPutAskVolScatter.Clear();
+            VolatilityModelVM.TheoPutBidVolScatter.Clear();
+            VolatilityModelVM.TheoCallAskVolScatter.Clear();
+            VolatilityModelVM.TheoCallBidVolScatter.Clear();
+        }
+
     }
 }
