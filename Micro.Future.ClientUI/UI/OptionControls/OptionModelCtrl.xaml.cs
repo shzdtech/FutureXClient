@@ -1,4 +1,6 @@
 ﻿using Micro.Future.CustomizedControls.Controls;
+using Micro.Future.LocalStorage;
+using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
 using Micro.Future.ViewModel;
 using System;
@@ -26,6 +28,7 @@ namespace Micro.Future.UI
 
     {
         private OTCOptionHandler _otcHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
+
         public OptionModelCtrl()
         {
             InitializeComponent();
@@ -59,6 +62,7 @@ namespace Micro.Future.UI
             if (exchange != null && uc != null && ed != null)
             {
                 VolCurvLV.SelectOption(exchange.ToString(), uc.ToString(), ed.ToString());
+                WMSettingsLV.SelectOption(exchange.ToString(), uc.ToString(), ed.ToString());
                 var callputOpt = VolCurvLV.CallPutTDOptionVMCollection.FirstOrDefault();
                 if(callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
                 {

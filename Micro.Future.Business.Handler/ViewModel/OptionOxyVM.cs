@@ -164,7 +164,97 @@ namespace Micro.Future.ViewModel
            = new ObservableCollection<ScatterPoint>();
         public ObservableCollection<ScatterPoint> TheoCallBidVolScatter { get; }
             = new ObservableCollection<ScatterPoint>();
-
+        private double _referencePriceLine;
+        public double ReferencePriceLine
+        {
+            get
+            {
+                return _referencePriceLine;
+            }
+            set
+            {
+                _referencePriceLine = value;
+                OnPropertyChanged(nameof(ReferencePriceLine));
+            }
+        }
+        private double _ATMLine;
+        public double ATMLine
+        {
+            get
+            {
+                return _ATMLine;
+            }
+            set
+            {
+                _ATMLine = value;
+                OnPropertyChanged(nameof(ATMLine));
+            }
+        }
+        private double _synFLine;
+        public double SynFLine
+        {
+            get
+            {
+                return _synFLine;
+            }
+            set
+            {
+                _synFLine = value;
+                OnPropertyChanged(nameof(SynFLine));
+            }
+        }
+        private double _x0Line;
+        public double X0Line
+        {
+            get
+            {
+                return _x0Line;
+            }
+            set
+            {
+                _x0Line = value;
+                OnPropertyChanged(nameof(X0Line));
+            }
+        }
+        private double _x1Line;
+        public double X1Line
+        {
+            get
+            {
+                return _x1Line;
+            }
+            set
+            {
+                _x1Line = value;
+                OnPropertyChanged(nameof(X1Line));
+            }
+        }
+        private double _x2Line;
+        public double X2Line
+        {
+            get
+            {
+                return _x2Line;
+            }
+            set
+            {
+                _x2Line = value;
+                OnPropertyChanged(nameof(X2Line));
+            }
+        }
+        private double _x3Line;
+        public double X3Line
+        {
+            get
+            {
+                return _x3Line;
+            }
+            set
+            {
+                _x3Line = value;
+                OnPropertyChanged(nameof(X3Line));
+            }
+        }
         public void ClearAll()
         {
             CallBidVolLine.Clear();

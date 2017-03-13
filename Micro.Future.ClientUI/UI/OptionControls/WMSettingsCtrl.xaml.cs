@@ -1,4 +1,6 @@
 ﻿using Micro.Future.CustomizedControls.Controls;
+using Micro.Future.LocalStorage;
+using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
 using Micro.Future.ViewModel;
 using Micro.Future.Windows;
@@ -27,14 +29,39 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class WMSettingsCtrl : UserControl
     {
-        public WMSettingsCtrl()
-        {
-            InitializeComponent();
-            //volModelSettingsGrid.DataContext = VolatilityModelVM;
-        }
         public LayoutContent LayoutContent { get; set; }
         private IDictionary<string, double> TempSettings { get; set; } = new Dictionary<string, double>();
         private OTCOptionHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
+        private IList<ContractInfo> _contractList;
+        private IDictionary<ContractKeyVM, ContractInfo> _strategySet;
+        private WingsReturnVM _wingsReturnVM = new WingsReturnVM();
+
+        public WMSettingsCtrl()
+        {
+            InitializeComponent();
+
+            current_Slope.DataContext = _wingsReturnVM;
+            current_Slope1.DataContext = _wingsReturnVM;
+            current_Volatility.DataContext = _wingsReturnVM;
+            current_Volatility1.DataContext = _wingsReturnVM;
+            var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
+            var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
+            _contractList = options.Union(otcOptions).ToList();
+
+            _otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
+        }
+
+        private void OnTradingDeskOptionParamsReceived(TradingDeskOptionVM tdOptionVM)
+        {
+            if (_strategySet.ContainsKey(tdOptionVM))
+            {
+                _wingsReturnVM.SlopeCurr = tdOptionVM.WingsReturnVM.SlopeCurr;
+                _wingsReturnVM.SlopeCurrOffset = tdOptionVM.WingsReturnVM.SlopeCurrOffset;
+                _wingsReturnVM.VolCurr = tdOptionVM.WingsReturnVM.VolCurr;
+                _wingsReturnVM.VolCurrOffset = tdOptionVM.WingsReturnVM.VolCurrOffset;
+            }
+        }
+
         //public ModelParamsVM VolatilityModelVM { get; } = new ModelParamsVM();
 
         private void OptionWin_KeyDown(object sender, KeyEventArgs e)
@@ -129,6 +156,13 @@ namespace Micro.Future.UI
                     }
                 }
             }
+        }
+
+        public void SelectOption(string exchange, string contract, string expiredate)
+        {
+            _strategySet = _contractList.Where(c =>
+                c.UnderlyingContract == contract && c.ExpireDate == expiredate && c.Exchange == exchange)
+                .ToDictionary(c => new ContractKeyVM(c.Exchange, c.Contract), c => c);
         }
     }
 }

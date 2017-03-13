@@ -250,6 +250,16 @@ namespace Micro.Future.UI
                         VolatilityModelVM.TheoMidVolLine[idx] = new DataPoint(x, (tdOptionVM.TheoDataVM.AskVol + tdOptionVM.TheoDataVM.BidVol) / 2);
                         if (tdOptionVM.TempTheoDataVM != null)
                             VolatilityModelVM.TheoMidVolLine1[idx] = new DataPoint(x, (tdOptionVM.TempTheoDataVM.AskVol + tdOptionVM.TempTheoDataVM.BidVol) / 2);
+                        if (tdOptionVM.WingsReturnVM != null)
+                        { 
+                            VolatilityModelVM.ATMLine = tdOptionVM.WingsReturnVM.ATMFPrice;
+                            VolatilityModelVM.ReferencePriceLine = tdOptionVM.WingsReturnVM.RefPrice;
+                            VolatilityModelVM.SynFLine = tdOptionVM.WingsReturnVM.SyncFPrice;
+                            VolatilityModelVM.X0Line = tdOptionVM.WingsReturnVM.X0;
+                            VolatilityModelVM.X1Line = tdOptionVM.WingsReturnVM.X1;
+                            VolatilityModelVM.X2Line = tdOptionVM.WingsReturnVM.X2;
+                            VolatilityModelVM.X3Line = tdOptionVM.WingsReturnVM.X3;
+                        }
                     }
                 }
             }
@@ -335,7 +345,8 @@ namespace Micro.Future.UI
                 //CallPutTDOptionVMCollection.Add(vm);
                 VolatilityModelVM.TheoAskVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol));
                 VolatilityModelVM.TheoBidVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol));
-                VolatilityModelVM.TheoMidVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.MidVol));            }
+                VolatilityModelVM.TheoMidVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.MidVol));
+            }
         }
         public void ScatterReset(string exchange, string contract, string expiredate)
         {

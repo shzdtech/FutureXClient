@@ -33,6 +33,14 @@ namespace Micro.Future.ViewModel
 
     public class ContractKeyVM : ViewModelBase, IContractKey
     {
+        public ContractKeyVM() { }
+
+        public ContractKeyVM(string exchange, string contract)
+        {
+            _exchange = exchange;
+            _contract = contract;
+        }
+
         private string _exchange;
         public string Exchange
         {
@@ -66,7 +74,7 @@ namespace Micro.Future.ViewModel
             get
             {
                 bool isOtc = false;
-                if(!string.IsNullOrEmpty(_exchange))
+                if (!string.IsNullOrEmpty(_exchange))
                 {
                     isOtc = _exchange.StartsWith("otc", StringComparison.InvariantCultureIgnoreCase);
                 }
@@ -84,6 +92,22 @@ namespace Micro.Future.ViewModel
         {
             return string.Compare(_contract, contract, true) == 0 &&
                 string.Compare(_exchange, exchange, true) == 0;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (null == obj)
+                return false;
+            var contractKey = obj as IContractKey;
+            if (null == contractKey)
+                return false;
+
+            return EqualContract(contractKey);
+        }
+        public override int GetHashCode()
+        {
+            return (Exchange == null ? 0 : Exchange.GetHashCode()) |
+                (Contract == null ? 0 : Contract.GetHashCode());
         }
     }
 }

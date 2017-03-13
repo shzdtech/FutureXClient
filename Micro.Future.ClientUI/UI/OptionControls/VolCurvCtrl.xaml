@@ -34,6 +34,13 @@
                 <oxy:ScatterSeries Name="theoCallBidSC" ItemsSource="{Binding TheoCallBidVolScatter}" ColorAxisKey="greenLineColorAxis"  MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoBid1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:ScatterSeries Name="theoPutAskSC" ItemsSource="{Binding TheoPutAskVolScatter}" ColorAxisKey="redLineColorAxis" MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoAsk1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:ScatterSeries Name="theoCallAskSC" ItemsSource="{Binding TheoCallAskVolScatter}" ColorAxisKey="greenLineColorAxis" MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoAsk1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
+                <!--<oxy:LineSeries Name="refPriceLS"  ItemsSource="{Binding ReferencePriceLine}"  LineStyle="Dash" Color="Purple" />
+                <oxy:LineSeries Name="aTMLS"  ItemsSource="{Binding ATMLine}"  LineStyle="Dash" Color="Green" />
+                <oxy:LineSeries Name="synFLS"  ItemsSource="{Binding SynFLine}"  LineStyle="Dash" Color="Black" />
+                <oxy:LineSeries Name="x0FLS"  ItemsSource="{Binding X0Line}"  LineStyle="Dash" Color="Blue" />
+                <oxy:LineSeries Name="x1FLS"  ItemsSource="{Binding X1Line}"  LineStyle="Dash" Color="Blue" />
+                <oxy:LineSeries Name="x2FLS"  ItemsSource="{Binding X2Line}"  LineStyle="Dash" Color="Red" />
+                <oxy:LineSeries Name="x3FLS"  ItemsSource="{Binding X3Line}"  LineStyle="Dash" Color="Red" />-->
             </oxy:Plot.Series>
             <oxy:Plot.Axes>
                 <oxy:LinearColorAxis Key="greenLineColorAxis" Minimum="0.1" Maximum="0.9" HighColor="Green" LowColor="Gray" Position ="None"/>
@@ -41,6 +48,15 @@
                 <oxy:LinearAxis x:Name="strikeAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Bottom" Title="StrikePrice"/>
                 <oxy:LinearAxis x:Name="voleAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="Volatility"/>
             </oxy:Plot.Axes>
+            <oxy:Plot.Annotations>
+                <oxy:LineAnnotation Name="refPriceLS" Type="Vertical" X="{Binding ReferencePriceLine}" Color="Purple"></oxy:LineAnnotation>
+                <oxy:LineAnnotation Name="aTMLS" Type="Vertical" X="{Binding ATMLine}" Color="Green"></oxy:LineAnnotation>
+                <oxy:LineAnnotation Name="synFLS" Type="Vertical" X="{Binding SynFLine}" Color="Black"></oxy:LineAnnotation>
+                <oxy:LineAnnotation Name="x0FLS" Type="Vertical" X="{Binding X0Line}" Color="Blue"></oxy:LineAnnotation>
+                <oxy:LineAnnotation Name="x1FLS" Type="Vertical" X="{Binding X1Line}" Color="Blue"></oxy:LineAnnotation>
+                <oxy:LineAnnotation Name="x2FLS" Type="Vertical" X="{Binding X2Line}" Color="Red"></oxy:LineAnnotation>
+                <oxy:LineAnnotation Name="x3FLS" Type="Vertical" X="{Binding X3Line}" Color="Red"></oxy:LineAnnotation>
+            </oxy:Plot.Annotations>
         </oxy:Plot>
         <WrapPanel Grid.Row="1" MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <CheckBox x:Name="checkBoxCallBid" Content="CallBidVol" IsChecked="True"/>

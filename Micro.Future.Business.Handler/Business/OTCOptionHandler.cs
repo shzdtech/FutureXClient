@@ -34,10 +34,10 @@ namespace Micro.Future.Message
         private void OnTradingDeskOptionParams(PBTradingDeskOptionParams tradingDeskOption)
         {
             TradingDeskOptionVM quote = new TradingDeskOptionVM
-            {
-                Exchange = tradingDeskOption.Exchange,
-                Contract = tradingDeskOption.Contract
-            };
+                {
+                    Exchange = tradingDeskOption.Exchange,
+                    Contract = tradingDeskOption.Contract
+                };            
 
             quote.MarketDataVM.AskPrice = tradingDeskOption.MarketData.AskPrice;
             quote.MarketDataVM.AskSize = tradingDeskOption.MarketData.AskSize;
@@ -64,6 +64,18 @@ namespace Micro.Future.Message
             quote.TheoDataVM.BidVega = tradingDeskOption.TheoData.BidVega;
             quote.TheoDataVM.MidVol = (tradingDeskOption.TheoData.BidVolatility + tradingDeskOption.TheoData.AskVolatility) / 2;
             quote.TheoDataVM.MidPrice = (tradingDeskOption.TheoData.BidPrice + tradingDeskOption.TheoData.AskPrice) / 2;
+
+            quote.WingsReturnVM.ATMFPrice = tradingDeskOption.WingsReturn.FAtm;
+            quote.WingsReturnVM.RefPrice = tradingDeskOption.WingsReturn.FRef;
+            quote.WingsReturnVM.SyncFPrice = tradingDeskOption.WingsReturn.FSyn;
+            quote.WingsReturnVM.X0 = tradingDeskOption.WingsReturn.X0;
+            quote.WingsReturnVM.X1 = tradingDeskOption.WingsReturn.X1;
+            quote.WingsReturnVM.X2 = tradingDeskOption.WingsReturn.X2;
+            quote.WingsReturnVM.X3 = tradingDeskOption.WingsReturn.X3;
+            quote.WingsReturnVM.SlopeCurr = tradingDeskOption.WingsReturn.SlopeCurr;
+            quote.WingsReturnVM.SlopeCurrOffset = tradingDeskOption.WingsReturn.SlopeCurrOffset;
+            quote.WingsReturnVM.VolCurr = tradingDeskOption.WingsReturn.VolCurr;
+            quote.WingsReturnVM.VolCurrOffset = tradingDeskOption.WingsReturn.VolCurrOffset;
 
             if (tradingDeskOption.TheoDataTemp != null)
             {
