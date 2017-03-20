@@ -167,9 +167,17 @@ namespace Micro.Future.UI
             {
                 InitializeComponent();
                 Initialize();
+                optionModelCtrl.OpMarketControl.volModelCB1.SelectionChanged += VolModelCB1_SelectionChanged;
             }
         }
-
+        private void VolModelCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var volModel = optionModelCtrl.OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
+            if (volModel != null)
+            {
+                OpMarketMakerLV.volModelLB.DataContext = volModel;
+            }
+        }
         private void OptionWin_KeyDown(object sender, KeyEventArgs e)
         {
             Control ctrl = sender as Control;

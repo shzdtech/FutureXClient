@@ -83,6 +83,8 @@ namespace Micro.Future.UI
             marketNode.Children.Add(ColumnObject.CreateColumn(CBidSize));
             marketNode.Children.Add(ColumnObject.CreateColumn(CAsk));
             marketNode.Children.Add(ColumnObject.CreateColumn(CAskSize));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CMid));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PMid));
             ivolNode.Children.Add(ColumnObject.CreateColumn(PBidIV));
             ivolNode.Children.Add(ColumnObject.CreateColumn(PAskIV));
             ivolNode.Children.Add(ColumnObject.CreateColumn(PMidIV));
@@ -353,7 +355,5 @@ namespace Micro.Future.UI
             if (checkbox != null)
                 OnCallAskStatusChanged?.Invoke(checkbox.Tag.ToString(), false);
         }
-
-
     }
 }

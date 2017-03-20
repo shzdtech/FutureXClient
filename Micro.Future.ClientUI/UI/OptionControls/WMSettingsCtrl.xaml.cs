@@ -135,7 +135,7 @@ namespace Micro.Future.UI
                 if (_otcOptionHandler != null)
                 {
                     var modelParamsVM = DataContext as ModelParamsVM;
-                    TempSettings[ctrl.Tag.ToString()] = ctrl.Value.Value; // modelParamsVM[ctrl.Tag.ToString()].Value;
+                    TempSettings[ctrl.Tag.ToString()] = double.Parse(ctrl.Text); // modelParamsVM[ctrl.Tag.ToString()].Value;
                     _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), ctrl.Value.Value);
                 }
             }

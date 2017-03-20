@@ -33,6 +33,9 @@
             <GroupBox x:Name="Op_PricingModel" Header="{lex:Loc Key=PricingModel}">
                 <ComboBox x:Name="pricingModelCB" DisplayMemberPath="InstanceName" SelectionChanged="pricingModelCB_SelectionChanged"/>
             </GroupBox>
+            <GroupBox x:Name="Op_VolModel" Header="{lex:Loc Key=VolModel}">
+                <Label x:Name="volModelLB" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </GroupBox>
             <GroupBox x:Name="Op_Exchange1" Header="{lex:Loc Key=Exchange}">
                 <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged"/>
             </GroupBox>

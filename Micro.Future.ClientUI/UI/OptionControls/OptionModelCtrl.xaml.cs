@@ -33,8 +33,10 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             OpMarketControl.expireDateCB.SelectionChanged += ExpireDateCB_SelectionChanged;
+            OpMarketControl.expireDateCB1.SelectionChanged += ExpireDateCB1_SelectionChanged;
             //OpMarketControl.underlyingContractCB1.SelectionChanged += UnderlyingContractCB1_SelectionChanged;
             OpMarketControl.volModelCB.SelectionChanged += VolModelCB_SelectionChanged;
+            OpMarketControl.volModelCB1.SelectionChanged += VolModelCB1_SelectionChanged;
             WMSettingsLV.revertCurrentBtn.Click += RevertCurrentBtn_Click;
             WMSettingsLV.setReferenceBtn.Click += SetCurrentBtn_Click;
         }
@@ -66,29 +68,46 @@ namespace Micro.Future.UI
                 var callputOpt = VolCurvLV.CallPutTDOptionVMCollection.FirstOrDefault();
                 if(callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
                 {
+                    //var modelparamsVM = await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
+                    //WMSettingsLV.DataContext = modelparamsVM;
+                }
+            }
+        }
+        private async void ExpireDateCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var exchange = OpMarketControl.underlyingEX1.SelectedValue;
+            var uc = OpMarketControl.underlyingContractCB1.SelectedValue;
+            var ed = OpMarketControl.expireDateCB1.SelectedValue;
+
+            if (exchange != null && uc != null && ed != null)
+            {
+                VolCurvLV.SelectOptionImpl (exchange.ToString(), uc.ToString(), ed.ToString());
+                WMSettingsLV.SelectOption(exchange.ToString(), uc.ToString(), ed.ToString());
+                var callputOpt = VolCurvLV.CallPutTDOptionVMCollection1.FirstOrDefault();
+                if (callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
+                {
                     var modelparamsVM = await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
                     WMSettingsLV.DataContext = modelparamsVM;
                 }
             }
         }
-        //private void UnderlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    var exchange = OpMarketControl.underlyingEX1.SelectedValue;
-        //    var uc = OpMarketControl.underlyingContractCB1.SelectedValue;
 
-        //    if (exchange != null && uc != null)
-        //    {
-        //        VolCurvLV.SelectOption1(uc.ToString());
-        //    }
-        //}
-            private void VolModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void VolModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
             {
                 var volModel = OpMarketControl.volModelCB.SelectedItem as ModelParamsVM;
                 if (volModel != null)
                 {                
-                    WMSettingsLV.DataContext = volModel;
+                    //WMSettingsLV.DataContext = volModel;
                    }
             }
+        private void VolModelCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
+            if (volModel != null)
+            {
+                WMSettingsLV.DataContext = volModel;
+            }
+        }
         private async void RevertCurrentBtn_Click(object sender, RoutedEventArgs e)
         {
             var exchange = OpMarketControl.underlyingEX.SelectedValue;

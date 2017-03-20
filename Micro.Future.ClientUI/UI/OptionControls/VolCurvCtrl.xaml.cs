@@ -265,6 +265,40 @@ namespace Micro.Future.UI
             }
         }
 
+        public void SelectOptionImpl(string exchange, string contract, string expiredate)
+        {
+            var optionList = (from c in _contractList
+                              where c.UnderlyingContract == contract && c.ExpireDate == expiredate && c.Exchange == exchange
+                              select c).ToList();
+
+            var strikeList = (from o in optionList
+                              orderby o.StrikePrice
+                              select o.StrikePrice).Distinct().ToList();
+
+            var callList = (from o in optionList
+                            where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
+                            orderby o.StrikePrice
+                            select o.Contract).Distinct().ToList();
+
+            var putList = (from o in optionList
+                           where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
+                           orderby o.StrikePrice
+                           select o.Contract).Distinct().ToList();
+
+            ClearPlot();
+            CallPutTDOptionVMCollection1.Clear();
+            var retList = _otcHandler.SubCallPutTDOptionData(strikeList, callList, putList, exchange);
+            foreach (var vm in retList)
+            {
+                CallPutTDOptionVMCollection1.Add(vm);
+                VolatilityModelVM.CallAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.AskVol));
+                VolatilityModelVM.CallBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.BidVol));
+                VolatilityModelVM.CallMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.MidVol));
+                VolatilityModelVM.PutAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol));
+                VolatilityModelVM.PutBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol));
+                VolatilityModelVM.PutMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.MidVol));
+            }
+        }
 
         public void SelectOption(string exchange, string contract, string expiredate)
         {
@@ -292,19 +326,12 @@ namespace Micro.Future.UI
             foreach (var vm in retList)
             {
                 CallPutTDOptionVMCollection.Add(vm);
-                VolatilityModelVM.CallAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.AskVol));
-                VolatilityModelVM.CallBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.BidVol));
-                VolatilityModelVM.CallMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.MidVol));
-                VolatilityModelVM.PutAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol));
-                VolatilityModelVM.PutBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol));
-                VolatilityModelVM.PutMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.MidVol));
                 VolatilityModelVM.TheoAskVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol));
                 VolatilityModelVM.TheoBidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol));
                 VolatilityModelVM.TheoMidVolLine.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.MidVol));
                 VolatilityModelVM.TheoAskVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol));
                 VolatilityModelVM.TheoBidVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol));
                 VolatilityModelVM.TheoMidVolLine1.Add(new DataPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.MidVol));
-
 
                 double value = (vm.PutStrategyVM != null && vm.PutStrategyVM.AskEnabled) ? 1 : 0;
                 VolatilityModelVM.TheoPutAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol, 10, value, vm.PutStrategyVM));
