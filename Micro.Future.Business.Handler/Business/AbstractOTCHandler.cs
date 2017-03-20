@@ -492,7 +492,6 @@ namespace Micro.Future.Message
                 strategyVM.Hedging = strategy.Hedging;
                 strategyVM.Underlying = strategy.Underlying;
                 strategyVM.StrategySym = strategy.Symbol;
-                strategyVM.Description = strategy.Description;
                 strategyVM.Depth = strategy.Depth;
                 strategyVM.AskEnabled = strategy.AskEnabled;
                 strategyVM.BidEnabled = strategy.BidEnabled;

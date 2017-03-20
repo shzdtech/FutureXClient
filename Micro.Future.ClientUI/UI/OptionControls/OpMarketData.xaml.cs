@@ -74,7 +74,7 @@ namespace Micro.Future.UI
             quoteListView1.ItemsSource = QuoteVMCollection1;
             quoteListView2.ItemsSource = QuoteVMCollection2;
 
-            volModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("vm");
+            volModelCB1.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("vm");
 
         }
         private void underlyingEX_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -155,7 +155,7 @@ namespace Micro.Future.UI
             if (contract != null)
             {
                 var expireDate = (from c in _contractList
-                                  where c.UnderlyingContract == contract.ToString() && c.Exchange == underlyingEX.SelectedValue.ToString()
+                                  where c.UnderlyingContract == contract.ToString() && c.Exchange == underlyingEX1.SelectedValue.ToString()
                                   select c.ExpireDate).Distinct().ToList();
 
                 expireDateCB1.ItemsSource = expireDate;

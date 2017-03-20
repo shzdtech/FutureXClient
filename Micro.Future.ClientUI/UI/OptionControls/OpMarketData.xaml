@@ -37,7 +37,7 @@
                         <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_ExpireDate" Header="{lex:Loc Key=ExpireDate}">
-                        <ComboBox x:Name="expireDateCB"/>
+                        <ComboBox x:Name="expireDateCB" SelectionChanged="expireDateCB_SelectionChanged"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_VolModel" Header="{lex:Loc Key=VolModel}">
                         <ComboBox x:Name="volModelCB" DisplayMemberPath="InstanceName" SelectionChanged="volModelCB_SelectionChanged">
@@ -56,7 +56,7 @@
                         <ComboBox x:Name="underlyingContractCB1"   SelectionChanged="underlyingContractCB1_SelectionChanged"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_ExpireDate1" Header="{lex:Loc Key=ExpireDate}">
-                        <ComboBox x:Name="expireDateCB1"/>
+                        <ComboBox x:Name="expireDateCB1" SelectionChanged="expireDateCB1_SelectionChanged"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_VolModel1" Header="{lex:Loc Key=VolModel}">
                         <ComboBox x:Name="volModelCB1" DisplayMemberPath="InstanceName" SelectionChanged="volModelCB1_SelectionChanged">

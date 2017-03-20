@@ -118,8 +118,8 @@ namespace Micro.Future.Message
             {
                 var callOption = new TradingDeskOptionVM { Exchange = callList[i].Exchange, Contract = callList[i].Contract };
                 var putOption = new TradingDeskOptionVM { Exchange = putList[i].Exchange, Contract = putList[i].Contract };
-                var callStrategyVM = StrategyVMCollection.FirstOrDefault(s => s == callList[i]);
-                var putStrategyVM = StrategyVMCollection.FirstOrDefault(s => s == putList[i]);
+                var callStrategyVM = StrategyVMCollection.FirstOrDefault(s => s.EqualContract(callList[i]));
+                var putStrategyVM = StrategyVMCollection.FirstOrDefault(s => s.EqualContract(putList[i]));
                 retList.Add(new CallPutTDOptionVM()
                 {
                     StrikePrice = strikeList[i],
