@@ -1,14 +1,9 @@
-﻿using Micro.Future.Message;
-using Micro.Future.Message.Business;
+﻿using Micro.Future.Message.Business;
 using Micro.Future.ViewModel;
-using OxyPlot;
-using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Micro.Future.Message
 {
@@ -37,60 +32,67 @@ namespace Micro.Future.Message
                 {
                     Exchange = tradingDeskOption.Exchange,
                     Contract = tradingDeskOption.Contract
-                };            
+                };
 
-            quote.MarketDataVM.AskPrice = tradingDeskOption.MarketData.AskPrice;
-            quote.MarketDataVM.AskSize = tradingDeskOption.MarketData.AskSize;
-            quote.MarketDataVM.AskVol = tradingDeskOption.MarketData.AskVolatility;
-            quote.MarketDataVM.BidPrice = tradingDeskOption.MarketData.BidPrice;
-            quote.MarketDataVM.BidSize = tradingDeskOption.MarketData.BidSize;
-            quote.MarketDataVM.BidVol = tradingDeskOption.MarketData.BidVolatility;
-            quote.MarketDataVM.MidVol = (tradingDeskOption.MarketData.BidVolatility + tradingDeskOption.MarketData.AskVolatility) / 2;
-            quote.MarketDataVM.MidPrice = (tradingDeskOption.MarketData.BidPrice + tradingDeskOption.MarketData.AskPrice) / 2;
-
-            quote.TheoDataVM.AskPrice = tradingDeskOption.TheoData.AskPrice;
-            quote.TheoDataVM.AskSize = tradingDeskOption.TheoData.AskSize;
-            quote.TheoDataVM.AskVol = tradingDeskOption.TheoData.AskVolatility;
-            quote.TheoDataVM.AskDelta = tradingDeskOption.TheoData.AskDelta;
-            quote.TheoDataVM.AskGamma = tradingDeskOption.TheoData.AskGamma;
-            quote.TheoDataVM.AskTheta = tradingDeskOption.TheoData.AskTheta;
-            quote.TheoDataVM.AskVega = tradingDeskOption.TheoData.AskVega;
-            quote.TheoDataVM.BidPrice = tradingDeskOption.TheoData.BidPrice;
-            quote.TheoDataVM.BidSize = tradingDeskOption.TheoData.BidSize;
-            quote.TheoDataVM.BidVol = tradingDeskOption.TheoData.BidVolatility;
-            quote.TheoDataVM.BidDelta = tradingDeskOption.TheoData.BidDelta;
-            quote.TheoDataVM.BidGamma = tradingDeskOption.TheoData.BidGamma;
-            quote.TheoDataVM.BidTheta = tradingDeskOption.TheoData.BidTheta;
-            quote.TheoDataVM.BidVega = tradingDeskOption.TheoData.BidVega;
-            quote.TheoDataVM.MidVol = (tradingDeskOption.TheoData.BidVolatility + tradingDeskOption.TheoData.AskVolatility) / 2;
-            quote.TheoDataVM.MidPrice = (tradingDeskOption.TheoData.BidPrice + tradingDeskOption.TheoData.AskPrice) / 2;
-
-            quote.WingsReturnVM.ATMFPrice = tradingDeskOption.WingsReturn.FAtm;
-            quote.WingsReturnVM.RefPrice = tradingDeskOption.WingsReturn.FRef;
-            quote.WingsReturnVM.SyncFPrice = tradingDeskOption.WingsReturn.FSyn;
-            quote.WingsReturnVM.X0 = tradingDeskOption.WingsReturn.X0;
-            quote.WingsReturnVM.X1 = tradingDeskOption.WingsReturn.X1;
-            quote.WingsReturnVM.X2 = tradingDeskOption.WingsReturn.X2;
-            quote.WingsReturnVM.X3 = tradingDeskOption.WingsReturn.X3;
-            quote.WingsReturnVM.SlopeCurr = tradingDeskOption.WingsReturn.SlopeCurr;
-            quote.WingsReturnVM.SlopeCurrOffset = tradingDeskOption.WingsReturn.SlopeCurrOffset;
-            quote.WingsReturnVM.VolCurr = tradingDeskOption.WingsReturn.VolCurr;
-            quote.WingsReturnVM.VolCurrOffset = tradingDeskOption.WingsReturn.VolCurrOffset;
-
-            if (tradingDeskOption.TheoDataTemp != null)
+            if (FindTradingDeskData(quote) != null)
             {
-                if (quote.TempTheoDataVM == null)
-                    quote.TempTheoDataVM = new OptionPricingVM();
+                quote.MarketDataVM.AskPrice = tradingDeskOption.MarketData.AskPrice;
+                quote.MarketDataVM.AskSize = tradingDeskOption.MarketData.AskSize;
+                quote.MarketDataVM.AskVol = tradingDeskOption.MarketData.AskVolatility;
+                quote.MarketDataVM.BidPrice = tradingDeskOption.MarketData.BidPrice;
+                quote.MarketDataVM.BidSize = tradingDeskOption.MarketData.BidSize;
+                quote.MarketDataVM.BidVol = tradingDeskOption.MarketData.BidVolatility;
+                quote.MarketDataVM.MidVol = (tradingDeskOption.MarketData.BidVolatility + tradingDeskOption.MarketData.AskVolatility) / 2;
+                quote.MarketDataVM.MidPrice = (tradingDeskOption.MarketData.BidPrice + tradingDeskOption.MarketData.AskPrice) / 2;
 
-                quote.TempTheoDataVM.AskVol = tradingDeskOption.TheoDataTemp.AskVolatility;
-                quote.TempTheoDataVM.BidVol = tradingDeskOption.TheoDataTemp.BidVolatility;
+                quote.TheoDataVM.AskPrice = tradingDeskOption.TheoData.AskPrice;
+                quote.TheoDataVM.AskSize = tradingDeskOption.TheoData.AskSize;
+                quote.TheoDataVM.AskVol = tradingDeskOption.TheoData.AskVolatility;
+                quote.TheoDataVM.AskDelta = tradingDeskOption.TheoData.AskDelta;
+                quote.TheoDataVM.AskGamma = tradingDeskOption.TheoData.AskGamma;
+                quote.TheoDataVM.AskTheta = tradingDeskOption.TheoData.AskTheta;
+                quote.TheoDataVM.AskVega = tradingDeskOption.TheoData.AskVega;
+                quote.TheoDataVM.BidPrice = tradingDeskOption.TheoData.BidPrice;
+                quote.TheoDataVM.BidSize = tradingDeskOption.TheoData.BidSize;
+                quote.TheoDataVM.BidVol = tradingDeskOption.TheoData.BidVolatility;
+                quote.TheoDataVM.BidDelta = tradingDeskOption.TheoData.BidDelta;
+                quote.TheoDataVM.BidGamma = tradingDeskOption.TheoData.BidGamma;
+                quote.TheoDataVM.BidTheta = tradingDeskOption.TheoData.BidTheta;
+                quote.TheoDataVM.BidVega = tradingDeskOption.TheoData.BidVega;
+                quote.TheoDataVM.MidVol = (tradingDeskOption.TheoData.BidVolatility + tradingDeskOption.TheoData.AskVolatility) / 2;
+                quote.TheoDataVM.MidPrice = (tradingDeskOption.TheoData.BidPrice + tradingDeskOption.TheoData.AskPrice) / 2;
+
+                quote.WingsReturnVM.ATMFPrice = tradingDeskOption.WingsReturn.FAtm;
+                quote.WingsReturnVM.RefPrice = tradingDeskOption.WingsReturn.FRef;
+                quote.WingsReturnVM.SyncFPrice = tradingDeskOption.WingsReturn.FSyn;
+                quote.WingsReturnVM.X0 = tradingDeskOption.WingsReturn.X0;
+                quote.WingsReturnVM.X1 = tradingDeskOption.WingsReturn.X1;
+                quote.WingsReturnVM.X2 = tradingDeskOption.WingsReturn.X2;
+                quote.WingsReturnVM.X3 = tradingDeskOption.WingsReturn.X3;
+                quote.WingsReturnVM.SlopeCurr = tradingDeskOption.WingsReturn.SlopeCurr;
+                quote.WingsReturnVM.SlopeCurrOffset = tradingDeskOption.WingsReturn.SlopeCurrOffset;
+                quote.WingsReturnVM.VolCurr = tradingDeskOption.WingsReturn.VolCurr;
+                quote.WingsReturnVM.VolCurrOffset = tradingDeskOption.WingsReturn.VolCurrOffset;
+
+                if (tradingDeskOption.TheoDataTemp != null)
+                {
+                    if (quote.TempTheoDataVM == null)
+                        quote.TempTheoDataVM = new OptionPricingVM();
+
+                    quote.TempTheoDataVM.AskVol = tradingDeskOption.TheoDataTemp.AskVolatility;
+                    quote.TempTheoDataVM.BidVol = tradingDeskOption.TheoDataTemp.BidVolatility;
+                }
+                else
+                {
+                    quote.TempTheoDataVM = null;
+                }
+
+                OnTradingDeskOptionParamsReceived?.Invoke(quote);
             }
             else
             {
-                quote.TempTheoDataVM = null;
+                UnsubTradingDeskData(new[] { quote });
             }
-
-            OnTradingDeskOptionParamsReceived?.Invoke(quote);
         }
 
 
