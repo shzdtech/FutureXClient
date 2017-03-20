@@ -19,6 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using Micro.Future.CustomizedControls;
+using Xceed.Wpf.Toolkit;
 
 namespace Micro.Future.UI
 {
@@ -37,15 +38,23 @@ namespace Micro.Future.UI
             Initialize();
         }
 
-        public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection
+        public IEnumerable<ContractKeyVM> SubbedContracts
         {
             get;
-        } = new ObservableCollection<CallPutTDOptionVM>();
+            private set;
+        }
+
+        public IEnumerable<ContractKeyVM> SubbedContracts2
+        {
+            get;
+            private set;
+        }
 
         public ObservableCollection<MarketDataVM> QuoteVMCollection1
         {
             get;
         } = new ObservableCollection<MarketDataVM>();
+
         public ObservableCollection<MarketDataVM> QuoteVMCollection2
         {
             get;
@@ -95,15 +104,15 @@ namespace Micro.Future.UI
             if (contract != null)
             {
                 var expireDate = (from c in _contractList
-                                           where c.UnderlyingContract == contract.ToString() && c.Exchange == underlyingEX.SelectedValue.ToString()
-                                           select c.ExpireDate).Distinct().ToList();
+                                  where c.UnderlyingContract == contract.ToString() && c.Exchange == underlyingEX.SelectedValue.ToString()
+                                  select c.ExpireDate).Distinct().ToList();
 
                 expireDateCB.ItemsSource = expireDate;
             }
 
 
         }
-        private void expireDateCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void expireDateCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (expireDateCB.SelectedValue != null)
             {
@@ -112,30 +121,10 @@ namespace Micro.Future.UI
                 var exchange = underlyingEX.SelectedValue.ToString();
 
                 var optionList = (from c in _contractList
-                                  where c.UnderlyingContract == uc && c.ExpireDate == ed && c.Exchange == exchange
-                                  select c).ToList();
+                                  where c.Exchange == exchange && c.UnderlyingContract == uc && c.ExpireDate == ed
+                                  select new ContractKeyVM(c.Exchange, c.Contract)).ToList();
 
-                var strikeList = (from o in optionList
-                                  orderby o.StrikePrice
-                                  select o.StrikePrice).Distinct().ToList();
-
-                var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
-
-                var callList = (from o in optionList
-                                where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
-                                orderby o.StrikePrice
-                                select o.Contract).Distinct().ToList();
-
-                var putList = (from o in optionList
-                               where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
-                               orderby o.StrikePrice
-                               select o.Contract).Distinct().ToList();
-                CallPutTDOptionVMCollection.Clear();
-                var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList, underlyingEX.SelectedValue.ToString());
-                foreach (var vm in retList)
-                {
-                    CallPutTDOptionVMCollection.Add(vm);
-                }
+                SubbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList);
             }
         }
         private void underlyingEX1_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -172,7 +161,7 @@ namespace Micro.Future.UI
                 expireDateCB1.ItemsSource = expireDate;
             }
         }
-        private void expireDateCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void expireDateCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (expireDateCB1.SelectedValue != null)
             {
@@ -181,30 +170,10 @@ namespace Micro.Future.UI
                 var exchange = underlyingEX1.SelectedValue.ToString();
 
                 var optionList = (from c in _contractList
-                                  where c.UnderlyingContract == uc && c.ExpireDate == ed && c.Exchange == exchange
-                                  select c).ToList();
+                                  where c.Exchange == exchange && c.UnderlyingContract == uc && c.ExpireDate == ed
+                                  select new ContractKeyVM(c.Exchange, c.Contract)).ToList();
 
-                var strikeList = (from o in optionList
-                                  orderby o.StrikePrice
-                                  select o.StrikePrice).Distinct().ToList();
-
-                var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
-
-                var callList = (from o in optionList
-                                where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
-                                orderby o.StrikePrice
-                                select o.Contract).Distinct().ToList();
-
-                var putList = (from o in optionList
-                               where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
-                               orderby o.StrikePrice
-                               select o.Contract).Distinct().ToList();
-                CallPutTDOptionVMCollection.Clear();
-                var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList, underlyingEX1.SelectedValue.ToString());
-                foreach (var vm in retList)
-                {
-                    CallPutTDOptionVMCollection.Add(vm);
-                }
+                SubbedContracts2 = await _otcOptionHandler.SubTradingDeskDataAsync(optionList);
             }
         }
 
@@ -241,24 +210,18 @@ namespace Micro.Future.UI
                 if (mktDataVM != null)
                 {
                     QuoteVMCollection1.Add(mktDataVM);
-                    var strategyhandler = _otcOptionHandler;
-                    foreach (var option in CallPutTDOptionVMCollection)
+                    var contract = SubbedContracts?.FirstOrDefault();
+                    if (contract != null)
                     {
-                        var callpcp = option.CallStrategyVM?.PricingContractParams.FirstOrDefault();
-                        if (callpcp != null && callpcp.Contract != uc)
+                        var strategy =
+                            _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                        var pricingContract = strategy.IVMContractParams.FirstOrDefault();
+                        if (pricingContract != null)
                         {
-                            callpcp.Contract = uc;
-                            callpcp.Exchange = uexchange;
-                            //strategyhandler.UpdateStrategyPricingContracts(option.CallStrategyVM);
+                            pricingContract.Exchange = uexchange;
+                            pricingContract.Contract = uc;
                         }
-
-                        var putpcp = option.PutStrategyVM?.PricingContractParams.FirstOrDefault();
-                        if (putpcp != null && putpcp.Contract != uc)
-                        {
-                            putpcp.Contract = uc;
-                            putpcp.Exchange = uexchange;
-                            //strategyhandler.UpdateStrategyPricingContracts(option.PutStrategyVM);
-                        }
+                        _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.IVM);
                     }
                 }
             }
@@ -296,24 +259,18 @@ namespace Micro.Future.UI
                 if (mktDataVM != null)
                 {
                     QuoteVMCollection2.Add(mktDataVM);
-                    var strategyhandler = _otcOptionHandler;
-                    foreach (var option in CallPutTDOptionVMCollection)
+                    var contract = SubbedContracts2?.FirstOrDefault();
+                    if (contract != null)
                     {
-                        var callpcp = option.CallStrategyVM?.PricingContractParams.FirstOrDefault();
-                        if (callpcp != null && callpcp.Contract != uc)
+                        var strategy =
+                            _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                        var pricingContract = strategy.VMContractParams.FirstOrDefault();
+                        if (pricingContract != null)
                         {
-                            callpcp.Contract = uc;
-                            callpcp.Exchange = uexchange;
-                            strategyhandler.UpdateStrategyPricingContracts(option.CallStrategyVM);
+                            pricingContract.Exchange = uexchange;
+                            pricingContract.Contract = uc;
                         }
-
-                        var putpcp = option.PutStrategyVM?.PricingContractParams.FirstOrDefault();
-                        if (putpcp != null && putpcp.Contract != uc)
-                        {
-                            putpcp.Contract = uc;
-                            putpcp.Exchange = uexchange;
-                            strategyhandler.UpdateStrategyPricingContracts(option.PutStrategyVM);
-                        }
+                        _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.VM);
                     }
                 }
             }
@@ -323,14 +280,13 @@ namespace Micro.Future.UI
             var modelParam = volModelCB.SelectedItem as ModelParamsVM;
             if (modelParam != null)
             {
-                foreach (var option in CallPutTDOptionVMCollection)
+                var contract = SubbedContracts?.FirstOrDefault();
+                if (contract != null)
                 {
-                    if (option.CallStrategyVM == null)
-                        return;
-                    option.CallStrategyVM.VolModel = modelParam.InstanceName;
-                    _otcOptionHandler.UpdateStrategy(option.CallStrategyVM);
-                    option.PutStrategyVM.VolModel = modelParam.InstanceName;
-                    _otcOptionHandler.UpdateStrategy(option.PutStrategyVM);
+                    var strategy =
+                        _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                    strategy.IVModel = modelParam.InstanceName;
+                    _otcOptionHandler.UpdateStrategyModel(strategy, StrategyVM.Model.IVM);
                 }
             }
         }
@@ -340,14 +296,71 @@ namespace Micro.Future.UI
             var modelParam = volModelCB1.SelectedItem as ModelParamsVM;
             if (modelParam != null)
             {
-                foreach (var option in CallPutTDOptionVMCollection)
+                var contract = SubbedContracts2?.FirstOrDefault();
+                if (contract != null)
                 {
-                    if (option.CallStrategyVM == null)
-                        return;
-                    option.CallStrategyVM.VolModel = modelParam.InstanceName;
-                    _otcOptionHandler.UpdateStrategy(option.CallStrategyVM);
-                    option.PutStrategyVM.VolModel = modelParam.InstanceName;
-                    _otcOptionHandler.UpdateStrategy(option.PutStrategyVM);
+                    var strategy =
+                        _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                    strategy.VolModel = modelParam.InstanceName;
+                    _otcOptionHandler.UpdateStrategyModel(strategy, StrategyVM.Model.VM);
+                }
+            }
+        }
+
+        private void Adjustment1_KeyDown(object sender, KeyEventArgs e)
+        {
+            DoubleUpDown ctrl = sender as DoubleUpDown;
+            if (ctrl != null)
+            {
+                if (e.Key == Key.Escape || e.Key == Key.Enter)
+                {
+                    if (_otcOptionHandler != null)
+                    {
+                        if (e.Key == Key.Enter)
+                        {
+                            var contract = SubbedContracts?.FirstOrDefault();
+                            if (contract != null)
+                            {
+                                var strategy =
+                                    _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                                var pricingContract = strategy.IVMContractParams.FirstOrDefault();
+                                if (pricingContract != null)
+                                {
+                                    pricingContract.Adjust = ctrl.Value.Value;
+                                }
+                                _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.IVM);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void Adjustment2_KeyDown(object sender, KeyEventArgs e)
+        {
+            DoubleUpDown ctrl = sender as DoubleUpDown;
+            if (ctrl != null)
+            {
+                if (e.Key == Key.Escape || e.Key == Key.Enter)
+                {
+                    if (_otcOptionHandler != null)
+                    {
+                        if (e.Key == Key.Enter)
+                        {
+                            var contract = SubbedContracts?.FirstOrDefault();
+                            if (contract != null)
+                            {
+                                var strategy =
+                                    _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                                var pricingContract = strategy.VMContractParams.FirstOrDefault();
+                                if (pricingContract != null)
+                                {
+                                    pricingContract.Adjust = ctrl.Value.Value;
+                                }
+                                _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.VM);
+                            }
+                        }
+                    }
                 }
             }
         }

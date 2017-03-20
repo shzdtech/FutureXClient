@@ -34,7 +34,7 @@ namespace Micro.Future.UI
 
         private IList<ContractInfo> _contractList;
         private IList<ContractInfo> _futurecontractList;
-
+        private IEnumerable<ContractKeyVM> _subbedContracts;
 
         private IList<ColumnObject> _optionColumns;
 
@@ -191,7 +191,7 @@ namespace Micro.Future.UI
             }
 
         }
-        private void expireDateCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void expireDateCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = exchangeCB.SelectedValue?.ToString();
             if (exchange != null)
@@ -202,26 +202,27 @@ namespace Micro.Future.UI
                     var uc = underlyingContractCB.SelectedValue.ToString();
 
                     var optionList = (from c in _contractList
-                                      where c.UnderlyingContract == uc && c.ExpireDate == ed && c.Exchange == exchange
+                                      where c.Exchange == exchange && c.UnderlyingContract == uc && c.ExpireDate == ed
                                       select c).ToList();
 
                     var strikeList = (from o in optionList
                                       orderby o.StrikePrice
                                       select o.StrikePrice).Distinct().ToList();
 
-                    var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
-
                     var callList = (from o in optionList
                                     where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
                                     orderby o.StrikePrice
-                                    select o.Contract).Distinct().ToList();
+                                    select new ContractKeyVM(exchange, o.Contract)).ToList();
 
                     var putList = (from o in optionList
                                    where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
                                    orderby o.StrikePrice
-                                   select o.Contract).Distinct().ToList();
+                                   select new ContractKeyVM(exchange, o.Contract)).ToList();
+
+                    _subbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList.Select(c=>new ContractKeyVM(c.Exchange, c.Contract)));
+                    var retList = _otcOptionHandler.MakeCallPutTDOptionData(strikeList, callList, putList);
+
                     CallPutTDOptionVMCollection.Clear();
-                    var retList = handler.SubCallPutTDOptionData(strikeList, callList, putList, exchange);
                     foreach (var vm in retList)
                     {
                         CallPutTDOptionVMCollection.Add(vm);

@@ -146,7 +146,7 @@ namespace Micro.Future.ViewModel
             = new ObservableCollection<DataPoint>();
 
         public ObservableCollection<DataPoint> TheoBidVolLine1 { get; }
-    = new ObservableCollection<DataPoint>();
+            = new ObservableCollection<DataPoint>();
 
         public ObservableCollection<DataPoint> TheoAskVolLine1 { get; }
             = new ObservableCollection<DataPoint>();

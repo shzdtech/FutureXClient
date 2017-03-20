@@ -348,6 +348,31 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }
 
+        public void UpdateStrategyModel(StrategyVM sVM, StrategyVM.Model model)
+        {
+            var strategy = new PBStrategy();
+            strategy.Exchange = sVM.Exchange;
+            strategy.Contract = sVM.Contract;
+            strategy.Symbol = sVM.StrategySym;
+
+            if (model == StrategyVM.Model.PM)
+            {
+                strategy.PricingModel = sVM.PricingModel;
+            }
+
+            if (model == StrategyVM.Model.IVM)
+            {
+                strategy.IvModel = sVM.IVModel;
+            }
+
+            if (model == StrategyVM.Model.VM)
+            {
+                strategy.VolModel = sVM.VolModel;
+            }
+
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_PRICING_CONTRACT, strategy);
+        }
+
         public void UpdateStrategyPricingContracts(StrategyVM sVM, StrategyVM.Model model)
         {
             var strategy = new PBStrategy();

@@ -122,11 +122,6 @@ namespace Micro.Future.UI
             }
         }
 
-        private void DataContext_Changed(object sender, DependencyPropertyChangedEventArgs e)
-        {
-
-        }
-
         private void Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
         {
             var ctrl = sender as DoubleUpDown;

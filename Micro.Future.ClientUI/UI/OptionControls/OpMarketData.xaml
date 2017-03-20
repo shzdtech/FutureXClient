@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"   
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              lex:LocalizeDictionary.DesignCulture="zh_CN"
              lex:LocalizeDictionary.OutputMissingKeys="True"
              lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
@@ -36,7 +37,7 @@
                         <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_ExpireDate" Header="{lex:Loc Key=ExpireDate}">
-                        <ComboBox x:Name="expireDateCB" SelectionChanged="expireDateCB_SelectionChanged"/>
+                        <ComboBox x:Name="expireDateCB"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_VolModel" Header="{lex:Loc Key=VolModel}">
                         <ComboBox x:Name="volModelCB" DisplayMemberPath="InstanceName" SelectionChanged="volModelCB_SelectionChanged">
@@ -55,7 +56,7 @@
                         <ComboBox x:Name="underlyingContractCB1"   SelectionChanged="underlyingContractCB1_SelectionChanged"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_ExpireDate1" Header="{lex:Loc Key=ExpireDate}">
-                        <ComboBox x:Name="expireDateCB1" SelectionChanged="expireDateCB1_SelectionChanged"/>
+                        <ComboBox x:Name="expireDateCB1"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_VolModel1" Header="{lex:Loc Key=VolModel}">
                         <ComboBox x:Name="volModelCB1" DisplayMemberPath="InstanceName" SelectionChanged="volModelCB1_SelectionChanged">
@@ -74,7 +75,7 @@
                         <ComboBox x:Name="contract1"  SelectionChanged="contract1_SelectionChanged"/>
                     </GroupBox>
                     <GroupBox x:Name="Adjustment1" Header="{lex:Loc Key=Adjustment}">
-                        <TextBox x:Name="admustment1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  Width="54"/>
+                        <xctk:DoubleUpDown x:Name="adjustment1" UpdateValueOnEnterKey="True" FormatString="F2" Minimum="-1000000" Maximum="1000000" Increment="0.1" KeyDown="Adjustment1_KeyDown"/>
                     </GroupBox>
                 </WrapPanel>
                 <Label x:Name="labelFuture2" Grid.Row="1" Grid.Column="2" Content="{lex:Loc Key=Future2}"/>
@@ -89,7 +90,7 @@
                         <ComboBox x:Name="contract2"  SelectionChanged="contract2_SelectionChanged"/>
                     </GroupBox>
                     <GroupBox x:Name="Adjustment2" Header="{lex:Loc Key=Adjustment}">
-                        <TextBox x:Name="admustment2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  Width="54"/>
+                        <xctk:DoubleUpDown x:Name="adjustment2" UpdateValueOnEnterKey="True" FormatString="F2" Minimum="-1000000" Maximum="1000000" Increment="0.1" KeyDown="Adjustment2_KeyDown"/>
                     </GroupBox>
                 </WrapPanel>
                 <ListView Name="quoteListView1" Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" >
@@ -149,67 +150,67 @@
                     </ListView.View>
                 </ListView>
                 <ListView Name="quoteListView2" Grid.Row="1" Grid.Column="4">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="{lex:Loc Key=Contract}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Contract}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="{lex:Loc Key=QuoteVolume}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Volume}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="{lex:Loc Key=MatchPrice}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Value}" DataContext="{Binding MatchPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="{lex:Loc Key=BidPrice}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Value}" DataContext="{Binding BidPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="{lex:Loc Key=BidSize}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding BidSize}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="{lex:Loc Key=AskPrice}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Value}" DataContext="{Binding AskPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="{lex:Loc Key=AskSize}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding AskSize}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="{lex:Loc Key=Exchange}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Exchange}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="{lex:Loc Key=Contract}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Contract}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{lex:Loc Key=QuoteVolume}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Volume}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{lex:Loc Key=MatchPrice}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Value}" DataContext="{Binding MatchPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{lex:Loc Key=BidPrice}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Value}" DataContext="{Binding BidPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{lex:Loc Key=BidSize}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding BidSize}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{lex:Loc Key=AskPrice}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Value}" DataContext="{Binding AskPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{lex:Loc Key=AskSize}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding AskSize}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{lex:Loc Key=Exchange}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Exchange}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </Grid>
         </ScrollViewer>
     </DockPanel>

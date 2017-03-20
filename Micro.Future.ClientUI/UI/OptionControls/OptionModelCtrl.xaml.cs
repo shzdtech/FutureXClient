@@ -35,7 +35,6 @@ namespace Micro.Future.UI
             OpMarketControl.expireDateCB.SelectionChanged += ExpireDateCB_SelectionChanged;
             OpMarketControl.expireDateCB1.SelectionChanged += ExpireDateCB1_SelectionChanged;
             //OpMarketControl.underlyingContractCB1.SelectionChanged += UnderlyingContractCB1_SelectionChanged;
-            OpMarketControl.volModelCB.SelectionChanged += VolModelCB_SelectionChanged;
             OpMarketControl.volModelCB1.SelectionChanged += VolModelCB1_SelectionChanged;
             WMSettingsLV.revertCurrentBtn.Click += RevertCurrentBtn_Click;
             WMSettingsLV.setReferenceBtn.Click += SetCurrentBtn_Click;
@@ -55,7 +54,7 @@ namespace Micro.Future.UI
             }
         }
 
-        private async void ExpireDateCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ExpireDateCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = OpMarketControl.underlyingEX.SelectedValue;
             var uc = OpMarketControl.underlyingContractCB.SelectedValue;
@@ -63,17 +62,10 @@ namespace Micro.Future.UI
 
             if (exchange != null && uc != null && ed != null)
             {
-                VolCurvLV.SelectOption(exchange.ToString(), uc.ToString(), ed.ToString());
-                WMSettingsLV.SelectOption(exchange.ToString(), uc.ToString(), ed.ToString());
-                var callputOpt = VolCurvLV.CallPutTDOptionVMCollection.FirstOrDefault();
-                if(callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
-                {
-                    //var modelparamsVM = await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
-                    //WMSettingsLV.DataContext = modelparamsVM;
-                }
+                VolCurvLV.SelectOptionImpl(exchange.ToString(), uc.ToString(), ed.ToString());
             }
         }
-        private async void ExpireDateCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ExpireDateCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = OpMarketControl.underlyingEX1.SelectedValue;
             var uc = OpMarketControl.underlyingContractCB1.SelectedValue;
@@ -81,25 +73,11 @@ namespace Micro.Future.UI
 
             if (exchange != null && uc != null && ed != null)
             {
-                VolCurvLV.SelectOptionImpl (exchange.ToString(), uc.ToString(), ed.ToString());
+                VolCurvLV.SelectOption (exchange.ToString(), uc.ToString(), ed.ToString());
                 WMSettingsLV.SelectOption(exchange.ToString(), uc.ToString(), ed.ToString());
-                var callputOpt = VolCurvLV.CallPutTDOptionVMCollection1.FirstOrDefault();
-                if (callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
-                {
-                    var modelparamsVM = await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
-                    WMSettingsLV.DataContext = modelparamsVM;
-                }
             }
         }
 
-        private void VolModelCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-            {
-                var volModel = OpMarketControl.volModelCB.SelectedItem as ModelParamsVM;
-                if (volModel != null)
-                {                
-                    //WMSettingsLV.DataContext = volModel;
-                   }
-            }
         private void VolModelCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
@@ -128,12 +106,7 @@ namespace Micro.Future.UI
 
         private void SetCurrentBtn_Click(object sender, RoutedEventArgs e)
         {
-            //VolCurvLV.ClearTempVolLine();
-            var exchange = OpMarketControl.underlyingEX.SelectedValue;
-            var uc = OpMarketControl.underlyingContractCB.SelectedValue;
-            var ed = OpMarketControl.expireDateCB.SelectedValue;
-            VolCurvLV.ScatterReset(exchange.ToString(), uc.ToString(), ed.ToString());
-
+            VolCurvLV.ScatterReset();
         }
     }
 }
