@@ -24,9 +24,30 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(Weight));
             }
         }
+
+        private double _adjust;
+        public double Adjust
+        {
+            get
+            {
+                return _adjust;
+            }
+            set
+            {
+                _adjust = value;
+                OnPropertyChanged(nameof(Adjust));
+            }
+        }
     }
     public class StrategyVM : OTCPricingVM
     {
+        public enum Model
+        {
+            PM,
+            IVM,
+            VM
+        }
+
         public StrategyVM(AbstractOTCHandler otcHandler)
         {
             OTCHandler = otcHandler;
@@ -167,14 +188,20 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private ObservableCollection<PricingContractParamVM> _pricingContractParams = new ObservableCollection<PricingContractParamVM>();
         public ObservableCollection<PricingContractParamVM> PricingContractParams
         {
-            get
-            {
-                return _pricingContractParams;
-            }
-        }
+            get;
+        } = new ObservableCollection<PricingContractParamVM>();
+
+        public ObservableCollection<PricingContractParamVM> IVMContractParams
+        {
+            get;
+        } = new ObservableCollection<PricingContractParamVM>();
+
+        public ObservableCollection<PricingContractParamVM> VMContractParams
+        {
+            get;
+        } = new ObservableCollection<PricingContractParamVM>();
 
         public void UpdateStrategy()
         {

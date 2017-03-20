@@ -1,14 +1,9 @@
-﻿using Micro.Future.Message;
-using Micro.Future.Message.Business;
+﻿using Micro.Future.Message.Business;
 using Micro.Future.ViewModel;
-using OxyPlot;
-using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Micro.Future.Message
 {
@@ -39,7 +34,7 @@ namespace Micro.Future.Message
                     Contract = tradingDeskOption.Contract
                 };
 
-            if (tradingDeskOption.MarketData != null)
+            if (FindTradingDeskData(quote) != null)
             {
                 quote.MarketDataVM.AskPrice = tradingDeskOption.MarketData.AskPrice;
                 quote.MarketDataVM.AskSize = tradingDeskOption.MarketData.AskSize;
@@ -49,7 +44,6 @@ namespace Micro.Future.Message
                 quote.MarketDataVM.BidVol = tradingDeskOption.MarketData.BidVolatility;
                 quote.MarketDataVM.MidVol = (tradingDeskOption.MarketData.BidVolatility + tradingDeskOption.MarketData.AskVolatility) / 2;
                 quote.MarketDataVM.MidPrice = (tradingDeskOption.MarketData.BidPrice + tradingDeskOption.MarketData.AskPrice) / 2;
-            }
 
             if (tradingDeskOption.TheoData != null)
             {
@@ -86,20 +80,25 @@ namespace Micro.Future.Message
                 quote.WingsReturnVM.VolCurrOffset = tradingDeskOption.WingsReturn.VolCurrOffset;
             }
 
-            if (tradingDeskOption.TheoDataTemp != null)
-            {
-                if (quote.TempTheoDataVM == null)
-                    quote.TempTheoDataVM = new OptionPricingVM();
+                if (tradingDeskOption.TheoDataTemp != null)
+                {
+                    if (quote.TempTheoDataVM == null)
+                        quote.TempTheoDataVM = new OptionPricingVM();
 
-                quote.TempTheoDataVM.AskVol = tradingDeskOption.TheoDataTemp.AskVolatility;
-                quote.TempTheoDataVM.BidVol = tradingDeskOption.TheoDataTemp.BidVolatility;
+                    quote.TempTheoDataVM.AskVol = tradingDeskOption.TheoDataTemp.AskVolatility;
+                    quote.TempTheoDataVM.BidVol = tradingDeskOption.TheoDataTemp.BidVolatility;
+                }
+                else
+                {
+                    quote.TempTheoDataVM = null;
+                }
+
+                OnTradingDeskOptionParamsReceived?.Invoke(quote);
             }
             else
             {
-                quote.TempTheoDataVM = null;
+                UnsubTradingDeskData(new[] { quote });
             }
-
-            OnTradingDeskOptionParamsReceived?.Invoke(quote);
         }
 
 

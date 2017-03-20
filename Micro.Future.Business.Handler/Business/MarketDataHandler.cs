@@ -154,37 +154,33 @@ namespace Micro.Future.Message
 
         protected void RetMDSuccessAction(PBMarketData md)
         {
-            WeakReference<MarketDataVM> mktVMRef;
-            if (MarketDataMap.TryGetValue(md.Contract, out mktVMRef))
+            var mktVM = FindMarketData(md.Contract);
+            if (mktVM != null)
             {
-                MarketDataVM mktVM = null;
-                if (mktVMRef.TryGetTarget(out mktVM))
+                if (mktVM.LastPrice != md.MatchPrice ||
+                    mktVM.BidPrice != md.BidPrice[0] ||
+                    mktVM.AskPrice != md.AskPrice[0] ||
+                    mktVM.Volume != md.Volume)
                 {
-                    if (mktVM.LastPrice != md.MatchPrice ||
-                        mktVM.BidPrice != md.BidPrice[0] ||
-                        mktVM.AskPrice != md.AskPrice[0] ||
-                        mktVM.Volume != md.Volume)
-                    {
-                        mktVM.LastPrice = md.MatchPrice;
-                        mktVM.BidPrice = md.BidPrice[0];
-                        mktVM.AskPrice = md.AskPrice[0];
-                        mktVM.BidSize = md.BidVolume[0];
-                        mktVM.AskSize = md.AskVolume[0];
-                        mktVM.Volume = md.Volume;
-                        mktVM.OpenValue = md.OpenValue;
-                        mktVM.PreCloseValue = md.PreCloseValue;
-                        mktVM.HighValue = md.HighValue;
-                        mktVM.LowValue = md.LowValue;
-                        mktVM.UpperLimitPrice = md.HighLimit;
-                        mktVM.LowerLimitPrice = md.LowLimit;
+                    mktVM.LastPrice = md.MatchPrice;
+                    mktVM.BidPrice = md.BidPrice[0];
+                    mktVM.AskPrice = md.AskPrice[0];
+                    mktVM.BidSize = md.BidVolume[0];
+                    mktVM.AskSize = md.AskVolume[0];
+                    mktVM.Volume = md.Volume;
+                    mktVM.OpenValue = md.OpenValue;
+                    mktVM.PreCloseValue = md.PreCloseValue;
+                    mktVM.HighValue = md.HighValue;
+                    mktVM.LowValue = md.LowValue;
+                    mktVM.UpperLimitPrice = md.HighLimit;
+                    mktVM.LowerLimitPrice = md.LowLimit;
 
-                        OnNewMarketData?.Invoke(mktVM);
-                    }
+                    OnNewMarketData?.Invoke(mktVM);
                 }
-                else
-                {
-                    UnsubMarketData(new[] { md.Contract });
-                }
+            }
+            else
+            {
+                UnsubMarketData(new[] { md.Contract });
             }
         }
 

@@ -9,12 +9,17 @@ using System.Threading.Tasks;
 using System.Threading;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.LocalStorage;
+using System.Collections.Concurrent;
 
 namespace Micro.Future.Message
 {
     public abstract class AbstractOTCHandler : AbstractMessageHandler
     {
         public event Action<StrategyVM> OnStrategyUpdated;
+        public ConcurrentDictionary<ContractKeyVM, WeakReference<ContractKeyVM>> TradingDeskDataMap
+        {
+            get;
+        } = new ConcurrentDictionary<ContractKeyVM, WeakReference<ContractKeyVM>>();
 
         protected IDictionary<string, ObservableCollection<ModelParamsVM>> _modelDict = new Dictionary<string, ObservableCollection<ModelParamsVM>>();
 
@@ -89,6 +94,10 @@ namespace Micro.Future.Message
                       ((uint)BusinessMessageID.MSG_ID_QUERY_TRADINGDESK, OnQueryTradingDeskSuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBPortfolioList, ExceptionMessage>
                       ((uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO, OnQueryPortfolioSuccessAction, OnErrorAction);
+            MessageWrapper.RegisterAction<PBStrategyList, ExceptionMessage>
+                      ((uint)BusinessMessageID.MSG_ID_MODIFY_PRICING_CONTRACT, OnUpdateStrategySuccessAction, OnErrorAction);
+            MessageWrapper.RegisterAction<PBInstrumentList, ExceptionMessage>
+                      ((uint)BusinessMessageID.MSG_ID_UNSUB_TRADINGDESK_PRICING, UnsubTDSuccessAction, OnErrorAction);
         }
 
         public Task<ModelParamsVM> QueryModelParamsAsync(string modelName, int timeout = 10000)
@@ -256,7 +265,7 @@ namespace Micro.Future.Message
 
             portfolioList.Portfolio.Add(new PBPortfolio { Name = portfolio });
 
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSD_ID_PORTFOLIO_NEW, portfolioList);
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_PORTFOLIO_NEW, portfolioList);
         }
 
         public void CreatePortfolios(IEnumerable<PortfolioVM> portfolios)
@@ -268,7 +277,7 @@ namespace Micro.Future.Message
                 portfolioList.Portfolio.Add(new PBPortfolio { Name = portfolio.Name });
             }
 
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSD_ID_PORTFOLIO_NEW, portfolioList);
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_PORTFOLIO_NEW, portfolioList);
         }
 
         private void OnQueryPortfolioSuccessAction(PBPortfolioList PB)
@@ -325,6 +334,7 @@ namespace Micro.Future.Message
             var strategy = new PBStrategy();
             strategy.Exchange = sVM.Exchange;
             strategy.Contract = sVM.Contract;
+            strategy.Symbol = sVM.StrategySym;
             strategy.Depth = sVM.Depth;
             strategy.BidQT = sVM.BidQT;
             strategy.AskQT = sVM.AskQT;
@@ -338,27 +348,38 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }
 
-        public void UpdateStrategyPricingContracts(StrategyVM sVM)
+        public void UpdateStrategyPricingContracts(StrategyVM sVM, StrategyVM.Model model)
         {
             var strategy = new PBStrategy();
             strategy.Exchange = sVM.Exchange;
             strategy.Contract = sVM.Contract;
-            strategy.Depth = sVM.Depth;
-            strategy.BidQT = sVM.BidQT;
-            strategy.AskQT = sVM.AskQT;
-            strategy.Hedging = sVM.Hedging;
-            strategy.AskEnabled = sVM.AskEnabled;
-            strategy.BidEnabled = sVM.BidEnabled;
-            strategy.IvModel = sVM.IVModel;
-            strategy.VolModel = sVM.VolModel;
-            strategy.PricingModel = sVM.PricingModel;
+            strategy.Symbol = sVM.StrategySym;
 
-            foreach (var pc in strategy.PricingContracts)
+            if (model == StrategyVM.Model.PM)
             {
-                strategy.PricingContracts.Add(new PBPricingContract() { Exchange = pc.Exchange, Contract = pc.Contract, Weight = pc.Weight });
+                foreach (var pc in sVM.PricingContractParams)
+                {
+                    strategy.PricingContracts.Add(new PBPricingContract() { Exchange = pc.Exchange, Contract = pc.Contract, Adjust = pc.Adjust, Weight = pc.Weight });
+                }
             }
 
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
+            if (model == StrategyVM.Model.IVM)
+            {
+                foreach (var pc in sVM.IVMContractParams)
+                {
+                    strategy.PricingContracts.Add(new PBPricingContract() { Exchange = pc.Exchange, Contract = pc.Contract, Adjust = pc.Adjust, Weight = pc.Weight });
+                }
+            }
+
+            if (model == StrategyVM.Model.VM)
+            {
+                foreach (var pc in sVM.VMContractParams)
+                {
+                    strategy.PricingContracts.Add(new PBPricingContract() { Exchange = pc.Exchange, Contract = pc.Contract, Adjust = pc.Adjust, Weight = pc.Weight });
+                }
+            }
+
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_PRICING_CONTRACT, strategy);
         }
 
         public void UpdateQuantity(string exchange, string contract, int quantity)
@@ -588,13 +609,11 @@ namespace Micro.Future.Message
                 quote.BidPrice = md.BidPrice;
                 quote.AskPrice = md.AskPrice;
             }
-            var ps = from s in StrategyVMCollection
-                     where (s.Exchange == md.Exchange && s.Contract == md.Contract)
-                     select s;
-            foreach (var s in ps)
+            quote = StrategyVMCollection.FindContract(md.Exchange, md.Contract);
+            if (quote != null)
             {
-                s.BidPrice = md.BidPrice;
-                s.AskPrice = md.AskPrice;
+                quote.BidPrice = md.BidPrice;
+                quote.AskPrice = md.AskPrice;
             }
         }
 
@@ -695,6 +714,109 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage(msgId, sst);
 
             return tcs.Task;
+        }
+
+        public async Task<ContractKeyVM> SubTradingDeskDataAsync(ContractKeyVM contractKey)
+        {
+            var tdDataList = await SubTradingDeskDataAsync(new [] { contractKey });
+            return tdDataList?.FirstOrDefault();
+        }
+
+
+        public Task<IList<ContractKeyVM>> SubTradingDeskDataAsync(IEnumerable<ContractKeyVM> instrIDList, int timeout = 10000)
+        {
+            var msgId = (uint)BusinessMessageID.MSG_ID_SUB_TRADINGDESK_PRICING;
+
+            var tcs = new TimeoutTaskCompletionSource<IList<ContractKeyVM>>(timeout);
+
+            var serialId = NextSerialId;
+
+            #region callback
+            MessageWrapper.RegisterAction<PBInstrumentList, ExceptionMessage>
+            (msgId,
+            (resp) =>
+            {
+                if (resp.Header?.SerialId == serialId)
+                {
+                    tcs.TrySetResult(SubTDSuccessAction(resp));
+                }
+            },
+            (bizErr) =>
+            {
+                if (bizErr.SerialId == serialId)
+                    tcs.TrySetException(new MessageException(bizErr.MessageId, ErrorType.BIZ_ERROR, bizErr.Errorcode, bizErr.Description.ToStringUtf8()));
+            }
+            );
+            #endregion
+
+            SendMessage(serialId, msgId, instrIDList);
+
+            return tcs.Task;
+        }
+
+
+        public void SendMessage(uint serialId, uint msgId, IEnumerable<ContractKeyVM> instrIDList)
+        {
+            var instr = new PBInstrumentList();
+
+            foreach (var instrID in instrIDList)
+            {
+                instr.Instrument.Add(new PBInstrument { Exchange = instrID.Exchange, Contract = instrID.Contract });
+            }
+
+            instr.Header = new DataHeader { SerialId = serialId };
+
+            MessageWrapper.SendMessage(msgId, instr);
+        }
+
+        public void UnsubTradingDeskData(IEnumerable<ContractKeyVM> instList)
+        {
+            var instrList = new List<ContractKeyVM>();
+            foreach (var quoteVM in instList)
+            {
+                WeakReference<ContractKeyVM> mktData;
+                TradingDeskDataMap.TryRemove(quoteVM, out mktData);
+                instrList.Add(quoteVM);
+            }
+
+            SendMessage(NextSerialId, (uint)BusinessMessageID.MSG_ID_UNSUB_TRADINGDESK_PRICING, instrList);
+        }
+
+        public ContractKeyVM FindTradingDeskData(ContractKeyVM contract)
+        {
+            WeakReference<ContractKeyVM> tdVMRef;
+            ContractKeyVM tdVM = null;
+            if (TradingDeskDataMap.TryGetValue(contract, out tdVMRef))
+                tdVMRef.TryGetTarget(out tdVM);
+
+            return tdVM;
+        }
+
+        protected IList<ContractKeyVM> SubTDSuccessAction(PBInstrumentList instList)
+        {
+            var ret = new List<ContractKeyVM>();
+            foreach (var contract in instList.Instrument)
+            {
+                var contractKey = new ContractKeyVM(contract.Exchange, contract.Contract);
+                var tdVM = FindTradingDeskData(contractKey);
+                if (tdVM == null)
+                {
+                    TradingDeskDataMap[contractKey] = new WeakReference<ContractKeyVM>(contractKey);
+                }
+
+                ret.Add(tdVM);
+            }
+
+            return ret;
+        }
+
+        protected void UnsubTDSuccessAction(PBInstrumentList pbInstList)
+        {
+            foreach (var contract in pbInstList.Instrument)
+            {
+                WeakReference<ContractKeyVM> tdVMRef;
+                TradingDeskDataMap.TryRemove(new ContractKeyVM(contract.Exchange, contract.Contract), out tdVMRef);
+            }
         }
     }
 }
