@@ -36,7 +36,6 @@ namespace Micro.Future.ViewModel
             //PlotModel.LegendOrientation = LegendOrientation.Horizontal;
             //PlotModel.LegendPlacement = LegendPlacement.Outside;
             //PlotModel.LegendPosition = LegendPosition.TopRight;
-            //PlotModel.LegendBackground = OxyColor.FromAColor(200, OxyColors.White);
             //PlotModel.LegendBorder = OxyColors.Black;
 
             var volatilityAxis = new LinearAxis()

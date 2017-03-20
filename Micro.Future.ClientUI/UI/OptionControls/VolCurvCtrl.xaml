@@ -16,7 +16,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <oxy:Plot x:Name="volPlot" Grid.Row="0" MinHeight="200" MinWidth="150">
+        <oxy:Plot x:Name="volPlot" Grid.Row="0" MinHeight="200" MinWidth="150" >
             <oxy:Plot.Series>
                 <oxy:LineSeries Name="callBidLS" ItemsSource="{Binding CallBidVolLine}" Visibility="{Binding ElementName=checkBoxCallBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:LineSeries Name="callAskLS" ItemsSource="{Binding CallAskVolLine}" Visibility="{Binding ElementName=checkBoxCallAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
@@ -34,13 +34,6 @@
                 <oxy:ScatterSeries Name="theoCallBidSC" ItemsSource="{Binding TheoCallBidVolScatter}" ColorAxisKey="greenLineColorAxis"  MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoBid1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:ScatterSeries Name="theoPutAskSC" ItemsSource="{Binding TheoPutAskVolScatter}" ColorAxisKey="redLineColorAxis" MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoAsk1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
                 <oxy:ScatterSeries Name="theoCallAskSC" ItemsSource="{Binding TheoCallAskVolScatter}" ColorAxisKey="greenLineColorAxis" MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoAsk1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
-                <!--<oxy:LineSeries Name="refPriceLS"  ItemsSource="{Binding ReferencePriceLine}"  LineStyle="Dash" Color="Purple" />
-                <oxy:LineSeries Name="aTMLS"  ItemsSource="{Binding ATMLine}"  LineStyle="Dash" Color="Green" />
-                <oxy:LineSeries Name="synFLS"  ItemsSource="{Binding SynFLine}"  LineStyle="Dash" Color="Black" />
-                <oxy:LineSeries Name="x0FLS"  ItemsSource="{Binding X0Line}"  LineStyle="Dash" Color="Blue" />
-                <oxy:LineSeries Name="x1FLS"  ItemsSource="{Binding X1Line}"  LineStyle="Dash" Color="Blue" />
-                <oxy:LineSeries Name="x2FLS"  ItemsSource="{Binding X2Line}"  LineStyle="Dash" Color="Red" />
-                <oxy:LineSeries Name="x3FLS"  ItemsSource="{Binding X3Line}"  LineStyle="Dash" Color="Red" />-->
             </oxy:Plot.Series>
             <oxy:Plot.Axes>
                 <oxy:LinearColorAxis Key="greenLineColorAxis" Minimum="0.1" Maximum="0.9" HighColor="Green" LowColor="Gray" Position ="None"/>
