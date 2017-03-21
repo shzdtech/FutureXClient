@@ -210,19 +210,22 @@ namespace Micro.Future.UI
                 if (mktDataVM != null)
                 {
                     QuoteVMCollection1.Add(mktDataVM);
-                    var contract = SubbedContracts?.FirstOrDefault();
-                    if (contract != null)
+                }
+
+                var contract = SubbedContracts?.FirstOrDefault();
+                if (contract != null)
+                {
+                    var strategy =
+                        _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                    var pricingContract = strategy.IVMContractParams.FirstOrDefault();
+                    if (pricingContract == null)
                     {
-                        var strategy =
-                            _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
-                        var pricingContract = strategy.IVMContractParams.FirstOrDefault();
-                        if (pricingContract != null)
-                        {
-                            pricingContract.Exchange = uexchange;
-                            pricingContract.Contract = uc;
-                        }
-                        _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.IVM);
+                        pricingContract = new PricingContractParamVM();
+                        strategy.IVMContractParams.Add(pricingContract);
                     }
+                    pricingContract.Exchange = uexchange;
+                    pricingContract.Contract = uc;
+                    _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.IVM);
                 }
             }
         }
@@ -259,19 +262,21 @@ namespace Micro.Future.UI
                 if (mktDataVM != null)
                 {
                     QuoteVMCollection2.Add(mktDataVM);
-                    var contract = SubbedContracts2?.FirstOrDefault();
-                    if (contract != null)
+                }
+                var contract = SubbedContracts2?.FirstOrDefault();
+                if (contract != null)
+                {
+                    var strategy =
+                        _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                    var pricingContract = strategy.VMContractParams.FirstOrDefault();
+                    if (pricingContract == null)
                     {
-                        var strategy =
-                            _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
-                        var pricingContract = strategy.VMContractParams.FirstOrDefault();
-                        if (pricingContract != null)
-                        {
-                            pricingContract.Exchange = uexchange;
-                            pricingContract.Contract = uc;
-                        }
-                        _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.VM);
+                        pricingContract = new PricingContractParamVM();
+                        strategy.VMContractParams.Add(pricingContract);
                     }
+                    pricingContract.Exchange = uexchange;
+                    pricingContract.Contract = uc;
+                    _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.VM);
                 }
             }
         }
@@ -327,8 +332,8 @@ namespace Micro.Future.UI
                                 if (pricingContract != null)
                                 {
                                     pricingContract.Adjust = ctrl.Value.Value;
+                                    _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.IVM);
                                 }
-                                _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.IVM);
                             }
                         }
                     }
@@ -356,8 +361,8 @@ namespace Micro.Future.UI
                                 if (pricingContract != null)
                                 {
                                     pricingContract.Adjust = ctrl.Value.Value;
+                                    _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.VM);
                                 }
-                                _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.VM);
                             }
                         }
                     }
