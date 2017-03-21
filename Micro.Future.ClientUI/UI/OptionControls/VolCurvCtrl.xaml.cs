@@ -238,8 +238,9 @@ namespace Micro.Future.UI
                     scatterPt = VolatilityModelVM.TheoCallAskVolScatter[idx];
                     VolatilityModelVM.TheoCallAskVolScatter[idx] = new ScatterPoint(x, tdOptionVM.TheoDataVM.AskVol, scatterPt.Size, scatterPt.Value, scatterPt.Tag);
                 }
-                if (!double.IsNaN(tdOptionVM.TheoDataVM.BidVol)) VolatilityModelVM.TheoBidVolLine[idx] = new DataPoint(x, tdOptionVM.TheoDataVM.BidVol);
+                if (!double.IsNaN(tdOptionVM.TheoDataVM.BidVol)) 
                 {
+                    VolatilityModelVM.TheoBidVolLine[idx] = new DataPoint(x, tdOptionVM.TheoDataVM.BidVol);
                     var scatterPt = VolatilityModelVM.TheoPutBidVolScatter[idx];
                     VolatilityModelVM.TheoPutBidVolScatter[idx] = new ScatterPoint(x, tdOptionVM.TheoDataVM.BidVol, scatterPt.Size, scatterPt.Value, scatterPt.Tag);
                     scatterPt = VolatilityModelVM.TheoCallBidVolScatter[idx];
