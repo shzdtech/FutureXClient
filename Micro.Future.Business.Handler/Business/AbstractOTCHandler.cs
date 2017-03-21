@@ -95,7 +95,7 @@ namespace Micro.Future.Message
             MessageWrapper.RegisterAction<PBPortfolioList, ExceptionMessage>
                       ((uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO, OnQueryPortfolioSuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBStrategyList, ExceptionMessage>
-                      ((uint)BusinessMessageID.MSG_ID_MODIFY_PRICING_CONTRACT, OnUpdateStrategySuccessAction, OnErrorAction);
+                      ((uint)BusinessMessageID.MSG_ID_MODIFY_PRICING_CONTRACT, OnQueryStrategySuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBInstrumentList, ExceptionMessage>
                       ((uint)BusinessMessageID.MSG_ID_UNSUB_TRADINGDESK_PRICING, UnsubTDSuccessAction, OnErrorAction);
         }
@@ -392,7 +392,7 @@ namespace Micro.Future.Message
             {
                 foreach (var pc in sVM.IVMContractParams)
                 {
-                    strategy.PricingContracts.Add(new PBPricingContract() { Exchange = pc.Exchange, Contract = pc.Contract, Adjust = pc.Adjust, Weight = pc.Weight });
+                    strategy.IvmContracts.Add(new PBPricingContract() { Exchange = pc.Exchange, Contract = pc.Contract, Adjust = pc.Adjust, Weight = pc.Weight });
                 }
             }
 
@@ -400,7 +400,7 @@ namespace Micro.Future.Message
             {
                 foreach (var pc in sVM.VMContractParams)
                 {
-                    strategy.PricingContracts.Add(new PBPricingContract() { Exchange = pc.Exchange, Contract = pc.Contract, Adjust = pc.Adjust, Weight = pc.Weight });
+                    strategy.VolContracts.Add(new PBPricingContract() { Exchange = pc.Exchange, Contract = pc.Contract, Adjust = pc.Adjust, Weight = pc.Weight });
                 }
             }
 
@@ -509,6 +509,33 @@ namespace Micro.Future.Message
                         {
                             Exchange = wtContract.Exchange,
                             Contract = wtContract.Contract,
+                            Adjust = wtContract.Adjust,
+                            Weight = wtContract.Weight
+                        });
+                }
+
+                strategyVM.IVMContractParams.Clear();
+                foreach (var wtContract in strategy.IvmContracts)
+                {
+                    strategyVM.IVMContractParams.Add(
+                        new PricingContractParamVM()
+                        {
+                            Exchange = wtContract.Exchange,
+                            Contract = wtContract.Contract,
+                            Adjust = wtContract.Adjust,
+                            Weight = wtContract.Weight
+                        });
+                }
+
+                strategyVM.VMContractParams.Clear();
+                foreach (var wtContract in strategy.VolContracts)
+                {
+                    strategyVM.VMContractParams.Add(
+                        new PricingContractParamVM()
+                        {
+                            Exchange = wtContract.Exchange,
+                            Contract = wtContract.Contract,
+                            Adjust = wtContract.Adjust,
                             Weight = wtContract.Weight
                         });
                 }
@@ -825,7 +852,8 @@ namespace Micro.Future.Message
                 var tdVM = FindTradingDeskData(contractKey);
                 if (tdVM == null)
                 {
-                    TradingDeskDataMap[contractKey] = new WeakReference<ContractKeyVM>(contractKey);
+                    tdVM = contractKey;
+                    TradingDeskDataMap[contractKey] = new WeakReference<ContractKeyVM>(tdVM);
                 }
 
                 ret.Add(tdVM);

@@ -251,7 +251,7 @@ namespace Micro.Future.UI
         {
             if (contract2.SelectedItem != null)
             {
-                var uexchange = exchange1.SelectedValue.ToString();
+                var uexchange = exchange2.SelectedValue.ToString();
                 var uc = contract2.SelectedItem.ToString();
                 var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 QuoteVMCollection2.Clear();
