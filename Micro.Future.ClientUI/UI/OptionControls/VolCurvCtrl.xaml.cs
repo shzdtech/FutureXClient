@@ -302,7 +302,7 @@ namespace Micro.Future.UI
             {
                 CallPutTDOptionVMCollection1.Add(vm);
                 _optionCallVMList.Add(new KeyValuePair<ContractKeyVM, double>(vm.CallOptionVM, vm.StrikePrice));
-                _optionPutVMList.Add(new KeyValuePair<ContractKeyVM, double>(vm.CallOptionVM, vm.StrikePrice));
+                _optionPutVMList.Add(new KeyValuePair<ContractKeyVM, double>(vm.PutOptionVM, vm.StrikePrice));
                 VolatilityModelVM.CallAskVolLine.Add(DataPoint.Undefined);
                 VolatilityModelVM.CallBidVolLine.Add(DataPoint.Undefined);
                 VolatilityModelVM.CallMidVolLine.Add(DataPoint.Undefined);
