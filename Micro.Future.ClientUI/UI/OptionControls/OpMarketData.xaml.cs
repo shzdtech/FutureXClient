@@ -352,7 +352,7 @@ namespace Micro.Future.UI
                     {
                         if (e.Key == Key.Enter)
                         {
-                            var contract = SubbedContracts?.FirstOrDefault();
+                            var contract = SubbedContracts2?.FirstOrDefault();
                             if (contract != null)
                             {
                                 var strategy =
