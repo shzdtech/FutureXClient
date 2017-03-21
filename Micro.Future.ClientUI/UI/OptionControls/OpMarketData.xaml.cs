@@ -73,7 +73,7 @@ namespace Micro.Future.UI
             exchange2.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
             quoteListView1.ItemsSource = QuoteVMCollection1;
             quoteListView2.ItemsSource = QuoteVMCollection2;
-
+            volModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("ivm");
             volModelCB1.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("vm");
 
         }

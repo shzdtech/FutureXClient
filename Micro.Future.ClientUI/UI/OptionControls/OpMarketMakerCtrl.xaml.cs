@@ -356,5 +356,10 @@ namespace Micro.Future.UI
             if (checkbox != null)
                 OnCallAskStatusChanged?.Invoke(checkbox.Tag.ToString(), false);
         }
+
+        private void option_priceLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

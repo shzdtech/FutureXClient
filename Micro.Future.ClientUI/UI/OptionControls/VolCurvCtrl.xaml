@@ -18,12 +18,12 @@
         </Grid.RowDefinitions>
         <oxy:Plot x:Name="volPlot" Grid.Row="0" MinHeight="200" MinWidth="150" >
             <oxy:Plot.Series>
-                <oxy:LineSeries Name="callBidLS" ItemsSource="{Binding CallBidVolLine}" Visibility="{Binding ElementName=checkBoxCallBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MarkerType="Circle" Color="AliceBlue"/>
-                <oxy:LineSeries Name="callAskLS" ItemsSource="{Binding CallAskVolLine}" Visibility="{Binding ElementName=checkBoxCallAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MarkerType="Circle" Color="BlueViolet"/>
-                <oxy:LineSeries Name="callMidLS" ItemsSource="{Binding CallMidVolLine}" Visibility="{Binding ElementName=checkBoxCallMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MarkerType="Circle" Color="DodgerBlue"/>
-                <oxy:LineSeries Name="putBidLS" ItemsSource="{Binding PutBidVolLine}" Visibility="{Binding ElementName=checkBoxPutBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MarkerType="Circle" Color="PaleVioletRed"/>
-                <oxy:LineSeries Name="putAskLS" ItemsSource="{Binding PutAskVolLine}" Visibility="{Binding ElementName=checkBoxPutAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MarkerType="Circle" Color="DarkRed"/>
-                <oxy:LineSeries Name="putMidLS" ItemsSource="{Binding PutMidVolLine}" Visibility="{Binding ElementName=checkBoxPutMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MarkerType="Circle" Color="IndianRed"/>
+                <oxy:LineSeries Name="callBidLS" ItemsSource="{Binding CallBidVolLine}" Visibility="{Binding ElementName=checkBoxCallBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MarkerType="Circle" Color="Red" />
+                <oxy:LineSeries Name="callAskLS" ItemsSource="{Binding CallAskVolLine}" Visibility="{Binding ElementName=checkBoxCallAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MarkerType="Circle" Color="Red"/>
+                <oxy:LineSeries Name="callMidLS" ItemsSource="{Binding CallMidVolLine}" Visibility="{Binding ElementName=checkBoxCallMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MarkerType="Circle" Color="Red" LineStyle="Dash"/>
+                <oxy:LineSeries Name="putBidLS" ItemsSource="{Binding PutBidVolLine}" Visibility="{Binding ElementName=checkBoxPutBid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MarkerType="Circle" Color="Blue"/>
+                <oxy:LineSeries Name="putAskLS" ItemsSource="{Binding PutAskVolLine}" Visibility="{Binding ElementName=checkBoxPutAsk, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MarkerType="Circle" Color="Blue"/>
+                <oxy:LineSeries Name="putMidLS" ItemsSource="{Binding PutMidVolLine}" Visibility="{Binding ElementName=checkBoxPutMid, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MarkerType="Circle" Color="Blue" LineStyle="Dash" />
                 <oxy:LineSeries Name="theoBidLS"  ItemsSource="{Binding TheoBidVolLine}" Visibility="{Binding ElementName=checkBoxTheoBid1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MarkerType="Circle" Color="DarkOliveGreen"/>
                 <oxy:LineSeries Name="theoAskLS" ItemsSource="{Binding TheoAskVolLine}" Visibility="{Binding ElementName=checkBoxTheoAsk1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MarkerType="Circle" Color="LawnGreen"/>
                 <oxy:LineSeries Name="theoMidLS" ItemsSource="{Binding TheoMidVolLine}" Visibility="{Binding ElementName=checkBoxTheoMid1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}" MarkerType="Circle" Color="DarkSeaGreen"/>
