@@ -85,20 +85,6 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private string _description;
-        public string Description
-        {
-            get
-            {
-                return _description;
-            }
-            set
-            {
-                _description = value;
-                OnPropertyChanged(nameof(Description));
-            }
-        }
-
         private bool _bidEnabled;
         public bool BidEnabled
         {
