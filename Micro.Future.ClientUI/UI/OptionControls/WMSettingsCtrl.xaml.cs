@@ -103,7 +103,7 @@ namespace Micro.Future.UI
         }
         private void SetReference_Click(object sender, RoutedEventArgs e)
         {
-            if (_otcOptionHandler != null)
+            if (_otcOptionHandler != null && TempSettings.Any())
             {
                 var modelParamsVM = DataContext as ModelParamsVM;
                 _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, TempSettings);
