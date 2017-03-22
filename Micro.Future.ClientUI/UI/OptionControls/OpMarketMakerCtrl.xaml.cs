@@ -273,9 +273,9 @@ namespace Micro.Future.UI
                         return;
 
                     option.CallStrategyVM.PricingModel = modelParam.InstanceName;
-                    _otcOptionHandler.UpdateStrategy(option.CallStrategyVM);
+                    _otcOptionHandler.UpdateStrategyModel(option.CallStrategyVM, StrategyVM.Model.PM);
                     option.PutStrategyVM.PricingModel = modelParam.InstanceName;
-                    _otcOptionHandler.UpdateStrategy(option.PutStrategyVM);
+                    _otcOptionHandler.UpdateStrategyModel(option.PutStrategyVM, StrategyVM.Model.PM);
                 }
             }
         }

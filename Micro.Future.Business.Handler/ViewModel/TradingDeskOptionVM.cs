@@ -8,9 +8,17 @@ namespace Micro.Future.ViewModel
 {
     public class TradingDeskOptionVM : ContractKeyVM
     {
-        public OptionPricingVM MarketDataVM { get; } = new OptionPricingVM();
-        public OptionPricingVM TheoDataVM { get; } = new OptionPricingVM();
+        public PricingVM MarketDataVM { get; set; }
+        public VolatilityVM ImpliedVolVM { get; set; }
+        public OptionPricingVM TheoDataVM { get; set; }
         public OptionPricingVM TempTheoDataVM { get; set; }
-        public WingsReturnVM WingsReturnVM { get; set; } = new WingsReturnVM();
+        public WingsReturnVM WingsReturnVM { get; set; }
+
+        public void InitProperties()
+        {
+            MarketDataVM = new PricingVM();
+            ImpliedVolVM = new VolatilityVM();
+            TheoDataVM = new OptionPricingVM();
+        }
     }
 }

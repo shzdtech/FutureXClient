@@ -8,48 +8,36 @@ namespace Micro.Future.ViewModel
 {
    public class VolatilityVM : ViewModelBase
     {
-
-        private double _Strike;
-        public double Strike
+        private double _bidVol;
+        public double BidVol
         {
-            get { return _Strike; }
+            get { return _bidVol; }
             set
             {
-                _Strike = value;
-                OnPropertyChanged("Strike");
+                _bidVol = value;
+                OnPropertyChanged(nameof(BidVol));
             }
         }
 
-        private double _volBid;
-        public double volBid
+        private double _midVol;
+        public double MidVol
         {
-            get { return _volBid; }
+            get { return _midVol; }
             set
             {
-                _volBid = value;
-                OnPropertyChanged("volBid");
+                _midVol = value;
+                OnPropertyChanged(nameof(MidVol));
             }
         }
 
-        private double _volMid;
-        public double VolMid
+        private double _askVol;
+        public double AskVol
         {
-            get { return _volMid; }
+            get { return _askVol; }
             set
             {
-                _volMid = value;
-                OnPropertyChanged("VolMid");
-            }
-        }
-
-        private double _volAsk;
-        public double VolAsk
-        {
-            get { return _volAsk; }
-            set
-            {
-                _volAsk = value;
-                OnPropertyChanged("VolAsk");
+                _askVol = value;
+                OnPropertyChanged(nameof(AskVol));
             }
         }
     }

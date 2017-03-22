@@ -50,20 +50,6 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private double _midPrice;
-        public double MidPrice
-        {
-            get
-            {
-                return _midPrice;
-            }
-            set
-            {
-                _midPrice = value;
-                OnPropertyChanged(nameof(MidPrice));
-            }
-        }
-
         private double _bidDelta;
         public double BidDelta
         {

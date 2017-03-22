@@ -30,6 +30,17 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private DoubleChange _midPrice = new DoubleChange();
+        public DoubleChange MidPrice
+        {
+            get { return _midPrice; }
+            set
+            {
+                _midPrice.Value = value.Value;
+                OnPropertyChanged(nameof(MidPrice));
+            }
+        }
+
         private long bidSize;
         public long BidSize
         {

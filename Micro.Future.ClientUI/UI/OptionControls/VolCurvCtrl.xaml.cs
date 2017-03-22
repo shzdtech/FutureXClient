@@ -204,22 +204,26 @@ namespace Micro.Future.UI
 
         private void OnTradingDeskOptionParamsReceived(TradingDeskOptionVM tdOptionVM)
         {
-            int idx = _optionPutVMList.FindIndex(c => c.Key.EqualContract(tdOptionVM));
-            if (idx >= 0) // Update PutOption
+            int idx;
+            if (tdOptionVM.ImpliedVolVM != null)
             {
-                double x = _optionPutVMList[idx].Value;
-                if (!double.IsNaN(tdOptionVM.MarketDataVM.AskVol)) VolatilityModelVM.PutAskVolLine[idx] = new DataPoint(x, tdOptionVM.MarketDataVM.AskVol);
-                if (!double.IsNaN(tdOptionVM.MarketDataVM.BidVol)) VolatilityModelVM.PutBidVolLine[idx] = new DataPoint(x, tdOptionVM.MarketDataVM.BidVol);
-                if (!double.IsNaN(tdOptionVM.MarketDataVM.MidVol)) VolatilityModelVM.PutMidVolLine[idx] = new DataPoint(x, tdOptionVM.MarketDataVM.MidVol);
-            }
+                idx = _optionPutVMList.FindIndex(c => c.Key.EqualContract(tdOptionVM));
+                if (idx >= 0) // Update PutOption
+                {
+                    double x = _optionPutVMList[idx].Value;
+                    if (!double.IsNaN(tdOptionVM.ImpliedVolVM.AskVol)) VolatilityModelVM.PutAskVolLine[idx] = new DataPoint(x, tdOptionVM.ImpliedVolVM.AskVol);
+                    if (!double.IsNaN(tdOptionVM.ImpliedVolVM.BidVol)) VolatilityModelVM.PutBidVolLine[idx] = new DataPoint(x, tdOptionVM.ImpliedVolVM.BidVol);
+                    if (!double.IsNaN(tdOptionVM.ImpliedVolVM.MidVol)) VolatilityModelVM.PutMidVolLine[idx] = new DataPoint(x, tdOptionVM.ImpliedVolVM.MidVol);
+                }
 
-            idx = _optionCallVMList.FindIndex(c => c.Key.EqualContract(tdOptionVM));
-            if (idx >= 0) // Update CallOption
-            {
-                double x = _optionCallVMList[idx].Value;
-                if (!double.IsNaN(tdOptionVM.MarketDataVM.AskVol)) VolatilityModelVM.CallAskVolLine[idx] = new DataPoint(x, tdOptionVM.MarketDataVM.AskVol);
-                if (!double.IsNaN(tdOptionVM.MarketDataVM.BidVol)) VolatilityModelVM.CallBidVolLine[idx] = new DataPoint(x, tdOptionVM.MarketDataVM.BidVol);
-                if (!double.IsNaN(tdOptionVM.MarketDataVM.MidVol)) VolatilityModelVM.CallMidVolLine[idx] = new DataPoint(x, tdOptionVM.MarketDataVM.MidVol);
+                idx = _optionCallVMList.FindIndex(c => c.Key.EqualContract(tdOptionVM));
+                if (idx >= 0) // Update CallOption
+                {
+                    double x = _optionCallVMList[idx].Value;
+                    if (!double.IsNaN(tdOptionVM.ImpliedVolVM.AskVol)) VolatilityModelVM.CallAskVolLine[idx] = new DataPoint(x, tdOptionVM.ImpliedVolVM.AskVol);
+                    if (!double.IsNaN(tdOptionVM.ImpliedVolVM.BidVol)) VolatilityModelVM.CallBidVolLine[idx] = new DataPoint(x, tdOptionVM.ImpliedVolVM.BidVol);
+                    if (!double.IsNaN(tdOptionVM.ImpliedVolVM.MidVol)) VolatilityModelVM.CallMidVolLine[idx] = new DataPoint(x, tdOptionVM.ImpliedVolVM.MidVol);
+                }
             }
 
             idx = _optionTheoCallVMList.FindIndex(c => c.Key.EqualContract(tdOptionVM));
@@ -228,8 +232,8 @@ namespace Micro.Future.UI
             if (idx >= 0)
             {
                 double x = _optionTheoCallVMList[idx].Value;
-                if (tdOptionVM.TheoDataVM != null)
-                {
+                if(tdOptionVM.TheoDataVM != null)
+                { 
                     if (!double.IsNaN(tdOptionVM.TheoDataVM.AskVol))
                     {
                         VolatilityModelVM.TheoAskVolLine[idx] = new DataPoint(x, tdOptionVM.TheoDataVM.AskVol);
@@ -350,12 +354,12 @@ namespace Micro.Future.UI
                 VolatilityModelVM.TheoMidVolLine1.Add(DataPoint.Undefined);
 
                 double value = (vm.PutStrategyVM != null && vm.PutStrategyVM.AskEnabled) ? 1 : 0;
-                VolatilityModelVM.TheoPutAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol, 0, value, vm.PutStrategyVM));
-                VolatilityModelVM.TheoPutBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol, 0, value, vm.PutStrategyVM));
+                VolatilityModelVM.TheoPutAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, 0, 0, value, vm.PutStrategyVM));
+                VolatilityModelVM.TheoPutBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, 0, 0, value, vm.PutStrategyVM));
 
                 value = (vm.CallStrategyVM != null && vm.CallStrategyVM.AskEnabled) ? 1 : 0;
-                VolatilityModelVM.TheoCallAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.AskVol, 0, value, vm.CallStrategyVM));
-                VolatilityModelVM.TheoCallBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.BidVol, 0, value, vm.CallStrategyVM));
+                VolatilityModelVM.TheoCallAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, 0, 0, value, vm.CallStrategyVM));
+                VolatilityModelVM.TheoCallBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, 0, 0, value, vm.CallStrategyVM));
             }
         }
 
@@ -371,12 +375,12 @@ namespace Micro.Future.UI
             foreach (var vm in CallPutTDOptionVMCollection)
             {
                 double value = (vm.PutStrategyVM != null && vm.PutStrategyVM.AskEnabled) ? 1 : 0;
-                VolatilityModelVM.TheoPutAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.AskVol, 10, value, vm.PutStrategyVM));
-                VolatilityModelVM.TheoPutBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.MarketDataVM.BidVol, 10, value, vm.PutStrategyVM));
+                VolatilityModelVM.TheoPutAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.ImpliedVolVM.AskVol, 10, value, vm.PutStrategyVM));
+                VolatilityModelVM.TheoPutBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.PutOptionVM.ImpliedVolVM.BidVol, 10, value, vm.PutStrategyVM));
 
                 value = (vm.CallStrategyVM != null && vm.CallStrategyVM.AskEnabled) ? 1 : 0;
-                VolatilityModelVM.TheoCallAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.AskVol, 10, value, vm.CallStrategyVM));
-                VolatilityModelVM.TheoCallBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.MarketDataVM.BidVol, 10, value, vm.CallStrategyVM));
+                VolatilityModelVM.TheoCallAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.ImpliedVolVM.AskVol, 10, value, vm.CallStrategyVM));
+                VolatilityModelVM.TheoCallBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, vm.CallOptionVM.ImpliedVolVM.BidVol, 10, value, vm.CallStrategyVM));
             }
         }
 
