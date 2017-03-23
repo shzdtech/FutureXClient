@@ -125,6 +125,26 @@ namespace Micro.Future.UI
                                   select new ContractKeyVM(c.Exchange, c.Contract)).ToList();
 
                 SubbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList);
+                //var contract = SubbedContracts?.FirstOrDefault();
+                //if (contract != null)
+                //{
+                //    var strategy =
+                //        _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                //    var pricingContract = strategy.IVMContractParams.FirstOrDefault();
+                //    if (pricingContract != null)
+                //    {
+                //        var futureexchange = pricingContract.Exchange;
+                //        var futurecontract = pricingContract.Contract;
+                //        var futureunderlying = _futurecontractList.Where(c => c.Exchange == futureexchange && c.Contract == futurecontract).Select(c => c.ProductID);
+                //        var volmodel = strategy.VolModel;
+                //        var adjust = pricingContract.Adjust;
+                //        volModelCB.SelectedValue = volmodel;
+                //        exchange1.SelectedValue = futureexchange;
+                //        underlying1.SelectedValue = futureunderlying;
+                //        contract1.SelectedValue = futurecontract;
+                //        adjustment1.Value = adjust;
+                //    }
+                //}
             }
         }
         private void underlyingEX1_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -174,6 +194,27 @@ namespace Micro.Future.UI
                                   select new ContractKeyVM(c.Exchange, c.Contract)).ToList();
 
                 SubbedContracts2 = await _otcOptionHandler.SubTradingDeskDataAsync(optionList);
+                //var contract = SubbedContracts2?.FirstOrDefault();
+                //if (contract != null)
+                //{
+                //    var strategy = 
+                //        _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                //    var pricingContract = strategy.IVMContractParams.FirstOrDefault();
+                //    if (pricingContract != null)
+                //    {
+                //        var futureexchange = pricingContract.Exchange;
+                //        var futurecontract = pricingContract.Contract;
+                //        var futureunderlying = _futurecontractList.Where(c => c.Exchange == futureexchange && c.Contract == futurecontract).Select(c => c.ProductID);
+                //        var volmodel = strategy.VolModel;
+                //        var adjust = pricingContract.Adjust;
+                //        volModelCB1.SelectedValue = volmodel;
+                //        exchange2.SelectedValue = futureexchange;
+                //        underlying2.SelectedValue = futureunderlying;
+                //        contract2.SelectedValue = futurecontract;
+                //        adjustment2.Value = adjust;
+                //    }
+                //}
+
             }
         }
 

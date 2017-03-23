@@ -159,5 +159,19 @@ namespace Micro.Future.UI
                 c.UnderlyingContract == contract && c.ExpireDate == expiredate && c.Exchange == exchange)
                 .ToDictionary(c => new ContractKeyVM(c.Exchange, c.Contract), c => c);
         }
+
+        private void SSRMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                if (_otcOptionHandler != null)
+                {
+                    var modelParamsVM = DataContext as ModelParamsVM;
+                    TempSettings[ctrl.Tag.ToString()] = modelParamsVM[ctrl.Tag.ToString()].Value;
+                    _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
+                }
+            }
+        }
     }
 }

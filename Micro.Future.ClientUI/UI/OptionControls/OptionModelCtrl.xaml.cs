@@ -106,7 +106,7 @@ namespace Micro.Future.UI
 
         private void SetCurrentBtn_Click(object sender, RoutedEventArgs e)
         {
-            VolCurvLV.ScatterReset();
+            //VolCurvLV.ScatterReset();
         }
     }
 }

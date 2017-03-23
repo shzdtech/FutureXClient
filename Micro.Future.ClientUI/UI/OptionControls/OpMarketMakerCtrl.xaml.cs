@@ -227,6 +227,20 @@ namespace Micro.Future.UI
                     {
                         CallPutTDOptionVMCollection.Add(vm);
                     }
+                    var callPutTDOptionVM = CallPutTDOptionVMCollection.FirstOrDefault();
+                    var strategyVM = callPutTDOptionVM.CallStrategyVM;
+                    var pricingContractParamVM = strategyVM.IVMContractParams.FirstOrDefault();
+                    var futurecontract = pricingContractParamVM.Contract;
+                    var futureexchange = pricingContractParamVM.Exchange;
+                    var futureunderlying = _futurecontractList.Where(c => c.Exchange == futureexchange && c.Contract == futurecontract).Select(c => c.ProductID);
+                    var adjust = pricingContractParamVM.Adjust;
+                    var pricingmodel = strategyVM.PricingModel;
+                    var volmodel = strategyVM.VolModel;
+                    pricingModelCB.SelectedValue = pricingmodel;
+                    underlyingEX1.SelectedValue = futureexchange;
+                    underlyingCB1.SelectedValue = futureunderlying;
+                    underlyingContractCB1.SelectedValue = futurecontract;
+                    volModelLB.Content = volmodel;
                 }
             }
         }
