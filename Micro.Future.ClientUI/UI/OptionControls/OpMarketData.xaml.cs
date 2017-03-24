@@ -75,7 +75,6 @@ namespace Micro.Future.UI
             quoteListView2.ItemsSource = QuoteVMCollection2;
             volModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("ivm");
             volModelCB1.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("vm");
-
         }
         private void underlyingEX_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -259,6 +258,9 @@ namespace Micro.Future.UI
                     var strategy =
                         _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
                     var pricingContract = strategy.IVMContractParams.FirstOrDefault();
+                    if (pricingContract != null && pricingContract.Exchange == uexchange && pricingContract.Contract == uc)
+                        return;
+
                     if (pricingContract == null)
                     {
                         pricingContract = new PricingContractParamVM();
@@ -310,6 +312,9 @@ namespace Micro.Future.UI
                     var strategy =
                         _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
                     var pricingContract = strategy.VMContractParams.FirstOrDefault();
+                    if (pricingContract != null && pricingContract.Exchange == uexchange && pricingContract.Contract == uc)
+                        return;
+
                     if (pricingContract == null)
                     {
                         pricingContract = new PricingContractParamVM();
@@ -331,8 +336,11 @@ namespace Micro.Future.UI
                 {
                     var strategy =
                         _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
-                    strategy.IVModel = modelParam.InstanceName;
-                    _otcOptionHandler.UpdateStrategyModel(strategy, StrategyVM.Model.IVM);
+                    if (strategy != null && strategy.IVModel != modelParam.InstanceName)
+                    {
+                        strategy.IVModel = modelParam.InstanceName;
+                        _otcOptionHandler.UpdateStrategyModel(strategy, StrategyVM.Model.IVM);
+                    }
                 }
             }
         }
@@ -347,8 +355,11 @@ namespace Micro.Future.UI
                 {
                     var strategy =
                         _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
-                    strategy.VolModel = modelParam.InstanceName;
-                    _otcOptionHandler.UpdateStrategyModel(strategy, StrategyVM.Model.VM);
+                    if (strategy != null && strategy.VolModel != modelParam.InstanceName)
+                    {
+                        strategy.VolModel = modelParam.InstanceName;
+                        _otcOptionHandler.UpdateStrategyModel(strategy, StrategyVM.Model.VM);
+                    }
                 }
             }
         }

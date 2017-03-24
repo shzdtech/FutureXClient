@@ -228,35 +228,38 @@ namespace Micro.Future.UI
                     }
                     var callPutTDOptionVM = CallPutTDOptionVMCollection.FirstOrDefault();
                     var strategyVM = callPutTDOptionVM.CallStrategyVM;
-                    var pricingContractParamVM = strategyVM.IVMContractParams.FirstOrDefault();
-                    var futurecontract = pricingContractParamVM.Contract;
-                    var futureexchange = pricingContractParamVM.Exchange;
-                    var futureunderlying = _futurecontractList.Where(c => c.Exchange == futureexchange && c.Contract == futurecontract).Select(c => c.ProductID);
-                    var adjust = pricingContractParamVM.Adjust;
-                    var pricingmodel = strategyVM.PricingModel;
-                    var volmodel = strategyVM.VolModel;
-                    var modelparams = volModelLB.Content as ModelParamsVM;
-                    pricingModelCB.SelectedValue = pricingmodel;
-                    underlyingEX1.SelectedValue = futureexchange.ToString();
-                    underlyingCB1.ItemsSource = _futurecontractList.Where(c => c.Exchange == futureexchange.ToString()).Select(c => c.ProductID).Distinct();
-                    underlyingCB1.SelectedValue = futureunderlying;
-                    underlyingContractCB1.ItemsSource = _futurecontractList.Where(c => c.ProductID == futureunderlying.ToString()).Select(c => c.Contract).Distinct();
-                    underlyingContractCB1.SelectedValue = futurecontract;
-                    volModelLB.Content = volmodel;
-                    riskFree_Interest.DataContext = modelparams;
+                    var pricingContractParamVM = strategyVM.IVMContractParams?.FirstOrDefault();
+                    if (pricingContractParamVM != null)
+                    {
+                        var futurecontract = pricingContractParamVM.Contract;
+                        var futureexchange = pricingContractParamVM.Exchange;
+                        var futureunderlying = _futurecontractList.FirstOrDefault(c => c.Exchange == futureexchange && c.Contract == futurecontract)?.ProductID;
+                        var adjust = pricingContractParamVM.Adjust;
+                        var pricingmodel = strategyVM.PricingModel;
+                        var volmodel = strategyVM.VolModel;
+                        pricingModelCB.SelectedValue = pricingmodel;
+                        underlyingEX1.SelectedValue = futureexchange;
+                        underlyingCB1.SelectedValue = futureunderlying;
+                        underlyingContractCB1.SelectedValue = futurecontract;
+                        volModelLB.Content = volmodel;
+                    }
+
                     _subbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList.Select(c => new ContractKeyVM(c.Exchange, c.Contract)));
                 }
             }
         }
         private void underlyingEX1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var exchange = underlyingEX1.SelectedValue.ToString();
-            underlyingCB1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
-            underlyingContractCB1.ItemsSource = null;
+            var exchange = underlyingEX1.SelectedItem?.ToString();
+            if (exchange != null)
+            {
+                underlyingCB1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+                underlyingContractCB1.ItemsSource = null;
+            }
         }
         private void underlyingCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var productId = underlyingCB1.SelectedValue;
+            var productId = underlyingCB1.SelectedItem;
 
             if (productId != null)
             {
@@ -285,16 +288,14 @@ namespace Micro.Future.UI
             var modelParam = pricingModelCB.SelectedItem as ModelParamsVM;
             if (modelParam != null)
             {
-                foreach (var option in CallPutTDOptionVMCollection)
-                {
-                    if (option.CallStrategyVM == null)
-                        return;
+                var option = CallPutTDOptionVMCollection.FirstOrDefault();
+                if (option?.CallStrategyVM == null || option.CallStrategyVM.PricingModel == modelParam.InstanceName)
+                    return;
 
-                    option.CallStrategyVM.PricingModel = modelParam.InstanceName;
-                    _otcOptionHandler.UpdateStrategyModel(option.CallStrategyVM, StrategyVM.Model.PM);
-                    option.PutStrategyVM.PricingModel = modelParam.InstanceName;
-                    _otcOptionHandler.UpdateStrategyModel(option.PutStrategyVM, StrategyVM.Model.PM);
-                }
+                option.CallStrategyVM.PricingModel = modelParam.InstanceName;
+                _otcOptionHandler.UpdateStrategyModel(option.CallStrategyVM, StrategyVM.Model.PM);
+                option.PutStrategyVM.PricingModel = modelParam.InstanceName;
+                _otcOptionHandler.UpdateStrategyModel(option.PutStrategyVM, StrategyVM.Model.PM);
             }
         }
 
