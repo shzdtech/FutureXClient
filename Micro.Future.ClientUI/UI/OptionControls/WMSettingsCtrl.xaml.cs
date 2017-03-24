@@ -53,7 +53,7 @@ namespace Micro.Future.UI
 
         private void OnTradingDeskOptionParamsReceived(TradingDeskOptionVM tdOptionVM)
         {
-            if (_strategySet !=null && _strategySet.ContainsKey(tdOptionVM))
+            if (_strategySet !=null && tdOptionVM.WingsReturnVM != null && _strategySet.ContainsKey(tdOptionVM))
             {
                 _wingsReturnVM.SlopeCurr = tdOptionVM.WingsReturnVM.SlopeCurr;
                 _wingsReturnVM.SlopeCurrOffset = tdOptionVM.WingsReturnVM.SlopeCurrOffset;
