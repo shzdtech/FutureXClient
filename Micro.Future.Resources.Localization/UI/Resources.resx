@@ -717,4 +717,7 @@
   <data name="ExpireDate" xml:space="preserve">
     <value>到期日</value>
   </data>
+  <data name="Interest" xml:space="preserve">
+    <value>利率</value>
+  </data>
 </root>

@@ -28,7 +28,7 @@
                 <xctk:DoubleUpDown x:Name="no_StrikePrice" Tag="1"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding NumberofStrikePrice}"  Minimum="1" Maximum="1000000"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>-->
                     <GroupBox x:Name="RiskFree_Interest" Header="Risk Free Interest">
-                        <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="slope_ref"  UpdateValueOnEnterKey="True" FormatString="F3"  Value="{Binding Path=[slope_ref].Value}"  Minimum="0" Maximum="1"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top" Spinned="Spinned"/>
+                        <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate"  UpdateValueOnEnterKey="True" FormatString="F3"  Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1"  Increment="0.001" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top" Spinned="Spinned"/>
                     </GroupBox>
                     <!--<GroupBox x:Name="Days_Maturity" Header="Days to Maturity">
                 <xctk:DoubleUpDown x:Name="days_Maturity" Tag="1"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DaysMaturity}"  Minimum="1" Maximum="1000000"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>

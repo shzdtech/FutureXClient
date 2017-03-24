@@ -219,7 +219,6 @@ namespace Micro.Future.UI
                                    orderby o.StrikePrice
                                    select new ContractKeyVM(exchange, o.Contract)).ToList();
 
-                    _subbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList.Select(c=>new ContractKeyVM(c.Exchange, c.Contract)));
                     var retList = _otcOptionHandler.MakeCallPutTDOptionData(strikeList, callList, putList);
 
                     CallPutTDOptionVMCollection.Clear();
@@ -236,11 +235,16 @@ namespace Micro.Future.UI
                     var adjust = pricingContractParamVM.Adjust;
                     var pricingmodel = strategyVM.PricingModel;
                     var volmodel = strategyVM.VolModel;
+                    var modelparams = volModelLB.Content as ModelParamsVM;
                     pricingModelCB.SelectedValue = pricingmodel;
-                    underlyingEX1.SelectedValue = futureexchange;
+                    underlyingEX1.SelectedValue = futureexchange.ToString();
+                    underlyingCB1.ItemsSource = _futurecontractList.Where(c => c.Exchange == futureexchange.ToString()).Select(c => c.ProductID).Distinct();
                     underlyingCB1.SelectedValue = futureunderlying;
+                    underlyingContractCB1.ItemsSource = _futurecontractList.Where(c => c.ProductID == futureunderlying.ToString()).Select(c => c.Contract).Distinct();
                     underlyingContractCB1.SelectedValue = futurecontract;
                     volModelLB.Content = volmodel;
+                    riskFree_Interest.DataContext = modelparams;
+                    _subbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList.Select(c => new ContractKeyVM(c.Exchange, c.Contract)));
                 }
             }
         }

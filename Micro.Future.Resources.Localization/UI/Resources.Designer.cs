@@ -763,6 +763,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 利率 的本地化字符串。
+        /// </summary>
+        internal static string Interest {
+            get {
+                return ResourceManager.GetString("Interest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 利息基数 的本地化字符串。
         /// </summary>
         internal static string InterestBase {

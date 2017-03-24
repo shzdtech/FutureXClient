@@ -22,6 +22,8 @@
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=AddQuote}" Click="Add_Quote_Click">
                 </MenuItem>
+                <MenuItem Header="{lex:Loc Key=Order}" Click="Add_Order_Click">
+                </MenuItem>
                 <!--<MenuItem Header="{lex:Loc Key=SetReference}" Click="SetReference_Click">
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=RevertCurrent}" Click="RevertCurrent_Click">

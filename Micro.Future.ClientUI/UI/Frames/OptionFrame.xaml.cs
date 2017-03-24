@@ -3,6 +3,7 @@ using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
 using Micro.Future.Resources.Localization;
+using Micro.Future.UI.OptionControls;
 using Micro.Future.ViewModel;
 using Micro.Future.Windows;
 using System;
@@ -32,7 +33,7 @@ namespace Micro.Future.UI
     public partial class OptionFrame : UserControl, IUserFrame
     {
         private AbstractSignInManager _otcOptionSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionHandler>());
-        // private AbstractSignInManager _ctpSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPOptionDataHandler>());
+        private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
         private AbstractOTCHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
 
         //private List<PBSignInManager> _signIns = new List<PBSignInManager>();
@@ -144,6 +145,7 @@ namespace Micro.Future.UI
 
         private async void _tdSignIner_OnLogged(IUserInfo obj)
         {
+            _otcOptionTradeHandler.RegisterMessageWrapper(_otcOptionHandler.MessageWrapper);
             await _otcOptionHandler.QueryStrategyAsync();
             await _otcOptionHandler.QueryAllModelParamsAsync();
             await _otcOptionHandler.SyncContractInfoAsync();
@@ -230,6 +232,11 @@ namespace Micro.Future.UI
             //optionPane.AddContent(opMarketMakerCtrl).Title = "OptionQuote";
         }
 
+        private void Add_Order_Click(object sender, RoutedEventArgs e)
+        {
+            OpOrderWin win = new OpOrderWin();
+            win.Show();
+        }
     }
 }
 

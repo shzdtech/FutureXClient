@@ -31,6 +31,7 @@ namespace Micro.Future
             if (config.Content.TryGetValue("OTCOPTIONSERVER", out configDict))
             {
                 MessageHandlerContainer.Register<OTCOptionHandler, OTCOptionHandler>(GenSignInOption(configDict));
+                MessageHandlerContainer.Register<OTCOptionTradeHandler, OTCOptionTradeHandler>(GenSignInOption(configDict));
             }
 
             if (config.Content.TryGetValue("CTPMDSERVER", out configDict))

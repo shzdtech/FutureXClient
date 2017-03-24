@@ -48,6 +48,7 @@
     <Compile Include="Business\OrderEnums.cs" />
     <Compile Include="Business\OTCContractHandler.cs" />
     <Compile Include="Business\OTCOptionHandler.cs" />
+    <Compile Include="Business\OTCOptionTradeHandler.cs" />
     <Compile Include="Business\ProductEnums.cs" />
     <Compile Include="Business\TraderExHandler.cs" />
     <Compile Include="Constant\CustomOxyMarkers.cs" />
@@ -74,7 +75,6 @@
     <Compile Include="ViewModel\CallPutOptionVM.cs" />
     <Compile Include="ViewModel\ContractVM.cs" />
     <Compile Include="ViewModel\ModelParamsVM.cs" />
-    <Compile Include="ViewModel\OptionMarketVM.cs" />
     <Compile Include="ViewModel\ContractKeyVM.cs" />
     <Compile Include="ViewModel\ContractParamVM.cs" />
     <Compile Include="ViewModel\FundVM.cs" />
