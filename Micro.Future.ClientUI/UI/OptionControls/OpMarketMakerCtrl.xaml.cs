@@ -209,7 +209,7 @@ namespace Micro.Future.UI
                                       select c).ToList();
 
                     var strikeList = (from o in optionList
-                                      orderby o.StrikePrice
+                                      orderby o.StrikePrice descending
                                       select o.StrikePrice).Distinct().ToList();
 
                     var callList = (from o in optionList
