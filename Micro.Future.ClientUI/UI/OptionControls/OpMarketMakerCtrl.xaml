@@ -34,7 +34,7 @@
                 <ComboBox x:Name="pricingModelCB" DisplayMemberPath="InstanceName" SelectionChanged="pricingModelCB_SelectionChanged" SelectedValuePath="InstanceName"/>
             </GroupBox>
             <GroupBox x:Name="Op_VolModel" Header="{lex:Loc Key=VolModel}">
-                <Label x:Name="volModelLB" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label x:Name="volModelLB" Content="" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </GroupBox>
             <GroupBox x:Name="Op_Exchange1" Header="{lex:Loc Key=Exchange}">
                 <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged"/>
@@ -46,7 +46,7 @@
                 <ComboBox x:Name="underlyingContractCB1" SelectionChanged="underlyingContractCB1_SelectionChanged"/>
             </GroupBox>
             <GroupBox x:Name="Interest" Header="{lex:Loc Key=Interest}">
-                <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate"  UpdateValueOnEnterKey="True" FormatString="F3"  Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1"  Increment="0.001" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate"  UpdateValueOnEnterKey="True" FormatString="F3"  Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1"  Increment="0.001" HorizontalAlignment="Left" VerticalAlignment="Top" KeyDown="OptionWin_KeyDown" Spinned="Spinned"/>
             </GroupBox>
             <ListView Name="quoteListView1">
                 <ListView.View>

@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace Micro.Future.UI
 {
@@ -57,7 +58,6 @@ namespace Micro.Future.UI
 
             exchangeCB.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
-
             pricingModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("pm");
 
             // Initialize Market Data
@@ -159,6 +159,9 @@ namespace Micro.Future.UI
 
         private void exchangeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            underlyingCB.ItemsSource = null;
+            underlyingContractCB.ItemsSource = null;
+            expireDateCB.ItemsSource = null;
             var exchange = exchangeCB.SelectedValue.ToString();
             underlyingCB.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
 
@@ -228,26 +231,74 @@ namespace Micro.Future.UI
                     }
                     var callPutTDOptionVM = CallPutTDOptionVMCollection.FirstOrDefault();
                     var strategyVM = callPutTDOptionVM.CallStrategyVM;
-                    var pricingContractParamVM = strategyVM.IVMContractParams?.FirstOrDefault();
-                    if (pricingContractParamVM != null)
+                    pricingModelCB.ItemsSource = null;
+                    volModelLB.Content = null;
+                    riskFree_Interest.DataContext = null;
+                    underlyingEX1.ItemsSource = null;
+                    underlyingCB1.ItemsSource = null;
+                    underlyingContractCB1.ItemsSource = null;
+                    underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
+                    pricingModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("pm");
+                    if (strategyVM != null)
                     {
-                        var futurecontract = pricingContractParamVM.Contract;
-                        var futureexchange = pricingContractParamVM.Exchange;
-                        var futureunderlying = _futurecontractList.FirstOrDefault(c => c.Exchange == futureexchange && c.Contract == futurecontract)?.ProductID;
-                        var adjust = pricingContractParamVM.Adjust;
-                        var pricingmodel = strategyVM.PricingModel;
-                        var volmodel = strategyVM.VolModel;
-                        pricingModelCB.SelectedValue = pricingmodel;
-                        underlyingEX1.SelectedValue = futureexchange;
-                        underlyingCB1.SelectedValue = futureunderlying;
-                        underlyingContractCB1.SelectedValue = futurecontract;
-                        volModelLB.Content = volmodel;
+                        var pricingContractParamVM = strategyVM.PricingContractParams?.FirstOrDefault();
+                        if (pricingContractParamVM != null)
+                        {
+                            var futurecontract = pricingContractParamVM.Contract;
+                            var futureexchange = pricingContractParamVM.Exchange;
+                            var futureunderlying = _futurecontractList.FirstOrDefault(c => c.Exchange == futureexchange && c.Contract == futurecontract)?.ProductID;
+                            var adjust = pricingContractParamVM.Adjust;
+                            var pricingmodel = strategyVM.PricingModel;
+                            var volmodel = strategyVM.VolModel;
+                            pricingModelCB.SelectedValue = pricingmodel;
+                            underlyingEX1.SelectedValue = futureexchange;
+                            underlyingCB1.SelectedValue = futureunderlying;
+                            underlyingContractCB1.SelectedValue = futurecontract;
+                            volModelLB.Content = volmodel;
+                            var modelVM = pricingModelCB.SelectedItem as ModelParamsVM;
+                            if (modelVM != null)
+                            {
+                                riskFree_Interest.DataContext = modelVM;
+                            }
+                        }
                     }
-
-                    _subbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList.Select(c => new ContractKeyVM(c.Exchange, c.Contract)));
+                        _subbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList.Select(c => new ContractKeyVM(c.Exchange, c.Contract)));
                 }
             }
         }
+        private void OptionWin_KeyDown(object sender, KeyEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                if (e.Key == Key.Escape || e.Key == Key.Enter)
+                {
+                    if (_otcOptionHandler != null)
+                    {
+                        if (e.Key == Key.Enter)
+                        {
+                            var modelParamsVM = DataContext as ModelParamsVM;
+                            if(modelParamsVM != null)
+                            _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
+                        }
+                    }
+                }
+            }
+        }
+        private void Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
+        {
+            var ctrl = sender as DoubleUpDown;
+            if (ctrl != null)
+            {
+                if (_otcOptionHandler != null)
+                {
+                    var modelParamsVM = DataContext as ModelParamsVM;
+                    _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), ctrl.Value.Value);
+                }
+            }
+        }
+
+
         private void underlyingEX1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = underlyingEX1.SelectedItem?.ToString();
@@ -259,12 +310,12 @@ namespace Micro.Future.UI
         }
         private void underlyingCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var productId = underlyingCB1.SelectedItem;
+            var productId = underlyingCB1.SelectedItem?.ToString();
 
             if (productId != null)
             {
                 var underlyingContracts = (from c in _futurecontractList
-                                           where c.ProductID == productId.ToString()
+                                           where c.ProductID == productId
                                            select c.Contract).Distinct().ToList();
 
                 underlyingContractCB1.ItemsSource = underlyingContracts;
@@ -272,14 +323,33 @@ namespace Micro.Future.UI
         }
         public async void underlyingContractCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (underlyingContractCB1.SelectedItem != null)
-            {
-                var uc = underlyingContractCB1.SelectedItem.ToString();
+            var uc = underlyingContractCB1.SelectedItem?.ToString();
+            var uexchange = underlyingEX1.SelectedItem?.ToString();
+            if (uc != null)
+            { 
                 var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 QuoteVMCollection1.Clear();
                 var mktDataVM = await handler.SubMarketDataAsync(uc);
                 if (mktDataVM != null)
                     QuoteVMCollection1.Add(mktDataVM);
+                var contract = _subbedContracts?.FirstOrDefault();
+                if (contract != null)
+                {
+                    var strategy =
+                        _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                    var pricingContract = strategy.PricingContractParams.FirstOrDefault();
+                    if (pricingContract != null && pricingContract.Exchange == uexchange && pricingContract.Contract == uc)
+                        return;
+
+                    if (pricingContract == null)
+                    {
+                        pricingContract = new PricingContractParamVM();
+                        strategy.PricingContractParams.Add(pricingContract);
+                    }
+                    pricingContract.Exchange = uexchange;
+                    pricingContract.Contract = uc;
+                    _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.PM);
+                }
             }
         }
 

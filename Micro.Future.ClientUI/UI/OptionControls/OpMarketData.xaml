@@ -59,7 +59,7 @@
                         <ComboBox x:Name="expireDateCB1" SelectionChanged="expireDateCB1_SelectionChanged"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_VolModel1" Header="{lex:Loc Key=VolModel}">
-                        <ComboBox x:Name="volModelCB1" DisplayMemberPath="InstanceName" SelectionChanged="volModelCB1_SelectionChanged">
+                        <ComboBox x:Name="volModelCB1" DisplayMemberPath="InstanceName" SelectedValuePath="InstanceName" SelectionChanged="volModelCB1_SelectionChanged">
                         </ComboBox>
                     </GroupBox>
                 </WrapPanel>
