@@ -365,9 +365,16 @@ namespace Micro.Future.UI
 
         public void TempCurveReset(string exchange, string contract, string expiredate)
         {
+            var datapoints = VolatilityModelVM.TheoAskVolLine1.Count;
             VolatilityModelVM.TheoAskVolLine1.Clear();
             VolatilityModelVM.TheoBidVolLine1.Clear();
             VolatilityModelVM.TheoMidVolLine1.Clear();
+            for (int i= 0; i < datapoints; i++)
+            {
+                VolatilityModelVM.TheoAskVolLine1.Add(DataPoint.Undefined);
+                VolatilityModelVM.TheoBidVolLine1.Add(DataPoint.Undefined);
+                VolatilityModelVM.TheoMidVolLine1.Add(DataPoint.Undefined);
+            }
         }
 
         public void ScatterReset()
