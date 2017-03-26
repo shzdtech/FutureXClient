@@ -46,14 +46,15 @@
                         <xctk:DoubleUpDown x:Name="reference_Price"  Tag="f_ref" UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[f_ref].Value}"  Minimum="0" Maximum="1000000"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top" Spinned="Spinned"/>
                     </GroupBox>
                     <GroupBox x:Name="S_SR" Header="SSR">
-                        <Grid>
+                        <xctk:DoubleUpDown x:Name="sSR"  Tag="ssr" UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[ssr].Value}"  Minimum="0" Maximum="100"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top" Spinned="Spinned"/>
+                        <!--<Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" Tag="1" Text="{Binding Path=Value,ElementName=sSR}" />
                             <Slider Grid.Row="1" x:Name="sSR" HorizontalAlignment="Left" Tag="ssr" Value="{Binding Path=[ssr].Value}"  VerticalAlignment="Top" Width="130" TickFrequency="1" Maximum="100" Minimum="0" IsSnapToTickEnabled="True" SmallChange="0" MouseLeftButtonUp="SSRMouseUp"  />
-                        </Grid>
+                        </Grid>-->
                     </GroupBox>
                     <Button x:Name="setReferenceBtn" Content="{lex:Loc Key=SetReference}" Click="SetReference_Click" />
                     <Button x:Name="revertCurrentBtn" Content="{lex:Loc Key=RevertCurrent}" Click="RevertCurrent_Click" />
