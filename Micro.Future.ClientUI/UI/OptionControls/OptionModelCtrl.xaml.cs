@@ -85,6 +85,15 @@ namespace Micro.Future.UI
             {
                 WMSettingsLV.DataContext = volModel;
             }
+            var exchange = OpMarketControl.underlyingEX1.SelectedValue;
+            var uc = OpMarketControl.underlyingContractCB1.SelectedValue;
+            var ed = OpMarketControl.expireDateCB1.SelectedValue;
+
+            if (exchange != null && uc != null && ed != null)
+            {
+                VolCurvLV.SelectOption(exchange.ToString(), uc.ToString(), ed.ToString());
+                WMSettingsLV.SelectOption(exchange.ToString(), uc.ToString(), ed.ToString());
+            }
         }
         private async void RevertCurrentBtn_Click(object sender, RoutedEventArgs e)
         {
