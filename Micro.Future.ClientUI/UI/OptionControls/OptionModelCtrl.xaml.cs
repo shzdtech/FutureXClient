@@ -88,9 +88,9 @@ namespace Micro.Future.UI
         }
         private async void RevertCurrentBtn_Click(object sender, RoutedEventArgs e)
         {
-            var exchange = OpMarketControl.underlyingEX.SelectedValue;
-            var uc = OpMarketControl.underlyingContractCB.SelectedValue;
-            var ed = OpMarketControl.expireDateCB.SelectedValue;
+            var exchange = OpMarketControl.underlyingEX1.SelectedValue;
+            var uc = OpMarketControl.underlyingContractCB1.SelectedValue;
+            var ed = OpMarketControl.expireDateCB1.SelectedValue;
             VolCurvLV.TempCurveReset(exchange.ToString(), uc.ToString(), ed.ToString());
             if (exchange != null && uc != null && ed != null)
             {
