@@ -96,7 +96,20 @@ namespace Micro.Future.UI
 
         //GridViewColumn集合
         public int OriginalIndex { get; set; }
-        public object OriginalHeader { get; set; }
+
+        private object _originalHeader;
+        public object OriginalHeader
+        {
+            get
+            {
+                return _originalHeader ?? Column.Header;
+            }
+            set
+            {
+                _originalHeader = value;
+            }
+        }
+
         public double Width { get; set; }
 
         public GridViewColumn Column { get; private set; }
