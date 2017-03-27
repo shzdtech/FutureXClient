@@ -343,7 +343,7 @@ namespace Micro.Future.Message
             var sst = new StringMap();
             sst.Header = new DataHeader();
             sst.Header.SerialId = NextSerialId;
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_ACCOUNT_INFO, sst);
+            MessageWrapper?.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_ACCOUNT_INFO, sst);
 
         }
 
