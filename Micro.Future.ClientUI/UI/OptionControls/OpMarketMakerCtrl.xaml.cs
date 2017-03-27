@@ -214,12 +214,12 @@ namespace Micro.Future.UI
 
                     var callList = (from o in optionList
                                     where o.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION
-                                    orderby o.StrikePrice
+                                    orderby o.StrikePrice descending
                                     select new ContractKeyVM(exchange, o.Contract)).ToList();
 
                     var putList = (from o in optionList
                                    where o.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION
-                                   orderby o.StrikePrice
+                                   orderby o.StrikePrice descending
                                    select new ContractKeyVM(exchange, o.Contract)).ToList();
 
                     var retList = _otcOptionHandler.MakeCallPutTDOptionData(strikeList, callList, putList);

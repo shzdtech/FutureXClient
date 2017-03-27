@@ -55,7 +55,6 @@ namespace Micro.Future.UI
 
 
         public VolatilityLinesVM VolatilityModelVM { get; } = new VolatilityLinesVM();
-        public VolatilityLinesVM VolatilityModelVM1 { get; } = new VolatilityLinesVM();
 
 
         public void Initialize()
@@ -129,6 +128,7 @@ namespace Micro.Future.UI
                         {
                             strategyVM.BidEnabled = !strategyVM.BidEnabled;
                             point.Value = strategyVM.BidEnabled ? 1 : 0;
+                            strategyVM.UpdateStrategy();
                             plot.PlotModel.InvalidatePlot(true);
                         }
                     }
@@ -151,6 +151,7 @@ namespace Micro.Future.UI
                         {
                             strategyVM.AskEnabled = !strategyVM.AskEnabled;
                             point.Value = strategyVM.AskEnabled ? 1 : 0;
+                            strategyVM.UpdateStrategy();
                             plot.PlotModel.InvalidatePlot(true);
                         }
                     }
@@ -173,6 +174,7 @@ namespace Micro.Future.UI
                         {
                             strategyVM.BidEnabled = !strategyVM.BidEnabled;
                             point.Value = strategyVM.BidEnabled ? 1 : 0;
+                            strategyVM.UpdateStrategy();
                             plot.PlotModel.InvalidatePlot(true);
                         }
                     }
@@ -195,6 +197,7 @@ namespace Micro.Future.UI
                         {
                             strategyVM.AskEnabled = !strategyVM.AskEnabled;
                             point.Value = strategyVM.AskEnabled ? 1 : 0;
+                            strategyVM.UpdateStrategy();
                             plot.PlotModel.InvalidatePlot(true);
                         }
                     }
