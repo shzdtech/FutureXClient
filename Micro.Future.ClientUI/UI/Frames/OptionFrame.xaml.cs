@@ -177,7 +177,8 @@ namespace Micro.Future.UI
             var volModel = optionModelCtrl.OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
             if (volModel != null)
             {
-                OpMarketMakerLV.volModelLB.DataContext = volModel;
+                if( OpMarketMakerLV.expireDateCB.SelectedValue !=null )
+                OpMarketMakerLV.volModelLB.Content = volModel;
             }
         }
         private void OptionWin_KeyDown(object sender, KeyEventArgs e)

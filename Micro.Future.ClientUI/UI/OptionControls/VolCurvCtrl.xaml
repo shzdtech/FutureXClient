@@ -36,8 +36,8 @@
                 <oxy:ScatterSeries Name="theoCallAskSC" ItemsSource="{Binding TheoCallAskVolScatter}" ColorAxisKey="greenLineColorAxis" MarkerType="Custom" Visibility="{Binding ElementName=checkBoxTheoAsk1, Path=IsChecked, Converter={StaticResource BoolToVisConvert}}"/>
             </oxy:Plot.Series>
             <oxy:Plot.Axes>
-                <oxy:LinearColorAxis Key="greenLineColorAxis" Minimum="0.1" Maximum="0.9" HighColor="Green" LowColor="Gray" Position ="None"/>
-                <oxy:LinearColorAxis Key="redLineColorAxis" Minimum="0.1" Maximum="0.9" HighColor="Red" LowColor="Gray" Position ="None"/>
+                <oxy:LinearColorAxis Key="greenLineColorAxis" Minimum="0.1" Maximum="0.9" HighColor="Red" LowColor="Gray" Position ="None"/>
+                <oxy:LinearColorAxis Key="redLineColorAxis" Minimum="0.1" Maximum="0.9" HighColor="Blue" LowColor="Gray" Position ="None"/>
                 <oxy:LinearAxis x:Name="strikeAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Bottom" Title="StrikePrice"/>
                 <oxy:LinearAxis x:Name="voleAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="Volatility"/>
             </oxy:Plot.Axes>
