@@ -36,52 +36,23 @@
             </StatusBarItem>
         </x:Array>
     </UserControl.Resources>
-    <TabControl x:Name="tabControlall" AllowDrop="True" Visibility="Visible">
-        <TabControl.Resources>
-            <Style TargetType="TabItem">
-                <EventSetter Event="PreviewMouseMove" Handler="TabItem_PreviewMouseMove"/>
-                <EventSetter Event="Drop" Handler="TabItem_Drop"/>
-            </Style>
-        </TabControl.Resources>
-        <TabItem Header="Wing Model" x:Name="wingModel">
-            <avalonDock:DockingManager x:Name="dockingManager">
-                <avalonDock:DockingManager.Theme>
-                    <avalonDock:GenericTheme/>
-                </avalonDock:DockingManager.Theme>
-                <avalonDock:LayoutRoot>
-                    <avalonDock:LayoutPanel Orientation="Vertical">
-                        <avalonDock:LayoutPanel Orientation="Vertical">
-                            <avalonDock:LayoutPanel DockHeight="0.5*">
-                                <avalonDock:LayoutAnchorablePane x:Name="optionModelPane">
-                                    <avalonDock:LayoutAnchorable Title="OptionModel">
-                                        <c:OptionModelCtrl x:Name="optionModelCtrl"/>
-                                    </avalonDock:LayoutAnchorable>
-                                </avalonDock:LayoutAnchorablePane>
-                            </avalonDock:LayoutPanel>
-                        </avalonDock:LayoutPanel>
-                    </avalonDock:LayoutPanel>
-                </avalonDock:LayoutRoot>
-            </avalonDock:DockingManager>
-        </TabItem>
-        <TabItem Header="Market Maker" Width="auto">
-            <avalonDock:DockingManager x:Name="MMDockingManager">
-                <avalonDock:DockingManager.Theme>
-                    <avalonDock:GenericTheme/>
-                </avalonDock:DockingManager.Theme>
-                <avalonDock:LayoutRoot>
-                    <avalonDock:LayoutPanel Orientation="Horizontal">
-                        <avalonDock:LayoutPanel DockWidth="0.15*" Orientation="Vertical">
-                            <avalonDock:LayoutAnchorablePane x:Name="OpMarketMakerPane">
-                                <avalonDock:LayoutAnchorable Title="WingModel Settings">
-                                    <c:OpMarketMakerCtrl x:Name="OpMarketMakerLV"/>
-                                </avalonDock:LayoutAnchorable>
-                            </avalonDock:LayoutAnchorablePane>
-                        </avalonDock:LayoutPanel>
-                    </avalonDock:LayoutPanel>
-                </avalonDock:LayoutRoot>
-            </avalonDock:DockingManager>
-        </TabItem>
-    </TabControl>
+    <avalonDock:DockingManager x:Name="dockingManager">
+        <avalonDock:DockingManager.Theme>
+            <avalonDock:GenericTheme/>
+        </avalonDock:DockingManager.Theme>
+        <avalonDock:LayoutRoot>
+            <avalonDock:LayoutPanel Orientation="Vertical">
+                <avalonDock:LayoutAnchorablePane x:Name="optionModelPane">
+                    <avalonDock:LayoutAnchorable Title="Option Model">
+                        <c:OptionModelCtrl x:Name="optionModelCtrl"/>
+                    </avalonDock:LayoutAnchorable>
+                    <avalonDock:LayoutAnchorable Title="Market Maker">
+                        <c:OpMarketMakerCtrl x:Name="OpMarketMakerLV"/>
+                    </avalonDock:LayoutAnchorable>
+                </avalonDock:LayoutAnchorablePane>
+            </avalonDock:LayoutPanel>
+        </avalonDock:LayoutRoot>
+    </avalonDock:DockingManager>
     <!--<avalonDock:DockingManager x:Name="dockingManager" >
         <avalonDock:DockingManager.Theme>
             <avalonDock:GenericTheme/>
