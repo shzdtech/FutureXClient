@@ -169,7 +169,9 @@
                     <GridViewColumn x:Name="PMid" Header="PMid" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.MidPrice,StringFormat=N2}"/>
                     <GridViewColumn x:Name="PAsk" Header="PAsk" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskPrice,StringFormat=N2}"/>
                     <GridViewColumn x:Name="PAskSize" Header="PAskSize" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskSize}"/>
+                    <!--<GridViewColumn x:Name="PutContract" Header="PutContract" DisplayMemberBinding="{Binding PutOptionVM.Contract,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>-->
                     <GridViewColumn x:Name="Strike" Header="Strike" DisplayMemberBinding="{Binding StrikePrice}"/>
+                    <!--<GridViewColumn x:Name="Callcontract" Header="CallContract" DisplayMemberBinding="{Binding CallOptionVM.Contract,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>-->
                     <GridViewColumn x:Name="TheoAskVol" Header="AskTheoVol" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskVol,StringFormat=N2}" />
                     <GridViewColumn x:Name="TheoBidVol" Header="BidTheoVol" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.BidVol,StringFormat=N2}" />
                     <GridViewColumn x:Name="CAskSize" Header="CAskSize" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskSize}"/>
@@ -208,14 +210,14 @@
                     <GridViewColumn x:Name="CBidQT" Header="{lex:Loc Key=CBidQTEnable}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding CallStrategyVM.BidEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}" />
+                                <CheckBox IsChecked="{Binding CallStrategyVM.BidEnabled}" Command="{Binding CallStrategyVM.UpdateCommand}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="CAskQT" Header="{lex:Loc Key=CAskQTEnable}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding CallStrategyVM.AskEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}"  />
+                                <CheckBox IsChecked="{Binding CallStrategyVM.AskEnabled}" Command="{Binding CallStrategyVM.UpdateCommand}"  />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

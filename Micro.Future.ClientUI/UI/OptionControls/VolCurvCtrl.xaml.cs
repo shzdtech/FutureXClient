@@ -104,6 +104,7 @@ namespace Micro.Future.UI
                 pointCA.Value = strategyVM.AskEnabled ? 1 : 0;
             if (pointCB != null)
                 pointCB.Value = strategyVM.BidEnabled ? 1 : 0;
+            volPlot.InvalidatePlot(true);
         }
         //private void OnPutBidStatus(string contract, bool status)
         //{
