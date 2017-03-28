@@ -92,10 +92,8 @@ namespace Micro.Future.UI
             ivolNode.Children.Add(ColumnObject.CreateColumn(CBidIV));
             ivolNode.Children.Add(ColumnObject.CreateColumn(CAskIV));
             ivolNode.Children.Add(ColumnObject.CreateColumn(CMidIV));
-            theovolNode.Children.Add(ColumnObject.CreateColumn(PBidTheo));
-            theovolNode.Children.Add(ColumnObject.CreateColumn(PAskTheo));
-            theovolNode.Children.Add(ColumnObject.CreateColumn(CBidTheo));
-            theovolNode.Children.Add(ColumnObject.CreateColumn(CAskTheo));
+            theovolNode.Children.Add(ColumnObject.CreateColumn(TheoAskVol));
+            theovolNode.Children.Add(ColumnObject.CreateColumn(TheoBidVol));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(PAskDelta));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(CAskDelta));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(PAskVega));
@@ -129,12 +127,13 @@ namespace Micro.Future.UI
 
             marketNode.Initialize();
             ivolNode.Initialize();
+            theovolNode.Initialize();
             riskGreekNode.Initialize();
             theoPriceNode.Initialize();
             QVNode.Initialize();
             positionNode.Initialize();
             QTNode.Initialize();
-            _optionColumns = new List<ColumnObject>() { marketNode, ivolNode, riskGreekNode, theoPriceNode, QVNode, positionNode, QTNode };
+            _optionColumns = new List<ColumnObject>() { marketNode, ivolNode, theovolNode, riskGreekNode, theoPriceNode, QVNode, positionNode, QTNode };
 
         }
 

@@ -36,7 +36,13 @@
             </StatusBarItem>
         </x:Array>
     </UserControl.Resources>
-    <TabControl x:Name="tabControlall">
+    <TabControl x:Name="tabControlall" AllowDrop="True" Visibility="Visible">
+        <TabControl.Resources>
+            <Style TargetType="TabItem">
+                <EventSetter Event="PreviewMouseMove" Handler="TabItem_PreviewMouseMove"/>
+                <EventSetter Event="Drop" Handler="TabItem_Drop"/>
+            </Style>
+        </TabControl.Resources>
         <TabItem Header="Wing Model" x:Name="wingModel">
             <avalonDock:DockingManager x:Name="dockingManager">
                 <avalonDock:DockingManager.Theme>
@@ -74,8 +80,6 @@
                     </avalonDock:LayoutPanel>
                 </avalonDock:LayoutRoot>
             </avalonDock:DockingManager>
-
-
         </TabItem>
     </TabControl>
     <!--<avalonDock:DockingManager x:Name="dockingManager" >
