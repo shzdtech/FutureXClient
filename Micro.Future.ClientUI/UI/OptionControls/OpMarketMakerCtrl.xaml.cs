@@ -69,6 +69,7 @@ namespace Micro.Future.UI
             // Set columns tree
             var marketNode = new ColumnObject(new GridViewColumn() { Header = "行情" });
             var ivolNode = new ColumnObject(new GridViewColumn() { Header = "隐含波动率" });
+            var theovolNode = new ColumnObject(new GridViewColumn() { Header = "理论波动率" });
             var riskGreekNode = new ColumnObject(new GridViewColumn() { Header = "风险参数" });
             var theoPriceNode = new ColumnObject(new GridViewColumn() { Header = "理论价格" });
             var QVNode = new ColumnObject(new GridViewColumn() { Header = "订单量" });
@@ -91,6 +92,10 @@ namespace Micro.Future.UI
             ivolNode.Children.Add(ColumnObject.CreateColumn(CBidIV));
             ivolNode.Children.Add(ColumnObject.CreateColumn(CAskIV));
             ivolNode.Children.Add(ColumnObject.CreateColumn(CMidIV));
+            theovolNode.Children.Add(ColumnObject.CreateColumn(PBidTheo));
+            theovolNode.Children.Add(ColumnObject.CreateColumn(PAskTheo));
+            theovolNode.Children.Add(ColumnObject.CreateColumn(CBidTheo));
+            theovolNode.Children.Add(ColumnObject.CreateColumn(CAskTheo));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(PAskDelta));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(CAskDelta));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(PAskVega));
