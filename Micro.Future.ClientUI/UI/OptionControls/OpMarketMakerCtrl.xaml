@@ -46,7 +46,7 @@
                 <ComboBox x:Name="underlyingContractCB1" SelectionChanged="underlyingContractCB1_SelectionChanged"/>
             </GroupBox>
             <GroupBox x:Name="Interest" Header="{lex:Loc Key=Interest}">
-                <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate"  UpdateValueOnEnterKey="True" FormatString="F3"  Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1"  Increment="0.001" HorizontalAlignment="Left" VerticalAlignment="Top" KeyDown="OptionWin_KeyDown" Spinned="Spinned"/>
+                <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate" UpdateValueOnEnterKey="True" FormatString="F3" Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1" Increment="0.001" ValueChanged="riskFree_Interest_ValueChanged" Spinned="Spinned"/>
             </GroupBox>
             <ListView Name="quoteListView1">
                 <ListView.View>
@@ -112,7 +112,7 @@
             </ListView>
         </WrapPanel>
 
-        <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0" SelectionChanged="option_priceLV_SelectionChanged">
+        <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0">
             <ListView.Resources>
                 <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="GreenHeaderStyle">
                     <Setter Property="Background" Value="Blue" />

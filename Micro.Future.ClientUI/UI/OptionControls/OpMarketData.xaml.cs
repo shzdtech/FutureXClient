@@ -129,6 +129,7 @@ namespace Micro.Future.UI
                 contract1.ItemsSource = null;
                 volModelCB.ItemsSource = null;
                 adjustment1.Value = null;
+                riskFree_Interest.DataContext = null;
                 exchange1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
                 volModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("ivm");
                 var contract = SubbedContracts?.FirstOrDefault();
@@ -167,6 +168,11 @@ namespace Micro.Future.UI
                             }
                             contract1.SelectedValue = futurecontract;
                             adjustment1.Value = adjust;
+                            var modelVM = volModelCB.SelectedItem as ModelParamsVM;
+                            if (modelVM != null)
+                            {
+                                riskFree_Interest.DataContext = modelVM;
+                            }
                         }
                     }
                 }
@@ -471,6 +477,24 @@ namespace Micro.Future.UI
                         }
                     }
                 }
+            }
+        }
+        private void riskFree_Interest_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var updownctrl = sender as DoubleUpDown;
+            if (updownctrl != null)
+            {
+                var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
+                _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, updownctrl.Tag.ToString(), updownctrl.Value.Value);
+            }
+        }
+        private void Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
+        {
+            var ctrl = sender as DoubleUpDown;
+            if (ctrl != null)
+            {
+                ctrl.CommitInput();
+                // ctrl.GetBindingExpression(DoubleUpDown.ValueProperty).UpdateTarget();
             }
         }
     }

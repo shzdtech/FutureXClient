@@ -53,7 +53,7 @@ namespace Micro.Future.UI
 
         private void OnTradingDeskOptionParamsReceived(TradingDeskOptionVM tdOptionVM)
         {
-            if (_strategySet !=null && tdOptionVM.WingsReturnVM != null && _strategySet.ContainsKey(tdOptionVM))
+            if (_strategySet != null && tdOptionVM.WingsReturnVM != null && _strategySet.ContainsKey(tdOptionVM))
             {
                 _wingsReturnVM.SlopeCurr = tdOptionVM.WingsReturnVM.SlopeCurr;
                 _wingsReturnVM.SlopeCurrOffset = tdOptionVM.WingsReturnVM.SlopeCurrOffset;
@@ -86,14 +86,15 @@ namespace Micro.Future.UI
 
         private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            Control ctrl = sender as Control;
-            if (ctrl != null)
+            var updownctrl = sender as DoubleUpDown;
+            if (updownctrl != null)
             {
                 if (_otcOptionHandler != null)
                 {
-                    var modelParamsVM = DataContext as ModelParamsVM;
-                    TempSettings[ctrl.Tag.ToString()] = modelParamsVM[ctrl.Tag.ToString()].Value;
-                    _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
+                    var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
+                    double value = modelParamsVM[updownctrl.Tag.ToString()].Value;
+                    TempSettings[updownctrl.Tag.ToString()] = value;
+                    _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, updownctrl.Tag.ToString(), value);
                 }
             }
         }
@@ -101,6 +102,7 @@ namespace Micro.Future.UI
         {
             TempSettings.Clear();
         }
+
         private void SetReference_Click(object sender, RoutedEventArgs e)
         {
             if (_otcOptionHandler != null && TempSettings.Any())
@@ -114,46 +116,32 @@ namespace Micro.Future.UI
         }
         private void RevertCurrent_Click(object sender, RoutedEventArgs e)
         {
-            if (_otcOptionHandler != null)
+            RevertCurrent();
+        }
+
+        public void RevertCurrent()
+        {
+            if (TempSettings.Any())
             {
                 var modelParamsVM = DataContext as ModelParamsVM;
-                _otcOptionHandler.RemoveTempModel(modelParamsVM.InstanceName);
-                DeleteTempSettings();
+                if (modelParamsVM != null)
+                {
+                    DeleteTempSettings();
+                    _otcOptionHandler.RemoveTempModel(modelParamsVM.InstanceName);
+                }
             }
         }
 
         private void Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
         {
-
             var ctrl = sender as DoubleUpDown;
             if (ctrl != null)
             {
-                if (_otcOptionHandler != null)
-                {
-                    var modelParamsVM = DataContext as ModelParamsVM;
-                    double value = double.Parse(ctrl.Text);
-                    TempSettings[ctrl.Tag.ToString()] = value; // modelParamsVM[ctrl.Tag.ToString()].Value;
-                    _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), value);
-                }
+                ctrl.GetBindingExpression(DoubleUpDown.ValueProperty).UpdateSource();
             }
+
         }
 
-        private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            Control ctrl = sender as Control;
-            if (ctrl != null)
-            {
-                if (_otcOptionHandler != null)
-                {
-                    var modelParamsVM = DataContext as ModelParamsVM;
-                    if (modelParamsVM != null)
-                    {
-                        TempSettings[ctrl.Tag.ToString()] = modelParamsVM[ctrl.Tag.ToString()].Value;
-                        _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
-                    }
-                }
-            }
-        }
 
         public void SelectOption(string exchange, string contract, string expiredate)
         {

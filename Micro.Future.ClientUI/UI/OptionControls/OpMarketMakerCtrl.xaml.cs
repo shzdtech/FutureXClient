@@ -270,35 +270,13 @@ namespace Micro.Future.UI
                 }
             }
         }
-        private void OptionWin_KeyDown(object sender, KeyEventArgs e)
-        {
-            Control ctrl = sender as Control;
-            if (ctrl != null)
-            {
-                if (e.Key == Key.Escape || e.Key == Key.Enter)
-                {
-                    if (_otcOptionHandler != null)
-                    {
-                        if (e.Key == Key.Enter)
-                        {
-                            var modelParamsVM = DataContext as ModelParamsVM;
-                            if(modelParamsVM != null)
-                            _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
-                        }
-                    }
-                }
-            }
-        }
         private void Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
         {
             var ctrl = sender as DoubleUpDown;
             if (ctrl != null)
             {
-                if (_otcOptionHandler != null)
-                {
-                    var modelParamsVM = DataContext as ModelParamsVM;
-                    _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), ctrl.Value.Value);
-                }
+                ctrl.CommitInput();
+                // ctrl.GetBindingExpression(DoubleUpDown.ValueProperty).UpdateTarget();
             }
         }
 
@@ -450,9 +428,14 @@ namespace Micro.Future.UI
                 OnCallAskStatusChanged?.Invoke(checkbox.Tag.ToString(), false);
         }
 
-        private void option_priceLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void riskFree_Interest_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-
+            var updownctrl = sender as DoubleUpDown;
+            if (updownctrl != null)
+            {
+                var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
+                _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, updownctrl.Tag.ToString(), updownctrl.Value.Value);
+            }
         }
     }
 }

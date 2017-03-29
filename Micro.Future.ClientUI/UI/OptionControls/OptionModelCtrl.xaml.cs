@@ -73,13 +73,21 @@ namespace Micro.Future.UI
 
             if (exchange != null && uc != null && ed != null)
             {
-                VolCurvLV.SelectOption (exchange.ToString(), uc.ToString(), ed.ToString());
+                VolCurvLV.SelectOption(exchange.ToString(), uc.ToString(), ed.ToString());
                 WMSettingsLV.SelectOption(exchange.ToString(), uc.ToString(), ed.ToString());
             }
         }
 
-        private void VolModelCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void VolModelCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            WMSettingsLV.RevertCurrent();
+            VolCurvLV.TempCurveReset();
+            var callputOpt = VolCurvLV.CallPutTDOptionVMCollection.FirstOrDefault();
+            if (callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
+            {
+                await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
+            }
+
             var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
             if (volModel != null)
             {
@@ -97,19 +105,13 @@ namespace Micro.Future.UI
         }
         private async void RevertCurrentBtn_Click(object sender, RoutedEventArgs e)
         {
-            var exchange = OpMarketControl.underlyingEX1.SelectedValue;
-            var uc = OpMarketControl.underlyingContractCB1.SelectedValue;
-            var ed = OpMarketControl.expireDateCB1.SelectedValue;
-            VolCurvLV.TempCurveReset(exchange.ToString(), uc.ToString(), ed.ToString());
-            if (exchange != null && uc != null && ed != null)
+            VolCurvLV.TempCurveReset();
+            var callputOpt = VolCurvLV.CallPutTDOptionVMCollection.FirstOrDefault();
+            if (callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
             {
-                var callputOpt = VolCurvLV.CallPutTDOptionVMCollection.FirstOrDefault();
-                if (callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
-                {
-                    var modelparamsVM = await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
-                    WMSettingsLV.DataContext = null;
-                    WMSettingsLV.DataContext = modelparamsVM;
-                }
+                var modelparamsVM = await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
+                WMSettingsLV.DataContext = null;
+                WMSettingsLV.DataContext = modelparamsVM;
             }
         }
         private void SetCurrentBtn_Click(object sender, RoutedEventArgs e)
