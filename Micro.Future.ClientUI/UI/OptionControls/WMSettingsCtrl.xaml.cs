@@ -87,12 +87,12 @@ namespace Micro.Future.UI
         private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var updownctrl = sender as DoubleUpDown;
-            if (updownctrl != null)
+            if (updownctrl != null && updownctrl.Value.HasValue)
             {
-                if (_otcOptionHandler != null)
+                var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
+                double value = modelParamsVM[updownctrl.Tag.ToString()].Value;
+                if (value != updownctrl.Value.Value)
                 {
-                    var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
-                    double value = modelParamsVM[updownctrl.Tag.ToString()].Value;
                     TempSettings[updownctrl.Tag.ToString()] = value;
                     _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, updownctrl.Tag.ToString(), value);
                 }
@@ -134,12 +134,11 @@ namespace Micro.Future.UI
 
         private void Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
         {
-            var ctrl = sender as DoubleUpDown;
-            if (ctrl != null)
+            var updownctrl = sender as DoubleUpDown;
+            if (updownctrl != null)
             {
-                ctrl.GetBindingExpression(DoubleUpDown.ValueProperty).UpdateSource();
+                Task.Run(() => { Task.Delay(100); Dispatcher.Invoke(() => updownctrl.CommitInput()); });
             }
-
         }
 
 

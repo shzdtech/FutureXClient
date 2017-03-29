@@ -109,9 +109,7 @@ namespace Micro.Future.UI
             var callputOpt = VolCurvLV.CallPutTDOptionVMCollection.FirstOrDefault();
             if (callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
             {
-                var modelparamsVM = await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
-                WMSettingsLV.DataContext = null;
-                WMSettingsLV.DataContext = modelparamsVM;
+                await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
             }
         }
         private void SetCurrentBtn_Click(object sender, RoutedEventArgs e)

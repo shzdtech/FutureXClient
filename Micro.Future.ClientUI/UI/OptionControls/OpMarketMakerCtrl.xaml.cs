@@ -266,17 +266,16 @@ namespace Micro.Future.UI
                             }
                         }
                     }
-                        _subbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList.Select(c => new ContractKeyVM(c.Exchange, c.Contract)));
+                    _subbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList.Select(c => new ContractKeyVM(c.Exchange, c.Contract)));
                 }
             }
         }
         private void Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
         {
-            var ctrl = sender as DoubleUpDown;
-            if (ctrl != null)
+            var updownctrl = sender as DoubleUpDown;
+            if (updownctrl != null)
             {
-                ctrl.CommitInput();
-                // ctrl.GetBindingExpression(DoubleUpDown.ValueProperty).UpdateTarget();
+                Task.Run(() => { Task.Delay(100); Dispatcher.Invoke(() => updownctrl.CommitInput()); });
             }
         }
 
@@ -308,7 +307,7 @@ namespace Micro.Future.UI
             var uc = underlyingContractCB1.SelectedItem?.ToString();
             var uexchange = underlyingEX1.SelectedItem?.ToString();
             if (uc != null)
-            { 
+            {
                 var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 QuoteVMCollection1.Clear();
                 var mktDataVM = await handler.SubMarketDataAsync(uc);
@@ -431,10 +430,12 @@ namespace Micro.Future.UI
         private void riskFree_Interest_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var updownctrl = sender as DoubleUpDown;
-            if (updownctrl != null)
+            if (updownctrl != null && updownctrl.Value.HasValue)
             {
                 var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
-                _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, updownctrl.Tag.ToString(), updownctrl.Value.Value);
+                var key = updownctrl.Tag.ToString();
+                if (modelParamsVM[key].Value != updownctrl.Value.Value)
+                    _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, key, updownctrl.Value.Value);
             }
         }
     }

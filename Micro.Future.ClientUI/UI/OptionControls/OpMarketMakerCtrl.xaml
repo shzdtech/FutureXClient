@@ -46,7 +46,7 @@
                 <ComboBox x:Name="underlyingContractCB1" SelectionChanged="underlyingContractCB1_SelectionChanged"/>
             </GroupBox>
             <GroupBox x:Name="Interest" Header="{lex:Loc Key=Interest}">
-                <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate" UpdateValueOnEnterKey="True" FormatString="F3" Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1" Increment="0.001" ValueChanged="riskFree_Interest_ValueChanged" Spinned="Spinned"/>
+                <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate" UpdateValueOnEnterKey="True" FormatString="F3" Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1" Increment="0.001" ValueChanged="riskFree_Interest_ValueChanged" Spinned="Spinned" VerticalAlignment="Top"/>
             </GroupBox>
             <ListView Name="quoteListView1">
                 <ListView.View>
