@@ -124,6 +124,7 @@ namespace Micro.Future.UI
 
         private void Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
         {
+
             var ctrl = sender as DoubleUpDown;
             if (ctrl != null)
             {
