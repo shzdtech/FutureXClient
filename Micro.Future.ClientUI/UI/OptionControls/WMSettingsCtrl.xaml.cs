@@ -130,8 +130,9 @@ namespace Micro.Future.UI
                 if (_otcOptionHandler != null)
                 {
                     var modelParamsVM = DataContext as ModelParamsVM;
-                    TempSettings[ctrl.Tag.ToString()] = double.Parse(ctrl.Text); // modelParamsVM[ctrl.Tag.ToString()].Value;
-                    _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), ctrl.Value.Value);
+                    double value = double.Parse(ctrl.Text);
+                    TempSettings[ctrl.Tag.ToString()] = value; // modelParamsVM[ctrl.Tag.ToString()].Value;
+                    _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), value);
                 }
             }
         }
@@ -160,18 +161,5 @@ namespace Micro.Future.UI
                 .ToDictionary(c => new ContractKeyVM(c.Exchange, c.Contract), c => c);
         }
 
-        private void SSRMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            Control ctrl = sender as Control;
-            if (ctrl != null)
-            {
-                if (_otcOptionHandler != null)
-                {
-                    var modelParamsVM = DataContext as ModelParamsVM;
-                    TempSettings[ctrl.Tag.ToString()] = modelParamsVM[ctrl.Tag.ToString()].Value;
-                    _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
-                }
-            }
-        }
     }
 }
