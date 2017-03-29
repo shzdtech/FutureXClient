@@ -91,8 +91,9 @@ namespace Micro.Future.UI
             {
                 var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
                 double value = modelParamsVM[updownctrl.Tag.ToString()].Value;
-                TempSettings[updownctrl.Tag.ToString()] = value;
-                _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, updownctrl.Tag.ToString(), value);
+                var key = updownctrl.Tag.ToString();
+                TempSettings[key] = value;
+                _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, key, value);
             }
         }
         private void DeleteTempSettings()
