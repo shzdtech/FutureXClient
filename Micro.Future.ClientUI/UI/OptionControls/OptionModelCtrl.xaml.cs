@@ -91,6 +91,7 @@ namespace Micro.Future.UI
             var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
             if (volModel != null)
             {
+                WMSettingsLV.DataContext = null;
                 WMSettingsLV.DataContext = volModel;
             }
             //var exchange = OpMarketControl.underlyingEX1.SelectedValue;
@@ -109,7 +110,9 @@ namespace Micro.Future.UI
             var callputOpt = VolCurvLV.CallPutTDOptionVMCollection.FirstOrDefault();
             if (callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
             {
-                await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
+                WMSettingsLV.DataContext = null;
+                var modelparamsVM = await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
+                WMSettingsLV.DataContext = modelparamsVM;
             }
         }
         private void SetCurrentBtn_Click(object sender, RoutedEventArgs e)
