@@ -56,6 +56,11 @@ namespace Micro.Future.Message
                         BidVol = tradingDeskOption.ImpliedVol.BidVolatility,
                         MidVol = (tradingDeskOption.ImpliedVol.BidVolatility + tradingDeskOption.ImpliedVol.AskVolatility) / 2
                     };
+
+                    if (double.IsNaN(quote.ImpliedVolVM.MidVol))
+                    {
+                        quote.ImpliedVolVM.MidVol = double.IsNaN(quote.ImpliedVolVM.AskVol) ? quote.ImpliedVolVM.BidVol : quote.ImpliedVolVM.AskVol;
+                    }
                 }
 
                 if (tradingDeskOption.TheoData != null)
