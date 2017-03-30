@@ -64,36 +64,20 @@ namespace Micro.Future.UI
 
         //public ModelParamsVM VolatilityModelVM { get; } = new ModelParamsVM();
 
-        private void OptionWin_KeyDown(object sender, KeyEventArgs e)
-        {
-            Control ctrl = sender as Control;
-            if (ctrl != null)
-            {
-                if (e.Key == Key.Escape || e.Key == Key.Enter)
-                {
-                    if (_otcOptionHandler != null)
-                    {
-                        if (e.Key == Key.Enter)
-                        {
-                            var modelParamsVM = DataContext as ModelParamsVM;
-                            TempSettings[ctrl.Tag.ToString()] = modelParamsVM[ctrl.Tag.ToString()].Value;
-                            _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, ctrl.Tag.ToString(), modelParamsVM[ctrl.Tag.ToString()].Value);
-                        }
-                    }
-                }
-            }
-        }
 
         private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var updownctrl = sender as DoubleUpDown;
-            if (updownctrl != null && updownctrl.Value.HasValue)
+            if (updownctrl != null && e.OldValue != null)
             {
                 var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
-                var key = updownctrl.Tag.ToString();
-                double value = modelParamsVM[key].Value;
-                TempSettings[key] = value;
-                _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, key, value);
+                if (modelParamsVM != null)
+                {
+                    var key = updownctrl.Tag.ToString();
+                    double value = modelParamsVM[key].Value;
+                    TempSettings[key] = value;
+                    _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, key, value);
+                }
             }
         }
         private void DeleteTempSettings()
