@@ -90,8 +90,8 @@ namespace Micro.Future.UI
             if (updownctrl != null && updownctrl.Value.HasValue)
             {
                 var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
-                double value = modelParamsVM[updownctrl.Tag.ToString()].Value;
                 var key = updownctrl.Tag.ToString();
+                double value = modelParamsVM[key].Value;
                 TempSettings[key] = value;
                 _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, key, value);
             }

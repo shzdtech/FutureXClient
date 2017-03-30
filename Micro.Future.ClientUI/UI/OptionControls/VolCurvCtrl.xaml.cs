@@ -215,18 +215,18 @@ namespace Micro.Future.UI
                 if (idx >= 0) // Update PutOption
                 {
                     double x = _optionPutVMList[idx].Value;
-                    if (!double.IsNaN(tdOptionVM.ImpliedVolVM.AskVol)) VolatilityModelVM.PutAskVolLine[idx] = new DataPoint(x, tdOptionVM.ImpliedVolVM.AskVol);
-                    if (!double.IsNaN(tdOptionVM.ImpliedVolVM.BidVol)) VolatilityModelVM.PutBidVolLine[idx] = new DataPoint(x, tdOptionVM.ImpliedVolVM.BidVol);
-                    if (!double.IsNaN(tdOptionVM.ImpliedVolVM.MidVol)) VolatilityModelVM.PutMidVolLine[idx] = new DataPoint(x, tdOptionVM.ImpliedVolVM.MidVol);
+                    VolatilityModelVM.PutAskVolLine[idx] = double.IsNaN(tdOptionVM.ImpliedVolVM.AskVol) ? DataPoint.Undefined : new DataPoint(x, tdOptionVM.ImpliedVolVM.AskVol);
+                    VolatilityModelVM.PutBidVolLine[idx] = double.IsNaN(tdOptionVM.ImpliedVolVM.BidVol) ? DataPoint.Undefined : new DataPoint(x, tdOptionVM.ImpliedVolVM.BidVol);
+                    VolatilityModelVM.PutMidVolLine[idx] = double.IsNaN(tdOptionVM.ImpliedVolVM.MidVol) ? DataPoint.Undefined : new DataPoint(x, tdOptionVM.ImpliedVolVM.MidVol);
                 }
 
                 idx = _optionCallVMList.FindIndex(c => c.Key.EqualContract(tdOptionVM));
                 if (idx >= 0) // Update CallOption
                 {
                     double x = _optionCallVMList[idx].Value;
-                    if (!double.IsNaN(tdOptionVM.ImpliedVolVM.AskVol)) VolatilityModelVM.CallAskVolLine[idx] = new DataPoint(x, tdOptionVM.ImpliedVolVM.AskVol);
-                    if (!double.IsNaN(tdOptionVM.ImpliedVolVM.BidVol)) VolatilityModelVM.CallBidVolLine[idx] = new DataPoint(x, tdOptionVM.ImpliedVolVM.BidVol);
-                    if (!double.IsNaN(tdOptionVM.ImpliedVolVM.MidVol)) VolatilityModelVM.CallMidVolLine[idx] = new DataPoint(x, tdOptionVM.ImpliedVolVM.MidVol);
+                    VolatilityModelVM.CallAskVolLine[idx] = double.IsNaN(tdOptionVM.ImpliedVolVM.AskVol) ? DataPoint.Undefined : new DataPoint(x, tdOptionVM.ImpliedVolVM.AskVol);
+                    VolatilityModelVM.CallBidVolLine[idx] = double.IsNaN(tdOptionVM.ImpliedVolVM.BidVol) ? DataPoint.Undefined : new DataPoint(x, tdOptionVM.ImpliedVolVM.BidVol);
+                    VolatilityModelVM.CallMidVolLine[idx] = double.IsNaN(tdOptionVM.ImpliedVolVM.MidVol) ? DataPoint.Undefined : new DataPoint(x, tdOptionVM.ImpliedVolVM.MidVol);
                 }
             }
 
