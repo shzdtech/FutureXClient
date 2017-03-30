@@ -381,6 +381,7 @@ namespace Micro.Future.UI
             }
         }
 
+
         public void ScatterReset()
         {
             foreach (var vm in CallPutTDOptionVMCollection)
