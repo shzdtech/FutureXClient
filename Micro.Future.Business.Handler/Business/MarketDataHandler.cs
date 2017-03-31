@@ -60,7 +60,8 @@ namespace Micro.Future.Message
             (bizErr) =>
             {
                 if (bizErr.SerialId == serialId)
-                    tcs.TrySetException(new MessageException(bizErr.MessageId, ErrorType.BIZ_ERROR, bizErr.Errorcode, bizErr.Description.ToStringUtf8()));
+                    tcs.TrySetCanceled();
+                //tcs.TrySetException(new MessageException(bizErr.MessageId, ErrorType.BIZ_ERROR, bizErr.Errorcode, bizErr.Description.ToStringUtf8()));
             }
             );
             #endregion

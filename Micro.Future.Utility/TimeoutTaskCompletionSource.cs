@@ -11,7 +11,7 @@
                     int ret = Tasks.Task.WaitAny(new[] { Task }, timeout);
                     if (ret < 0)
                     {
-                        TrySetException(new TimeoutException());
+                        TrySetCanceled();
                     }
                 });
         }

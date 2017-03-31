@@ -12,7 +12,7 @@
   "dependencies": {
     "Google.Protobuf": "3.1.0",
     "Microsoft.EntityFrameworkCore": "1.1.0",
-    "OxyPlot.Wpf": "1.0.0",
+    "OxyPlot.Wpf": "2.0.0-unstable0956",
     "WpfLocalizeExtension": "2.3.2"
   },
   "frameworks": {
