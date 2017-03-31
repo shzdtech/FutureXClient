@@ -47,6 +47,11 @@ namespace Micro.Future.UI
         {
             get;
         } = new ObservableCollection<MarketDataVM>();
+        public IEnumerable<ContractKeyVM> SubbedContracts
+        {
+            get;
+            private set;
+        }
 
 
         public void Initialize()
@@ -238,6 +243,7 @@ namespace Micro.Future.UI
                     pricingModelCB.ItemsSource = null;
                     volModelLB.Content = null;
                     riskFree_Interest.DataContext = null;
+                    adjustment.Value = null;
                     underlyingEX1.ItemsSource = null;
                     underlyingCB1.ItemsSource = null;
                     underlyingContractCB1.ItemsSource = null;
@@ -259,6 +265,7 @@ namespace Micro.Future.UI
                             underlyingCB1.SelectedValue = futureunderlying;
                             underlyingContractCB1.SelectedValue = futurecontract;
                             volModelLB.Content = volmodel;
+                            adjustment.Value = adjust;
                             var modelVM = pricingModelCB.SelectedItem as ModelParamsVM;
                             if (modelVM != null)
                             {
@@ -427,16 +434,49 @@ namespace Micro.Future.UI
                 OnCallAskStatusChanged?.Invoke(checkbox.Tag.ToString(), false);
         }
 
-        private void riskFree_Interest_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var updownctrl = sender as DoubleUpDown;
             if (updownctrl != null && updownctrl.Value.HasValue)
             {
                 var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
-                var key = updownctrl.Tag.ToString();
-                if (modelParamsVM[key].Value != updownctrl.Value.Value)
+                if (modelParamsVM != null)
+                { 
+                    var key = updownctrl.Tag.ToString();
+                    double value = modelParamsVM[key].Value;
+                    if (value != updownctrl.Value.Value)
                     _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, key, updownctrl.Value.Value);
+                }
             }
         }
+        private void Adjustment_KeyDown(object sender, KeyEventArgs e)
+        {
+            DoubleUpDown ctrl = sender as DoubleUpDown;
+            if (ctrl != null)
+            {
+                if (e.Key == Key.Escape || e.Key == Key.Enter)
+                {
+                    if (_otcOptionHandler != null)
+                    {
+                        if (e.Key == Key.Enter)
+                        {
+                            var contract = SubbedContracts?.FirstOrDefault();
+                            if (contract != null)
+                            {
+                                var strategy =
+                                    _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                                var pricingContract = strategy.VMContractParams.FirstOrDefault();
+                                if (pricingContract != null)
+                                {
+                                    pricingContract.Adjust = ctrl.Value.Value;
+                                    _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.VM);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
