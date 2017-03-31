@@ -93,11 +93,16 @@ namespace Micro.Future.UI
             var contracts = ClientDbContext.GetUserContracts(userId, FilterSettingsWin.FilterId);
             if (contracts.Any())
             {
-                var list = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketDataAsync(contracts);
-                foreach (var mktVM in list)
+                try
                 {
-                    Dispatcher.Invoke(() => QuoteVMCollection.Add(mktVM));
+                    var list = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketDataAsync(contracts);
+                    foreach (var mktVM in list)
+                    {
+                        Dispatcher.Invoke(() => QuoteVMCollection.Add(mktVM));
+                    }
                 }
+                catch
+                { }
             }
         }
 
