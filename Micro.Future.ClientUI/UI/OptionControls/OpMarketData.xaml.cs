@@ -447,13 +447,28 @@ namespace Micro.Future.UI
         }
         private void UpdateStrategyAdjustment(ContractKeyVM contract, StrategyVM.Model model, double adjust)
         {
-            var strategy =
-                                    _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Equals(contract));
-            var pricingContract = strategy.VMContractParams.FirstOrDefault();
-            if (pricingContract != null)
+            var strategy = _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Equals(contract));
+            if (strategy != null)
             {
-                pricingContract.Adjust = adjust;
-                _otcOptionHandler.UpdateStrategyPricingContracts(strategy, model);
+                PricingContractParamVM pricingContract = null;
+                switch (model)
+                {
+                    case StrategyVM.Model.PM:
+                        pricingContract = strategy.PricingContractParams.FirstOrDefault();
+                        break;
+                    case StrategyVM.Model.IVM:
+                        pricingContract = strategy.IVMContractParams.FirstOrDefault();
+                        break;
+                    case StrategyVM.Model.VM:
+                        pricingContract = strategy.VMContractParams.FirstOrDefault();
+                        break;
+                }
+
+                if (pricingContract != null)
+                {
+                    pricingContract.Adjust = adjust;
+                    _otcOptionHandler.UpdateStrategyPricingContracts(strategy, model);
+                }
             }
         }
         private void riskFree_Interest_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)

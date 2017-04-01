@@ -104,8 +104,11 @@ namespace Micro.Future.Message
                                        where p.ProductType == productType
                                        select p;
 
-                    clientCtx.RemoveRange(oldContracts);
-                    clientCtx.SaveChanges();
+                    if (oldContracts.Any())
+                    {
+                        clientCtx.RemoveRange(oldContracts);
+                        clientCtx.SaveChanges();
+                    }
 
                     var contractList = from c in rsp.ContractInfo
                                        where c.ProductType == productType
