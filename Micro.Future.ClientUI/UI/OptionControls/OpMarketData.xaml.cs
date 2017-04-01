@@ -424,7 +424,7 @@ namespace Micro.Future.UI
 
         private void Adjustment1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (e.OldValue != null)
+            if (e.OldValue != null && e.NewValue != null)
             {
                 var contract = SubbedContracts?.FirstOrDefault();
                 if (contract != null)
@@ -436,7 +436,7 @@ namespace Micro.Future.UI
 
         private void Adjustment2_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (e.OldValue != null)
+            if (e.OldValue != null && e.NewValue != null)
             {
                 var contract = SubbedContracts2?.FirstOrDefault();
                 if (contract != null)
@@ -462,9 +462,12 @@ namespace Micro.Future.UI
             if (updownctrl != null && updownctrl.Value.HasValue)
             {
                 var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
+                if(modelParamsVM != null)
+                { 
                 var key = updownctrl.Tag.ToString();
                 if (modelParamsVM[key].Value != updownctrl.Value.Value)
                     _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, key, updownctrl.Value.Value);
+                }
             }
         }
         private void Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
