@@ -239,41 +239,44 @@ namespace Micro.Future.UI
                         CallPutTDOptionVMCollection.Add(vm);
                     }
                     var callPutTDOptionVM = CallPutTDOptionVMCollection.FirstOrDefault();
-                    var strategyVM = callPutTDOptionVM.CallStrategyVM;
-                    pricingModelCB.ItemsSource = null;
-                    volModelLB.Content = null;
-                    riskFree_Interest.DataContext = null;
-                    adjustment.Value = null;
-                    underlyingEX1.ItemsSource = null;
-                    underlyingCB1.ItemsSource = null;
-                    underlyingContractCB1.ItemsSource = null;
-                    underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
-                    pricingModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("pm");
-                    if (strategyVM != null)
+                    if (callPutTDOptionVM != null)
                     {
-                        var pricingContractParamVM = strategyVM.PricingContractParams?.FirstOrDefault();
-                        if (pricingContractParamVM != null)
+                        var strategyVM = callPutTDOptionVM.CallStrategyVM;
+                        pricingModelCB.ItemsSource = null;
+                        volModelLB.Content = null;
+                        riskFree_Interest.DataContext = null;
+                        adjustment.Value = null;
+                        underlyingEX1.ItemsSource = null;
+                        underlyingCB1.ItemsSource = null;
+                        underlyingContractCB1.ItemsSource = null;
+                        underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
+                        pricingModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("pm");
+                        if (strategyVM != null)
                         {
-                            var futurecontract = pricingContractParamVM.Contract;
-                            var futureexchange = pricingContractParamVM.Exchange;
-                            var futureunderlying = _futurecontractList.FirstOrDefault(c => c.Exchange == futureexchange && c.Contract == futurecontract)?.ProductID;
-                            var adjust = pricingContractParamVM.Adjust;
-                            var pricingmodel = strategyVM.PricingModel;
-                            var volmodel = strategyVM.VolModel;
-                            pricingModelCB.SelectedValue = pricingmodel;
-                            underlyingEX1.SelectedValue = futureexchange;
-                            underlyingCB1.SelectedValue = futureunderlying;
-                            underlyingContractCB1.SelectedValue = futurecontract;
-                            volModelLB.Content = volmodel;
-                            adjustment.Value = adjust;
-                            var modelVM = pricingModelCB.SelectedItem as ModelParamsVM;
-                            if (modelVM != null)
+                            var pricingContractParamVM = strategyVM.PricingContractParams?.FirstOrDefault();
+                            if (pricingContractParamVM != null)
                             {
-                                riskFree_Interest.DataContext = modelVM;
+                                var futurecontract = pricingContractParamVM.Contract;
+                                var futureexchange = pricingContractParamVM.Exchange;
+                                var futureunderlying = _futurecontractList.FirstOrDefault(c => c.Exchange == futureexchange && c.Contract == futurecontract)?.ProductID;
+                                var adjust = pricingContractParamVM.Adjust;
+                                var pricingmodel = strategyVM.PricingModel;
+                                var volmodel = strategyVM.VolModel;
+                                pricingModelCB.SelectedValue = pricingmodel;
+                                underlyingEX1.SelectedValue = futureexchange;
+                                underlyingCB1.SelectedValue = futureunderlying;
+                                underlyingContractCB1.SelectedValue = futurecontract;
+                                volModelLB.Content = volmodel;
+                                adjustment.Value = adjust;
+                                var modelVM = pricingModelCB.SelectedItem as ModelParamsVM;
+                                if (modelVM != null)
+                                {
+                                    riskFree_Interest.DataContext = modelVM;
+                                }
                             }
                         }
+                        _subbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList.Select(c => new ContractKeyVM(c.Exchange, c.Contract)));
                     }
-                    _subbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList.Select(c => new ContractKeyVM(c.Exchange, c.Contract)));
                 }
             }
         }
