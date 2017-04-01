@@ -441,36 +441,31 @@ namespace Micro.Future.UI
             {
                 var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
                 if (modelParamsVM != null)
-                { 
+                {
                     var key = updownctrl.Tag.ToString();
                     double value = modelParamsVM[key].Value;
                     if (value != updownctrl.Value.Value)
-                    _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, key, updownctrl.Value.Value);
+                        _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, key, updownctrl.Value.Value);
                 }
             }
         }
-        private void Adjustment_KeyDown(object sender, KeyEventArgs e)
+        private void Adjustment_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            DoubleUpDown ctrl = sender as DoubleUpDown;
-            if (ctrl != null)
+            if (e.OldValue != null)
             {
-                if (e.Key == Key.Escape || e.Key == Key.Enter)
+                if (_otcOptionHandler != null)
                 {
-                    if (_otcOptionHandler != null)
+                    var callPutTDOptionVM = CallPutTDOptionVMCollection.FirstOrDefault();
+                    if (callPutTDOptionVM != null)
                     {
-                        if (e.Key == Key.Enter)
+                        var strategyVM = callPutTDOptionVM.CallStrategyVM;
+                        if (strategyVM != null)
                         {
-                            var contract = SubbedContracts?.FirstOrDefault();
-                            if (contract != null)
+                            var pricingContract = strategyVM.PricingContractParams.FirstOrDefault();
+                            if (pricingContract != null)
                             {
-                                var strategy =
-                                    _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
-                                var pricingContract = strategy.VMContractParams.FirstOrDefault();
-                                if (pricingContract != null)
-                                {
-                                    pricingContract.Adjust = ctrl.Value.Value;
-                                    _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.VM);
-                                }
+                                pricingContract.Adjust = (double)e.NewValue;
+                                _otcOptionHandler.UpdateStrategyPricingContracts(strategyVM, StrategyVM.Model.PM);
                             }
                         }
                     }

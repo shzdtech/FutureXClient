@@ -236,8 +236,8 @@ namespace Micro.Future.UI
             if (idx >= 0)
             {
                 double x = _optionTheoCallVMList[idx].Value;
-                if(tdOptionVM.TheoDataVM != null)
-                { 
+                if (tdOptionVM.TheoDataVM != null)
+                {
                     if (!double.IsNaN(tdOptionVM.TheoDataVM.AskVol))
                     {
                         VolatilityModelVM.TheoAskVolLine[idx] = new DataPoint(x, tdOptionVM.TheoDataVM.AskVol);
@@ -246,7 +246,15 @@ namespace Micro.Future.UI
                         scatterPt = VolatilityModelVM.TheoCallAskVolScatter[idx];
                         VolatilityModelVM.TheoCallAskVolScatter[idx] = new ScatterPoint(x, tdOptionVM.TheoDataVM.AskVol, ScatterSize, scatterPt.Value, scatterPt.Tag);
                     }
-
+                    else
+                    {
+                        VolatilityModelVM.TheoAskVolLine[idx] = DataPoint.Undefined;
+                        var scatterPt = VolatilityModelVM.TheoPutBidVolScatter[idx];
+                        VolatilityModelVM.TheoPutAskVolScatter[idx] = new ScatterPoint(x, tdOptionVM.TheoDataVM.AskVol, 0, scatterPt.Value, scatterPt.Tag);
+                        scatterPt = VolatilityModelVM.TheoCallBidVolScatter[idx];
+                        VolatilityModelVM.TheoCallAskVolScatter[idx] = new ScatterPoint(x, tdOptionVM.TheoDataVM.AskVol, 0, scatterPt.Value, scatterPt.Tag);
+                        VolatilityModelVM.TheoMidVolLine[idx] = DataPoint.Undefined;
+                    }
                     if (!double.IsNaN(tdOptionVM.TheoDataVM.BidVol))
                     {
                         VolatilityModelVM.TheoBidVolLine[idx] = new DataPoint(x, tdOptionVM.TheoDataVM.BidVol);
@@ -256,16 +264,22 @@ namespace Micro.Future.UI
                         VolatilityModelVM.TheoCallBidVolScatter[idx] = new ScatterPoint(x, tdOptionVM.TheoDataVM.BidVol, ScatterSize, scatterPt.Value, scatterPt.Tag);
                         VolatilityModelVM.TheoMidVolLine[idx] = new DataPoint(x, (tdOptionVM.TheoDataVM.AskVol + tdOptionVM.TheoDataVM.BidVol) / 2);
                     }
+                    else
+                    {
+                        VolatilityModelVM.TheoBidVolLine[idx] = DataPoint.Undefined;
+                        var scatterPt = VolatilityModelVM.TheoPutBidVolScatter[idx];
+                        VolatilityModelVM.TheoPutBidVolScatter[idx] = new ScatterPoint(x, tdOptionVM.TheoDataVM.BidVol, 0, scatterPt.Value, scatterPt.Tag);
+                        scatterPt = VolatilityModelVM.TheoCallBidVolScatter[idx];
+                        VolatilityModelVM.TheoCallBidVolScatter[idx] = new ScatterPoint(x, tdOptionVM.TheoDataVM.BidVol, 0,  scatterPt.Value, scatterPt.Tag);
+                        VolatilityModelVM.TheoMidVolLine[idx] = DataPoint.Undefined;
+                    }
                 }
 
                 if (tdOptionVM.TempTheoDataVM != null)
                 {
-                    if (!double.IsNaN(tdOptionVM.TempTheoDataVM.AskVol)) VolatilityModelVM.TheoAskVolLine1[idx] = new DataPoint(x, tdOptionVM.TempTheoDataVM.AskVol);
-                    if (!double.IsNaN(tdOptionVM.TempTheoDataVM.BidVol))
-                    {
-                        VolatilityModelVM.TheoBidVolLine1[idx] = new DataPoint(x, tdOptionVM.TempTheoDataVM.BidVol);
-                        VolatilityModelVM.TheoMidVolLine1[idx] = new DataPoint(x, (tdOptionVM.TempTheoDataVM.AskVol + tdOptionVM.TempTheoDataVM.BidVol) / 2);
-                    }
+                    VolatilityModelVM.TheoAskVolLine1[idx] = double.IsNaN(tdOptionVM.TempTheoDataVM.AskVol) ? DataPoint.Undefined : new DataPoint(x, tdOptionVM.TempTheoDataVM.AskVol);
+                    VolatilityModelVM.TheoBidVolLine1[idx] = double.IsNaN(tdOptionVM.TempTheoDataVM.BidVol) ? DataPoint.Undefined : new DataPoint(x, tdOptionVM.TempTheoDataVM.BidVol);
+                    VolatilityModelVM.TheoMidVolLine1[idx] = double.IsNaN(tdOptionVM.TempTheoDataVM.BidVol) ? DataPoint.Undefined : new DataPoint(x, (tdOptionVM.TempTheoDataVM.AskVol + tdOptionVM.TempTheoDataVM.BidVol) / 2);
                 }
 
                 if (tdOptionVM.WingsReturnVM != null)
@@ -373,7 +387,7 @@ namespace Micro.Future.UI
             VolatilityModelVM.TheoAskVolLine1.Clear();
             VolatilityModelVM.TheoBidVolLine1.Clear();
             VolatilityModelVM.TheoMidVolLine1.Clear();
-            for (int i= 0; i < datapoints; i++)
+            for (int i = 0; i < datapoints; i++)
             {
                 VolatilityModelVM.TheoAskVolLine1.Add(DataPoint.Undefined);
                 VolatilityModelVM.TheoBidVolLine1.Add(DataPoint.Undefined);

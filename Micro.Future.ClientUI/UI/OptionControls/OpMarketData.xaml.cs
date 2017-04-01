@@ -422,61 +422,38 @@ namespace Micro.Future.UI
             }
         }
 
-        private void Adjustment1_KeyDown(object sender, KeyEventArgs e)
+        private void Adjustment1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            DoubleUpDown ctrl = sender as DoubleUpDown;
-            if (ctrl != null)
+            if (e.OldValue != null)
             {
-                if (e.Key == Key.Escape || e.Key == Key.Enter)
+                var contract = SubbedContracts?.FirstOrDefault();
+                if (contract != null)
                 {
-                    if (_otcOptionHandler != null)
-                    {
-                        if (e.Key == Key.Enter)
-                        {
-                            var contract = SubbedContracts?.FirstOrDefault();
-                            if (contract != null)
-                            {
-                                var strategy =
-                                    _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
-                                var pricingContract = strategy.IVMContractParams.FirstOrDefault();
-                                if (pricingContract != null)
-                                {
-                                    pricingContract.Adjust = ctrl.Value.Value;
-                                    _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.IVM);
-                                }
-                            }
-                        }
-                    }
+                    UpdateStrategyAdjustment(contract, StrategyVM.Model.IVM, (double)e.NewValue);
                 }
             }
         }
 
-        private void Adjustment2_KeyDown(object sender, KeyEventArgs e)
+        private void Adjustment2_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            DoubleUpDown ctrl = sender as DoubleUpDown;
-            if (ctrl != null)
+            if (e.OldValue != null)
             {
-                if (e.Key == Key.Escape || e.Key == Key.Enter)
+                var contract = SubbedContracts2?.FirstOrDefault();
+                if (contract != null)
                 {
-                    if (_otcOptionHandler != null)
-                    {
-                        if (e.Key == Key.Enter)
-                        {
-                            var contract = SubbedContracts2?.FirstOrDefault();
-                            if (contract != null)
-                            {
-                                var strategy =
-                                    _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
-                                var pricingContract = strategy.VMContractParams.FirstOrDefault();
-                                if (pricingContract != null)
-                                {
-                                    pricingContract.Adjust = ctrl.Value.Value;
-                                    _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.VM);
-                                }
-                            }
-                        }
-                    }
+                    UpdateStrategyAdjustment(contract, StrategyVM.Model.VM, (double)e.NewValue);
                 }
+            }
+        }
+        private void UpdateStrategyAdjustment(ContractKeyVM contract, StrategyVM.Model model, double adjust)
+        {
+            var strategy =
+                                    _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Equals(contract));
+            var pricingContract = strategy.VMContractParams.FirstOrDefault();
+            if (pricingContract != null)
+            {
+                pricingContract.Adjust = adjust;
+                _otcOptionHandler.UpdateStrategyPricingContracts(strategy, model);
             }
         }
         private void riskFree_Interest_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
