@@ -68,13 +68,13 @@ namespace Micro.Future.UI
         private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var updownctrl = sender as DoubleUpDown;
-            if (updownctrl != null && e.OldValue != null)
+            if (updownctrl != null && e.OldValue != null && e.NewValue != null)
             {
                 var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
                 if (modelParamsVM != null)
                 {
                     var key = updownctrl.Tag.ToString();
-                    double value = modelParamsVM[key].Value;
+                    double value = (double)e.NewValue;
                     TempSettings[key] = value;
                     _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, key, value);
                 }

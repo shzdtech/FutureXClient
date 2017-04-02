@@ -474,13 +474,12 @@ namespace Micro.Future.UI
         private void riskFree_Interest_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var updownctrl = sender as DoubleUpDown;
-            if (updownctrl != null && updownctrl.Value.HasValue)
+            if (updownctrl != null && e.OldValue != null && e.NewValue != null)
             {
                 var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
-                if(modelParamsVM != null)
-                { 
-                var key = updownctrl.Tag.ToString();
-                if (modelParamsVM[key].Value != updownctrl.Value.Value)
+                if (modelParamsVM != null)
+                {
+                    var key = updownctrl.Tag.ToString();
                     _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, key, updownctrl.Value.Value);
                 }
             }
