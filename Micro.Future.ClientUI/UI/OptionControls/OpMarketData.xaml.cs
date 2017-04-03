@@ -398,6 +398,7 @@ namespace Micro.Future.UI
                     {
                         strategy.IVModel = modelParam.InstanceName;
                         _otcOptionHandler.UpdateStrategyModel(strategy, StrategyVM.Model.IVM);
+                        riskFree_Interest.DataContext = modelParam;
                     }
                 }
             }

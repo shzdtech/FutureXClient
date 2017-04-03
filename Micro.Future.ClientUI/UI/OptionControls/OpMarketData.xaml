@@ -43,6 +43,9 @@
                         <ComboBox x:Name="volModelCB" DisplayMemberPath="InstanceName" SelectedValuePath="InstanceName" SelectionChanged="volModelCB_SelectionChanged">
                         </ComboBox>
                     </GroupBox>
+                    <GroupBox x:Name="Interest" Header="{lex:Loc Key=Interest}">
+                        <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate" UpdateValueOnEnterKey="True" FormatString="F3" Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1" Increment="0.001" ValueChanged="riskFree_Interest_ValueChanged" Spinned="Spinned"/>
+                    </GroupBox>
                 </WrapPanel>
                 <Label x:Name="labelOption2" Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key=Option2}"/>
                 <WrapPanel Grid.Row="1" Grid.Column="1">
@@ -76,9 +79,6 @@
                     </GroupBox>
                     <GroupBox x:Name="Adjustment1" Header="{lex:Loc Key=Adjustment}">
                         <xctk:DoubleUpDown x:Name="adjustment1" UpdateValueOnEnterKey="True" FormatString="F2" Minimum="-1000000" Maximum="1000000" Increment="0.1" ValueChanged="Adjustment1_ValueChanged" Spinned="Spinned"/>
-                    </GroupBox>
-                    <GroupBox x:Name="Interest" Header="{lex:Loc Key=Interest}">
-                        <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate" UpdateValueOnEnterKey="True" FormatString="F3" Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1" Increment="0.001" ValueChanged="riskFree_Interest_ValueChanged" Spinned="Spinned"/>
                     </GroupBox>
                 </WrapPanel>
                 <Label x:Name="labelFuture2" Grid.Row="1" Grid.Column="2" Content="{lex:Loc Key=Future2}"/>
