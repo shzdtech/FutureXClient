@@ -28,7 +28,10 @@
                 <xctk:DoubleUpDown x:Name="no_StrikePrice" Tag="1"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding NumberofStrikePrice}"  Minimum="1" Maximum="1000000"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </GroupBox>-->
                     <GroupBox x:Name="RiskFree_Interest" Header="Risk Free Interest">
-                        <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate"  UpdateValueOnEnterKey="True" FormatString="F3"  Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1"  Increment="0.001" HorizontalAlignment="Left" VerticalAlignment="Top" Spinned="Spinned"/>
+                        <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate"  UpdateValueOnEnterKey="True" FormatString="F3"  Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1"  Increment="0.001" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="ValueChanged" Spinned="Spinned"/>
+                    </GroupBox>
+                    <GroupBox x:Name="Alpha" Header="Time Weighting Effect">
+                        <xctk:DoubleUpDown x:Name="alpha"  Tag="alpha" UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[alpha].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" HorizontalAlignment="Left" ValueChanged="ValueChanged" VerticalAlignment="Top" Spinned="Spinned"/>
                     </GroupBox>
                     <!--<GroupBox x:Name="Days_Maturity" Header="Days to Maturity">
                 <xctk:DoubleUpDown x:Name="days_Maturity" Tag="1"  UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding DaysMaturity}"  Minimum="1" Maximum="1000000"  Increment="1" KeyDown="OptionWin_KeyDown" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -55,9 +58,6 @@
                             <TextBlock Grid.Row="0" Tag="1" Text="{Binding Path=Value,ElementName=sSR}" />
                             <Slider Grid.Row="1" x:Name="sSR" HorizontalAlignment="Left" Tag="ssr" Value="{Binding Path=[ssr].Value}"  VerticalAlignment="Top" Width="130" TickFrequency="1" Maximum="100" Minimum="0" IsSnapToTickEnabled="True" SmallChange="0" MouseLeftButtonUp="SSRMouseUp"  />
                         </Grid>-->
-                    </GroupBox>
-                    <GroupBox x:Name="Alpha" Header="Alpha">
-                        <xctk:DoubleUpDown x:Name="alpha"  Tag="alpha" UpdateValueOnEnterKey="True" FormatString="F2"  Value="{Binding Path=[alpha].Value}"  Minimum="-1000000" Maximum="1000000" Increment="0.01" HorizontalAlignment="Left" ValueChanged="ValueChanged" VerticalAlignment="Top" Spinned="Spinned"/>
                     </GroupBox>
                     <Button x:Name="setReferenceBtn" Content="{lex:Loc Key=SetReference}" Click="SetReference_Click" />
                     <Button x:Name="revertCurrentBtn" Content="{lex:Loc Key=RevertCurrent}" Click="RevertCurrent_Click" />
