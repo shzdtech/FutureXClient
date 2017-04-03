@@ -245,7 +245,7 @@ namespace Micro.Future.UI
                         pricingModelCB.ItemsSource = null;
                         volModelLB.Content = null;
                         riskFree_Interest.DataContext = null;
-                        adjustment.Value = null;
+                        adjustment.DataContext = null;
                         underlyingEX1.ItemsSource = null;
                         underlyingCB1.ItemsSource = null;
                         underlyingContractCB1.ItemsSource = null;
