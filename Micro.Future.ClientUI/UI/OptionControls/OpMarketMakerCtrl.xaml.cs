@@ -349,10 +349,10 @@ namespace Micro.Future.UI
             var modelParam = pricingModelCB.SelectedItem as ModelParamsVM;
             if (modelParam != null)
             {
+                riskFree_Interest.DataContext = modelParam;
                 var option = CallPutTDOptionVMCollection.FirstOrDefault();
                 if (option?.CallStrategyVM == null || option.CallStrategyVM.PricingModel == modelParam.InstanceName)
                     return;
-                riskFree_Interest.DataContext = modelParam;
                 option.CallStrategyVM.PricingModel = modelParam.InstanceName;
                 _otcOptionHandler.UpdateStrategyModel(option.CallStrategyVM, StrategyVM.Model.PM);
                 option.PutStrategyVM.PricingModel = modelParam.InstanceName;

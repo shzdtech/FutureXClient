@@ -389,6 +389,7 @@ namespace Micro.Future.UI
             var modelParam = volModelCB.SelectedItem as ModelParamsVM;
             if (modelParam != null)
             {
+                riskFree_Interest.DataContext = modelParam;
                 var contract = SubbedContracts?.FirstOrDefault();
                 if (contract != null)
                 {
@@ -398,7 +399,6 @@ namespace Micro.Future.UI
                     {
                         strategy.IVModel = modelParam.InstanceName;
                         _otcOptionHandler.UpdateStrategyModel(strategy, StrategyVM.Model.IVM);
-                        riskFree_Interest.DataContext = modelParam;
                     }
                 }
             }
