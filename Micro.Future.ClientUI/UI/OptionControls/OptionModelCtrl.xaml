@@ -18,9 +18,9 @@
             <avalonDock:LayoutPanel Orientation="Vertical">
                 <avalonDock:LayoutPanel DockHeight="0.2*" >
                     <avalonDock:LayoutAnchorablePane x:Name="OPMarketPane" >
-                        <avalonDock:LayoutAnchorable >
+                        <avalonDock:LayoutAnchorable Title="Model Select">
                             <c:OpMarketData x:Name="OpMarketControl"/>
-                        </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorable >
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
                 <avalonDock:LayoutPanel Orientation="Vertical">
@@ -31,7 +31,7 @@
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="VolCurvPane" DockWidth="0.3*">
-                            <avalonDock:LayoutAnchorable Title="Volatility Curve Manage">
+                            <avalonDock:LayoutAnchorable Title="Volatility Curve Manager">
                                 <c:VolCurvCtrl x:Name="VolCurvLV"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>

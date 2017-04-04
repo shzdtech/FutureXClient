@@ -47,7 +47,7 @@
                         <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate" UpdateValueOnEnterKey="True" FormatString="F3" Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1" Increment="0.001" ValueChanged="riskFree_Interest_ValueChanged" Spinned="Spinned"/>
                     </GroupBox>
                 </WrapPanel>
-                <Label x:Name="labelOption2" Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key=Option2}"/>
+                <Label x:Name="labelOption2" Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key=Theoretical}"/>
                 <WrapPanel Grid.Row="1" Grid.Column="1">
                     <GroupBox x:Name="Op_Exchange1" Header="{lex:Loc Key=Exchange}">
                         <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged"/>
