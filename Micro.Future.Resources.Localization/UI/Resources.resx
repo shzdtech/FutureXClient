@@ -604,7 +604,7 @@
     <value>添加行情</value>
   </data>
   <data name="Adjustment" xml:space="preserve">
-    <value>调整量</value>
+    <value>价差</value>
   </data>
   <data name="AskEnable" xml:space="preserve">
     <value>启用Ask报价</value>
@@ -709,7 +709,7 @@
     <value>一键平仓</value>
   </data>
   <data name="RevertCurrent" xml:space="preserve">
-    <value>RevertCurrent</value>
+    <value>Revert Current</value>
   </data>
   <data name="SetReference" xml:space="preserve">
     <value>Set Reference</value>
@@ -719,5 +719,20 @@
   </data>
   <data name="Interest" xml:space="preserve">
     <value>利率</value>
+  </data>
+  <data name="Implied" xml:space="preserve">
+    <value>隐含</value>
+  </data>
+  <data name="ImpVolModel" xml:space="preserve">
+    <value>隐含波动率模型</value>
+  </data>
+  <data name="Option" xml:space="preserve">
+    <value>期权</value>
+  </data>
+  <data name="Theoretical" xml:space="preserve">
+    <value>理论</value>
+  </data>
+  <data name="TheoVolModel" xml:space="preserve">
+    <value>理论波动率模型</value>
   </data>
 </root>

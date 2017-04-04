@@ -82,9 +82,7 @@ namespace Micro.Future.UI
         {
             WMSettingsLV.RevertCurrent();
             VolCurvLV.TempCurveReset();
-            var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
-
-            
+            var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;            
             if (volModel != null)
             {
                 await _otcHandler.QueryModelParamsAsync(volModel.ToString());
@@ -108,8 +106,7 @@ namespace Micro.Future.UI
         private async void RevertCurrentBtn_Click(object sender, RoutedEventArgs e)
         {
             VolCurvLV.TempCurveReset();
-            var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
-            
+            var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;            
             if (volModel != null)
             {
                 WMSettingsLV.DataContext = null;

@@ -142,7 +142,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 调整量 的本地化字符串。
+        ///   查找类似 价差 的本地化字符串。
         /// </summary>
         internal static string Adjustment {
             get {
@@ -745,6 +745,24 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 隐含 的本地化字符串。
+        /// </summary>
+        internal static string Implied {
+            get {
+                return ResourceManager.GetString("Implied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 隐含波动率模型 的本地化字符串。
+        /// </summary>
+        internal static string ImpVolModel {
+            get {
+                return ResourceManager.GetString("ImpVolModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 挂单时间 的本地化字符串。
         /// </summary>
         internal static string InsertTime {
@@ -1002,6 +1020,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string OpenVolume {
             get {
                 return ResourceManager.GetString("OpenVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 期权 的本地化字符串。
+        /// </summary>
+        internal static string Option {
+            get {
+                return ResourceManager.GetString("Option", resourceCulture);
             }
         }
         
@@ -1330,7 +1357,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 RevertCurrent 的本地化字符串。
+        ///   查找类似 Revert Current 的本地化字符串。
         /// </summary>
         internal static string RevertCurrent {
             get {
@@ -1569,6 +1596,24 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Strategy {
             get {
                 return ResourceManager.GetString("Strategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 理论 的本地化字符串。
+        /// </summary>
+        internal static string Theoretical {
+            get {
+                return ResourceManager.GetString("Theoretical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 理论波动率模型 的本地化字符串。
+        /// </summary>
+        internal static string TheoVolModel {
+            get {
+                return ResourceManager.GetString("TheoVolModel", resourceCulture);
             }
         }
         

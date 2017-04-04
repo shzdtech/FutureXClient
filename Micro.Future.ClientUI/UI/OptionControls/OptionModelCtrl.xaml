@@ -26,12 +26,12 @@
                 <avalonDock:LayoutPanel Orientation="Vertical">
                     <avalonDock:LayoutPanel Orientation="Horizontal">
                         <avalonDock:LayoutAnchorablePane x:Name="WMSettingsPane" DockWidth="0.15*">
-                            <avalonDock:LayoutAnchorable Title="WingModel Settings">
+                            <avalonDock:LayoutAnchorable Title="Wing Model Settings">
                                 <c:WMSettingsCtrl x:Name="WMSettingsLV" x:FieldModifier="public"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="VolCurvPane" DockWidth="0.3*">
-                            <avalonDock:LayoutAnchorable Title="Volatility Risk">
+                            <avalonDock:LayoutAnchorable Title="Volatility Curve Manage">
                                 <c:VolCurvCtrl x:Name="VolCurvLV"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>

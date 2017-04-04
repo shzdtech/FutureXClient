@@ -538,7 +538,7 @@
     <value>TradingStrategy</value>
   </data>
   <data name="TradingOption" xml:space="preserve">
-    <value>TradingOption</value>
+    <value>Option</value>
   </data>
   <data name="LogOut" xml:space="preserve">
     <value>LogOut</value>
@@ -719,5 +719,20 @@
   </data>
   <data name="Interest" xml:space="preserve">
     <value>Interest</value>
+  </data>
+  <data name="Implied" xml:space="preserve">
+    <value>Implied</value>
+  </data>
+  <data name="ImpVolModel" xml:space="preserve">
+    <value>Imp.Vol.Model</value>
+  </data>
+  <data name="Option" xml:space="preserve">
+    <value>Option</value>
+  </data>
+  <data name="Theoretical" xml:space="preserve">
+    <value>Theoretical</value>
+  </data>
+  <data name="TheoVolModel" xml:space="preserve">
+    <value>TheoVolModel</value>
   </data>
 </root>

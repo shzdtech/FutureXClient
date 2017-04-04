@@ -36,7 +36,7 @@
             <GroupBox x:Name="Interest" Header="{lex:Loc Key=Interest}">
                 <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate" UpdateValueOnEnterKey="True" FormatString="F3" Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1" Increment="0.001" ValueChanged="ValueChanged" Spinned="Spinned" VerticalAlignment="Top"/>
             </GroupBox>
-            <GroupBox x:Name="Op_VolModel" Header="{lex:Loc Key=VolModel}">
+            <GroupBox x:Name="Op_VolModel" Header="{lex:Loc Key=TheoVolModel}">
                 <Label x:Name="volModelLB" Content="" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </GroupBox>
             <GroupBox x:Name="Op_Exchange1" Header="{lex:Loc Key=Exchange}">
@@ -103,13 +103,6 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="{lex:Loc Key=Exchange}">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Exchange}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -118,10 +111,12 @@
         <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0">
             <ListView.Resources>
                 <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="GreenHeaderStyle">
-                    <Setter Property="Background" Value="Blue" />
+                    <Setter Property="Background" Value="Blue"/>
+                    <Setter Property="Foreground" Value="White"/>
                 </Style>
                 <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="RedHeaderStyle">
                     <Setter Property="Background" Value="Red" />
+                    <Setter Property="Foreground" Value="White"/>
                 </Style>
             </ListView.Resources>
             <ListView.View>
@@ -133,7 +128,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PAskQT" Header="{lex:Loc Key=PAskQTEnable}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                    <GridViewColumn x:Name="PAskQT" Header="{lex:Loc Key=PAskQTEnable}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding PutStrategyVM.AskEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>

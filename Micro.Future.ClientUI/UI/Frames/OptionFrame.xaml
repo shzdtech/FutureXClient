@@ -17,7 +17,7 @@
       mc:Ignorable="d" d:DesignWidth="800">
     <UserControl.Resources>
         <x:Array Type="{x:Type MenuItem}" x:Key="exOptionMenuItems">
-            <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=TradingOption}">
+            <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=Option}">
                 <MenuItem Header="{lex:Loc Key=AddModel}" Click="Add_Model_Click">
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=AddQuote}" Click="Add_Quote_Click">
@@ -43,7 +43,7 @@
         <avalonDock:LayoutRoot>
             <avalonDock:LayoutPanel Orientation="Vertical">
                 <avalonDock:LayoutAnchorablePane x:Name="optionModelPane">
-                    <avalonDock:LayoutAnchorable Title="Option Model">
+                    <avalonDock:LayoutAnchorable Title="Model">
                         <c:OptionModelCtrl x:Name="optionModelCtrl"/>
                     </avalonDock:LayoutAnchorable>
                     <avalonDock:LayoutAnchorable Title="Market Maker">
