@@ -82,13 +82,14 @@ namespace Micro.Future.UI
         {
             WMSettingsLV.RevertCurrent();
             VolCurvLV.TempCurveReset();
-            var callputOpt = VolCurvLV.CallPutTDOptionVMCollection.FirstOrDefault();
-            if (callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
+            var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
+
+            
+            if (volModel != null)
             {
-                await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
+                await _otcHandler.QueryModelParamsAsync(volModel.ToString());
             }
 
-            var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
             if (volModel != null)
             {
                 WMSettingsLV.DataContext = null;
@@ -107,11 +108,12 @@ namespace Micro.Future.UI
         private async void RevertCurrentBtn_Click(object sender, RoutedEventArgs e)
         {
             VolCurvLV.TempCurveReset();
-            var callputOpt = VolCurvLV.CallPutTDOptionVMCollection.FirstOrDefault();
-            if (callputOpt != null && callputOpt.CallStrategyVM != null && callputOpt.CallStrategyVM.VolModel != null)
+            var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
+            
+            if (volModel != null)
             {
                 WMSettingsLV.DataContext = null;
-                var modelparamsVM = await _otcHandler.QueryModelParamsAsync(callputOpt.CallStrategyVM.VolModel);
+                var modelparamsVM = await _otcHandler.QueryModelParamsAsync(volModel.ToString());
                 WMSettingsLV.DataContext = modelparamsVM;
             }
         }
