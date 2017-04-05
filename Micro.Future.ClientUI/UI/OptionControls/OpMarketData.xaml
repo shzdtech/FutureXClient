@@ -110,7 +110,7 @@
                             <GridViewColumn Header="{lex:Loc Key=MatchPrice}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Value}" DataContext="{Binding MatchPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
+                                        <TextBlock Text="{Binding Value}" DataContext="{Binding LastPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -165,7 +165,7 @@
                             <GridViewColumn Header="{lex:Loc Key=MatchPrice}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Value}" DataContext="{Binding MatchPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
+                                        <TextBlock Text="{Binding Value}" DataContext="{Binding LastPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
