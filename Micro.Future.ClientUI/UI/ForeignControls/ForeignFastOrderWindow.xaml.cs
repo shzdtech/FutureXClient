@@ -12,7 +12,7 @@ namespace Micro.Future.UI
     {
         private string _currentContract;
 
-        public TraderExHandler TradeHandler
+        public BaseTraderHandler TradeHandler
         {
             get
             {

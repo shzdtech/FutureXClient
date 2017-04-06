@@ -21,7 +21,7 @@ namespace Micro.Future.UI
     /// <summary>
     /// xaml 的交互逻辑
     /// </summary>
-    public partial class DomesticMarketFrame : UserControl, IUserFrame
+    public partial class OptionTradeFrame : UserControl, IUserFrame
     {
         private AbstractSignInManager _ctpMdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<MarketDataHandler>());
         private AbstractSignInManager _ctpTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<TraderExHandler>());
@@ -80,7 +80,7 @@ namespace Micro.Future.UI
             get;
         } = new TaskCompletionSource<bool>();
 
-        public DomesticMarketFrame()
+        public OptionTradeFrame()
         {
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
@@ -120,15 +120,13 @@ namespace Micro.Future.UI
             _ctpTradeSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
             _ctpTradeSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
+            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RegisterMessageWrapper(msgWrapper);
 
-            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
-            tradeHandler.RegisterMessageWrapper(msgWrapper);
-
-            clientFundLV.TradeHandler = tradeHandler;
-            FastOrderCtl.TradeHandler = tradeHandler;
-            executionWindow.TradeHandler = tradeHandler;
-            tradeWindow.TradeHandler = tradeHandler;
-            positionsWindow.TradeHandler = tradeHandler;
+            clientFundLV.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            FastOrderCtl.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            executionWindow.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            tradeWindow.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            positionsWindow.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
         }
 
         private void _ctpMdSignIner_OnLogged(IUserInfo obj)

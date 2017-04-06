@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.Message
 {
-    public class OTCOptionTradeHandler : TraderExHandler
+    public class OTCOptionTradeHandler : BaseTraderHandler
     {
     }
 }

@@ -35,16 +35,7 @@ namespace Micro.Future.UI
         {
             get;
         } = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
-
-        private static ISet<string> PositionContractSet
-        {
-            get;
-        } = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionContractSet;
-
-        public static TraderExHandler TradeHandler
-        {
-            get;
-        } = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+        public BaseTraderHandler TradeHandler { get; set; }
 
         private static ISet<MarketDataVM> _marketDataList = new HashSet<MarketDataVM>();
 
@@ -63,8 +54,9 @@ namespace Micro.Future.UI
 
             _viewSource.Source = PositionCollection;
 
-            MessageHandlerContainer.DefaultInstance
-            .Get<MarketDataHandler>().OnNewMarketData += OnNewMarketData;
+            //MessageHandlerContainer.DefaultInstance
+            //.Get<MarketDataHandler>().OnNewMarketData += OnNewMarketData;
+            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().OnNewMarketData += OnNewMarketData;
 
             FilterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
 
@@ -83,7 +75,7 @@ namespace Micro.Future.UI
 
         }
 
-        private static void PositionCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void PositionCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
@@ -92,9 +84,9 @@ namespace Micro.Future.UI
             }
         }
 
-        public static void OnNewMarketData(MarketDataVM mktDataVM)
+        public void OnNewMarketData(MarketDataVM mktDataVM)
         {
-            if (PositionContractSet.Contains(mktDataVM.Contract))
+            if (TradeHandler.PositionContractSet.Contains(mktDataVM.Contract))
             {
                 Task.Run(() =>
                 {
@@ -187,7 +179,8 @@ namespace Micro.Future.UI
         private void MenuItem_Click_ClosePosition(object sender, RoutedEventArgs e)
         {
             PositionVM positionVM = PositionListView.SelectedItem as PositionVM;
-            var orderVM = new OrderVM(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
+            //var orderVM = new OrderVM(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
+            var orderVM = new OrderVM(TradeHandler);
             if (positionVM != null)
             {
                 if (positionVM.Position != 0)

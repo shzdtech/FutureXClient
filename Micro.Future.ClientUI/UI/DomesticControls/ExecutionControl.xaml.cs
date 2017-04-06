@@ -29,6 +29,8 @@ namespace Micro.Future.UI
         private IList< ColumnObject> mColumns;
         private const string DEFAULT_ID = "394B67D4-87AA-47DB-B1DD-5A213714D02E";
 
+        public BaseTraderHandler TradeHandler { get; set; }
+
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public FilterSettingsWindow FilterSettingsWin { get; } = new FilterSettingsWindow() { PersistanceId = typeof(ExecutionControl).Name, CancelClosing = true };
         public LayoutContent LayoutContent { get; set; }
@@ -311,7 +313,9 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_CancelAllOrder(object sender, RoutedEventArgs e)
         {
-            var OrdersActive = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Where(o => o.Active);
+            //var OrdersActive = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Where(o => o.Active);
+            var OrdersActive = TradeHandler.OrderVMCollection.Where(o => o.Active);
+
             if (OrdersActive.Any())
             {
                 MessageBoxResult dr = MessageBox.Show("是否确认取消所有订单", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
@@ -319,7 +323,9 @@ namespace Micro.Future.UI
                 {
                     foreach (var orderactive in OrdersActive)
                     {
-                        MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().CancelOrder(orderactive);
+                        //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().CancelOrder(orderactive);
+                        TradeHandler.CancelOrder(orderactive);
+
                     }
                 }
             }
@@ -358,8 +364,10 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Clear();
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryOrder();
+            //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Clear();
+            //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryOrder();
+            TradeHandler.OrderVMCollection.Clear();
+            TradeHandler.QueryOrder();
 
             LayoutAnchorable defaultTab =
                 AnchorablePane.Children.FirstOrDefault(pane => ((ExecutionControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
@@ -368,8 +376,9 @@ namespace Micro.Future.UI
             if (defaultTab != null)
                 AnchorablePane.Children.Add(defaultTab);
 
-            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
-            var userId = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id;
+            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
+            //var userId = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id;
+            var userId = TradeHandler.MessageWrapper.User.Id;
             bool found = false;
 
             foreach (var fs in filtersettings)

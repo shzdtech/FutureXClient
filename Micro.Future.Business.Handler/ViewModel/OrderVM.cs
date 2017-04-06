@@ -11,12 +11,12 @@ namespace Micro.Future.ViewModel
     //报价
     public class OrderVM : ContractKeyVM
     {
-        public OrderVM(TraderExHandler trdHdl)
+        public OrderVM(BaseTraderHandler trdHdl)
         {
             TradeHandler = trdHdl;
         }
 
-        public TraderExHandler TradeHandler { get; set; }
+        public BaseTraderHandler TradeHandler { get; set; }
 
         private ulong _orderID;
         public ulong OrderID

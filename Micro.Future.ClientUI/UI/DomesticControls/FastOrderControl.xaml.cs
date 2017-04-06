@@ -31,7 +31,7 @@ namespace Micro.Future.UI
                 return ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             }
         }
-        public TraderExHandler TradeHandler
+        public BaseTraderHandler TradeHandler
         {
             get
             {

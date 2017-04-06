@@ -30,7 +30,7 @@ namespace Micro.Future.UI
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public FilterSettingsWindow FilterSettingsWin
         { get; } = new FilterSettingsWindow() { PersistanceId = typeof(TradeRecordControl).Name, CancelClosing = true };
-
+        public BaseTraderHandler TradeHandler { get; set; }
         public string PersistanceId
         {
             get;
@@ -43,7 +43,9 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
 
-            _viewSource.Source = MessageHandlerContainer.DefaultInstance?.Get<TraderExHandler>()?.TradeVMCollection;
+            //_viewSource.Source = MessageHandlerContainer.DefaultInstance?.Get<TraderExHandler>()?.TradeVMCollection;
+            _viewSource.Source = TradeHandler?.TradeVMCollection;
+
 
             FilterSettingsWin.OnFiltering += FilterSettingsWin_OnFiltering;
             TradeTreeView.ItemsSource = _viewSource.View;
@@ -238,7 +240,9 @@ namespace Micro.Future.UI
             OrderVM item = TradeTreeView.SelectedItem as OrderVM;
             if ((item != null) && item.Active)
             {
-                MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().CancelOrder(item);
+                //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().CancelOrder(item);
+                TradeHandler.CancelOrder(item);
+
             }
             else
             {
@@ -297,8 +301,10 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().TradeVMCollection.Clear();
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryTrade();
+            //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().TradeVMCollection.Clear();
+            //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryTrade();
+            TradeHandler.TradeVMCollection.Clear();
+            TradeHandler.QueryTrade();
 
             //while (AnchorablePane.ChildrenCount > 1)
             //    AnchorablePane.Children.RemoveAt(1);
@@ -309,7 +315,7 @@ namespace Micro.Future.UI
             if (defaultTab != null)
                 AnchorablePane.Children.Add(defaultTab);
 
-            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
 
             bool found = false;
 
