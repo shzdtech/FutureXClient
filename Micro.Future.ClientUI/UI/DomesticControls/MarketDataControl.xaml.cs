@@ -90,7 +90,7 @@ namespace Micro.Future.UI
             if (userId == null)
                 return;
 
-            var contracts = ClientDbContext.GetUserContracts(userId, FilterSettingsWin.FilterId).Select(c=>new ContractKeyVM(c.Item1, c.Item2));
+            var contracts = ClientDbContext.GetUserContracts(userId, FilterSettingsWin.FilterId).Select(c=>new ContractKeyVM(string.Empty, c));
             if (contracts.Any())
             {
                 try

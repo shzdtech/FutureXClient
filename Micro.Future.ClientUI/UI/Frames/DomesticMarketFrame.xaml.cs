@@ -105,7 +105,7 @@ namespace Micro.Future.UI
 
             // Initialize Market Data
             var msgWrapper = _ctpMdSignIner.MessageWrapper;
-            
+
             _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
             _ctpMdSignIner.OnLogged += _ctpMdSignIner_OnLogged;
             _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
@@ -181,12 +181,7 @@ namespace Micro.Future.UI
             Thread.Sleep(1200);
             executionWindow.ReloadData();
 
-            var today = DateTime.Now.Date.ToShortDateString();
-
-            if (MFUtilities.GetSyncVersion(nameof(ContractInfo)) != today)
-            {
-                await FastOrderCtl.TradeHandler.SyncContractInfoAsync();
-            }
+            await FastOrderCtl.TradeHandler.SyncContractInfoAsync();
 
             LoginTaskSource.TrySetResult(true);
         }
