@@ -4,11 +4,22 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Micro.Future.Message
 {
-    public class OTCOptionHandler : AbstractOTCHandler
+    public class OTCOptionTradingDeskHandler : AbstractOTCHandler
     {
+        public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
+        {
+            base.OnMessageWrapperRegistered(messageWrapper);
+            MessageWrapper.RegisterAction<PBTradingDeskOptionParams, ExceptionMessage>
+                      ((uint)BusinessMessageID.MSG_ID_RTN_TRADINGDESK_PRICING, OnTradingDeskOptionParams, OnErrorAction);
+        }
+
+        #region TradingDesk Data
+
         public ObservableCollection<RiskVM> RiskVMCollection
         {
             get;
@@ -18,13 +29,6 @@ namespace Micro.Future.Message
         {
             get;
         } = new ObservableCollection<PositionVM>();
-
-        public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
-        {
-            base.OnMessageWrapperRegistered(messageWrapper);
-            MessageWrapper.RegisterAction<PBTradingDeskOptionParams, ExceptionMessage>
-                      ((uint)BusinessMessageID.MSG_ID_RTN_TRADINGDESK_PRICING, OnTradingDeskOptionParams, OnErrorAction);
-        }
 
         private void OnTradingDeskOptionParams(PBTradingDeskOptionParams tradingDeskOption)
         {
@@ -148,6 +152,8 @@ namespace Micro.Future.Message
 
             return retList;
         }
+
+        #endregion
     }
     public static class OptionVMExtensions
     {

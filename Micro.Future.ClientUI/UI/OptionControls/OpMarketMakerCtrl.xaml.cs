@@ -31,7 +31,7 @@ namespace Micro.Future.UI
         public event Action<string, bool> OnCallBidStatusChanged;
         public event Action<string, bool> OnCallAskStatusChanged;
 
-        private OTCOptionHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
+        private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
 
         private IList<ContractInfo> _contractList;
         private IList<ContractInfo> _futurecontractList;

@@ -31,7 +31,7 @@ namespace Micro.Future.UI
     {
         public LayoutContent LayoutContent { get; set; }
         private IDictionary<string, double> TempSettings { get; set; } = new Dictionary<string, double>();
-        private OTCOptionHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
+        private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private IList<ContractInfo> _contractList;
         private IDictionary<ContractKeyVM, ContractInfo> _strategySet;
         private WingsReturnVM _wingsReturnVM = new WingsReturnVM();

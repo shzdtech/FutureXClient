@@ -12,12 +12,19 @@ namespace Micro.Future.Message
 {
     public class BaseMarketDataHandler : AbstractMessageHandler
     {
+        protected static uint MSG_ID_SUB_MD = (uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA;
+        protected static uint MSG_ID_UNSUB_MD = (uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA;
+        protected static uint MSG_ID_RET_MD = (uint)BusinessMessageID.MSG_ID_RET_MARKETDATA;
+
         public const int RETRY_TIMES = 5;
-        //public ObservableCollection<MarketDataVM> QuoteVMCollection
-        //{
-        //    get;
-        //} = new ObservableCollection<MarketDataVM>();
+       
         public event Action<MarketDataVM> OnNewMarketData;
+
+
+        protected void RaiseNewMD(MarketDataVM md)
+        {
+            OnNewMarketData?.Invoke(md);
+        }
 
         public ConcurrentDictionary<string, WeakReference<MarketDataVM>> MarketDataMap
         {
@@ -26,30 +33,26 @@ namespace Micro.Future.Message
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
-            MessageWrapper.RegisterAction<SimpleStringTable, ExceptionMessage>
-                ((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, UnsubMDSuccessAction, ErrorMsgAction);
-            MessageWrapper.RegisterAction<PBMarketData, ExceptionMessage>
-                ((uint)BusinessMessageID.MSG_ID_RET_MARKETDATA, RetMDSuccessAction, ErrorMsgAction);
+            MessageWrapper.RegisterAction<SimpleStringTable, ExceptionMessage>(MSG_ID_UNSUB_MD, UnsubMDSuccessAction, ErrorMsgAction);
+            MessageWrapper.RegisterAction<PBMarketData, ExceptionMessage>(MSG_ID_RET_MD, RetMDSuccessAction, ErrorMsgAction);
         }
 
-        public virtual async Task<MarketDataVM> SubMarketDataAsync(string ccntract, string exchange = "")
+        public virtual async Task<MarketDataVM> SubMarketDataAsync(string contract, string exchange = "")
         {
-            var mktDataList = await SubMarketDataAsync(new [] { new ContractKeyVM(exchange, ccntract) });
+            var mktDataList = await SubMarketDataAsync(new [] { new ContractKeyVM(exchange, contract) });
             return mktDataList?.FirstOrDefault();
         }
 
 
         public virtual Task<IList<MarketDataVM>> SubMarketDataAsync(IEnumerable<ContractKeyVM> instrIDList, int timeout = 10000)
         {
-            var msgId = (uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA;
-
             var tcs = new TimeoutTaskCompletionSource<IList<MarketDataVM>>(timeout);
 
             var serialId = NextSerialId;
 
             #region callback
             MessageWrapper.RegisterAction<PBMarketDataList, ExceptionMessage>
-            (msgId,
+            (MSG_ID_SUB_MD,
             (resp) =>
             {
                 if (resp.Header?.SerialId == serialId)
@@ -65,7 +68,7 @@ namespace Micro.Future.Message
             );
             #endregion
 
-            SendMessage(serialId, msgId, instrIDList);
+            SendMessage(serialId, MSG_ID_SUB_MD, instrIDList);
 
             return tcs.Task;
         }
@@ -98,7 +101,7 @@ namespace Micro.Future.Message
                 instrList.Add(quoteVM);
             }
 
-            SendMessage(NextSerialId, (uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, instrList);
+            SendMessage(NextSerialId, MSG_ID_UNSUB_MD, instrList);
         }
 
         public MarketDataVM FindMarketData(string contract)
@@ -111,7 +114,7 @@ namespace Micro.Future.Message
             return mktVM;
         }
 
-        protected IList<MarketDataVM> SubMDSuccessAction(PBMarketDataList marketList)
+        protected virtual IList<MarketDataVM> SubMDSuccessAction(PBMarketDataList marketList)
         {
             var ret = new List<MarketDataVM>();
             foreach (var md in marketList.MarketData)
@@ -133,7 +136,7 @@ namespace Micro.Future.Message
             return ret;
         }
 
-        protected void UnsubMDSuccessAction(SimpleStringTable strTbl)
+        protected virtual void UnsubMDSuccessAction(SimpleStringTable strTbl)
         {
             foreach (var contract in strTbl.Columns[0].Entry)
             {
@@ -142,7 +145,7 @@ namespace Micro.Future.Message
             }
         }
 
-        protected void RetMDSuccessAction(PBMarketData md)
+        protected virtual void RetMDSuccessAction(PBMarketData md)
         {
             var mktVM = FindMarketData(md.Contract);
             if (mktVM != null)
@@ -165,7 +168,7 @@ namespace Micro.Future.Message
                     mktVM.UpperLimitPrice = md.HighLimit;
                     mktVM.LowerLimitPrice = md.LowLimit;
 
-                    OnNewMarketData?.Invoke(mktVM);
+                    RaiseNewMD(mktVM);
                 }
             }
             else
@@ -174,7 +177,7 @@ namespace Micro.Future.Message
             }
         }
 
-        protected void ErrorMsgAction(ExceptionMessage bizErr)
+        protected virtual void ErrorMsgAction(ExceptionMessage bizErr)
         {
             if (bizErr.Description != null)
             {

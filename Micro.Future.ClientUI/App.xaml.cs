@@ -30,7 +30,8 @@ namespace Micro.Future
 
             if (config.Content.TryGetValue("OTCOPTIONSERVER", out configDict))
             {
-                MessageHandlerContainer.Register<OTCOptionHandler, OTCOptionHandler>(GenSignInOption(configDict));
+                MessageHandlerContainer.Register<OTCOptionTradingDeskHandler, OTCOptionTradingDeskHandler>(GenSignInOption(configDict));
+                MessageHandlerContainer.Register<OTCOptionDataHandler, OTCOptionDataHandler>(GenSignInOption(configDict));
                 MessageHandlerContainer.Register<OTCOptionTradeHandler, OTCOptionTradeHandler>(GenSignInOption(configDict));
             }
 

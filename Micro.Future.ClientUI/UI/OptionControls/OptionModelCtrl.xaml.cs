@@ -27,7 +27,7 @@ namespace Micro.Future.UI
     public partial class OptionModelCtrl : UserControl, ILayoutAnchorableControl
 
     {
-        private OTCOptionHandler _otcHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
+        private OTCOptionTradingDeskHandler _otcHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
 
         public OptionModelCtrl()
         {

@@ -61,10 +61,6 @@ namespace Micro.Future.Message
             get;
         } = new ObservableCollection<TradingDeskVM>();
 
-        public ObservableCollection<OTCPricingVM> OTCQuoteVMCollection
-        {
-            get;
-        } = new ObservableCollection<OTCPricingVM>();
 
         public ObservableCollection<PortfolioVM> PortfolioVMCollection   //portfolioVMCollection
         {
@@ -76,10 +72,6 @@ namespace Micro.Future.Message
 
         public override void OnMessageWrapperRegistered(AbstractMessageWrapper messageWrapper)
         {
-            MessageWrapper.RegisterAction<PBPricingDataList, ExceptionMessage>
-                        ((uint)BusinessMessageID.MSG_ID_SUB_PRICING, OnSubMarketDataSuccessAction, OnErrorAction);
-            MessageWrapper.RegisterAction<PBPricingData, ExceptionMessage>
-                            ((uint)BusinessMessageID.MSG_ID_RTN_PRICING, OnReturningPricing, OnErrorAction);
             MessageWrapper.RegisterAction<PBStrategyList, ExceptionMessage>
                         ((uint)BusinessMessageID.MSG_ID_QUERY_STRATEGY, OnQueryStrategySuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBContractParamList, ExceptionMessage>
@@ -603,66 +595,6 @@ namespace Micro.Future.Message
                 contractParamVM.Gamma = param.Gamma;
             }
 
-        }
-
-        public void SubMarketData(IEnumerable<string> instrIDList)
-        {
-            var instr = new NamedStringVector();
-            instr.Name = (FieldName.INSTRUMENT_ID);
-
-            foreach (string instrID in instrIDList)
-            {
-                instr.Entry.Add(instrID);
-            }
-
-            var sst = new SimpleStringTable();
-            sst.Columns.Add(instr);
-
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_SUB_PRICING, sst);
-        }
-
-        public void UnsubMarketData(IEnumerable<string> instrIDList)
-        {
-            var instr = new NamedStringVector();
-            instr.Name = (FieldName.INSTRUMENT_ID);
-
-            foreach (string instrID in instrIDList)
-            {
-                instr.Entry.Add(instrID);
-            }
-
-            var sst = new SimpleStringTable();
-            sst.Columns.Add(instr);
-
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA, sst);
-        }
-
-        protected void OnSubMarketDataSuccessAction(PBPricingDataList PB)
-        {
-            foreach (var md in PB.PricingData)
-            {
-                OTCQuoteVMCollection.Add(new OTCPricingVM()
-                {
-                    Exchange = md.Exchange,
-                    Contract = md.Contract,
-                });
-            }
-        }
-
-        protected virtual void OnReturningPricing(PBPricingData md)
-        {
-            var quote = OTCQuoteVMCollection.FindContract(md.Exchange, md.Contract);
-            if (quote != null)
-            {
-                quote.BidPrice = md.BidPrice;
-                quote.AskPrice = md.AskPrice;
-            }
-            quote = StrategyVMCollection.FindContract(md.Exchange, md.Contract);
-            if (quote != null)
-            {
-                quote.BidPrice = md.BidPrice;
-                quote.AskPrice = md.AskPrice;
-            }
         }
 
         private void OnSyncContractInfo(PBContractInfoList rsp)

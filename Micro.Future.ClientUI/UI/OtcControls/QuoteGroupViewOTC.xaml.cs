@@ -26,9 +26,6 @@ namespace Micro.Future.UI
         public QuoteGroupViewOTC()
         {
             InitializeComponent();
-
-            QuoteListView.ItemsSource =
-                MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().OTCQuoteVMCollection;
         }
 
         public event Action<OTCPricingVM> OnQuoteSelected;

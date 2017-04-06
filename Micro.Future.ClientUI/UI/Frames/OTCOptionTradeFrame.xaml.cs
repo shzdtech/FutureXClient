@@ -94,7 +94,7 @@ namespace Micro.Future.UI
             // Initailize UI events
             MarketDataControl.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
             PositionControl.OnPositionSelected += FastOrderCtl.OnPositionSelected;
-            marketDataLV.AnchorablePane = quotePane;
+            //marketDataLV.AnchorablePane = quotePane;
             executionWindow.AnchorablePane = executionPane;
             tradeWindow.AnchorablePane = tradePane;
             positionsWindow.AnchorablePane = positionPane;
@@ -131,7 +131,7 @@ namespace Micro.Future.UI
 
         private void _ctpMdSignIner_OnLogged(IUserInfo obj)
         {
-            marketDataLV.ReloadData();
+            //marketDataLV.ReloadData();
         }
 
         private void _ctpTradeSignIner_OnLoginError(MessageException obj)
