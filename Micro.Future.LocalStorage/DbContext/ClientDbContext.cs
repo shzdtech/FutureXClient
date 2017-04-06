@@ -192,11 +192,12 @@ namespace Micro.Future.LocalStorage
             }
         }
 
-        public static IEnumerable<string> GetUserContracts(string userId, string tabID)
+        public static IEnumerable<Tuple<string,string>> GetUserContracts(string userId, string tabID)
         {
             using (var clientCtx = new ClientDbContext())
             {
-                return clientCtx.MarketContract.Where(u => u.AccountID == userId && u.TabID == tabID).Select(u => u.Contract).ToList();
+                return clientCtx.MarketContract.Where(u => u.AccountID == userId && u.TabID == tabID).
+                    Select(u => new Tuple<string, string>(u.Exchange, u.Contract)).ToList();
             }
 
         }

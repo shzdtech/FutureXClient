@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Business\AbstractOTCHandler.cs" />
     <Compile Include="Business\BaseHandler\BaseTraderHandler.cs" />
+    <Compile Include="Business\BaseHandler\BaseMarketDataHandler.cs" />
     <Compile Include="Business\CTSTradeHandler.cs" />
     <Compile Include="Business\CTSMarketDataHandler.cs" />
     <Compile Include="Business\CTPOptionDataHandler.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="Business\MarketDataHandler.cs" />
     <Compile Include="Business\OrderEnums.cs" />
     <Compile Include="Business\OTCContractHandler.cs" />
+    <Compile Include="Business\OTCMarketDataHandler.cs" />
     <Compile Include="Business\OTCOptionHandler.cs" />
     <Compile Include="Business\OTCOptionTradeHandler.cs" />
     <Compile Include="Business\ProductEnums.cs" />
