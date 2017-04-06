@@ -17,7 +17,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OptionStrategyFrame : UserControl, IUserFrame
     {
-        private AbstractSignInManager _otcSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionHandler>());
+        private AbstractSignInManager _otcSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
 
 
 
@@ -84,7 +84,7 @@ namespace Micro.Future.UI
         public void Initialize()
         {
 
-            var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
+            var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
             strategyListView.OTCHandler = handler;
             contractParamListView.OTCHandler = handler;
 
@@ -109,7 +109,7 @@ namespace Micro.Future.UI
         {
             strategyListView.ReloadData();
             contractParamListView.ReloadData();
-            await MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>().QueryPortfolioAsync();
+            await MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().QueryPortfolioAsync();
             LoginTaskSource.TrySetResult(true);
         }
 

@@ -39,7 +39,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\AbstractOTCHandler.cs" />
+    <Compile Include="Business\BaseHandler\AbstractOTCHandler.cs" />
     <Compile Include="Business\BaseHandler\BaseTraderHandler.cs" />
     <Compile Include="Business\BaseHandler\BaseMarketDataHandler.cs" />
     <Compile Include="Business\CTSTradeHandler.cs" />
@@ -49,8 +49,7 @@
     <Compile Include="Business\MarketDataHandler.cs" />
     <Compile Include="Business\OrderEnums.cs" />
     <Compile Include="Business\OTCContractHandler.cs" />
-    <Compile Include="Business\OTCMarketDataHandler.cs" />
-    <Compile Include="Business\OTCOptionHandler.cs" />
+    <Compile Include="Business\OTCOptionDataHandler.cs" />
     <Compile Include="Business\OTCOptionTradeHandler.cs" />
     <Compile Include="Business\ProductEnums.cs" />
     <Compile Include="Business\TraderExHandler.cs" />
@@ -66,6 +65,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="OTCOptionTradingDeskHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="protos\PBMsgAlgo.cs" />
     <Compile Include="protos\PBMsgBusiness.cs" />

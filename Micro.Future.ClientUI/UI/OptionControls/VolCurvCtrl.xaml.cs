@@ -31,7 +31,7 @@ namespace Micro.Future.UI
     {
         private IList<ContractInfo> _contractList;
         private AbstractOTCHandler _abstractOTCHandler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
-        private OTCOptionHandler _otcHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
+        private OTCOptionTradingDeskHandler _otcHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
 
         private List<KeyValuePair<ContractKeyVM, double>> _optionCallVMList = new List<KeyValuePair<ContractKeyVM, double>>();
         private List<KeyValuePair<ContractKeyVM, double>> _optionPutVMList = new List<KeyValuePair<ContractKeyVM, double>>();

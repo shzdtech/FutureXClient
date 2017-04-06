@@ -45,7 +45,7 @@ namespace Micro.Future.UI
             OTCTradingLV.ItemsSource = OTCHandler?.StrategyVMCollection;
             OTCHandler?.StrategyVMCollection.Clear();
             OTCHandler?.QueryStrategy();
-            OTCHandler?.SubMarketData(new List<string>());
+            // OTCHandler?.SubMarketData(new List<string>());
         }
 
         private void OnStrategyChanged(object sender, RoutedPropertyChangedEventArgs<object> e)

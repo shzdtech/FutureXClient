@@ -25,12 +25,12 @@ namespace Micro.Future.LocalStorage
 
         public DbSet<ContractInfo> ContractInfo { get; set; }
 
-        public DbSet<PersonalContract> PersonalContract { get; set; }
-
         public DbSet<FilterSettings> FilterSettings { get; set; }
 
         public DbSet<MarketContract> MarketContract { get; set; }
+
         public DbSet<OrderStatusFilter> OrderStatusFilter { get; set; }
+
         public DbSet<ColumnSettingsInfo> ColumnSettingsInfo { get; set; }
 
 
@@ -38,12 +38,9 @@ namespace Micro.Future.LocalStorage
         {
             // Composite primary key 
             modelBuilder.Entity<ContractInfo>().HasKey(c => new { c.Exchange, c.Contract });
-            modelBuilder.Entity<PersonalContract>().HasKey(p => new { p.UserID, p.Contract });
-            modelBuilder.Entity<MarketContract>().HasKey(m => new { m.AccountID, m.Contract, m.TabID });
+            modelBuilder.Entity<MarketContract>().HasKey(m => new { m.AccountID, m.Exchange, m.Contract, m.TabID });
             modelBuilder.Entity<OrderStatusFilter>().HasKey(o => new { o.AccountID, o.Orderstatus, o.TabID });
             modelBuilder.Entity<ColumnSettingsInfo>().HasKey(c => new { c.AccountID, c.ColumnIdx, c.TabID });
-
-
         }
 
         public string ConnectionString { get; protected set; }

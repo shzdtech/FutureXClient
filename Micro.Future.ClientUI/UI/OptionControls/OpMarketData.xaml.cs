@@ -28,7 +28,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OpMarketData : UserControl
     {
-        private OTCOptionHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionHandler>();
+        private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private IList<ContractInfo> _contractList;
         private IList<ContractInfo> _futurecontractList;
 

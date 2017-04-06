@@ -82,7 +82,7 @@
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="quotePane">
                             <avalonDock:LayoutAnchorable>
-                                <c:MarketDataControl x:Name="marketDataLV"/>
+                                <!--<c:MarketDataControl x:Name="marketDataLV"/>-->
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>
