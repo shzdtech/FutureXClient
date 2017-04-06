@@ -8,6 +8,7 @@ using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Micro.Future.Utility;
 
 namespace Micro.Future.Message
 {
@@ -93,7 +94,7 @@ namespace Micro.Future.Message
 
         //To read contract data into contractNameList
         //To invoke the function of saving contract data to local sqlite
-        private void OnSyncContractInfo(PBContractInfoList rsp)
+        private void OnSyncContractInfo(string key, PBContractInfoList rsp)
         {
             using (var clientCtx = new ClientDbContext())
             {
@@ -155,7 +156,7 @@ namespace Micro.Future.Message
                     ClientDbContext.GetContractFromCache(productType);
                 }
 
-                clientCtx.SetSyncVersion(nameof(ContractInfo), DateTime.Now.Date.ToShortDateString());
+                clientCtx.SetSyncVersion(key, DateTime.Now.Date.ToShortDateString());
                 clientCtx.SaveChanges();
             }
         }
@@ -379,6 +380,12 @@ namespace Micro.Future.Message
 
         public Task<bool> SyncContractInfoAsync()
         {
+            var today = DateTime.Now.Date.ToShortDateString();
+            var key = string.Format("{0}:{1}", nameof(ContractInfo), GetType().Name);
+            if (MFUtilities.GetSyncVersion(key) == today)
+            {
+                return Task.FromResult(true);
+            }
 
             var sst = new StringMap();
             sst.Header = new DataHeader();
@@ -396,7 +403,7 @@ namespace Micro.Future.Message
                 {
                     if (resp.Header?.SerialId == serialId)
                     {
-                        OnSyncContractInfo(resp);
+                        OnSyncContractInfo(key, resp);
 
                         tcs.TrySetResult(true);
                     }

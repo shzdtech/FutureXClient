@@ -656,14 +656,12 @@ namespace Micro.Future.Message
                     ClientDbContext.GetContractFromCache(productType);
                 }
 
-                clientCtx.SetSyncVersion(nameof(ContractInfo), DateTime.Now.Date.ToShortDateString());
                 clientCtx.SaveChanges();
             }
         }
 
         public Task<bool> SyncContractInfoAsync()
         {
-
             var sst = new StringMap();
             sst.Header = new DataHeader();
             sst.Header.SerialId = NextSerialId;

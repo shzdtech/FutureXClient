@@ -38,7 +38,7 @@ namespace Micro.Future.LocalStorage
         {
             // Composite primary key 
             modelBuilder.Entity<ContractInfo>().HasKey(c => new { c.Exchange, c.Contract });
-            modelBuilder.Entity<MarketContract>().HasKey(m => new { m.AccountID, m.Exchange, m.Contract, m.TabID });
+            modelBuilder.Entity<MarketContract>().HasKey(m => new { m.AccountID, m.Contract, m.TabID });
             modelBuilder.Entity<OrderStatusFilter>().HasKey(o => new { o.AccountID, o.Orderstatus, o.TabID });
             modelBuilder.Entity<ColumnSettingsInfo>().HasKey(c => new { c.AccountID, c.ColumnIdx, c.TabID });
         }
@@ -189,12 +189,12 @@ namespace Micro.Future.LocalStorage
             }
         }
 
-        public static IEnumerable<Tuple<string,string>> GetUserContracts(string userId, string tabID)
+        public static IEnumerable<string> GetUserContracts(string userId, string tabID)
         {
             using (var clientCtx = new ClientDbContext())
             {
                 return clientCtx.MarketContract.Where(u => u.AccountID == userId && u.TabID == tabID).
-                    Select(u => new Tuple<string, string>(u.Exchange, u.Contract)).ToList();
+                    Select(u => u.Contract).ToList();
             }
 
         }
