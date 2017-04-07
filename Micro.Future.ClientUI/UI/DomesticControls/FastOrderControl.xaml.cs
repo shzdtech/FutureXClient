@@ -45,6 +45,7 @@ namespace Micro.Future.UI
                 value.OnOrderError += Callback_OnOrderError;
             }
         }
+        public BaseMarketDataHandler MarketDataHandler { get; set; }
 
 
         public FastOrderControl()
@@ -136,7 +137,7 @@ namespace Micro.Future.UI
                     //OrderVM.Volume = positionVM.Position;
                     Task.Run(async () =>
                     {
-                        var item = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketDataAsync(quote);
+                        var item = await MarketDataHandler.SubMarketDataAsync(quote);
                         if (item != null)
                         {
                             Dispatcher.Invoke(() =>
@@ -243,7 +244,7 @@ namespace Micro.Future.UI
             {
                 OrderVM.Contract = contract;
                 var quote = OrderVM.Contract;
-                var item = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketDataAsync(quote);
+                var item = await MarketDataHandler.SubMarketDataAsync(quote);
                 if (item != null)
                 {
                     stackPanelPrices.DataContext = item;

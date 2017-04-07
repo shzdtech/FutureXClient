@@ -123,12 +123,18 @@ namespace Micro.Future.UI
 
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             tradeHandler.RegisterMessageWrapper(msgWrapper);
+            var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+
 
             clientFundLV.TradeHandler = tradeHandler;
+            marketDataLV.MarketDataHandler = marketdataHandler;
             FastOrderCtl.TradeHandler = tradeHandler;
+            FastOrderCtl.MarketDataHandler = marketdataHandler;
             executionWindow.TradeHandler = tradeHandler;
+            executionWindow.MarketDataHandler = marketdataHandler;
             tradeWindow.TradeHandler = tradeHandler;
             positionsWindow.TradeHandler = tradeHandler;
+            positionsWindow.MarketDataHandler = marketdataHandler;
         }
 
         private void _ctpMdSignIner_OnLogged(IUserInfo obj)

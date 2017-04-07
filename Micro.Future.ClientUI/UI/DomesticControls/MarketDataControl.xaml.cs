@@ -31,13 +31,13 @@ namespace Micro.Future.UI
         private const string DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33A";
         private IList< ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
-        public IList<ContractInfo> FuturecontractList
+        public BaseMarketDataHandler MarketDataHandler { get; set; }
+
+        public List<ContractInfo> FutureOptionList
         {
-            get
-            {
-                return ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            }
-        }
+            get;
+        } = new List<ContractInfo>();
+
         protected readonly MarketContract _userContractDbCtx;
         public FilterSettingsWindow FilterSettingsWin { get; } =
             new FilterSettingsWindow() { PersistanceId = typeof(MarketDataControl).Name, CancelClosing = true };
@@ -66,6 +66,9 @@ namespace Micro.Future.UI
 
         private void Initialize()
         {
+            FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
+            FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
+            
             FilterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
             _viewSource.Source = QuoteVMCollection;
             QuoteChanged = _viewSource.View as ICollectionViewLiveShaping;
@@ -79,14 +82,14 @@ namespace Micro.Future.UI
 
             mColumns = ColumnObject.GetColumns(quoteListView);
 
-            contractTextBox.Provider = new SuggestionProvider((string c) => { return FuturecontractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
+            contractTextBox.Provider = new SuggestionProvider((string c) => { return FutureOptionList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
         }
 
         public ICollectionViewLiveShaping QuoteChanged { get; set; }
 
         public virtual async void LoadUserContracts()
         {
-            var userId = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper?.User?.Id;
+            var userId = MarketDataHandler.MessageWrapper?.User?.Id;
             if (userId == null)
                 return;
 
@@ -95,7 +98,7 @@ namespace Micro.Future.UI
             {
                 try
                 {
-                    var list = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketDataAsync(contracts);
+                    var list = await MarketDataHandler.SubMarketDataAsync(contracts);
                     foreach (var mktVM in list)
                     {
                         Dispatcher.Invoke(() => QuoteVMCollection.Add(mktVM));
@@ -124,7 +127,7 @@ namespace Micro.Future.UI
         }
         private void MenuItem_Click_Delete(object sender, RoutedEventArgs e)
         {
-            string userId = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper?.User?.Id;
+            string userId = MarketDataHandler.MessageWrapper?.User?.Id;
             string tabId = FilterSettingsWin.FilterId;
             foreach (var mktVM in SeletedQuoteVM)
             {
@@ -138,13 +141,14 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
+            FilterSettingsWin.UserID = MarketDataHandler.MessageWrapper.User.Id;
             LayoutAnchorable defaultTab =
                 AnchorablePane.Children.FirstOrDefault(pane => ((MarketDataControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
             AnchorablePane.Children.Clear();
             if (defaultTab != null)
                 AnchorablePane.Children.Add(defaultTab);
             // MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().ResubMarketData();
-            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(MarketDataHandler.MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
             bool found = false;
             foreach (var fs in filtersettings)
             {
@@ -186,14 +190,14 @@ namespace Micro.Future.UI
         private async void AddQuote()
         {
             string quote = contractTextBox.SelectedItem == null ? contractTextBox.Filter : contractTextBox.SelectedItem.ToString();
-            if (!FuturecontractList.Any((c) => string.Compare(c.Contract, quote, true) == 0))
+            if (!FutureOptionList.Any((c) => string.Compare(c.Contract, quote, true) == 0))
             {
                 MessageBox.Show("输入合约" + quote + "不存在");
                 contractTextBox.Filter = string.Empty;
                 return;
             }
 
-            ClientDbContext.SaveMarketContract(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id,
+            ClientDbContext.SaveMarketContract(MarketDataHandler.MessageWrapper.User.Id,
                 quote, FilterSettingsWin.FilterId);
 
             var item = QuoteVMCollection.FirstOrDefault(c => c.Contract == quote);
@@ -204,7 +208,7 @@ namespace Micro.Future.UI
             }
             else
             {
-                var mktDataVM = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketDataAsync(quote);
+                var mktDataVM = await MarketDataHandler.SubMarketDataAsync(quote);
                 if (mktDataVM != null)
                 {
                     QuoteVMCollection.Add(mktDataVM);

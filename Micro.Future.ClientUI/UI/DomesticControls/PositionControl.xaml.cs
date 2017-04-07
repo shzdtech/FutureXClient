@@ -36,6 +36,7 @@ namespace Micro.Future.UI
             get;
         } = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
         public BaseTraderHandler TradeHandler { get; set; }
+        public BaseMarketDataHandler MarketDataHandler { get; set; }
 
         private static ISet<MarketDataVM> _marketDataList = new HashSet<MarketDataVM>();
 
@@ -56,7 +57,6 @@ namespace Micro.Future.UI
 
             //MessageHandlerContainer.DefaultInstance
             //.Get<MarketDataHandler>().OnNewMarketData += OnNewMarketData;
-            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().OnNewMarketData += OnNewMarketData;
 
             FilterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
 
@@ -127,9 +127,11 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
+            MarketDataHandler.OnNewMarketData += OnNewMarketData;
             TradeHandler.PositionVMCollection.Clear();
             TradeHandler.QueryPosition();
-
+            
+            FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;
             LayoutAnchorable defaultTab =
                 AnchorablePane.Children.FirstOrDefault(pane => ((PositionControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
 
@@ -156,9 +158,9 @@ namespace Micro.Future.UI
                 AnchorablePane.Children.Remove(defaultTab);
         }
 
-        private static async void LoadMarketData(string contract)
+        private async void LoadMarketData(string contract)
         {
-            _marketDataList.Add(await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>()
+            _marketDataList.Add(await MarketDataHandler
                 .SubMarketDataAsync(contract));
         }
 

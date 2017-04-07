@@ -30,6 +30,7 @@ namespace Micro.Future.UI
         private const string DEFAULT_ID = "394B67D4-87AA-47DB-B1DD-5A213714D02E";
 
         public BaseTraderHandler TradeHandler { get; set; }
+        public BaseMarketDataHandler MarketDataHandler { get; set; }
 
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public FilterSettingsWindow FilterSettingsWin { get; } = new FilterSettingsWindow() { PersistanceId = typeof(ExecutionControl).Name, CancelClosing = true };
@@ -207,7 +208,7 @@ namespace Micro.Future.UI
             {
                 foreach (var status in OrderStatuses)
                 {
-                    ClientDbContext.SaveOrderStatus(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, (int)status, FilterSettingsWin.FilterId);
+                    ClientDbContext.SaveOrderStatus(MarketDataHandler.MessageWrapper.User.Id, (int)status, FilterSettingsWin.FilterId);
                 }
             }
         }
@@ -368,7 +369,7 @@ namespace Micro.Future.UI
             //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryOrder();
             TradeHandler.OrderVMCollection.Clear();
             TradeHandler.QueryOrder();
-
+            FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;
             LayoutAnchorable defaultTab =
                 AnchorablePane.Children.FirstOrDefault(pane => ((ExecutionControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
 

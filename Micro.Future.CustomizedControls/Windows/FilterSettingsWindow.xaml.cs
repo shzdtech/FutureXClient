@@ -100,7 +100,7 @@ namespace Micro.Future.Windows
 
         public void Save()
         {
-            ClientDbContext.SaveFilterSettings(MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().MessageWrapper.User.Id, PersistanceId, FilterId, FilterTabTitle, FilterExchange, FilterContract, FilterUnderlying);
+            ClientDbContext.SaveFilterSettings(UserID, PersistanceId, FilterId, FilterTabTitle, FilterExchange, FilterContract, FilterUnderlying);
         }
 
         protected override void OnClosing(CancelEventArgs e)

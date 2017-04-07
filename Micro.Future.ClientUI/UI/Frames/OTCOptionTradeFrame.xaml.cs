@@ -120,13 +120,20 @@ namespace Micro.Future.UI
             _ctpTradeSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
             _ctpTradeSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
-            MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>().RegisterMessageWrapper(msgWrapper);
+            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+            tradeHandler.RegisterMessageWrapper(msgWrapper);
+            var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
 
-            clientFundLV.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
-            FastOrderCtl.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
-            executionWindow.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
-            tradeWindow.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
-            positionsWindow.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+
+            clientFundLV.TradeHandler = tradeHandler;
+            marketDataLV.MarketDataHandler = marketdataHandler;
+            FastOrderCtl.TradeHandler = tradeHandler;
+            FastOrderCtl.MarketDataHandler = marketdataHandler;
+            executionWindow.TradeHandler = tradeHandler;
+            executionWindow.MarketDataHandler = marketdataHandler;
+            tradeWindow.TradeHandler = tradeHandler;
+            positionsWindow.TradeHandler = tradeHandler;
+            positionsWindow.MarketDataHandler = marketdataHandler;
         }
 
         private void _ctpMdSignIner_OnLogged(IUserInfo obj)

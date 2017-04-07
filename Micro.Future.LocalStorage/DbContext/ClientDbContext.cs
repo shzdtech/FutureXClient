@@ -170,11 +170,11 @@ namespace Micro.Future.LocalStorage
             }
         }
 
-        public static void SaveMarketContract(string userID, string contract, string tabID, string exchange)
+        public static void SaveMarketContract(string userID, string contract, string tabID)
         {
             using (var clientCtx = new ClientDbContext())
             {
-                var marketcontract = clientCtx.MarketContract.FirstOrDefault(t => t.AccountID == userID && t.Contract == contract && t.TabID == tabID && t.Exchange == exchange);
+                var marketcontract = clientCtx.MarketContract.FirstOrDefault(t => t.AccountID == userID && t.Contract == contract && t.TabID == tabID);
                 if (marketcontract == null)
                 {
                     marketcontract = new MarketContract

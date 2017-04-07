@@ -305,7 +305,7 @@ namespace Micro.Future.UI
             //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryTrade();
             TradeHandler.TradeVMCollection.Clear();
             TradeHandler.QueryTrade();
-
+            FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;
             //while (AnchorablePane.ChildrenCount > 1)
             //    AnchorablePane.Children.RemoveAt(1);
             LayoutAnchorable defaultTab = 
