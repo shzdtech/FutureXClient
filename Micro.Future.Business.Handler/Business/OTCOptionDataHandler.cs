@@ -10,7 +10,7 @@ namespace Micro.Future.Message
 {
     public class OTCOptionDataHandler : BaseMarketDataHandler
     {
-        static OTCOptionDataHandler()
+        public OTCOptionDataHandler()
         {
             MSG_ID_SUB_MD = (uint)BusinessMessageID.MSG_ID_SUB_PRICING;
             MSG_ID_UNSUB_MD = (uint)BusinessMessageID.MSG_ID_UNSUB_PRICING;

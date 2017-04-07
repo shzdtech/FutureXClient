@@ -12,9 +12,9 @@ namespace Micro.Future.Message
 {
     public class BaseMarketDataHandler : AbstractMessageHandler
     {
-        protected static uint MSG_ID_SUB_MD = (uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA;
-        protected static uint MSG_ID_UNSUB_MD = (uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA;
-        protected static uint MSG_ID_RET_MD = (uint)BusinessMessageID.MSG_ID_RET_MARKETDATA;
+        protected uint MSG_ID_SUB_MD = (uint)BusinessMessageID.MSG_ID_SUB_MARKETDATA;
+        protected uint MSG_ID_UNSUB_MD = (uint)BusinessMessageID.MSG_ID_UNSUB_MARKETDATA;
+        protected uint MSG_ID_RET_MD = (uint)BusinessMessageID.MSG_ID_RET_MARKETDATA;
 
         public const int RETRY_TIMES = 5;
        
