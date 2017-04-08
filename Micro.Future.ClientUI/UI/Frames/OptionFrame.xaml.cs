@@ -238,6 +238,20 @@ namespace Micro.Future.UI
             OpOrderWin win = new OpOrderWin();
             win.Show();
         }
+
+        private void Add_VolModel_Click(object sender, RoutedEventArgs e)
+        {
+            var title = WPFUtility.GetLocalizedString("Model", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var modelWin = new OptionModelCtrl();
+            optionModelPane.AddContent(modelWin).Title = title;
+        }
+
+        private void Add_MarketMaker_Click(object sender, RoutedEventArgs e)
+        {
+            var title = WPFUtility.GetLocalizedString("MarketMaker", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var marketmakerWin = new OpMarketMakerCtrl();
+            optionModelPane.AddContent(marketmakerWin).Title = title;
+        }
     }
 }
 

@@ -16,7 +16,7 @@
     <!--Frame Body-->
     <UserControl.Resources>
         <x:Array Type="{x:Type MenuItem}" x:Key="exMenuItems">
-            <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=DomesticTradingMarket}">
+            <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=OTCOption}">
                 <MenuItem Header="{lex:Loc Key=AddWindow}">
                     <MenuItem Header="{lex:Loc Key=QuoteWindow}" Click="MenuItem_Click_Contract">
                         <!--<MenuItem Header="{lex:Loc Key=Optional}" Click="MenuItem_Click_Contract">

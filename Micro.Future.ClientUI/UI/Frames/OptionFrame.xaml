@@ -18,12 +18,16 @@
     <UserControl.Resources>
         <x:Array Type="{x:Type MenuItem}" x:Key="exOptionMenuItems">
             <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=Option}">
-                <MenuItem Header="{lex:Loc Key=AddModel}" Click="Add_Model_Click">
+                <MenuItem Header="{lex:Loc Key=AddVolModel}" Click="Add_VolModel_Click">
+                </MenuItem>
+                <MenuItem Header="{lex:Loc Key=AddMarketMaker}" Click="Add_MarketMaker_Click">
+                </MenuItem>
+                <!--<MenuItem Header="{lex:Loc Key=AddModel}" Click="Add_Model_Click">
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=AddQuote}" Click="Add_Quote_Click">
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=Order}" Click="Add_Order_Click">
-                </MenuItem>
+                </MenuItem>-->
                 <!--<MenuItem Header="{lex:Loc Key=SetReference}" Click="SetReference_Click">
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=RevertCurrent}" Click="RevertCurrent_Click">

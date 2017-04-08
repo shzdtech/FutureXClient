@@ -735,4 +735,25 @@
   <data name="TheoVolModel" xml:space="preserve">
     <value>TheoVolModel</value>
   </data>
+  <data name="AddMarketMaker" xml:space="preserve">
+    <value>AddMarketMaker</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>AddOption</value>
+  </data>
+  <data name="AddVolModel" xml:space="preserve">
+    <value>AddVolModel</value>
+  </data>
+  <data name="LastPrice" xml:space="preserve">
+    <value>LastPrice</value>
+  </data>
+  <data name="MarketMaker" xml:space="preserve">
+    <value>MarketMaker</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="OTCOption" xml:space="preserve">
+    <value>OTCOption</value>
+  </data>
 </root>

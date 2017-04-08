@@ -735,4 +735,25 @@
   <data name="TheoVolModel" xml:space="preserve">
     <value>理论波动率模型</value>
   </data>
+  <data name="AddMarketMaker" xml:space="preserve">
+    <value>添加期权行情</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>添加期权</value>
+  </data>
+  <data name="AddVolModel" xml:space="preserve">
+    <value>添加波动率模型</value>
+  </data>
+  <data name="LastPrice" xml:space="preserve">
+    <value>最新价</value>
+  </data>
+  <data name="MarketMaker" xml:space="preserve">
+    <value>期权行情</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>模型</value>
+  </data>
+  <data name="OTCOption" xml:space="preserve">
+    <value>OTC期权</value>
+  </data>
 </root>
