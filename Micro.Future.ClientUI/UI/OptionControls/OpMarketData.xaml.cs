@@ -129,7 +129,6 @@ namespace Micro.Future.UI
                 contract1.ItemsSource = null;
                 volModelCB.ItemsSource = null;
                 adjustment1.Value = null;
-                riskFree_Interest.DataContext = null;
                 exchange1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
                 volModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("ivm");
                 var contract = SubbedContracts?.FirstOrDefault();
@@ -171,6 +170,7 @@ namespace Micro.Future.UI
                             var modelVM = volModelCB.SelectedItem as ModelParamsVM;
                             if (modelVM != null)
                             {
+                                riskFree_Interest.DataContext = null;
                                 riskFree_Interest.DataContext = modelVM;
                             }
                         }
