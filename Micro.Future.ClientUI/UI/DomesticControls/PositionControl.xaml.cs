@@ -31,10 +31,7 @@ namespace Micro.Future.UI
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public FilterSettingsWindow FilterSettingsWin { get; }
            = new FilterSettingsWindow() { PersistanceId = typeof(PositionControl).Name, CancelClosing = true };
-        private static ObservableCollection<PositionVM> PositionCollection
-        {
-            get;
-        } = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection;
+
         public BaseTraderHandler TradeHandler { get; set; }
         public BaseMarketDataHandler MarketDataHandler { get; set; }
 
@@ -53,16 +50,10 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
 
-            _viewSource.Source = PositionCollection;
 
             //MessageHandlerContainer.DefaultInstance
             //.Get<MarketDataHandler>().OnNewMarketData += OnNewMarketData;
-
             FilterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
-
-            PositionListView.ItemsSource = _viewSource.View;
-            PositionCollection.CollectionChanged += PositionCollectionChanged;
-
             //PositionChanged = _viewSource.View as ICollectionViewLiveShaping;
             //if (PositionChanged.CanChangeLiveFiltering)
             //{
@@ -90,9 +81,9 @@ namespace Micro.Future.UI
             {
                 Task.Run(() =>
                 {
-                    lock (PositionCollection)
+                    lock (TradeHandler.PositionVMCollection)
                     {
-                        var positions = PositionCollection.FindByContract(mktDataVM.Contract);
+                        var positions = TradeHandler.PositionVMCollection.FindByContract(mktDataVM.Contract);
                         foreach (var positionVM in positions)
                         {
                             if (positionVM.Direction == PositionDirectionType.PD_LONG)
@@ -129,6 +120,9 @@ namespace Micro.Future.UI
         {
             MarketDataHandler.OnNewMarketData += OnNewMarketData;
             TradeHandler.PositionVMCollection.Clear();
+            _viewSource.Source = TradeHandler.PositionVMCollection;
+            TradeHandler.PositionVMCollection.CollectionChanged += PositionCollectionChanged;
+            PositionListView.ItemsSource = _viewSource.View;
             TradeHandler.QueryPosition();
             
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;

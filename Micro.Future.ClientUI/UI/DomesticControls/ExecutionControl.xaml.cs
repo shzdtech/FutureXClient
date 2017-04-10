@@ -48,19 +48,10 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
 
-            _viewSource.Source = MessageHandlerContainer.DefaultInstance
-                .Get<TraderExHandler>().OrderVMCollection;
 
             FilterSettingsWin.OnFiltering += _executionSettingsWin_OnFiltering;
 
-            ExecutionTreeView.ItemsSource = _viewSource.View;
 
-            ExecutionChanged = _viewSource.View as ICollectionViewLiveShaping;
-            if (ExecutionChanged.CanChangeLiveFiltering)
-            {
-                ExecutionChanged.LiveFilteringProperties.Add("Status");
-                ExecutionChanged.IsLiveFiltering = true;
-            }
 
             mColumns = ColumnObject.GetColumns(ExecutionTreeView);
 
@@ -367,6 +358,15 @@ namespace Micro.Future.UI
         {
             //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Clear();
             //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryOrder();
+            _viewSource.Source = TradeHandler.OrderVMCollection;
+            ExecutionTreeView.ItemsSource = _viewSource.View;
+
+            ExecutionChanged = _viewSource.View as ICollectionViewLiveShaping;
+            if (ExecutionChanged.CanChangeLiveFiltering)
+            {
+                ExecutionChanged.LiveFilteringProperties.Add("Status");
+                ExecutionChanged.IsLiveFiltering = true;
+            }
             TradeHandler.OrderVMCollection.Clear();
             TradeHandler.QueryOrder();
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;
