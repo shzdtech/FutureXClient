@@ -348,5 +348,10 @@ namespace Micro.Future.UI
         {
             AddQuote();
         }
+
+        void IReloadData.Initialize()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

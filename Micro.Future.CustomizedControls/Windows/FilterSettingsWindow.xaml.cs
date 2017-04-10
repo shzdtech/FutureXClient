@@ -126,6 +126,10 @@ namespace Micro.Future.Windows
 
         }
 
+        public void Initialize()
+        {
+        }
+
         //private void titleCombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         //{
         //    if(titleCombo.SelectedIndex >=0)
@@ -137,7 +141,7 @@ namespace Micro.Future.Windows
         //        contractTxt.Text = filtersetting.Contract;
         //    }
 
-            //exchangecombo.Text = FilterSettingsList[titleCombo.];
+        //exchangecombo.Text = FilterSettingsList[titleCombo.];
 
         //}
     }

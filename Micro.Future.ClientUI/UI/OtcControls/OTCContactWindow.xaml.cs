@@ -42,5 +42,9 @@ namespace Micro.Future.UI
             OTCHandler.QueryTradingDesk();
         }
 
+        public void Initialize()
+        {
+            
+        }
     }
 }

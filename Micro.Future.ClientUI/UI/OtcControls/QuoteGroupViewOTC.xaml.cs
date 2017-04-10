@@ -48,5 +48,9 @@ namespace Micro.Future.UI
                 OnQuoteSelected(quote);
             }
         }
+
+        public void Initialize()
+        {
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace Micro.Future.ViewModel
 {
     public interface IReloadData
     {
+        void Initialize();
         void ReloadData();
         string PersistanceId { get; set; }
     }

@@ -358,18 +358,6 @@ namespace Micro.Future.UI
         {
             //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Clear();
             //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryOrder();
-            _viewSource.Source = TradeHandler.OrderVMCollection;
-            ExecutionTreeView.ItemsSource = _viewSource.View;
-
-            ExecutionChanged = _viewSource.View as ICollectionViewLiveShaping;
-            if (ExecutionChanged.CanChangeLiveFiltering)
-            {
-                ExecutionChanged.LiveFilteringProperties.Add("Status");
-                ExecutionChanged.IsLiveFiltering = true;
-            }
-            TradeHandler.OrderVMCollection.Clear();
-            TradeHandler.QueryOrder();
-            FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;
             LayoutAnchorable defaultTab =
                 AnchorablePane.Children.FirstOrDefault(pane => ((ExecutionControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
 
@@ -403,6 +391,22 @@ namespace Micro.Future.UI
             }
             if (found)
                 AnchorablePane.Children.Remove(defaultTab);
+        }
+
+        public void Initialize()
+        {
+            _viewSource.Source = TradeHandler.OrderVMCollection;
+            ExecutionTreeView.ItemsSource = _viewSource.View;
+
+            ExecutionChanged = _viewSource.View as ICollectionViewLiveShaping;
+            if (ExecutionChanged.CanChangeLiveFiltering)
+            {
+                ExecutionChanged.LiveFilteringProperties.Add("Status");
+                ExecutionChanged.IsLiveFiltering = true;
+            }
+            TradeHandler.OrderVMCollection.Clear();
+            TradeHandler.QueryOrder();
+            FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;
         }
     }
 }

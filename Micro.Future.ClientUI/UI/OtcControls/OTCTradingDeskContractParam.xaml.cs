@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Micro.Future.ViewModel;
 using Micro.Future.Message;
+using System;
 
 namespace Micro.Future.UI
 {
@@ -72,6 +73,10 @@ namespace Micro.Future.UI
                     ctrl.Background = Brushes.MistyRose;
                 }
             }
+        }
+
+        public void Initialize()
+        {
         }
     }
 }

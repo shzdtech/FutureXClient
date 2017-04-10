@@ -118,13 +118,8 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
-            MarketDataHandler.OnNewMarketData += OnNewMarketData;
-            TradeHandler.PositionVMCollection.Clear();
-            _viewSource.Source = TradeHandler.PositionVMCollection;
-            TradeHandler.PositionVMCollection.CollectionChanged += PositionCollectionChanged;
-            PositionListView.ItemsSource = _viewSource.View;
             TradeHandler.QueryPosition();
-            
+
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;
             LayoutAnchorable defaultTab =
                 AnchorablePane.Children.FirstOrDefault(pane => ((PositionControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
@@ -415,6 +410,15 @@ namespace Micro.Future.UI
             {
                 GridViewUtility.Sort(head.Column, PositionListView.Items);
             }
+        }
+
+        public void Initialize()
+        {
+            MarketDataHandler.OnNewMarketData += OnNewMarketData;
+            TradeHandler.PositionVMCollection.Clear();
+            _viewSource.Source = TradeHandler.PositionVMCollection;
+            TradeHandler.PositionVMCollection.CollectionChanged += PositionCollectionChanged;
+            PositionListView.ItemsSource = _viewSource.View;
         }
     }
 }

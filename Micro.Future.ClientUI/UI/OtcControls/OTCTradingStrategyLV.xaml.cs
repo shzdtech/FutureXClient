@@ -92,5 +92,9 @@ namespace Micro.Future.UI
                 StrategyParam.ItemsSource = paramsVM.Params;
             }
         }
+
+        public void Initialize()
+        {
+        }
     }
 }

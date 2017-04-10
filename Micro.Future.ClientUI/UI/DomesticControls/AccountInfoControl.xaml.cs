@@ -62,5 +62,9 @@ namespace Micro.Future.UI
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
             win.Show();
         }
+
+        public void Initialize()
+        {
+        }
     }
 }

@@ -39,9 +39,13 @@ namespace Micro.Future.UI
 
         public LayoutAnchorablePane AnchorablePane { get; set; }
 
-        public TradeRecordControl(string filterId)
+        public TradeRecordControl(string filterId, BaseTraderHandler tradeHander = null)
         {
             InitializeComponent();
+
+            TradeHandler = tradeHander;
+            if (TradeHandler != null)
+                Initialize();
 
             //_viewSource.Source = MessageHandlerContainer.DefaultInstance?.Get<TraderExHandler>()?.TradeVMCollection;
 
@@ -251,7 +255,7 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_OpenTrade(object sender, RoutedEventArgs e)
         {
-            var tradeWin = new TradeRecordControl(Guid.NewGuid().ToString());
+            var tradeWin = new TradeRecordControl(Guid.NewGuid().ToString(), TradeHandler);
             tradeWin.FilterByStatus(new List<OrderOpenCloseType> { OrderOpenCloseType.OPEN });
             if (AnchorablePane != null)
                 AnchorablePane.AddContent(tradeWin).Title = WPFUtility.GetLocalizedString("Open", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
@@ -270,7 +274,7 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("AllTraded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var tradeRecordControltrl = new TradeRecordControl(Guid.NewGuid().ToString());
+                var tradeRecordControltrl = new TradeRecordControl(Guid.NewGuid().ToString(), TradeHandler);
                 AnchorablePane.AddContent(tradeRecordControltrl).Title = title;
                 tradeRecordControltrl.FilterSettingsWin.FilterTabTitle = title;
                 tradeRecordControltrl.FilterSettingsWin.Save();
@@ -296,12 +300,11 @@ namespace Micro.Future.UI
         {
             //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().TradeVMCollection.Clear();
             //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryTrade();
+            Initialize();
+
             TradeHandler.TradeVMCollection.Clear();
-            _viewSource.Source = TradeHandler?.TradeVMCollection;
             TradeHandler.QueryTrade();
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;
-            TradeTreeView.ItemsSource = _viewSource.View;
-            mColumns = ColumnObject.GetColumns(TradeTreeView);
 
             //while (AnchorablePane.ChildrenCount > 1)
             //    AnchorablePane.Children.RemoveAt(1);
@@ -318,7 +321,7 @@ namespace Micro.Future.UI
 
             foreach (var fs in filtersettings)
             {
-                var traderecordctrl = new TradeRecordControl(fs.Id);
+                var traderecordctrl = new TradeRecordControl(fs.Id, TradeHandler);
                 AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
                 traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
 
@@ -328,6 +331,13 @@ namespace Micro.Future.UI
 
             if (found)
                 AnchorablePane.Children.Remove(defaultTab);
+        }
+
+        public void Initialize()
+        {
+            _viewSource.Source = TradeHandler?.TradeVMCollection;
+            TradeTreeView.ItemsSource = _viewSource.View;
+            mColumns = ColumnObject.GetColumns(TradeTreeView);
         }
     }
 }

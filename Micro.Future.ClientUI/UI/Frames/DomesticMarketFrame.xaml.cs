@@ -269,7 +269,7 @@ namespace Micro.Future.UI
         {
             //tradePane.AddContent(new TradeRecordControl()).Title = WPFUtility.GetLocalizedString("AllTraded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var title = WPFUtility.GetLocalizedString("AllTraded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var tradeRecordWin = new TradeRecordControl(Guid.NewGuid().ToString());
+            var tradeRecordWin = new TradeRecordControl(Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
             tradeRecordWin.FilterSettingsWin.Title += "(" + title + ")";
             tradeRecordWin.FilterSettingsWin.FilterTabTitle = title;
             tradePane.AddContent(tradeRecordWin).Title = title;
