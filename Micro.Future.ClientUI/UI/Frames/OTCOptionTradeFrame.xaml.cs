@@ -240,7 +240,7 @@ namespace Micro.Future.UI
         {
             //executionPane.AddContent(new ExecutionControl(Guid.NewGuid().ToString())).Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var executionWin = new ExecutionControl(Guid.NewGuid().ToString());
+            var executionWin = new ExecutionControl(Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>());
             executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterSettingsWin.FilterTabTitle = title;
             executionPane.AddContent(executionWin).Title = title;
@@ -250,7 +250,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Opened(object sender, RoutedEventArgs e)
         {
             var title = WPFUtility.GetLocalizedString("Opened", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var executionWin = new ExecutionControl(Guid.NewGuid().ToString());
+            var executionWin = new ExecutionControl(Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>());
             executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterSettingsWin.FilterTabTitle = title;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENED, OrderStatus.PARTIAL_TRADED, OrderStatus.PARTIAL_TRADING });
@@ -261,7 +261,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Traded(object sender, RoutedEventArgs e)
         {
             var title = WPFUtility.GetLocalizedString("TRADED", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var executionWin = new ExecutionControl(Guid.NewGuid().ToString());
+            var executionWin = new ExecutionControl(Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>());
             executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterSettingsWin.FilterTabTitle = title;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED, OrderStatus.PARTIAL_TRADED });

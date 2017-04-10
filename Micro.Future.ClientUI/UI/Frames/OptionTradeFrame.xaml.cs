@@ -239,7 +239,7 @@ namespace Micro.Future.UI
         {
             //executionPane.AddContent(new ExecutionControl(Guid.NewGuid().ToString())).Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var executionWin = new ExecutionControl(Guid.NewGuid().ToString());
+            var executionWin = new ExecutionControl(Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
             executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterSettingsWin.FilterTabTitle = title;
             executionPane.AddContent(executionWin).Title = title;
