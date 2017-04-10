@@ -44,7 +44,7 @@ namespace Micro.Future.UI
         }
         public IEnumerable<OrderStatus> OrderStatuses { get; set; }
 
-        public ExecutionControl(string filterId, BaseTraderHandler tradeHander = null, string tabTitle = null, string exchange = null, string underlying = null, string contract = null)
+        public ExecutionControl(string filterId, BaseTraderHandler tradeHander, string tabTitle = null, string exchange = null, string underlying = null, string contract = null)
         {
             InitializeComponent();
             TradeHandler = tradeHander;
@@ -61,7 +61,7 @@ namespace Micro.Future.UI
 
         }
 
-        public ExecutionControl() : this(DEFAULT_ID)
+        public ExecutionControl() : this(DEFAULT_ID, null)
         {
         }
 
