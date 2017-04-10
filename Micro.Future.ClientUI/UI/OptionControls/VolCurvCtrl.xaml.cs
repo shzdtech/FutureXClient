@@ -373,11 +373,14 @@ namespace Micro.Future.UI
 
                 double value = (vm.PutStrategyVM != null && vm.PutStrategyVM.AskEnabled) ? 1 : 0;
                 VolatilityModelVM.TheoPutAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, 0, 0, value, vm.PutStrategyVM));
+                value = (vm.PutStrategyVM != null && vm.PutStrategyVM.BidEnabled) ? 1 : 0;
                 VolatilityModelVM.TheoPutBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, 0, 0, value, vm.PutStrategyVM));
 
                 value = (vm.CallStrategyVM != null && vm.CallStrategyVM.AskEnabled) ? 1 : 0;
                 VolatilityModelVM.TheoCallAskVolScatter.Add(new ScatterPoint(vm.StrikePrice, 0, 0, value, vm.CallStrategyVM));
+                value = (vm.CallStrategyVM != null && vm.CallStrategyVM.BidEnabled) ? 1 : 0;
                 VolatilityModelVM.TheoCallBidVolScatter.Add(new ScatterPoint(vm.StrikePrice, 0, 0, value, vm.CallStrategyVM));
+
             }
         }
 

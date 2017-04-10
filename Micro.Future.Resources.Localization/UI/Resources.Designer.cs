@@ -106,11 +106,29 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 添加期权行情 的本地化字符串。
+        /// </summary>
+        internal static string AddMarketMaker {
+            get {
+                return ResourceManager.GetString("AddMarketMaker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 添加模型 的本地化字符串。
         /// </summary>
         internal static string AddModel {
             get {
                 return ResourceManager.GetString("AddModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 添加期权 的本地化字符串。
+        /// </summary>
+        internal static string AddOption {
+            get {
+                return ResourceManager.GetString("AddOption", resourceCulture);
             }
         }
         
@@ -129,6 +147,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string AddQuote {
             get {
                 return ResourceManager.GetString("AddQuote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 添加波动率模型 的本地化字符串。
+        /// </summary>
+        internal static string AddVolModel {
+            get {
+                return ResourceManager.GetString("AddVolModel", resourceCulture);
             }
         }
         
@@ -799,6 +826,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 最新价 的本地化字符串。
+        /// </summary>
+        internal static string LastPrice {
+            get {
+                return ResourceManager.GetString("LastPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 报单价格 的本地化字符串。
         /// </summary>
         internal static string LimitPrice {
@@ -862,6 +898,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 期权行情 的本地化字符串。
+        /// </summary>
+        internal static string MarketMaker {
+            get {
+                return ResourceManager.GetString("MarketMaker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 对手价 的本地化字符串。
         /// </summary>
         internal static string MarketPrice {
@@ -885,6 +930,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Message {
             get {
                 return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 模型 的本地化字符串。
+        /// </summary>
+        internal static string Model {
+            get {
+                return ResourceManager.GetString("Model", resourceCulture);
             }
         }
         
@@ -1110,6 +1164,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string OTCContactInfo {
             get {
                 return ResourceManager.GetString("OTCContactInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTC期权 的本地化字符串。
+        /// </summary>
+        internal static string OTCOption {
+            get {
+                return ResourceManager.GetString("OTCOption", resourceCulture);
             }
         }
         
