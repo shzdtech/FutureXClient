@@ -46,11 +46,12 @@ namespace Micro.Future.UI
             get;
             set;
         }
-        public PositionControl(string filterId)
+        public PositionControl(string filterId, BaseTraderHandler tradeHander = null)
         {
             InitializeComponent();
-
-
+            TradeHandler = tradeHander;
+            if (TradeHandler != null)
+                Initialize();
             //MessageHandlerContainer.DefaultInstance
             //.Get<MarketDataHandler>().OnNewMarketData += OnNewMarketData;
             FilterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
@@ -60,8 +61,6 @@ namespace Micro.Future.UI
             //    PositionChanged.LiveFilteringProperties.Add("Direction");
             //    PositionChanged.IsLiveFiltering = true;
             //}
-
-            mColumns = ColumnObject.GetColumns(PositionListView);
             FilterSettingsWin.FilterId = filterId;
 
         }
@@ -119,7 +118,7 @@ namespace Micro.Future.UI
         public void ReloadData()
         {
             TradeHandler.QueryPosition();
-
+            Initialize();
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;
             LayoutAnchorable defaultTab =
                 AnchorablePane.Children.FirstOrDefault(pane => ((PositionControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
@@ -321,7 +320,7 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var positionctrl = new PositionControl(Guid.NewGuid().ToString());
+                var positionctrl = new PositionControl(Guid.NewGuid().ToString(), TradeHandler);
                 AnchorablePane.AddContent(positionctrl).Title = title;
                 positionctrl.FilterSettingsWin.FilterTabTitle = title;
                 positionctrl.FilterSettingsWin.Save();
@@ -414,11 +413,12 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
-            MarketDataHandler.OnNewMarketData += OnNewMarketData;
             TradeHandler.PositionVMCollection.Clear();
             _viewSource.Source = TradeHandler.PositionVMCollection;
-            TradeHandler.PositionVMCollection.CollectionChanged += PositionCollectionChanged;
             PositionListView.ItemsSource = _viewSource.View;
+            mColumns = ColumnObject.GetColumns(PositionListView);
+            TradeHandler.PositionVMCollection.CollectionChanged += PositionCollectionChanged;
+            MarketDataHandler.OnNewMarketData += OnNewMarketData;
         }
     }
 }

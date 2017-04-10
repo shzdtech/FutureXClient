@@ -44,16 +44,14 @@ namespace Micro.Future.UI
         }
         public IEnumerable<OrderStatus> OrderStatuses { get; set; }
 
-        public ExecutionControl(string filterId, string tabTitle = null, string exchange = null, string underlying = null, string contract = null)
+        public ExecutionControl(string filterId, string tabTitle = null, string exchange = null, string underlying = null, string contract = null, BaseTraderHandler tradeHander = null)
         {
             InitializeComponent();
-
+            TradeHandler = tradeHander;
+            if (TradeHandler != null)
+                Initialize();
 
             FilterSettingsWin.OnFiltering += _executionSettingsWin_OnFiltering;
-
-
-
-            mColumns = ColumnObject.GetColumns(ExecutionTreeView);
 
             FilterSettingsWin.FilterId = filterId;
             FilterSettingsWin.FilterTabTitle = tabTitle;
@@ -347,7 +345,7 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var executionControl = new ExecutionControl(Guid.NewGuid().ToString());
+                var executionControl = new ExecutionControl(Guid.NewGuid().ToString(), null, null, null, null, TradeHandler);
                 AnchorablePane.AddContent(executionControl).Title = title;
                 executionControl.FilterSettingsWin.FilterTabTitle = title;
                 executionControl.FilterSettingsWin.Save();
@@ -356,6 +354,7 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
+            Initialize();
             //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().OrderVMCollection.Clear();
             //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryOrder();
             LayoutAnchorable defaultTab =
@@ -397,7 +396,7 @@ namespace Micro.Future.UI
         {
             _viewSource.Source = TradeHandler.OrderVMCollection;
             ExecutionTreeView.ItemsSource = _viewSource.View;
-
+            mColumns = ColumnObject.GetColumns(ExecutionTreeView);
             ExecutionChanged = _viewSource.View as ICollectionViewLiveShaping;
             if (ExecutionChanged.CanChangeLiveFiltering)
             {

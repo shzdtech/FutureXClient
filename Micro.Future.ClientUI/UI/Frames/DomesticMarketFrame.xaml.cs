@@ -236,7 +236,7 @@ namespace Micro.Future.UI
         {
             //executionPane.AddContent(new ExecutionControl(Guid.NewGuid().ToString())).Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var executionWin = new ExecutionControl(Guid.NewGuid().ToString());
+            var executionWin = new ExecutionControl(Guid.NewGuid().ToString(), null, null, null, null, MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
             executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterSettingsWin.FilterTabTitle = title;
             executionPane.AddContent(executionWin).Title = title;
@@ -246,7 +246,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Opened(object sender, RoutedEventArgs e)
         {
             var title = WPFUtility.GetLocalizedString("Opened", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var executionWin = new ExecutionControl(Guid.NewGuid().ToString());
+            var executionWin = new ExecutionControl(Guid.NewGuid().ToString(), null, null, null, null, MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
             executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterSettingsWin.FilterTabTitle = title;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENED, OrderStatus.PARTIAL_TRADED, OrderStatus.PARTIAL_TRADING });
@@ -257,7 +257,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Traded(object sender, RoutedEventArgs e)
         {
             var title = WPFUtility.GetLocalizedString("TRADED", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var executionWin = new ExecutionControl(Guid.NewGuid().ToString());
+            var executionWin = new ExecutionControl(Guid.NewGuid().ToString(),null,null,null,null, MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
             executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterSettingsWin.FilterTabTitle = title;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED, OrderStatus.PARTIAL_TRADED });
@@ -278,14 +278,14 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_Open(object sender, RoutedEventArgs e)
         {
-            var tradeWin = new TradeRecordControl();
+            var tradeWin = new TradeRecordControl(Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
             tradeWin.FilterByStatus(new List<OrderOpenCloseType> { OrderOpenCloseType.OPEN });
             tradePane.AddContent(tradeWin).Title = WPFUtility.GetLocalizedString("Open", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
 
         private void MenuItem_Click_Close(object sender, RoutedEventArgs e)
         {
-            var tradeWin = new TradeRecordControl();
+            var tradeWin = new TradeRecordControl(Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
             tradeWin.FilterByStatus(new List<OrderOpenCloseType> { OrderOpenCloseType.CLOSE });
             tradePane.AddContent(tradeWin).Title = WPFUtility.GetLocalizedString("Close", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
         }
@@ -294,7 +294,7 @@ namespace Micro.Future.UI
         {
             //positionPane.AddContent(new PositionControl()).Title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var positionWin = new PositionControl(Guid.NewGuid().ToString());
+            var positionWin = new PositionControl(Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
             positionWin.FilterSettingsWin.Title += "(" + title + ")";
             positionWin.FilterSettingsWin.FilterTabTitle = title;
             positionPane.AddContent(positionWin).Title = title;
