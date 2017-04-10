@@ -44,16 +44,9 @@ namespace Micro.Future.UI
             InitializeComponent();
 
             //_viewSource.Source = MessageHandlerContainer.DefaultInstance?.Get<TraderExHandler>()?.TradeVMCollection;
-            _viewSource.Source = TradeHandler?.TradeVMCollection;
-
 
             FilterSettingsWin.OnFiltering += FilterSettingsWin_OnFiltering;
-            TradeTreeView.ItemsSource = _viewSource.View;
-
-            mColumns = ColumnObject.GetColumns(TradeTreeView);
-
             FilterSettingsWin.FilterId = filterId;
-
         }
 
         public TradeRecordControl() : this(DEFAULT_ID)
@@ -304,8 +297,12 @@ namespace Micro.Future.UI
             //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().TradeVMCollection.Clear();
             //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryTrade();
             TradeHandler.TradeVMCollection.Clear();
+            _viewSource.Source = TradeHandler?.TradeVMCollection;
             TradeHandler.QueryTrade();
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;
+            TradeTreeView.ItemsSource = _viewSource.View;
+            mColumns = ColumnObject.GetColumns(TradeTreeView);
+
             //while (AnchorablePane.ChildrenCount > 1)
             //    AnchorablePane.Children.RemoveAt(1);
             LayoutAnchorable defaultTab = 
