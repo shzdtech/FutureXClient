@@ -53,7 +53,7 @@ namespace Micro.Future.UI
             FilterSettingsWin.FilterId = filterId;
         }
 
-        public TradeRecordControl() : this(DEFAULT_ID)
+        public TradeRecordControl() : this(DEFAULT_ID, null)
         {
         }
 
@@ -115,7 +115,7 @@ namespace Micro.Future.UI
                 return;
             }
 
-            AnchorablePane.SelectedContent.Title = tabTitle;
+            // AnchorablePane.SelectedContent.Title = tabTitle;
             FilterSettingsWin.FilterTabTitle = tabTitle;
             FilterSettingsWin.FilterExchange = exchange;
             FilterSettingsWin.FilterUnderlying = underlying;
@@ -301,11 +301,6 @@ namespace Micro.Future.UI
             //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().TradeVMCollection.Clear();
             //MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryTrade();
             Initialize();
-
-            TradeHandler.TradeVMCollection.Clear();
-            TradeHandler.QueryTrade();
-            FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;
-
             //while (AnchorablePane.ChildrenCount > 1)
             //    AnchorablePane.Children.RemoveAt(1);
             LayoutAnchorable defaultTab = 
@@ -338,6 +333,9 @@ namespace Micro.Future.UI
             _viewSource.Source = TradeHandler?.TradeVMCollection;
             TradeTreeView.ItemsSource = _viewSource.View;
             mColumns = ColumnObject.GetColumns(TradeTreeView);
+            TradeHandler.TradeVMCollection.Clear();
+            TradeHandler.QueryTrade();
+            FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;
         }
     }
 }

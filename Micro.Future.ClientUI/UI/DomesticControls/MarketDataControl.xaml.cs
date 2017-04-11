@@ -40,7 +40,7 @@ namespace Micro.Future.UI
 
         protected readonly MarketContract _userContractDbCtx;
         public FilterSettingsWindow FilterSettingsWin { get; } =
-            new FilterSettingsWindow() { PersistanceId = typeof(MarketDataControl).Name, CancelClosing = true };
+            new FilterSettingsWindow() { CancelClosing = true };
 
         public string PersistanceId
         {
@@ -53,24 +53,36 @@ namespace Micro.Future.UI
             get;
         } = new ObservableCollection<MarketDataVM>();
 
-        public MarketDataControl(string filterId)
+        public MarketDataControl(string persisitentId, string filterId, BaseMarketDataHandler marketDataHandler = null)
         {
             InitializeComponent();
+            MarketDataHandler = marketDataHandler;
+            if (MarketDataHandler != null)
             Initialize();
+            FilterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
+            PersistanceId = persisitentId;
+            FilterSettingsWin.PersistanceId = persisitentId; 
             FilterSettingsWin.FilterId = filterId;
         }
 
-        public MarketDataControl() : this(DEFAULT_ID)
+        public MarketDataControl()
         {
+            InitializeComponent();
+
+            FilterSettingsWin.PersistanceId = PersistanceId;
+            FilterSettingsWin.FilterId = DEFAULT_ID;
         }
 
-        private void Initialize()
+        public void Initialize()
         {
+            _viewSource.Source = QuoteVMCollection;
+            quoteListView.ItemsSource = _viewSource.View;
+            mColumns = ColumnObject.GetColumns(quoteListView);
+            FilterSettingsWin.UserID = MarketDataHandler.MessageWrapper.User.Id;
+
             FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
             FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
             
-            FilterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
-            _viewSource.Source = QuoteVMCollection;
             QuoteChanged = _viewSource.View as ICollectionViewLiveShaping;
             if (QuoteChanged.CanChangeLiveFiltering)
             {
@@ -78,9 +90,7 @@ namespace Micro.Future.UI
                 QuoteChanged.LiveFilteringProperties.Add("Contract");
                 QuoteChanged.IsLiveFiltering = true;
             }
-            quoteListView.ItemsSource = _viewSource.View;
 
-            mColumns = ColumnObject.GetColumns(quoteListView);
 
             contractTextBox.Provider = new SuggestionProvider((string c) => { return FutureOptionList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
         }
@@ -141,7 +151,7 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
-            FilterSettingsWin.UserID = MarketDataHandler.MessageWrapper.User.Id;
+            Initialize();
             LayoutAnchorable defaultTab =
                 AnchorablePane.Children.FirstOrDefault(pane => ((MarketDataControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
             AnchorablePane.Children.Clear();
@@ -152,7 +162,7 @@ namespace Micro.Future.UI
             bool found = false;
             foreach (var fs in filtersettings)
             {
-                var marketdatactrl = new MarketDataControl(fs.Id);
+                var marketdatactrl = new MarketDataControl(PersistanceId, fs.Id);
                 AnchorablePane.AddContent(marketdatactrl).Title = fs.Title;
                 marketdatactrl.LoadUserContracts();
                 marketdatactrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
@@ -256,7 +266,7 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var marketDataControl = new MarketDataControl(Guid.NewGuid().ToString());
+                var marketDataControl = new MarketDataControl(PersistanceId, Guid.NewGuid().ToString());
                 AnchorablePane.AddContent(marketDataControl).Title = title;
                 marketDataControl.FilterSettingsWin.FilterTabTitle = title;
                 marketDataControl.FilterSettingsWin.Save();
@@ -349,9 +359,5 @@ namespace Micro.Future.UI
             AddQuote();
         }
 
-        void IReloadData.Initialize()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

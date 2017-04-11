@@ -199,7 +199,7 @@ namespace Micro.Future.UI
         {
             //quotePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var marketDataWin = new MarketDataControl(Guid.NewGuid().ToString());
+            var marketDataWin = new MarketDataControl(marketDataLV.PersistanceId, Guid.NewGuid().ToString());
             marketDataWin.FilterSettingsWin.Title += "(" + title + ")";
             marketDataWin.FilterSettingsWin.FilterTabTitle = title;
             quotePane.AddContent(marketDataWin).Title = title;
@@ -297,7 +297,7 @@ namespace Micro.Future.UI
         {
             //positionPane.AddContent(new PositionControl()).Title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var positionWin = new PositionControl(Guid.NewGuid().ToString());
+            var positionWin = new PositionControl(Guid.NewGuid().ToString(), null, null);
             positionWin.FilterSettingsWin.Title += "(" + title + ")";
             positionWin.FilterSettingsWin.FilterTabTitle = title;
             positionPane.AddContent(positionWin).Title = title;

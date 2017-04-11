@@ -46,11 +46,12 @@ namespace Micro.Future.UI
             get;
             set;
         }
-        public PositionControl(string filterId, BaseTraderHandler tradeHander = null)
+        public PositionControl(string filterId, BaseTraderHandler tradeHander, BaseMarketDataHandler marketHandler)
         {
             InitializeComponent();
             TradeHandler = tradeHander;
-            if (TradeHandler != null)
+            MarketDataHandler = marketHandler;
+            if (TradeHandler != null && MarketDataHandler !=null)
                 Initialize();
             //MessageHandlerContainer.DefaultInstance
             //.Get<MarketDataHandler>().OnNewMarketData += OnNewMarketData;
@@ -99,7 +100,7 @@ namespace Micro.Future.UI
             }
         }
 
-        public PositionControl() : this(DEFAULT_ID)
+        public PositionControl() : this(DEFAULT_ID, null, null)
         {
         }
         public ICollectionViewLiveShaping PositionChanged { get; set; }
@@ -117,9 +118,7 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
-            TradeHandler.QueryPosition();
             Initialize();
-            FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;
             LayoutAnchorable defaultTab =
                 AnchorablePane.Children.FirstOrDefault(pane => ((PositionControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
 
@@ -134,7 +133,7 @@ namespace Micro.Future.UI
 
             foreach (var fs in filtersettings)
             {
-                var positionctrl = new PositionControl(fs.Id);
+                var positionctrl = new PositionControl(fs.Id, TradeHandler, MarketDataHandler);
                 AnchorablePane.AddContent(positionctrl).Title = fs.Title;
                 positionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
 
@@ -148,6 +147,7 @@ namespace Micro.Future.UI
 
         private async void LoadMarketData(string contract)
         {
+
             _marketDataList.Add(await MarketDataHandler
                 .SubMarketDataAsync(contract));
         }
@@ -320,7 +320,7 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var positionctrl = new PositionControl(Guid.NewGuid().ToString(), TradeHandler);
+                var positionctrl = new PositionControl(Guid.NewGuid().ToString(), TradeHandler, MarketDataHandler);
                 AnchorablePane.AddContent(positionctrl).Title = title;
                 positionctrl.FilterSettingsWin.FilterTabTitle = title;
                 positionctrl.FilterSettingsWin.Save();
@@ -353,7 +353,7 @@ namespace Micro.Future.UI
                 return;
             }
 
-            this.AnchorablePane.SelectedContent.Title = tabTitle;
+            //this.AnchorablePane.SelectedContent.Title = tabTitle;
             FilterSettingsWin.FilterTabTitle = tabTitle;
             FilterSettingsWin.FilterExchange = exchange;
             FilterSettingsWin.FilterUnderlying = underlying;
@@ -413,12 +413,15 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
-            TradeHandler.PositionVMCollection.Clear();
             _viewSource.Source = TradeHandler.PositionVMCollection;
             PositionListView.ItemsSource = _viewSource.View;
             mColumns = ColumnObject.GetColumns(PositionListView);
+            TradeHandler.PositionVMCollection.Clear();
+            TradeHandler.QueryPosition();
+
             TradeHandler.PositionVMCollection.CollectionChanged += PositionCollectionChanged;
             MarketDataHandler.OnNewMarketData += OnNewMarketData;
+            FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;
         }
     }
 }
