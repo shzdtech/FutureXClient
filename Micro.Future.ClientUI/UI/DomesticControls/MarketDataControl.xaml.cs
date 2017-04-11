@@ -53,7 +53,7 @@ namespace Micro.Future.UI
             get;
         } = new ObservableCollection<MarketDataVM>();
 
-        public MarketDataControl(string persisitentId, string filterId, BaseMarketDataHandler marketDataHandler = null)
+        public MarketDataControl(string persisitentId, string filterId, BaseMarketDataHandler marketDataHandler)
         {
             InitializeComponent();
             MarketDataHandler = marketDataHandler;
@@ -158,11 +158,11 @@ namespace Micro.Future.UI
             if (defaultTab != null)
                 AnchorablePane.Children.Add(defaultTab);
             // MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().ResubMarketData();
-            var filtersettings = ClientDbContext.GetFilterSettings(MarketDataHandler.MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(MarketDataHandler.MessageWrapper.User.Id, PersistanceId);
             bool found = false;
             foreach (var fs in filtersettings)
             {
-                var marketdatactrl = new MarketDataControl(PersistanceId, fs.Id);
+                var marketdatactrl = new MarketDataControl(PersistanceId, fs.Id, MarketDataHandler);
                 AnchorablePane.AddContent(marketdatactrl).Title = fs.Title;
                 marketdatactrl.LoadUserContracts();
                 marketdatactrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
@@ -266,7 +266,7 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var marketDataControl = new MarketDataControl(PersistanceId, Guid.NewGuid().ToString());
+                var marketDataControl = new MarketDataControl(PersistanceId, Guid.NewGuid().ToString(), MarketDataHandler);
                 AnchorablePane.AddContent(marketDataControl).Title = title;
                 marketDataControl.FilterSettingsWin.FilterTabTitle = title;
                 marketDataControl.FilterSettingsWin.Save();

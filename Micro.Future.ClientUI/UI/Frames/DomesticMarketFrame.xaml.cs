@@ -196,7 +196,7 @@ namespace Micro.Future.UI
         {
             //quotePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var marketDataWin = new MarketDataControl(marketDataLV.PersistanceId, Guid.NewGuid().ToString());
+            var marketDataWin = new MarketDataControl(marketDataLV.PersistanceId, Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>());
             marketDataWin.FilterSettingsWin.Title += "(" + title + ")";
             marketDataWin.FilterSettingsWin.FilterTabTitle = title;
             quotePane.AddContent(marketDataWin).Title = title;
