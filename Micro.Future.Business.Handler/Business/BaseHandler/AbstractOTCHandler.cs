@@ -172,7 +172,7 @@ namespace Micro.Future.Message
         protected ModelParamsVM OnQueryModelParamsSuccess(ModelParams resp)
         {
             var modelParamsVMCollection = GetModelParamsVMCollection(resp.ModelAim);
-            ModelParamsVM ret = null; 
+            ModelParamsVM ret = null;
             if (!string.IsNullOrEmpty(resp.InstanceName))
             {
                 ret = modelParamsVMCollection.FirstOrDefault(c => c.InstanceName == resp.InstanceName);
@@ -186,19 +186,15 @@ namespace Micro.Future.Message
                     };
                     modelParamsVMCollection.Add(ret);
                 }
-                else
-                {
-                    ret.Params.Clear();
-                }
-                
+
                 foreach (var param in resp.Params)
                 {
-                    ret.Params.Add(new NamedParamVM()
+                    ret[param.Key] = new NamedParamVM()
                     {
                         Name = param.Key,
                         Value = param.Value,
-                    });
-                } 
+                    };
+                }
             }
 
             return ret;
@@ -696,7 +692,7 @@ namespace Micro.Future.Message
 
         public async Task<ContractKeyVM> SubTradingDeskDataAsync(ContractKeyVM contractKey)
         {
-            var tdDataList = await SubTradingDeskDataAsync(new [] { contractKey });
+            var tdDataList = await SubTradingDeskDataAsync(new[] { contractKey });
             return tdDataList?.FirstOrDefault();
         }
 

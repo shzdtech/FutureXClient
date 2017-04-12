@@ -217,7 +217,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _name = value;
-                OnPropertyChanged("Name");
+                OnPropertyChanged(nameof(Name));
             }
             get
             {
@@ -231,7 +231,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _value = value;
-                OnPropertyChanged("Value");
+                OnPropertyChanged(nameof(Value));
             }
             get
             {

@@ -65,6 +65,18 @@ namespace Micro.Future.ViewModel
             {
                return Params.FirstOrDefault(p => p.Name == paramName);
             }
+            set
+            {
+                var nameValue = Params.FirstOrDefault(p => p.Name == paramName);
+                if(nameValue == null)
+                {
+                    Params.Add(value);
+                }
+                else
+                {
+                    nameValue.Value = value.Value;
+                }
+            }
         }
     }
 }
