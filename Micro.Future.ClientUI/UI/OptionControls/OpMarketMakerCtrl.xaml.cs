@@ -232,6 +232,7 @@ namespace Micro.Future.UI
                                    select new ContractKeyVM(exchange, o.Contract)).ToList();
 
                     var retList = _otcOptionHandler.MakeCallPutTDOptionData(strikeList, callList, putList);
+                    _subbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList.Select(c => new ContractKeyVM(c.Exchange, c.Contract)));
 
                     CallPutTDOptionVMCollection.Clear();
                     foreach (var vm in retList)
@@ -256,8 +257,8 @@ namespace Micro.Future.UI
                             var pricingContractParamVM = strategyVM.PricingContractParams?.FirstOrDefault();
                             if (pricingContractParamVM != null)
                             {
-                                var futurecontract = pricingContractParamVM.Contract;
                                 var futureexchange = pricingContractParamVM.Exchange;
+                                var futurecontract = pricingContractParamVM.Contract;
                                 var futureunderlying = _futurecontractList.FirstOrDefault(c => c.Exchange == futureexchange && c.Contract == futurecontract)?.ProductID;
                                 var adjust = pricingContractParamVM.Adjust;
                                 var pricingmodel = strategyVM.PricingModel;
@@ -275,7 +276,6 @@ namespace Micro.Future.UI
                                 }
                             }
                         }
-                        _subbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList.Select(c => new ContractKeyVM(c.Exchange, c.Contract)));
                     }
                 }
             }
