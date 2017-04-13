@@ -291,8 +291,8 @@ namespace Micro.Future.Message
                     strategyVM.Depth = strategy.Depth;
                     strategyVM.BidEnabled = strategy.BidEnabled;
                     strategyVM.AskEnabled = strategy.AskEnabled;
-                    strategyVM.BidQT = strategy.BidQT;
-                    strategyVM.AskQT = strategy.AskQT;
+                    strategyVM.BidQV = strategy.BidQV;
+                    strategyVM.AskQV = strategy.AskQV;
                     OnStrategyUpdated?.Invoke(strategyVM);
                 }
             }
@@ -324,8 +324,8 @@ namespace Micro.Future.Message
             strategy.Contract = sVM.Contract;
             strategy.Symbol = sVM.StrategySym;
             strategy.Depth = sVM.Depth;
-            strategy.BidQT = sVM.BidQT;
-            strategy.AskQT = sVM.AskQT;
+            strategy.BidQV = sVM.BidQV;
+            strategy.AskQV = sVM.AskQV;
             strategy.Hedging = sVM.Hedging;
             strategy.AskEnabled = sVM.AskEnabled;
             strategy.BidEnabled = sVM.BidEnabled;
@@ -480,8 +480,8 @@ namespace Micro.Future.Message
                 strategyVM.Depth = strategy.Depth;
                 strategyVM.AskEnabled = strategy.AskEnabled;
                 strategyVM.BidEnabled = strategy.BidEnabled;
-                strategyVM.BidQT = strategy.BidQT;
-                strategyVM.AskQT = strategy.AskQT;
+                strategyVM.BidQV = strategy.BidQV;
+                strategyVM.AskQV = strategy.AskQV;
                 strategyVM.IVModel = strategy.IvModel;
                 strategyVM.VolModel = strategy.VolModel;
                 strategyVM.PricingModel = strategy.PricingModel;

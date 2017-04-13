@@ -76,7 +76,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Q-OTC">
+                        <!--<GridViewColumn Header="Q-OTC">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <WrapPanel>
@@ -84,7 +84,7 @@
                                     </WrapPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                        </GridViewColumn>-->
                     </GridView>
                 </ListView.View>
             </ListView>

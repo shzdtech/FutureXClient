@@ -138,14 +138,14 @@
                     <GridViewColumn x:Name="PBidQV" Header="PBidQV" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <xctk:IntegerUpDown x:Name="pBidQVTextBox" Value="{Binding PutStrategyVM.BidQT}" KeyUp="OnKeyDown" UpdateValueOnEnterKey="True" ShowButtonSpinner="False"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="pBidQVTextBox" Value="{Binding PutStrategyVM.BidQV}" KeyUp="OnKeyDown" UpdateValueOnEnterKey="True" ShowButtonSpinner="False"></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="PAskQV" Header="PAskQV" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <xctk:IntegerUpDown x:Name="pAskQVTextBox" Value="{Binding PutStrategyVM.AskQT}" KeyUp="OnKeyDown" UpdateValueOnEnterKey="True" ShowButtonSpinner="False"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="pAskQVTextBox" Value="{Binding PutStrategyVM.AskQV}" KeyUp="OnKeyDown" UpdateValueOnEnterKey="True" ShowButtonSpinner="False"></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -194,14 +194,14 @@
                     <GridViewColumn x:Name="CAskQV" Header="CAskQV" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <xctk:IntegerUpDown x:Name="cAskQVTextBox" Value="{Binding CallStrategyVM.AskQT}" KeyUp="OnKeyDown" UpdateValueOnEnterKey="True" ShowButtonSpinner="False"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="cAskQVTextBox" Value="{Binding CallStrategyVM.AskQV}" KeyUp="OnKeyDown" UpdateValueOnEnterKey="True" ShowButtonSpinner="False"></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="CBidQV" Header="CBidQV" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <xctk:IntegerUpDown x:Name="cBidQVTextBox" Value="{Binding CallStrategyVM.BidQT}" KeyUp="OnKeyDown" UpdateValueOnEnterKey="True" ShowButtonSpinner="False"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="cBidQVTextBox" Value="{Binding CallStrategyVM.BidQV}" KeyUp="OnKeyDown" UpdateValueOnEnterKey="True" ShowButtonSpinner="False"></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
