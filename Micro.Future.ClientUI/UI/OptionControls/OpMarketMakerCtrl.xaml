@@ -135,10 +135,17 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PAskAO" Header="Auto Order" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                    <GridViewColumn x:Name="PAODepth" Header="Depth" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding PutStrategyVM.Hedging}" Command="{Binding CallStrategyVM.UpdateCommand}"  />
+                                <xctk:IntegerUpDown x:Name="pAODepthUpDown" Value="{Binding PutStrategyVM.Depth}" KeyUp="OnKeyDown" UpdateValueOnEnterKey="True" ShowButtonSpinner="False"></xctk:IntegerUpDown>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="PAutoOrder" Header="Auto Order" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding PutStrategyVM.Hedging}" Command="{Binding PutStrategyVM.UpdateCommand}"  />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -226,7 +233,14 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CAskAO" Header="Auto Order" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                    <GridViewColumn x:Name="CAODepth" Header="Depth" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <xctk:IntegerUpDown x:Name="cAODepthUpDown" Value="{Binding CallStrategyVM.Depth}" KeyUp="OnKeyDown" UpdateValueOnEnterKey="True" ShowButtonSpinner="False"></xctk:IntegerUpDown>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="CAutoOrder" Header="Auto Order" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding CallStrategyVM.Hedging}" Command="{Binding CallStrategyVM.UpdateCommand}"  />
