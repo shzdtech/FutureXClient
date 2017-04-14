@@ -78,10 +78,10 @@
             <Label Content="{lex:Loc Key=Price}" Width="35" VerticalAlignment="Center"/>
             <xctk:DoubleUpDown Name="LimitTxt" Width="100" Value="{Binding LimitPrice}" VerticalAlignment="Center"/>
             <StackPanel MinWidth="40">
-                <Label x:Name="LabelUpperPrice" Content="{Binding UpperLimitPrice}" MouseDown="labelupperprice_MouseDown" />
-                <Label x:Name="LabelAskPrice" Content="{Binding AskPrice.Value}" MouseDown="LabelAskPrice_MouseDown" />
-                <Label x:Name="LabelBidPrice" Content="{Binding BidPrice.Value}" MouseDown="LabelBidPrice_MouseDown" />
-                <Label x:Name="LabelLowerPrice" Content="{Binding LowerLimitPrice}" MouseDown="labellowerprice_MouseDown" />
+                <Label x:Name="LabelUpperPrice" Content="{Binding UpperLimitPrice, StringFormat={}{0:N}}" MouseDown="labelupperprice_MouseDown" />
+                <Label x:Name="LabelAskPrice" Content="{Binding AskPrice.Value, StringFormat={}{0:N}}" MouseDown="LabelAskPrice_MouseDown" />
+                <Label x:Name="LabelBidPrice" Content="{Binding BidPrice.Value, StringFormat={}{0:N}}" MouseDown="LabelBidPrice_MouseDown" />
+                <Label x:Name="LabelLowerPrice" Content="{Binding LowerLimitPrice, StringFormat={}{0:N}}" MouseDown="labellowerprice_MouseDown" />
             </StackPanel>
             <StackPanel MinWidth="13">
                 <Label x:Name="Null1" Content=" "/>
