@@ -756,4 +756,7 @@
   <data name="OTCOption" xml:space="preserve">
     <value>OTC期权</value>
   </data>
+  <data name="RefreshContracts" xml:space="preserve">
+    <value>刷新合约</value>
+  </data>
 </root>
