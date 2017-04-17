@@ -239,10 +239,10 @@ namespace Micro.Future.UI
                     {
                         CallPutTDOptionVMCollection.Add(vm);
                     }
-                    var callPutTDOptionVM = CallPutTDOptionVMCollection.FirstOrDefault();
-                    if (callPutTDOptionVM != null)
+                    var strategyVM = CallPutTDOptionVMCollection.FirstOrDefault().CallStrategyVM ?? 
+                        CallPutTDOptionVMCollection.LastOrDefault().CallStrategyVM;
+                    if (strategyVM != null)
                     {
-                        var strategyVM = callPutTDOptionVM.CallStrategyVM;
                         pricingModelCB.ItemsSource = null;
                         volModelLB.Content = null;
                         riskFree_Interest.DataContext = null;

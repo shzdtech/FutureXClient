@@ -87,29 +87,32 @@ namespace Micro.Future.UI
 
         private void SetReference_Click(object sender, RoutedEventArgs e)
         {
-            RevertCurrent();
-            if (TempSettings.Any())
-            {
-                var modelParamsVM = DataContext as ModelParamsVM;
-                _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, TempSettings);
-            }
-
-        }
-        private void RevertCurrent_Click(object sender, RoutedEventArgs e)
-        {
-            RevertCurrent();
-        }
-
-        public void RevertCurrent()
-        {
             if (TempSettings.Any())
             {
                 var modelParamsVM = DataContext as ModelParamsVM;
                 if (modelParamsVM != null)
                 {
-                    DeleteTempSettings();
-                    _otcOptionHandler.RemoveTempModel(modelParamsVM.InstanceName);
+                    _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, TempSettings);
+                    RevertCurrent();
                 }
+            }
+
+        }
+        private void RevertCurrent_Click(object sender, RoutedEventArgs e)
+        {
+            if (TempSettings.Any())
+            {
+                RevertCurrent();
+            }
+        }
+
+        public void RevertCurrent()
+        {
+            var modelParamsVM = DataContext as ModelParamsVM;
+            if (modelParamsVM != null)
+            {
+                DeleteTempSettings();
+                _otcOptionHandler.RemoveTempModel(modelParamsVM.InstanceName);
             }
         }
 

@@ -197,7 +197,7 @@ namespace Micro.Future.UI
             {
                 foreach (var status in OrderStatuses)
                 {
-                    ClientDbContext.SaveOrderStatus(MarketDataHandler.MessageWrapper.User.Id, (int)status, FilterSettingsWin.FilterId);
+                    ClientDbContext.SaveOrderStatus(TradeHandler.MessageWrapper.User.Id, (int)status, FilterSettingsWin.FilterId);
                 }
             }
         }
