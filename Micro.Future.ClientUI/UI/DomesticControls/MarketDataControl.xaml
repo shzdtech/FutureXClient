@@ -38,7 +38,7 @@
                         <GridViewColumn Header="{lex:Loc Key=LastPrice}" Width="auto">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Value}" DataContext="{Binding MatchPrice}" Style="{DynamicResource DoubleChangeStyle}" Width="auto"/>
+                                    <TextBlock Text="{Binding Value}" DataContext="{Binding LastPrice}" Style="{DynamicResource DoubleChangeStyle}" Width="auto"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

@@ -82,26 +82,26 @@
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="quotePane">
                             <avalonDock:LayoutAnchorable>
-                                <c:MarketDataControl x:Name="marketDataLV"/>
+                                <c:MarketDataControl x:Name="marketDataLV" PersistanceId="Domestic:MarketDataControl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>
                     <avalonDock:LayoutPanel Orientation="Vertical">
                         <avalonDock:LayoutAnchorablePane x:Name="executionPane">
                             <avalonDock:LayoutAnchorable >
-                                <c:ExecutionControl  x:Name="executionWindow"/>
+                                <c:ExecutionControl  x:Name="executionWindow" PersistanceId="Domestic:ExecutionControl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>
                     <avalonDock:LayoutPanel Orientation="Horizontal">
                         <avalonDock:LayoutAnchorablePane x:Name="tradePane">
                             <avalonDock:LayoutAnchorable>
-                                <c:TradeRecordControl x:Name="tradeWindow"/>
+                                <c:TradeRecordControl x:Name="tradeWindow" PersistanceId="Domestic:TradeRecordControl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
                             <avalonDock:LayoutAnchorable Closing="ClosingPositionPane">
-                                <c:PositionControl x:Name="positionsWindow"/>
+                                <c:PositionControl x:Name="positionsWindow" PersistanceId="Domestic:PositionControl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>

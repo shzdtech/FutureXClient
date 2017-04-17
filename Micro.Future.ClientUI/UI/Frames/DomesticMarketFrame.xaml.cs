@@ -25,7 +25,27 @@ namespace Micro.Future.UI
     {
         private AbstractSignInManager _ctpMdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<MarketDataHandler>());
         private AbstractSignInManager _ctpTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<TraderExHandler>());
-
+        //public class PanesStyleSelector : StyleSelector
+        //{
+        //    public System.Windows.Style ToolStyle
+        //    {
+        //        get;
+        //        set;
+        //    }
+        //    public System.Windows.Style DocumentStyle
+        //    {
+        //        get;
+        //        set;
+        //    }
+        //    public override System.Windows.Style SelectStyle(object item, DependencyObject container)
+        //    {
+        //        if (item is ITool)
+        //            return ToolStyle;
+        //        if (item is IDocument)
+        //            return DocumentStyle;
+        //        return base.SelectStyle(item, container);
+        //    }
+        //}
 
         public string Title
         {

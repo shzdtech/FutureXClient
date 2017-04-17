@@ -80,19 +80,19 @@ namespace Micro.Future.UI
 
         private async void VolModelCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            WMSettingsLV.RevertCurrent();
-            VolCurvLV.TempCurveReset();
-            var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;            
+            if (WMSettingsLV.DataContext != null)
+            {
+                WMSettingsLV.RevertCurrent();
+                VolCurvLV.TempCurveReset();
+            }
+            var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
             if (volModel != null)
             {
                 await _otcHandler.QueryModelParamsAsync(volModel.ToString());
-            }
-
-            if (volModel != null)
-            {
                 WMSettingsLV.DataContext = null;
                 WMSettingsLV.DataContext = volModel;
             }
+
             //var exchange = OpMarketControl.underlyingEX1.SelectedValue;
             //var uc = OpMarketControl.underlyingContractCB1.SelectedValue;
             //var ed = OpMarketControl.expireDateCB1.SelectedValue;
@@ -106,7 +106,7 @@ namespace Micro.Future.UI
         private async void RevertCurrentBtn_Click(object sender, RoutedEventArgs e)
         {
             VolCurvLV.TempCurveReset();
-            var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;            
+            var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
             if (volModel != null)
             {
                 WMSettingsLV.DataContext = null;

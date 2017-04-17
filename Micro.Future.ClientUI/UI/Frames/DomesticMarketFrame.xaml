@@ -64,6 +64,15 @@
         <avalonDock:DockingManager.Theme>
             <avalonDock:GenericTheme/>
         </avalonDock:DockingManager.Theme>
+        <!--<avalonDock:DockingManager.LayoutItemContainerStyleSelector>
+            <avalonDock:PanesStyleSelector>
+                <avalonDock:PanesStyleSelector.DeviceStyle>
+                    <Style TargetType="{x:Type avalonDock:LayoutItem}">
+                        <Setter Property="CanClose" Value="False"></Setter>
+                    </Style>
+                </avalonDock:PanesStyleSelector.DeviceStyle>
+            </avalonDock:PanesStyleSelector>
+        </avalonDock:DockingManager.LayoutItemContainerStyleSelector>-->
         <avalonDock:LayoutRoot>
             <avalonDock:LayoutPanel Orientation="Vertical">
                 <avalonDock:LayoutPanel DockHeight="0.15*">
@@ -89,19 +98,19 @@
                     <avalonDock:LayoutPanel Orientation="Vertical">
                         <avalonDock:LayoutAnchorablePane x:Name="executionPane">
                             <avalonDock:LayoutAnchorable >
-                                <c:ExecutionControl  x:Name="executionWindow"/>
+                                <c:ExecutionControl  x:Name="executionWindow" PersistanceId="Domestic:ExecutionControl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>
                     <avalonDock:LayoutPanel Orientation="Horizontal">
                         <avalonDock:LayoutAnchorablePane x:Name="tradePane">
                             <avalonDock:LayoutAnchorable>
-                                <c:TradeRecordControl x:Name="tradeWindow"/>
+                                <c:TradeRecordControl x:Name="tradeWindow" PersistanceId="Domestic:TradeRecordControl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
                             <avalonDock:LayoutAnchorable Closing="ClosingPositionPane">
-                                <c:PositionControl x:Name="positionsWindow"/>
+                                <c:PositionControl x:Name="positionsWindow" PersistanceId="Domestic:PositionControl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>
