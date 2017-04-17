@@ -5,6 +5,7 @@ using Micro.Future.Utility;
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Micro.Future
 {
@@ -15,6 +16,12 @@ namespace Micro.Future
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            base.OnStartup(e);
+
+            DispatcherUnhandledException += AppGlobalDispatcherUnhandledException;
+
+
+            // Initialize server configuration
             Config config = new Config(Settings.Default.ConfigFile);
 
             Dictionary<string, string> configDict;
@@ -61,8 +68,11 @@ namespace Micro.Future
             }
 
             MessageHandlerContainer.DefaultInstance.Refresh();
+        }
 
-            base.OnStartup(e);
+        private void AppGlobalDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
         }
 
         private SignInOptions GenSignInOption(IDictionary<string, string> configDict)

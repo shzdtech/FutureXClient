@@ -207,7 +207,8 @@ namespace Micro.Future.UI
             Thread.Sleep(1200);
             executionWindow.ReloadData();
 
-            await FastOrderCtl.TradeHandler.SyncContractInfoAsync();
+            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            await tradeHandler.SyncContractInfoAsync();
 
             LoginTaskSource.TrySetResult(true);
         }
@@ -336,6 +337,13 @@ namespace Micro.Future.UI
         private void ClosingPositionPane(object sender, CancelEventArgs e)
         {
             positionsWindow.DeletePositionDB();
+        }
+
+        private async void MenuItem_RefreshContracts_Click(object sender, RoutedEventArgs e)
+        {
+            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            await tradeHandler.SyncContractInfoAsync(true);
+            MessageBox.Show(Application.Current.MainWindow, "合约已刷新，请重新启动应用！");
         }
     }
 }

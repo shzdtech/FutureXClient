@@ -185,13 +185,6 @@ namespace Micro.Future.UI
             Thread.Sleep(1200);
             executionWindow.ReloadData();
 
-            var today = DateTime.Now.Date.ToShortDateString();
-
-            if (MFUtilities.GetSyncVersion(nameof(ContractInfo)) != today)
-            {
-                await FastOrderCtl.TradeHandler.SyncContractInfoAsync();
-            }
-
             LoginTaskSource.TrySetResult(true);
         }
 

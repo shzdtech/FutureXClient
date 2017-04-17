@@ -378,11 +378,12 @@ namespace Micro.Future.Message
 
         }
 
-        public Task<bool> SyncContractInfoAsync()
+        public Task<bool> SyncContractInfoAsync(bool forced = false)
         {
             var today = DateTime.Now.Date.ToShortDateString();
             var key = string.Format("{0}:{1}", nameof(ContractInfo), GetType().Name);
-            if (MFUtilities.GetSyncVersion(key) == today)
+
+            if (!forced && MFUtilities.GetSyncVersion(key) == today)
             {
                 return Task.FromResult(true);
             }

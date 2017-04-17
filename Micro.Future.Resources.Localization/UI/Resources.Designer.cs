@@ -1393,6 +1393,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 刷新合约 的本地化字符串。
+        /// </summary>
+        internal static string RefreshContracts {
+            get {
+                return ResourceManager.GetString("RefreshContracts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已拒绝单 的本地化字符串。
         /// </summary>
         internal static string RejectedOrder {

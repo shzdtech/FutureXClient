@@ -756,4 +756,7 @@
   <data name="OTCOption" xml:space="preserve">
     <value>OTCOption</value>
   </data>
+  <data name="RefreshContracts" xml:space="preserve">
+    <value>Refresh Contracts</value>
+  </data>
 </root>
