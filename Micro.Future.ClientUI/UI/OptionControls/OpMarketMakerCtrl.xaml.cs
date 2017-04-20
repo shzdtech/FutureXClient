@@ -368,7 +368,7 @@ namespace Micro.Future.UI
                 if (e.Key == Key.Escape || e.Key == Key.Enter)
                 {
 
-                    StrategyVM strategyVM = ctrl.DataContext as StrategyVM;
+                    StrategyVM strategyVM = ctrl.Tag as StrategyVM;
                     if (strategyVM != null)
                     {
                         if (e.Key == Key.Enter)
