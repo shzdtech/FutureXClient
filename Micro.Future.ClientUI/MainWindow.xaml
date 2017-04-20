@@ -33,8 +33,6 @@
                 </avalonDock:LayoutPanel>
             </avalonDock:LayoutRoot>
         </avalonDock:DockingManager>
-
-
         <StatusBar x:Name="statusBar" Grid.Row="2">
         </StatusBar>
     </Grid>

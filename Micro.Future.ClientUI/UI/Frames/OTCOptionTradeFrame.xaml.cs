@@ -185,6 +185,8 @@ namespace Micro.Future.UI
             tradeWindow.ReloadData();
             Thread.Sleep(1200);
             executionWindow.ReloadData();
+            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+            await tradeHandler.SyncContractInfoAsync();
 
             LoginTaskSource.TrySetResult(true);
         }
@@ -233,7 +235,7 @@ namespace Micro.Future.UI
         {
             //executionPane.AddContent(new ExecutionControl(Guid.NewGuid().ToString())).Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var executionWin = new ExecutionControl(Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>());
+            var executionWin = new ExecutionControl(executionWindow.PersistanceId, Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>());
             executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterSettingsWin.FilterTabTitle = title;
             executionPane.AddContent(executionWin).Title = title;
@@ -243,7 +245,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Opened(object sender, RoutedEventArgs e)
         {
             var title = WPFUtility.GetLocalizedString("Opened", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var executionWin = new ExecutionControl(Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>());
+            var executionWin = new ExecutionControl(executionWindow.PersistanceId, Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>());
             executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterSettingsWin.FilterTabTitle = title;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENED, OrderStatus.PARTIAL_TRADED, OrderStatus.PARTIAL_TRADING });
@@ -254,7 +256,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Traded(object sender, RoutedEventArgs e)
         {
             var title = WPFUtility.GetLocalizedString("TRADED", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var executionWin = new ExecutionControl(Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>());
+            var executionWin = new ExecutionControl(executionWindow.PersistanceId, Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>());
             executionWin.FilterSettingsWin.Title += "(" + title + ")";
             executionWin.FilterSettingsWin.FilterTabTitle = title;
             executionWin.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED, OrderStatus.PARTIAL_TRADED });
@@ -266,32 +268,32 @@ namespace Micro.Future.UI
         {
             //tradePane.AddContent(new TradeRecordControl()).Title = WPFUtility.GetLocalizedString("AllTraded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var title = WPFUtility.GetLocalizedString("AllTraded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var tradeRecordWin = new TradeRecordControl(Guid.NewGuid().ToString());
+            var tradeRecordWin = new TradeRecordControl(tradeWindow.PersistanceId, Guid.NewGuid().ToString());
             tradeRecordWin.FilterSettingsWin.Title += "(" + title + ")";
             tradeRecordWin.FilterSettingsWin.FilterTabTitle = title;
             tradePane.AddContent(tradeRecordWin).Title = title;
             tradeRecordWin.FilterSettingsWin.Save();
         }
 
-        private void MenuItem_Click_Open(object sender, RoutedEventArgs e)
-        {
-            var tradeWin = new TradeRecordControl();
-            tradeWin.FilterByStatus(new List<OrderOpenCloseType> { OrderOpenCloseType.OPEN });
-            tradePane.AddContent(tradeWin).Title = WPFUtility.GetLocalizedString("Open", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-        }
+        //private void MenuItem_Click_Open(object sender, RoutedEventArgs e)
+        //{
+        //    var tradeWin = new TradeRecordControl();
+        //    tradeWin.FilterByStatus(new List<OrderOpenCloseType> { OrderOpenCloseType.OPEN });
+        //    tradePane.AddContent(tradeWin).Title = WPFUtility.GetLocalizedString("Open", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+        //}
 
-        private void MenuItem_Click_Close(object sender, RoutedEventArgs e)
-        {
-            var tradeWin = new TradeRecordControl();
-            tradeWin.FilterByStatus(new List<OrderOpenCloseType> { OrderOpenCloseType.CLOSE });
-            tradePane.AddContent(tradeWin).Title = WPFUtility.GetLocalizedString("Close", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-        }
+        //private void MenuItem_Click_Close(object sender, RoutedEventArgs e)
+        //{
+        //    var tradeWin = new TradeRecordControl();
+        //    tradeWin.FilterByStatus(new List<OrderOpenCloseType> { OrderOpenCloseType.CLOSE });
+        //    tradePane.AddContent(tradeWin).Title = WPFUtility.GetLocalizedString("Close", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+        //}
 
         private void MenuItem_Click_Position(object sender, RoutedEventArgs e)
         {
             //positionPane.AddContent(new PositionControl()).Title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var positionWin = new PositionControl(Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>(), MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>());
+            var positionWin = new PositionControl(positionsWindow.PersistanceId, Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>(), MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>());
             positionWin.FilterSettingsWin.Title += "(" + title + ")";
             positionWin.FilterSettingsWin.FilterTabTitle = title;
             positionPane.AddContent(positionWin).Title = title;

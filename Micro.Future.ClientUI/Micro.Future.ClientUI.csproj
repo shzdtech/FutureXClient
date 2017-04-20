@@ -66,13 +66,16 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -95,6 +98,9 @@
     </Compile>
     <Compile Include="UI\DomesticControls\MarketDataControl.xaml.cs">
       <DependentUpon>MarketDataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Frames\RisksFrame.xaml.cs">
+      <DependentUpon>RisksFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Frames\OTCOptionTradeFrame.xaml.cs">
       <DependentUpon>OTCOptionTradeFrame.xaml</DependentUpon>
@@ -141,6 +147,9 @@
     <Compile Include="UI\Frames\OptionFrame.xaml.cs">
       <DependentUpon>OptionFrame.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\OptionControls\OPMarketDataControl.xaml.cs">
+      <DependentUpon>OPMarketDataControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\OptionControls\OpMarketMakerCtrl.xaml.cs">
       <DependentUpon>OpMarketMakerCtrl.xaml</DependentUpon>
     </Compile>
@@ -152,6 +161,12 @@
     </Compile>
     <Compile Include="UI\OptionControls\OpHedgeCtrl.xaml.cs">
       <DependentUpon>OpHedgeCtrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\OptionControls\PortfolioSelectCtrl.xaml.cs">
+      <DependentUpon>PortfolioSelectCtrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\OptionControls\GreekCtrl.xaml.cs">
+      <DependentUpon>GreekCtrl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\OptionControls\VolCurvCtrl.xaml.cs">
       <DependentUpon>VolCurvCtrl.xaml</DependentUpon>
@@ -197,6 +212,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\ForeignControls\ForeignFastOrderWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Frames\RisksFrame.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -268,6 +287,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\OptionControls\OPMarketDataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\OptionControls\OpMarketMakerCtrl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -281,6 +304,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\OptionControls\OpHedgeCtrl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\OptionControls\PortfolioSelectCtrl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\OptionControls\GreekCtrl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

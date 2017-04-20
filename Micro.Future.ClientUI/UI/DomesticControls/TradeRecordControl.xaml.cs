@@ -39,14 +39,15 @@ namespace Micro.Future.UI
 
         public LayoutAnchorablePane AnchorablePane { get; set; }
 
-        public TradeRecordControl(string filterId, BaseTraderHandler tradeHander = null)
+        public TradeRecordControl(string persisitentId, string filterId, BaseTraderHandler tradeHander = null)
         {
             InitializeComponent();
 
             TradeHandler = tradeHander;
             if (TradeHandler != null)
                 Initialize();
-
+            PersistanceId = persisitentId;
+            FilterSettingsWin.PersistanceId = persisitentId;
             //_viewSource.Source = MessageHandlerContainer.DefaultInstance?.Get<TraderExHandler>()?.TradeVMCollection;
 
             FilterSettingsWin.OnFiltering += FilterSettingsWin_OnFiltering;
@@ -55,6 +56,10 @@ namespace Micro.Future.UI
 
         public TradeRecordControl() : this(DEFAULT_ID, null)
         {
+            InitializeComponent();
+
+            FilterSettingsWin.PersistanceId = PersistanceId;
+            FilterSettingsWin.FilterId = DEFAULT_ID;
         }
 
         private void FilterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
@@ -255,7 +260,7 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_OpenTrade(object sender, RoutedEventArgs e)
         {
-            var tradeWin = new TradeRecordControl(Guid.NewGuid().ToString(), TradeHandler);
+            var tradeWin = new TradeRecordControl(PersistanceId, Guid.NewGuid().ToString(), TradeHandler);
             tradeWin.FilterByStatus(new List<OrderOpenCloseType> { OrderOpenCloseType.OPEN });
             if (AnchorablePane != null)
                 AnchorablePane.AddContent(tradeWin).Title = WPFUtility.GetLocalizedString("Open", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
@@ -274,7 +279,7 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("AllTraded", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var tradeRecordControltrl = new TradeRecordControl(Guid.NewGuid().ToString(), TradeHandler);
+                var tradeRecordControltrl = new TradeRecordControl(PersistanceId, Guid.NewGuid().ToString(), TradeHandler);
                 AnchorablePane.AddContent(tradeRecordControltrl).Title = title;
                 tradeRecordControltrl.FilterSettingsWin.FilterTabTitle = title;
                 tradeRecordControltrl.FilterSettingsWin.Save();
@@ -310,13 +315,13 @@ namespace Micro.Future.UI
             if (defaultTab != null)
                 AnchorablePane.Children.Add(defaultTab);
 
-            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, PersistanceId);
 
             bool found = false;
 
             foreach (var fs in filtersettings)
             {
-                var traderecordctrl = new TradeRecordControl(fs.Id, TradeHandler);
+                var traderecordctrl = new TradeRecordControl(PersistanceId, fs.Id, TradeHandler);
                 AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
                 traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
 

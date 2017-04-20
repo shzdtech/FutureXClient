@@ -46,13 +46,15 @@ namespace Micro.Future.UI
             get;
             set;
         }
-        public PositionControl(string filterId, BaseTraderHandler tradeHander, BaseMarketDataHandler marketHandler)
+        public PositionControl(string persisitentId, string filterId, BaseTraderHandler tradeHander, BaseMarketDataHandler marketHandler)
         {
             InitializeComponent();
             TradeHandler = tradeHander;
             MarketDataHandler = marketHandler;
             if (TradeHandler != null && MarketDataHandler !=null)
                 Initialize();
+            PersistanceId = persisitentId;
+            FilterSettingsWin.PersistanceId = persisitentId;
             //MessageHandlerContainer.DefaultInstance
             //.Get<MarketDataHandler>().OnNewMarketData += OnNewMarketData;
             FilterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
@@ -100,8 +102,12 @@ namespace Micro.Future.UI
             }
         }
 
-        public PositionControl() : this(DEFAULT_ID, null, null)
+        public PositionControl() 
         {
+            InitializeComponent();
+
+            FilterSettingsWin.PersistanceId = PersistanceId;
+            FilterSettingsWin.FilterId = DEFAULT_ID;
         }
         public ICollectionViewLiveShaping PositionChanged { get; set; }
         private void _filterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
@@ -127,13 +133,13 @@ namespace Micro.Future.UI
                 AnchorablePane.Children.Add(defaultTab);
 
 
-            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, PersistanceId);
 
             bool found = false;
 
             foreach (var fs in filtersettings)
             {
-                var positionctrl = new PositionControl(fs.Id, TradeHandler, MarketDataHandler);
+                var positionctrl = new PositionControl(PersistanceId, fs.Id, TradeHandler, MarketDataHandler);
                 AnchorablePane.AddContent(positionctrl).Title = fs.Title;
                 positionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
 
@@ -320,7 +326,7 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("Position", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var positionctrl = new PositionControl(Guid.NewGuid().ToString(), TradeHandler, MarketDataHandler);
+                var positionctrl = new PositionControl(PersistanceId, Guid.NewGuid().ToString(), TradeHandler, MarketDataHandler);
                 AnchorablePane.AddContent(positionctrl).Title = title;
                 positionctrl.FilterSettingsWin.FilterTabTitle = title;
                 positionctrl.FilterSettingsWin.Save();

@@ -26,7 +26,7 @@ namespace Micro.Future.UI
     /// <summary>
     /// QuoteGroupDoc.xaml 的交互逻辑
     /// </summary>
-    public partial class MarketDataControl : UserControl, IReloadData, ILayoutAnchorableControl
+    public partial class OPMarketDataControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
         private const string DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33A";
         private IList< ColumnObject> mColumns;
@@ -53,7 +53,7 @@ namespace Micro.Future.UI
             get;
         } = new ObservableCollection<MarketDataVM>();
 
-        public MarketDataControl(string persisitentId, string filterId, BaseMarketDataHandler marketDataHandler)
+        public OPMarketDataControl(string persisitentId, string filterId, BaseMarketDataHandler marketDataHandler)
         {
             InitializeComponent();
             MarketDataHandler = marketDataHandler;
@@ -65,7 +65,7 @@ namespace Micro.Future.UI
             FilterSettingsWin.FilterId = filterId;
         }
 
-        public MarketDataControl()
+        public OPMarketDataControl()
         {
             InitializeComponent();
 
@@ -92,7 +92,6 @@ namespace Micro.Future.UI
             }
 
 
-            contractTextBox.Provider = new SuggestionProvider((string c) => { return FutureOptionList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
         }
 
         public ICollectionViewLiveShaping QuoteChanged { get; set; }
@@ -189,39 +188,6 @@ namespace Micro.Future.UI
         {
             get;
             set;
-        }
-
-        private async void AddQuote()
-        {
-            string quote = contractTextBox.SelectedItem == null ? contractTextBox.Filter : contractTextBox.SelectedItem.ToString();
-            if (!FutureOptionList.Any((c) => string.Compare(c.Contract, quote, true) == 0))
-            {
-                MessageBox.Show("输入合约" + quote + "不存在");
-                contractTextBox.Filter = string.Empty;
-                return;
-            }
-
-            ClientDbContext.SaveMarketContract(MarketDataHandler.MessageWrapper.User.Id,
-                quote, FilterSettingsWin.FilterId);
-
-            var item = QuoteVMCollection.FirstOrDefault(c => c.Contract == quote);
-
-            if (item != null)
-            {
-                quoteListView.SelectedItem = item;
-            }
-            else
-            {
-                var mktDataVM = await MarketDataHandler.SubMarketDataAsync(quote);
-                if (mktDataVM != null)
-                {
-                    QuoteVMCollection.Add(mktDataVM);
-                }
-            }
-        }
-        private void Button_Click_Add(object sender, RoutedEventArgs e)
-        {
-            AddQuote();
         }
 
         private void quoteListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -337,21 +303,6 @@ namespace Micro.Future.UI
             }
         }
 
-        private void AddQuote_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                if(!string.IsNullOrEmpty(contractTextBox.Filter))
-                {
-                    AddQuote();
-                }
-            }
-        }
-
-        private void contractTextBox_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            AddQuote();
-        }
 
     }
 }

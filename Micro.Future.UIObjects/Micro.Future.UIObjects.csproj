@@ -51,6 +51,7 @@
     <Compile Include="UI\ApplicationSplitMenuItemData.cs" />
     <Compile Include="UI\ButtonData.cs" />
     <Compile Include="UI\CheckBoxData.cs" />
+    <Compile Include="UI\Class1.cs" />
     <Compile Include="UI\ComboBoxData.cs" />
     <Compile Include="UI\WPFUtility.cs" />
     <Compile Include="UI\ContextualTabGroupData.cs" />

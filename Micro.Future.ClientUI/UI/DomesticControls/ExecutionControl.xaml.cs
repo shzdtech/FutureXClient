@@ -44,15 +44,15 @@ namespace Micro.Future.UI
         }
         public IEnumerable<OrderStatus> OrderStatuses { get; set; }
 
-        public ExecutionControl(string filterId, BaseTraderHandler tradeHander, string tabTitle = null, string exchange = null, string underlying = null, string contract = null)
+        public ExecutionControl(string persisitentId, string filterId, BaseTraderHandler tradeHander, string tabTitle = null, string exchange = null, string underlying = null, string contract = null)
         {
             InitializeComponent();
             TradeHandler = tradeHander;
             if (TradeHandler != null)
                 Initialize();
-
+            PersistanceId = persisitentId;
+            FilterSettingsWin.PersistanceId = persisitentId;
             FilterSettingsWin.OnFiltering += _executionSettingsWin_OnFiltering;
-
             FilterSettingsWin.FilterId = filterId;
             FilterSettingsWin.FilterTabTitle = tabTitle;
             FilterSettingsWin.FilterExchange = exchange;
@@ -61,8 +61,12 @@ namespace Micro.Future.UI
 
         }
 
-        public ExecutionControl() : this(DEFAULT_ID, null)
+        public ExecutionControl()
         {
+            InitializeComponent();
+
+            FilterSettingsWin.PersistanceId = PersistanceId;
+            FilterSettingsWin.FilterId = DEFAULT_ID;
         }
 
         public ICollectionViewLiveShaping ExecutionChanged { get; set; }
@@ -345,7 +349,7 @@ namespace Micro.Future.UI
             if (AnchorablePane != null)
             {
                 var title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-                var executionControl = new ExecutionControl(Guid.NewGuid().ToString(), TradeHandler);
+                var executionControl = new ExecutionControl(PersistanceId, Guid.NewGuid().ToString(), TradeHandler);
                 AnchorablePane.AddContent(executionControl).Title = title;
                 executionControl.FilterSettingsWin.FilterTabTitle = title;
                 executionControl.FilterSettingsWin.Save();
@@ -364,14 +368,14 @@ namespace Micro.Future.UI
             if (defaultTab != null)
                 AnchorablePane.Children.Add(defaultTab);
 
-            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, FilterSettingsWin.PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, PersistanceId);
             //var userId = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id;
             var userId = TradeHandler.MessageWrapper.User.Id;
             bool found = false;
 
             foreach (var fs in filtersettings)
             {
-                var executionctrl = new ExecutionControl(fs.Id, TradeHandler, fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+                var executionctrl = new ExecutionControl(PersistanceId, fs.Id, TradeHandler, fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
                 AnchorablePane.AddContent(executionctrl).Title = fs.Title;
                 if (fs.Id == DEFAULT_ID)
                     found = true;
