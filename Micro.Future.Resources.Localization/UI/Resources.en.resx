@@ -759,4 +759,7 @@
   <data name="RefreshContracts" xml:space="preserve">
     <value>Refresh Contracts</value>
   </data>
+  <data name="AutoOrder" xml:space="preserve">
+    <value>AutoOrder</value>
+  </data>
 </root>

@@ -71,7 +71,7 @@
                         <GridViewColumn Header="{lex:Loc Key=MatchPrice}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Value}" DataContext="{Binding MatchPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    <TextBlock Text="{Binding Value}" DataContext="{Binding LastPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -106,9 +106,12 @@
                     </GridView>
                 </ListView.View>
             </ListView>
+            <GroupBox x:Name="AutoOrder_CheckBox" Header="{lex:Loc Key=AutoOrder}">
+                <CheckBox IsChecked="{Binding PutStrategyVM.Hedging}" Command="{Binding PutStrategyVM.UpdateCommand}"  />
+            </GroupBox>
         </WrapPanel>
 
-        <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0">
+        <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <ListView.Resources>
                 <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="GreenHeaderStyle">
                     <Setter Property="Background" Value="Blue"/>
@@ -135,20 +138,20 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PAODepth" Header="Depth" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                    <GridViewColumn x:Name="PAODepth" Header="PDepth" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <xctk:IntegerUpDown x:Name="pAODepthUpDown" Value="{Binding PutStrategyVM.Depth}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" ShowButtonSpinner="False"></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PAutoOrder" Header="Auto Order" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                    <!--<GridViewColumn x:Name="PAutoOrder" Header="Auto Order" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding PutStrategyVM.Hedging}" Command="{Binding PutStrategyVM.UpdateCommand}"  />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    </GridViewColumn>-->
                     <GridViewColumn x:Name="PBidQV" Header="PBidQV" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -233,20 +236,20 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CAODepth" Header="Depth" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                    <GridViewColumn x:Name="CAODepth" Header="CDepth" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <xctk:IntegerUpDown x:Name="cAODepthUpDown" Value="{Binding CallStrategyVM.Depth}" KeyUp="OnKeyDown" ShowButtonSpinner="False" Tag="{Binding CallStrategyVM}"></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CAutoOrder" Header="Auto Order" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                    <!--<GridViewColumn x:Name="CAutoOrder" Header="Auto Order" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding CallStrategyVM.Hedging}" Command="{Binding CallStrategyVM.UpdateCommand}"  />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    </GridViewColumn>-->
                     <GridViewColumn x:Name="PPosition" Header="PPosition" DisplayMemberBinding="{Binding PutPositionVM.Position}"/>
                     <GridViewColumn x:Name="CPosition" Header="CPosition" DisplayMemberBinding="{Binding CallPositionVM.Position}"/>
                 </GridView>

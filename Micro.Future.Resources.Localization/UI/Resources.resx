@@ -759,4 +759,7 @@
   <data name="RefreshContracts" xml:space="preserve">
     <value>刷新合约</value>
   </data>
+  <data name="AutoOrder" xml:space="preserve">
+    <value>自动订单</value>
+  </data>
 </root>

@@ -232,6 +232,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 自动订单 的本地化字符串。
+        /// </summary>
+        internal static string AutoOrder {
+            get {
+                return ResourceManager.GetString("AutoOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 可用资金 的本地化字符串。
         /// </summary>
         internal static string Available {

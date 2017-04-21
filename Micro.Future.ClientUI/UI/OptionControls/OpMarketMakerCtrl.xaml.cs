@@ -77,9 +77,8 @@ namespace Micro.Future.UI
             var theovolNode = new ColumnObject(new GridViewColumn() { Header = "理论波动率" });
             var riskGreekNode = new ColumnObject(new GridViewColumn() { Header = "风险参数" });
             var theoPriceNode = new ColumnObject(new GridViewColumn() { Header = "理论价格" });
-            var QVNode = new ColumnObject(new GridViewColumn() { Header = "订单量" });
             var positionNode = new ColumnObject(new GridViewColumn() { Header = "持仓" });
-            var QTNode = new ColumnObject(new GridViewColumn() { Header = "交易开关" });
+            var QTNode = new ColumnObject(new GridViewColumn() { Header = "交易相关" });
 
             marketNode.Children.Add(ColumnObject.CreateColumn(PBid));
             marketNode.Children.Add(ColumnObject.CreateColumn(PBidSize));
@@ -119,26 +118,27 @@ namespace Micro.Future.UI
             theoPriceNode.Children.Add(ColumnObject.CreateColumn(PAskTheo));
             theoPriceNode.Children.Add(ColumnObject.CreateColumn(CBidTheo));
             theoPriceNode.Children.Add(ColumnObject.CreateColumn(CAskTheo));
-            QVNode.Children.Add(ColumnObject.CreateColumn(PBidQV));
-            QVNode.Children.Add(ColumnObject.CreateColumn(PAskQV));
-            QVNode.Children.Add(ColumnObject.CreateColumn(CBidQV));
-            QVNode.Children.Add(ColumnObject.CreateColumn(CAskQV));
             positionNode.Children.Add(ColumnObject.CreateColumn(PPosition));
             positionNode.Children.Add(ColumnObject.CreateColumn(CPosition));
             QTNode.Children.Add(ColumnObject.CreateColumn(PAskQT));
             QTNode.Children.Add(ColumnObject.CreateColumn(PBidQT));
             QTNode.Children.Add(ColumnObject.CreateColumn(CBidQT));
             QTNode.Children.Add(ColumnObject.CreateColumn(CAskQT));
+            QTNode.Children.Add(ColumnObject.CreateColumn(PBidQV));
+            QTNode.Children.Add(ColumnObject.CreateColumn(PAskQV));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CBidQV));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CAskQV));
+            QTNode.Children.Add(ColumnObject.CreateColumn(PAODepth));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CAODepth));
 
             marketNode.Initialize();
             ivolNode.Initialize();
             theovolNode.Initialize();
             riskGreekNode.Initialize();
             theoPriceNode.Initialize();
-            QVNode.Initialize();
             positionNode.Initialize();
             QTNode.Initialize();
-            _optionColumns = new List<ColumnObject>() { marketNode, ivolNode, theovolNode, riskGreekNode, theoPriceNode, QVNode, positionNode, QTNode };
+            _optionColumns = new List<ColumnObject>() { marketNode, ivolNode, theovolNode, riskGreekNode, theoPriceNode, positionNode, QTNode };
 
         }
 
