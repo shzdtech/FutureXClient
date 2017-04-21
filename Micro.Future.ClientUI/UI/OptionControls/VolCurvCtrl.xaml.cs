@@ -89,13 +89,13 @@ namespace Micro.Future.UI
             var contract = strategyVM.Contract;
             var exchange = strategyVM.Exchange;
             var pointPA = VolatilityModelVM.TheoPutAskVolScatter.
-                FirstOrDefault(c => ((StrategyVM)c.Tag).Contract == contract && ((StrategyVM)c.Tag).Exchange == exchange);
+                FirstOrDefault(c => ((StrategyVM)c.Tag)?.Contract == contract && ((StrategyVM)c.Tag)?.Exchange == exchange);
             var pointPB = VolatilityModelVM.TheoPutBidVolScatter.
-                FirstOrDefault(c => ((StrategyVM)c.Tag).Contract == contract && ((StrategyVM)c.Tag).Exchange == exchange);
+                FirstOrDefault(c => ((StrategyVM)c.Tag)?.Contract == contract && ((StrategyVM)c.Tag)?.Exchange == exchange);
             var pointCA = VolatilityModelVM.TheoCallAskVolScatter.
-                FirstOrDefault(c => ((StrategyVM)c.Tag).Contract == contract && ((StrategyVM)c.Tag).Exchange == exchange);
+                FirstOrDefault(c => ((StrategyVM)c.Tag)?.Contract == contract && ((StrategyVM)c.Tag)?.Exchange == exchange);
             var pointCB = VolatilityModelVM.TheoCallBidVolScatter.
-                FirstOrDefault(c => ((StrategyVM)c.Tag).Contract == contract && ((StrategyVM)c.Tag).Exchange == exchange);
+                FirstOrDefault(c => ((StrategyVM)c.Tag)?.Contract == contract && ((StrategyVM)c.Tag)?.Exchange == exchange);
             if (pointPA != null)
                 pointPA.Value = strategyVM.AskEnabled ? 1 : 0;
             if (pointPB != null)

@@ -21,17 +21,63 @@ namespace Micro.Future.UI
     /// <summary>
     /// xaml 的交互逻辑
     /// </summary>
-    public partial class RisksFrame : UserControl
+    public partial class RisksFrame : UserControl, IUserFrame
     {
         public RisksFrame()
         {
             InitializeComponent();
             Initialize();
         }
+
+        public string Title
+        {
+            get
+            {
+                return frameMenu.Header.ToString();
+            }
+        }
+
+        public IStatusCollector StatusReporter
+        {
+            get; set;
+        }
+
+        public TaskCompletionSource<bool> LoginTaskSource
+        {
+            get;
+        } = new TaskCompletionSource<bool>();
+
+        public IEnumerable<MenuItem> FrameMenus
+        {
+            get
+            {
+                return Resources["exMenuItems"] as IEnumerable<MenuItem>;
+            }
+        }
+
+        public IEnumerable<StatusBarItem> StatusBarItems
+        {
+            get
+            {
+                return Resources["exStatusBarItems"] as IEnumerable<StatusBarItem>;
+            }
+        }
+
         public void Initialize()
         {
+            //portfolioCtl.AnchorablePane = portfolioselectPane;
+            marketDataLV.AnchorablePane = quotePane;
+            //greeksControl.AnchorablePane = greeksPane;
             positionsWindow.AnchorablePane = positionPane;
             tradeWindow.AnchorablePane = tradePane;
+            var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+            marketDataLV.MarketDataHandler = marketdataHandler;
+
+        }
+
+        public Task<bool> LoginAsync(string brokerId, string usernname, string password, string server = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }

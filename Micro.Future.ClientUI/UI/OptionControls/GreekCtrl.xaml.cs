@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Micro.Future.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,14 @@ namespace Micro.Future.UI
         public GreekCtrl()
         {
             InitializeComponent();
+        }
+        private void GreekListView_Click(object sender, RoutedEventArgs e)
+        {
+            var head = e.OriginalSource as GridViewColumnHeader;
+            if (head != null)
+            {
+                GridViewUtility.Sort(head.Column, GreekListView.Items);
+            }
         }
     }
 }

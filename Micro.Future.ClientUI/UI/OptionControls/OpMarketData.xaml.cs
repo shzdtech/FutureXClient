@@ -237,7 +237,7 @@ namespace Micro.Future.UI
                 {
                     var strategy =
                         _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
-                    var pricingContract = strategy.VMContractParams.FirstOrDefault();
+                    var pricingContract = strategy?.VMContractParams.FirstOrDefault();
                     if (pricingContract != null)
                     {
                         var futureexchange = pricingContract.Exchange;
