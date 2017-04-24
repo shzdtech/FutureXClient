@@ -106,9 +106,9 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <GroupBox x:Name="AutoOrder_GroupBox" Header="{lex:Loc Key=AutoOrder}">
+            <!--<GroupBox x:Name="AutoOrder_GroupBox" Header="{lex:Loc Key=AutoOrder}">
                 <CheckBox HorizontalAlignment="Center" Checked="AutoOrder_Checked" Unchecked="AutoOrder_Unchecked" />
-            </GroupBox>
+            </GroupBox>-->
             <GroupBox x:Name="OrderProtect_GroupBox" Header="{lex:Loc Key=OrderProtect}">
                 <CheckBox HorizontalAlignment="Center"/>
             </GroupBox>
@@ -154,13 +154,13 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <!--<GridViewColumn x:Name="PAutoOrder" Header="Auto Order" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                    <GridViewColumn x:Name="PAutoOrder" Header="Auto Order" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding PutStrategyVM.Hedging}" Command="{Binding PutStrategyVM.UpdateCommand}"  />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>-->
+                    </GridViewColumn>
                     <GridViewColumn x:Name="PBidQV" Header="PBidQV" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -252,13 +252,13 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <!--<GridViewColumn x:Name="CAutoOrder" Header="Auto Order" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                    <GridViewColumn x:Name="CAutoOrder" Header="Auto Order" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding CallStrategyVM.Hedging}" Command="{Binding CallStrategyVM.UpdateCommand}"  />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>-->
+                    </GridViewColumn>
                     <GridViewColumn x:Name="PPosition" Header="PPosition" DisplayMemberBinding="{Binding PutPositionVM.Position}"/>
                     <GridViewColumn x:Name="CPosition" Header="CPosition" DisplayMemberBinding="{Binding CallPositionVM.Position}"/>
                 </GridView>
