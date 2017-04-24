@@ -70,6 +70,19 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(Underlying));
             }
         }
+        private string _basecontract;
+        public string BaseContract
+        {
+            get
+            {
+                return _basecontract;
+            }
+            set
+            {
+                _basecontract = value;
+                OnPropertyChanged(nameof(BaseContract));
+            }
+        }
 
         private string _strategySym;
         public string StrategySym

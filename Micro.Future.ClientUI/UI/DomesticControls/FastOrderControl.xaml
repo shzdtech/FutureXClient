@@ -31,7 +31,7 @@
             <Label VerticalAlignment="Center" Content="{lex:Loc Key=Contract}" Width="35"></Label>
             <wpf:AutoCompleteTextBox Name="FastOrderContract" Width="100" VerticalAlignment="Center" KeyUp="FastOrderContract_KeyUp" MouseLeftButtonUp="FastOrderContract_MouseLeftButtonUp"/>
 
-            <Label Content="{lex:Loc Key=Portofolio}" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+            <Label Content="{lex:Loc Key=Portfolio}" HorizontalAlignment="Center" Margin="0,8,0,0"/>
             <ComboBox x:Name="portofolioCB"  Width="74" VerticalAlignment="Center" Margin="0,4" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Width="300" Height="30">

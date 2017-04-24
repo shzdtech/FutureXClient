@@ -18,6 +18,11 @@
             <MenuItem x:Name="frameMenu" Header="Risk">
             </MenuItem>
         </x:Array>
+        <!--<x:Array Type="{x:Type StatusBarItem}" x:Key="exOptionStatusBarItems">
+            <StatusBarItem>
+                <Controls:LoginStatus x:Name="OptionLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OptionServer_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OptionServer_DisConnected}" Connected="False" OnConnButtonClick="OptionLoginStatus_OnConnButtonClick"/>
+            </StatusBarItem>
+        </x:Array>-->
     </UserControl.Resources>
     <avalonDock:DockingManager x:Name="dockingManager">
         <avalonDock:DockingManager.Theme>
@@ -38,7 +43,7 @@
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
                 <avalonDock:LayoutPanel Orientation="Horizontal">
-                    <avalonDock:LayoutAnchorablePane x:Name="greeksPane" DockWidth="0.25*">
+                    <avalonDock:LayoutAnchorablePane x:Name="greeksPane">
                         <avalonDock:LayoutAnchorable  CanClose="False" CanAutoHide="True">
                             <c:GreekCtrl x:Name="greeksControl"/>
                         </avalonDock:LayoutAnchorable>
@@ -56,4 +61,5 @@
                 </avalonDock:LayoutPanel>
             </avalonDock:LayoutPanel>
         </avalonDock:LayoutRoot>
-    </avalonDock:DockingManager></UserControl>
+    </avalonDock:DockingManager>
+</UserControl>

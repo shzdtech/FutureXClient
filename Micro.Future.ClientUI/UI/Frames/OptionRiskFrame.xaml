@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Micro.Future.UI.OptionRiskFrame"
+      xmlns:Controls="clr-namespace:Micro.Future.CustomizedControls;assembly=Micro.Future.CustomizedControls"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:c="clr-namespace:Micro.Future.UI"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Micro.Future.UI"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:oxy="http://oxyplot.org/wpf"
+      xmlns:lex="http://wpflocalizeextension.codeplex.com" 
+      xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+      lex:LocalizeDictionary.DesignCulture="zh_CN"
+      lex:LocalizeDictionary.OutputMissingKeys="True"
+      lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+      lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+      mc:Ignorable="d" d:DesignWidth="800">
+    <UserControl.Resources>
+        <x:Array Type="{x:Type MenuItem}" x:Key="exMenuItems">
+            <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=OptionRisk}">
+            </MenuItem>
+        </x:Array>        <x:Array Type="{x:Type StatusBarItem}" x:Key="exOptionStatusBarItems">
+            <StatusBarItem>
+                <Controls:LoginStatus x:Name="OptionLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OptionServer_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OptionServer_DisConnected}" Connected="False" OnConnButtonClick="OptionLoginStatus_OnConnButtonClick"/>
+            </StatusBarItem>
+        </x:Array>
+    </UserControl.Resources>
+    <avalonDock:DockingManager x:Name="dockingManager">
+        <avalonDock:DockingManager.Theme>
+            <avalonDock:GenericTheme/>
+        </avalonDock:DockingManager.Theme>
+        <avalonDock:LayoutRoot>
+            <avalonDock:LayoutPanel Orientation="Vertical">
+                <avalonDock:LayoutAnchorablePane x:Name="optionRiskPane">
+                    <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Risk}">
+                        <c:OptionRiskCtrl x:Name="optionRiskCtrl"/>
+                    </avalonDock:LayoutAnchorable>
+                    <avalonDock:LayoutAnchorable Title="{lex:Loc Key=RiskGraph}">
+                        <c:OptionRiskGraphCtrl x:Name="optionRiskGraphCtrl"/>
+                    </avalonDock:LayoutAnchorable>
+                </avalonDock:LayoutAnchorablePane>
+            </avalonDock:LayoutPanel>
+        </avalonDock:LayoutRoot>
+    </avalonDock:DockingManager></UserControl>

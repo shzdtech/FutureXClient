@@ -11,8 +11,8 @@
              lex:ResxLocalizationProvider.DefaultDictionary="Resources"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="600">
-    <DockPanel>
-        <ScrollViewer HorizontalScrollBarVisibility="Visible">
+    <DockPanel Width="auto">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>

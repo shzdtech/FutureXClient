@@ -415,7 +415,7 @@
     <value>有效期</value>
   </data>
   <data name="Underlying" xml:space="preserve">
-    <value>产品种类</value>
+    <value>标的</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>板块标题</value>
@@ -591,7 +591,7 @@
   <data name="ExecutionStatus" xml:space="preserve">
     <value>委托单状态</value>
   </data>
-  <data name="Portofolio" xml:space="preserve">
+  <data name="Portfolio" xml:space="preserve">
     <value>持仓组合</value>
   </data>
   <data name="AddModel" xml:space="preserve">
@@ -652,7 +652,7 @@
     <value>定价模型</value>
   </data>
   <data name="Product" xml:space="preserve">
-    <value>产品</value>
+    <value>合约</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>更新</value>
@@ -761,5 +761,29 @@
   </data>
   <data name="AutoOrder" xml:space="preserve">
     <value>自动订单</value>
+  </data>
+  <data name="Hedging" xml:space="preserve">
+    <value>对冲</value>
+  </data>
+  <data name="OptionRisk" xml:space="preserve">
+    <value>期权风险</value>
+  </data>
+  <data name="RiskValue" xml:space="preserve">
+    <value>风险值</value>
+  </data>
+  <data name="Trade" xml:space="preserve">
+    <value>成交</value>
+  </data>
+  <data name="Counter" xml:space="preserve">
+    <value>计数</value>
+  </data>
+  <data name="OrderProtect" xml:space="preserve">
+    <value>挂单保护</value>
+  </data>
+  <data name="RefreshCounter" xml:space="preserve">
+    <value>刷新计数</value>
+  </data>
+  <data name="RiskGraph" xml:space="preserve">
+    <value>风险图形</value>
   </data>
 </root>

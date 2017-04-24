@@ -23,6 +23,10 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class RisksFrame : UserControl, IUserFrame
     {
+        private AbstractSignInManager _otcOptionSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
+        private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+        private AbstractOTCHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+
         public RisksFrame()
         {
             InitializeComponent();
@@ -62,6 +66,25 @@ namespace Micro.Future.UI
                 return Resources["exStatusBarItems"] as IEnumerable<StatusBarItem>;
             }
         }
+        public Task<bool> LoginAsync(string brokerId, string usernname, string password, string server)
+        {
+            _otcOptionSignIner.SignInOptions.BrokerID = brokerId;
+            _otcOptionSignIner.SignInOptions.UserName = usernname;
+            _otcOptionSignIner.SignInOptions.Password = password;
+
+            var entries = _otcOptionSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            if (server != null && entries.Length < 2)
+                _otcOptionSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
+            //entries = _ctpSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            //if (server != null && entries.Length < 2)
+            //    _ctpSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+            //Test(_tdSignIner.SignInOptions);
+
+            TDServerLogin();
+
+            return LoginTaskSource.Task;
+        }
 
         public void Initialize()
         {
@@ -74,10 +97,27 @@ namespace Micro.Future.UI
             marketDataLV.MarketDataHandler = marketdataHandler;
 
         }
-
-        public Task<bool> LoginAsync(string brokerId, string usernname, string password, string server = null)
+        private void _tdSignIner_OnLoginError(MessageException obj)
         {
-            throw new NotImplementedException();
+            LoginTaskSource.TrySetException(obj);
         }
+        private async void _tdSignIner_OnLogged(IUserInfo obj)
+        {
+            _otcOptionTradeHandler.RegisterMessageWrapper(_otcOptionHandler.MessageWrapper);
+            await _otcOptionHandler.QueryStrategyAsync();
+            await _otcOptionHandler.QueryAllModelParamsAsync();
+            await _otcOptionHandler.SyncContractInfoAsync();
+
+            LoginTaskSource.TrySetResult(true);
+        }
+        private void TDServerLogin()
+        {
+            if (!_otcOptionSignIner.MessageWrapper.HasSignIn)
+            {
+                //OptionLoginStatus.Prompt = "正在连接TradingDesk服务器...";
+                _otcOptionSignIner.SignIn();
+            }
+        }
+
     }
 }

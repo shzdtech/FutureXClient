@@ -68,7 +68,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="{lex:Loc Key=MatchPrice}">
+                        <GridViewColumn Header="{lex:Loc Key=LastPrice}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Value}" DataContext="{Binding LastPrice}" Style="{DynamicResource DoubleChangeStyle}"/>
@@ -106,8 +106,17 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <GroupBox x:Name="AutoOrder_CheckBox" Header="{lex:Loc Key=AutoOrder}">
-                <CheckBox IsChecked="{Binding PutStrategyVM.Hedging}" Command="{Binding PutStrategyVM.UpdateCommand}"  />
+            <GroupBox x:Name="AutoOrder_GroupBox" Header="{lex:Loc Key=AutoOrder}">
+                <CheckBox HorizontalAlignment="Center" Checked="AutoOrder_Checked" Unchecked="AutoOrder_Unchecked" />
+            </GroupBox>
+            <GroupBox x:Name="OrderProtect_GroupBox" Header="{lex:Loc Key=OrderProtect}">
+                <CheckBox HorizontalAlignment="Center"/>
+            </GroupBox>
+            <GroupBox x:Name="Counter_TxtBox" Header="{lex:Loc Key=Counter}">
+                <TextBox x:Name="CountertextBox" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50"/>
+            </GroupBox>
+            <GroupBox x:Name="RefreshCounter_GroupBox" Header="{lex:Loc Key=RefreshCounter}">
+                <Button x:Name="RefreshCounter_button" Content="{lex:Loc Key=Refresh}" VerticalAlignment="Top" Width="75"/>
             </GroupBox>
         </WrapPanel>
 

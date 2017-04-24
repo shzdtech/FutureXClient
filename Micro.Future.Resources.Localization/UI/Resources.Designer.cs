@@ -466,6 +466,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 计数 的本地化字符串。
+        /// </summary>
+        internal static string Counter {
+            get {
+                return ResourceManager.GetString("Counter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 信用额度 的本地化字符串。
         /// </summary>
         internal static string Credit {
@@ -777,6 +786,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string HedgeFlag {
             get {
                 return ResourceManager.GetString("HedgeFlag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 对冲 的本地化字符串。
+        /// </summary>
+        internal static string Hedging {
+            get {
+                return ResourceManager.GetString("Hedging", resourceCulture);
             }
         }
         
@@ -1123,6 +1141,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 期权风险 的本地化字符串。
+        /// </summary>
+        internal static string OptionRisk {
+            get {
+                return ResourceManager.GetString("OptionRisk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 下单 的本地化字符串。
         /// </summary>
         internal static string Order {
@@ -1137,6 +1164,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string OrderID {
             get {
                 return ResourceManager.GetString("OrderID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 挂单保护 的本地化字符串。
+        /// </summary>
+        internal static string OrderProtect {
+            get {
+                return ResourceManager.GetString("OrderProtect", resourceCulture);
             }
         }
         
@@ -1224,9 +1260,9 @@ namespace Micro.Future.Resources.Localization.UI {
         /// <summary>
         ///   查找类似 持仓组合 的本地化字符串。
         /// </summary>
-        internal static string Portofolio {
+        internal static string Portfolio {
             get {
-                return ResourceManager.GetString("Portofolio", resourceCulture);
+                return ResourceManager.GetString("Portfolio", resourceCulture);
             }
         }
         
@@ -1348,7 +1384,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 产品 的本地化字符串。
+        ///   查找类似 合约 的本地化字符串。
         /// </summary>
         internal static string Product {
             get {
@@ -1411,6 +1447,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 刷新计数 的本地化字符串。
+        /// </summary>
+        internal static string RefreshCounter {
+            get {
+                return ResourceManager.GetString("RefreshCounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已拒绝单 的本地化字符串。
         /// </summary>
         internal static string RejectedOrder {
@@ -1452,6 +1497,24 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Risk {
             get {
                 return ResourceManager.GetString("Risk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 风险图形 的本地化字符串。
+        /// </summary>
+        internal static string RiskGraph {
+            get {
+                return ResourceManager.GetString("RiskGraph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 风险值 的本地化字符串。
+        /// </summary>
+        internal static string RiskValue {
+            get {
+                return ResourceManager.GetString("RiskValue", resourceCulture);
             }
         }
         
@@ -1735,6 +1798,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 成交 的本地化字符串。
+        /// </summary>
+        internal static string Trade {
+            get {
+                return ResourceManager.GetString("Trade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已成交 的本地化字符串。
         /// </summary>
         internal static string Traded {
@@ -1870,7 +1942,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 产品种类 的本地化字符串。
+        ///   查找类似 标的 的本地化字符串。
         /// </summary>
         internal static string Underlying {
             get {

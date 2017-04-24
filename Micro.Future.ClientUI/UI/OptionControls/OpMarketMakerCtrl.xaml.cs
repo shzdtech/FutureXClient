@@ -173,7 +173,6 @@ namespace Micro.Future.UI
             expireDateCB.ItemsSource = null;
             var exchange = exchangeCB.SelectedValue.ToString();
             underlyingCB.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
-
         }
 
         private void underlyingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -239,7 +238,7 @@ namespace Micro.Future.UI
                     {
                         CallPutTDOptionVMCollection.Add(vm);
                     }
-                    var strategyVM = CallPutTDOptionVMCollection.FirstOrDefault().CallStrategyVM ?? 
+                    var strategyVM = CallPutTDOptionVMCollection.FirstOrDefault().CallStrategyVM ??
                         CallPutTDOptionVMCollection.LastOrDefault().CallStrategyVM;
                     if (strategyVM != null)
                     {
@@ -474,5 +473,33 @@ namespace Micro.Future.UI
             }
         }
 
+        private void AutoOrderUpdate (bool autoStatus)
+        {
+            if (CallPutTDOptionVMCollection != null)
+            {
+                foreach (var vm in CallPutTDOptionVMCollection)
+                {
+                    if (vm.CallStrategyVM != null)
+                    {
+                        vm.CallStrategyVM.Hedging = autoStatus;
+                        vm.CallStrategyVM.UpdateStrategy();
+                    }
+                    if (vm.PutStrategyVM != null)
+                    {
+                        vm.PutStrategyVM.Hedging = autoStatus;
+                        vm.PutStrategyVM.UpdateStrategy();
+                    }
+                }
+            }
+        }
+        private void AutoOrder_Checked(object sender, RoutedEventArgs e)
+        {
+            AutoOrderUpdate(true);
+        }
+
+        private void AutoOrder_Unchecked(object sender, RoutedEventArgs e)
+        {
+            AutoOrderUpdate(false);
+        }
     }
 }

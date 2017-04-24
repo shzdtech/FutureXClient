@@ -464,6 +464,7 @@ namespace Micro.Future.Message
             pb.ExecType = (int)orderVM.ExecType;
             pb.Direction = (int)orderVM.Direction;
             pb.Openclose = (int)orderVM.OpenClose;
+            pb.Portfolio = orderVM.Portfolio;
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb);
         }

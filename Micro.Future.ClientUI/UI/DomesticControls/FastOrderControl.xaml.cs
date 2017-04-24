@@ -188,6 +188,7 @@ namespace Micro.Future.UI
                 OrderVM.LimitPrice = LimitTxt.Value.Value;
                 OrderVM.Contract = contract;
                 OrderVM.Volume = (int)SizeTxt.Value;
+                OrderVM.Portfolio = portofolioCB.SelectedValue.ToString();
                 var cvt = new EnumToFriendlyNameConverter();
                 string msg = string.Format("是否确认下单?\n合约：{0}，价格：{1}，手数：{2}, 方向：{3}，开平：{4}", OrderVM.Contract, OrderVM.LimitPrice, OrderVM.Volume,
                     cvt.Convert(OrderVM.Direction, typeof(DirectionType), null, CultureInfo.CurrentUICulture),
@@ -342,13 +343,13 @@ namespace Micro.Future.UI
         {
             BindingOperations.ClearAllBindings(LimitTxt);
             var contractInfo = ClientDbContext.FindContract(OrderVM.Contract ?? string.Empty);
-            LimitTxt.Increment = contractInfo == null ? 1 : contractInfo.PriceTick;            
-                if (radioButtonBuy.IsChecked.Value)
+            LimitTxt.Increment = contractInfo == null ? 1 : contractInfo.PriceTick;
+            if (radioButtonBuy.IsChecked.Value)
             {
                 if (LabelAskPrice.Content != null)
                     LimitTxt.Value = double.Parse(LabelAskPrice.Content.ToString());
             }
-                else if (radioButtonSell.IsChecked.Value)
+            else if (radioButtonSell.IsChecked.Value)
             {
                 if (LabelBidPrice.Content != null)
                     LimitTxt.Value = double.Parse(LabelBidPrice.Content.ToString());

@@ -329,7 +329,6 @@ namespace Micro.Future.Message
             strategy.Hedging = sVM.Hedging;
             strategy.AskEnabled = sVM.AskEnabled;
             strategy.BidEnabled = sVM.BidEnabled;
-
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }
 
@@ -339,6 +338,7 @@ namespace Micro.Future.Message
             strategy.Exchange = sVM.Exchange;
             strategy.Contract = sVM.Contract;
             strategy.Symbol = sVM.StrategySym;
+            strategy.BaseContract = sVM.BaseContract;
 
             if (model == StrategyVM.Model.PM)
             {
@@ -485,6 +485,7 @@ namespace Micro.Future.Message
                 strategyVM.IVModel = strategy.IvModel;
                 strategyVM.VolModel = strategy.VolModel;
                 strategyVM.PricingModel = strategy.PricingModel;
+                strategyVM.BaseContract = strategy.BaseContract;
 
                 strategyVM.PricingContractParams.Clear();
                 foreach (var wtContract in strategy.PricingContracts)

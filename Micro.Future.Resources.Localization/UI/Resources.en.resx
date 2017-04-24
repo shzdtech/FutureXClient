@@ -591,8 +591,8 @@
   <data name="ExecutionStatus" xml:space="preserve">
     <value>ExecutionStatus</value>
   </data>
-  <data name="Portofolio" xml:space="preserve">
-    <value>Portofolio</value>
+  <data name="Portfolio" xml:space="preserve">
+    <value>Portfolio</value>
   </data>
   <data name="AddModel" xml:space="preserve">
     <value>AddModel</value>
@@ -761,5 +761,29 @@
   </data>
   <data name="AutoOrder" xml:space="preserve">
     <value>AutoOrder</value>
+  </data>
+  <data name="Hedging" xml:space="preserve">
+    <value>Hedging</value>
+  </data>
+  <data name="OptionRisk" xml:space="preserve">
+    <value>Option Risk</value>
+  </data>
+  <data name="RiskValue" xml:space="preserve">
+    <value>Risk Value</value>
+  </data>
+  <data name="Trade" xml:space="preserve">
+    <value>Trade</value>
+  </data>
+  <data name="Counter" xml:space="preserve">
+    <value>Counter</value>
+  </data>
+  <data name="OrderProtect" xml:space="preserve">
+    <value>Order Protect</value>
+  </data>
+  <data name="RefreshCounter" xml:space="preserve">
+    <value>Refresh Counter</value>
+  </data>
+  <data name="RiskGraph" xml:space="preserve">
+    <value>RiskGraph</value>
   </data>
 </root>

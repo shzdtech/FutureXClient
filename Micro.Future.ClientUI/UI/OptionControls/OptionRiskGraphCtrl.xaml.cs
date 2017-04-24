@@ -1,5 +1,8 @@
-﻿using Micro.Future.Message;
-using Micro.Future.Utility;
+﻿using Micro.Future.CustomizedControls.Controls;
+using Micro.Future.LocalStorage;
+using Micro.Future.LocalStorage.DataObject;
+using Micro.Future.Message;
+using Micro.Future.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,21 +24,24 @@ namespace Micro.Future.UI
     /// <summary>
     /// UserControl1.xaml 的交互逻辑
     /// </summary>
-    public partial class PortfolioSelectCtrl : UserControl
-    {
-        public LayoutContent LayoutContent { get; set; }
+    public partial class OptionRiskGraphCtrl : UserControl, ILayoutAnchorableControl
 
-        public PortfolioSelectCtrl()
+    {
+        public OptionRiskGraphCtrl()
         {
             InitializeComponent();
-            portfolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
         }
-        private void strategyListView_Click(object sender, RoutedEventArgs e)
+
+        private LayoutAnchorablePane _pane;
+        public LayoutAnchorablePane AnchorablePane
         {
-            var head = e.OriginalSource as GridViewColumnHeader;
-            if (head != null)
+            get
             {
-                GridViewUtility.Sort(head.Column, strategyListView.Items);
+                return _pane;
+            }
+            set
+            {
+                _pane = value;
             }
         }
     }

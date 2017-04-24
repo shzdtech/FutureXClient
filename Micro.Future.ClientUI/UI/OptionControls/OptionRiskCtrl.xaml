@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="Micro.Future.UI.OptionRiskCtrl"
+             xmlns:local="clr-namespace:Micro.Future.UI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+             xmlns:c="clr-namespace:Micro.Future.UI"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com" 
+             lex:LocalizeDictionary.DesignCulture="zh_CN"
+             lex:LocalizeDictionary.OutputMissingKeys="True"
+             lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+             mc:Ignorable="d" d:DesignWidth="800">
+
+    <avalonDock:DockingManager x:Name="dockingManager">
+        <avalonDock:DockingManager.Theme>
+            <avalonDock:GenericTheme/>
+        </avalonDock:DockingManager.Theme>
+        <avalonDock:LayoutRoot>
+            <avalonDock:LayoutPanel Orientation="Horizontal">
+                <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="0.45*" >
+                    <avalonDock:LayoutAnchorablePane x:Name="portfolioselectPane">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Portfolio}" CanClose="False" CanAutoHide="True">
+                            <c:PortfolioSelectCtrl x:Name="portfolioCtl"/>
+                        </avalonDock:LayoutAnchorable>
+                    </avalonDock:LayoutAnchorablePane>
+                    <avalonDock:LayoutAnchorablePane x:Name="quotePane">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=MarketData}">
+                            <c:OPMarketDataControl x:Name="marketDataLV" PersistanceId="Risk:MarketDataControl" />
+                        </avalonDock:LayoutAnchorable>
+                    </avalonDock:LayoutAnchorablePane>
+                    <avalonDock:LayoutAnchorablePane x:Name="greeksPane" DockWidth="0.2*" >
+                        <avalonDock:LayoutAnchorable  CanClose="False" CanAutoHide="True" Title="{lex:Loc Key=RiskValue}">
+                            <c:GreekCtrl x:Name="greeksControl"/>
+                        </avalonDock:LayoutAnchorable>
+                    </avalonDock:LayoutAnchorablePane>
+                </avalonDock:LayoutPanel>
+                <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
+                    <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Position}">
+                        <c:PositionControl x:Name="positionsWindow" PersistanceId="Risk:PositionControl"/>
+                    </avalonDock:LayoutAnchorable>
+                </avalonDock:LayoutAnchorablePane>
+                <avalonDock:LayoutAnchorablePane x:Name="tradePane">
+                    <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Trade}">
+                        <c:TradeRecordControl x:Name="tradeWindow" PersistanceId="Risk:TradeRecordControl"/>
+                    </avalonDock:LayoutAnchorable>
+                </avalonDock:LayoutAnchorablePane>
+            </avalonDock:LayoutPanel>
+        </avalonDock:LayoutRoot>
+    </avalonDock:DockingManager>
+</UserControl>

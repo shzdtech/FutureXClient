@@ -8,6 +8,10 @@ namespace Micro.Future.ViewModel
 {
     public class PortfolioVM : ViewModelBase
     {
+        public override string ToString()
+        {
+            return _name;
+        }
         private string _name;
         public string Name
         {
@@ -19,6 +23,26 @@ namespace Micro.Future.ViewModel
             {
                 _name = value;
                 OnPropertyChanged(nameof(Name));
+            }
+        }
+        private int _delay;
+        public int Delay
+        {
+            get { return _delay; }
+            set
+            {
+                _delay = value;
+                OnPropertyChanged(nameof(Delay));
+            }
+        }
+        private double _threshold;
+        public double Threshold
+        {
+            get { return _threshold; }
+            set
+            {
+                _threshold = value;
+                OnPropertyChanged(nameof(Threshold));
             }
         }
     }
