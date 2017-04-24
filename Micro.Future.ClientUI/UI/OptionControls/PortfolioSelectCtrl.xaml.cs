@@ -38,5 +38,15 @@ namespace Micro.Future.UI
                 GridViewUtility.Sort(head.Column, strategyListView.Items);
             }
         }
+
+        private void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (portfolioCB.SelectedValue != null)
+            {
+                var portfolio = portfolioCB.SelectedValue.ToString();
+
+            }
+
+        }
     }
 }

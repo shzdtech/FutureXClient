@@ -23,7 +23,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <GroupBox x:Name="portforlioGB" Header="{lex:Loc Key=Portfolio}" Grid.Row="0" Grid.Column="0">
-            <ComboBox x:Name="portfolioCB"  Width="74" VerticalAlignment="Center" />
+            <ComboBox x:Name="portfolioCB"  Width="74" VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged"/>
         </GroupBox>
         <GroupBox x:Name="AutoHedge_CheckBox" Header="{lex:Loc Key=Hedging}" Grid.Row="0" Grid.Column="1">
             <CheckBox IsChecked="{Binding PutStrategyVM.Hedging}" Command="{Binding PutStrategyVM.UpdateCommand}"  />
@@ -31,7 +31,7 @@
         <ListView Name="strategyListView" Grid.Row="1" Grid.Column="0" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="{lex:Loc Key=Strategy}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Strategy}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
                 </GridView>
             </ListView.View>
         </ListView>

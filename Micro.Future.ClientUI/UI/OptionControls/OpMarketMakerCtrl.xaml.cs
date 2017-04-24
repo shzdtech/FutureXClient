@@ -39,6 +39,11 @@ namespace Micro.Future.UI
 
         private IList<ColumnObject> _optionColumns;
 
+        ~OpMarketMakerCtrl()
+        {
+            AutoOrderUpdate(false);
+        }
+
         public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection
         {
             get;
@@ -268,6 +273,8 @@ namespace Micro.Future.UI
                                 underlyingContractCB1.SelectedValue = futurecontract;
                                 volModelLB.Content = volmodel;
                                 adjustment.Value = adjust;
+                                AutoOrderUpdate(false);
+                                AutoOrder_CheckBox.DataContext = strategyVM;
                                 var modelVM = pricingModelCB.SelectedItem as ModelParamsVM;
                                 if (modelVM != null)
                                 {

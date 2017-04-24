@@ -83,6 +83,19 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(BaseContract));
             }
         }
+        private string _portfolio;
+        public string Portfolio
+        {
+            get
+            {
+                return _portfolio;
+            }
+            set
+            {
+                _portfolio = value;
+                OnPropertyChanged(nameof(Portfolio));
+            }
+        }
 
         private string _strategySym;
         public string StrategySym
