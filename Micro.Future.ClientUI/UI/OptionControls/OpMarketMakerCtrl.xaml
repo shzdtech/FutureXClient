@@ -120,7 +120,7 @@
             </GroupBox>
         </WrapPanel>
 
-        <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+        <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Visible" >
             <ListView.Resources>
                 <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="GreenHeaderStyle">
                     <Setter Property="Background" Value="Blue"/>
@@ -131,6 +131,11 @@
                     <Setter Property="Foreground" Value="White"/>
                 </Style>
             </ListView.Resources>
+            <!--<ListView.Items>
+                <Style x:Name="ListViewItemStyle" TargetType="{x:Type ListViewItem}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.Items>-->
             <ListView.View>
                 <GridView x:Name="option_priceGV">
                     <GridViewColumn x:Name="PBidQT" Header="{lex:Loc Key=PBidQTEnable}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
@@ -198,14 +203,14 @@
                     <GridViewColumn x:Name="PNotCross" Header="PNotCross" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding PutStrategyVM.BidNotCross}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
+                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding PutStrategyVM.BidNotCross}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="PCloseMode" Header="PCloseMode" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding PutStrategyVM.CloseMode}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
+                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding PutStrategyVM.CloseMode}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -218,14 +223,14 @@
                     <GridViewColumn x:Name="CCloseMode" Header="CCloseMode" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding CallStrategyVM.CloseMode}" Command="{Binding CallStrategyVM.UpdateCommand}"></CheckBox>
+                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding CallStrategyVM.CloseMode}" Command="{Binding CallStrategyVM.UpdateCommand}"></CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="CNotCross" Header="CNotCross" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding CallStrategyVM.BidNotCross}" Command="{Binding CallStrategyVM.UpdateCommand}" ></CheckBox>
+                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding CallStrategyVM.BidNotCross}" Command="{Binding CallStrategyVM.UpdateCommand}" ></CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -252,35 +257,35 @@
                     <GridViewColumn x:Name="CAskQV" Header="CAskQV" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <xctk:IntegerUpDown x:Name="cAskQVTextBox" Value="{Binding CallStrategyVM.AskQV}" KeyUp="OnKeyDown" Tag="{Binding CallStrategyVM}" ShowButtonSpinner="False"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="cAskQVTextBox" HorizontalAlignment="Center" Value="{Binding CallStrategyVM.AskQV}" KeyUp="OnKeyDown" Tag="{Binding CallStrategyVM}" ShowButtonSpinner="False"></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="CBidQV" Header="CBidQV" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <xctk:IntegerUpDown x:Name="cBidQVTextBox" Value="{Binding CallStrategyVM.BidQV}" KeyUp="OnKeyDown" Tag="{Binding CallStrategyVM}" ShowButtonSpinner="False"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="cBidQVTextBox" HorizontalAlignment="Center" Value="{Binding CallStrategyVM.BidQV}" KeyUp="OnKeyDown" Tag="{Binding CallStrategyVM}" ShowButtonSpinner="False"></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="CBidQT" Header="{lex:Loc Key=CBidQTEnable}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding CallStrategyVM.BidEnabled}" Command="{Binding CallStrategyVM.UpdateCommand}" />
+                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding CallStrategyVM.BidEnabled}" Command="{Binding CallStrategyVM.UpdateCommand}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="CAskQT" Header="{lex:Loc Key=CAskQTEnable}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding CallStrategyVM.AskEnabled}" Command="{Binding CallStrategyVM.UpdateCommand}"  />
+                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding CallStrategyVM.AskEnabled}" Command="{Binding CallStrategyVM.UpdateCommand}"  />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="CAODepth" Header="CDepth" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <xctk:IntegerUpDown x:Name="cAODepthUpDown" Value="{Binding CallStrategyVM.Depth}" KeyUp="OnKeyDown" ShowButtonSpinner="False" Tag="{Binding CallStrategyVM}"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="cAODepthUpDown" HorizontalAlignment="Center" Value="{Binding CallStrategyVM.Depth}" KeyUp="OnKeyDown" ShowButtonSpinner="False" Tag="{Binding CallStrategyVM}"></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
