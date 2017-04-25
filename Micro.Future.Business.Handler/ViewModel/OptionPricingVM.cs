@@ -117,6 +117,14 @@ namespace Micro.Future.ViewModel
             {
                 _bidTheta = value;
                 OnPropertyChanged(nameof(BidTheta));
+                OnPropertyChanged(nameof(BidTheta365));
+            }
+        }
+        public double BidTheta365
+        {
+            get
+            {
+                return BidTheta / 365;
             }
         }
 
@@ -131,6 +139,14 @@ namespace Micro.Future.ViewModel
             {
                 _askTheta = value;
                 OnPropertyChanged(nameof(AskTheta));
+                OnPropertyChanged(nameof(AskTheta365));
+            }
+        }
+        public double AskTheta365
+        {
+            get
+            {
+                return AskTheta / 365;
             }
         }
 
@@ -145,8 +161,18 @@ namespace Micro.Future.ViewModel
             {
                 _bidVega = value;
                 OnPropertyChanged(nameof(BidVega));
+                OnPropertyChanged(nameof(BidVega100));
             }
         }
+
+        public double BidVega100
+        {
+            get
+            {
+                return BidVega / 100;
+            }
+        }
+
 
         private double _askVega;
         public double AskVega
@@ -159,6 +185,15 @@ namespace Micro.Future.ViewModel
             {
                 _askVega = value;
                 OnPropertyChanged(nameof(AskVega));
+                OnPropertyChanged(nameof(AskVega100));
+
+            }
+        }
+        public double AskVega100
+        {
+            get
+            {
+                return AskVega / 100;
             }
         }
     }

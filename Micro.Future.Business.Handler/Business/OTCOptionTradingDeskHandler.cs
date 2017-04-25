@@ -58,7 +58,7 @@ namespace Micro.Future.Message
                     {
                         AskVol = tradingDeskOption.ImpliedVol.AskVolatility,
                         BidVol = tradingDeskOption.ImpliedVol.BidVolatility,
-                        MidVol = (tradingDeskOption.ImpliedVol.BidVolatility + tradingDeskOption.ImpliedVol.AskVolatility) / 2
+                        MidVol = (tradingDeskOption.ImpliedVol.BidVolatility + tradingDeskOption.ImpliedVol.AskVolatility)/2
                     };
 
                     if (double.IsNaN(quote.ImpliedVolVM.MidVol))
@@ -85,7 +85,7 @@ namespace Micro.Future.Message
                         BidGamma = tradingDeskOption.TheoData.BidGamma,
                         BidTheta = tradingDeskOption.TheoData.BidTheta,
                         BidVega = tradingDeskOption.TheoData.BidVega,
-                        MidVol = (tradingDeskOption.TheoData.BidVolatility + tradingDeskOption.TheoData.AskVolatility) / 2,
+                        MidVol = (tradingDeskOption.TheoData.BidVolatility + tradingDeskOption.TheoData.AskVolatility)/2,
                         MidPrice = (tradingDeskOption.TheoData.BidPrice + tradingDeskOption.TheoData.AskPrice) / 2,
                     };
                 }

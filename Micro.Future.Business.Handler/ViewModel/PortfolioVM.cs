@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Micro.Future.Message;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,12 @@ namespace Micro.Future.ViewModel
 {
     public class PortfolioVM : ViewModelBase
     {
+        public PortfolioVM(AbstractOTCHandler otcHandler)
+        {
+            OTCHandler = otcHandler;
+        }
+
+        public AbstractOTCHandler OTCHandler { get; set; }
         public override string ToString()
         {
             return _name;
@@ -44,6 +51,10 @@ namespace Micro.Future.ViewModel
                 _threshold = value;
                 OnPropertyChanged(nameof(Threshold));
             }
+        }
+        public void UpdatePortfolio()
+        {
+            OTCHandler.UpdatePortfolio(this);
         }
     }
 }

@@ -38,8 +38,16 @@ namespace Micro.Future.UI
             OpMarketControl.volModelCB1.SelectionChanged += VolModelCB1_SelectionChanged;
             WMSettingsLV.revertCurrentBtn.Click += RevertCurrentBtn_Click;
             WMSettingsLV.setReferenceBtn.Click += SetCurrentBtn_Click;
+            OpMarketControl.adjustment2.ValueChanged += Adjustment2_ValueChanged;
         }
 
+        private void Adjustment2_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (e.OldValue != null && e.NewValue != null)
+            {
+                VolCurvLV.TempCurveReset();
+            }
+        }
         private LayoutAnchorablePane _pane;
         public LayoutAnchorablePane AnchorablePane
         {

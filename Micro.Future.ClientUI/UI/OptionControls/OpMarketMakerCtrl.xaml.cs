@@ -39,6 +39,11 @@ namespace Micro.Future.UI
 
         private IList<ColumnObject> _optionColumns;
 
+        ~OpMarketMakerCtrl()
+        {
+            AutoOrderUpdate(false);
+        }
+
         public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection
         {
             get;
@@ -73,8 +78,7 @@ namespace Micro.Future.UI
 
             // Set columns tree
             var marketNode = new ColumnObject(new GridViewColumn() { Header = "行情" });
-            var ivolNode = new ColumnObject(new GridViewColumn() { Header = "隐含波动率" });
-            var theovolNode = new ColumnObject(new GridViewColumn() { Header = "理论波动率" });
+            var ivolNode = new ColumnObject(new GridViewColumn() { Header = "波动率" });
             var riskGreekNode = new ColumnObject(new GridViewColumn() { Header = "风险参数" });
             var theoPriceNode = new ColumnObject(new GridViewColumn() { Header = "理论价格" });
             var positionNode = new ColumnObject(new GridViewColumn() { Header = "持仓" });
@@ -96,8 +100,8 @@ namespace Micro.Future.UI
             ivolNode.Children.Add(ColumnObject.CreateColumn(CBidIV));
             ivolNode.Children.Add(ColumnObject.CreateColumn(CAskIV));
             ivolNode.Children.Add(ColumnObject.CreateColumn(CMidIV));
-            theovolNode.Children.Add(ColumnObject.CreateColumn(TheoAskVol));
-            theovolNode.Children.Add(ColumnObject.CreateColumn(TheoBidVol));
+            ivolNode.Children.Add(ColumnObject.CreateColumn(TheoAskVol));
+            ivolNode.Children.Add(ColumnObject.CreateColumn(TheoBidVol));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(PAskDelta));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(CAskDelta));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(PAskVega));
@@ -133,12 +137,11 @@ namespace Micro.Future.UI
 
             marketNode.Initialize();
             ivolNode.Initialize();
-            theovolNode.Initialize();
             riskGreekNode.Initialize();
             theoPriceNode.Initialize();
             positionNode.Initialize();
             QTNode.Initialize();
-            _optionColumns = new List<ColumnObject>() { marketNode, ivolNode, theovolNode, riskGreekNode, theoPriceNode, positionNode, QTNode };
+            _optionColumns = new List<ColumnObject>() { marketNode, ivolNode, riskGreekNode, theoPriceNode, positionNode, QTNode };
 
         }
 
@@ -268,6 +271,8 @@ namespace Micro.Future.UI
                                 underlyingContractCB1.SelectedValue = futurecontract;
                                 volModelLB.Content = volmodel;
                                 adjustment.Value = adjust;
+                                AutoOrderUpdate(false);
+                                AutoOrder_CheckBox.DataContext = strategyVM;
                                 var modelVM = pricingModelCB.SelectedItem as ModelParamsVM;
                                 if (modelVM != null)
                                 {
@@ -473,7 +478,7 @@ namespace Micro.Future.UI
             }
         }
 
-        private void AutoOrderUpdate (bool autoStatus)
+        public void AutoOrderUpdate (bool autoStatus)
         {
             if (CallPutTDOptionVMCollection != null)
             {
