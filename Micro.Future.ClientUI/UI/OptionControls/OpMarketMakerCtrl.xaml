@@ -120,7 +120,7 @@
             </GroupBox>
         </WrapPanel>
 
-        <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+        <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Visible" HorizontalAlignment="Center">
             <ListView.Resources>
                 <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="GreenHeaderStyle">
                     <Setter Property="Background" Value="Blue"/>
@@ -175,7 +175,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PAskTheta" Header="PAskTheta" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskTheta,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PAskTheta" Header="PAskTheta" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskTheta,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" />
                     <GridViewColumn x:Name="PAskGamma" Header="PAskGamma" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskGamma,StringFormat=N4}"/>
                     <GridViewColumn x:Name="PAskVega" Header="PAskVega%" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskVega,StringFormat=N2}"/>
                     <GridViewColumn x:Name="PAskDelta" Header="PAskDelta" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskDelta,StringFormat=N2}"/>
