@@ -56,9 +56,9 @@ namespace Micro.Future.Message
                 {
                     quote.ImpliedVolVM = new VolatilityVM
                     {
-                        AskVol = tradingDeskOption.ImpliedVol.AskVolatility,
-                        BidVol = tradingDeskOption.ImpliedVol.BidVolatility,
-                        MidVol = (tradingDeskOption.ImpliedVol.BidVolatility + tradingDeskOption.ImpliedVol.AskVolatility) / 2
+                        AskVol = tradingDeskOption.ImpliedVol.AskVolatility*100,
+                        BidVol = tradingDeskOption.ImpliedVol.BidVolatility*100,
+                        MidVol = (tradingDeskOption.ImpliedVol.BidVolatility + tradingDeskOption.ImpliedVol.AskVolatility)/50
                     };
 
                     if (double.IsNaN(quote.ImpliedVolVM.MidVol))
@@ -73,19 +73,19 @@ namespace Micro.Future.Message
                     {
                         AskPrice = tradingDeskOption.TheoData.AskPrice,
                         AskSize = tradingDeskOption.TheoData.AskSize,
-                        AskVol = tradingDeskOption.TheoData.AskVolatility,
+                        AskVol = tradingDeskOption.TheoData.AskVolatility*100,
                         AskDelta = tradingDeskOption.TheoData.AskDelta,
                         AskGamma = tradingDeskOption.TheoData.AskGamma,
                         AskTheta = tradingDeskOption.TheoData.AskTheta,
-                        AskVega = tradingDeskOption.TheoData.AskVega,
+                        AskVega = tradingDeskOption.TheoData.AskVega/100,
                         BidPrice = tradingDeskOption.TheoData.BidPrice,
                         BidSize = tradingDeskOption.TheoData.BidSize,
-                        BidVol = tradingDeskOption.TheoData.BidVolatility,
+                        BidVol = tradingDeskOption.TheoData.BidVolatility*100,
                         BidDelta = tradingDeskOption.TheoData.BidDelta,
                         BidGamma = tradingDeskOption.TheoData.BidGamma,
                         BidTheta = tradingDeskOption.TheoData.BidTheta,
-                        BidVega = tradingDeskOption.TheoData.BidVega,
-                        MidVol = (tradingDeskOption.TheoData.BidVolatility + tradingDeskOption.TheoData.AskVolatility) / 2,
+                        BidVega = tradingDeskOption.TheoData.BidVega/100,
+                        MidVol = (tradingDeskOption.TheoData.BidVolatility + tradingDeskOption.TheoData.AskVolatility) / 50,
                         MidPrice = (tradingDeskOption.TheoData.BidPrice + tradingDeskOption.TheoData.AskPrice) / 2,
                     };
                 }

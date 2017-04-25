@@ -17,10 +17,10 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{lex:Loc Key=Contract}"/>
-                    <GridViewColumn Header="delta"/>
-                    <GridViewColumn Header="gamma"/>
-                    <GridViewColumn Header="vega"/>
-                    <GridViewColumn Header="theta"/>
+                    <GridViewColumn Header="delta" DisplayMemberBinding="{Binding Delta}"/>
+                    <GridViewColumn Header="gamma" DisplayMemberBinding="{Binding Gamma}"/>
+                    <GridViewColumn Header="vega" DisplayMemberBinding="{Binding Vega}"/>
+                    <GridViewColumn Header="theta" DisplayMemberBinding="{Binding Theta}"/>
                 </GridView>
             </ListView.View>
         </ListView>

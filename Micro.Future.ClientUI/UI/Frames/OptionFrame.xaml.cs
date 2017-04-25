@@ -252,6 +252,11 @@ namespace Micro.Future.UI
             var marketmakerWin = new OpMarketMakerCtrl();
             optionModelPane.AddContent(marketmakerWin).Title = title;
         }
+
+        private void OpMarketMaker_Closed(object sender, EventArgs e)
+        {
+            OpMarketMakerLV.AutoOrderUpdate(false);
+        }
     }
 }
 

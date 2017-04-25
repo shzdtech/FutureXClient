@@ -50,7 +50,7 @@
                     <avalonDock:LayoutAnchorable Title="Model">
                         <c:OptionModelCtrl x:Name="optionModelCtrl"/>
                     </avalonDock:LayoutAnchorable>
-                    <avalonDock:LayoutAnchorable Title="Market Maker">
+                    <avalonDock:LayoutAnchorable Title="Market Maker" Closed="OpMarketMaker_Closed">
                         <c:OpMarketMakerCtrl x:Name="OpMarketMakerLV"/>
                     </avalonDock:LayoutAnchorable>
                 </avalonDock:LayoutAnchorablePane>

@@ -5,6 +5,7 @@ using Micro.Future.Message;
 using Micro.Future.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,11 +28,37 @@ namespace Micro.Future.UI
     public partial class OptionRiskCtrl : UserControl, ILayoutAnchorableControl
 
     {
+        private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+        public ObservableCollection<MarketDataVM> QuoteVMCollection
+        {
+            get;
+        } = new ObservableCollection<MarketDataVM>();
         public OptionRiskCtrl()
         {
             InitializeComponent();
+            var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+            marketDataLV.MarketDataHandler = marketdataHandler;
+            portfolioCtl.portfolioCB.SelectionChanged += PortfolioCB_SelectionChanged;
         }
-
+        private async void PortfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var portfolio = portfolioCtl.portfolioCB.SelectedValue.ToString();
+            var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+            var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
+                    .Select(c => c.BaseContract).Distinct().ToList();
+            var pricingContractParams = strategyVMCollection.Select(c => c.PricingContractParams).Distinct();
+            //var pricingContracts = pricingContractParams.Select(c => c.)
+            QuoteVMCollection.Clear();
+            foreach (var contract in basecontractsList)
+            {
+                var mktDataVM = await marketDataLV.MarketDataHandler.SubMarketDataAsync(contract);
+                if (mktDataVM != null)
+                {
+                    QuoteVMCollection.Add(mktDataVM);
+                }
+            }
+            marketDataLV.quoteListView.ItemsSource = QuoteVMCollection;
+        }
         private LayoutAnchorablePane _pane;
         public LayoutAnchorablePane AnchorablePane
         {

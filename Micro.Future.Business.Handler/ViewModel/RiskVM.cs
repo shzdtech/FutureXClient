@@ -52,7 +52,16 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("Gamma");
             }
         }
-
+        private double _theta;
+        public double Theta
+        {
+            get { return _theta; }
+            set
+            {
+                _theta = value;
+                OnPropertyChanged("Theta");
+            }
+        }
         private double _positionDelta;
         public double PositionDelta
         {

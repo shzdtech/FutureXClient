@@ -274,7 +274,7 @@ namespace Micro.Future.Message
             PortfolioVMCollection.Clear();
             foreach (var portfolio in PB.Portfolio)
             {
-                PortfolioVMCollection.Add(new PortfolioVM { Name = portfolio.Name });
+                PortfolioVMCollection.Add(new PortfolioVM (this) { Name = portfolio.Name, Delay = portfolio.HedgeDelay, Threshold = portfolio.Threshold });
                 //Console.WriteLine(PortfolioVMCollection.Count);
             }
         }
@@ -330,6 +330,14 @@ namespace Micro.Future.Message
             strategy.AskEnabled = sVM.AskEnabled;
             strategy.BidEnabled = sVM.BidEnabled;
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
+        }
+        public void UpdatePortfolio(PortfolioVM pVM)
+        {
+            var portfolio = new PBPortfolio();
+            portfolio.Name = pVM.Name;
+            portfolio.HedgeDelay = pVM.Delay;
+            portfolio.Threshold = pVM.Threshold;
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_PORTFOLIO, portfolio);
         }
 
         public void UpdateStrategyModel(StrategyVM sVM, StrategyVM.Model model)
