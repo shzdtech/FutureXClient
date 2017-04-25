@@ -42,7 +42,6 @@ namespace Micro.Future.UI
         ~OpMarketMakerCtrl()
         {
             AutoOrderUpdate(false);
-            BidNotCrossUpdate(false);
         }
 
         public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection
@@ -135,7 +134,14 @@ namespace Micro.Future.UI
             QTNode.Children.Add(ColumnObject.CreateColumn(CAskQV));
             QTNode.Children.Add(ColumnObject.CreateColumn(PAODepth));
             QTNode.Children.Add(ColumnObject.CreateColumn(CAODepth));
-
+            QTNode.Children.Add(ColumnObject.CreateColumn(PBidCnt));
+            QTNode.Children.Add(ColumnObject.CreateColumn(PAskCnt));
+            QTNode.Children.Add(ColumnObject.CreateColumn(PBidCnt));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CAskCnt));
+            QTNode.Children.Add(ColumnObject.CreateColumn(PNotCross));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CNotCross));
+            QTNode.Children.Add(ColumnObject.CreateColumn(PCloseMode));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CCloseMode));
             marketNode.Initialize();
             ivolNode.Initialize();
             riskGreekNode.Initialize();
@@ -273,9 +279,6 @@ namespace Micro.Future.UI
                                 volModelLB.Content = volmodel;
                                 adjustment.Value = adjust;
                                 AutoOrderUpdate(false);
-                                BidNotCrossUpdate(false);
-                                AutoOrder_CheckBox.DataContext = strategyVM;
-                                BidNotCross_CheckBox.DataContext = strategyVM;
                                 CountertextBox.DataContext = strategyVM;
                                 var modelVM = pricingModelCB.SelectedItem as ModelParamsVM;
                                 if (modelVM != null)

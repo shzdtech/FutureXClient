@@ -109,9 +109,9 @@
             <GroupBox x:Name="AutoOrder_GroupBox" Header="{lex:Loc Key=AutoOrder}">
                 <CheckBox Name="AutoOrder_CheckBox" HorizontalAlignment="Center" IsChecked="{Binding Hedging}" Checked="AutoOrder_Checked" Unchecked="AutoOrder_Unchecked" />
             </GroupBox>
-            <GroupBox x:Name="OrderProtect_GroupBox" Header="{lex:Loc Key=OrderProtect}">
+            <!--<GroupBox x:Name="OrderProtect_GroupBox" Header="{lex:Loc Key=OrderProtect}">
                 <CheckBox Name="BidNotCross_CheckBox" HorizontalAlignment="Center" IsChecked="{Binding BidNotCross}" Checked="BidNotCross_Checked" Unchecked="BidNotCross_Unchecked" />
-            </GroupBox>
+            </GroupBox>-->
             <GroupBox x:Name="Counter_TxtBox" Header="{lex:Loc Key=Counter}">
                 <xctk:IntegerUpDown x:Name="CountertextBox" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding MaxAutoTrade}" Spinned="Spinned" ValueChanged="MaxAutoTradeValueChanged"/>
             </GroupBox>
@@ -192,22 +192,51 @@
                     <GridViewColumn x:Name="PAskIV" Header="PAskIV%" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.AskVol,StringFormat=P2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PBid" Header="PBid" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidPrice,StringFormat=N2}"/>
                     <GridViewColumn x:Name="PBidSize" Header="PBidSize" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidSize}"/>
-                    <GridViewColumn x:Name="PBidCnt" Header="PBidCnt" DisplayMemberBinding="{Binding PutStrategyVM.BidCounter,StringFormat=N}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PBidCnt" Header="PBidCnt" DisplayMemberBinding="{Binding PutStrategyVM.BidCounter}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PMid" Header="PMid" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.MidPrice,StringFormat=N2}"/>
                     <GridViewColumn x:Name="PAsk" Header="PAsk" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskPrice,StringFormat=N2}"/>
                     <GridViewColumn x:Name="PAskSize" Header="PAskSize" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskSize}"/>
-                    <GridViewColumn x:Name="PAskCnt" Header="PAskCnt" DisplayMemberBinding="{Binding PutStrategyVM.AskCounter,StringFormat=N}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PAskCnt" Header="PAskCnt" DisplayMemberBinding="{Binding PutStrategyVM.AskCounter}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PNotCross" Header="PNotCross" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding PutStrategyVM.BidNotCross}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="PCloseMode" Header="PCloseMode" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding PutStrategyVM.CloseMode}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <!--<GridViewColumn x:Name="PutContract" Header="PutContract" DisplayMemberBinding="{Binding PutOptionVM.Contract,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>-->
                     <GridViewColumn x:Name="Strike" Header="Strike" DisplayMemberBinding="{Binding StrikePrice}"/>
                     <!--<GridViewColumn x:Name="Callcontract" Header="CallContract" DisplayMemberBinding="{Binding CallOptionVM.Contract,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>-->
                     <GridViewColumn x:Name="TheoAskVol" Header="AskTheoVol%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskVol,StringFormat=P2}" />
                     <GridViewColumn x:Name="TheoBidVol" Header="BidTheoVol%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.BidVol,StringFormat=P2}" />
                     <GridViewColumn x:Name="TheoMidVol" Header="MidTheoVol%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.MidVol,StringFormat=P2}" />
-                    <GridViewColumn x:Name="CAskCnt" Header="CAskCnt" DisplayMemberBinding="{Binding CallStrategyVM.AskCounter,StringFormat=N}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="CCloseMode" Header="CCloseMode" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding CallStrategyVM.CloseMode}" Command="{Binding CallStrategyVM.UpdateCommand}"></CheckBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="CNotCross" Header="CNotCross" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding CallStrategyVM.BidNotCross}" Command="{Binding CallStrategyVM.UpdateCommand}" ></CheckBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn x:Name="CAskCnt" Header="CAskCnt" DisplayMemberBinding="{Binding CallStrategyVM.AskCounter}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="CAskSize" Header="CAskSize" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskSize}"/>
                     <GridViewColumn x:Name="CAsk" Header="CAsk" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskPrice,StringFormat=N2}"/>
                     <GridViewColumn x:Name="CMid" Header="CMid" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.MidPrice,StringFormat=N2}"/>
-                    <GridViewColumn x:Name="CBidCnt" Header="CBidCnt" DisplayMemberBinding="{Binding CallStrategyVM.BidCounter,StringFormat=N}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="CBidCnt" Header="CBidCnt" DisplayMemberBinding="{Binding CallStrategyVM.BidCounter}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="CBidSize" Header="CBidSize" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidSize}"/>
                     <GridViewColumn x:Name="CBid" Header="CBid" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidPrice,StringFormat=N2}"/>
                     <GridViewColumn x:Name="CBidIV" DisplayMemberBinding="{Binding CallOptionVM.ImpliedVolVM.BidVol,StringFormat=P2}" Header="CBidIV%" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>

@@ -233,6 +233,19 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(BidNotCross));
             }
         }
+        private bool _closeMode;
+        public bool CloseMode
+        {
+            get
+            {
+                return _closeMode;
+            }
+            set
+            {
+                _closeMode = value;
+                OnPropertyChanged(nameof(CloseMode));
+            }
+        }
 
         private string _pricingModel;
         public string PricingModel

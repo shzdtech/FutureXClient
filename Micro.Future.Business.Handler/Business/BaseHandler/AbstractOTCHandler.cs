@@ -295,6 +295,7 @@ namespace Micro.Future.Message
                 strategyVM.BidNotCross = strategy.BidNotCross;
                 strategyVM.BidCounter = strategy.BidCounter;
                 strategyVM.AskCounter = strategy.AskCounter;
+                strategyVM.CloseMode = strategy.CloseMode;
 
                 OnStrategyUpdated?.Invoke(strategyVM);
             }
@@ -335,6 +336,7 @@ namespace Micro.Future.Message
             strategy.BidNotCross = sVM.BidNotCross;
             strategy.BidCounter = sVM.BidCounter;
             strategy.AskCounter = sVM.AskCounter;
+            strategy.CloseMode = sVM.CloseMode;
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }

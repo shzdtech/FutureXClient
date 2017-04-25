@@ -1,0 +1,123 @@
+﻿<UserControl x:Class="Micro.Future.UI.OTCTradeFrame"
+      xmlns:Controls="clr-namespace:Micro.Future.CustomizedControls;assembly=Micro.Future.CustomizedControls"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:c="clr-namespace:Micro.Future.UI"
+      xmlns:lex="http://wpflocalizeextension.codeplex.com" 
+      lex:LocalizeDictionary.DesignCulture="zh_CN"
+      lex:LocalizeDictionary.OutputMissingKeys="True"
+      lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+      lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="800">
+    <!--Frame Body-->
+    <UserControl.Resources>
+        <x:Array Type="{x:Type MenuItem}" x:Key="exMenuItems">
+            <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=DomesticTradingMarket}">
+                <MenuItem Header="{lex:Loc Key=RefreshContracts}" Click="MenuItem_RefreshContracts_Click">
+                </MenuItem>
+                <MenuItem Header="{lex:Loc Key=AddWindow}">
+                    <MenuItem Header="{lex:Loc Key=QuoteWindow}" Click="MenuItem_Click_Contract">
+                        <!--<MenuItem Header="{lex:Loc Key=Optional}" Click="MenuItem_Click_Contract">
+                        </MenuItem>-->
+                    </MenuItem>
+                    <MenuItem Header="{lex:Loc Key=ExecutionWindow}">
+                        <MenuItem Header="{lex:Loc Key=AllExecution}" Click="MenuItem_Click_Execution">
+                        </MenuItem>
+                        <MenuItem Header="{lex:Loc Key=Opening}" Click="MenuItem_Click_Opened">
+                        </MenuItem>
+                        <MenuItem Header="{lex:Loc Key=Traded}" Click="MenuItem_Click_Traded">
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="{lex:Loc Key=TradedWindow}" Click="MenuItem_Click_AllTraded">
+                        <!--<MenuItem Header="{lex:Loc Key=AllTraded}" Click="MenuItem_Click_AllTraded">
+                        </MenuItem>
+                        <MenuItem Header="{lex:Loc Key=Traded_Open}" Click="MenuItem_Click_Open">
+                        </MenuItem>
+                        <MenuItem Header="{lex:Loc Key=Traded_Close}" Click="MenuItem_Click_Close">
+                        </MenuItem>-->
+                    </MenuItem>
+                    <MenuItem Header="{lex:Loc Key=PositionWindow}" Click="MenuItem_Click_Position">
+                        <!--<MenuItem Header="{lex:Loc Key=Position}" Click="MenuItem_Click_Position">
+                        </MenuItem>-->
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="{lex:Loc Key=AddPortfolio}" Click="MenuItem_Click_Portfolio">
+                </MenuItem>
+                <MenuItem Header="{lex:Loc Key=AccountManagement}">
+                    <MenuItem Header="{lex:Loc Key=FutureAccountInfo}" Click="MenuItem_Click_FutureAccount">
+                    </MenuItem>
+                </MenuItem>
+            </MenuItem>
+        </x:Array>
+        <x:Array Type="{x:Type StatusBarItem}" x:Key="exStatusBarItems">
+            <StatusBarItem>
+                <Controls:LoginStatus x:Name="ctpLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_CTP_MD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_CTP_MD_Unconnected}" Connected="False" OnConnButtonClick="ctpMdLoginStatus_OnConnButtonClick"/>
+            </StatusBarItem>
+            <StatusBarItem >
+                <Controls:LoginStatus x:Name="ctpTradeLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_CTP_TD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_CTP_TD_Unconnected}" Connected="False" OnConnButtonClick="ctpTradingLoginStatus_OnConnButtonClick"/>
+            </StatusBarItem>
+        </x:Array>
+    </UserControl.Resources>
+    <avalonDock:DockingManager x:Name="dockingManager">
+        <avalonDock:DockingManager.Theme>
+            <avalonDock:GenericTheme/>
+        </avalonDock:DockingManager.Theme>
+        <!--<avalonDock:DockingManager.LayoutItemContainerStyleSelector>
+            <avalonDock:PanesStyleSelector>
+                <avalonDock:PanesStyleSelector.DeviceStyle>
+                    <Style TargetType="{x:Type avalonDock:LayoutItem}">
+                        <Setter Property="CanClose" Value="False"></Setter>
+                    </Style>
+                </avalonDock:PanesStyleSelector.DeviceStyle>
+            </avalonDock:PanesStyleSelector>
+        </avalonDock:DockingManager.LayoutItemContainerStyleSelector>-->
+        <avalonDock:LayoutRoot>
+            <avalonDock:LayoutPanel Orientation="Vertical">
+                <avalonDock:LayoutPanel DockHeight="0.15*">
+                    <avalonDock:LayoutAnchorablePane x:Name="fundPane">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Fund}">
+                            <c:AccountInfoControl x:Name="clientFundLV"/>
+                        </avalonDock:LayoutAnchorable>
+                    </avalonDock:LayoutAnchorablePane>
+                </avalonDock:LayoutPanel>
+                <avalonDock:LayoutPanel Orientation="Vertical">
+                    <avalonDock:LayoutPanel Orientation="Horizontal">
+                        <avalonDock:LayoutAnchorablePane x:Name="fastorderPane" DockWidth="0.25*">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}" CanClose="True" CanAutoHide="True">
+                                <c:FastOrderControl x:Name="FastOrderCtl"/>
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                        <avalonDock:LayoutAnchorablePane x:Name="quotePane">
+                            <avalonDock:LayoutAnchorable>
+                                <c:MarketDataControl x:Name="marketDataLV" PersistanceId="Domestic:MarketDataControl" />
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                    </avalonDock:LayoutPanel>
+                    <avalonDock:LayoutPanel Orientation="Vertical">
+                        <avalonDock:LayoutAnchorablePane x:Name="executionPane">
+                            <avalonDock:LayoutAnchorable >
+                                <c:ExecutionControl  x:Name="executionWindow" PersistanceId="Domestic:ExecutionControl"/>
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                    </avalonDock:LayoutPanel>
+                    <avalonDock:LayoutPanel Orientation="Horizontal">
+                        <avalonDock:LayoutAnchorablePane x:Name="tradePane">
+                            <avalonDock:LayoutAnchorable>
+                                <c:TradeRecordControl x:Name="tradeWindow" PersistanceId="Domestic:TradeRecordControl"/>
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                        <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
+                            <avalonDock:LayoutAnchorable Closing="ClosingPositionPane">
+                                <c:PositionControl x:Name="positionsWindow" PersistanceId="Domestic:PositionControl"/>
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                    </avalonDock:LayoutPanel>
+                </avalonDock:LayoutPanel>
+            </avalonDock:LayoutPanel>
+        </avalonDock:LayoutRoot>
+    </avalonDock:DockingManager>
+</UserControl>

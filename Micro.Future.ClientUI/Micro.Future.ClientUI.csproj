@@ -99,6 +99,9 @@
     <Compile Include="UI\DomesticControls\MarketDataControl.xaml.cs">
       <DependentUpon>MarketDataControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Frames\OTCTradeFrame.xaml.cs">
+      <DependentUpon>OTCTradeFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Frames\OptionRiskFrame.xaml.cs">
       <DependentUpon>OptionRiskFrame.xaml</DependentUpon>
     </Compile>
@@ -221,6 +224,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\ForeignControls\ForeignFastOrderWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Frames\OTCTradeFrame.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -256,7 +256,6 @@ namespace Micro.Future.UI
         private void OpMarketMaker_Closed(object sender, EventArgs e)
         {
             OpMarketMakerLV.AutoOrderUpdate(false);
-            OpMarketMakerLV.BidNotCrossUpdate(false);
 
         }
     }
