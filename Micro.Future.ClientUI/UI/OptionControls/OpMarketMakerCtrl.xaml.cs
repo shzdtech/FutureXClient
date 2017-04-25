@@ -42,6 +42,7 @@ namespace Micro.Future.UI
         ~OpMarketMakerCtrl()
         {
             AutoOrderUpdate(false);
+            BidNotCrossUpdate(false);
         }
 
         public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection
@@ -272,7 +273,10 @@ namespace Micro.Future.UI
                                 volModelLB.Content = volmodel;
                                 adjustment.Value = adjust;
                                 AutoOrderUpdate(false);
+                                BidNotCrossUpdate(false);
                                 AutoOrder_CheckBox.DataContext = strategyVM;
+                                BidNotCross_CheckBox.DataContext = strategyVM;
+                                CountertextBox.DataContext = strategyVM;
                                 var modelVM = pricingModelCB.SelectedItem as ModelParamsVM;
                                 if (modelVM != null)
                                 {
@@ -292,7 +296,20 @@ namespace Micro.Future.UI
                 Task.Run(() => { Task.Delay(100); Dispatcher.Invoke(() => updownctrl.CommitInput()); });
             }
         }
-
+        private void MaxAutoTradeValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var updownctrl = sender as IntegerUpDown;
+            if (updownctrl != null && e.OldValue != null && e.NewValue != null)
+            {
+                var strategyVM = updownctrl.DataContext as StrategyVM;
+                if (strategyVM != null)
+                {
+                    int maxAutoTrade = (int)e.NewValue;
+                    strategyVM.MaxAutoTrade = maxAutoTrade;
+                    strategyVM.UpdateStrategy();
+                }
+            }
+        }
 
         private void underlyingEX1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -505,6 +522,61 @@ namespace Micro.Future.UI
         private void AutoOrder_Unchecked(object sender, RoutedEventArgs e)
         {
             AutoOrderUpdate(false);
+        }
+        public void BidNotCrossUpdate(bool bncStatus)
+        {
+            if (CallPutTDOptionVMCollection != null)
+            {
+                foreach (var vm in CallPutTDOptionVMCollection)
+                {
+                    if (vm.CallStrategyVM != null)
+                    {
+                        vm.CallStrategyVM.BidNotCross = bncStatus;
+                        vm.CallStrategyVM.UpdateStrategy();
+                    }
+                    if (vm.PutStrategyVM != null)
+                    {
+                        vm.PutStrategyVM.BidNotCross = bncStatus;
+                        vm.PutStrategyVM.UpdateStrategy();
+                    }
+                }
+            }
+        }
+
+        private void BidNotCross_Checked(object sender, RoutedEventArgs e)
+        {
+            BidNotCrossUpdate(true);
+        }
+
+        private void BidNotCross_Unchecked(object sender, RoutedEventArgs e)
+        {
+            BidNotCrossUpdate(false);
+        }
+        public void CounterRefreshUpdate()
+        {
+            if (CallPutTDOptionVMCollection != null)
+            {
+                foreach (var vm in CallPutTDOptionVMCollection)
+                {
+                    if (vm.CallStrategyVM != null)
+                    {
+                        vm.CallStrategyVM.BidCounter = 0;
+                        vm.CallStrategyVM.AskCounter = 0;
+                        vm.CallStrategyVM.UpdateStrategy();
+                    }
+                    if (vm.PutStrategyVM != null)
+                    {
+                        vm.PutStrategyVM.BidCounter = 0;
+                        vm.PutStrategyVM.AskCounter = 0;
+                        vm.PutStrategyVM.UpdateStrategy();
+                    }
+                }
+            }
+        }
+
+        private void RefreshCounter_Click(object sender, RoutedEventArgs e)
+        {
+            CounterRefreshUpdate();
         }
     }
 }

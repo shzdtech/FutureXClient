@@ -110,13 +110,13 @@
                 <CheckBox Name="AutoOrder_CheckBox" HorizontalAlignment="Center" IsChecked="{Binding Hedging}" Checked="AutoOrder_Checked" Unchecked="AutoOrder_Unchecked" />
             </GroupBox>
             <GroupBox x:Name="OrderProtect_GroupBox" Header="{lex:Loc Key=OrderProtect}">
-                <CheckBox HorizontalAlignment="Center"/>
+                <CheckBox Name="BidNotCross_CheckBox" HorizontalAlignment="Center" IsChecked="{Binding BidNotCross}" Checked="BidNotCross_Checked" Unchecked="BidNotCross_Unchecked" />
             </GroupBox>
             <GroupBox x:Name="Counter_TxtBox" Header="{lex:Loc Key=Counter}">
-                <TextBox x:Name="CountertextBox" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50"/>
+                <xctk:IntegerUpDown x:Name="CountertextBox" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding MaxAutoTrade}" Spinned="Spinned" ValueChanged="MaxAutoTradeValueChanged"/>
             </GroupBox>
             <GroupBox x:Name="RefreshCounter_GroupBox" Header="{lex:Loc Key=RefreshCounter}">
-                <Button x:Name="RefreshCounter_button" Content="{lex:Loc Key=Refresh}" VerticalAlignment="Top" Width="75"/>
+                <Button x:Name="RefreshCounter_button" Content="{lex:Loc Key=Refresh}" VerticalAlignment="Top" Width="75" Click="RefreshCounter_Click"/>
             </GroupBox>
         </WrapPanel>
 
@@ -192,18 +192,22 @@
                     <GridViewColumn x:Name="PAskIV" Header="PAskIV%" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.AskVol,StringFormat=P2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PBid" Header="PBid" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidPrice,StringFormat=N2}"/>
                     <GridViewColumn x:Name="PBidSize" Header="PBidSize" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidSize}"/>
+                    <GridViewColumn x:Name="PBidCnt" Header="PBidCnt" DisplayMemberBinding="{Binding PutStrategyVM.BidCounter,StringFormat=N}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PMid" Header="PMid" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.MidPrice,StringFormat=N2}"/>
                     <GridViewColumn x:Name="PAsk" Header="PAsk" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskPrice,StringFormat=N2}"/>
                     <GridViewColumn x:Name="PAskSize" Header="PAskSize" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskSize}"/>
+                    <GridViewColumn x:Name="PAskCnt" Header="PAskCnt" DisplayMemberBinding="{Binding PutStrategyVM.AskCounter,StringFormat=N}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <!--<GridViewColumn x:Name="PutContract" Header="PutContract" DisplayMemberBinding="{Binding PutOptionVM.Contract,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>-->
                     <GridViewColumn x:Name="Strike" Header="Strike" DisplayMemberBinding="{Binding StrikePrice}"/>
                     <!--<GridViewColumn x:Name="Callcontract" Header="CallContract" DisplayMemberBinding="{Binding CallOptionVM.Contract,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>-->
                     <GridViewColumn x:Name="TheoAskVol" Header="AskTheoVol%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskVol,StringFormat=P2}" />
                     <GridViewColumn x:Name="TheoBidVol" Header="BidTheoVol%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.BidVol,StringFormat=P2}" />
                     <GridViewColumn x:Name="TheoMidVol" Header="MidTheoVol%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.MidVol,StringFormat=P2}" />
+                    <GridViewColumn x:Name="CAskCnt" Header="CAskCnt" DisplayMemberBinding="{Binding CallStrategyVM.AskCounter,StringFormat=N}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="CAskSize" Header="CAskSize" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskSize}"/>
                     <GridViewColumn x:Name="CAsk" Header="CAsk" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskPrice,StringFormat=N2}"/>
                     <GridViewColumn x:Name="CMid" Header="CMid" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.MidPrice,StringFormat=N2}"/>
+                    <GridViewColumn x:Name="CBidCnt" Header="CBidCnt" DisplayMemberBinding="{Binding CallStrategyVM.BidCounter,StringFormat=N}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="CBidSize" Header="CBidSize" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidSize}"/>
                     <GridViewColumn x:Name="CBid" Header="CBid" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidPrice,StringFormat=N2}"/>
                     <GridViewColumn x:Name="CBidIV" DisplayMemberBinding="{Binding CallOptionVM.ImpliedVolVM.BidVol,StringFormat=P2}" Header="CBidIV%" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
