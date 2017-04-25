@@ -76,7 +76,7 @@ namespace Micro.Future.Message
                         ((uint)BusinessMessageID.MSG_ID_QUERY_STRATEGY, OnQueryStrategySuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBContractParamList, ExceptionMessage>
                        ((uint)BusinessMessageID.MSG_ID_QUERY_CONTRACT_PARAM, OnQueryContractParamSuccessAction, OnErrorAction);
-            MessageWrapper.RegisterAction<PBStrategyList, ExceptionMessage>
+            MessageWrapper.RegisterAction<PBStrategy, ExceptionMessage>
                        ((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, OnUpdateStrategySuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<Result, ExceptionMessage>
                        ((uint)BusinessMessageID.MSG_ID_MODIFY_CONTRACT_PARAM, OnUpdateSuccessAction, OnErrorAction);
@@ -280,21 +280,23 @@ namespace Micro.Future.Message
         }
 
 
-        protected void OnUpdateStrategySuccessAction(PBStrategyList PB)
+        protected void OnUpdateStrategySuccessAction(PBStrategy strategy)
         {
-            foreach (var strategy in PB.Strategy)
+            var strategyVM = StrategyVMCollection.FindContract(strategy.Exchange, strategy.Contract);
+            if (strategyVM != null)
             {
-                var strategyVM = StrategyVMCollection.FindContract(strategy.Exchange, strategy.Contract);
-                if (strategyVM != null)
-                {
-                    strategyVM.Hedging = strategy.Hedging;
-                    strategyVM.Depth = strategy.Depth;
-                    strategyVM.BidEnabled = strategy.BidEnabled;
-                    strategyVM.AskEnabled = strategy.AskEnabled;
-                    strategyVM.BidQV = strategy.BidQV;
-                    strategyVM.AskQV = strategy.AskQV;
-                    OnStrategyUpdated?.Invoke(strategyVM);
-                }
+                strategyVM.Hedging = strategy.Hedging;
+                strategyVM.Depth = strategy.Depth;
+                strategyVM.BidEnabled = strategy.BidEnabled;
+                strategyVM.AskEnabled = strategy.AskEnabled;
+                strategyVM.BidQV = strategy.BidQV;
+                strategyVM.AskQV = strategy.AskQV;
+                strategyVM.MaxAutoTrade = strategy.MaxAutoTrade;
+                strategyVM.BidNotCross = strategy.BidNotCross;
+                strategyVM.BidCounter = strategy.BidCounter;
+                strategyVM.AskCounter = strategy.AskCounter;
+
+                OnStrategyUpdated?.Invoke(strategyVM);
             }
         }
 
@@ -329,6 +331,11 @@ namespace Micro.Future.Message
             strategy.Hedging = sVM.Hedging;
             strategy.AskEnabled = sVM.AskEnabled;
             strategy.BidEnabled = sVM.BidEnabled;
+            strategy.MaxAutoTrade = sVM.MaxAutoTrade;
+            strategy.BidNotCross = sVM.BidNotCross;
+            strategy.BidCounter = sVM.BidCounter;
+            strategy.AskCounter = sVM.AskCounter;
+
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }
 

@@ -154,6 +154,73 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private int _bidQV = 1;
+        public int BidQV
+        {
+            get { return _bidQV; }
+            set
+            {
+                _bidQV = value;
+                OnPropertyChanged(nameof(BidQV));
+            }
+        }
+
+        private int _askQV = 1;
+        public int AskQV
+        {
+            get { return _askQV; }
+            set
+            {
+                _askQV = value;
+                OnPropertyChanged(nameof(AskQV));
+            }
+        }
+
+
+        private int _maxAutoTrade;
+        public int MaxAutoTrade
+        {
+            get { return _maxAutoTrade; }
+            set
+            {
+                _maxAutoTrade = value;
+                OnPropertyChanged(nameof(MaxAutoTrade));
+            }
+        }
+
+        private int _bidCounter;
+        public int BidCounter
+        {
+            get { return _bidCounter; }
+            set
+            {
+                _bidCounter = value;
+                OnPropertyChanged(nameof(BidCounter));
+            }
+        }
+
+        private int _askCounter;
+        public int AskCounter
+        {
+            get { return _askCounter; }
+            set
+            {
+                _askCounter = value;
+                OnPropertyChanged(nameof(AskCounter));
+            }
+        }
+
+        bool _bidNotCross;
+        public bool BidNotCross
+        {
+            get { return _bidNotCross; }
+            set
+            {
+                _bidNotCross = value;
+                OnPropertyChanged(nameof(BidNotCross));
+            }
+        }
+
         private string _pricingModel;
         public string PricingModel
         {

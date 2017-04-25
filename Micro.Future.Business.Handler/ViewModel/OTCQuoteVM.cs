@@ -10,32 +10,22 @@ namespace Micro.Future.ViewModel
 {
     public class OTCPricingVM : PricingVM
     {
-        private int _bidQV = 1;
-        public int BidQV
+        private int _quantity;
+        public int Quantity
         {
-            get { return _bidQV; }
+            get { return _quantity; }
             set
             {
-                _bidQV = value;
-                OnPropertyChanged(nameof(BidQV));
+                _quantity = value;
+                OnPropertyChanged(nameof(Quantity));
             }
         }
 
-        private int _askQV = 1;
-        public int AskQV
-        {
-            get { return _askQV; }
-            set
-            {
-                _askQV = value;
-                OnPropertyChanged(nameof(AskQV));
-            }
-        }
 
         private void updateQuantity()
         {
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().
-                UpdateQuantity(Exchange, Contract, BidQV);
+                UpdateQuantity(Exchange, Contract, Quantity);
         }
 
         RelayCommand _updateQCommand;
