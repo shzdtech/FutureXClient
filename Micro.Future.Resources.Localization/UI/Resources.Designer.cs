@@ -1222,6 +1222,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 场外交易 的本地化字符串。
+        /// </summary>
+        internal static string OTCTrade {
+            get {
+                return ResourceManager.GetString("OTCTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 参数 的本地化字符串。
         /// </summary>
         internal static string Param {

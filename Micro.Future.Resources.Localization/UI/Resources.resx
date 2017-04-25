@@ -786,4 +786,7 @@
   <data name="RiskGraph" xml:space="preserve">
     <value>风险图形</value>
   </data>
+  <data name="OTCTrade" xml:space="preserve">
+    <value>场外交易</value>
+  </data>
 </root>

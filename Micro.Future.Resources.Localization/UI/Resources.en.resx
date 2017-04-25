@@ -786,4 +786,7 @@
   <data name="RiskGraph" xml:space="preserve">
     <value>RiskGraph</value>
   </data>
+  <data name="OTCTrade" xml:space="preserve">
+    <value>OTCTrade</value>
+  </data>
 </root>
