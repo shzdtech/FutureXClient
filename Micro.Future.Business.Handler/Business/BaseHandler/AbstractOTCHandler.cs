@@ -86,6 +86,10 @@ namespace Micro.Future.Message
                       ((uint)BusinessMessageID.MSG_ID_QUERY_TRADINGDESK, OnQueryTradingDeskSuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBPortfolioList, ExceptionMessage>
                       ((uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO, OnQueryPortfolioSuccessAction, OnErrorAction);
+            MessageWrapper.RegisterAction<PBPortfolioList, ExceptionMessage>
+                     ((uint)BusinessMessageID.MSG_ID_PORTFOLIO_NEW, OnQueryPortfolioSuccessAction, OnErrorAction);
+            MessageWrapper.RegisterAction<PBPortfolioList, ExceptionMessage>
+                     ((uint)BusinessMessageID.MSG_ID_MODIFY_PORTFOLIO, OnQueryPortfolioSuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBStrategyList, ExceptionMessage>
                       ((uint)BusinessMessageID.MSG_ID_MODIFY_PRICING_CONTRACT, OnQueryStrategySuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBInstrumentList, ExceptionMessage>
@@ -262,7 +266,7 @@ namespace Micro.Future.Message
 
             foreach (var portfolio in portfolios)
             {
-                portfolioList.Portfolio.Add(new PBPortfolio { Name = portfolio.Name });
+                portfolioList.Portfolio.Add(new PBPortfolio { Name = portfolio.Name, HedgeDelay = portfolio.Delay, Threshold = portfolio.Threshold });
             }
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_PORTFOLIO_NEW, portfolioList);
@@ -274,8 +278,16 @@ namespace Micro.Future.Message
             PortfolioVMCollection.Clear();
             foreach (var portfolio in PB.Portfolio)
             {
-                PortfolioVMCollection.Add(new PortfolioVM (this) { Name = portfolio.Name, Delay = portfolio.HedgeDelay, Threshold = portfolio.Threshold });
-                //Console.WriteLine(PortfolioVMCollection.Count);
+                var port = PortfolioVMCollection.FirstOrDefault(p => p.Name == portfolio.Name);
+                if (port == null)
+                {
+                    PortfolioVMCollection.Add(new PortfolioVM(this) { Name = portfolio.Name, Delay = portfolio.HedgeDelay, Threshold = portfolio.Threshold });
+                }
+                else
+                {
+                    port.Delay = portfolio.HedgeDelay;
+                    port.Threshold = portfolio.Threshold;
+                }
             }
         }
 
@@ -340,12 +352,16 @@ namespace Micro.Future.Message
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }
+
         public void UpdatePortfolio(PortfolioVM pVM)
         {
+            var portfolioList = new PBPortfolioList();
             var portfolio = new PBPortfolio();
             portfolio.Name = pVM.Name;
             portfolio.HedgeDelay = pVM.Delay;
             portfolio.Threshold = pVM.Threshold;
+
+            portfolioList.Portfolio.Add(portfolio);
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_PORTFOLIO, portfolio);
         }
 
