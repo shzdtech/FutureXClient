@@ -582,5 +582,56 @@ namespace Micro.Future.UI
         {
             CounterRefreshUpdate();
         }
+        public void PCloseModeUpdate(bool bncStatus)
+        {
+            if (CallPutTDOptionVMCollection != null)
+            {
+                foreach (var vm in CallPutTDOptionVMCollection)
+                {
+                    if (vm.PutStrategyVM != null)
+                    {
+                        vm.PutStrategyVM.CloseMode = bncStatus;
+                        vm.PutStrategyVM.UpdateStrategy();
+                    }
+                }
+            }
+        }
+        public void CCloseModeUpdate(bool bncStatus)
+        {
+            if (CallPutTDOptionVMCollection != null)
+            {
+                foreach (var vm in CallPutTDOptionVMCollection)
+                {
+                    if (vm.CallStrategyVM != null)
+                    {
+                        vm.CallStrategyVM.CloseMode = bncStatus;
+                        vm.CallStrategyVM.UpdateStrategy();
+                    }
+                }
+            }
+        }
+
+        private void PCloseMode_Checked(object sender, RoutedEventArgs e)
+        {
+            PCloseModeUpdate(true);
+        }
+
+        private void PCloseMode_Unchecked(object sender, RoutedEventArgs e)
+        {
+            PCloseModeUpdate(false);
+
+        }
+
+        private void CCloseMode_Checked(object sender, RoutedEventArgs e)
+        {
+            CCloseModeUpdate(true);
+
+        }
+
+        private void CCloseMode_UnChecked(object sender, RoutedEventArgs e)
+        {
+            CCloseModeUpdate(false);
+
+        }
     }
 }

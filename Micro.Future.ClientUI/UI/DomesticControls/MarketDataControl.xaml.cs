@@ -78,8 +78,7 @@ namespace Micro.Future.UI
             _viewSource.Source = QuoteVMCollection;
             quoteListView.ItemsSource = _viewSource.View;
             mColumns = ColumnObject.GetColumns(quoteListView);
-            FilterSettingsWin.UserID = MarketDataHandler.MessageWrapper.User.Id;
-
+            FilterSettingsWin.UserID = MarketDataHandler.MessageWrapper?.User.Id;
             FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
             FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
             

@@ -409,7 +409,7 @@ namespace Micro.Future.UI
             }
             TradeHandler.OrderVMCollection.Clear();
             TradeHandler.QueryOrder();
-            FilterSettingsWin.UserID = TradeHandler.MessageWrapper.User.Id;
+            FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User.Id;
         }
     }
 }
