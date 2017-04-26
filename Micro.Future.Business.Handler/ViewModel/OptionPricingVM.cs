@@ -50,150 +50,79 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private double _bidDelta;
-        public double BidDelta
+
+        private double _delta;
+        public double Delta
         {
             get
             {
-                return _bidDelta;
+                return _delta;
             }
             set
             {
-                _bidDelta = value;
-                OnPropertyChanged(nameof(BidDelta));
+                _delta = value;
+                OnPropertyChanged(nameof(Delta));
             }
         }
 
-        private double _askDelta;
-        public double AskDelta
+
+        private double _Gamma;
+        public double Gamma
         {
             get
             {
-                return _askDelta;
+                return _Gamma;
             }
             set
             {
-                _askDelta = value;
-                OnPropertyChanged(nameof(AskDelta));
+                _Gamma = value;
+                OnPropertyChanged(nameof(Gamma));
             }
         }
 
-        private double _bidGamma;
-        public double BidGamma
+
+        private double _theta;
+        public double Theta
         {
             get
             {
-                return _bidGamma;
+                return _theta;
             }
             set
             {
-                _bidGamma = value;
-                OnPropertyChanged(nameof(BidGamma));
+                _theta = value;
+                OnPropertyChanged(nameof(Theta));
+                OnPropertyChanged(nameof(Theta365));
             }
         }
-
-        private double _askGamma;
-        public double AskGamma
+        public double Theta365
         {
             get
             {
-                return _askGamma;
+                return Theta / 365;
+            }
+        }
+
+        private double _vega;
+        public double Vega
+        {
+            get
+            {
+                return _vega;
             }
             set
             {
-                _askGamma = value;
-                OnPropertyChanged(nameof(AskGamma));
-            }
-        }
-
-        private double _bidTheta;
-        public double BidTheta
-        {
-            get
-            {
-                return _bidTheta;
-            }
-            set
-            {
-                _bidTheta = value;
-                OnPropertyChanged(nameof(BidTheta));
-                OnPropertyChanged(nameof(BidTheta365));
-            }
-        }
-        public double BidTheta365
-        {
-            get
-            {
-                return BidTheta / 365;
-            }
-        }
-
-        private double _askTheta;
-        public double AskTheta
-        {
-            get
-            {
-                return _askTheta;
-            }
-            set
-            {
-                _askTheta = value;
-                OnPropertyChanged(nameof(AskTheta));
-                OnPropertyChanged(nameof(AskTheta365));
-            }
-        }
-        public double AskTheta365
-        {
-            get
-            {
-                return AskTheta / 365;
-            }
-        }
-
-        private double _bidVega;
-        public double BidVega
-        {
-            get
-            {
-                return _bidVega;
-            }
-            set
-            {
-                _bidVega = value;
-                OnPropertyChanged(nameof(BidVega));
-                OnPropertyChanged(nameof(BidVega100));
-            }
-        }
-
-        public double BidVega100
-        {
-            get
-            {
-                return BidVega / 100;
-            }
-        }
-
-
-        private double _askVega;
-        public double AskVega
-        {
-            get
-            {
-                return _askVega;
-            }
-            set
-            {
-                _askVega = value;
-                OnPropertyChanged(nameof(AskVega));
-                OnPropertyChanged(nameof(AskVega100));
+                _vega = value;
+                OnPropertyChanged(nameof(Vega));
+                OnPropertyChanged(nameof(Vega100));
 
             }
         }
-        public double AskVega100
+        public double Vega100
         {
             get
             {
-                return AskVega / 100;
+                return Vega / 100;
             }
         }
     }
