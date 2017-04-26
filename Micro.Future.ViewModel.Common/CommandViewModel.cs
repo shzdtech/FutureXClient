@@ -298,4 +298,11 @@ namespace Micro.Future.ViewModel
             return _value.ToString();
         }
     }
+    public class DifferentChange : ViewModelBase
+    {
+        public DifferentChange() { }
+
+        //public DifferentChange(double val) { _value = val; }
+    }
+
 }

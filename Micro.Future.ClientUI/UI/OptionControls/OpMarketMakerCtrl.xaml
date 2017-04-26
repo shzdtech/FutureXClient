@@ -180,7 +180,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PAskTheta" Header="PAskTheta" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskTheta365,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" />
+                    <GridViewColumn x:Name="PAskTheta" Header="PAskTheta" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskTheta365,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PAskGamma" Header="PAskGamma" TextBlock.TextAlignment="Center" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskGamma,StringFormat=N4}"/>
                     <GridViewColumn x:Name="PAskVega" Header="PAskVega%" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskVega100,StringFormat=N2}"/>
                     <GridViewColumn x:Name="PAskDelta" Header="PAskDelta" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskDelta,StringFormat=N2}"/>

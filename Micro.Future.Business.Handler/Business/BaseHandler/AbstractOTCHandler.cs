@@ -504,6 +504,11 @@ namespace Micro.Future.Message
                 strategyVM.PricingModel = strategy.PricingModel;
                 strategyVM.BaseContract = strategy.BaseContract;
                 strategyVM.Portfolio = strategy.Portfolio;
+                strategyVM.MaxAutoTrade = strategy.MaxAutoTrade;
+                strategyVM.BidNotCross = strategy.BidNotCross;
+                strategy.AskCounter = strategy.AskCounter;
+                strategy.BidCounter = strategy.BidCounter;
+                strategy.CloseMode = strategy.CloseMode;
                 strategyVM.PricingContractParams.Clear();
                 foreach (var wtContract in strategy.PricingContracts)
                 {

@@ -102,6 +102,7 @@ namespace Micro.Future.UI
             ivolNode.Children.Add(ColumnObject.CreateColumn(CMidIV));
             ivolNode.Children.Add(ColumnObject.CreateColumn(TheoAskVol));
             ivolNode.Children.Add(ColumnObject.CreateColumn(TheoBidVol));
+            ivolNode.Children.Add(ColumnObject.CreateColumn(TheoMidVol));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(PAskDelta));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(CAskDelta));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(PAskVega));
@@ -136,8 +137,8 @@ namespace Micro.Future.UI
             QTNode.Children.Add(ColumnObject.CreateColumn(CAODepth));
             QTNode.Children.Add(ColumnObject.CreateColumn(PBidCnt));
             QTNode.Children.Add(ColumnObject.CreateColumn(PAskCnt));
-            QTNode.Children.Add(ColumnObject.CreateColumn(PBidCnt));
             QTNode.Children.Add(ColumnObject.CreateColumn(CAskCnt));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CBidCnt));
             QTNode.Children.Add(ColumnObject.CreateColumn(PNotCross));
             QTNode.Children.Add(ColumnObject.CreateColumn(CNotCross));
             QTNode.Children.Add(ColumnObject.CreateColumn(PCloseMode));
