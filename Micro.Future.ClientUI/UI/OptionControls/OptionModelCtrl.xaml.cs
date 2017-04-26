@@ -39,6 +39,7 @@ namespace Micro.Future.UI
             WMSettingsLV.revertCurrentBtn.Click += RevertCurrentBtn_Click;
             WMSettingsLV.setReferenceBtn.Click += SetCurrentBtn_Click;
             OpMarketControl.adjustment2.ValueChanged += Adjustment2_ValueChanged;
+            OpMarketControl.contract2.SelectionChanged += Contract2CB1_SelectionChanged;
         }
 
         private void Adjustment2_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -48,6 +49,12 @@ namespace Micro.Future.UI
                 VolCurvLV.TempCurveReset();
             }
         }
+        private void Contract2CB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (OpMarketControl.contract2.SelectedValue!=null)
+                VolCurvLV.TempCurveReset();
+        }
+
         private LayoutAnchorablePane _pane;
         public LayoutAnchorablePane AnchorablePane
         {
