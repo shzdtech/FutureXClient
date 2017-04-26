@@ -210,7 +210,7 @@
                     <GridViewColumn x:Name="PCloseMode" Header="PCloseMode" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding PutStrategyVM.CloseMode}" Command="{Binding PutStrategyVM.UpdateCommand}" Checked="PCloseMode_Checked" Unchecked="PCloseMode_Unchecked"></CheckBox>
+                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding PutStrategyVM.CloseMode}" Command="{Binding PutStrategyVM.UpdateCommand}"></CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -223,7 +223,7 @@
                     <GridViewColumn x:Name="CCloseMode" Header="CCloseMode" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding CallStrategyVM.CloseMode}" Command="{Binding CallStrategyVM.UpdateCommand}" Checked="CCloseMode_Checked" Unchecked="CCloseMode_UnChecked" ></CheckBox>
+                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding CallStrategyVM.CloseMode}" Command="{Binding CallStrategyVM.UpdateCommand}"></CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
