@@ -26,7 +26,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class ExecutionControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
-        private IList< ColumnObject> mColumns;
+        private IList<ColumnObject> mColumns;
         private const string DEFAULT_ID = "394B67D4-87AA-47DB-B1DD-5A213714D02E";
 
         public BaseTraderHandler TradeHandler { get; set; }
@@ -44,7 +44,7 @@ namespace Micro.Future.UI
         }
         public IEnumerable<OrderStatus> OrderStatuses { get; set; }
 
-        public ExecutionControl(string persisitentId, string filterId, BaseTraderHandler tradeHander, string tabTitle = null, string exchange = null, string underlying = null, string contract = null)
+        public ExecutionControl(string persisitentId, string filterId, BaseTraderHandler tradeHander, string tabTitle = null, string exchange = null, string underlying = null, string contract = null, string portfolio = null)
         {
             InitializeComponent();
             TradeHandler = tradeHander;
@@ -58,13 +58,14 @@ namespace Micro.Future.UI
             FilterSettingsWin.FilterExchange = exchange;
             FilterSettingsWin.FilterUnderlying = underlying;
             FilterSettingsWin.FilterContract = contract;
-
+            FilterSettingsWin.FilterPortfolio = portfolio;
         }
 
         public ExecutionControl()
         {
             InitializeComponent();
 
+            FilterSettingsWin.OnFiltering += _executionSettingsWin_OnFiltering;
             FilterSettingsWin.PersistanceId = PersistanceId;
             FilterSettingsWin.FilterId = DEFAULT_ID;
         }
@@ -72,7 +73,7 @@ namespace Micro.Future.UI
         public ICollectionViewLiveShaping ExecutionChanged { get; set; }
 
 
-        private void _executionSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
+        private void _executionSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract, string portfolio)
         {
             if (AnchorablePane != null)
                 AnchorablePane.SelectedContent.Title = tabTitle;
@@ -143,6 +144,7 @@ namespace Micro.Future.UI
             var exchange = FilterSettingsWin.FilterExchange;
             var underlying = FilterSettingsWin.FilterUnderlying;
             var contract = FilterSettingsWin.FilterContract;
+            var portfolio = FilterSettingsWin.FilterPortfolio;
 
             ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
@@ -155,6 +157,7 @@ namespace Micro.Future.UI
                 if (evm.Exchange.ContainsAny(exchange) &&
                     evm.Contract.ContainsAny(contract) &&
                     evm.Contract.ContainsAny(underlying) &&
+                    evm.Portfolio.ContainsAny(portfolio) &&
                     ((OrderStatuses == null) || !OrderStatuses.Any() || OrderStatuses.Contains(evm.Status)))
                 {
                     return true;
@@ -191,13 +194,13 @@ namespace Micro.Future.UI
         {
             OrderStatuses = statuses;
             Filter();
-            
+
         }
 
         public void Save()
         {
             FilterSettingsWin.Save();
-            if (OrderStatuses!=null)
+            if (OrderStatuses != null)
             {
                 foreach (var status in OrderStatuses)
                 {
@@ -380,13 +383,13 @@ namespace Micro.Future.UI
                 if (fs.Id == DEFAULT_ID)
                     found = true;
                 var statuses = ClientDbContext.GetOrderStatus(userId, fs.Id);
-                executionctrl.FilterByStatus(statuses.Select(c=> (OrderStatus)c));
+                executionctrl.FilterByStatus(statuses.Select(c => (OrderStatus)c));
                 if (statuses.Contains((int)OrderStatus.OPENED))
                 {
                     var titleopen = WPFUtility.GetLocalizedString("Opened", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
                     executionctrl.FilterSettingsWin.Title += "  " + titleopen + " ";
                 }
-                else if((statuses.Contains((int)OrderStatus.ALL_TRADED)) || (statuses.Contains((int)OrderStatus.PARTIAL_TRADING)))
+                else if ((statuses.Contains((int)OrderStatus.ALL_TRADED)) || (statuses.Contains((int)OrderStatus.PARTIAL_TRADING)))
                 {
                     var titletraded = WPFUtility.GetLocalizedString("TRADED", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
                     executionctrl.FilterSettingsWin.Title += "  " + titletraded + " ";

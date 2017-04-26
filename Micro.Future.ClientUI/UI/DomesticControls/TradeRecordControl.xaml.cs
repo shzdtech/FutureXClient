@@ -57,16 +57,16 @@ namespace Micro.Future.UI
         public TradeRecordControl() : this(DEFAULT_ID, null)
         {
             InitializeComponent();
-
+            FilterSettingsWin.OnFiltering += FilterSettingsWin_OnFiltering;
             FilterSettingsWin.PersistanceId = PersistanceId;
             FilterSettingsWin.FilterId = DEFAULT_ID;
         }
 
-        private void FilterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
+        private void FilterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract, string portfolio)
         {
             if (AnchorablePane != null)
                 AnchorablePane.SelectedContent.Title = tabTitle;
-            Filter(tabTitle, exchange, underlying, contract);
+            Filter(tabTitle, exchange, underlying, contract, portfolio);
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -113,7 +113,7 @@ namespace Micro.Future.UI
             };
         }
 
-        public void Filter(string tabTitle, string exchange, string underlying, string contract)
+        public void Filter(string tabTitle, string exchange, string underlying, string contract, string portfolio)
         {
             if (TradeTreeView == null)
             {
@@ -125,7 +125,7 @@ namespace Micro.Future.UI
             FilterSettingsWin.FilterExchange = exchange;
             FilterSettingsWin.FilterUnderlying = underlying;
             FilterSettingsWin.FilterContract = contract;
-
+            FilterSettingsWin.FilterPortfolio = portfolio;
 
             ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
@@ -137,7 +137,8 @@ namespace Micro.Future.UI
 
                 if (tvm.Exchange.ContainsAny(exchange) &&
                     tvm.Contract.ContainsAny(contract) &&
-                    tvm.Contract.ContainsAny(underlying))
+                    tvm.Contract.ContainsAny(underlying) &&
+                    tvm.Portfolio.ContainsAny(portfolio))
                 {
                     return true;
                 }
@@ -323,7 +324,7 @@ namespace Micro.Future.UI
             {
                 var traderecordctrl = new TradeRecordControl(PersistanceId, fs.Id, TradeHandler);
                 AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
-                traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+                traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract, fs.Portfolio);
 
                 if (fs.Id == DEFAULT_ID)
                     found = true;

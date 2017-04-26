@@ -16,6 +16,7 @@ namespace Micro.Future.LocalStorage.DataObject
         public string Contract { get; set; }
 
         public string Underlying { get; set; }
+        public string Portfolio { get; set; }
 
         public string Title { get; set; }
 

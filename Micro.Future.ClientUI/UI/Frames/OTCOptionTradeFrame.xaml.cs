@@ -150,7 +150,7 @@ namespace Micro.Future.UI
         {
             if (!_ctpMdSignIner.MessageWrapper.HasSignIn)
             {
-                ctpLoginStatus.Prompt = "正在连接CTP行情服务器...";
+                ctpLoginStatus.Prompt = "正在连接OTC行情服务器...";
                 _ctpMdSignIner.SignIn();
             }
         }
@@ -159,7 +159,7 @@ namespace Micro.Future.UI
         {
             if (!_ctpTradeSignIner.MessageWrapper.HasSignIn)
             {
-                ctpTradeLoginStatus.Prompt = "正在连接CTP交易服务器...";
+                ctpTradeLoginStatus.Prompt = "正在连接OTC交易服务器...";
                 _ctpTradeSignIner.SignIn();
             }
         }

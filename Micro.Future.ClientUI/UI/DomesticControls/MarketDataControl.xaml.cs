@@ -29,7 +29,7 @@ namespace Micro.Future.UI
     public partial class MarketDataControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
         private const string DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33A";
-        private IList< ColumnObject> mColumns;
+        private IList<ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public BaseMarketDataHandler MarketDataHandler { get; set; }
 
@@ -58,17 +58,18 @@ namespace Micro.Future.UI
             InitializeComponent();
             MarketDataHandler = marketDataHandler;
             if (MarketDataHandler != null)
-            Initialize();
+                Initialize();
+
             FilterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
             PersistanceId = persisitentId;
-            FilterSettingsWin.PersistanceId = persisitentId; 
+            FilterSettingsWin.PersistanceId = persisitentId;
             FilterSettingsWin.FilterId = filterId;
         }
 
         public MarketDataControl()
         {
             InitializeComponent();
-
+            FilterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
             FilterSettingsWin.PersistanceId = PersistanceId;
             FilterSettingsWin.FilterId = DEFAULT_ID;
         }
@@ -81,7 +82,7 @@ namespace Micro.Future.UI
             FilterSettingsWin.UserID = MarketDataHandler.MessageWrapper?.User.Id;
             FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
             FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
-            
+
             QuoteChanged = _viewSource.View as ICollectionViewLiveShaping;
             if (QuoteChanged.CanChangeLiveFiltering)
             {
@@ -102,7 +103,7 @@ namespace Micro.Future.UI
             if (userId == null)
                 return;
 
-            var contracts = ClientDbContext.GetUserContracts(userId, FilterSettingsWin.FilterId).Select(c=>new ContractKeyVM(string.Empty, c));
+            var contracts = ClientDbContext.GetUserContracts(userId, FilterSettingsWin.FilterId).Select(c => new ContractKeyVM(string.Empty, c));
             if (contracts.Any())
             {
                 try
@@ -119,7 +120,7 @@ namespace Micro.Future.UI
         }
 
 
-        private void _fiterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
+        private void _fiterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract, string portfolio)
         {
             if (AnchorablePane != null)
                 AnchorablePane.SelectedContent.Title = tabTitle;
@@ -340,7 +341,7 @@ namespace Micro.Future.UI
         {
             if (e.Key == System.Windows.Input.Key.Enter)
             {
-                if(!string.IsNullOrEmpty(contractTextBox.Filter))
+                if (!string.IsNullOrEmpty(contractTextBox.Filter))
                 {
                     AddQuote();
                 }

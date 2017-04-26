@@ -55,13 +55,13 @@ namespace Micro.Future.UI
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
             win.Show();
         }
-        private void _filterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
+        private void _filterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract,string portfolio)
         {
             if (LayoutContent != null)
                 LayoutContent.Title = _filterSettingsWin.FilterTabTitle;
-            Filter(tabTitle, exchange, underlying, contract);
+            Filter(tabTitle, exchange, underlying, contract, portfolio);
         }
-        public void Filter(string tabTitle, string exchange, string underlying, string contract)
+        public void Filter(string tabTitle, string exchange, string underlying, string contract, string portfolio)
         {
             if (PositionListView == null)
             {
@@ -80,7 +80,8 @@ namespace Micro.Future.UI
 
                 if (pvm.Exchange.ContainsAny(exchange) &&
                     pvm.Contract.ContainsAny(underlying) &&                    
-                    pvm.Contract.ContainsAny(contract))
+                    pvm.Contract.ContainsAny(contract) &&
+                    pvm.Portfolio.ContainsAny(portfolio))
                 {
                     return true;
                 }

@@ -134,7 +134,7 @@ namespace Micro.Future.LocalStorage
             return now;
         }
 
-        public static void SaveFilterSettings(string userID, string ctrlID, string id, string title, string exchange, string contract, string underlying)
+        public static void SaveFilterSettings(string userID, string ctrlID, string id, string title, string exchange, string contract, string underlying, string portfolio)
         {
             using (var clientCtx = new ClientDbContext())
             {
@@ -154,7 +154,7 @@ namespace Micro.Future.LocalStorage
                 filterinfo.Underlying = underlying;
                 filterinfo.Contract = contract;
                 filterinfo.UserID = userID;
-
+                filterinfo.Portfolio = portfolio;
                 clientCtx.SaveChanges();
             }
         }

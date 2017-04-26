@@ -119,7 +119,7 @@ namespace Micro.Future.UI
         }
 
 
-        private void _fiterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
+        private void _fiterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract, string portfolio)
         {
             if (AnchorablePane != null)
                 AnchorablePane.SelectedContent.Title = tabTitle;

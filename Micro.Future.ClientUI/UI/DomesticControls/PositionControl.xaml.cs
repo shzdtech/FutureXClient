@@ -105,18 +105,18 @@ namespace Micro.Future.UI
         public PositionControl() 
         {
             InitializeComponent();
-
+            FilterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
             FilterSettingsWin.PersistanceId = PersistanceId;
             FilterSettingsWin.FilterId = DEFAULT_ID;
         }
         public ICollectionViewLiveShaping PositionChanged { get; set; }
-        private void _filterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract)
+        private void _filterSettingsWin_OnFiltering(string tabTitle, string exchange, string underlying, string contract, string portfolio)
         {
             //if (LayoutContent != null)
             //    LayoutContent.Title = _filterSettingsWin.FilterTabTitle;
             if (AnchorablePane != null)
                 AnchorablePane.SelectedContent.Title = tabTitle;
-            Filter(tabTitle, exchange, underlying, contract);
+            Filter(tabTitle, exchange, underlying, contract, portfolio);
         }
 
         public static event Action<PositionVM> OnPositionSelected;
@@ -141,7 +141,7 @@ namespace Micro.Future.UI
             {
                 var positionctrl = new PositionControl(PersistanceId, fs.Id, TradeHandler, MarketDataHandler);
                 AnchorablePane.AddContent(positionctrl).Title = fs.Title;
-                positionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
+                positionctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract, fs.Portfolio);
 
                 if (fs.Id == DEFAULT_ID)
                     found = true;
@@ -352,7 +352,7 @@ namespace Micro.Future.UI
             OnPositionSelected?.Invoke(positionVM);
         }
 
-        public void Filter(string tabTitle, string exchange, string underlying, string contract)
+        public void Filter(string tabTitle, string exchange, string underlying, string contract, string portfolio)
         {
             if (PositionListView == null)
             {
@@ -364,6 +364,8 @@ namespace Micro.Future.UI
             FilterSettingsWin.FilterExchange = exchange;
             FilterSettingsWin.FilterUnderlying = underlying;
             FilterSettingsWin.FilterContract = contract;
+            FilterSettingsWin.FilterPortfolio = portfolio;
+
 
             ICollectionView view = _viewSource.View;
             view.Filter = delegate (object o)
@@ -375,7 +377,8 @@ namespace Micro.Future.UI
 
                 if (pvm.Exchange.ContainsAny(exchange) &&
                     pvm.Contract.ContainsAny(underlying) &&
-                    pvm.Contract.ContainsAny(contract))
+                    pvm.Contract.ContainsAny(contract) &&
+                    pvm.Portfolio.ContainsAny(portfolio))
                 {
                     return true;
                 }

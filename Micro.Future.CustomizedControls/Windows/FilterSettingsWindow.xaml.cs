@@ -16,7 +16,7 @@ namespace Micro.Future.Windows
 
     public partial class FilterSettingsWindow : Window, IReloadData
     {
-        public event Action<string, string, string, string> OnFiltering;
+        public event Action<string, string, string, string, string> OnFiltering;
 
         public FilterSettingsWindow()
         {
@@ -70,15 +70,14 @@ namespace Micro.Future.Windows
             }
             set { contractTxt.Text = value; }
         }
-
-        //public string FilterPortfolio
-        //{
-        //    get
-        //    {
-        //        return portfolioTxt.Text;
-        //    }
-        //    set { portfolioTxt.Text = value; }
-        //}
+        public string FilterPortfolio
+        {
+            get
+            {
+                return portfolioTxt.Text;
+            }
+            set { portfolioTxt.Text = value; }
+        }
 
         public string FilterId
         {
@@ -94,13 +93,13 @@ namespace Micro.Future.Windows
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             Hide();
-            OnFiltering?.Invoke(FilterTabTitle, FilterExchange, FilterUnderlying, FilterContract);
+            OnFiltering?.Invoke(FilterTabTitle, FilterExchange, FilterUnderlying, FilterContract, FilterPortfolio);
             Save();
         }
 
         public void Save()
         {
-            ClientDbContext.SaveFilterSettings(UserID, PersistanceId, FilterId, FilterTabTitle, FilterExchange, FilterContract, FilterUnderlying);
+            ClientDbContext.SaveFilterSettings(UserID, PersistanceId, FilterId, FilterTabTitle, FilterExchange, FilterContract, FilterUnderlying, FilterPortfolio);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -122,7 +121,7 @@ namespace Micro.Future.Windows
             exchangecombo.Text = "";
             underlyingTxt.Text = "";
             contractTxt.Text = "";
-            //portfolioTxt.Text = "";
+            portfolioTxt.Text = "";
 
         }
 
