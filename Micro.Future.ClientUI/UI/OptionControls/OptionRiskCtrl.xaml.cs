@@ -37,6 +37,12 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+            var domesticTradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            var otcTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+            domesticPositionsWindow.TradeHandler = domesticTradeHandler;
+            otcPositionsWindow.TradeHandler = otcTradeHandler;
+            domesticTradeWindow.TradeHandler = domesticTradeHandler;
+            otcTradeWindow.TradeHandler = otcTradeHandler;
             marketDataLV.MarketDataHandler = marketdataHandler;
             portfolioCtl.portfolioCB.SelectionChanged += PortfolioCB_SelectionChanged;
         }

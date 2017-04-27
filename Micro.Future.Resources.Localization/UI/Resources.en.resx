@@ -789,4 +789,16 @@
   <data name="OTCTrade" xml:space="preserve">
     <value>OTCTrade</value>
   </data>
+  <data name="DomesticPosition" xml:space="preserve">
+    <value>DomesticPosition</value>
+  </data>
+  <data name="DomesticTradeRecord" xml:space="preserve">
+    <value>DomesticTradeRecord</value>
+  </data>
+  <data name="OTCPosition" xml:space="preserve">
+    <value>OTCPosition</value>
+  </data>
+  <data name="OTCTradeRecord" xml:space="preserve">
+    <value>OTCTradeRecord</value>
+  </data>
 </root>

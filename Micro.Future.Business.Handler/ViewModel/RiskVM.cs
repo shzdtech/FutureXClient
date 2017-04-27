@@ -6,20 +6,8 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.ViewModel 
 {
-    public class RiskVM : ViewModelBase
+    public class RiskVM : ContractKeyVM
     {
-
-        private double _value;
-        public double Value
-        {
-            get { return _value; }
-            set
-            {
-                _value = value;
-                OnPropertyChanged("Value");
-            }
-        }
-
         private double _delta;
         public double Delta
         {
@@ -62,25 +50,14 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("Theta");
             }
         }
-        private double _positionDelta;
-        public double PositionDelta
+        private double _position;
+        public double Position
         {
-            get { return _positionDelta; }
+            get { return _position; }
             set
             {
-                _positionDelta = value;
-                OnPropertyChanged("PositionDelta");
-            }
-        }
-
-        private double _positionVega;
-        public double PositionVega
-        {
-            get { return _positionVega; }
-            set
-            {
-                _positionVega = value;
-                OnPropertyChanged("PositionVega");
+                _position = value;
+                OnPropertyChanged("Position");
             }
         }
     }

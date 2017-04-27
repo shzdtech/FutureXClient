@@ -789,4 +789,16 @@
   <data name="OTCTrade" xml:space="preserve">
     <value>场外交易</value>
   </data>
+  <data name="DomesticPosition" xml:space="preserve">
+    <value>场内持仓</value>
+  </data>
+  <data name="DomesticTradeRecord" xml:space="preserve">
+    <value>场内成交</value>
+  </data>
+  <data name="OTCPosition" xml:space="preserve">
+    <value>场外持仓</value>
+  </data>
+  <data name="OTCTradeRecord" xml:space="preserve">
+    <value>场外成交</value>
+  </data>
 </root>

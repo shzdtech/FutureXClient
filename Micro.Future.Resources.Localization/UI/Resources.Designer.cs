@@ -547,6 +547,24 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 场内持仓 的本地化字符串。
+        /// </summary>
+        internal static string DomesticPosition {
+            get {
+                return ResourceManager.GetString("DomesticPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 场内成交 的本地化字符串。
+        /// </summary>
+        internal static string DomesticTradeRecord {
+            get {
+                return ResourceManager.GetString("DomesticTradeRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 内盘交易 的本地化字符串。
         /// </summary>
         internal static string DomesticTradingMarket {
@@ -1222,11 +1240,29 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 场外持仓 的本地化字符串。
+        /// </summary>
+        internal static string OTCPosition {
+            get {
+                return ResourceManager.GetString("OTCPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 场外交易 的本地化字符串。
         /// </summary>
         internal static string OTCTrade {
             get {
                 return ResourceManager.GetString("OTCTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 场外成交 的本地化字符串。
+        /// </summary>
+        internal static string OTCTradeRecord {
+            get {
+                return ResourceManager.GetString("OTCTradeRecord", resourceCulture);
             }
         }
         
