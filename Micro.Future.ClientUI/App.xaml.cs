@@ -72,7 +72,7 @@ namespace Micro.Future
 
         private void AppGlobalDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            //e.Handled = true;
+            e.Handled = true;
         }
 
         private SignInOptions GenSignInOption(IDictionary<string, string> configDict)

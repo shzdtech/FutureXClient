@@ -37,6 +37,14 @@ namespace Micro.Future.UI
         public OptionRiskCtrl()
         {
             InitializeComponent();
+            var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+            var domesticTradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            var otcTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+            domesticPositionsWindow.TradeHandler = domesticTradeHandler;
+            otcPositionsWindow.TradeHandler = otcTradeHandler;
+            domesticTradeWindow.TradeHandler = domesticTradeHandler;
+            otcTradeWindow.TradeHandler = otcTradeHandler;
+            marketDataLV.MarketDataHandler = marketdataHandler;
             marketDataLV.AnchorablePane = quotePane;
             quotePane.Children[0].Title = WPFUtility.GetLocalizedString("Quote", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             domesticPositionsWindow.AnchorablePane = domesticPositionPane;
@@ -47,14 +55,6 @@ namespace Micro.Future.UI
             domesticTradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             otcTradeWindow.AnchorablePane = otcTradePane;
             otcTradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
-            var domesticTradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
-            var otcTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
-            domesticPositionsWindow.TradeHandler = domesticTradeHandler;
-            otcPositionsWindow.TradeHandler = otcTradeHandler;
-            domesticTradeWindow.TradeHandler = domesticTradeHandler;
-            otcTradeWindow.TradeHandler = otcTradeHandler;
-            marketDataLV.MarketDataHandler = marketdataHandler;
             portfolioCtl.portfolioCB.SelectionChanged += PortfolioCB_SelectionChanged;
 
         }
