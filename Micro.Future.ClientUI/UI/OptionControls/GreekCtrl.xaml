@@ -23,6 +23,12 @@
                     <GridViewColumn Header="theta" DisplayMemberBinding="{Binding Theta}"/>
                 </GridView>
             </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu Name="QuoteContextMenu" StaysOpen="True">
+                    <MenuItem Header="QueryRisk" Click="QueryRisk_Click"/>
+                    <Separator />
+                </ContextMenu>
+            </ListView.ContextMenu>
         </ListView>
     </Grid>
 </UserControl>

@@ -289,6 +289,26 @@ namespace Micro.Future.UI
                 Task.Run(() => { Task.Delay(100); Dispatcher.Invoke(() => updownctrl.CommitInput()); });
             }
         }
+        public void AutoMaxTradeUpdate(int autoMaX)
+        {
+            if (CallPutTDOptionVMCollection != null)
+            {
+                foreach (var vm in CallPutTDOptionVMCollection)
+                {
+                    if (vm.CallStrategyVM != null)
+                    {
+                        vm.CallStrategyVM.MaxAutoTrade = autoMaX;
+                        vm.CallStrategyVM.UpdateStrategy();
+                    }
+                    if (vm.PutStrategyVM != null)
+                    {
+                        vm.PutStrategyVM.MaxAutoTrade = autoMaX;
+                        vm.PutStrategyVM.UpdateStrategy();
+                    }
+                }
+            }
+        }
+
         private void MaxAutoTradeValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var updownctrl = sender as IntegerUpDown;
@@ -298,8 +318,7 @@ namespace Micro.Future.UI
                 if (strategyVM != null)
                 {
                     int maxAutoTrade = (int)e.NewValue;
-                    strategyVM.MaxAutoTrade = maxAutoTrade;
-                    strategyVM.UpdateStrategy();
+                    AutoMaxTradeUpdate(maxAutoTrade);
                 }
             }
         }

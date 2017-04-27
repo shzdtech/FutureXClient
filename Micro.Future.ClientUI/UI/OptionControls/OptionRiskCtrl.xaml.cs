@@ -2,6 +2,7 @@
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
+using Micro.Future.Resources.Localization;
 using Micro.Future.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace Micro.Future.UI
     /// <summary>
     /// UserControl1.xaml 的交互逻辑
     /// </summary>
-    public partial class OptionRiskCtrl : UserControl, ILayoutAnchorableControl
+    public partial class OptionRiskCtrl : UserControl, ILayoutAnchorableControl, IReloadData
 
     {
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
@@ -36,6 +37,16 @@ namespace Micro.Future.UI
         public OptionRiskCtrl()
         {
             InitializeComponent();
+            marketDataLV.AnchorablePane = quotePane;
+            quotePane.Children[0].Title = WPFUtility.GetLocalizedString("Quote", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            domesticPositionsWindow.AnchorablePane = domesticPositionPane;
+            domesticPositionPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            otcPositionsWindow.AnchorablePane = otcPositionPane;
+            otcPositionPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            domesticTradeWindow.AnchorablePane = domesticTradePane;
+            domesticTradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            otcTradeWindow.AnchorablePane = otcTradePane;
+            otcTradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
             var domesticTradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             var otcTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
@@ -45,6 +56,7 @@ namespace Micro.Future.UI
             otcTradeWindow.TradeHandler = otcTradeHandler;
             marketDataLV.MarketDataHandler = marketdataHandler;
             portfolioCtl.portfolioCB.SelectionChanged += PortfolioCB_SelectionChanged;
+
         }
         private async void PortfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -64,7 +76,27 @@ namespace Micro.Future.UI
                 }
             }
             marketDataLV.quoteListView.ItemsSource = QuoteVMCollection;
+            var riskVMlist = await _otcOptionHandler.QueryRiskAsync(portfolio);
+            greeksControl.GreekListView.ItemsSource = riskVMlist;
+            //domesticPositionsWindow.FilterByPortfolio(portfolio);
+            //otcPositionsWindow.FilterByPortfolio(portfolio);
+            //domesticTradeWindow.FilterByPortfolio(portfolio);
+            //otcTradeWindow.FilterByPortfolio(portfolio);
         }
+
+        public void Initialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReloadData()
+        {
+            otcTradeWindow.ReloadData();
+            domesticPositionsWindow.ReloadData();
+            otcPositionsWindow.ReloadData();
+            domesticTradeWindow.ReloadData();
+        }
+
         private LayoutAnchorablePane _pane;
         public LayoutAnchorablePane AnchorablePane
         {
@@ -76,6 +108,19 @@ namespace Micro.Future.UI
             {
                 _pane = value;
                 portfolioCtl.LayoutContent = _pane.SelectedContent;
+            }
+        }
+
+        public string PersistanceId
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
             }
         }
     }

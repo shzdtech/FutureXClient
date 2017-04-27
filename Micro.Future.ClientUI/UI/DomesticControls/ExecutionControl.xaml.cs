@@ -166,6 +166,30 @@ namespace Micro.Future.UI
                 return false;
             };
         }
+        public void FilterByPortfolio(string portfolio)
+        {
+            if (ExecutionTreeView == null)
+            {
+                return;
+            }
+
+            ICollectionView view = CollectionViewSource.GetDefaultView(ExecutionTreeView.ItemsSource);
+            view.Filter = delegate (object o)
+            {
+                if (portfolio == null)
+                    return true;
+
+                OrderVM ovm = o as OrderVM;
+
+                if (ovm.Contract.Contains(portfolio))
+                {
+                    return true;
+                }
+
+                return false;
+            };
+        }
+
         public void FilterByContract(string contract)
         {
             if (ExecutionTreeView == null)

@@ -386,7 +386,6 @@ namespace Micro.Future.UI
                 return false;
             };
         }
-
         private void FilterByDirection(PositionDirectionType? direction)
         {
             if (PositionListView == null)
@@ -403,6 +402,30 @@ namespace Micro.Future.UI
                 PositionVM pvm = o as PositionVM;
 
                 if (direction == pvm.Direction)
+                {
+                    return true;
+                }
+
+                return false;
+            };
+        }
+
+        public void FilterByPortfolio(string portfolio)
+        {
+            if (PositionListView == null)
+            {
+                return;
+            }
+
+            ICollectionView view = _viewSource.View;
+            view.Filter = delegate (object o)
+            {
+                if (portfolio == null)
+                    return true;
+
+                PositionVM pvm = o as PositionVM;
+
+                if (portfolio == pvm.Portfolio)
                 {
                     return true;
                 }

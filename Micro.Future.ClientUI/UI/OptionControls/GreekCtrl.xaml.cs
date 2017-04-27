@@ -33,5 +33,10 @@ namespace Micro.Future.UI
                 GridViewUtility.Sort(head.Column, GreekListView.Items);
             }
         }
+
+        private void QueryRisk_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

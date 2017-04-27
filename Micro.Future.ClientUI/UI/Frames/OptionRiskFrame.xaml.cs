@@ -143,14 +143,11 @@ namespace Micro.Future.UI
             LoginTaskSource.TrySetException(obj);
         }
 
-        private async void _tdSignIner_OnLogged(IUserInfo obj)
+        private void _tdSignIner_OnLogged(IUserInfo obj)
         {
             _otcOptionTradeHandler.RegisterMessageWrapper(_otcOptionHandler.MessageWrapper);
-            await _otcOptionHandler.QueryStrategyAsync();
-            await _otcOptionHandler.QueryAllModelParamsAsync();
-            await _otcOptionHandler.SyncContractInfoAsync();
-
             LoginTaskSource.TrySetResult(true);
+            Reload();
         }
         private void TDServerLogin()
         {
@@ -158,6 +155,10 @@ namespace Micro.Future.UI
             {
                 OptionLoginStatus.Prompt = "正在连接TradingDesk服务器...";
                 _otcOptionSignIner.SignIn();
+            }
+           else
+            {
+                Reload();
             }
         }
         public OptionRiskFrame()
@@ -171,6 +172,10 @@ namespace Micro.Future.UI
         private void OptionLoginStatus_OnConnButtonClick(object sender, EventArgs e)
         {
             TDServerLogin();
+        }
+        private void Reload()
+        {
+            optionRiskCtrl.ReloadData();
         }
     }
 }
