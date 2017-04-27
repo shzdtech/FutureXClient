@@ -38,10 +38,13 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+            var otcmarketdataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
             var domesticTradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             var otcTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
             domesticPositionsWindow.TradeHandler = domesticTradeHandler;
+            domesticPositionsWindow.MarketDataHandler = marketdataHandler;
             otcPositionsWindow.TradeHandler = otcTradeHandler;
+            otcPositionsWindow.MarketDataHandler = otcmarketdataHandler;
             domesticTradeWindow.TradeHandler = domesticTradeHandler;
             otcTradeWindow.TradeHandler = otcTradeHandler;
             marketDataLV.MarketDataHandler = marketdataHandler;
@@ -64,10 +67,11 @@ namespace Micro.Future.UI
             var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
             var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
                     .Select(c => c.BaseContract).Distinct().ToList();
-            var pricingContractParams = strategyVMCollection.Select(c => c.PricingContractParams).Distinct();
-            //var pricingContracts = pricingContractParams.Select(c => c.)
+            var pricingContractList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
+                .SelectMany(c => c.PricingContractParams).Select(c=>c.Contract).Distinct().ToList();
+            var mixedContractList = basecontractsList.Union(pricingContractList).ToList();
             QuoteVMCollection.Clear();
-            foreach (var contract in basecontractsList)
+            foreach (var contract in mixedContractList)
             {
                 var mktDataVM = await marketDataLV.MarketDataHandler.SubMarketDataAsync(contract);
                 if (mktDataVM != null)

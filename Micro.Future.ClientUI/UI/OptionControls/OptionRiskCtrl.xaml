@@ -19,7 +19,7 @@
         </avalonDock:DockingManager.Theme>
         <avalonDock:LayoutRoot>
             <avalonDock:LayoutPanel Orientation="Horizontal">
-                <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="0.45*" >
+                <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="0.5*" >
                     <avalonDock:LayoutAnchorablePane x:Name="portfolioselectPane">
                         <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Portfolio}" CanClose="False" CanAutoHide="True">
                             <c:PortfolioSelectCtrl x:Name="portfolioCtl"/>

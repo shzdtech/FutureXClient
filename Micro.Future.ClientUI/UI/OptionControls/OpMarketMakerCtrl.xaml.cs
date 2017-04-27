@@ -204,6 +204,9 @@ namespace Micro.Future.UI
         }
         private async void expireDateCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (AutoOrder_CheckBox.IsChecked.Value)
+                AutoOrderUpdate(false);
+
             var exchange = exchangeCB.SelectedValue?.ToString();
             if (exchange != null)
             {
@@ -246,8 +249,10 @@ namespace Micro.Future.UI
                         volModelLB.Content = null;
                         riskFree_Interest.DataContext = null;
                         adjustment.DataContext = null;
+                        AutoOrder_CheckBox.DataContext = null;
                         underlyingEX1.ItemsSource = null;
                         underlyingCB1.ItemsSource = null;
+                        
                         underlyingContractCB1.ItemsSource = null;
                         underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
                         pricingModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("pm");
@@ -268,7 +273,7 @@ namespace Micro.Future.UI
                                 underlyingContractCB1.SelectedValue = futurecontract;
                                 volModelLB.Content = volmodel;
                                 adjustment.Value = adjust;
-                                AutoOrderUpdate(false);
+                                AutoOrder_CheckBox.DataContext = strategyVM;
                                 CountertextBox.DataContext = strategyVM;
                                 var modelVM = pricingModelCB.SelectedItem as ModelParamsVM;
                                 if (modelVM != null)
