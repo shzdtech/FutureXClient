@@ -176,7 +176,7 @@ namespace Micro.Future.Message
             lock (PositionVMCollection)
             {
                 PositionVM positionVM = PositionVMCollection.FirstOrDefault(p =>
-                    p.Contract == rsp.Contract && (int)p.Direction == rsp.Direction);
+                    p.Contract == rsp.Contract && (int)p.Direction == rsp.Direction && p.Portfolio == rsp.Portfolio);
 
                 if (rsp.Position == 0)
                 {
@@ -197,6 +197,7 @@ namespace Micro.Future.Message
                         {
                             Contract = rsp.Contract,
                             Exchange = rsp.Exchange,
+                            Portfolio = rsp.Portfolio,
                             Direction = (PositionDirectionType)rsp.Direction,
                             HedgeFlag = (HedgeType)rsp.HedgeFlag,
                             PositionDateFlag = (PositionDateFlagType)rsp.PositionDateFlag,

@@ -51,7 +51,7 @@ namespace Micro.Future.UI
             InitializeComponent();
             TradeHandler = tradeHander;
             MarketDataHandler = marketHandler;
-            if (TradeHandler != null && MarketDataHandler !=null)
+            if (TradeHandler != null && MarketDataHandler != null)
                 Initialize();
             PersistanceId = persisitentId;
             FilterSettingsWin.PersistanceId = persisitentId;
@@ -102,7 +102,7 @@ namespace Micro.Future.UI
             }
         }
 
-        public PositionControl() 
+        public PositionControl()
         {
             InitializeComponent();
             FilterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
@@ -154,8 +154,8 @@ namespace Micro.Future.UI
         private async void LoadMarketData(string contract)
         {
 
-            _marketDataList.Add(await MarketDataHandler
-                .SubMarketDataAsync(contract));
+            if (MarketDataHandler != null)
+                _marketDataList.Add(await MarketDataHandler.SubMarketDataAsync(contract));
         }
 
         private void MenuItem_Click_Columns(object sender, RoutedEventArgs e)
