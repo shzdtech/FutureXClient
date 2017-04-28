@@ -37,6 +37,17 @@ namespace Micro.Future.UI
         public OptionRiskCtrl()
         {
             InitializeComponent();
+            var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+            var otcmarketdataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
+            var domesticTradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            var otcTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+            domesticPositionsWindow.TradeHandler = domesticTradeHandler;
+            domesticPositionsWindow.MarketDataHandler = marketdataHandler;
+            otcPositionsWindow.TradeHandler = otcTradeHandler;
+            otcPositionsWindow.MarketDataHandler = otcmarketdataHandler;
+            domesticTradeWindow.TradeHandler = domesticTradeHandler;
+            otcTradeWindow.TradeHandler = otcTradeHandler;
+            marketDataLV.MarketDataHandler = marketdataHandler;
             marketDataLV.AnchorablePane = quotePane;
             quotePane.Children[0].Title = WPFUtility.GetLocalizedString("Quote", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             domesticPositionsWindow.AnchorablePane = domesticPositionPane;
@@ -47,14 +58,6 @@ namespace Micro.Future.UI
             domesticTradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             otcTradeWindow.AnchorablePane = otcTradePane;
             otcTradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
-            var domesticTradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
-            var otcTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
-            domesticPositionsWindow.TradeHandler = domesticTradeHandler;
-            otcPositionsWindow.TradeHandler = otcTradeHandler;
-            domesticTradeWindow.TradeHandler = domesticTradeHandler;
-            otcTradeWindow.TradeHandler = otcTradeHandler;
-            marketDataLV.MarketDataHandler = marketdataHandler;
             portfolioCtl.portfolioCB.SelectionChanged += PortfolioCB_SelectionChanged;
 
         }
@@ -62,12 +65,17 @@ namespace Micro.Future.UI
         {
             var portfolio = portfolioCtl.portfolioCB.SelectedValue.ToString();
             var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+            var hedgeVMCollection = _otcOptionHandler?.HedgeVMCollection;
             var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
                     .Select(c => c.BaseContract).Distinct().ToList();
-            var pricingContractParams = strategyVMCollection.Select(c => c.PricingContractParams).Distinct();
-            //var pricingContracts = pricingContractParams.Select(c => c.)
+            var pricingContractList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
+                .SelectMany(c => c.PricingContractParams).Select(c=>c.Contract).Distinct().ToList();
+            var hedgeContractList = hedgeVMCollection.Where(c => c.Portfolio == portfolio)
+                .SelectMany(c => c.HedgeContracts).Select(c => c.Contract).Distinct().ToList();
+            var mixed1ContractList = basecontractsList.Union(pricingContractList).ToList();
+            var mixedContractList = mixed1ContractList.Union(hedgeContractList).ToList();
             QuoteVMCollection.Clear();
-            foreach (var contract in basecontractsList)
+            foreach (var contract in mixedContractList)
             {
                 var mktDataVM = await marketDataLV.MarketDataHandler.SubMarketDataAsync(contract);
                 if (mktDataVM != null)

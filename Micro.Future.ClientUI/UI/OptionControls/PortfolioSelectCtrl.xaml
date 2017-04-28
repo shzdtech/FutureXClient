@@ -25,17 +25,10 @@
         <GroupBox x:Name="portforlioGB" Header="{lex:Loc Key=Portfolio}" Grid.Row="0" Grid.Column="0">
             <ComboBox x:Name="portfolioCB"  Width="74" VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
         </GroupBox>
-        <GroupBox x:Name="AutoHedge_CheckBox" Header="{lex:Loc Key=Hedging}" Grid.Row="0" Grid.Column="1">
-            <CheckBox IsChecked="{Binding PutStrategyVM.Hedging}" Command="{Binding PutStrategyVM.UpdateCommand}"  />
-        </GroupBox>
-        <ListView Name="strategyListView" Grid.Row="1" Grid.Column="0" Width="Auto" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="{lex:Loc Key=Strategy}" DisplayMemberBinding="{Binding StrategyName}" Width="auto" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <WrapPanel Grid.Row="1" Grid.Column="1" Width="auto">
+        <WrapPanel Grid.Row="0" Grid.Column="1" Width="auto">
+            <GroupBox x:Name="AutoHedge_CheckBox" Header="{lex:Loc Key=Hedging}" Grid.Row="0" Grid.Column="1">
+                <CheckBox IsChecked="{Binding PutStrategyVM.Hedging}" Command="{Binding PutStrategyVM.UpdateCommand}"  />
+            </GroupBox>
             <GroupBox x:Name="Delay" Header="Delay" Width="auto">
                 <!--<TextBox x:Name="DelayTxt" KeyUp="Delay_KeyUp" HorizontalAlignment="Left" Height="auto" TextWrapping="Wrap" Text="{Binding Delay, StringFormat={}{0:N}}" VerticalAlignment="Top" MinWidth="50"/>-->
                 <xctk:IntegerUpDown x:Name="DelayTxt" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding Delay}" Spinned="Spinned" ValueChanged="DelayValueChanged"/>
@@ -44,6 +37,31 @@
                 <!--<TextBox x:Name="ThresholdTxt"  HorizontalAlignment="Left" Height="auto" TextWrapping="Wrap" Text="{Binding Threshold, StringFormat={}{0:N}}" VerticalAlignment="Top" MinWidth="50" KeyUp="Threshold_KeyUp"/>-->
                 <xctk:DoubleUpDown x:Name="ThresholdTxt" UpdateValueOnEnterKey="True" Minimum="0" Increment="1" Value="{Binding Threshold}" Spinned="Spinned" ValueChanged="ThresholdValueChanged"/>
             </GroupBox>
+        </WrapPanel>
+
+        <ListView Name="strategyListView" Grid.Row="1" Grid.Column="0" Width="Auto" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="{lex:Loc Key=Strategy}" DisplayMemberBinding="{Binding StrategyName}" Width="auto" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <WrapPanel Grid.Row="1" Grid.Column="1" Width="auto">
+            <ListView Name="hedgeListView" Grid.Row="1" Grid.Column="1" Width="Auto" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn x:Name="HedgeExchange" Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" />
+                        <GridViewColumn x:Name="HedgeUnderlying" Header="{lex:Loc Key=Underlying}" DisplayMemberBinding="{Binding Underlying}" />
+                        <GridViewColumn x:Name="HedgeContract" Header="{lex:Loc Key=Contract}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox x:Name="underlyingContractCB"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </WrapPanel>
     </Grid>
 </UserControl>
