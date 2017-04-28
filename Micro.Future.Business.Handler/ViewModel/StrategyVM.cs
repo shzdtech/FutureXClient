@@ -310,9 +310,9 @@ namespace Micro.Future.ViewModel
             get;
         } = new ObservableCollection<PricingContractParamVM>();
 
-        public void UpdateStrategy()
+        public void UpdateStrategy(bool resetCounter = false)
         {
-            OTCHandler.UpdateStrategy(this);
+            OTCHandler.UpdateStrategy(this, resetCounter);
         }
 
         RelayCommand _updateCommand;

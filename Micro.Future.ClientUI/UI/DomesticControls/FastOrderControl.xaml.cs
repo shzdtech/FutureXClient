@@ -188,7 +188,7 @@ namespace Micro.Future.UI
                 OrderVM.LimitPrice = LimitTxt.Value.Value;
                 OrderVM.Contract = contract;
                 OrderVM.Volume = (int)SizeTxt.Value;
-                OrderVM.Portfolio = portofolioCB.SelectedValue.ToString();
+                OrderVM.Portfolio = portofolioCB?.SelectedValue.ToString();
                 var cvt = new EnumToFriendlyNameConverter();
                 string msg = string.Format("是否确认下单?\n合约：{0}，价格：{1}，手数：{2}, 方向：{3}，开平：{4}", OrderVM.Contract, OrderVM.LimitPrice, OrderVM.Volume,
                     cvt.Convert(OrderVM.Direction, typeof(DirectionType), null, CultureInfo.CurrentUICulture),

@@ -336,7 +336,7 @@ namespace Micro.Future.Message
             }
         }
 
-        public void UpdateStrategy(StrategyVM sVM)
+        public void UpdateStrategy(StrategyVM sVM, bool resetCounter = false)
         {
             var strategy = new PBStrategy();
             strategy.Exchange = sVM.Exchange;
@@ -350,9 +350,13 @@ namespace Micro.Future.Message
             strategy.BidEnabled = sVM.BidEnabled;
             strategy.MaxAutoTrade = sVM.MaxAutoTrade;
             strategy.BidNotCross = sVM.BidNotCross;
-            strategy.BidCounter = sVM.BidCounter;
-            strategy.AskCounter = sVM.AskCounter;
             strategy.CloseMode = sVM.CloseMode;
+            if (resetCounter)
+            {  
+                strategy.BidCounter = -1;
+                strategy.AskCounter = -1;
+            }
+            
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }
