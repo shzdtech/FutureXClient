@@ -39,6 +39,10 @@ namespace Micro.Future.Message
         {
             get;
         } = new ObservableCollection<StrategyVM>();
+        public ObservableCollection<HedgeVM> HedgeVMCollection
+        {
+            get;
+        } = new ObservableCollection<HedgeVM>();
 
         public ObservableCollection<ModelParamsVM> GetModelParamsVMCollection(string modelAim = "pm")
         {

@@ -86,6 +86,7 @@
     <Compile Include="ViewModel\ObservableCollectionExtention.cs" />
     <Compile Include="ViewModel\ObstacleViewModel.cs" />
     <Compile Include="ViewModel\OptionOxyVM.cs" />
+    <Compile Include="ViewModel\HedgeVM.cs" />
     <Compile Include="ViewModel\TradingDeskOptionVM.cs" />
     <Compile Include="ViewModel\OptionPricingVM.cs" />
     <Compile Include="ViewModel\OptionVM.cs" />

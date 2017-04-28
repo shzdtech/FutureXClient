@@ -580,12 +580,16 @@ namespace Micro.Future.UI
                         vm.CallStrategyVM.BidCounter = -1;
                         vm.CallStrategyVM.AskCounter = -1;
                         vm.CallStrategyVM.UpdateStrategy();
+                        vm.CallStrategyVM.BidCounter = 0;
+                        vm.CallStrategyVM.AskCounter = 0;
                     }
                     if (vm.PutStrategyVM != null)
                     {
                         vm.PutStrategyVM.BidCounter = -1;
                         vm.PutStrategyVM.AskCounter = -1;
                         vm.PutStrategyVM.UpdateStrategy();
+                        vm.PutStrategyVM.BidCounter = 0;
+                        vm.PutStrategyVM.AskCounter = 0;
                     }
                 }
             }

@@ -1,4 +1,5 @@
-﻿using Micro.Future.LocalStorage.DataObject;
+﻿using Micro.Future.LocalStorage;
+using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
 using Micro.Future.Utility;
 using Micro.Future.ViewModel;
@@ -28,11 +29,17 @@ namespace Micro.Future.UI
     {
         public LayoutContent LayoutContent { get; set; }
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+        private IList<ContractInfo> _contractList;
+        private IList<ContractInfo> _futurecontractList;
         public PortfolioSelectCtrl()
         {
             InitializeComponent();
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
+            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
+            var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
+            _contractList = options.Union(otcOptions).ToList();
         }
 
 
@@ -64,15 +71,22 @@ namespace Micro.Future.UI
             {
                 var portfolio = portfolioCB.SelectedValue.ToString();
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+                var hedgeVMCollection = _otcOptionHandler?.HedgeVMCollection;
+                var hedgeContractCollection = hedgeVMCollection.Where(c => c.Portfolio == portfolio)
+                    .SelectMany(c => c.HedgeContracts);
                 var strategySymbolList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
                     .Select(c => new { StrategyName = c.StrategySym }).Distinct().ToList();
+                var hedgeContractList = hedgeVMCollection.Where(c => c.Portfolio == portfolio)
+                    .SelectMany(c => c.HedgeContracts).Select(c => c.Contract).Distinct().ToList();
+                var hedgeExchangeList = hedgeVMCollection.Where(c => c.Portfolio == portfolio)
+                    .SelectMany(c => c.HedgeContracts).Select(c => c.Exchange).Distinct().ToList();
                 strategyListView.ItemsSource = strategySymbolList;
                 var portfolioDataContext = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection
                     .Where(c => c.Name == portfolio).Distinct();
                 DelayTxt.DataContext = portfolioDataContext;
                 Threshold.DataContext = portfolioDataContext;
                 var basecontractsList = strategyVMCollection.Select(c => c.BaseContract).Distinct().ToList();
-                foreach ( var sVM in strategyVMCollection )
+                foreach (var sVM in strategyVMCollection)
                 {
                     var _pricingcontractList = sVM.PricingContractParams.Select(c => c.Contract).Distinct().ToList();
                 }

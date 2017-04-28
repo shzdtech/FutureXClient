@@ -65,11 +65,15 @@ namespace Micro.Future.UI
         {
             var portfolio = portfolioCtl.portfolioCB.SelectedValue.ToString();
             var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+            var hedgeVMCollection = _otcOptionHandler?.HedgeVMCollection;
             var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
                     .Select(c => c.BaseContract).Distinct().ToList();
             var pricingContractList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
                 .SelectMany(c => c.PricingContractParams).Select(c=>c.Contract).Distinct().ToList();
-            var mixedContractList = basecontractsList.Union(pricingContractList).ToList();
+            var hedgeContractList = hedgeVMCollection.Where(c => c.Portfolio == portfolio)
+                .SelectMany(c => c.HedgeContracts).Select(c => c.Contract).Distinct().ToList();
+            var mixed1ContractList = basecontractsList.Union(pricingContractList).ToList();
+            var mixedContractList = mixed1ContractList.Union(hedgeContractList).ToList();
             QuoteVMCollection.Clear();
             foreach (var contract in mixedContractList)
             {
