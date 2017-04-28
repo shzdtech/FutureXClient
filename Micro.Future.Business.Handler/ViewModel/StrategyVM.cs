@@ -38,6 +38,20 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(Adjust));
             }
         }
+
+        private string _underlying;
+        public string Underlying
+        {
+            get
+            {
+                return _underlying;
+            }
+            set
+            {
+                _underlying = value;
+                OnPropertyChanged(nameof(Underlying));
+            }
+        }
     }
     public class StrategyVM : OTCPricingVM
     {
@@ -70,6 +84,7 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(Underlying));
             }
         }
+
         private string _basecontract;
         public string BaseContract
         {

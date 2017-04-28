@@ -81,6 +81,7 @@ namespace Micro.Future.UI
                 var hedgeExchangeList = hedgeVMCollection.Where(c => c.Portfolio == portfolio)
                     .SelectMany(c => c.HedgeContracts).Select(c => c.Exchange).Distinct().ToList();
                 strategyListView.ItemsSource = strategySymbolList;
+                hedgeListView.ItemsSource = strategyVMCollection;
                 var portfolioDataContext = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection
                     .Where(c => c.Name == portfolio).Distinct();
                 DelayTxt.DataContext = portfolioDataContext;

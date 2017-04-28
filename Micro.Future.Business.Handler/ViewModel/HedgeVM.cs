@@ -39,10 +39,10 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("Hedge");
             }
         }
-        public ObservableCollection<ContractKeyVM> HedgeContracts
+        public ObservableCollection<PricingContractParamVM> HedgeContracts
         {
             get;
-        } = new ObservableCollection<ContractKeyVM>();
+        } = new ObservableCollection<PricingContractParamVM>();
 
     }
 }
