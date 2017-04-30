@@ -352,11 +352,11 @@ namespace Micro.Future.Message
             strategy.BidNotCross = sVM.BidNotCross;
             strategy.CloseMode = sVM.CloseMode;
             if (resetCounter)
-            {  
+            {
                 strategy.BidCounter = -1;
                 strategy.AskCounter = -1;
             }
-            
+
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }
@@ -495,55 +495,6 @@ namespace Micro.Future.Message
             return tcs.Task;
         }
 
-        public Task<ObservableCollection<RiskVM>> QueryRiskAsync(string portfolio, int timeout = 10000)
-        {
-            var sst = new StringMap();
-            var msgId = (uint)BusinessMessageID.MSG_ID_QUERY_RISK;
-            var tcs = new TaskCompletionSource<ObservableCollection<RiskVM>>(new CancellationTokenSource(timeout));
-
-            var serialId = NextSerialId;
-            sst.Header = new DataHeader { SerialId = serialId };
-            sst.Entry.Add(string.Empty, portfolio);
-
-            MessageWrapper.RegisterAction<PBRiskList, ExceptionMessage>
-                (msgId,
-                (resp) =>
-                {
-                    if (resp.Header?.SerialId == serialId)
-                    {
-                        tcs.TrySetResult(OnQueryRiskSuccessAction(resp));
-                    }
-                },
-                (bizErr) =>
-                {
-                    OnErrorAction(bizErr);
-                    tcs.SetResult(null);
-                }
-                );
-
-            MessageWrapper.SendMessage(msgId, sst);
-
-            return tcs.Task;
-        }
-
-        private ObservableCollection<RiskVM> OnQueryRiskSuccessAction(PBRiskList rsp)
-        {
-            var riskList = new ObservableCollection<RiskVM>();
-            foreach (var risk in rsp.Risk)
-            {
-                riskList.Add(new RiskVM {
-                    Exchange = risk.Exchange,
-                    Contract = risk.Contract,
-                    Delta = risk.Delta,
-                    Gamma = risk.Gamma,
-                    Theta = risk.Theta,
-                    Vega = risk.Vega,
-                    Position = risk.Position
-                });
-            }
-
-            return riskList;
-        }
 
 
         public void QueryStrategy()

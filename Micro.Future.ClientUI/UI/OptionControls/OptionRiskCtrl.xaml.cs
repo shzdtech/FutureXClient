@@ -30,6 +30,8 @@ namespace Micro.Future.UI
 
     {
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+        private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+
         public ObservableCollection<MarketDataVM> QuoteVMCollection
         {
             get;
@@ -84,7 +86,7 @@ namespace Micro.Future.UI
                 }
             }
             marketDataLV.quoteListView.ItemsSource = QuoteVMCollection;
-            var riskVMlist = await _otcOptionHandler.QueryRiskAsync(portfolio);
+            var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
             greeksControl.GreekListView.ItemsSource = riskVMlist;
             //domesticPositionsWindow.FilterByPortfolio(portfolio);
             //otcPositionsWindow.FilterByPortfolio(portfolio);

@@ -19,6 +19,8 @@
         <x:Array Type="{x:Type MenuItem}" x:Key="exMenuItems">
             <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=OptionRisk}">
             </MenuItem>
+            <MenuItem x:Name="queryRiskTest" Header="QueryRiskTest" Click="QueryRiskTest" >
+            </MenuItem>
         </x:Array>        <x:Array Type="{x:Type StatusBarItem}" x:Key="exOptionStatusBarItems">
             <StatusBarItem>
                 <Controls:LoginStatus x:Name="OptionLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OptionServer_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OptionServer_DisConnected}" Connected="False" OnConnButtonClick="OptionLoginStatus_OnConnButtonClick"/>

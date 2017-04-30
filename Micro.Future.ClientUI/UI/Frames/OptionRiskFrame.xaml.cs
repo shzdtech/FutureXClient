@@ -177,6 +177,13 @@ namespace Micro.Future.UI
         {
             optionRiskCtrl.ReloadData();
         }
+
+        private async void QueryRiskTest(object sender, RoutedEventArgs e)
+        {
+            var portfolio = optionRiskCtrl.portfolioCtl.portfolioCB.SelectedValue.ToString();
+            var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+            optionRiskCtrl.greeksControl.GreekListView.ItemsSource = riskVMlist;
+        }
     }
 }
 

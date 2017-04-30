@@ -9,6 +9,7 @@ using Micro.Future.LocalStorage.DataObject;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Micro.Future.Utility;
+using System.Threading;
 
 namespace Micro.Future.Message
 {
@@ -465,7 +466,8 @@ namespace Micro.Future.Message
             pb.ExecType = (int)orderVM.ExecType;
             pb.Direction = (int)orderVM.Direction;
             pb.Openclose = (int)orderVM.OpenClose;
-            pb.Portfolio = orderVM.Portfolio;
+            if (orderVM.Portfolio != null)
+                pb.Portfolio = orderVM.Portfolio;
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_NEW, pb);
         }
@@ -486,6 +488,68 @@ namespace Micro.Future.Message
             CancelOrder(orderVM);
             CreateOrder(orderVM);
         }
+        public Task<ObservableCollection<RiskVM>> QueryRiskAsync(string portfolio, int timeout = 10000)
+        {
+            var sst = new StringMap();
+            var msgId = (uint)BusinessMessageID.MSG_ID_QUERY_RISK;
+            var tcs = new TaskCompletionSource<ObservableCollection<RiskVM>>(new CancellationTokenSource(timeout));
+
+            var serialId = NextSerialId;
+            sst.Header = new DataHeader { SerialId = serialId };
+            sst.Entry.Add(string.Empty, portfolio);
+
+            MessageWrapper.RegisterAction<PBRiskList, ExceptionMessage>
+                (msgId,
+                (resp) =>
+                {
+                    if (resp.Header?.SerialId == serialId)
+                    {
+                        tcs.TrySetResult(OnQueryRiskSuccessAction(resp));
+                    }
+                },
+                (bizErr) =>
+                {
+                    OnErrorAction(bizErr);
+                    tcs.SetResult(null);
+                }
+                );
+
+            MessageWrapper.SendMessage(msgId, sst);
+
+            return tcs.Task;
+        }
+
+        private ObservableCollection<RiskVM> OnQueryRiskSuccessAction(PBRiskList rsp)
+        {
+            var riskList = new ObservableCollection<RiskVM>();
+            foreach (var risk in rsp.Risk)
+            {
+                riskList.Add(new RiskVM
+                {
+                    Exchange = risk.Exchange,
+                    Contract = risk.Contract,
+                    Delta = risk.Delta,
+                    Gamma = risk.Gamma,
+                    Theta = risk.Theta,
+                    Vega = risk.Vega,
+                    Position = risk.Position
+                });
+            }
+
+            return riskList;
+        }
+        protected void OnErrorAction(ExceptionMessage bizErr)
+        {
+            if (bizErr.Description != null)
+            {
+                var msg = bizErr.Description.ToByteArray();
+                if (msg.Length > 0)
+                    RaiseOnError(
+                        new MessageException(bizErr.MessageId, ErrorType.UNSPECIFIED_ERROR, bizErr.Errorcode,
+                        Encoding.UTF8.GetString(msg)));
+            }
+        }
+
 
     }
 }
