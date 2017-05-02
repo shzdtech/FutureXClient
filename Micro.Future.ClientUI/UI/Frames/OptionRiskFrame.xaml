@@ -18,8 +18,8 @@
     <UserControl.Resources>
         <x:Array Type="{x:Type MenuItem}" x:Key="exMenuItems">
             <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=OptionRisk}">
-            </MenuItem>
-            <MenuItem x:Name="queryRiskTest" Header="QueryRiskTest" Click="QueryRiskTest" >
+                <MenuItem x:Name="queryRiskTest" Header="QueryRiskTest" Click="QueryRiskTest" >
+                </MenuItem>
             </MenuItem>
         </x:Array>        <x:Array Type="{x:Type StatusBarItem}" x:Key="exOptionStatusBarItems">
             <StatusBarItem>

@@ -65,7 +65,7 @@ namespace Micro.Future.UI
         }
         private async void PortfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var portfolio = portfolioCtl.portfolioCB.SelectedValue.ToString();
+            var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
             var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
             var hedgeVMCollection = _otcOptionHandler?.HedgeVMCollection;
             var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
