@@ -29,6 +29,13 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("Vega");
             }
         }
+        public double Vega100
+        {
+            get
+            {
+                return Vega / 100;
+            }
+        }
 
         private double _gamma;
         public double Gamma
@@ -48,8 +55,17 @@ namespace Micro.Future.ViewModel
             {
                 _theta = value;
                 OnPropertyChanged("Theta");
+
             }
         }
+        public double Theta365
+        {
+            get
+            {
+                return Theta / 365;
+            }
+        }
+
         private double _position;
         public double Position
         {

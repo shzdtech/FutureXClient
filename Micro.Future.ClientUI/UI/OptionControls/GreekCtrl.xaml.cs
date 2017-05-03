@@ -34,9 +34,5 @@ namespace Micro.Future.UI
             }
         }
 
-        private void QueryRisk_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

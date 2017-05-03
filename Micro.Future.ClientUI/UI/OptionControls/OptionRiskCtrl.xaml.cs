@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,7 +32,8 @@ namespace Micro.Future.UI
     {
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
-
+        private Timer _timer;
+        private const int UpdateInterval = 1000;
         public ObservableCollection<MarketDataVM> QuoteVMCollection
         {
             get;
@@ -63,6 +65,13 @@ namespace Micro.Future.UI
             portfolioCtl.portfolioCB.SelectionChanged += PortfolioCB_SelectionChanged;
 
         }
+        //private async void ReloadDataCallback(object state)
+        //{
+        //    var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
+        //    await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+        //    var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+        //    greeksControl.GreekListView.ItemsSource = riskVMlist;
+        //}
         private async void PortfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
@@ -88,10 +97,8 @@ namespace Micro.Future.UI
             marketDataLV.quoteListView.ItemsSource = QuoteVMCollection;
             var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
             greeksControl.GreekListView.ItemsSource = riskVMlist;
-            //domesticPositionsWindow.FilterByPortfolio(portfolio);
-            //otcPositionsWindow.FilterByPortfolio(portfolio);
-            //domesticTradeWindow.FilterByPortfolio(portfolio);
-            //otcTradeWindow.FilterByPortfolio(portfolio);
+            //_timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
+
         }
 
         public void Initialize()

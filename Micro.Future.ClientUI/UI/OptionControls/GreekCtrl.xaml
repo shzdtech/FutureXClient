@@ -16,11 +16,11 @@
         <ListView Name="GreekListView" GridViewColumnHeader.Click = "GreekListView_Click">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="{lex:Loc Key=Contract}"/>
-                    <GridViewColumn Header="delta" DisplayMemberBinding="{Binding Delta}"/>
-                    <GridViewColumn Header="gamma" DisplayMemberBinding="{Binding Gamma}"/>
-                    <GridViewColumn Header="vega" DisplayMemberBinding="{Binding Vega}"/>
-                    <GridViewColumn Header="theta" DisplayMemberBinding="{Binding Theta}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
+                    <GridViewColumn Header="Delta" DisplayMemberBinding="{Binding Delta,StringFormat=N2}"/>
+                    <GridViewColumn Header="Gamma" DisplayMemberBinding="{Binding Gamma,StringFormat=N4}"/>
+                    <GridViewColumn Header="Vega%" DisplayMemberBinding="{Binding Vega100,StringFormat=N2}"/>
+                    <GridViewColumn Header="Theta" DisplayMemberBinding="{Binding Theta365,StringFormat=N2}"/>
                 </GridView>
             </ListView.View>
         </ListView>

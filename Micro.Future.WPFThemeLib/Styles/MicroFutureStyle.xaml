@@ -67,41 +67,16 @@
     <Style x:Key="BidChangeStyle" TargetType="TextBlock">
         <Setter Property="TextAlignment" Value="Right" />
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Direction}" Value="1">
-                <Setter Property="Background">
-                    <Setter.Value>
-                        <SolidColorBrush Color="Yellow"/>
-                    </Setter.Value>
-                </Setter>
-                <DataTrigger.EnterActions>
+            <EventTrigger RoutedEvent="MouseEnter" >
+                <EventTrigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
                             <ColorAnimation Storyboard.TargetProperty="Background.Color" Duration="999:0:2" From="Yellow" To="White">
                             </ColorAnimation>
                         </Storyboard>
                     </BeginStoryboard>
-                </DataTrigger.EnterActions>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
-    <Style x:Key="AskChangeStyle" TargetType="TextBlock">
-        <Setter Property="TextAlignment" Value="Right" />
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding Direction}" Value="-1">
-                <Setter Property="Background">
-                    <Setter.Value>
-                        <SolidColorBrush Color="Yellow"/>
-                    </Setter.Value>
-                </Setter>
-                <DataTrigger.EnterActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <ColorAnimation Storyboard.TargetProperty="Background.Color" Duration="999:0:2" From="Yellow" To="White">
-                            </ColorAnimation>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </DataTrigger.EnterActions>
-            </DataTrigger>
+                </EventTrigger.EnterActions>
+            </EventTrigger>
         </Style.Triggers>
     </Style>
 
