@@ -39,6 +39,7 @@ namespace Micro.Future.UI
 
         private static ISet<MarketDataVM> _marketDataList = new HashSet<MarketDataVM>();
 
+
         public LayoutContent LayoutContent { get; set; }
 
         public LayoutAnchorablePane AnchorablePane { get; set; }
@@ -461,6 +462,15 @@ namespace Micro.Future.UI
             TradeHandler.PositionVMCollection.CollectionChanged += PositionCollectionChanged;
             MarketDataHandler.OnNewMarketData += OnNewMarketData;
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User.Id;
+        }
+
+        public bool ShowCloseAll
+        {
+            set
+            {
+                if (!value)
+                    ContextMenu?.Items.Remove(ClosePositionClick);
+            }
         }
     }
 }

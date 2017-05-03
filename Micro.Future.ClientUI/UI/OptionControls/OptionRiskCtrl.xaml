@@ -56,8 +56,7 @@
                     </avalonDock:LayoutAnchorablePane>
                     <avalonDock:LayoutAnchorablePane x:Name="otcTradePane">
                         <avalonDock:LayoutAnchorable Title="{lex:Loc Key=OTCTradeRecord}">
-                            <c:TradeRecordControl
-                                x:Name="otcTradeWindow" PersistanceId="OptionRisk:OTCTradeRecordControl"/>
+                            <c:TradeRecordControl x:Name="otcTradeWindow" PersistanceId="OptionRisk:OTCTradeRecordControl"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>

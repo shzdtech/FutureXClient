@@ -63,15 +63,21 @@ namespace Micro.Future.UI
             otcTradeWindow.AnchorablePane = otcTradePane;
             otcTradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             portfolioCtl.portfolioCB.SelectionChanged += PortfolioCB_SelectionChanged;
+            domesticPositionsWindow.ShowCloseAll = false;
+            otcPositionsWindow.ShowCloseAll = false;
 
         }
-        //private async void ReloadDataCallback(object state)
-        //{
-        //    var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
-        //    await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
-        //    var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
-        //    greeksControl.GreekListView.ItemsSource = riskVMlist;
-        //}
+        private async void ReloadDataCallback(object state)
+        {
+            await Dispatcher.Invoke(async () =>
+             {
+                 var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
+                 await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+                 var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+                 greeksControl.GreekListView.ItemsSource = null;
+                 greeksControl.GreekListView.ItemsSource = riskVMlist;
+             });
+        }
         private async void PortfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
@@ -80,7 +86,7 @@ namespace Micro.Future.UI
             var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
                     .Select(c => c.BaseContract).Distinct().ToList();
             var pricingContractList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
-                .SelectMany(c => c.PricingContractParams).Select(c=>c.Contract).Distinct().ToList();
+                .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
             var hedgeContractList = hedgeVMCollection.Where(c => c.Portfolio == portfolio)
                 .SelectMany(c => c.HedgeContracts).Select(c => c.Contract).Distinct().ToList();
             var mixed1ContractList = basecontractsList.Union(pricingContractList).ToList();
@@ -88,16 +94,24 @@ namespace Micro.Future.UI
             QuoteVMCollection.Clear();
             foreach (var contract in mixedContractList)
             {
-                var mktDataVM = await marketDataLV.MarketDataHandler.SubMarketDataAsync(contract);
-                if (mktDataVM != null)
+                if (!String.IsNullOrEmpty(contract))
                 {
-                    QuoteVMCollection.Add(mktDataVM);
+                    var mktDataVM = await marketDataLV.MarketDataHandler.SubMarketDataAsync(contract);
+                    if (mktDataVM != null)
+                    {
+                        QuoteVMCollection.Add(mktDataVM);
+                    }
                 }
             }
             marketDataLV.quoteListView.ItemsSource = QuoteVMCollection;
             var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
             greeksControl.GreekListView.ItemsSource = riskVMlist;
-            //_timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
+            domesticPositionsWindow.FilterByPortfolio(portfolio);
+            otcPositionsWindow.FilterByPortfolio(portfolio);
+            domesticTradeWindow.FilterByPortfolio(portfolio);
+            otcTradeWindow.FilterByPortfolio(portfolio);
+
+            _timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
 
         }
 

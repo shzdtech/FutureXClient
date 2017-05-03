@@ -161,7 +161,7 @@ namespace Micro.Future.UI
 
                 TradeVM tvm = o as TradeVM;
 
-                if (tvm.Contract.Contains(portfolio))
+                if (tvm.Portfolio.Contains(portfolio))
                 {
                     return true;
                 }
