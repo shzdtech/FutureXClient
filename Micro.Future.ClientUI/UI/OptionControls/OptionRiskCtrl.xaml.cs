@@ -63,8 +63,6 @@ namespace Micro.Future.UI
             otcTradeWindow.AnchorablePane = otcTradePane;
             otcTradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             portfolioCtl.portfolioCB.SelectionChanged += PortfolioCB_SelectionChanged;
-            domesticPositionsWindow.ShowCloseAll = false;
-            otcPositionsWindow.ShowCloseAll = false;
 
         }
         private async void ReloadDataCallback(object state)
@@ -126,6 +124,8 @@ namespace Micro.Future.UI
             domesticPositionsWindow.ReloadData();
             otcPositionsWindow.ReloadData();
             domesticTradeWindow.ReloadData();
+            domesticPositionsWindow.ShowCloseAll = false;
+            otcPositionsWindow.ShowCloseAll = false;
         }
 
         private LayoutAnchorablePane _pane;
