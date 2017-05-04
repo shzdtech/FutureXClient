@@ -469,7 +469,7 @@ namespace Micro.Future.UI
             set
             {
                 if (!value)
-                    ContextMenu?.Items.Remove(ClosePositionClick);
+                    PositionContext?.Items.Remove(ClosePositionClick);
             }
         }
     }

@@ -57,7 +57,7 @@
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
-                <ContextMenu StaysOpen="True">
+                <ContextMenu Name="PositionContext" StaysOpen="True">
                     <MenuItem Name="ClosePositionClick" Header="{lex:Loc Key=ClosePosition}" Click="MenuItem_Click_ClosePosition" />
                     <Separator />
                     <MenuItem Header="{lex:Loc Key=AddFilter}" Click="MenuItem_Click_Position" />
