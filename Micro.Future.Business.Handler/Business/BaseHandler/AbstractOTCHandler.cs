@@ -363,13 +363,11 @@ namespace Micro.Future.Message
 
         public void UpdatePortfolio(PortfolioVM pVM)
         {
-            var portfolioList = new PBPortfolioList();
             var portfolio = new PBPortfolio();
             portfolio.Name = pVM.Name;
             portfolio.HedgeDelay = pVM.Delay;
             portfolio.Threshold = pVM.Threshold;
 
-            portfolioList.Portfolio.Add(portfolio);
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_PORTFOLIO, portfolio);
         }
 
