@@ -223,7 +223,7 @@ namespace Micro.Future.UI
                 var hedgeVM = hedgeContract.DataContext as HedgeVM;
                 if (hedgeVM != null)
                 {
-                    var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying).Select(c=>c.Contract);
+                    var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying).Select(c => c.Contract);
                     hedgeContract.ItemsSource = list;
                     hedgeContract.SelectedItem = hedgeVM.Contract;
                 }
@@ -266,8 +266,11 @@ namespace Micro.Future.UI
         public void AutoHedgeUpdate(bool autoStatus)
         {
             var portfolioVM = _otcOptionHandler.PortfolioVMCollection.FirstOrDefault(c => c.Name == PortfolioIndex);
-                    portfolioVM.Hedging = autoStatus;
-            _otcOptionHandler.UpdatePortfolio(portfolioVM);
+            if (portfolioVM != null)
+            {
+                portfolioVM.Hedging = autoStatus;
+                portfolioVM.UpdatePortfolio();
+            }
         }
     }
 }
