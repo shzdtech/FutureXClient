@@ -73,12 +73,11 @@ namespace Micro.Future.UI
                 var portfolio = portfolioCB.SelectedValue.ToString();
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
                 var portfolioVMCollection = _otcOptionHandler?.PortfolioVMCollection;
-                var hedgeContractCollection = portfolioVMCollection.Where(c => c.Name == portfolio)
-                    .Select(c => c.HedgeContractParams);
+                var portfolioVM = portfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
                 var strategySymbolList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
                     .Select(c => new { StrategyName = c.StrategySym }).Distinct().ToList();                
                 strategyListView.ItemsSource = strategySymbolList;
-                hedgeListView.ItemsSource = hedgeContractCollection;
+                hedgeListView.ItemsSource = portfolioVM.HedgeContractParams;
                 var portfolioDataContext = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection
                     .Where(c => c.Name == portfolio).Distinct();
                 DelayTxt.DataContext = portfolioDataContext;
