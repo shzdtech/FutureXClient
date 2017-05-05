@@ -187,6 +187,11 @@ namespace Micro.Future.UI
             var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
             optionRiskCtrl.greeksControl.GreekListView.ItemsSource = riskVMlist;
         }
+
+        private void OptionRiskCtrl_Closed(object sender, EventArgs e)
+        {
+            optionRiskCtrl.portfolioCtl.AutoHedgeUpdate(false);
+        }
     }
 }
 

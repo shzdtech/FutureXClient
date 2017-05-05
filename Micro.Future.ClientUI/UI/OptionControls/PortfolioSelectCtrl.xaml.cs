@@ -32,6 +32,11 @@ namespace Micro.Future.UI
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private IList<ContractInfo> _contractList;
         private IList<ContractInfo> _futurecontractList;
+
+        ~PortfolioSelectCtrl()
+        {
+            AutoHedgeUpdate(false);
+        }
         public PortfolioSelectCtrl()
         {
             InitializeComponent();
@@ -58,6 +63,12 @@ namespace Micro.Future.UI
             }
         }
 
+        public string PortfolioIndex
+        {
+            get;
+            set;
+        }
+
         private void strategyListView_Click(object sender, RoutedEventArgs e)
         {
             var head = e.OriginalSource as GridViewColumnHeader;
@@ -69,6 +80,9 @@ namespace Micro.Future.UI
 
         private void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (AutoHedge_CheckBox.IsChecked.Value)
+                AutoHedgeUpdate(false);
+
             if (portfolioCB.SelectedValue != null)
             {
                 var portfolio = portfolioCB.SelectedValue.ToString();
@@ -89,6 +103,7 @@ namespace Micro.Future.UI
                 {
                     var _pricingcontractList = sVM.PricingContractParams.Select(c => c.Contract).Distinct().ToList();
                 }
+                PortfolioIndex = portfolioCB.SelectedValue.ToString();
                 //var mixcontractList = basecontractsList.Union(_pricingcontractList).ToList();
             }
 
@@ -180,26 +195,26 @@ namespace Micro.Future.UI
             }
         }
 
-        private void HedgeContract_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            var hedgeContract = sender as AutoCompleteTextBox;
-                HedgeContractUpdate(hedgeContract);
-        }
+        //private void HedgeContract_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    var hedgeContract = sender as AutoCompleteTextBox;
+        //        HedgeContractUpdate(hedgeContract);
+        //}
 
-        private void HedgeContractTextBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            var hedgeContract = sender as AutoCompleteTextBox;
-            if (hedgeContract != null)
-            {
-                var hedgeVM = hedgeContract.DataContext as HedgeVM;
-                if (hedgeVM != null)
-                {
-                    var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying);
-                    hedgeContract.Provider = new SuggestionProvider((string c) => { return list.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
-                    hedgeContract.SelectedItem = hedgeVM.Contract;
-                }
-            }
-        }
+        //private void HedgeContractTextBox_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    var hedgeContract = sender as AutoCompleteTextBox;
+        //    if (hedgeContract != null)
+        //    {
+        //        var hedgeVM = hedgeContract.DataContext as HedgeVM;
+        //        if (hedgeVM != null)
+        //        {
+        //            var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying);
+        //            hedgeContract.Provider = new SuggestionProvider((string c) => { return list.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
+        //            hedgeContract.SelectedItem = hedgeVM.Contract;
+        //        }
+        //    }
+        //}
         private void HedgeContractComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             var hedgeContract = sender as ComboBox;
@@ -247,6 +262,12 @@ namespace Micro.Future.UI
         {
             var hedgeContract = sender as ComboBox;
             HedgeContractComboUpdate(hedgeContract);
+        }
+        public void AutoHedgeUpdate(bool autoStatus)
+        {
+            var portfolioVM = _otcOptionHandler.PortfolioVMCollection.FirstOrDefault(c => c.Name == PortfolioIndex);
+                    portfolioVM.Hedging = autoStatus;
+            _otcOptionHandler.UpdatePortfolio(portfolioVM);
         }
     }
 }

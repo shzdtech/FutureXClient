@@ -65,9 +65,9 @@ namespace Micro.Future.UI
             portfolioCtl.portfolioCB.SelectionChanged += PortfolioCB_SelectionChanged;
 
         }
-        private async void ReloadDataCallback(object state)
+        private void ReloadDataCallback(object state)
         {
-            await Dispatcher.Invoke(async () =>
+            Dispatcher.Invoke(async () =>
              {
                  var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
                  await _otcOptionTradeHandler.QueryRiskAsync(portfolio);

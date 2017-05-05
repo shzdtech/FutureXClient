@@ -27,7 +27,7 @@
                 <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
             </GroupBox>
             <GroupBox x:Name="AutoHedge_GroupBox" Header="{lex:Loc Key=Hedging}" >
-                <CheckBox Name="AutoHedge_CheckBox" IsChecked="{Binding Hedging}" Command="{Binding UpdateCommand}"  />
+                <CheckBox Name="AutoHedge_CheckBox" IsChecked="{Binding Hedging}" Command="{Binding UpdateCommand}" />
             </GroupBox>
         </WrapPanel>
         <WrapPanel Grid.Row="0" Grid.Column="1" Width="auto">
