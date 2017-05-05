@@ -81,7 +81,7 @@ namespace Micro.Future.Message
                         BidPrice = tradingDeskOption.TheoData.BidPrice,
                         BidSize = tradingDeskOption.TheoData.BidSize,
                         BidVol = tradingDeskOption.TheoData.BidVolatility,
-                        MidVol = (tradingDeskOption.TheoData.BidVolatility + tradingDeskOption.TheoData.AskVolatility)/2,
+                        MidVol = tradingDeskOption.TheoData.MidVolatility,
                         MidPrice = (tradingDeskOption.TheoData.BidPrice + tradingDeskOption.TheoData.AskPrice) / 2,
                     };
                 }
