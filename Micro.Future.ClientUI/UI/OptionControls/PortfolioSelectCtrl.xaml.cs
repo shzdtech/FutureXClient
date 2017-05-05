@@ -41,7 +41,7 @@ namespace Micro.Future.UI
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
             var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
             _contractList = options.Union(otcOptions).ToList();
-           
+
         }
 
 
@@ -76,7 +76,7 @@ namespace Micro.Future.UI
                 var portfolioVMCollection = _otcOptionHandler?.PortfolioVMCollection;
                 var portfolioVM = portfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
                 var strategySymbolList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
-                    .Select(c => new { StrategyName = c.StrategySym }).Distinct().ToList();               
+                    .Select(c => new { StrategyName = c.StrategySym }).Distinct().ToList();
                 strategyListView.ItemsSource = strategySymbolList;
                 hedgeListView.ItemsSource = portfolioVM.HedgeContractParams;
                 var portfolioDataContext = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection
@@ -144,41 +144,46 @@ namespace Micro.Future.UI
             }
         }
 
+        private void HedgeContractUpdate(AutoCompleteTextBox hedgeContract)
+        {
+            if (hedgeContract != null && !string.IsNullOrEmpty(hedgeContract.Filter))
+            {
+                var hedgeVM = hedgeContract.DataContext as HedgeVM;
+                if (hedgeVM != null)
+                {
+                    string quote = hedgeContract.SelectedItem == null ? hedgeContract.Filter : hedgeContract.SelectedItem.ToString();
+                    var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying);
+                    if (!list.Any((c) => string.Compare(c.Contract, quote, true) == 0))
+                    {
+                        System.Windows.MessageBox.Show("输入合约" + quote + "不存在");
+                        hedgeContract.Filter = hedgeVM.Contract;
+                        return;
+                    }
+                    else
+                    {
+                        var portfolio = portfolioCB.SelectedValue?.ToString();
+                        if (portfolio != null)
+                        {
+                            hedgeVM.Contract = quote;
+                            _otcOptionHandler.UpdateHedgeContracts(hedgeVM, portfolio);
+                        }
+                    }
+                }
+            }
+        }
         private void HedgeContract_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Enter)
             {
                 var hedgeContract = sender as AutoCompleteTextBox;
-                if (hedgeContract != null && 
-                    !string.IsNullOrEmpty(hedgeContract.Filter))
-                {
-                    var hedgeVM = hedgeContract.DataContext as HedgeVM;
-                    if (hedgeVM != null)
-                    {
-                        string quote = hedgeContract.SelectedItem == null ? hedgeContract.Filter : hedgeContract.SelectedItem.ToString();
-                        var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying);
-                        if (!list.Any((c) => string.Compare(c.Contract, quote, true) == 0))
-                        {
-                            System.Windows.MessageBox.Show("输入合约" + quote + "不存在");
-                            hedgeContract.Filter = hedgeVM.Contract;
-                            return;
-                        }
-                        else
-                        {
-                            hedgeVM.Contract = quote;
-                            _otcOptionHandler.UpdateHedgeContracts(hedgeVM, );
-                        }
-                    }
-                }
+                HedgeContractUpdate(hedgeContract);
             }
         }
 
         private void HedgeContract_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             var hedgeContract = sender as AutoCompleteTextBox;
-            if (hedgeContract != null)
-            {
-            }
+                HedgeContractUpdate(hedgeContract);
         }
 
         private void HedgeContractTextBox_Loaded(object sender, RoutedEventArgs e)
@@ -187,9 +192,9 @@ namespace Micro.Future.UI
             if (hedgeContract != null)
             {
                 var hedgeVM = hedgeContract.DataContext as HedgeVM;
-                if(hedgeVM != null)
+                if (hedgeVM != null)
                 {
-                    var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c =>c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying);
+                    var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying);
                     hedgeContract.Provider = new SuggestionProvider((string c) => { return list.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
                     hedgeContract.SelectedItem = hedgeVM.Contract;
                 }
