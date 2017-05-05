@@ -57,7 +57,7 @@
                         <GridViewColumn Header="{lex:Loc Key=Contract}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox x:Name="cbHedgeContract" SelectedValue="{Binding Contract}"/>
+                                    <wpf:AutoCompleteTextBox x:Name="HedgeContractTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" KeyUp="HedgeContract_KeyUp" MouseLeftButtonUp="HedgeContract_MouseLeftButtonUp" Focusable="False" Loaded="HedgeContractTextBox_Loaded" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

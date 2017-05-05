@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfControls;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.Toolkit;
 
@@ -81,7 +82,7 @@ namespace Micro.Future.UI
                 var hedgeContractList = hedgeVMCollection.Where(c => c.Portfolio == portfolio)
                     .SelectMany(c => c.HedgeContracts).Select(c => c.Contract).Distinct().ToList();
                 var hedgeExchangeList = hedgeVMCollection.Where(c => c.Portfolio == portfolio)
-                    .SelectMany(c => c.HedgeContracts).Select(c => c.Exchange).Distinct().ToList();                
+                    .SelectMany(c => c.HedgeContracts).Select(c => c.Exchange).Distinct().ToList();             
                 strategyListView.ItemsSource = strategySymbolList;
                 hedgeListView.ItemsSource = hedgeVMPortfolio;
                 var portfolioDataContext = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection
@@ -146,6 +147,33 @@ namespace Micro.Future.UI
                     portfolioVM.Threshold = threshold;
                     portfolioVM.UpdatePortfolio();
                 }
+            }
+        }
+
+        private void HedgeContract_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                var hedgeContract = sender as AutoCompleteTextBox;
+                if (hedgeContract != null && 
+                    !string.IsNullOrEmpty(hedgeContract.Filter))
+                {
+                    
+                }
+            }
+        }
+
+        private void HedgeContract_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void HedgeContractTextBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            var hedgeContract = sender as AutoCompleteTextBox;
+            if (hedgeContract != null)
+            {
+
             }
         }
     }
