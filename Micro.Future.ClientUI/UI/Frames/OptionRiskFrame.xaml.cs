@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -146,6 +147,8 @@ namespace Micro.Future.UI
         private void _tdSignIner_OnLogged(IUserInfo obj)
         {
             _otcOptionTradeHandler.RegisterMessageWrapper(_otcOptionHandler.MessageWrapper);
+            _otcOptionHandler.QueryPortfolio();
+            Thread.Sleep(2000);
             LoginTaskSource.TrySetResult(true);
             Reload();
         }

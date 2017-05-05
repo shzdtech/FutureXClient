@@ -152,14 +152,33 @@ namespace Micro.Future.UI
                 if (hedgeContract != null && 
                     !string.IsNullOrEmpty(hedgeContract.Filter))
                 {
-                    
+                    var hedgeVM = hedgeContract.DataContext as HedgeVM;
+                    if (hedgeVM != null)
+                    {
+                        string quote = hedgeContract.SelectedItem == null ? hedgeContract.Filter : hedgeContract.SelectedItem.ToString();
+                        var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying);
+                        if (!list.Any((c) => string.Compare(c.Contract, quote, true) == 0))
+                        {
+                            System.Windows.MessageBox.Show("输入合约" + quote + "不存在");
+                            hedgeContract.Filter = hedgeVM.Contract;
+                            return;
+                        }
+                        else
+                        {
+                            hedgeVM.Contract = quote;
+                            _otcOptionHandler.UpdateHedgeContracts(hedgeVM, );
+                        }
+                    }
                 }
             }
         }
 
         private void HedgeContract_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-
+            var hedgeContract = sender as AutoCompleteTextBox;
+            if (hedgeContract != null)
+            {
+            }
         }
 
         private void HedgeContractTextBox_Loaded(object sender, RoutedEventArgs e)
@@ -167,7 +186,13 @@ namespace Micro.Future.UI
             var hedgeContract = sender as AutoCompleteTextBox;
             if (hedgeContract != null)
             {
-
+                var hedgeVM = hedgeContract.DataContext as HedgeVM;
+                if(hedgeVM != null)
+                {
+                    var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c =>c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying);
+                    hedgeContract.Provider = new SuggestionProvider((string c) => { return list.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
+                    hedgeContract.SelectedItem = hedgeVM.Contract;
+                }
             }
         }
     }
