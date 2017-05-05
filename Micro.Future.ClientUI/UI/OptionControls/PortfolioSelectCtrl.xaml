@@ -54,13 +54,20 @@
                     <GridView>
                         <GridViewColumn x:Name="HedgeExchange" Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" />
                         <GridViewColumn x:Name="HedgeUnderlying" Header="{lex:Loc Key=Underlying}" DisplayMemberBinding="{Binding Underlying}"/>
-                        <GridViewColumn Header="{lex:Loc Key=Contract}">
+                        <!--<GridViewColumn Header="{lex:Loc Key=Contract}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <wpf:AutoCompleteTextBox x:Name="HedgeContractTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" KeyUp="HedgeContract_KeyUp" MouseLeftButtonUp="HedgeContract_MouseLeftButtonUp" Focusable="False" Loaded="HedgeContractTextBox_Loaded" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                        </GridViewColumn>-->
+                        <GridViewColumn Header="{lex:Loc Key=Contract}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox x:Name="comboBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Focusable="False" Loaded="HedgeContractComboBox_Loaded" SelectionChanged="HedgeContract_SelectionChanged"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>                        
                     </GridView>
                 </ListView.View>
             </ListView>

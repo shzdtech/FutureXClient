@@ -200,5 +200,53 @@ namespace Micro.Future.UI
                 }
             }
         }
+        private void HedgeContractComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            var hedgeContract = sender as ComboBox;
+            if (hedgeContract != null)
+            {
+                var hedgeVM = hedgeContract.DataContext as HedgeVM;
+                if (hedgeVM != null)
+                {
+                    var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying).Select(c=>c.Contract);
+                    hedgeContract.ItemsSource = list;
+                    hedgeContract.SelectedItem = hedgeVM.Contract;
+                }
+            }
+        }
+
+        private void HedgeContractComboUpdate(ComboBox hedgeContract)
+        {
+            if (hedgeContract != null)
+            {
+                var hedgeVM = hedgeContract.DataContext as HedgeVM;
+                if (hedgeVM != null)
+                {
+                    string quote = hedgeContract.SelectedItem.ToString();
+                    var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying);
+                    if (!list.Any((c) => string.Compare(c.Contract, quote, true) == 0))
+                    {
+                        System.Windows.MessageBox.Show("输入合约" + quote + "不存在");
+                        hedgeContract.SelectedItem = hedgeVM.Contract;
+                        return;
+                    }
+                    else
+                    {
+                        var portfolio = portfolioCB.SelectedValue?.ToString();
+                        if (portfolio != null)
+                        {
+                            hedgeVM.Contract = quote;
+                            _otcOptionHandler.UpdateHedgeContracts(hedgeVM, portfolio);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void HedgeContract_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var hedgeContract = sender as ComboBox;
+            HedgeContractComboUpdate(hedgeContract);
+        }
     }
 }
