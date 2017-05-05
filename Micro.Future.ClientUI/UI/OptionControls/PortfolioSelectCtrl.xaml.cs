@@ -72,18 +72,13 @@ namespace Micro.Future.UI
             {
                 var portfolio = portfolioCB.SelectedValue.ToString();
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
-                var hedgeVMCollection = _otcOptionHandler?.HedgeVMCollection;
-                var hedgeContractCollection = hedgeVMCollection.Where(c => c.Portfolio == portfolio)
-                    .SelectMany(c => c.HedgeContracts);
-                var hedgeVMPortfolio = hedgeVMCollection.Where(c => c.Portfolio == portfolio).Distinct();
+                var portfolioVMCollection = _otcOptionHandler?.PortfolioVMCollection;
+                var hedgeContractCollection = portfolioVMCollection.Where(c => c.Name == portfolio)
+                    .Select(c => c.HedgeContractParams);
                 var strategySymbolList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
-                    .Select(c => new { StrategyName = c.StrategySym }).Distinct().ToList();
-                var hedgeContractList = hedgeVMCollection.Where(c => c.Portfolio == portfolio)
-                    .SelectMany(c => c.HedgeContracts).Select(c => c.Contract).Distinct().ToList();
-                var hedgeExchangeList = hedgeVMCollection.Where(c => c.Portfolio == portfolio)
-                    .SelectMany(c => c.HedgeContracts).Select(c => c.Exchange).Distinct().ToList();                
+                    .Select(c => new { StrategyName = c.StrategySym }).Distinct().ToList();                
                 strategyListView.ItemsSource = strategySymbolList;
-                hedgeListView.ItemsSource = hedgeVMPortfolio;
+                hedgeListView.ItemsSource = hedgeContractCollection;
                 var portfolioDataContext = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection
                     .Where(c => c.Name == portfolio).Distinct();
                 DelayTxt.DataContext = portfolioDataContext;
