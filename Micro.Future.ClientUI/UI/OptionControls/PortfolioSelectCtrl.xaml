@@ -22,13 +22,15 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <GroupBox x:Name="portforlioGB" Header="{lex:Loc Key=Portfolio}" Grid.Row="0" Grid.Column="0">
-            <ComboBox x:Name="portfolioCB"  Width="74" VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
-        </GroupBox>
-        <WrapPanel Grid.Row="0" Grid.Column="1" Width="auto">
-            <GroupBox x:Name="AutoHedge_CheckBox" Header="{lex:Loc Key=Hedging}" Grid.Row="0" Grid.Column="1">
-                <CheckBox IsChecked="{Binding PutStrategyVM.Hedging}" Command="{Binding PutStrategyVM.UpdateCommand}"  />
+        <WrapPanel Grid.Row="0" Grid.Column="0" Width="auto">
+            <GroupBox x:Name="portforlioGB" Header="{lex:Loc Key=Portfolio}" >
+                <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
             </GroupBox>
+            <GroupBox x:Name="AutoHedge_GroupBox" Header="{lex:Loc Key=Hedging}" >
+                <CheckBox Name="AutoHedge_CheckBox" IsChecked="{Binding Hedging}" Command="{Binding UpdateCommand}"  />
+            </GroupBox>
+        </WrapPanel>
+        <WrapPanel Grid.Row="0" Grid.Column="1" Width="auto">
             <GroupBox x:Name="Delay" Header="Delay" Width="auto">
                 <!--<TextBox x:Name="DelayTxt" KeyUp="Delay_KeyUp" HorizontalAlignment="Left" Height="auto" TextWrapping="Wrap" Text="{Binding Delay, StringFormat={}{0:N}}" VerticalAlignment="Top" MinWidth="50"/>-->
                 <xctk:IntegerUpDown x:Name="DelayTxt" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding Delay}" Spinned="Spinned" ValueChanged="DelayValueChanged"/>
@@ -55,7 +57,7 @@
                         <GridViewColumn x:Name="HedgeContract" Header="{lex:Loc Key=Contract}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox x:Name="underlyingContractCB" DataContext="{Binding Contract}"/>
+                                    <ComboBox Name="hedgeContractCB" SelectedValue="{Binding Contract}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

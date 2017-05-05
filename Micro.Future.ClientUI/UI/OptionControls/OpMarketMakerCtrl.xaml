@@ -120,7 +120,7 @@
             </GroupBox>
         </WrapPanel>
 
-        <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Visible" >
+        <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Visible" SelectionChanged="option_priceLV_SelectionChanged" >
             <ListView.Resources>
                 <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="GreenHeaderStyle">
                     <Setter Property="Background" Value="Blue"/>
@@ -180,8 +180,15 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PBidTheo" Header="PBidTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" />
-                    <GridViewColumn x:Name="PAskTheo" Header="PAskTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskPrice,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PBidTheo" Header="PBidTheo" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" TextAlignment="Right" Width="auto" Style="{DynamicResource BidChangeStyle}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <!--<GridViewColumn x:Name="PBidTheo" Header="PBidTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>-->
+                    <GridViewColumn x:Name="PAskTheo" Header="PAskTheo" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskPrice,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" />
                     <GridViewColumn x:Name="PBidIV" Header="PBidIV%" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.BidVol,StringFormat=P2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PMidIV" Header="PMidIV%" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.MidVol,StringFormat=P2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PAskIV" Header="PAskIV%" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.AskVol,StringFormat=P2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>

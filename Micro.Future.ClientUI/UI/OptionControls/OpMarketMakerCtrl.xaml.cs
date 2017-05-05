@@ -642,5 +642,10 @@ namespace Micro.Future.UI
             CCloseModeUpdate(false);
 
         }
+
+        private void option_priceLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

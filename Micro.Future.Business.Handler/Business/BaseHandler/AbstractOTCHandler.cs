@@ -285,12 +285,13 @@ namespace Micro.Future.Message
                 var port = PortfolioVMCollection.FirstOrDefault(p => p.Name == portfolio.Name);
                 if (port == null)
                 {
-                    PortfolioVMCollection.Add(new PortfolioVM(this) { Name = portfolio.Name, Delay = portfolio.HedgeDelay, Threshold = portfolio.Threshold });
+                    PortfolioVMCollection.Add(new PortfolioVM(this) { Name = portfolio.Name, Delay = portfolio.HedgeDelay, Threshold = portfolio.Threshold, Hedging = portfolio.Hedging });
                 }
                 else
                 {
                     port.Delay = portfolio.HedgeDelay;
                     port.Threshold = portfolio.Threshold;
+                    port.Hedging = portfolio.Hedging;
                 }
             }
         }
@@ -367,6 +368,7 @@ namespace Micro.Future.Message
             portfolio.Name = pVM.Name;
             portfolio.HedgeDelay = pVM.Delay;
             portfolio.Threshold = pVM.Threshold;
+            portfolio.Hedging = pVM.Hedging;
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_PORTFOLIO, portfolio);
         }
@@ -396,6 +398,18 @@ namespace Micro.Future.Message
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_PRICING_CONTRACT, strategy);
         }
+        public void UpdateHedgeContracts(HedgeVM hVM, string PortfolioName)
+        {
+            var hedge = new PBHedgeContract();
+            var portfolio = new PBPortfolio();
+            hedge.Exchange = hVM.Exchange;
+            hedge.Contract = hVM.Contract;
+            hedge.Underlying = hVM.Underlying;
+            portfolio.Name = PortfolioName;
+
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_HEDGE_CONTRACT_UPDATE, hedge);
+        }
+
 
         public void UpdateStrategyPricingContracts(StrategyVM sVM, StrategyVM.Model model)
         {

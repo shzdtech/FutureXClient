@@ -298,63 +298,9 @@ namespace Micro.Future.ViewModel
             return _value.ToString();
         }
     }
-    public class DifferentChange : ViewModelBase
+    public class BidChange : ViewModelBase
     {
-        public DifferentChange() { }
 
-        public DifferentChange(double val) { _value = val; }
-
-
-        double _value;
-        public double Value
-        {
-            get
-            {
-                return _value;
-            }
-            set
-            {
-                int sign = Math.Sign(value - _value);
-                _value = value;
-                OnPropertyChanged("Value");
-                if (sign != 0)
-                    Direction = sign;
-            }
-        }
-
-        public int _direction;
-        public int Direction
-        {
-            get
-            {
-                return _direction;
-            }
-            protected set
-            {
-                _direction = value;
-                OnPropertyChanged("Direction");
-            }
-        }
-
-        public static implicit operator double(DifferentChange dc)
-        {
-            return dc.Value;
-        }
-
-        public static implicit operator bool(DifferentChange dc)
-        {
-            return dc.Direction >= 0;
-        }
-
-        public static implicit operator DoubleChange(DifferentChange value)
-        {
-            return new DoubleChange(value);
-        }
-
-        public override string ToString()
-        {
-            return _value.ToString();
-        }
     }
 
 }

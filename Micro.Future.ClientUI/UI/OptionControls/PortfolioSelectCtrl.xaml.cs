@@ -40,6 +40,7 @@ namespace Micro.Future.UI
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
             var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
             _contractList = options.Union(otcOptions).ToList();
+           
         }
 
 
@@ -74,6 +75,7 @@ namespace Micro.Future.UI
                 var hedgeVMCollection = _otcOptionHandler?.HedgeVMCollection;
                 var hedgeContractCollection = hedgeVMCollection.Where(c => c.Portfolio == portfolio)
                     .SelectMany(c => c.HedgeContracts);
+                var hedgeVMPortfolio = hedgeVMCollection.Where(c => c.Portfolio == portfolio).Distinct();
                 var strategySymbolList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
                     .Select(c => new { StrategyName = c.StrategySym }).Distinct().ToList();
                 var hedgeContractList = hedgeVMCollection.Where(c => c.Portfolio == portfolio)
@@ -81,11 +83,12 @@ namespace Micro.Future.UI
                 var hedgeExchangeList = hedgeVMCollection.Where(c => c.Portfolio == portfolio)
                     .SelectMany(c => c.HedgeContracts).Select(c => c.Exchange).Distinct().ToList();
                 strategyListView.ItemsSource = strategySymbolList;
-                hedgeListView.ItemsSource = null;
+                hedgeListView.ItemsSource = hedgeVMPortfolio;
                 var portfolioDataContext = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection
                     .Where(c => c.Name == portfolio).Distinct();
                 DelayTxt.DataContext = portfolioDataContext;
                 Threshold.DataContext = portfolioDataContext;
+                AutoHedge_CheckBox.DataContext = portfolioDataContext;
                 var basecontractsList = strategyVMCollection.Select(c => c.BaseContract).Distinct().ToList();
                 foreach (var sVM in strategyVMCollection)
                 {
