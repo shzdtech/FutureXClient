@@ -54,10 +54,10 @@
                     <GridView>
                         <GridViewColumn x:Name="HedgeExchange" Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" />
                         <GridViewColumn x:Name="HedgeUnderlying" Header="{lex:Loc Key=Underlying}" DisplayMemberBinding="{Binding Underlying}"/>
-                        <GridViewColumn x:Name="HedgeContract" Header="{lex:Loc Key=Contract}">
+                        <GridViewColumn Header="{lex:Loc Key=Contract}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox Name="hedgeContractCB" SelectedValue="{Binding Contract}"/>
+                                    <ComboBox x:Name="cbHedgeContract" SelectedValue="{Binding Contract}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

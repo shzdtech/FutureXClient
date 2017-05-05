@@ -37,17 +37,6 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private string _portfolio;
-        public string Portfolio
-        {
-            get { return _portfolio; }
-            set
-            {
-                _portfolio = value;
-                OnPropertyChanged("Portfolio");
-            }
-        }
-
         private DirectionType _direction;
         public DirectionType Direction
         {
