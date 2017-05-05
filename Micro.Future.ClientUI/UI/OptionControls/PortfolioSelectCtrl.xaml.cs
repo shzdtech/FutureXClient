@@ -93,11 +93,11 @@ namespace Micro.Future.UI
                     .Select(c => new { StrategyName = c.StrategySym }).Distinct().ToList();
                 strategyListView.ItemsSource = strategySymbolList;
                 hedgeListView.ItemsSource = portfolioVM.HedgeContractParams;
-                var portfolioDataContext = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection
-                    .Where(c => c.Name == portfolio).Distinct();
-                DelayTxt.DataContext = portfolioDataContext;
-                Threshold.DataContext = portfolioDataContext;
-                AutoHedge_CheckBox.DataContext = portfolioDataContext;
+                //var portfolioDataContext = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection
+                //    .Where(c => c.Name == portfolio).Distinct();
+                DelayTxt.DataContext = portfolioVM;
+                Threshold.DataContext = portfolioVM;
+                AutoHedge_CheckBox.DataContext = portfolioVM;
                 var basecontractsList = strategyVMCollection.Select(c => c.BaseContract).Distinct().ToList();
                 foreach (var sVM in strategyVMCollection)
                 {
