@@ -109,7 +109,8 @@ namespace Micro.Future.Message
                     quote.TempTheoDataVM = new OptionPricingVM
                     {
                         AskVol = tradingDeskOption.TheoDataTemp.AskVolatility,
-                        BidVol = tradingDeskOption.TheoDataTemp.BidVolatility
+                        BidVol = tradingDeskOption.TheoDataTemp.BidVolatility,
+                        MidVol = tradingDeskOption.TheoDataTemp.MidVolatility,
                     };
                 }
 
