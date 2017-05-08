@@ -64,6 +64,9 @@
     <ApplicationIcon>Logo.png.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ExtendedGrid">
+      <HintPath>..\SharedLib\ExtendedGrid.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />

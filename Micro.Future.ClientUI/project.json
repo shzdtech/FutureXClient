@@ -14,8 +14,7 @@
     "Microsoft.EntityFrameworkCore": "1.1.0",
     "OxyPlot.Wpf": "2.0.0-unstable0956",
     "WpfControls.AutoCompleteTextBox": "1.0.0.7",
-    "WpfLocalizeExtension": "2.3.2",
-    //"Xceed.Products.Wpf.DataGrid.Full": "6.2.17123.15050"
+    "WpfLocalizeExtension": "2.3.2"
   },
   "frameworks": {
     "net461": {}
