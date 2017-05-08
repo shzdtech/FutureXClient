@@ -272,5 +272,16 @@ namespace Micro.Future.UI
                 portfolioVM.UpdatePortfolio();
             }
         }
+
+        private void AutoHedge_Checked(object sender, RoutedEventArgs e)
+        {
+            hedgeListView.IsEnabled = false;
+        }
+
+        private void AutoHege_Unchecked(object sender, RoutedEventArgs e)
+        {
+            hedgeListView.IsEnabled = true;
+
+        }
     }
 }

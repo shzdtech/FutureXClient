@@ -27,7 +27,7 @@
                 <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
             </GroupBox>
             <GroupBox x:Name="AutoHedge_GroupBox" Header="{lex:Loc Key=Hedging}" >
-                <CheckBox Name="AutoHedge_CheckBox" IsChecked="{Binding Hedging}" Command="{Binding UpdateCommand}" />
+                <CheckBox Name="AutoHedge_CheckBox" IsChecked="{Binding Hedging}" Command="{Binding UpdateCommand}" Checked="AutoHedge_Checked" Unchecked="AutoHege_Unchecked" />
             </GroupBox>
         </WrapPanel>
         <WrapPanel Grid.Row="0" Grid.Column="1" Width="auto">
@@ -61,7 +61,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>-->
-                        <GridViewColumn Header="{lex:Loc Key=Contract}">
+                        <GridViewColumn x:Name="contractComboHead" Header="{lex:Loc Key=Contract}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox x:Name="comboBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Focusable="False" Loaded="HedgeContractComboBox_Loaded" SelectionChanged="HedgeContract_SelectionChanged"/>

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -131,6 +132,7 @@ namespace Micro.Future.UI
         }
         private void SetCurrentBtn_Click(object sender, RoutedEventArgs e)
         {
+            //Task.Run(() => { Task.Delay(5000); Dispatcher.Invoke(() => VolCurvLV.TempCurveReset()); });        
             VolCurvLV.TempCurveReset();
         }
     }

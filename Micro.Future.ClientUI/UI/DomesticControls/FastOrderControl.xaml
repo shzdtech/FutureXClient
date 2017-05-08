@@ -38,10 +38,10 @@
             <Label Width="35" Content="{lex:Loc Key=OrderVolume}" VerticalAlignment="Center"></Label>
             <xctk:IntegerUpDown x:Name="SizeTxt" Width="100" Value="{Binding Volume}" FormatString="N0"  VerticalAlignment="Center" Maximum="100000" Minimum="1"/>
             <TextBlock Text="{lex:Loc Key=TIF}" Width="35" VerticalAlignment="Center"></TextBlock>
-            <ComboBox x:Name="TimeTypeCombo" Grid.ColumnSpan="2" Width="101" VerticalAlignment="Center" Margin="0,4">
+            <!--<ComboBox x:Name="TimeTypeCombo" Grid.ColumnSpan="2" Width="101" VerticalAlignment="Center" Margin="0,4">
                 <ComboBoxItem>GFD</ComboBoxItem>
                 <ComboBoxItem>IOC</ComboBoxItem>
-            </ComboBox>
+            </ComboBox>-->
         </StackPanel>
 
         <Grid Grid.Row="3" Height="30">

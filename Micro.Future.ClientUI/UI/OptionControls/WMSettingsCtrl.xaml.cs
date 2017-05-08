@@ -30,7 +30,7 @@ namespace Micro.Future.UI
     public partial class WMSettingsCtrl : UserControl
     {
         public LayoutContent LayoutContent { get; set; }
-        private IDictionary<string, double> TempSettings { get; set; } = new Dictionary<string, double>();
+        public IDictionary<string, double> TempSettings { get; set; } = new Dictionary<string, double>();
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private IList<ContractInfo> _contractList;
         private IDictionary<ContractKeyVM, ContractInfo> _strategySet;

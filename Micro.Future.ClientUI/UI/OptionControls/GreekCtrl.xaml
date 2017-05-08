@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Micro.Future.UI.OptionControls"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
              lex:LocalizeDictionary.DesignCulture="zh_CN"
              lex:LocalizeDictionary.OutputMissingKeys="True"
              lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
@@ -15,9 +16,12 @@
 
     <Grid>
         <ListView Name="GreekListView" GridViewColumnHeader.Click = "GreekListView_Click">
+            <ListView.GroupStyle>
+            </ListView.GroupStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
+                    <GridViewColumn Header="{lex:Loc Key=Underlying}" DisplayMemberBinding="{Binding Underlying}"/>
                     <GridViewColumn Header="Delta" DisplayMemberBinding="{Binding Delta,StringFormat=N2}"/>
                     <GridViewColumn Header="Gamma" DisplayMemberBinding="{Binding Gamma,StringFormat=N4}"/>
                     <GridViewColumn Header="Vega%" DisplayMemberBinding="{Binding Vega100,StringFormat=N2}"/>

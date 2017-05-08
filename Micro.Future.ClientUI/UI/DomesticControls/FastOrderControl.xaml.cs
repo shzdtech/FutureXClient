@@ -24,13 +24,10 @@ namespace Micro.Future.UI
     public partial class FastOrderControl : UserControl
     {
         private string _currentContract;
-        public IList<ContractInfo> FuturecontractList
+        public List<ContractInfo> FuturecontractList
         {
-            get
-            {
-                return ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            }
-        }
+            get;
+        } = new List<ContractInfo>();
         public BaseTraderHandler TradeHandler
         {
             get
@@ -59,6 +56,10 @@ namespace Micro.Future.UI
         private void Initialize()
         {
             portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
+            FuturecontractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
+
+            FuturecontractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
+
             FastOrderContract.Provider = new SuggestionProvider((string c) => { return FuturecontractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
         }
 
