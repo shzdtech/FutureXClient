@@ -1,6 +1,10 @@
 ﻿using Micro.Future.Utility;
+using Micro.Future.ViewModel;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +28,23 @@ namespace Micro.Future.UI
         public GreekCtrl()
         {
             InitializeComponent();
+
         }
+        
+        public void BindingToSource(ObservableCollection<RiskVM> source)
+        {
+            GreekListView.ItemsSource = null;
+            GreekListView.ItemsSource = source;
+            source.Add(new RiskVM { Contract = "a", Underlying = "1", Delta = 1, Gamma = 1, Vega = 1, Theta = 1 });
+            source.Add(new RiskVM { Contract = "a", Underlying = "1", Delta = 1, Gamma = 1, Vega = 1, Theta = 1 });
+            source.Add(new RiskVM { Contract = "b", Underlying = "2", Delta = 1, Gamma = 1, Vega = 1, Theta = 1 });
+            var cvs = CollectionViewSource.GetDefaultView(source);
+            if (cvs != null)
+            {
+                cvs.GroupDescriptions.Add(new PropertyGroupDescription("Underlying"));
+            }
+        }
+
         private void GreekListView_Click(object sender, RoutedEventArgs e)
         {
             var head = e.OriginalSource as GridViewColumnHeader;

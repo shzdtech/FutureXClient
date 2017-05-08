@@ -72,11 +72,7 @@ namespace Micro.Future.UI
                  var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
                  await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
                  var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
-                 greeksControl.GreekListView.ItemsSource = null;
-                 greeksControl.GreekListView.ItemsSource = riskVMlist;
-                 riskVMlist.Add(new RiskVM { Contract = "a", Underlying = "1", Delta = 1, Gamma = 1, Vega = 1, Theta = 1 });
-                 riskVMlist.Add(new RiskVM { Contract = "a", Underlying = "1", Delta = 1, Gamma = 1, Vega = 1, Theta = 1 });
-                 riskVMlist.Add(new RiskVM { Contract = "b", Underlying = "2", Delta = 1, Gamma = 1, Vega = 1, Theta = 1 });
+                 greeksControl.BindingToSource(riskVMlist);
              });
         }
         private async void PortfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
