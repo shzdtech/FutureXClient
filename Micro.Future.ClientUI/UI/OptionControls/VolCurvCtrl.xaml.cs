@@ -386,6 +386,7 @@ namespace Micro.Future.UI
 
         public void TempCurveReset()
         {
+            //_otcHandler.RemoveTempModel();            
             var datapoints = VolatilityModelVM.TheoAskVolLine1.Count;
             VolatilityModelVM.TheoAskVolLine1.Clear();
             VolatilityModelVM.TheoBidVolLine1.Clear();

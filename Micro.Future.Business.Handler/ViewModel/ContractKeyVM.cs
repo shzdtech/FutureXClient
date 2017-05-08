@@ -55,6 +55,20 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private string _underlying;
+        public string Underlying
+        {
+            get
+            {
+                return _underlying;
+            }
+            set
+            {
+                _underlying = value;
+                OnPropertyChanged("Underlying");
+            }
+        }
+
         private string _contract;
         public string Contract
         {

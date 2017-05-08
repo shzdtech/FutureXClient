@@ -528,6 +528,7 @@ namespace Micro.Future.Message
                 {
                     Exchange = risk.Exchange,
                     Contract = risk.Contract,
+                    Underlying = risk.Underlying,
                     Delta = risk.Delta,
                     Gamma = risk.Gamma,
                     Theta = risk.Theta,

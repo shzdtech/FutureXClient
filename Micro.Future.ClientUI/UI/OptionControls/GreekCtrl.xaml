@@ -7,6 +7,9 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"    
              xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+             xmlns:ExtendedGridControl="clr-namespace:ExtendedGrid.ExtendedGridControl;assembly=ExtendedGrid"
+             xmlns:ExtendedColumn="clr-namespace:ExtendedGrid.ExtendedColumn;assembly=ExtendedGrid"
+             xmlns:Classes="clr-namespace:ExtendedGrid.Classes;assembly=ExtendedGrid"
              lex:LocalizeDictionary.DesignCulture="zh_CN"
              lex:LocalizeDictionary.OutputMissingKeys="True"
              lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
@@ -15,7 +18,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid>
-        <ListView Name="GreekListView" GridViewColumnHeader.Click = "GreekListView_Click">
+        <!--<ListView Name="GreekListView" GridViewColumnHeader.Click = "GreekListView_Click">
             <ListView.GroupStyle>
             </ListView.GroupStyle>
             <ListView.View>
@@ -28,6 +31,73 @@
                     <GridViewColumn Header="Theta" DisplayMemberBinding="{Binding Theta365,StringFormat=N2}"/>
                 </GridView>
             </ListView.View>
-        </ListView>
+        </ListView>-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="0.6*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical">
+            <ContentControl  HorizontalAlignment="Stretch"  >
+                <DockPanel LastChildFill="True">
+                </DockPanel>
+            </ContentControl>
+            <ExtendedGridControl:ExtendedDataGrid GroupByControlVisibility="Collapsed" ShowRowSummaries="True" Height="500" VerticalAlignment="Top" x:Name="GreekListView" RowHeaderWidth="17"  AutoGenerateColumns="False" HideColumnChooser="False" 
+                                              IsSynchronizedWithCurrentItem="True"  SelectionMode="Extended" SelectionUnit="CellOrRowHeader" RowSummarySumFormat="[#]">
+                <DataGrid.Columns>
+                    <ExtendedColumn:ExtendedDataGridTextColumn Header="{lex:Loc Key=Contract}" AllowAutoFilter="False"
+                                           Binding="{Binding Contract}" />
+                    <ExtendedColumn:ExtendedDataGridTextColumn Header="{lex:Loc Key=Underlying}" AllowAutoFilter="False"
+                                           Binding="{Binding Underlying}" />
+                    <ExtendedColumn:ExtendedDataGridTextColumn Header="Delta"
+                                           Binding="{Binding Delta}" AllowAutoFilter="False">
+                        <ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
+                            <Classes:SummaryColumnSettings>
+                                <Classes:SummaryColumnSettings.SummaryOperands>
+                                    <Classes:SumSummaryOperands/>
+                                </Classes:SummaryColumnSettings.SummaryOperands>
+                            </Classes:SummaryColumnSettings>
+                        </ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
+                    </ExtendedColumn:ExtendedDataGridTextColumn>
+                    
+                    <ExtendedColumn:ExtendedDataGridTextColumn Header="Gamma"
+                                           Binding="{Binding Gamma}" AllowAutoFilter="False"
+                                           CanUserSort="False" Width="*">
+                        <ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
+                            <Classes:SummaryColumnSettings>
+                                <Classes:SummaryColumnSettings.SummaryOperands>
+                                    <Classes:SumSummaryOperands/>
+                                </Classes:SummaryColumnSettings.SummaryOperands>
+                            </Classes:SummaryColumnSettings>
+                        </ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
+                    </ExtendedColumn:ExtendedDataGridTextColumn>
+                    
+                    <ExtendedColumn:ExtendedDataGridTextColumn Header="Vega%"
+                                           Binding="{Binding Vega}" AllowAutoFilter="False"
+                                           CanUserSort="False" Width="*">
+                        <ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
+                            <Classes:SummaryColumnSettings>
+                                <Classes:SummaryColumnSettings.SummaryOperands>
+                                    <Classes:SumSummaryOperands/>
+                                </Classes:SummaryColumnSettings.SummaryOperands>
+                            </Classes:SummaryColumnSettings>
+                        </ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
+                    </ExtendedColumn:ExtendedDataGridTextColumn>
+
+                    <ExtendedColumn:ExtendedDataGridTextColumn Header="Theta"
+                                           Binding="{Binding Theta}" AllowAutoFilter="False"
+                                           CanUserSort="False" Width="*">
+                        <ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
+                            <Classes:SummaryColumnSettings>
+                                <Classes:SummaryColumnSettings.SummaryOperands>
+                                    <Classes:SumSummaryOperands/>
+                                </Classes:SummaryColumnSettings.SummaryOperands>
+                            </Classes:SummaryColumnSettings>
+                        </ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
+                    </ExtendedColumn:ExtendedDataGridTextColumn>
+                </DataGrid.Columns>
+            </ExtendedGridControl:ExtendedDataGrid>
+        </StackPanel>
+        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"></GridSplitter>
     </Grid>
 </UserControl>
