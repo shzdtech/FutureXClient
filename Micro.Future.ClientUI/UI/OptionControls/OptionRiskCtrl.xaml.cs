@@ -102,7 +102,7 @@ namespace Micro.Future.UI
             }
             marketDataLV.quoteListView.ItemsSource = QuoteVMCollection;
             var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
-            greeksControl.GreekListView.ItemsSource = riskVMlist;
+            greeksControl.BindingToSource(riskVMlist);
             domesticPositionsWindow.FilterByPortfolio(portfolio);
             otcPositionsWindow.FilterByPortfolio(portfolio);
             domesticTradeWindow.FilterByPortfolio(portfolio);

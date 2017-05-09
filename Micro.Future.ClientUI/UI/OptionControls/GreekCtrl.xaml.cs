@@ -30,19 +30,21 @@ namespace Micro.Future.UI
             InitializeComponent();
 
         }
-        
+
         public void BindingToSource(ObservableCollection<RiskVM> source)
         {
-            GreekListView.ItemsSource = null;
-            GreekListView.ItemsSource = source;
             source.Add(new RiskVM { Contract = "a", Underlying = "1", Delta = 1, Gamma = 1, Vega = 1, Theta = 1 });
             source.Add(new RiskVM { Contract = "a", Underlying = "1", Delta = 1, Gamma = 1, Vega = 1, Theta = 1 });
             source.Add(new RiskVM { Contract = "b", Underlying = "2", Delta = 1, Gamma = 1, Vega = 1, Theta = 1 });
+
             var cvs = CollectionViewSource.GetDefaultView(source);
             if (cvs != null)
             {
                 cvs.GroupDescriptions.Add(new PropertyGroupDescription("Underlying"));
             }
+
+            GreekListView.ItemsSource = null;
+            GreekListView.ItemsSource = cvs;
         }
 
         private void GreekListView_Click(object sender, RoutedEventArgs e)
@@ -54,5 +56,31 @@ namespace Micro.Future.UI
             }
         }
 
+    }
+
+    public class DeltaConverter : IValueConverter
+    {
+
+        public object Convert(object value, System.Type targetType,
+                              object parameter,
+                              System.Globalization.CultureInfo culture)
+        {
+            if (null == value)
+                return null;
+
+            ReadOnlyObservableCollection<object> items =
+              (ReadOnlyObservableCollection<object>)value;
+
+            var delta = items.Sum(c=>((RiskVM)c).Delta);
+
+            return delta;
+        }
+
+        public object ConvertBack(object value, System.Type targetType,
+                                  object parameter,
+                                  System.Globalization.CultureInfo culture)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

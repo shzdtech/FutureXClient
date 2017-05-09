@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Micro.Future.UI.OptionControls"
+             xmlns:local="clr-namespace:Micro.Future.UI"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"    
              xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
@@ -18,8 +18,22 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid>
-        <!--<ListView Name="GreekListView" GridViewColumnHeader.Click = "GreekListView_Click">
+        <Grid.Resources>
+            <local:DeltaConverter  x:Key="deltaConverter" />
+        </Grid.Resources>
+        <ListView Name="GreekListView" GridViewColumnHeader.Click = "GreekListView_Click">
             <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Total: " FontWeight="Bold"/>
+                                <!-- This needs to display the sum of the hours -->
+                                <TextBlock Text="{Binding Path=Items, Converter={StaticResource deltaConverter}, StringFormat=N2}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
             </ListView.GroupStyle>
             <ListView.View>
                 <GridView>
@@ -31,79 +45,6 @@
                     <GridViewColumn Header="Theta" DisplayMemberBinding="{Binding Theta365,StringFormat=N2}"/>
                 </GridView>
             </ListView.View>
-        </ListView>-->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <Grid.Resources>
-            <Style x:Key="mySelectorStyle" TargetType="{x:Type xcdg:RowSelector}">
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-            </Style>
-        </Grid.Resources>
-        <StackPanel Orientation="Vertical">
-            <ContentControl  HorizontalAlignment="Stretch"  >
-                <DockPanel LastChildFill="True">
-                </DockPanel>
-            </ContentControl>
-            <ExtendedGridControl:ExtendedDataGrid GroupByControlVisibility="Collapsed" ShowRowSummaries="False" Height="auto" VerticalAlignment="Top" x:Name="GreekListView" RowHeaderWidth="7"  AutoGenerateColumns="False" HideColumnChooser="False" 
-                                              IsSynchronizedWithCurrentItem="True"  SelectionMode="Extended" SelectionUnit="CellOrRowHeader" RowSummarySumFormat="[#]" Background="Transparent" BorderBrush="Transparent" ScrollViewer.VerticalScrollBarVisibility="Visible">
-                <DataGrid.Columns>
-                    <ExtendedColumn:ExtendedDataGridTextColumn Header="{lex:Loc Key=Contract}" AllowAutoFilter="False" Width="35" 
-                                           Binding="{Binding Contract}"/>
-                    <ExtendedColumn:ExtendedDataGridTextColumn Header="{lex:Loc Key=Underlying}" AllowAutoFilter="False" Width="35"
-                                           Binding="{Binding Underlying}" />
-                    <ExtendedColumn:ExtendedDataGridTextColumn Header="Delta" Width="40"
-                                           Binding="{Binding Delta,StringFormat=N2}" AllowAutoFilter="False">
-                        <ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
-                            <Classes:SummaryColumnSettings>
-                                <Classes:SummaryColumnSettings.SummaryOperands>
-                                    <Classes:SumSummaryOperands/>
-                                </Classes:SummaryColumnSettings.SummaryOperands>
-                            </Classes:SummaryColumnSettings>
-                        </ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
-                    </ExtendedColumn:ExtendedDataGridTextColumn>
-
-                    <ExtendedColumn:ExtendedDataGridTextColumn Header="Gamma" Width="45"
-                                           Binding="{Binding Gamma,StringFormat=N4}" AllowAutoFilter="False"
-                                           CanUserSort="False">
-                        <ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
-                            <Classes:SummaryColumnSettings>
-                                <Classes:SummaryColumnSettings.SummaryOperands>
-                                    <Classes:SumSummaryOperands/>
-                                </Classes:SummaryColumnSettings.SummaryOperands>
-                            </Classes:SummaryColumnSettings>
-                        </ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
-                    </ExtendedColumn:ExtendedDataGridTextColumn>
-
-                    <ExtendedColumn:ExtendedDataGridTextColumn Header="Vega%" Width="45"
-                                           Binding="{Binding Vega100,StringFormat=N2}" AllowAutoFilter="False"
-                                           CanUserSort="False">
-                        <ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
-                            <Classes:SummaryColumnSettings>
-                                <Classes:SummaryColumnSettings.SummaryOperands>
-                                    <Classes:SumSummaryOperands/>
-                                </Classes:SummaryColumnSettings.SummaryOperands>
-                            </Classes:SummaryColumnSettings>
-                        </ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
-                    </ExtendedColumn:ExtendedDataGridTextColumn>
-
-                    <ExtendedColumn:ExtendedDataGridTextColumn Header="Theta"
-                                           Binding="{Binding Theta365,StringFormat=N2}" AllowAutoFilter="False"
-                                           CanUserSort="False" Width="40">
-                        <ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
-                            <Classes:SummaryColumnSettings>
-                                <Classes:SummaryColumnSettings.SummaryOperands>
-                                    <Classes:SumSummaryOperands/>
-                                </Classes:SummaryColumnSettings.SummaryOperands>
-                            </Classes:SummaryColumnSettings>
-                        </ExtendedColumn:ExtendedDataGridTextColumn.SummaryColumnSettings>
-                    </ExtendedColumn:ExtendedDataGridTextColumn>
-                </DataGrid.Columns>
-            </ExtendedGridControl:ExtendedDataGrid>
-        </StackPanel>
-        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"></GridSplitter>
+        </ListView>
     </Grid>
 </UserControl>
