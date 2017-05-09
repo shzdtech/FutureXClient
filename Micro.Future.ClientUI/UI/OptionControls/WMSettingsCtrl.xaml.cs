@@ -93,12 +93,10 @@ namespace Micro.Future.UI
                 var modelParamsVM = DataContext as ModelParamsVM;
                 if (modelParamsVM != null)
                 {
-
                     _otcOptionHandler.RemoveTempModel(modelParamsVM.InstanceName);
                     Thread.Sleep(100);
                     _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, TempSettings);
                     DeleteTempSettings();
-
                 }
             }
 
