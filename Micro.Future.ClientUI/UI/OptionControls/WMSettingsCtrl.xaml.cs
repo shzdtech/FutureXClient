@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -92,8 +93,9 @@ namespace Micro.Future.UI
                 var modelParamsVM = DataContext as ModelParamsVM;
                 if (modelParamsVM != null)
                 {
-                    _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, TempSettings);
                     RevertCurrent();
+                    Thread.Sleep(100);
+                    _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, TempSettings);
                 }
             }
 
