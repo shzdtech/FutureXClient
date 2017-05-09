@@ -22,7 +22,7 @@
             <local:DeltaConverter  x:Key="deltaConverter" />
         </Grid.Resources>
         <ListView Name="GreekListView" GridViewColumnHeader.Click = "GreekListView_Click">
-            <ListView.GroupStyle>
+            <!--<ListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
@@ -33,7 +33,7 @@
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
-            </ListView.GroupStyle>                
+            </ListView.GroupStyle>-->
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
