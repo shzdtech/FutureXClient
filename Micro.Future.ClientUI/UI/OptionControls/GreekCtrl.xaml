@@ -28,8 +28,7 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Total: " FontWeight="Bold"/>
-                                <!-- This needs to display the sum of the hours -->
-                                <TextBlock Text="{Binding Path=Items, Converter={StaticResource deltaConverter}, StringFormat=N2}"/>
+                                <TextBlock Text="{Binding Path=Items, Converter={StaticResource deltaConverter}}"/>
                             </StackPanel>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>

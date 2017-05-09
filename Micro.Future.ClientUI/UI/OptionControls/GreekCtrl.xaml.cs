@@ -33,9 +33,6 @@ namespace Micro.Future.UI
 
         public void BindingToSource(ObservableCollection<RiskVM> source)
         {
-            source.Add(new RiskVM { Contract = "a", Underlying = "1", Delta = 1, Gamma = 1, Vega = 1, Theta = 1 });
-            source.Add(new RiskVM { Contract = "a", Underlying = "1", Delta = 1, Gamma = 1, Vega = 1, Theta = 1 });
-            source.Add(new RiskVM { Contract = "b", Underlying = "2", Delta = 1, Gamma = 1, Vega = 1, Theta = 1 });
 
             var cvs = CollectionViewSource.GetDefaultView(source);
             if (cvs != null)
@@ -71,9 +68,12 @@ namespace Micro.Future.UI
             ReadOnlyObservableCollection<object> items =
               (ReadOnlyObservableCollection<object>)value;
 
-            var delta = items.Sum(c=>((RiskVM)c).Delta);
+            var delta = items.Sum(c => ((RiskVM)c).Delta);
+            var gamma = items.Sum(c => ((RiskVM)c).Gamma);
+            var theta = items.Sum(c => ((RiskVM)c).Theta365);
+            var vega = items.Sum(c => ((RiskVM)c).Vega100);
 
-            return delta;
+            return string.Format("\t {0:N2}\t{1:N4}\t{2:N2}\t{3:N2}", delta, gamma, vega, theta);
         }
 
         public object ConvertBack(object value, System.Type targetType,
@@ -83,4 +83,30 @@ namespace Micro.Future.UI
             throw new System.NotImplementedException();
         }
     }
+    public class GammaConverter : IValueConverter
+    {
+
+        public object Convert(object value, System.Type targetType,
+                              object parameter,
+                              System.Globalization.CultureInfo culture)
+        {
+            if (null == value)
+                return null;
+
+            ReadOnlyObservableCollection<object> items =
+              (ReadOnlyObservableCollection<object>)value;
+
+            var gamma = items.Sum(c => ((RiskVM)c).Gamma);
+
+            return gamma;
+        }
+
+        public object ConvertBack(object value, System.Type targetType,
+                                  object parameter,
+                                  System.Globalization.CultureInfo culture)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
 }
