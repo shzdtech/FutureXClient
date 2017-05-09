@@ -25,7 +25,7 @@
         </Grid.Resources>
 
         <ListView Name="GreekListView" GridViewColumnHeader.Click = "GreekListView_Click">
-            <!--<ListView.GroupStyle>
+            <ListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
@@ -36,8 +36,8 @@
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
-            </ListView.GroupStyle>-->
-            <ListView.GroupStyle>
+            </ListView.GroupStyle>
+            <!--<ListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
                         <Style TargetType="{x:Type GroupItem}">
@@ -68,7 +68,7 @@
                     </GroupStyle.ContainerStyle>
 
                 </GroupStyle>
-            </ListView.GroupStyle>
+            </ListView.GroupStyle>-->
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
