@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.DataGrid;
 
 namespace Micro.Future.UI
 {
@@ -28,20 +29,47 @@ namespace Micro.Future.UI
         public GreekCtrl()
         {
             InitializeComponent();
+            //this.UpdateHeadersFooters();
+            var cvs = gridFrame.FindResource("cvsProducts") as DataGridCollectionViewSource;
+            cvs.Source = null;
+            cvs.Source = RiskVMCollection;
 
+            RiskVMCollection.Add(new RiskVM { Contract = "1", Underlying = "2", Delta = 2, Gamma = 1 });
+            RiskVMCollection.Add(new RiskVM { Contract = "1", Underlying = "2", Delta = 1, Gamma = 1 });
+            RiskVMCollection.Add(new RiskVM { Contract = "1", Underlying = "m", Delta = 1, Gamma = 1 });
         }
+
+        public ObservableCollection<RiskVM> RiskVMCollection
+        {
+            get;
+        } = new ObservableCollection<RiskVM>();
 
         public void BindingToSource(ObservableCollection<RiskVM> source)
         {
 
-            var cvs = CollectionViewSource.GetDefaultView(source);
-            if (cvs != null)
-            {
-                cvs.GroupDescriptions.Add(new PropertyGroupDescription("Underlying"));
-            }
+            //var cvs = CollectionViewSource.GetDefaultView(source);
+            //if (cvs != null)
+            //{
+            //    cvs.GroupDescriptions.Add(new PropertyGroupDescription("Underlying"));
+            //}
 
-            GreekListView.ItemsSource = null;
-            GreekListView.ItemsSource = cvs;
+            //GreekListView.ItemsSource = null;
+            //GreekListView.ItemsSource = cvs;
+            RiskVMCollection.Clear();
+            foreach(var riskVM in source)
+            {
+                RiskVMCollection.Add(riskVM);
+            }           
+        }
+        private void UpdateHeadersFooters()
+        {
+            // Add the various headers and footers element defined in the resources according
+            // to the current view.
+            if (this.GreekListView.View is Xceed.Wpf.DataGrid.Views.TableView)
+            {
+                this.GreekListView.View.FixedFooters.Add((DataTemplate)this.FindResource("tableViewFixedFooter1"));
+                this.GreekListView.DefaultGroupConfiguration = (GroupConfiguration)this.FindResource("tableViewGroupConfiguration1");
+            }
         }
 
         private void GreekListView_Click(object sender, RoutedEventArgs e)

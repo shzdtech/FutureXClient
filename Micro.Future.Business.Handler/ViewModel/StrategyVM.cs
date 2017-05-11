@@ -38,21 +38,8 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(Adjust));
             }
         }
-
-        private string _underlying;
-        public string Underlying
-        {
-            get
-            {
-                return _underlying;
-            }
-            set
-            {
-                _underlying = value;
-                OnPropertyChanged(nameof(Underlying));
-            }
-        }
     }
+
     public class StrategyVM : OTCPricingVM
     {
         public enum Model
@@ -70,20 +57,6 @@ namespace Micro.Future.ViewModel
         public AbstractOTCHandler OTCHandler { get; set; }
 
 
-
-        private string _underlying;
-        public string Underlying
-        {
-            get
-            {
-                return _underlying;
-            }
-            set
-            {
-                _underlying = value;
-                OnPropertyChanged(nameof(Underlying));
-            }
-        }
 
         private string _basecontract;
         public string BaseContract
