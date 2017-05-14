@@ -198,6 +198,17 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private int _counterDirection;
+        public int CounterDirection
+        {
+            get { return _counterDirection; }
+            set
+            {
+                _counterDirection = value;
+                OnPropertyChanged(nameof(CounterDirection));
+            }
+        }
+
         bool _bidNotCross;
         public bool BidNotCross
         {

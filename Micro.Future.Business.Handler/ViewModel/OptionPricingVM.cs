@@ -125,5 +125,18 @@ namespace Micro.Future.ViewModel
                 return Vega / 100;
             }
         }
+        private int _pricedirection;
+        public int Pricedirection
+        {
+            get
+            {
+                return _pricedirection;
+            }
+            set
+            {
+                _pricedirection = value;
+                OnPropertyChanged(nameof(Pricedirection));
+            }
+        }
     }
 }

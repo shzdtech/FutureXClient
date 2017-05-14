@@ -203,10 +203,15 @@ namespace Micro.Future.Message
                     quote.TheoDataVM.BidPrice = newVM.TheoDataVM.BidPrice;
                     quote.TheoDataVM.BidSize = newVM.TheoDataVM.BidSize;
                     quote.TheoDataVM.BidVol = newVM.TheoDataVM.BidVol;
-
+                }
+                if (newVM.TheoDataVM != null && newVM.MarketDataVM != null)
+                {
+                    if (quote.TheoDataVM.AskPrice - quote.MarketDataVM.AskPrice <= 0 || quote.TheoDataVM.BidPrice - quote.MarketDataVM.BidPrice >= 0)
+                        quote.TheoDataVM.Pricedirection = 1;
+                    else
+                        quote.TheoDataVM.Pricedirection = -1;
                 }
             }
-
             return quote;
         }
     }

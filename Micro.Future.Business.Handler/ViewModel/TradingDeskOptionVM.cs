@@ -14,6 +14,7 @@ namespace Micro.Future.ViewModel
         public OptionPricingVM TempTheoDataVM { get; set; }
         public WingsReturnVM WingsReturnVM { get; set; }
 
+
         public void InitProperties()
         {
             MarketDataVM = new PricingVM();
