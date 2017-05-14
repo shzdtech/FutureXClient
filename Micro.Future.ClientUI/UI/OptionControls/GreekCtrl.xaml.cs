@@ -34,10 +34,10 @@ namespace Micro.Future.UI
             InitializeComponent();
         }
 
-        public List<RiskVM> RiskVMCollection
+        public ObservableCollection<RiskVM> RiskVMCollection
         {
             get;
-        } = new List<RiskVM>();
+        } = new ObservableCollection<RiskVM>();
 
         public void BindingToSource(ObservableCollection<RiskVM> source)
         {
@@ -52,36 +52,5 @@ namespace Micro.Future.UI
             }
         }
 
-    }
-
-    public class DeltaConverter : IValueConverter
-    {
-
-        public object Convert(object value, System.Type targetType,
-                              object parameter,
-                              System.Globalization.CultureInfo culture)
-        {
-            if (null == value)
-                return null;
-
-            ReadOnlyObservableCollection<object> items =
-              (ReadOnlyObservableCollection<object>)value;
-
-            var delta = items.Sum(c => ((RiskVM)c).Delta);
-            return delta;
-
-            //var gamma = items.Sum(c => ((RiskVM)c).Gamma);
-            //var theta = items.Sum(c => ((RiskVM)c).Theta365);
-            //var vega = items.Sum(c => ((RiskVM)c).Vega100);
-
-            //return string.Format("\t {0:N2}\t{1:N4}\t{2:N2}\t{3:N2}", delta, gamma, vega, theta);
-        }
-
-        public object ConvertBack(object value, System.Type targetType,
-                                  object parameter,
-                                  System.Globalization.CultureInfo culture)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }
