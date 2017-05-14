@@ -12,159 +12,60 @@
              lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
              lex:ResxLocalizationProvider.DefaultDictionary="Resources"             
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-
-
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid x:Name="gridFrame">
         <Grid.Resources>
-            <Style x:Key="tableViewTotalStatCellStyle"
-          TargetType="xcdg:StatCell">
+            <ResourceDictionary>
+                <xcdg:DataGridCollectionViewSource x:Key="cvsGreeks" Source="{Binding Path=RiskVMCollection}">
 
-                <!-- The line(s) will be of the same color as the HorizontalGridLine. -->
-                <Setter Property="BorderBrush"
-              Value="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).HorizontalGridLineBrush}"/>
+                    <xcdg:DataGridCollectionViewSource.GroupDescriptions>
+                        <xcdg:DataGridGroupDescription PropertyName="Underlying" />
+                    </xcdg:DataGridCollectionViewSource.GroupDescriptions>
 
-                <Setter Property="HorizontalContentAlignment"
-              Value="{Binding RelativeSource={RelativeSource Self}, Path=ParentColumn.CellHorizontalContentAlignment, FallbackValue=Stretch}" />
-
-                <Setter Property="VerticalContentAlignment"
-              Value="{Binding RelativeSource={RelativeSource Self}, Path=ParentColumn.CellVerticalContentAlignment, FallbackValue=Stretch}" />
-
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="xcdg:StatCell">
-                            <Border Background="{TemplateBinding Background}"
-                       BorderBrush="{TemplateBinding BorderBrush}"
-                       BorderThickness="{TemplateBinding BorderThickness}"
-                       Padding="{TemplateBinding Padding}">
-                                <StackPanel>
-                                    <Border x:Name="totalBorder"
-                             BorderBrush="{TemplateBinding BorderBrush}"
-                             BorderThickness="0,1,0,0" />
-
-                                    <xcdg:CellContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                                </StackPanel>
-                            </Border>
-
-                            <ControlTemplate.Triggers>
-
-                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ParentColumn.Visible}"
-                               Value="False">
-                                    <Setter Property="Visibility"
-                             Value="Collapsed"/>
-                                </DataTrigger>
-
-                                <!-- When the StatCell is not inside a Group, display a double line. -->
-                                <Trigger Property="xcdg:GroupLevelIndicatorPane.GroupLevel"
-                           Value="-1">
-                                    <Setter TargetName="totalBorder"
-                             Property="BorderThickness"
-                             Value="0,1,0,1"/>
-
-                                    <Setter TargetName="totalBorder"
-                             Property="Padding"
-                             Value="0,2,0,0"/>
-                                </Trigger>
-
-                                <!-- When the StatCell has no content, don't display any line above. -->
-                                <Trigger Property="HasContent"
-                           Value="False">
-                                    <Setter TargetName="totalBorder"
-                             Property="Visibility"
-                             Value="Hidden" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <DataTemplate x:Key="tableViewFixedFooter1">
-                <xcdg:StatRow>
-                    <xcdg:StatRow.Resources>
-                        <Style TargetType="xcdg:StatCell"
-                   BasedOn="{StaticResource tableViewTotalStatCellStyle}"/>
-                    </xcdg:StatRow.Resources>
-                    <xcdg:StatCell FieldName="Delta"
-                        ResultPropertyName="SumOfDelta"/>
-                </xcdg:StatRow>
-            </DataTemplate>
-
-            <xcdg:DataGridCollectionViewSource x:Key="cvsProducts">
-
-                <xcdg:DataGridCollectionViewSource.GroupDescriptions>
-                    <xcdg:DataGridGroupDescription PropertyName="Underlying" />
-                </xcdg:DataGridCollectionViewSource.GroupDescriptions>
-
-                <!-- Every StatFunction that will eventually be used with this data source HAS 
+                    <!-- Every StatFunction that will eventually be used with this data source HAS 
                  to be declared here. StatFunctions are only supported by the 
                  DataGridCollectionView and DataGridCollectionViewSource classes.-->
-                <xcdg:DataGridCollectionViewSource.StatFunctions>
-                     <xcdg:SumFunction ResultPropertyName="SumOfDelta"
+                    <xcdg:DataGridCollectionViewSource.StatFunctions>
+                        <xcdg:SumFunction ResultPropertyName="SumOfDelta"
                                  SourcePropertyName="Delta" />
 
-                    <xcdg:SumFunction ResultPropertyName="SumOfGamma"
+                        <xcdg:SumFunction ResultPropertyName="SumOfGamma"
                                  SourcePropertyName="Gamma" />
+                    </xcdg:DataGridCollectionViewSource.StatFunctions>
 
-                </xcdg:DataGridCollectionViewSource.StatFunctions>
-            </xcdg:DataGridCollectionViewSource>
+                </xcdg:DataGridCollectionViewSource>
+            </ResourceDictionary>
+        </Grid.Resources>
+        
+        <xcdg:DataGridControl x:Name="GreekListView" AutoCreateColumns="False" ItemsSource="{Binding Source={StaticResource cvsGreeks}}">
+            <xcdg:DataGridControl.View>
+                <xcdg:TableView></xcdg:TableView>
+            </xcdg:DataGridControl.View>
+            
+            <xcdg:DataGridControl.DefaultGroupConfiguration>
+                <xcdg:GroupConfiguration>
+                    <xcdg:GroupConfiguration.Footers>
+                        <!-- The groups will contain a StatRow visible even when the group 
+                 is collapsed. -->
+                        <xcdg:GroupHeaderFooterItemTemplate>
+                            <DataTemplate>
+                                <xcdg:StatRow>
+                                    <xcdg:StatCell FieldName="Delta" ResultPropertyName="SumOfDelta"/>
+                                    <xcdg:StatCell FieldName="Gamma" ResultPropertyName="SumOfGamma"/>
+                                </xcdg:StatRow>
+                            </DataTemplate>
+                        </xcdg:GroupHeaderFooterItemTemplate>
+                    </xcdg:GroupConfiguration.Footers>
+                </xcdg:GroupConfiguration>
+            </xcdg:DataGridControl.DefaultGroupConfiguration>
 
-        </Grid.Resources>
-        <!--<Grid.Resources>
-            <local:DeltaConverter  x:Key="deltaConverter" />
-        </Grid.Resources>
-        <ListView Name="GreekListView" GridViewColumnHeader.Click = "GreekListView_Click">
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Total: " FontWeight="Bold"/>
-                                <TextBlock Text="{Binding Path=Items, Converter={StaticResource deltaConverter}}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ListView.GroupStyle>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Underlying}" DisplayMemberBinding="{Binding Underlying}"/>
-                    <GridViewColumn Header="Delta" DisplayMemberBinding="{Binding Delta,StringFormat=N2}"/>
-                    <GridViewColumn Header="Gamma" DisplayMemberBinding="{Binding Gamma,StringFormat=N4}"/>
-                    <GridViewColumn Header="Vega%" DisplayMemberBinding="{Binding Vega100,StringFormat=N2}"/>
-                    <GridViewColumn Header="Theta" DisplayMemberBinding="{Binding Theta365,StringFormat=N2}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>-->
-        <xcdg:DataGridControl x:Name="GreekListView" ItemsSource="{Binding Source={StaticResource cvsProducts}}"
-                            ItemScrollingBehavior="Immediate">
-            <xcdg:GroupConfiguration>
-                <xcdg:GroupConfiguration.Footers>
-                    <xcdg:GroupHeaderFooterItemTemplate VisibleWhenCollapsed="True">
-                        <DataTemplate>
-                            <xcdg:StatRow>
-                                <xcdg:StatCell FieldName="Delta"
-                                 ResultPropertyName="SumOfDelta"/>
-                                <xcdg:StatCell FieldName="Gamma"
-                                 ResultPropertyName="SumOfGamma"/>
-                            </xcdg:StatRow>
-                        </DataTemplate>
-                    </xcdg:GroupHeaderFooterItemTemplate>
-                </xcdg:GroupConfiguration.Footers>
-            </xcdg:GroupConfiguration>
-            <xcdg:GroupHeaderFooterItem>
-            </xcdg:GroupHeaderFooterItem>
             <xcdg:DataGridControl.Columns>
-                <xcdg:Column FieldName="Contract"/>
-                <xcdg:Column FieldName="Underlying"/>
-                <xcdg:Column FieldName="Delta"/>
-                <xcdg:Column FieldName="Gamma"/>
-                <xcdg:Column FieldName="Vega100"/>
-                <xcdg:Column FieldName="Theta365"/>
+                <xcdg:Column FieldName="Contract" Title="Contract" />
+                <xcdg:Column FieldName="Underlying"  Title="Underlying" />
+                <xcdg:Column FieldName="Delta" Title="Delta"/>
+                <xcdg:Column FieldName="Gamma" Title="Gamma"/>
             </xcdg:DataGridControl.Columns>
         </xcdg:DataGridControl>
-
     </Grid>
 </UserControl>
