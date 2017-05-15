@@ -41,6 +41,9 @@ namespace Micro.Future.UI
 
         public void BindingToSource(ObservableCollection<RiskVM> source)
         {
+            RiskVMCollection.Clear();
+            foreach (var vm in source)
+            RiskVMCollection.Add(vm);
         }
 
         private void GreekListView_Click(object sender, RoutedEventArgs e)

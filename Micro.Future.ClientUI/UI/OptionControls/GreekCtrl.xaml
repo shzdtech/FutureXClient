@@ -32,6 +32,10 @@
 
                         <xcdg:SumFunction ResultPropertyName="SumOfGamma"
                                  SourcePropertyName="Gamma" />
+                        <xcdg:SumFunction ResultPropertyName="SumOfVega"
+                                 SourcePropertyName="Vega100" />
+                        <xcdg:SumFunction ResultPropertyName="SumOfTheta"
+                                 SourcePropertyName="Theta365" />
                     </xcdg:DataGridCollectionViewSource.StatFunctions>
 
                 </xcdg:DataGridCollectionViewSource>
@@ -53,6 +57,8 @@
                                 <xcdg:StatRow>
                                     <xcdg:StatCell FieldName="Delta" ResultPropertyName="SumOfDelta"/>
                                     <xcdg:StatCell FieldName="Gamma" ResultPropertyName="SumOfGamma"/>
+                                    <xcdg:StatCell FieldName="Vega100" ResultPropertyName="SumOfVega100"/>
+                                    <xcdg:StatCell FieldName="Theta365" ResultPropertyName="SumOfTheta365"/>
                                 </xcdg:StatRow>
                             </DataTemplate>
                         </xcdg:GroupHeaderFooterItemTemplate>
@@ -61,10 +67,12 @@
             </xcdg:DataGridControl.DefaultGroupConfiguration>
 
             <xcdg:DataGridControl.Columns>
-                <xcdg:Column FieldName="Contract" Title="Contract" />
-                <xcdg:Column FieldName="Underlying"  Title="Underlying" />
-                <xcdg:Column FieldName="Delta" Title="Delta"/>
-                <xcdg:Column FieldName="Gamma" Title="Gamma"/>
+                <xcdg:Column FieldName="Contract" Title="Contract" Width="*" />
+                <xcdg:Column FieldName="Underlying"  Title="Underlying" Width="*" />
+                <xcdg:Column FieldName="Delta" Title="Delta" Width="*"/>
+                <xcdg:Column FieldName="Gamma" Title="Gamma" Width="*"/>
+                <xcdg:Column FieldName="Vega100" Title="Vega" Width="*"/>
+                <xcdg:Column FieldName="Theta365" Title="Theta" Width="*"/>
             </xcdg:DataGridControl.Columns>
         </xcdg:DataGridControl>
     </Grid>
