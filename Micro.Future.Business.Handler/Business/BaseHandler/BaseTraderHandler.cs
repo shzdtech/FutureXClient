@@ -222,8 +222,11 @@ namespace Micro.Future.Message
                     positionVM.UseMargin = rsp.UseMargin;
                     positionVM.MeanCost = rsp.Cost / rsp.Position / positionVM.Multiplier;
                 }
+                OnPositionUpdated?.Invoke(positionVM);
             }
         }
+        public event Action<PositionVM> OnPositionUpdated;
+
         private void OnFund(PBAccountInfo rsp)
         {
             FundVM.Commission = rsp.Commission;

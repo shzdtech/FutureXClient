@@ -32,6 +32,7 @@ namespace Micro.Future.UI
         public event Action<string, bool> OnCallAskStatusChanged;
 
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+        private TraderExHandler _tradeExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
 
         private IList<ContractInfo> _contractList;
         private IList<ContractInfo> _futurecontractList;
@@ -48,6 +49,10 @@ namespace Micro.Future.UI
         {
             get;
         } = new ObservableCollection<CallPutTDOptionVM>();
+        public ObservableCollection<PositionVM> PositionVMCollection
+        {
+            get;
+        } = new ObservableCollection<PositionVM>();
         public ObservableCollection<MarketDataVM> QuoteVMCollection1
         {
             get;
@@ -74,6 +79,7 @@ namespace Micro.Future.UI
             quoteListView1.ItemsSource = QuoteVMCollection1;
             option_priceLV.ItemsSource = CallPutTDOptionVMCollection;
             _otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
+            _tradeExHandler.OnPositionUpdated += OnPositionUpdated;
 
 
             // Set columns tree
@@ -146,7 +152,10 @@ namespace Micro.Future.UI
         {
             CallPutTDOptionVMCollection.Update(vm);
         }
-
+        private void OnPositionUpdated(PositionVM vm)
+        {
+            CallPutTDOptionVMCollection.UpdatePosition(vm);
+        }
         public OpMarketMakerCtrl()
         {
 

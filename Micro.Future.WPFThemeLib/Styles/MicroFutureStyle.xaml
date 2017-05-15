@@ -63,17 +63,31 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="PutChangeStyle" TargetType="TextBlock">
+    <Style x:Key="AskChangeStyle" TargetType="TextBlock">
         <Setter Property="TextAlignment" Value="Right" />
         <Style.Triggers>
-            <DataTrigger Binding="{Binding PutOptionVM.TheoDataVM.Pricedirection}" Value = "1">
+            <DataTrigger Binding="{Binding PutOptionVM.TheoDataVM.Askdirection}" Value = "1">
                 <Setter Property="Background">
                     <Setter.Value>
                         <SolidColorBrush Color="Yellow"/>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding PutOptionVM.TheoDataVM.Picedirection}" Value="-1">
+            <DataTrigger Binding="{Binding PutOptionVM.TheoDataVM.Askdirection}" Value="-1">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Transparent"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CallOptionVM.TheoDataVM.Askdirection}" Value = "1">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Yellow"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CallOptionVM.TheoDataVM.Askdirection}" Value="-1">
                 <Setter Property="Background">
                     <Setter.Value>
                         <SolidColorBrush Color="Transparent"/>
@@ -82,17 +96,31 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="CallChangeStyle" TargetType="TextBlock">
+    <Style x:Key="BidChangeStyle" TargetType="TextBlock">
         <Setter Property="TextAlignment" Value="Right" />
         <Style.Triggers>
-            <DataTrigger Binding="{Binding CallOptionVM.TheoDataVM.Pricedirection}" Value = "1">
+            <DataTrigger Binding="{Binding PutOptionVM.TheoDataVM.Biddirection}" Value = "1">
                 <Setter Property="Background">
                     <Setter.Value>
                         <SolidColorBrush Color="Yellow"/>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding CallOptionVM.TheoDataVM.Picedirection}" Value="-1">
+            <DataTrigger Binding="{Binding PutOptionVM.TheoDataVM.Biddirection}" Value="-1">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Transparent"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CallOptionVM.TheoDataVM.Biddirection}" Value = "1">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Yellow"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CallOptionVM.TheoDataVM.Biddirection}" Value="-1">
                 <Setter Property="Background">
                     <Setter.Value>
                         <SolidColorBrush Color="Transparent"/>

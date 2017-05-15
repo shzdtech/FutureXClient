@@ -13,7 +13,6 @@ namespace Micro.Future.ViewModel
         public double StrikePrice { get; set; }
         public StrategyVM CallStrategyVM { get; set; }
         public StrategyVM PutStrategyVM { get; set; }
-        public PositionVM PutPositionVM { get; set; }
-        public PositionVM CallPositionVM { get; set; }
+
     }
 }

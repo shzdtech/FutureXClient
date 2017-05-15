@@ -135,6 +135,7 @@ namespace Micro.Future.Message
                 callOption.InitProperties();
                 var putOption = new TradingDeskOptionVM { Exchange = putList[i].Exchange, Contract = putList[i].Contract };
                 putOption.InitProperties();
+
                 var callStrategyVM = StrategyVMCollection.FirstOrDefault(s => s.EqualContract(callList[i]));
                 var putStrategyVM = StrategyVMCollection.FirstOrDefault(s => s.EqualContract(putList[i]));
                 retList.Add(new CallPutTDOptionVM()
@@ -206,13 +207,41 @@ namespace Micro.Future.Message
                 }
                 if (newVM.TheoDataVM != null && newVM.MarketDataVM != null)
                 {
-                    if (quote.TheoDataVM.AskPrice - quote.MarketDataVM.AskPrice <= 0 || quote.TheoDataVM.BidPrice - quote.MarketDataVM.BidPrice >= 0)
-                        quote.TheoDataVM.Pricedirection = 1;
+                    if (quote.TheoDataVM.AskPrice - quote.MarketDataVM.AskPrice <= 0 )
+                        quote.TheoDataVM.Askdirection = 1;
                     else
-                        quote.TheoDataVM.Pricedirection = -1;
+                        quote.TheoDataVM.Askdirection = -1;
+                    if (quote.TheoDataVM.BidPrice - quote.MarketDataVM.BidPrice >= 0)
+                        quote.TheoDataVM.Biddirection = 1;
+                    else
+                        quote.TheoDataVM.Biddirection = -1;
                 }
             }
             return quote;
         }
+        public static TradingDeskOptionVM UpdatePosition(this IEnumerable<CallPutTDOptionVM> collection, PositionVM newVM)
+        {
+            TradingDeskOptionVM quote = null;
+            var cp = collection.FirstOrDefault((pb) => string.Compare(pb.PutOptionVM.Contract, newVM.Contract, true) == 0);
+            if (cp != null)
+            {
+                quote = cp.PutOptionVM;
+            }
+            else
+            {
+                cp = collection.FirstOrDefault((pb) => string.Compare(pb.CallOptionVM.Contract, newVM.Contract, true) == 0);
+                if (cp != null)
+                {
+                    quote = cp.CallOptionVM;
+                }
+            }
+
+            if (quote != null)
+            {
+                quote.Position = newVM.Position;
+            }
+            return quote;
+        }
+
     }
 }

@@ -183,7 +183,7 @@
                     <GridViewColumn x:Name="PBidTheo" Header="PBidTheo" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PutOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" TextAlignment="Right" Width="auto" Style="{DynamicResource PutChangeStyle}"/>
+                                <TextBlock Text="{Binding PutOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" TextAlignment="Right" Width="auto" Style="{DynamicResource BidChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -191,7 +191,7 @@
                     <GridViewColumn x:Name="PAskTheo" Header="PAskTheo" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PutOptionVM.TheoDataVM.AskPrice,StringFormat=N2}" TextAlignment="Right" Width="auto" Style="{DynamicResource PutChangeStyle}"/>
+                                <TextBlock Text="{Binding PutOptionVM.TheoDataVM.AskPrice,StringFormat=N2}" TextAlignment="Right" Width="auto" Style="{DynamicResource AskChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -232,6 +232,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="PDelta" Header="PDelta" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Delta,StringFormat=N2}"/>
+                    <GridViewColumn x:Name="PPosition" Header="PPosition" DisplayMemberBinding="{Binding PutOptionVM.Position}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="Theta" Header="Theta" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Theta365,StringFormat=N2}"/>
                     <GridViewColumn x:Name="Gamma" Header="Gamma" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Gamma,StringFormat=N4}"/>
                     <GridViewColumn x:Name="Vega" Header="Vega%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Vega100,StringFormat=N2}"/>
@@ -241,6 +242,7 @@
                     <GridViewColumn x:Name="TheoAskVol" Header="AskTheoVol%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskVol,StringFormat=P2}" />
                     <GridViewColumn x:Name="TheoBidVol" Header="BidTheoVol%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.BidVol,StringFormat=P2}" />
                     <GridViewColumn x:Name="TheoMidVol" Header="MidTheoVol%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.MidVol,StringFormat=P2}" />
+                    <GridViewColumn x:Name="CPosition" Header="CPosition" DisplayMemberBinding="{Binding CallOptionVM.Position}" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
                     <GridViewColumn x:Name="CDelta" Header="CDelta" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Delta,StringFormat=N2}"/>
                     <GridViewColumn x:Name="CCloseMode" Header="CCloseMode" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
@@ -281,14 +283,14 @@
                     <GridViewColumn x:Name="CBidTheo" Header="CBidTheo" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding CallOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" TextAlignment="Right" Width="auto" Style="{DynamicResource CallChangeStyle}"/>
+                                <TextBlock Text="{Binding CallOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" TextAlignment="Right" Width="auto" Style="{DynamicResource BidChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="CAskTheo" Header="CAskTheo" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding CallOptionVM.TheoDataVM.AskPrice,StringFormat=N2}" TextAlignment="Right" Width="auto" Style="{DynamicResource CallChangeStyle}"/>
+                                <TextBlock Text="{Binding CallOptionVM.TheoDataVM.AskPrice,StringFormat=N2}" TextAlignment="Right" Width="auto" Style="{DynamicResource AskChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -334,8 +336,6 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>-->
-                    <GridViewColumn x:Name="PPosition" Header="PPosition" DisplayMemberBinding="{Binding PutPositionVM.Position}"/>
-                    <GridViewColumn x:Name="CPosition" Header="CPosition" DisplayMemberBinding="{Binding CallPositionVM.Position}"/>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
