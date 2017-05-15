@@ -555,7 +555,6 @@ namespace Micro.Future.Message
             {
 
                 var strategyVM = StrategyVMCollection.FindContract(strategy.Exchange, strategy.Contract);
-                //strategyVM.CounterDirection = 1;
                 if (strategyVM == null)
                 {
                     strategyVM = new StrategyVM(this);
@@ -583,10 +582,10 @@ namespace Micro.Future.Message
                 strategy.BidCounter = strategy.BidCounter;
                 strategy.CloseMode = strategy.CloseMode;
                 strategyVM.PricingContractParams.Clear();
-                //if (strategyVM.AskCounter >= strategyVM.MaxAutoTrade || strategyVM.BidCounter >= strategyVM.MaxAutoTrade)
-                //    strategyVM.CounterDirection = 1;
-                //else
-                //    strategyVM.CounterDirection = -1;
+                if (strategyVM.AskCounter >= strategyVM.MaxAutoTrade || strategyVM.BidCounter >= strategyVM.MaxAutoTrade)
+                    strategyVM.CounterDirection = 1;
+                else
+                    strategyVM.CounterDirection = -1;
                 foreach (var wtContract in strategy.PricingContracts)
                 {
                     strategyVM.PricingContractParams.Add(

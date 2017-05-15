@@ -24,7 +24,7 @@ namespace Micro.Future.UI
     /// <summary>
     /// UserControl1.xaml 的交互逻辑
     /// </summary>
-    public partial class OptionRiskGraphCtrl : UserControl, ILayoutAnchorableControl
+    public partial class OptionRiskGraphCtrl : UserControl
 
     {
         public OptionRiskGraphCtrl()
@@ -32,17 +32,12 @@ namespace Micro.Future.UI
             InitializeComponent();
         }
 
-        private LayoutAnchorablePane _pane;
-        public LayoutAnchorablePane AnchorablePane
+        private void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            get
-            {
-                return _pane;
-            }
-            set
-            {
-                _pane = value;
-            }
+
+            
+
         }
+
     }
 }

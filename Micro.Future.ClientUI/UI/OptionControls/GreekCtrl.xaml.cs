@@ -28,9 +28,9 @@ namespace Micro.Future.UI
     {
         public GreekCtrl()
         {
-            RiskVMCollection.Add(new RiskVM { Contract = "1801", Underlying = "222", Delta = 2, Gamma = 1 });
-            RiskVMCollection.Add(new RiskVM { Contract = "1802", Underlying = "222", Delta = 1, Gamma = 1 });
-            RiskVMCollection.Add(new RiskVM { Contract = "1803", Underlying = "111", Delta = 1, Gamma = 1 });
+            //RiskVMCollection.Add(new RiskVM { Contract = "1801", Underlying = "222", Delta = 2, Gamma = 1 });
+            //RiskVMCollection.Add(new RiskVM { Contract = "1802", Underlying = "222", Delta = 1, Gamma = 1 });
+            //RiskVMCollection.Add(new RiskVM { Contract = "1803", Underlying = "111", Delta = 1, Gamma = 1 });
             InitializeComponent();
         }
 

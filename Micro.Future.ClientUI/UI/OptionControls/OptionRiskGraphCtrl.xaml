@@ -13,13 +13,15 @@
              lex:ResxLocalizationProvider.DefaultDictionary="Resources"
              mc:Ignorable="d" d:DesignWidth="800">
 
-    <avalonDock:DockingManager x:Name="dockingManager">
-        <avalonDock:DockingManager.Theme>
-            <avalonDock:GenericTheme/>
-        </avalonDock:DockingManager.Theme>
-        <avalonDock:LayoutRoot>
-            <avalonDock:LayoutPanel Orientation="Horizontal">
-            </avalonDock:LayoutPanel>
-        </avalonDock:LayoutRoot>
-    </avalonDock:DockingManager>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <WrapPanel Grid.Column="0" Width="auto">
+            <GroupBox x:Name="portforlioGB" Header="{lex:Loc Key=Portfolio}" >
+                <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
+            </GroupBox>
+        </WrapPanel>
+    </Grid>
 </UserControl>
