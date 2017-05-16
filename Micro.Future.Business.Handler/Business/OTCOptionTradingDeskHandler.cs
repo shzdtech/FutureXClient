@@ -207,14 +207,8 @@ namespace Micro.Future.Message
                 }
                 if (newVM.TheoDataVM != null && newVM.MarketDataVM != null)
                 {
-                    if (quote.TheoDataVM.AskPrice - quote.MarketDataVM.AskPrice <= 0 )
-                        quote.TheoDataVM.Askdirection = 1;
-                    else
-                        quote.TheoDataVM.Askdirection = -1;
-                    if (quote.TheoDataVM.BidPrice - quote.MarketDataVM.BidPrice >= 0)
-                        quote.TheoDataVM.Biddirection = 1;
-                    else
-                        quote.TheoDataVM.Biddirection = -1;
+                    quote.TheoDataVM.Askdirection = quote.TheoDataVM.AskPrice <= quote.MarketDataVM.AskPrice ? 1 : -1;
+                    quote.TheoDataVM.Biddirection = quote.TheoDataVM.BidPrice >= quote.MarketDataVM.BidPrice ? 1 : -1;
                 }
             }
             return quote;

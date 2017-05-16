@@ -63,7 +63,7 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="AskChangeStyle" TargetType="TextBlock">
+    <Style x:Key="PutAskChangeStyle" TargetType="TextBlock">
         <Setter Property="TextAlignment" Value="Right" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding PutOptionVM.TheoDataVM.Askdirection}" Value = "1">
@@ -80,23 +80,9 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding CallOptionVM.TheoDataVM.Askdirection}" Value = "1">
-                <Setter Property="Background">
-                    <Setter.Value>
-                        <SolidColorBrush Color="Yellow"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding CallOptionVM.TheoDataVM.Askdirection}" Value="-1">
-                <Setter Property="Background">
-                    <Setter.Value>
-                        <SolidColorBrush Color="Transparent"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="BidChangeStyle" TargetType="TextBlock">
+    <Style x:Key="PutBidChangeStyle" TargetType="TextBlock">
         <Setter Property="TextAlignment" Value="Right" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding PutOptionVM.TheoDataVM.Biddirection}" Value = "1">
@@ -113,6 +99,30 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="CallAskChangeStyle" TargetType="TextBlock">
+        <Setter Property="TextAlignment" Value="Right" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding CallOptionVM.TheoDataVM.Askdirection}" Value = "1">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Yellow"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CallOptionVM.TheoDataVM.Askdirection}" Value="-1">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Transparent"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="CallBidChangeStyle" TargetType="TextBlock">
+        <Setter Property="TextAlignment" Value="Right" />
+        <Style.Triggers>
             <DataTrigger Binding="{Binding CallOptionVM.TheoDataVM.Biddirection}" Value = "1">
                 <Setter Property="Background">
                     <Setter.Value>
