@@ -78,38 +78,40 @@ namespace Micro.Future.UI
         private async void PortfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
-            var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
-            var portfolioVM = _otcOptionHandler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
-            var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
-                    .Select(c => c.BaseContract).Distinct().ToList();
-            var pricingContractList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
-                .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
-            var hedgeContractList = portfolioVM.HedgeContractParams
-                .Select(c => c.Contract).Distinct().ToList();
-            var mixed1ContractList = basecontractsList.Union(pricingContractList).ToList();
-            var mixedContractList = mixed1ContractList.Union(hedgeContractList).ToList();
-            QuoteVMCollection.Clear();
-            foreach (var contract in mixedContractList)
+            if (portfolio != null)
             {
-                if (!String.IsNullOrEmpty(contract))
+                var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+                var portfolioVM = _otcOptionHandler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
+                var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
+                        .Select(c => c.BaseContract).Distinct().ToList();
+                var pricingContractList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
+                    .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
+                var hedgeContractList = portfolioVM.HedgeContractParams
+                    .Select(c => c.Contract).Distinct().ToList();
+                var mixed1ContractList = basecontractsList.Union(pricingContractList).ToList();
+                var mixedContractList = mixed1ContractList.Union(hedgeContractList).ToList();
+                QuoteVMCollection.Clear();
+                foreach (var contract in mixedContractList)
                 {
-                    var mktDataVM = await marketDataLV.MarketDataHandler.SubMarketDataAsync(contract);
-                    if (mktDataVM != null)
+                    if (!String.IsNullOrEmpty(contract))
                     {
-                        QuoteVMCollection.Add(mktDataVM);
+                        var mktDataVM = await marketDataLV.MarketDataHandler.SubMarketDataAsync(contract);
+                        if (mktDataVM != null)
+                        {
+                            QuoteVMCollection.Add(mktDataVM);
+                        }
                     }
                 }
+                marketDataLV.quoteListView.ItemsSource = QuoteVMCollection;
+                var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+                greeksControl.BindingToSource(riskVMlist);
+                domesticPositionsWindow.FilterByPortfolio(portfolio);
+                otcPositionsWindow.FilterByPortfolio(portfolio);
+                domesticTradeWindow.FilterByPortfolio(portfolio);
+                otcTradeWindow.FilterByPortfolio(portfolio);
+
+                _timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
             }
-            marketDataLV.quoteListView.ItemsSource = QuoteVMCollection;
-            var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
-            greeksControl.BindingToSource(riskVMlist);
-            domesticPositionsWindow.FilterByPortfolio(portfolio);
-            otcPositionsWindow.FilterByPortfolio(portfolio);
-            domesticTradeWindow.FilterByPortfolio(portfolio);
-            otcTradeWindow.FilterByPortfolio(portfolio);
-
-            _timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
-
         }
 
         public void Initialize()

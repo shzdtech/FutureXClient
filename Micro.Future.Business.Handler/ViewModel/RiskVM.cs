@@ -8,6 +8,7 @@ namespace Micro.Future.ViewModel
 {
     public class RiskVM : ContractKeyVM
     {
+
         private double _delta;
         public double Delta
         {
@@ -74,6 +75,19 @@ namespace Micro.Future.ViewModel
             {
                 _position = value;
                 OnPropertyChanged("Position");
+            }
+        }
+        private string _expiration;
+        public string Expiration
+        {
+            get
+            {
+                return _expiration;
+            }
+            set
+            {
+                _expiration = value;
+                OnPropertyChanged("Expiration");
             }
         }
     }

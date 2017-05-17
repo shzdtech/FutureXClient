@@ -801,4 +801,10 @@
   <data name="OTCTradeRecord" xml:space="preserve">
     <value>OTCTradeRecord</value>
   </data>
+  <data name="Expiration" xml:space="preserve">
+    <value>Expiration</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
 </root>

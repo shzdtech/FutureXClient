@@ -18,7 +18,6 @@
         <Grid.Resources>
             <ResourceDictionary>
                 <xcdg:DataGridCollectionViewSource x:Key="cvsGreeks" Source="{Binding Path=RiskVMCollection}">
-
                     <xcdg:DataGridCollectionViewSource.GroupDescriptions>
                         <xcdg:DataGridGroupDescription PropertyName="Underlying" />
                     </xcdg:DataGridCollectionViewSource.GroupDescriptions>
@@ -29,7 +28,6 @@
                     <xcdg:DataGridCollectionViewSource.StatFunctions>
                         <xcdg:SumFunction ResultPropertyName="SumOfDelta"
                                  SourcePropertyName="Delta" />
-
                         <xcdg:SumFunction ResultPropertyName="SumOfGamma"
                                  SourcePropertyName="Gamma" />
                         <xcdg:SumFunction ResultPropertyName="SumOfVega"
@@ -55,10 +53,10 @@
                         <xcdg:GroupHeaderFooterItemTemplate>
                             <DataTemplate>
                                 <xcdg:StatRow>
-                                    <xcdg:StatCell FieldName="Delta" ResultPropertyName="SumOfDelta"/>
-                                    <xcdg:StatCell FieldName="Gamma" ResultPropertyName="SumOfGamma"/>
-                                    <xcdg:StatCell FieldName="Vega100" ResultPropertyName="SumOfVega100"/>
-                                    <xcdg:StatCell FieldName="Theta365" ResultPropertyName="SumOfTheta365"/>
+                                    <xcdg:StatCell FieldName="Delta" ResultPropertyName="SumOfDelta" ContentStringFormat="N2"/>
+                                    <xcdg:StatCell FieldName="Gamma" ResultPropertyName="SumOfGamma" ContentStringFormat="N4"/>
+                                    <xcdg:StatCell FieldName="Vega100" ResultPropertyName="SumOfVega100" ContentStringFormat="N2"/>
+                                    <xcdg:StatCell FieldName="Theta365" ResultPropertyName="SumOfTheta365" ContentStringFormat="N2"/>
                                 </xcdg:StatRow>
                             </DataTemplate>
                         </xcdg:GroupHeaderFooterItemTemplate>
@@ -70,9 +68,9 @@
                 <xcdg:Column FieldName="Contract" Title="Contract" Width="*" />
                 <xcdg:Column FieldName="Underlying"  Title="Underlying" Width="*" />
                 <xcdg:Column FieldName="Delta" Title="Delta" Width="*"/>
-                <xcdg:Column FieldName="Gamma" Title="Gamma" Width="*"/>
-                <xcdg:Column FieldName="Vega100" Title="Vega" Width="*"/>
-                <xcdg:Column FieldName="Theta365" Title="Theta" Width="*"/>
+                <xcdg:Column FieldName="Gamma" Title="Gamma" Width="*" />
+                <xcdg:Column FieldName="Vega100" Title="Vega" Width="*" />
+                <xcdg:Column FieldName="Theta365" Title="Theta" Width="*" />
             </xcdg:DataGridControl.Columns>
         </xcdg:DataGridControl>
     </Grid>

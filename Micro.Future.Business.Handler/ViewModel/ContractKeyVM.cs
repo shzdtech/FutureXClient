@@ -69,6 +69,7 @@ namespace Micro.Future.ViewModel
             }
         }
 
+
         private string _contract;
         public string Contract
         {
@@ -82,6 +83,7 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("Contract");
             }
         }
+
 
         private string _portfolio;
         public string Portfolio

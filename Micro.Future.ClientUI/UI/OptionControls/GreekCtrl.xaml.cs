@@ -1,4 +1,5 @@
-﻿using Micro.Future.Utility;
+﻿using Micro.Future.LocalStorage;
+using Micro.Future.Utility;
 using Micro.Future.ViewModel;
 using System;
 using System.Collections;
@@ -41,19 +42,34 @@ namespace Micro.Future.UI
 
         public void BindingToSource(ObservableCollection<RiskVM> source)
         {
+
             RiskVMCollection.Clear();
             foreach (var vm in source)
-            RiskVMCollection.Add(vm);
+            {
+                string basecontract = vm.Contract;
+                var contractinfo = ClientDbContext.FindContract(vm.Contract);
+                if (contractinfo != null)
+                {
+                    if (!string.IsNullOrEmpty(contractinfo.UnderlyingContract))
+                        basecontract = contractinfo.UnderlyingContract;
+                }
+                var riskvm = RiskVMCollection.FirstOrDefault(r => r.Contract == basecontract);
+                if (riskvm == null)
+                {
+                    vm.Contract = basecontract;
+                    RiskVMCollection.Add(vm);
+                }
+                else
+                {
+                    riskvm.Delta += vm.Delta;
+                    riskvm.Gamma += vm.Gamma;
+                    riskvm.Theta += vm.Theta;
+                    riskvm.Vega += vm.Vega;
+                }
+            }
+
         }
 
-        private void GreekListView_Click(object sender, RoutedEventArgs e)
-        {
-            var head = e.OriginalSource as GridViewColumnHeader;
-            if (head != null)
-            {
-                GridViewUtility.Sort(head.Column, GreekListView.Items);
-            }
-        }
 
     }
 }

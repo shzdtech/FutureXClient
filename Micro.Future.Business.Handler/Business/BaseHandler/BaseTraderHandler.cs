@@ -527,6 +527,8 @@ namespace Micro.Future.Message
             var riskList = new ObservableCollection<RiskVM>();
             foreach (var risk in rsp.Risk)
             {
+                //var contractinfo = ClientDbContext.FindContract(risk.Contract);
+                //if (contractinfo.UnderlyingContract != null)
                 riskList.Add(new RiskVM
                 {
                     Exchange = risk.Exchange,
@@ -536,7 +538,8 @@ namespace Micro.Future.Message
                     Gamma = risk.Gamma,
                     Theta = risk.Theta,
                     Vega = risk.Vega,
-                    Position = risk.Position
+                    Position = risk.Position,
+                    //ContractKey = contractinfo.UnderlyingContract
                 });
             }
 

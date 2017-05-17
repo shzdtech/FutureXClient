@@ -801,4 +801,10 @@
   <data name="OTCTradeRecord" xml:space="preserve">
     <value>场外成交</value>
   </data>
+  <data name="Expiration" xml:space="preserve">
+    <value>到期日</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>类型</value>
+  </data>
 </root>

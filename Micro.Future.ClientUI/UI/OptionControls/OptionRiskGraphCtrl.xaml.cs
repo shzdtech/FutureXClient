@@ -5,6 +5,7 @@ using Micro.Future.Message;
 using Micro.Future.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,16 +28,57 @@ namespace Micro.Future.UI
     public partial class OptionRiskGraphCtrl : UserControl
 
     {
+        public class StrategyBaseVM
+        {
+            public string Contract
+            {
+                get;
+                set;
+            }
+            public string Expiration
+            {
+                get;
+                set;
+            }
+            public bool RiskGraphEnable
+            {
+                get;
+                set;
+            }
+
+        }
+        private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+        public ObservableCollection<RiskVM> RiskVMCollection
+        {
+            get;
+        } = new ObservableCollection<RiskVM>();
+
         public OptionRiskGraphCtrl()
         {
             InitializeComponent();
+            var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
+            portfolioCB.ItemsSource = portfolioVMCollection;
         }
+
 
         private void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            
-
+            if (portfolioCB.SelectedValue != null)
+            {
+                var portfolio = portfolioCB.SelectedValue?.ToString();
+                var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+                var strategyContractList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
+                    .Select(c => new StrategyBaseVM { Contract = c.BaseContract } ).Distinct().ToList();
+                foreach ( var vm in strategyContractList)
+                {
+                    var contractinfo = ClientDbContext.FindContract(vm.Contract);
+                    if (contractinfo != null)
+                    {
+                        vm.Expiration = contractinfo.ExpireDate;
+                    }
+                }
+                expirationLV.ItemsSource = strategyContractList;
+            }
         }
 
     }

@@ -7,6 +7,7 @@
              xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
              xmlns:c="clr-namespace:Micro.Future.UI"
              xmlns:lex="http://wpflocalizeextension.codeplex.com" 
+             xmlns:oxy="http://oxyplot.org/wpf"
              lex:LocalizeDictionary.DesignCulture="zh_CN"
              lex:LocalizeDictionary.OutputMissingKeys="True"
              lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
@@ -18,10 +19,56 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <WrapPanel Grid.Column="0" Width="auto">
-            <GroupBox x:Name="portforlioGB" Header="{lex:Loc Key=Portfolio}" >
-                <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
-            </GroupBox>
-        </WrapPanel>
+        <StackPanel Grid.Column="0" Width="auto">
+            <Label x:Name="portfolioLabel" Content="{lex:Loc Key=Portfolio}"/>
+            <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
+            <Label x:Name="riskLabel" Content="{lex:Loc Key=Risk}"/>
+            <RadioButton x:Name="deltaRadioButton" Content="Delta" VerticalAlignment="Top"/>
+            <RadioButton x:Name="gammaRadioButton" Content="Gamma" VerticalAlignment="Top"/>
+            <RadioButton x:Name="vegaRadioButton" Content="Vega" VerticalAlignment="Top"/>
+            <RadioButton x:Name="thetaRadioButton" Content="Theta" VerticalAlignment="Top"/>
+            <Label x:Name="expiration" Content="{lex:Loc Key=Expiration}"/>
+            <ListView x:Name="expirationLV" ScrollViewer.VerticalScrollBarVisibility="Auto" Width="Auto">
+                <ListView.View>
+                    <GridView>
+                        <!--<GridViewColumn x:Name="contract" Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.BidVol,StringFormat=P2}" />-->
+                        <GridViewColumn x:Name="contractHeader" Header="{lex:Loc Key=Contract}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Name="contractTextBlock" DataContext="{Binding Contract}"  TextAlignment="Right" Width="auto" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn x:Name="expirationHeader" Header="{lex:Loc Key=Expiration}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Name="expirationTextBlock" DataContext="{Binding Expiration}"  TextAlignment="Right" Width="auto" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox HorizontalAlignment="Center"></CheckBox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Label x:Name="typeLabel" Content="Type"/>
+            <CheckBox x:Name="callCheckBox" Content="Call"/>
+            <CheckBox x:Name="putCheckBox" Content="Put"/>
+        </StackPanel>
+        <oxy:Plot Grid.Column="1">
+            <oxy:BarSeries Name="DeltaBar" ItemsSource="{Binding Delta}"/>
+            <oxy:BarSeries Name="GammaBar" ItemsSource="{Binding Gamma}"/>
+            <oxy:BarSeries Name="ThetaBar" ItemsSource="{Binding Theta}"/>
+            <oxy:BarSeries Name="VegaBar" ItemsSource="{Binding Vega}"/>
+            <oxy:Plot.Axes>
+                <oxy:LinearAxis x:Name="strikeAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Bottom" Title="StrikePrice"/>
+                <oxy:LinearAxis x:Name="greeksAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="Greeks"/>
+            </oxy:Plot.Axes>
+        </oxy:Plot>
     </Grid>
 </UserControl>

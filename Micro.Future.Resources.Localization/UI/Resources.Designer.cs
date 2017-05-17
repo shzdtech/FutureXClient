@@ -666,6 +666,15 @@ namespace Micro.Future.Resources.Localization.UI {
         /// <summary>
         ///   查找类似 到期日 的本地化字符串。
         /// </summary>
+        internal static string Expiration {
+            get {
+                return ResourceManager.GetString("Expiration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 到期日 的本地化字符串。
+        /// </summary>
         internal static string ExpireDate {
             get {
                 return ResourceManager.GetString("ExpireDate", resourceCulture);
@@ -1983,6 +1992,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string TradingType {
             get {
                 return ResourceManager.GetString("TradingType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 类型 的本地化字符串。
+        /// </summary>
+        internal static string Type {
+            get {
+                return ResourceManager.GetString("Type", resourceCulture);
             }
         }
         
