@@ -67,8 +67,9 @@ namespace Micro.Future.UI
             {
                 var portfolio = portfolioCB.SelectedValue?.ToString();
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
-                var strategyContractList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
-                    .Select(c => new StrategyBaseVM { Contract = c.BaseContract } ).Distinct().ToList();
+                var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
+                    .GroupBy(s=>s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract } ).ToList();
+
                 foreach ( var vm in strategyContractList)
                 {
                     var contractinfo = ClientDbContext.FindContract(vm.Contract);
@@ -77,6 +78,7 @@ namespace Micro.Future.UI
                         vm.Expiration = contractinfo.ExpireDate;
                     }
                 }
+
                 expirationLV.ItemsSource = strategyContractList;
             }
         }

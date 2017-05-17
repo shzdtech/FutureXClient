@@ -93,7 +93,7 @@ namespace Micro.Future.UI
                 QuoteVMCollection.Clear();
                 foreach (var contract in mixedContractList)
                 {
-                    if (!String.IsNullOrEmpty(contract))
+                    if (!string.IsNullOrEmpty(contract))
                     {
                         var mktDataVM = await marketDataLV.MarketDataHandler.SubMarketDataAsync(contract);
                         if (mktDataVM != null)
