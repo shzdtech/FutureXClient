@@ -28,8 +28,7 @@ namespace Micro.Future.UI
     public partial class OptionRiskGraphCtrl : UserControl
 
     {
-        private List<KeyValuePair<string, double>> _optionRiskVMList = new List<KeyValuePair<string, double>>();
-        private List<KeyValuePair<double, int>> _strikeIdxList = new List<KeyValuePair<double, int>>();
+        private List<KeyValuePair<string, int>> _optionRiskVMList = new List<KeyValuePair<string, int>>();
 
 
         public class StrategyBaseVM
@@ -88,18 +87,29 @@ namespace Micro.Future.UI
                     }
                 }
                 expirationLV.ItemsSource = strategyContractList;
-                var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
-                var strikeSet = new HashSet<double>();
+
+
+                var strikeSet = new SortedSet<double>();
                 foreach (var vm in strategyVMList)
                 {
                     var contractinfo = ClientDbContext.FindContract(vm.Contract);
                     if (contractinfo != null)
                     {
                         strikeSet.Add(contractinfo.StrikePrice);
-                        _optionRiskVMList.Add(new KeyValuePair<string, double>(vm.Contract, contractinfo.StrikePrice));
                     }
                 }
 
+                var strikeList = strikeSet.ToList();
+                foreach (var vm in strategyVMList)
+                {
+                    var contractinfo = ClientDbContext.FindContract(vm.Contract);
+                    if (contractinfo != null)
+                    {
+                        _optionRiskVMList.Add(new KeyValuePair<string, int>(contractinfo.Contract, strikeList.FindIndex(s => s == contractinfo.StrikePrice)));
+                    }
+                }
+
+                // set x-axis using strikeList;
 
             }
         }
