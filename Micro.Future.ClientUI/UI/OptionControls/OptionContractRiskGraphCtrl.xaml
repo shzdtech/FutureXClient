@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Micro.Future.UI.OptionRiskGraphCtrl"
+﻿<UserControl x:Class="Micro.Future.UI.OptionContractRiskGraphCtrl"
              xmlns:local="clr-namespace:Micro.Future.UI"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -50,7 +50,9 @@
         </StackPanel>
         <oxy:Plot Grid.Column="1">
             <oxy:BarSeries Name="DeltaBar" ItemsSource="{Binding Delta}"/>
-<oxy:rec
+            <oxy:BarSeries Name="GammaBar" ItemsSource="{Binding Gamma}"/>
+            <oxy:BarSeries Name="ThetaBar" ItemsSource="{Binding Theta}"/>
+            <oxy:BarSeries Name="VegaBar" ItemsSource="{Binding Vega}"/>
             <oxy:Plot.Axes>
                 <oxy:LinearAxis x:Name="strikeAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Bottom" Title="StrikePrice"/>
                 <oxy:LinearAxis x:Name="greeksAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="Greeks"/>

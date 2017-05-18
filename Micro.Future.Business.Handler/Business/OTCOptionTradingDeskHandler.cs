@@ -150,7 +150,6 @@ namespace Micro.Future.Message
 
             return retList;
         }
-
         #endregion
     }
     public static class OptionVMExtensions

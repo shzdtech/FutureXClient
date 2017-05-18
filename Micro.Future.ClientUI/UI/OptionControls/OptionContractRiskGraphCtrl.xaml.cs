@@ -25,12 +25,10 @@ namespace Micro.Future.UI
     /// <summary>
     /// UserControl1.xaml 的交互逻辑
     /// </summary>
-    public partial class OptionRiskGraphCtrl : UserControl
+    public partial class OptionContractRiskGraphCtrl : UserControl
 
     {
-        private List<KeyValuePair<string, double>> _optionRiskVMList = new List<KeyValuePair<string, double>>();
-        private List<KeyValuePair<double, int>> _strikeIdxList = new List<KeyValuePair<double, int>>();
-
+        private List<KeyValuePair<RiskVM, double>> _optionRiskVMList = new List<KeyValuePair<RiskVM, double>>();
 
         public class StrategyBaseVM
         {
@@ -62,12 +60,12 @@ namespace Micro.Future.UI
         public RiskBarVM RiskBarVM { get; } = new RiskBarVM();
 
 
-        public OptionRiskGraphCtrl()
+        public OptionContractRiskGraphCtrl()
         {
             InitializeComponent();
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
-            _tradeExHandler.on += OnRiskParamsReceived;
+            //_tradeExHandler.on += OnRiskParamsReceived;
         }
 
         private async void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -78,7 +76,7 @@ namespace Micro.Future.UI
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
                 var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
                     .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract }).ToList();
-                var strategyVMList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract)).ToList();
+
                 foreach (var vm in strategyContractList)
                 {
                     var contractinfo = ClientDbContext.FindContract(vm.Contract);
@@ -89,14 +87,14 @@ namespace Micro.Future.UI
                 }
                 expirationLV.ItemsSource = strategyContractList;
                 var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
-                var strikeSet = new HashSet<double>();
-                foreach (var vm in strategyVMList)
+                foreach (var vm in riskVMlist)
                 {
                     var contractinfo = ClientDbContext.FindContract(vm.Contract);
                     if (contractinfo != null)
                     {
-                        strikeSet.Add(contractinfo.StrikePrice);
-                        _optionRiskVMList.Add(new KeyValuePair<string, double>(vm.Contract, contractinfo.StrikePrice));
+                        //vm.StrikePrice = contractinfo.StrikePrice;
+                        //_optionRiskVMList.Add(new KeyValuePair<RiskVM, double>(vm, vm.StrikePrice));
+                        //RiskBarVM.add
                     }
                 }
 

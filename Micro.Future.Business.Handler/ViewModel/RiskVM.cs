@@ -90,5 +90,15 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("Expiration");
             }
         }
+        private double _strikeprice;
+        public double StrikePrice
+        {
+            get { return _strikeprice; }
+            set
+            {
+                _strikeprice = value;
+                OnPropertyChanged("StrikePrice");
+            }
+        }
     }
 }

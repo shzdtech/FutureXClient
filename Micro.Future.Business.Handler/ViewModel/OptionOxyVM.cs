@@ -275,4 +275,13 @@ namespace Micro.Future.ViewModel
         }
 
     }
+
+    public class RiskBarVM
+    {
+        public ObservableCollection<BarItem> RiskBar { get; } = new ObservableCollection<BarItem>();
+        public void ClearAll()
+        {
+            RiskBar.Clear();
+        }
+    }
 }
