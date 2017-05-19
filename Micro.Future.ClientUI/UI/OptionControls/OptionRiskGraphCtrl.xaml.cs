@@ -3,11 +3,13 @@ using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
 using Micro.Future.ViewModel;
+using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,7 +31,12 @@ namespace Micro.Future.UI
 
     {
         private List<KeyValuePair<string, int>> _optionRiskVMList = new List<KeyValuePair<string, int>>();
-
+        public ObservableCollection<ColumnItem> BarItemCollection
+        {
+            get;
+        } = new ObservableCollection<ColumnItem>();
+        private Timer _timer;
+        private const int UpdateInterval = 1000;
 
         public class StrategyBaseVM
         {
@@ -54,22 +61,44 @@ namespace Micro.Future.UI
         private TraderExHandler _tradeExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+        private void ReloadDataCallback(object state)
+        {
+            Dispatcher.Invoke(async () =>
+            {
+                var portfolio = portfolioCB.SelectedValue?.ToString();
+                var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+                lock (BarItemCollection)
+                {
+                    foreach (var baritem in BarItemCollection)
+                    {
+                        baritem.Value = 0;
+                    }
+                    foreach (var vm in riskVMlist)
+                    {
+                        var index = _optionRiskVMList.FindIndex(c => c.Key == vm.Contract);
+                        if (index >= 0)
+                        { 
+                        var barItem = BarItemCollection[index];
+                        barItem.Value += vm.Delta;
+                        }
+                    }
+                }
+            });
+        }
         public ObservableCollection<RiskVM> RiskVMCollection
         {
             get;
         } = new ObservableCollection<RiskVM>();
         public RiskBarVM RiskBarVM { get; } = new RiskBarVM();
-
-
         public OptionRiskGraphCtrl()
         {
             InitializeComponent();
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
-            _tradeExHandler.on += OnRiskParamsReceived;
+            DeltaBar.ItemsSource = BarItemCollection;
         }
 
-        private async void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (portfolioCB.SelectedValue != null)
             {
@@ -100,6 +129,7 @@ namespace Micro.Future.UI
                 }
 
                 var strikeList = strikeSet.ToList();
+                strikeAxis.ItemsSource = strikeList;
                 foreach (var vm in strategyVMList)
                 {
                     var contractinfo = ClientDbContext.FindContract(vm.Contract);
@@ -108,25 +138,18 @@ namespace Micro.Future.UI
                         _optionRiskVMList.Add(new KeyValuePair<string, int>(contractinfo.Contract, strikeList.FindIndex(s => s == contractinfo.StrikePrice)));
                     }
                 }
-
                 // set x-axis using strikeList;
-
-            }
-        }
-        private void OnRiskParamsReceived(RiskVM riskVM)
-        {
-            int idx;
-            if (riskVM != null)
-            {
-                idx = _optionRiskVMList.FindIndex(c => c.Key.EqualContract(riskVM));
-                if (idx > 0)
+                lock (BarItemCollection)
                 {
-                    //RiskBarVM.RiskBar[idx] = double.IsNaN(riskVM.Delta) ? 
-
+                    BarItemCollection.Clear();
+                    foreach (var strike in strikeList)
+                    {
+                        BarItemCollection.Add(new ColumnItem());
+                    }
                 }
 
+                _timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
             }
-
         }
 
 

@@ -17,7 +17,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Width="auto">
             <Label x:Name="portfolioLabel" Content="{lex:Loc Key=Portfolio}"/>
@@ -49,10 +49,9 @@
             <CheckBox x:Name="putCheckBox" Content="Put"/>
         </StackPanel>
         <oxy:Plot Grid.Column="1">
-            <oxy:BarSeries Name="DeltaBar" ItemsSource="{Binding Delta}"/>
-<oxy:rec
+            <oxy:ColumnSeries Name="DeltaBar" />
             <oxy:Plot.Axes>
-                <oxy:LinearAxis x:Name="strikeAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Bottom" Title="StrikePrice"/>
+                <oxy:CategoryAxis  x:Name="strikeAxis" Position="Bottom" Title="StrikePrice"/>
                 <oxy:LinearAxis x:Name="greeksAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="Greeks"/>
             </oxy:Plot.Axes>
         </oxy:Plot>

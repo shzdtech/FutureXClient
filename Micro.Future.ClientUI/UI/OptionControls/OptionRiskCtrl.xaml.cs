@@ -70,7 +70,7 @@ namespace Micro.Future.UI
             Dispatcher.Invoke(async () =>
              {
                  var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
-                 await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+                 //await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
                  var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
                  greeksControl.BindingToSource(riskVMlist);
              });
