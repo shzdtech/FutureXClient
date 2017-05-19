@@ -30,11 +30,12 @@ namespace Micro.Future.UI
     public partial class OptionRiskGraphCtrl : UserControl
 
     {
-        private List<KeyValuePair<string, int>> _optionRiskVMList = new List<KeyValuePair<string, int>>();
-        public ObservableCollection<ColumnItem> BarItemCollection
+        private IDictionary<string, int> _riskDict = new Dictionary<string, int>();
+        public List<ColumnItem> BarItemCollection
         {
             get;
-        } = new ObservableCollection<ColumnItem>();
+        } = new List<ColumnItem>();
+
         private Timer _timer;
         private const int UpdateInterval = 1000;
 
@@ -75,27 +76,22 @@ namespace Micro.Future.UI
                     }
                     foreach (var vm in riskVMlist)
                     {
-                        var index = _optionRiskVMList.FindIndex(c => c.Key == vm.Contract);
-                        if (index >= 0)
-                        { 
-                        var barItem = BarItemCollection[index];
-                        barItem.Value += vm.Delta;
+                        int index;
+                        if (_riskDict.TryGetValue(vm.Contract, out index))
+                        {
+                            var barItem = BarItemCollection[index];
+                            barItem.Value += vm.Delta;
                         }
                     }
                 }
             });
         }
-        public ObservableCollection<RiskVM> RiskVMCollection
-        {
-            get;
-        } = new ObservableCollection<RiskVM>();
-        public RiskBarVM RiskBarVM { get; } = new RiskBarVM();
+
         public OptionRiskGraphCtrl()
         {
             InitializeComponent();
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
-            DeltaBar.ItemsSource = BarItemCollection;
         }
 
         private void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -135,18 +131,21 @@ namespace Micro.Future.UI
                     var contractinfo = ClientDbContext.FindContract(vm.Contract);
                     if (contractinfo != null)
                     {
-                        _optionRiskVMList.Add(new KeyValuePair<string, int>(contractinfo.Contract, strikeList.FindIndex(s => s == contractinfo.StrikePrice)));
+                        _riskDict[contractinfo.Contract] = strikeList.FindIndex(s => s == contractinfo.StrikePrice);
                     }
                 }
                 // set x-axis using strikeList;
                 lock (BarItemCollection)
                 {
                     BarItemCollection.Clear();
-                    foreach (var strike in strikeList)
+
+                    for(int i = 0; i < strikeList.Count; i++)
                     {
-                        BarItemCollection.Add(new ColumnItem());
+                        BarItemCollection.Add(new ColumnItem { CategoryIndex = i, Value = 0 });
                     }
                 }
+
+                columnSeries.ItemsSource = BarItemCollection;
 
                 _timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
             }

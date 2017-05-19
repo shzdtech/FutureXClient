@@ -48,8 +48,8 @@
             <CheckBox x:Name="callCheckBox" Content="Call"/>
             <CheckBox x:Name="putCheckBox" Content="Put"/>
         </StackPanel>
-        <oxy:Plot Grid.Column="1">
-            <oxy:ColumnSeries Name="DeltaBar" />
+        <oxy:Plot x:Name="plotModel" Grid.Column="1">
+            <oxy:ColumnSeries x:Name="columnSeries" />
             <oxy:Plot.Axes>
                 <oxy:CategoryAxis  x:Name="strikeAxis" Position="Bottom" Title="StrikePrice"/>
                 <oxy:LinearAxis x:Name="greeksAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="Greeks"/>
