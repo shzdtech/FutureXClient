@@ -36,6 +36,8 @@ namespace Micro.Future.UI
             get;
         } = new List<ColumnItem>();
 
+        private HashSet<string> _riskSet = new HashSet<string>();
+
         private Timer _timer;
         private const int UpdateInterval = 1000;
 
@@ -76,12 +78,34 @@ namespace Micro.Future.UI
                     }
                     foreach (var vm in riskVMlist)
                     {
-                        int index;
-                        if (_riskDict.TryGetValue(vm.Contract, out index))
+
+                        if (_riskSet.Contains(vm.Contract))
                         {
-                            var barItem = BarItemCollection[index];
-                            barItem.Value += vm.Delta;
+                            var contractinfo = ClientDbContext.FindContract(vm.Contract);
+
+                            if ((callCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION)
+                        || (putCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION))
+
+                            {
+                                int index;
+
+                                if (_riskDict.TryGetValue(vm.Contract, out index))
+                                {
+
+                                    var barItem = BarItemCollection[index];
+                                    if (deltaRadioButton.IsChecked.Value)
+                                        barItem.Value += vm.Delta;
+                                    else if (gammaRadioButton.IsChecked.Value)
+                                        barItem.Value += vm.Gamma;
+                                    else if (vegaRadioButton.IsChecked.Value)
+                                        barItem.Value += vm.Vega;
+                                    else if (thetaRadioButton.IsChecked.Value)
+                                        barItem.Value += vm.Theta;
+                                }
+                            }
                         }
+
+                        plotModel.InvalidatePlot(false);
                     }
                 }
             });
@@ -99,6 +123,7 @@ namespace Micro.Future.UI
             if (portfolioCB.SelectedValue != null)
             {
                 var portfolio = portfolioCB.SelectedValue?.ToString();
+                deltaRadioButton.IsChecked = true;
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
                 var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
                     .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract }).ToList();
@@ -111,6 +136,7 @@ namespace Micro.Future.UI
                         vm.Expiration = contractinfo.ExpireDate;
                     }
                 }
+
                 expirationLV.ItemsSource = strategyContractList;
 
 
@@ -139,7 +165,7 @@ namespace Micro.Future.UI
                 {
                     BarItemCollection.Clear();
 
-                    for(int i = 0; i < strikeList.Count; i++)
+                    for (int i = 0; i < strikeList.Count; i++)
                     {
                         BarItemCollection.Add(new ColumnItem { CategoryIndex = i, Value = 0 });
                     }
@@ -151,6 +177,38 @@ namespace Micro.Future.UI
             }
         }
 
+        private void exCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                StrategyBaseVM strategyBaseVM = ctrl.DataContext as StrategyBaseVM;
+                var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+                var strategyVMList = strategyVMCollection.Where(s => s.BaseContract == strategyBaseVM.Contract);
+                foreach (var vm in strategyVMList)
+                {
+                    var contractinfo = ClientDbContext.FindContract(vm.Contract);
+                    if (contractinfo.ExpireDate == strategyBaseVM.Expiration)
+                        _riskSet.Add(vm.Contract);
+                }
+            }
+        }
 
+        private void exCheckBox_UnChecked(object sender, RoutedEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                StrategyBaseVM strategyBaseVM = ctrl.DataContext as StrategyBaseVM;
+                var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+                var strategyVMList = strategyVMCollection.Where(s => s.BaseContract == strategyBaseVM.Contract);
+                foreach (var vm in strategyVMList)
+                {
+                    var contractinfo = ClientDbContext.FindContract(vm.Contract);
+                    if (contractinfo.ExpireDate == strategyBaseVM.Expiration)
+                        _riskSet.Remove(vm.Contract);
+                }
+            }
+        }
     }
 }

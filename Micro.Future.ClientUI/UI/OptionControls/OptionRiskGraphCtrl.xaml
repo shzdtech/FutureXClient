@@ -35,7 +35,7 @@
                         <GridViewColumn>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox HorizontalAlignment="Center"></CheckBox>
+                                    <CheckBox Name="expCheckBox" HorizontalAlignment="Center" Checked="exCheckBox_Checked" Unchecked="exCheckBox_UnChecked" ></CheckBox>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
