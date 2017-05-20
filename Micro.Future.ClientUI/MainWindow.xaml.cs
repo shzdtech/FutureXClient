@@ -77,6 +77,8 @@ namespace Micro.Future.UI
                 mainMenu.Items.Clear();
                 statusBar.Items.Clear();
 
+                var statusBarIdSet = new HashSet<string>();
+
                 sender.DataLoadingProgressBar.Maximum = frames.Count;
                 foreach (var frame in frames)
                 {
@@ -99,7 +101,17 @@ namespace Micro.Future.UI
                         if (frameUI.StatusBarItems != null)
                         {
                             foreach (var statusbaritem in frameUI.StatusBarItems)
+                            {
+                                if(!string.IsNullOrEmpty(statusbaritem.Uid))
+                                {
+                                    if(statusBarIdSet.Contains(statusbaritem.Uid))
+                                    {
+                                        continue;
+                                    }
+                                    statusBarIdSet.Add(statusbaritem.Uid);
+                                }
                                 statusBar.Items.Add(statusbaritem);
+                            }
                         }
 
                         var entries = _accountSignIner.SignInOptions.FrontServer.Split(':');
