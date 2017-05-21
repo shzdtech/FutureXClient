@@ -23,8 +23,8 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OTCOptionTradeFrame : UserControl, IUserFrame
     {
-        private AbstractSignInManager _ctpMdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AbstractOTCHandler>());
-        private AbstractSignInManager _ctpTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradeHandler>());
+        private AbstractSignInManager _mdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AbstractOTCHandler>());
+        private AbstractSignInManager _tdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradeHandler>());
 
 
         public string Title
@@ -42,16 +42,16 @@ namespace Micro.Future.UI
 
         public Task<bool> LoginAsync(string brokerId, string usernname, string password, string server)
         {
-            _ctpMdSignIner.SignInOptions.BrokerID = _ctpTradeSignIner.SignInOptions.BrokerID = brokerId;
-            _ctpMdSignIner.SignInOptions.UserName = _ctpTradeSignIner.SignInOptions.UserName = usernname;
-            _ctpMdSignIner.SignInOptions.Password = _ctpTradeSignIner.SignInOptions.Password = password;
-            var entries = _ctpMdSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            _mdSignIner.SignInOptions.BrokerID = _tdSignIner.SignInOptions.BrokerID = brokerId;
+            _mdSignIner.SignInOptions.UserName = _tdSignIner.SignInOptions.UserName = usernname;
+            _mdSignIner.SignInOptions.Password = _tdSignIner.SignInOptions.Password = password;
+            var entries = _mdSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
-                _ctpMdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+                _mdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
-            entries = _ctpTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            entries = _tdSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
-                _ctpTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+                _tdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
             MarketDataServerLogin();
             TradingServerLogin();
@@ -104,21 +104,21 @@ namespace Micro.Future.UI
             positionPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
 
             // Initialize Market Data
-            var msgWrapper = _ctpMdSignIner.MessageWrapper;
+            var msgWrapper = _mdSignIner.MessageWrapper;
             
-            _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
-            _ctpMdSignIner.OnLogged += _ctpMdSignIner_OnLogged;
-            _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
+            _mdSignIner.OnLogged += ctpLoginStatus.OnLogged;
+            _mdSignIner.OnLogged += _mdSignIner_OnLogged;
+            _mdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += ctpLoginStatus.OnDisconnected;
             MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().RegisterMessageWrapper(msgWrapper);
 
             // Initialize Trading Server
-            msgWrapper = _ctpTradeSignIner.MessageWrapper;
+            msgWrapper = _tdSignIner.MessageWrapper;
 
-            _ctpTradeSignIner.OnLogged += _ctpTradeSignIner_OnLogged;
-            _ctpTradeSignIner.OnLoginError += _ctpTradeSignIner_OnLoginError;
-            _ctpTradeSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
-            _ctpTradeSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
+            _tdSignIner.OnLogged += _tdSignIner_OnLogged;
+            _tdSignIner.OnLoginError += _tdSignIner_OnLoginError;
+            _tdSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
+            _tdSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
             tradeHandler.RegisterMessageWrapper(msgWrapper);
@@ -136,31 +136,31 @@ namespace Micro.Future.UI
             positionsWindow.MarketDataHandler = marketdataHandler;
         }
 
-        private void _ctpMdSignIner_OnLogged(IUserInfo obj)
+        private void _mdSignIner_OnLogged(IUserInfo obj)
         {
             marketDataLV.ReloadData();
         }
 
-        private void _ctpTradeSignIner_OnLoginError(MessageException obj)
+        private void _tdSignIner_OnLoginError(MessageException obj)
         {
             LoginTaskSource.TrySetException(obj);
         }
 
         private void MarketDataServerLogin()
         {
-            if (!_ctpMdSignIner.MessageWrapper.HasSignIn)
+            if (!_mdSignIner.MessageWrapper.HasSignIn)
             {
                 ctpLoginStatus.Prompt = "正在连接OTC行情服务器...";
-                _ctpMdSignIner.SignIn();
+                _mdSignIner.SignIn();
             }
         }
 
         private void TradingServerLogin()
         {
-            if (!_ctpTradeSignIner.MessageWrapper.HasSignIn)
+            if (!_tdSignIner.MessageWrapper.HasSignIn)
             {
                 ctpTradeLoginStatus.Prompt = "正在连接OTC交易服务器...";
-                _ctpTradeSignIner.SignIn();
+                _tdSignIner.SignIn();
             }
         }
 
@@ -175,18 +175,15 @@ namespace Micro.Future.UI
         }
 
 
-        private async void _ctpTradeSignIner_OnLogged(IUserInfo obj)
+        private void _tdSignIner_OnLogged(IUserInfo obj)
         {
-            Thread.Sleep(1200);
             clientFundLV.ReloadData();
-            Thread.Sleep(1200);
+            Thread.Sleep(1000);
             positionsWindow.ReloadData();
-            Thread.Sleep(1200);
+            Thread.Sleep(1000);
             tradeWindow.ReloadData();
-            Thread.Sleep(1200);
+            Thread.Sleep(1000);
             executionWindow.ReloadData();
-            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
-            await tradeHandler.SyncContractInfoAsync();
 
             LoginTaskSource.TrySetResult(true);
         }

@@ -110,7 +110,6 @@ namespace Micro.Future.UI
             strategyListView.ReloadData();
             contractParamListView.ReloadData();
             await MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().QueryPortfolioAsync();
-            await MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().SyncContractInfoAsync();
             LoginTaskSource.TrySetResult(true);
         }
 

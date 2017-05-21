@@ -178,17 +178,17 @@ namespace Micro.Future.UI
 
         private async void _ctpTradeSignIner_OnLogged(IUserInfo obj)
         {
-            Thread.Sleep(1200);
-            clientFundLV.ReloadData();
-            Thread.Sleep(1200);
-            positionsWindow.ReloadData();
-            Thread.Sleep(1200);
-            tradeWindow.ReloadData();
-            Thread.Sleep(1200);
-            executionWindow.ReloadData();
-
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             await tradeHandler.SyncContractInfoAsync();
+
+            Thread.Sleep(1000);
+            clientFundLV.ReloadData();
+            Thread.Sleep(1000);
+            positionsWindow.ReloadData();
+            Thread.Sleep(1000);
+            tradeWindow.ReloadData();
+            Thread.Sleep(1000);
+            executionWindow.ReloadData();
 
             LoginTaskSource.TrySetResult(true);
         }

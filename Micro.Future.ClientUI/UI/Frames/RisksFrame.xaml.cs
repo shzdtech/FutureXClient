@@ -25,7 +25,7 @@ namespace Micro.Future.UI
     {
         private AbstractSignInManager _otcOptionSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
-        private AbstractOTCHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+        private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
 
         public RisksFrame()
         {
@@ -106,7 +106,7 @@ namespace Micro.Future.UI
             _otcOptionTradeHandler.RegisterMessageWrapper(_otcOptionHandler.MessageWrapper);
             await _otcOptionHandler.QueryStrategyAsync();
             await _otcOptionHandler.QueryAllModelParamsAsync();
-            await _otcOptionHandler.SyncContractInfoAsync();
+            await _otcOptionTradeHandler.SyncContractInfoAsync();
 
             LoginTaskSource.TrySetResult(true);
         }
@@ -116,6 +116,10 @@ namespace Micro.Future.UI
             {
                 //OptionLoginStatus.Prompt = "正在连接TradingDesk服务器...";
                 _otcOptionSignIner.SignIn();
+            }
+            else
+            {
+                _tdSignIner_OnLogged(_otcOptionSignIner.LoggedUser);
             }
         }
 
