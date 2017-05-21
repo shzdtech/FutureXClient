@@ -43,6 +43,11 @@ namespace Micro.Future.UI
 
         public class StrategyBaseVM
         {
+            public string OptionContract
+            {
+                get;
+                set;
+            }
             public string Contract
             {
                 get;
@@ -124,13 +129,14 @@ namespace Micro.Future.UI
             {
                 var portfolio = portfolioCB.SelectedValue?.ToString();
                 deltaRadioButton.IsChecked = true;
+                marketRadioButton.IsChecked = true;
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
                 var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
-                    .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract }).ToList();
+                    .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract}).ToList();
                 var strategyVMList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract)).ToList();
                 foreach (var vm in strategyContractList)
                 {
-                    var contractinfo = ClientDbContext.FindContract(vm.Contract);
+                    var contractinfo = ClientDbContext.FindContract(vm.OptionContract);
                     if (contractinfo != null)
                     {
                         vm.Expiration = contractinfo.ExpireDate;
@@ -210,5 +216,33 @@ namespace Micro.Future.UI
                 }
             }
         }
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                if (e.Key == Key.Enter)
+                {
+
+                    //StrategyVM strategyVM = ctrl.Tag as StrategyVM;
+                    //if (strategyVM != null)
+                    //{
+                    //    if (e.Key == Key.Enter)
+                    //        strategyVM.UpdateStrategy();
+                    //    else
+                    //    {
+                    //        ctrl.DataContext = null;
+                    //        ctrl.DataContext = strategyVM;
+                    //    }
+                    //}
+                    //ctrl.Background = Brushes.White;
+                }
+                else
+                {
+                    //ctrl.Background = Brushes.MistyRose;
+                }
+            }
+        }
+
     }
 }

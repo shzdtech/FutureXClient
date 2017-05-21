@@ -8,6 +8,7 @@
              xmlns:c="clr-namespace:Micro.Future.UI"
              xmlns:lex="http://wpflocalizeextension.codeplex.com" 
              xmlns:oxy="http://oxyplot.org/wpf"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              lex:LocalizeDictionary.DesignCulture="zh_CN"
              lex:LocalizeDictionary.OutputMissingKeys="True"
              lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
@@ -16,37 +17,59 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="0.22*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Width="auto">
-            <Label x:Name="portfolioLabel" Content="{lex:Loc Key=Portfolio}"/>
-            <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
-            <Label x:Name="riskLabel" Content="{lex:Loc Key=Risk}"/>
-            <RadioButton x:Name="deltaRadioButton" Content="Delta" VerticalAlignment="Top"/>
-            <RadioButton x:Name="gammaRadioButton" Content="Gamma" VerticalAlignment="Top"/>
-            <RadioButton x:Name="vegaRadioButton" Content="Vega" VerticalAlignment="Top"/>
-            <RadioButton x:Name="thetaRadioButton" Content="Theta" VerticalAlignment="Top"/>
-            <Label x:Name="expiration" Content="{lex:Loc Key=Expiration}"/>
-            <ListView x:Name="expirationLV" ScrollViewer.VerticalScrollBarVisibility="Auto" Width="Auto">
-                <ListView.View>
-                    <GridView>
-                        <!--<GridViewColumn x:Name="contract" Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.BidVol,StringFormat=P2}" />-->
-                        <GridViewColumn>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox Name="expCheckBox" HorizontalAlignment="Center" Checked="exCheckBox_Checked" Unchecked="exCheckBox_UnChecked" ></CheckBox>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn x:Name="contractHeader" DisplayMemberBinding="{Binding Contract}" Header="{lex:Loc Key=Contract}" />
-                        <GridViewColumn x:Name="expirationHeader" DisplayMemberBinding="{Binding Expiration}" Header="{lex:Loc Key=Expiration}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <Label x:Name="typeLabel" Content="Type"/>
-            <CheckBox x:Name="callCheckBox" Content="Call"/>
-            <CheckBox x:Name="putCheckBox" Content="Put"/>
+        <StackPanel Grid.Column="0" Width="Auto">
+            <GroupBox x:Name="portfolioGB" Header="{lex:Loc Key=Portfolio}">
+                    <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
+            </GroupBox>
+            <GroupBox x:Name="priceGB" Header="{lex:Loc Key=Price}">
+                <StackPanel>
+                    <RadioButton x:Name="marketRadioButton" Content="{lex:Loc Key=Market}" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="settlementRadioButton" Content="{lex:Loc Key=Settlement}" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="valuationRadioButton" Content="{lex:Loc Key=Valuation}" VerticalAlignment="Top"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox x:Name="riskGB" Header="{lex:Loc Key=Risk}">
+                <StackPanel>
+                    <RadioButton x:Name="deltaRadioButton" Content="Delta" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="gammaRadioButton" Content="Gamma" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="vegaRadioButton" Content="Vega" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="thetaRadioButton" Content="Theta" VerticalAlignment="Top"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox x:Name="expirationGB" Header="{lex:Loc Key=Expiration}" Width="Auto">
+                <ListView x:Name="expirationLV" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Visible" Width="Auto">
+                    <ListView.View>
+                        <GridView>
+                            <!--<GridViewColumn x:Name="contract" Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.BidVol,StringFormat=P2}" />-->
+                            <GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Name="expCheckBox" HorizontalAlignment="Center" Checked="exCheckBox_Checked" Unchecked="exCheckBox_UnChecked" ></CheckBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="contractHeader" DisplayMemberBinding="{Binding Contract}" Header="{lex:Loc Key=Contract}" />
+                            <GridViewColumn x:Name="expirationHeader" DisplayMemberBinding="{Binding Expiration}" Header="{lex:Loc Key=Expiration}" />
+                            <GridViewColumn Header="{lex:Loc Key=Valuation}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <xctk:DoubleUpDown x:Name="valuationUpDown" HorizontalAlignment="Stretch" Value="{Binding Valuation}" KeyUp="OnKeyDown" Tag="{Binding Valuation}" ShowButtonSpinner="False" Width="70"></xctk:DoubleUpDown>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </GroupBox>
+            <GroupBox x:Name="typeGB" Header="{lex:Loc Key=Type}">
+                <StackPanel>
+                    <CheckBox x:Name="callCheckBox" Content="Call"/>
+                    <CheckBox x:Name="putCheckBox" Content="Put"/>
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
         <oxy:Plot x:Name="plotModel" Grid.Column="1">
             <oxy:ColumnSeries x:Name="columnSeries" />

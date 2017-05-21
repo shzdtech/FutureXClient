@@ -56,10 +56,10 @@
                         <xcdg:GroupHeaderFooterItemTemplate>
                             <DataTemplate>
                                 <xcdg:StatRow>
-                                    <xcdg:StatCell FieldName="Delta" ResultPropertyName="SumOfDelta"/>
-                                    <xcdg:StatCell FieldName="Gamma" ResultPropertyName="SumOfGamma"/>
-                                    <xcdg:StatCell FieldName="Vega100" ResultPropertyName="SumOfVega100"/>
-                                    <xcdg:StatCell FieldName="Theta365" ResultPropertyName="SumOfTheta365"/>
+                                    <xcdg:StatCell FieldName="Delta" ResultPropertyName="SumOfDelta" ContentStringFormat="{}{0:N}" />
+                                    <xcdg:StatCell FieldName="Gamma" ResultPropertyName="SumOfGamma" ContentStringFormat="{}{0:N}"/>
+                                    <xcdg:StatCell FieldName="Vega100" ResultPropertyName="SumOfVega100" ContentStringFormat="{}{0:N}"/>
+                                    <xcdg:StatCell FieldName="Theta365" ResultPropertyName="SumOfTheta365" ContentStringFormat="{}{0:N}"/>
                                 </xcdg:StatRow>
                             </DataTemplate>
                         </xcdg:GroupHeaderFooterItemTemplate>
@@ -70,10 +70,10 @@
             <xcdg:DataGridControl.Columns>
                 <xcdg:Column FieldName="Contract" Title="Contract" Width="*" />
                 <xcdg:Column FieldName="Underlying"  Title="Underlying" Width="*"/>
-                <xcdg:Column FieldName="Delta" Title="Delta" Width="*" />
-                <xcdg:Column FieldName="Gamma" Title="Gamma" Width="*" />
-                <xcdg:Column FieldName="Vega100" Title="Vega" Width="*" />
-                <xcdg:Column FieldName="Theta365" Title="Theta" Width="*" />
+                <xcdg:Column FieldName="Delta" Title="Delta" Width="*" CellContentStringFormat="{}{0:N}"/>
+                <xcdg:Column FieldName="Gamma" Title="Gamma" Width="*" CellContentStringFormat="{}{0:N}" />
+                <xcdg:Column FieldName="Vega100" Title="Vega" Width="*" CellContentStringFormat="{}{0:N}" />
+                <xcdg:Column FieldName="Theta365" Title="Theta" Width="*" CellContentStringFormat="{}{0:N}"/>
             </xcdg:DataGridControl.Columns>
         </xcdg:DataGridControl>
     </Grid>

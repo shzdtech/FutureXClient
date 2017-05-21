@@ -943,6 +943,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 市场 的本地化字符串。
+        /// </summary>
+        internal static string Market {
+            get {
+                return ResourceManager.GetString("Market", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 行情 的本地化字符串。
         /// </summary>
         internal static string MarketData {
@@ -1681,6 +1690,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 结算 的本地化字符串。
+        /// </summary>
+        internal static string Settlement {
+            get {
+                return ResourceManager.GetString("Settlement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 结算编号 的本地化字符串。
         /// </summary>
         internal static string SettlementID {
@@ -2046,6 +2064,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string UserName {
             get {
                 return ResourceManager.GetString("UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 估值 的本地化字符串。
+        /// </summary>
+        internal static string Valuation {
+            get {
+                return ResourceManager.GetString("Valuation", resourceCulture);
             }
         }
         
