@@ -143,7 +143,7 @@ namespace Micro.Future.UI
                         //    }
                         //}
 
-                            plotModel.InvalidatePlot(false);
+                            plotModel.InvalidatePlot(true);
                     }
                 }
             });
