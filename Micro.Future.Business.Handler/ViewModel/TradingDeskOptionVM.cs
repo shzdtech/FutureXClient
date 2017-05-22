@@ -23,6 +23,37 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(Position));
             }
         }
+
+        private int _longposition;
+        public int LongPosition
+        {
+            get { return _longposition; }
+            set
+            {
+                _longposition = value;
+                OnPropertyChanged(nameof(LongPosition));
+            }
+        }
+        private int _shortposition;
+        public int ShortPosition
+        {
+            get { return _shortposition; }
+            set
+            {
+                _shortposition = value;
+                OnPropertyChanged(nameof(ShortPosition));
+            }
+        }
+        private int _netposition;
+        public int NetPosition
+        {
+            get { return _netposition; }
+            set
+            {
+                _netposition = value;
+                OnPropertyChanged(nameof(NetPosition));
+            }
+        }
         public void InitProperties()
         {
             MarketDataVM = new PricingVM();

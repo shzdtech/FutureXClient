@@ -85,10 +85,15 @@ namespace Micro.Future.UI
                     {
                         var contractinfo = ClientDbContext.FindContract(vm.Contract);
                         string basecontract = null;
+                        string futurecontract = null;
                         if (contractinfo != null)
                         {
                             if (!string.IsNullOrEmpty(contractinfo.UnderlyingContract))
+                            {
                                 basecontract = contractinfo.UnderlyingContract;
+                            }
+                            else
+                                basecontract = contractinfo.Contract;
                         }
                         if (_riskSet.Contains(basecontract))
                         {
@@ -110,14 +115,35 @@ namespace Micro.Future.UI
                                     else if (gammaRadioButton.IsChecked.Value)
                                         barItem.Value += vm.Gamma;
                                     else if (vegaRadioButton.IsChecked.Value)
-                                        barItem.Value += vm.Vega;
+                                        barItem.Value += vm.Vega100;
                                     else if (thetaRadioButton.IsChecked.Value)
-                                        barItem.Value += vm.Theta;
+                                        barItem.Value += vm.Theta365;
                                 }
                             }
                         }
+                        //if (_riskSet.Contains(futurecontract))
+                        //{
+                        //    if(futureCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_FUTURE)
+                        //    {
+                        //        int index;
 
-                        plotModel.InvalidatePlot(false);
+                        //        if (_riskDict.TryGetValue(basecontract, out index))
+                        //        {
+
+                        //            var barItem = BarItemCollection[index];
+                        //            if (deltaRadioButton.IsChecked.Value)
+                        //                barItem.Value += vm.Delta;
+                        //            else if (gammaRadioButton.IsChecked.Value)
+                        //                barItem.Value += vm.Gamma;
+                        //            else if (vegaRadioButton.IsChecked.Value)
+                        //                barItem.Value += vm.Vega100;
+                        //            else if (thetaRadioButton.IsChecked.Value)
+                        //                barItem.Value += vm.Theta365;
+                        //        }
+                        //    }
+                        //}
+
+                            plotModel.InvalidatePlot(false);
                     }
                 }
             });

@@ -58,7 +58,7 @@ namespace Micro.Future.Message
                     {
                         AskVol = tradingDeskOption.ImpliedVol.AskVolatility,
                         BidVol = tradingDeskOption.ImpliedVol.BidVolatility,
-                        MidVol = (tradingDeskOption.ImpliedVol.BidVolatility + tradingDeskOption.ImpliedVol.AskVolatility)/2
+                        MidVol = (tradingDeskOption.ImpliedVol.BidVolatility + tradingDeskOption.ImpliedVol.AskVolatility) / 2
                     };
 
                     if (double.IsNaN(quote.ImpliedVolVM.MidVol))
@@ -231,7 +231,11 @@ namespace Micro.Future.Message
 
             if (quote != null)
             {
-                quote.Position = newVM.Position;
+                if (newVM.Direction == PositionDirectionType.PD_LONG)
+                    quote.LongPosition = newVM.Position;
+                else if (newVM.Direction == PositionDirectionType.PD_SHORT)
+                    quote.ShortPosition = newVM.Position;
+                quote.Position = quote.LongPosition - quote.ShortPosition;
             }
             return quote;
         }
