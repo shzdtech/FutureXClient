@@ -128,6 +128,16 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private OrderVolType _volType;
+        public OrderVolType VOLTYPE
+        {
+            get { return _volType; }
+            set
+            {
+                _volType = value;
+                OnPropertyChanged("VOLTYPE");
+            }
+        }
 
         private TradingType _tradingType;
         public TradingType TradingType
@@ -237,6 +247,25 @@ namespace Micro.Future.ViewModel
                 }
                 return _sendOrderCommand;
             }
+        }
+        public void OrderTypeSet(OrderSetType type)
+        {
+            if (type == OrderSetType.LIMIT)
+            {
+                TIF = OrderTIFType.GFD;
+                VOLTYPE = OrderVolType.ANYVOLUME;
+            }
+           else if (type == OrderSetType.FAK)
+            {
+                TIF = OrderTIFType.IOC;
+                VOLTYPE = OrderVolType.ANYVOLUME;
+            }
+            else if (type == OrderSetType.FOK)
+            {
+                TIF = OrderTIFType.IOC;
+                VOLTYPE = OrderVolType.ALLVOLUME;
+            }
+
         }
 
     }

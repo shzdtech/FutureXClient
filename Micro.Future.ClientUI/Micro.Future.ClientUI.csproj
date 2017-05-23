@@ -90,6 +90,7 @@
     </ApplicationDefinition>
     <Compile Include="RoleSectionHandler.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="UI\Behavior\AvalonDockLayoutSerializer.cs" />
     <Compile Include="UI\DomesticControls\AdvancedMakeOrderWin.xaml.cs">
       <DependentUpon>AdvancedMakeOrderWin.xaml</DependentUpon>
     </Compile>

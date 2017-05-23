@@ -313,6 +313,33 @@ namespace Micro.Future.Business.Handler.Enums {
         }
         
         /// <summary>
+        ///   查找类似 ALLVOLUME 的本地化字符串。
+        /// </summary>
+        internal static string OrderVolType_ALLVOLUME {
+            get {
+                return ResourceManager.GetString("OrderVolType_ALLVOLUME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ANYVOLUME 的本地化字符串。
+        /// </summary>
+        internal static string OrderVolType_ANYVOLUME {
+            get {
+                return ResourceManager.GetString("OrderVolType_ANYVOLUME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 MINIVOLUME 的本地化字符串。
+        /// </summary>
+        internal static string OrderVolType_MINIVOLUME {
+            get {
+                return ResourceManager.GetString("OrderVolType_MINIVOLUME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 多 的本地化字符串。
         /// </summary>
         internal static string PositionDirectionType_LONG {

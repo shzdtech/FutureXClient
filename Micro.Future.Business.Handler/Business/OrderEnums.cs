@@ -135,5 +135,26 @@ namespace Micro.Future.Message
 
         Arethmetic = 2,
     };
-
+    public enum OrderVolType
+    {
+        [LocalizableDescription(@"OrderVolType_ANYVOLUME", typeof(Enums))]
+        ANYVOLUME = 0,
+        ///最小数量
+        [LocalizableDescription(@"OrderVolType_MINIVOLUME", typeof(Enums))]
+        MINIVOLUME = 1,
+        ///全部数量
+        [LocalizableDescription(@"OrderVolType_ALLVOLUME", typeof(Enums))]
+        ALLVOLUME = 2
+    };
+    public enum OrderSetType
+    {
+        [LocalizableDescription(@"OrderSetType_LIMIT", typeof(Enums))]
+        LIMIT = 0,
+        ///最小数量
+        [LocalizableDescription(@"OrderSetType_FAK", typeof(Enums))]
+        FAK = 1,
+        ///全部数量
+        [LocalizableDescription(@"OrderSetType_FOK", typeof(Enums))]
+        FOK = 2
+    };
 }

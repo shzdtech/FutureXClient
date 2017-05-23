@@ -816,4 +816,13 @@
   <data name="Valuation" xml:space="preserve">
     <value>估值</value>
   </data>
+  <data name="OrderVolType_ANYVOLUME" xml:space="preserve">
+    <value>ANYVOLUME</value>
+  </data>
+  <data name="OrderVolType_MINIVOLUME" xml:space="preserve">
+    <value>MINIVOLUME</value>
+  </data>
+  <data name="OrderVolType_ALLVOLUME" xml:space="preserve">
+    <value>ALLVOLUME</value>
+  </data>
 </root>

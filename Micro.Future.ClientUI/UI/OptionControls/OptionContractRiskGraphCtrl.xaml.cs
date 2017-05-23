@@ -85,7 +85,6 @@ namespace Micro.Future.UI
                     {
                         var contractinfo = ClientDbContext.FindContract(vm.Contract);
                         string basecontract = null;
-                        string futurecontract = null;
                         if (contractinfo != null)
                         {
                             if (!string.IsNullOrEmpty(contractinfo.UnderlyingContract))
