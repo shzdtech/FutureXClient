@@ -282,7 +282,7 @@ namespace Micro.Future.Message
                         VolumeRemain = rsp.VolumeRemain,
                         ExecType = (OrderExecType)rsp.ExecType,
                         TIF = (OrderTIFType)rsp.Tif,
-                        VOLTYPE = (OrderVolType)rsp.VolumeCondition,
+                        VolCondition = (OrderVolType)rsp.VolumeCondition,
                         TradingType = (TradingType)rsp.TradingType,
                         Active = rsp.Active,
                         Status = (OrderStatus)rsp.OrderStatus,
@@ -466,7 +466,7 @@ namespace Micro.Future.Message
             pb.Contract = orderVM.Contract;
             pb.LimitPrice = orderVM.LimitPrice;
             pb.Tif = (int)orderVM.TIF;
-            pb.VolCond = (int)orderVM.VOLTYPE;
+            pb.VolCond = (int)orderVM.VolCondition;
             pb.Volume = orderVM.Volume;
             pb.ExecType = (int)orderVM.ExecType;
             pb.Direction = (int)orderVM.Direction;

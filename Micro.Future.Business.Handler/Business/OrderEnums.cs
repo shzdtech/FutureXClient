@@ -146,7 +146,7 @@ namespace Micro.Future.Message
         [LocalizableDescription(@"OrderVolType_ALLVOLUME", typeof(Enums))]
         ALLVOLUME = 2
     };
-    public enum OrderSetType
+    public enum OrderConditionType
     {
         [LocalizableDescription(@"OrderSetType_LIMIT", typeof(Enums))]
         LIMIT = 0,

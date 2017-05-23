@@ -25,7 +25,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _orderID = value;
-                OnPropertyChanged("OrderID");
+                OnPropertyChanged(nameof(OrderID));
             }
         }
 
@@ -36,7 +36,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _orderSysID = value;
-                OnPropertyChanged("OrderSysID");
+                OnPropertyChanged(nameof(OrderSysID));
             }
         }
 
@@ -47,7 +47,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _sessionID = value;
-                OnPropertyChanged("SessionID");
+                OnPropertyChanged(nameof(SessionID));
             }
         }
 
@@ -58,7 +58,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _direction = value;
-                OnPropertyChanged("Direction");
+                OnPropertyChanged(nameof(Direction));
             }
         }
 
@@ -69,7 +69,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _limitPrice = value;
-                OnPropertyChanged("LimitPrice");
+                OnPropertyChanged(nameof(LimitPrice));
             }
         }
 
@@ -80,7 +80,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _volume = value;
-                OnPropertyChanged("Volume");
+                OnPropertyChanged(nameof(Volume));
             }
         }
 
@@ -91,7 +91,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _volumeTraded = value;
-                OnPropertyChanged("VolumeTraded");
+                OnPropertyChanged(nameof(VolumeTraded));
             }
         }
 
@@ -102,7 +102,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _volumeRemain = value;
-                OnPropertyChanged("VolumeRemain");
+                OnPropertyChanged(nameof(VolumeRemain));
             }
         }
 
@@ -113,7 +113,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _execType = value;
-                OnPropertyChanged("ExecType");
+                OnPropertyChanged(nameof(ExecType));
             }
         }
 
@@ -124,18 +124,19 @@ namespace Micro.Future.ViewModel
             set
             {
                 _tif = value;
-                OnPropertyChanged("TIF");
+                OnPropertyChanged(nameof(TIF));
             }
         }
 
         private OrderVolType _volType;
-        public OrderVolType VOLTYPE
+        public OrderVolType VolCondition
         {
             get { return _volType; }
             set
             {
                 _volType = value;
-                OnPropertyChanged("VOLTYPE");
+                
+                OnPropertyChanged(nameof(VolCondition));
             }
         }
 
@@ -146,7 +147,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _tradingType = value;
-                OnPropertyChanged("TradingType");
+                OnPropertyChanged(nameof(TradingType));
             }
         }
 
@@ -157,7 +158,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _active = value;
-                OnPropertyChanged("Active");
+                OnPropertyChanged(nameof(Active));
             }
         }
 
@@ -168,7 +169,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _status = value;
-                OnPropertyChanged("Status");
+                OnPropertyChanged(nameof(Status));
             }
         }
 
@@ -191,7 +192,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _insertTime = value;
-                OnPropertyChanged("InsertTime");
+                OnPropertyChanged(nameof(InsertTime));
             }
         }
 
@@ -202,7 +203,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _updateTime = value;
-                OnPropertyChanged("UpdateTime");
+                OnPropertyChanged(nameof(UpdateTime));
             }
         }
 
@@ -213,7 +214,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _cancelTime = value;
-                OnPropertyChanged("CancelTime");
+                OnPropertyChanged(nameof(CancelTime));
             }
         }
 
@@ -224,11 +225,9 @@ namespace Micro.Future.ViewModel
             set
             {
                 _message = value;
-                OnPropertyChanged("Message");
+                OnPropertyChanged(nameof(Message));
             }
         }
-
-
 
         public void SendOrder(object param = null)
         {
@@ -248,22 +247,35 @@ namespace Micro.Future.ViewModel
                 return _sendOrderCommand;
             }
         }
-        public void OrderTypeSet(OrderSetType type)
+
+        OrderConditionType _orderType;
+        public OrderConditionType ConditionType
         {
-            if (type == OrderSetType.LIMIT)
+            get { return _orderType; }
+            set
+            {
+                _orderType = value;
+                UpdateCondition(_orderType);
+                OnPropertyChanged(nameof(ConditionType));
+            }
+        }
+
+        public void UpdateCondition(OrderConditionType type)
+        {
+            if (type == OrderConditionType.LIMIT)
             {
                 TIF = OrderTIFType.GFD;
-                VOLTYPE = OrderVolType.ANYVOLUME;
+                VolCondition = OrderVolType.ANYVOLUME;
             }
-           else if (type == OrderSetType.FAK)
+           else if (type == OrderConditionType.FAK)
             {
                 TIF = OrderTIFType.IOC;
-                VOLTYPE = OrderVolType.ANYVOLUME;
+                VolCondition = OrderVolType.ANYVOLUME;
             }
-            else if (type == OrderSetType.FOK)
+            else if (type == OrderConditionType.FOK)
             {
                 TIF = OrderTIFType.IOC;
-                VOLTYPE = OrderVolType.ALLVOLUME;
+                VolCondition = OrderVolType.ALLVOLUME;
             }
 
         }
