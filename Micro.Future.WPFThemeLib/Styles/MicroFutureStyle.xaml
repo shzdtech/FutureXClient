@@ -139,17 +139,17 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="PutCounterChangeStyle" TargetType="TextBlock">
+    <Style x:Key="PutCounterAskChangeStyle" TargetType="TextBlock">
         <Setter Property="TextAlignment" Value="Right" />
         <Style.Triggers>
-            <DataTrigger Binding="{Binding PutStrategyVM.CounterDirection}" Value = "1">
+            <DataTrigger Binding="{Binding PutStrategyVM.CounterAskDirection}" Value = "1">
                 <Setter Property="Background">
                     <Setter.Value>
                         <SolidColorBrush Color="Gray"/>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding PutStrategyVM.CounterDirection}" Value="-1">
+            <DataTrigger Binding="{Binding PutStrategyVM.CounterAskDirection}" Value="-1">
                 <Setter Property="Background">
                     <Setter.Value>
                         <SolidColorBrush Color="Transparent"/>
@@ -158,17 +158,56 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="CallCounterChangeStyle" TargetType="TextBlock">
+    <Style x:Key="PutCounterBidChangeStyle" TargetType="TextBlock">
         <Setter Property="TextAlignment" Value="Right" />
         <Style.Triggers>
-            <DataTrigger Binding="{Binding CallStrategyVM.CounterDirection}" Value = "1">
+            <DataTrigger Binding="{Binding PutStrategyVM.CounterBidDirection}" Value = "1">
                 <Setter Property="Background">
                     <Setter.Value>
                         <SolidColorBrush Color="Gray"/>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding CallStrategyVM.CounterDirection}" Value="-1">
+            <DataTrigger Binding="{Binding PutStrategyVM.CounterBidDirection}" Value="-1">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Transparent"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="CallCounterAskChangeStyle" TargetType="TextBlock">
+        <Setter Property="TextAlignment" Value="Right" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding CallStrategyVM.CounterAskDirection}" Value = "1">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Gray"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CallStrategyVM.CounterAskDirection}" Value="-1">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Transparent"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="CallCounterBidChangeStyle" TargetType="TextBlock">
+        <Setter Property="TextAlignment" Value="Right" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding CallStrategyVM.CounterBidDirection}" Value = "1">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Gray"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CallStrategyVM.CounterBidDirection}" Value="-1">
                 <Setter Property="Background">
                     <Setter.Value>
                         <SolidColorBrush Color="Transparent"/>

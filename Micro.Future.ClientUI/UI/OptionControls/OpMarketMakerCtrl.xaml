@@ -203,7 +203,7 @@
                     <GridViewColumn x:Name="PBidCnt" Header="PBidCnt" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PutStrategyVM.BidCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource PutCounterChangeStyle}"/>
+                                <TextBlock Text="{Binding PutStrategyVM.BidCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource PutCounterBidChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -213,7 +213,7 @@
                     <GridViewColumn x:Name="PAskCnt" Header="PAskCnt" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PutStrategyVM.AskCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource PutCounterChangeStyle}"/>
+                                <TextBlock Text="{Binding PutStrategyVM.AskCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource PutCounterAskChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -261,7 +261,7 @@
                     <GridViewColumn x:Name="CAskCnt" Header="CAskCnt" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding CallStrategyVM.AskCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource CallCounterChangeStyle}"/>
+                                <TextBlock Text="{Binding CallStrategyVM.AskCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource CallCounterAskChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -271,7 +271,7 @@
                     <GridViewColumn x:Name="CBidCnt" Header="CBidCnt" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding CallStrategyVM.BidCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource CallCounterChangeStyle}"/>
+                                <TextBlock Text="{Binding CallStrategyVM.BidCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource CallCounterBidChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

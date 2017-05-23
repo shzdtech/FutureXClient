@@ -340,10 +340,14 @@ namespace Micro.Future.Message
                 strategyVM.BidCounter = strategy.BidCounter;
                 strategyVM.AskCounter = strategy.AskCounter;
                 strategyVM.CloseMode = strategy.CloseMode;
-                if (strategyVM.AskCounter >= strategyVM.MaxAutoTrade || strategyVM.BidCounter >= strategyVM.MaxAutoTrade)
-                    strategyVM.CounterDirection = 1;
+                if (strategyVM.AskCounter >= strategyVM.MaxAutoTrade)
+                    strategyVM.CounterAskDirection = 1;
                 else
-                    strategyVM.CounterDirection = -1;
+                    strategyVM.CounterAskDirection = -1;
+                if (strategyVM.BidCounter >= strategyVM.MaxAutoTrade)
+                    strategyVM.CounterBidDirection = 1;
+                else
+                    strategyVM.CounterBidDirection = -1;
                 OnStrategyUpdated?.Invoke(strategyVM);
             }
         }
