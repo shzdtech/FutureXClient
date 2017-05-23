@@ -825,4 +825,7 @@
   <data name="OrderVolType_ALLVOLUME" xml:space="preserve">
     <value>ALLVOLUME</value>
   </data>
+  <data name="OrderCondition" xml:space="preserve">
+    <value>下单类型</value>
+  </data>
 </root>

@@ -259,6 +259,13 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(ConditionType));
             }
         }
+        public IList<OrderConditionType> OrderConditionTypes
+        {
+            get
+            {
+                return Enum.GetValues(typeof(OrderConditionType)).Cast<OrderConditionType>().ToList<OrderConditionType>();
+            }
+        }
 
         public void UpdateCondition(OrderConditionType type)
         {

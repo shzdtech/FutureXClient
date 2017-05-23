@@ -1195,6 +1195,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 下单类型 的本地化字符串。
+        /// </summary>
+        internal static string OrderCondition {
+            get {
+                return ResourceManager.GetString("OrderCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 订单编号 的本地化字符串。
         /// </summary>
         internal static string OrderID {

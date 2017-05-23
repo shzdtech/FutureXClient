@@ -37,12 +37,9 @@
         <StackPanel Orientation="Horizontal" Grid.Row="1" Width="300" Height="30">
             <Label Width="35" Content="{lex:Loc Key=OrderVolume}" VerticalAlignment="Center"></Label>
             <xctk:IntegerUpDown x:Name="SizeTxt" Width="100" Value="{Binding Volume}" FormatString="N0"  VerticalAlignment="Center" Maximum="100000" Minimum="1"/>
-            <TextBlock Text="{lex:Loc Key=TIF}" Width="35" VerticalAlignment="Center"></TextBlock>
-            <ComboBox x:Name="TimeTypeCombo" Grid.ColumnSpan="2" Width="101" VerticalAlignment="Center" Margin="0,4">
-                <ComboBoxItem>LIMIT</ComboBoxItem>
-                <ComboBoxItem>FAK</ComboBoxItem>
-                <ComboBoxItem>FOK</ComboBoxItem>
-            </ComboBox>
+            <TextBlock Text="{lex:Loc Key=OrderCondition}" Width="35" VerticalAlignment="Center"></TextBlock>
+            <ComboBox x:Name="TimeTypeCombo" SelectedValue="{Binding ConditionType, Mode=TwoWay}" ItemsSource="{Binding OrderConditionTypes}" Grid.ColumnSpan="2" Width="101" VerticalAlignment="Center" Margin="0,4"/>
+
         </StackPanel>
 
         <Grid Grid.Row="3" Height="30">
