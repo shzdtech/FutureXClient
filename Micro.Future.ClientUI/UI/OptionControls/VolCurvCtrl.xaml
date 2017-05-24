@@ -5,6 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Micro.Future.UI"
              xmlns:oxy="http://oxyplot.org/wpf"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com" 
+             lex:LocalizeDictionary.DesignCulture="zh_CN"
+             lex:LocalizeDictionary.OutputMissingKeys="True"
+             lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600">
     <Grid>
@@ -13,6 +18,7 @@
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
@@ -52,6 +58,9 @@
             </oxy:Plot.Annotations>
         </oxy:Plot>
         <WrapPanel Grid.Row="1" MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Button x:Name="resetButton" Content="{lex:Loc Key=Reset}" Width="75" Click="resetButton_Click" />
+        </WrapPanel>
+        <WrapPanel Grid.Row="2" MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <CheckBox x:Name="checkBoxCallBid" Content="CallBidVol" IsChecked="True"/>
             <CheckBox x:Name="checkBoxCallAsk" Content="CallAskVol" IsChecked="True"/>
             <CheckBox x:Name="checkBoxCallMid" Content="CallMidVol" IsChecked="True"/>
@@ -59,7 +68,7 @@
             <CheckBox x:Name="checkBoxPutAsk" Content="PutAskVol" IsChecked="True"/>
             <CheckBox x:Name="checkBoxPutMid" Content="PutMidVol" IsChecked="True"/>
         </WrapPanel>
-        <WrapPanel Grid.Row="2" MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <WrapPanel Grid.Row="3" MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <CheckBox x:Name="checkBoxTheoBid1" Content="TheoBidVol" IsChecked="True"/>
             <CheckBox x:Name="checkBoxTheoAsk1" Content="TheoAskVol" IsChecked="True"/>
             <CheckBox x:Name="checkBoxTheoMid1" Content="TheoMidVol" IsChecked="True"/>

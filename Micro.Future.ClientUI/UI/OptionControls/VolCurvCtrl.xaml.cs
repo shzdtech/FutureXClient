@@ -449,5 +449,10 @@ namespace Micro.Future.UI
             VolatilityModelVM.TheoAskVolLine1.Clear();
             VolatilityModelVM.TheoBidVolLine1.Clear();
         }
+
+        private void resetButton_Click(object sender, RoutedEventArgs e)
+        {
+            volPlot.ResetAllAxes();
+        }
     }
 }

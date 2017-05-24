@@ -71,6 +71,11 @@
                     <CheckBox x:Name="futureCheckBox" Content="Future"/>
                 </StackPanel>
             </GroupBox>
+            <GroupBox x:Name="resetGB">
+                <StackPanel>
+                    <Button x:Name="resetButton" Content="{lex:Loc Key=Reset}" Width="75" Click="resetButton_Click" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
         <oxy:Plot x:Name="plotModel" Grid.Column="1">
             <oxy:ColumnSeries x:Name="columnSeries" />

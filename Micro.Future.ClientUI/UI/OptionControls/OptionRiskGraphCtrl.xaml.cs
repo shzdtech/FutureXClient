@@ -243,6 +243,10 @@ namespace Micro.Future.UI
                 }
             }
         }
+        private void resetButton_Click(object sender, RoutedEventArgs e)
+        {
+            plotModel.ResetAllAxes();
+        }
 
     }
 }
