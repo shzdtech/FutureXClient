@@ -228,7 +228,16 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(CounterBidDirection));
             }
         }
-
+        private int _orderCounter;
+        public int OrderCounter
+        {
+            get { return _orderCounter; }
+            set
+            {
+                _orderCounter = value;
+                OnPropertyChanged(nameof(OrderCounter));
+            }
+        }
         bool _bidNotCross;
         public bool BidNotCross
         {
@@ -284,6 +293,66 @@ namespace Micro.Future.ViewModel
                 _volModel = value;
                 OnPropertyChanged(nameof(VolModel));
             }
+        }
+        private OrderTIFType _tif;
+        public OrderTIFType TIF
+        {
+            get { return _tif; }
+            set
+            {
+                _tif = value;
+                OnPropertyChanged(nameof(TIF));
+            }
+        }
+
+        private OrderVolType _volType;
+        public OrderVolType VolCondition
+        {
+            get { return _volType; }
+            set
+            {
+                _volType = value;
+
+                OnPropertyChanged(nameof(VolCondition));
+            }
+        }
+        OrderConditionType _orderType;
+        public OrderConditionType ConditionType
+        {
+            get { return _orderType; }
+            set
+            {
+                _orderType = value;
+                UpdateCondition(_orderType);
+                OnPropertyChanged(nameof(ConditionType));
+            }
+        }
+        public IList<OrderConditionType> OrderConditionTypes
+        {
+            get
+            {
+                return Enum.GetValues(typeof(OrderConditionType)).Cast<OrderConditionType>().ToList<OrderConditionType>();
+            }
+        }
+
+        public void UpdateCondition(OrderConditionType type)
+        {
+            if (type == OrderConditionType.LIMIT)
+            {
+                TIF = OrderTIFType.GFD;
+                VolCondition = OrderVolType.ANYVOLUME;
+            }
+            else if (type == OrderConditionType.FAK)
+            {
+                TIF = OrderTIFType.IOC;
+                VolCondition = OrderVolType.ANYVOLUME;
+            }
+            else if (type == OrderConditionType.FOK)
+            {
+                TIF = OrderTIFType.IOC;
+                VolCondition = OrderVolType.ALLVOLUME;
+            }
+
         }
 
         public ObservableCollection<PricingContractParamVM> PricingContractParams

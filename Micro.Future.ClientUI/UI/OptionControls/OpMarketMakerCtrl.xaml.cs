@@ -261,7 +261,8 @@ namespace Micro.Future.UI
                         AutoOrder_CheckBox.DataContext = null;
                         underlyingEX1.ItemsSource = null;
                         underlyingCB1.ItemsSource = null;
-                        
+                        orderConditionCombo.SelectedValue = null;
+
                         underlyingContractCB1.ItemsSource = null;
                         underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
                         pricingModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("pm");
@@ -521,19 +522,24 @@ namespace Micro.Future.UI
             }
         }
 
-        public void AutoOrderUpdate (bool autoStatus)
+        public void AutoOrderUpdate(bool autoStatus)
         {
+            var orderCDSelectedValue = orderConditionCombo.SelectedValue == null ? OrderConditionType.LIMIT : (OrderConditionType)orderConditionCombo.SelectedValue;
             if (CallPutTDOptionVMCollection != null)
             {
                 foreach (var vm in CallPutTDOptionVMCollection)
                 {
                     if (vm.CallStrategyVM != null)
                     {
+                        vm.CallStrategyVM.ConditionType = orderCDSelectedValue;
                         vm.CallStrategyVM.Hedging = autoStatus;
                         vm.CallStrategyVM.UpdateStrategy();
+
                     }
                     if (vm.PutStrategyVM != null)
                     {
+                        vm.PutStrategyVM.ConditionType = orderCDSelectedValue;
+
                         vm.PutStrategyVM.Hedging = autoStatus;
                         vm.PutStrategyVM.UpdateStrategy();
                     }
@@ -653,6 +659,11 @@ namespace Micro.Future.UI
         }
 
         private void option_priceLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void orderCondition_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

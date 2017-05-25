@@ -339,6 +339,7 @@ namespace Micro.Future.Message
                 strategyVM.BidNotCross = strategy.BidNotCross;
                 strategyVM.BidCounter = strategy.BidCounter;
                 strategyVM.AskCounter = strategy.AskCounter;
+                strategyVM.OrderCounter = strategy.LimitOrderCouner;
                 strategyVM.CloseMode = strategy.CloseMode;
                 if (strategyVM.AskCounter >= strategyVM.MaxAutoTrade)
                     strategyVM.CounterAskDirection = 1;
@@ -386,6 +387,8 @@ namespace Micro.Future.Message
             strategy.MaxAutoTrade = sVM.MaxAutoTrade;
             strategy.BidNotCross = sVM.BidNotCross;
             strategy.CloseMode = sVM.CloseMode;
+            strategy.Tif = (int)sVM.TIF;
+            strategy.VolCond = (int)sVM.VolCondition;
             if (resetCounter)
             {
                 strategy.BidCounter = -1;

@@ -18,7 +18,7 @@
     <Grid>
         <Grid.Resources>
             <ObjectDataProvider x:Key="orderConditionEnum" 
-                        MethodName="GetNames" ObjectType="{x:Type sys:Enum}">
+                        MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
                 <ObjectDataProvider.MethodParameters>
                     <x:Type TypeName="localenum:OrderConditionType" />
                 </ObjectDataProvider.MethodParameters>
@@ -122,7 +122,7 @@
                 <CheckBox Name="AutoOrder_CheckBox" HorizontalAlignment="Center" IsChecked="{Binding Hedging}" Checked="AutoOrder_Checked" Unchecked="AutoOrder_Unchecked" />
             </GroupBox>
             <GroupBox x:Name="OrderConditionGB" Header="{lex:Loc Key=OrderCondition}">
-                <ComboBox x:Name="orderConditionCombo" SelectedValue="{Binding ConditionType, Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource orderConditionEnum}}"  Grid.ColumnSpan="2" Width="101" VerticalAlignment="Center" Margin="0,4"/>
+                <ComboBox x:Name="orderConditionCombo"  ItemsSource="{Binding Source={StaticResource orderConditionEnum}}"  Grid.ColumnSpan="2" Width="101" VerticalAlignment="Center" Margin="0,4" SelectionChanged="orderCondition_SelectionChanged"/>
             </GroupBox>
             <!--<GroupBox x:Name="OrderProtect_GroupBox" Header="{lex:Loc Key=OrderProtect}">
                 <CheckBox Name="BidNotCross_CheckBox" HorizontalAlignment="Center" IsChecked="{Binding BidNotCross}" Checked="BidNotCross_Checked" Unchecked="BidNotCross_Unchecked" />
@@ -153,6 +153,13 @@
             </ListView.Items>-->
             <ListView.View>
                 <GridView x:Name="option_priceGV">
+                    <GridViewColumn x:Name="POrderCnt" Header="POrderCnt" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutStrategyVM.OrderCounter}" TextAlignment="Right" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn x:Name="PBidQT" Header="{lex:Loc Key=PBidQTEnable}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -344,6 +351,14 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn x:Name="COrderCnt" Header="COrderCnt" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallStrategyVM.OrderCounter}" TextAlignment="Right" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
                     <!--<GridViewColumn x:Name="CAutoOrder" Header="Auto Order" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
