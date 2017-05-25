@@ -40,10 +40,10 @@ namespace Micro.Future.UI
 
         private IList<ColumnObject> _optionColumns;
 
-        ~OpMarketMakerCtrl()
-        {
-            AutoOrderUpdate(false);
-        }
+        //~OpMarketMakerCtrl()
+        //{
+        //    AutoOrderUpdate(false);
+        //}
 
         public ObservableCollection<CallPutTDOptionVM> CallPutTDOptionVMCollection
         {
@@ -285,6 +285,7 @@ namespace Micro.Future.UI
                                 adjustment.Value = adjust;
                                 AutoOrder_CheckBox.DataContext = strategyVM;
                                 CountertextBox.DataContext = strategyVM;
+                                orderConditionCombo.SelectedValue = OrderConditionType.LIMIT;
                                 var modelVM = pricingModelCB.SelectedItem as ModelParamsVM;
                                 if (modelVM != null)
                                 {
@@ -524,27 +525,28 @@ namespace Micro.Future.UI
 
         public void AutoOrderUpdate(bool autoStatus)
         {
-            var orderCDSelectedValue = orderConditionCombo.SelectedValue == null ? OrderConditionType.LIMIT : (OrderConditionType)orderConditionCombo.SelectedValue;
-            if (CallPutTDOptionVMCollection != null)
-            {
-                foreach (var vm in CallPutTDOptionVMCollection)
+
+                var orderCDSelectedValue = orderConditionCombo.SelectedValue == null ? OrderConditionType.LIMIT : (OrderConditionType)orderConditionCombo.SelectedValue;
+                if (CallPutTDOptionVMCollection != null)
                 {
-                    if (vm.CallStrategyVM != null)
+                    foreach (var vm in CallPutTDOptionVMCollection)
                     {
-                        vm.CallStrategyVM.ConditionType = orderCDSelectedValue;
-                        vm.CallStrategyVM.Hedging = autoStatus;
-                        vm.CallStrategyVM.UpdateStrategy();
+                        if (vm.CallStrategyVM != null)
+                        {
+                            vm.CallStrategyVM.ConditionType = orderCDSelectedValue;
+                            vm.CallStrategyVM.Hedging = autoStatus;
+                            vm.CallStrategyVM.UpdateStrategy();
 
-                    }
-                    if (vm.PutStrategyVM != null)
-                    {
-                        vm.PutStrategyVM.ConditionType = orderCDSelectedValue;
+                        }
+                        if (vm.PutStrategyVM != null)
+                        {
+                            vm.PutStrategyVM.ConditionType = orderCDSelectedValue;
 
-                        vm.PutStrategyVM.Hedging = autoStatus;
-                        vm.PutStrategyVM.UpdateStrategy();
+                            vm.PutStrategyVM.Hedging = autoStatus;
+                            vm.PutStrategyVM.UpdateStrategy();
+                        }
                     }
                 }
-            }
         }
         private void AutoOrder_Checked(object sender, RoutedEventArgs e)
         {
