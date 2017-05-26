@@ -78,6 +78,7 @@ namespace Micro.Future.Message
                         Gamma = tradingDeskOption.TheoData.Gamma,
                         Theta = tradingDeskOption.TheoData.Theta,
                         Vega = tradingDeskOption.TheoData.Vega,
+                        Rho = tradingDeskOption.TheoData.Rho,
                         BidPrice = tradingDeskOption.TheoData.BidPrice,
                         BidSize = tradingDeskOption.TheoData.BidSize,
                         BidVol = tradingDeskOption.TheoData.BidVolatility,
@@ -198,6 +199,7 @@ namespace Micro.Future.Message
                     quote.TheoDataVM.Gamma = newVM.TheoDataVM.Gamma;
                     quote.TheoDataVM.Theta = newVM.TheoDataVM.Theta;
                     quote.TheoDataVM.Vega = newVM.TheoDataVM.Vega;
+                    quote.TheoDataVM.Rho = newVM.TheoDataVM.Rho;
                     quote.TheoDataVM.MidVol = newVM.TheoDataVM.MidVol;
                     quote.TheoDataVM.MidPrice = newVM.TheoDataVM.MidPrice;
                     quote.TheoDataVM.BidPrice = newVM.TheoDataVM.BidPrice;

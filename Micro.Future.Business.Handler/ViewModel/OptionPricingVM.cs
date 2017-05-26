@@ -125,6 +125,28 @@ namespace Micro.Future.ViewModel
                 return Vega / 100;
             }
         }
+        private double _rho;
+        public double Rho
+        {
+            get
+            {
+                return _rho;
+            }
+            set
+            {
+                _vega = value;
+                OnPropertyChanged(nameof(Rho));
+                OnPropertyChanged(nameof(Rho100));
+
+            }
+        }
+        public double Rho100
+        {
+            get
+            {
+                return Rho / 100;
+            }
+        }
         private int _askdirection;
         public int Askdirection
         {

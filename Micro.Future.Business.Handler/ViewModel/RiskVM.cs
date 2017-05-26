@@ -66,7 +66,24 @@ namespace Micro.Future.ViewModel
                 return Theta / 365;
             }
         }
+        private double _rho;
+        public double Rho
+        {
+            get { return _rho; }
+            set
+            {
+                _rho = value;
+                OnPropertyChanged("Rho");
 
+            }
+        }
+        public double Rho100
+        {
+            get
+            {
+                return Rho100 / 100;
+            }
+        }
         private double _position;
         public double Position
         {

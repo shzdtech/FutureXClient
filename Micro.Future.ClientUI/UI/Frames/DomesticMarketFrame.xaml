@@ -13,7 +13,7 @@
       lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
       lex:ResxLocalizationProvider.DefaultDictionary="Resources"
       mc:Ignorable="d" 
-      d:DesignHeight="400" d:DesignWidth="800">
+      d:DesignHeight="400" d:DesignWidth="800" >
     <!--Frame Body-->
     <UserControl.Resources>
         <x:Array Type="{x:Type MenuItem}" x:Key="exMenuItems">
@@ -63,9 +63,7 @@
             </StatusBarItem>
         </x:Array>
     </UserControl.Resources>
-    <avalonDock:DockingManager 
-                                 AVBehav:AvalonDockLayoutSerializer.LoadLayoutCommand="{Binding ADLayout.LoadLayoutCommand}"
-                                 AVBehav:AvalonDockLayoutSerializer.SaveLayoutCommand="{Binding ADLayout.SaveLayoutCommand}">
+    <avalonDock:DockingManager x:Name="domesticDM" Uid="domesticDMUID" Unloaded="Domestic_Unloaded">
         <avalonDock:DockingManager.Theme>
             <avalonDock:GenericTheme/>
         </avalonDock:DockingManager.Theme>
@@ -82,7 +80,7 @@
             <avalonDock:LayoutPanel Orientation="Vertical">
                 <avalonDock:LayoutPanel DockHeight="0.15*">
                     <avalonDock:LayoutAnchorablePane x:Name="fundPane">
-                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Fund}">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Fund}" ContentId="FundContent">
                             <c:AccountInfoControl x:Name="clientFundLV"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
@@ -90,31 +88,31 @@
                 <avalonDock:LayoutPanel Orientation="Vertical">
                     <avalonDock:LayoutPanel Orientation="Horizontal">
                         <avalonDock:LayoutAnchorablePane x:Name="fastorderPane" DockWidth="0.25*">
-                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}" CanClose="True" CanAutoHide="True">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}" CanClose="True" CanAutoHide="True" ContentId="FastOrderContent">
                                 <c:FastOrderControl x:Name="FastOrderCtl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="quotePane">
-                            <avalonDock:LayoutAnchorable>
+                            <avalonDock:LayoutAnchorable ContentId="MDContent">
                                 <c:MarketDataControl x:Name="marketDataLV" PersistanceId="Domestic:MarketDataControl" />
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>
                     <avalonDock:LayoutPanel Orientation="Vertical">
                         <avalonDock:LayoutAnchorablePane x:Name="executionPane">
-                            <avalonDock:LayoutAnchorable >
+                            <avalonDock:LayoutAnchorable ContentId="ExecutionContent">
                                 <c:ExecutionControl  x:Name="executionWindow" PersistanceId="Domestic:ExecutionControl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>
                     <avalonDock:LayoutPanel Orientation="Horizontal">
                         <avalonDock:LayoutAnchorablePane x:Name="tradePane">
-                            <avalonDock:LayoutAnchorable>
+                            <avalonDock:LayoutAnchorable ContentId="TradeContent">
                                 <c:TradeRecordControl x:Name="tradeWindow" PersistanceId="Domestic:TradeRecordControl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
-                            <avalonDock:LayoutAnchorable Closing="ClosingPositionPane">
+                            <avalonDock:LayoutAnchorable Closing="ClosingPositionPane" ContentId="PositionContent">
                                 <c:PositionControl x:Name="positionsWindow" PersistanceId="Domestic:PositionControl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>

@@ -828,4 +828,7 @@
   <data name="OrderCondition" xml:space="preserve">
     <value>OrderCondition</value>
   </data>
+  <data name="TickSize" xml:space="preserve">
+    <value>TickSize</value>
+  </data>
 </root>

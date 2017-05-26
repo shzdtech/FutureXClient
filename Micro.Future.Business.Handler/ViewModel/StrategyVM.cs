@@ -164,6 +164,16 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private int _tickSize;
+        public int TickSize
+        {
+            get { return _tickSize; }
+            set
+            {
+                _tickSize = value;
+                OnPropertyChanged(nameof(TickSize));
+            }
+        }
 
         private int _maxAutoTrade;
         public int MaxAutoTrade
@@ -198,14 +208,14 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private int _counterDirection;
-        public int CounterDirection
+        private int _orderCounterDirection;
+        public int OrderCounterDirection
         {
-            get { return _counterDirection; }
+            get { return _orderCounterDirection; }
             set
             {
-                _counterDirection = value;
-                OnPropertyChanged(nameof(CounterDirection));
+                _orderCounterDirection = value;
+                OnPropertyChanged(nameof(OrderCounterDirection));
             }
         }
         private int _counterAskDirection;

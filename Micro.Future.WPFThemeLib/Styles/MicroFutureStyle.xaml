@@ -217,4 +217,43 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="CallOrderCounterChangeStyle" TargetType="TextBlock">
+        <Setter Property="TextAlignment" Value="Right" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding CallStrategyVM.OrderCounterDirection}" Value = "1">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Gray"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CallStrategyVM.OrderCounterDirection}" Value="-1">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Transparent"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="PutOrderCounterChangeStyle" TargetType="TextBlock">
+        <Setter Property="TextAlignment" Value="Right" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding PutStrategyVM.OrderCounterDirection}" Value = "1">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Gray"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding PutStrategyVM.OrderCounterDirection}" Value="-1">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Transparent"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

@@ -339,8 +339,9 @@ namespace Micro.Future.Message
                 strategyVM.BidNotCross = strategy.BidNotCross;
                 strategyVM.BidCounter = strategy.BidCounter;
                 strategyVM.AskCounter = strategy.AskCounter;
-                strategyVM.OrderCounter = strategy.LimitOrderCouner;
+                strategyVM.OrderCounter = strategy.LimitOrderCounter;
                 strategyVM.CloseMode = strategy.CloseMode;
+                strategyVM.TickSize = strategy.TickSizeMult;
                 if (strategyVM.AskCounter >= strategyVM.MaxAutoTrade)
                     strategyVM.CounterAskDirection = 1;
                 else
@@ -350,6 +351,10 @@ namespace Micro.Future.Message
                 else
                     strategyVM.CounterBidDirection = -1;
                 OnStrategyUpdated?.Invoke(strategyVM);
+                if (strategyVM.OrderCounter >= strategyVM.MaxAutoTrade && strategyVM.TIF == OrderTIFType.GFD && strategy.VolCond == (int)OrderVolType.ANYVOLUME)
+                    strategyVM.OrderCounterDirection = 1;
+                else
+                    strategyVM.OrderCounterDirection = -1;
             }
         }
 
@@ -389,6 +394,7 @@ namespace Micro.Future.Message
             strategy.CloseMode = sVM.CloseMode;
             strategy.Tif = (int)sVM.TIF;
             strategy.VolCond = (int)sVM.VolCondition;
+            strategy.TickSizeMult = sVM.TickSize;
             if (resetCounter)
             {
                 strategy.BidCounter = -1;
@@ -585,14 +591,12 @@ namespace Micro.Future.Message
                 strategyVM.Portfolio = strategy.Portfolio;
                 strategyVM.MaxAutoTrade = strategy.MaxAutoTrade;
                 strategyVM.BidNotCross = strategy.BidNotCross;
-                strategy.AskCounter = strategy.AskCounter;
-                strategy.BidCounter = strategy.BidCounter;
-                strategy.CloseMode = strategy.CloseMode;
+                strategyVM.AskCounter = strategy.AskCounter;
+                strategyVM.BidCounter = strategy.BidCounter;
+                strategyVM.CloseMode = strategy.CloseMode;
+                strategyVM.TickSize = strategy.TickSizeMult;
                 strategyVM.PricingContractParams.Clear();
-                if (strategyVM.AskCounter >= strategyVM.MaxAutoTrade || strategyVM.BidCounter >= strategyVM.MaxAutoTrade)
-                    strategyVM.CounterDirection = 1;
-                else
-                    strategyVM.CounterDirection = -1;
+
                 foreach (var wtContract in strategy.PricingContracts)
                 {
                     strategyVM.PricingContractParams.Add(

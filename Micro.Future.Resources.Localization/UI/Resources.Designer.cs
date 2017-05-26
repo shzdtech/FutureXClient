@@ -1870,6 +1870,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 报价变动单位 的本地化字符串。
+        /// </summary>
+        internal static string TickSize {
+            get {
+                return ResourceManager.GetString("TickSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 有效期类型 的本地化字符串。
         /// </summary>
         internal static string TIF {

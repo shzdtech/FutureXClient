@@ -33,6 +33,7 @@ namespace Micro.Future.LocalStorage
 
         public DbSet<ColumnSettingsInfo> ColumnSettingsInfo { get; set; }
 
+        public DbSet<LayoutInfo> LayoutInfo { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,11 +42,12 @@ namespace Micro.Future.LocalStorage
             modelBuilder.Entity<MarketContract>().HasKey(m => new { m.AccountID, m.Contract, m.TabID });
             modelBuilder.Entity<OrderStatusFilter>().HasKey(o => new { o.AccountID, o.Orderstatus, o.TabID });
             modelBuilder.Entity<ColumnSettingsInfo>().HasKey(c => new { c.AccountID, c.ColumnIdx, c.TabID });
+            modelBuilder.Entity<LayoutInfo>().HasKey(c => new { c.UserID, c.FrameID });
         }
 
         public string ConnectionString { get; protected set; }
 
-        //public DbSet<UserSetting> UserSetting { get; set; }
+        //public DbSet<UserSetting> UserSetting { get; set; }   
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -303,6 +305,41 @@ namespace Micro.Future.LocalStorage
             }
 
         }
+        public static LayoutInfo GetLayout(string userId, string frameID)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                return clientCtx.LayoutInfo.FirstOrDefault(u => u.UserID == userId && u.FrameID == frameID);
+            }
+        }
+        public static void DeleteLayoutInfo(string userID, string frameID)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                var layoutInfos = clientCtx.LayoutInfo.Where(t => t.UserID == userID && t.FrameID == frameID);
+                clientCtx.LayoutInfo.RemoveRange(layoutInfos);
+                clientCtx.SaveChanges();
+            }
+        }
+        public static void SaveLayoutInfo(string userID, string frameID, string layoutCFG)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                var layoutInfo = clientCtx.LayoutInfo.FirstOrDefault(t => t.UserID == userID && t.FrameID == frameID);
+                if (layoutInfo == null)
+                {
+                    layoutInfo = new LayoutInfo
+                    {
+                        UserID = userID,
+                        FrameID = frameID,
+                        LayoutCFG = layoutCFG,
+                    };
+                    clientCtx.LayoutInfo.Add(layoutInfo);
+                    clientCtx.SaveChanges();
+                }
+            }
+        }
+
 
     }
 }

@@ -540,6 +540,7 @@ namespace Micro.Future.Message
                     Gamma = risk.Gamma,
                     Theta = risk.Theta,
                     Vega = risk.Vega,
+                    Rho = risk.Rho,
                     Position = risk.Position,
                     //ContractKey = contractinfo.UnderlyingContract
                 });

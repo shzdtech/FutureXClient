@@ -338,6 +338,40 @@ namespace Micro.Future.UI
                 }
             }
         }
+        public void TickSizeUpdate(int ticksize)
+        {
+            if (CallPutTDOptionVMCollection != null)
+            {
+                foreach (var vm in CallPutTDOptionVMCollection)
+                {
+                    if (vm.CallStrategyVM != null)
+                    {
+                        vm.CallStrategyVM.TickSize = ticksize;
+                        vm.CallStrategyVM.UpdateStrategy();
+                    }
+                    if (vm.PutStrategyVM != null)
+                    {
+                        vm.PutStrategyVM.TickSize = ticksize;
+                        vm.PutStrategyVM.UpdateStrategy();
+                    }
+                }
+            }
+        }
+
+        private void TickSizeValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var updownctrl = sender as IntegerUpDown;
+            if (updownctrl != null && e.OldValue != null && e.NewValue != null)
+            {
+                var strategyVM = updownctrl.DataContext as StrategyVM;
+                if (strategyVM != null)
+                {
+                    int ticksize = (int)e.NewValue;
+                    TickSizeUpdate(ticksize);
+                }
+            }
+        }
+
 
         private void underlyingEX1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

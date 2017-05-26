@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 using System.Threading;
 using Micro.Future.LocalStorage;
 using Micro.Future.Windows;
+using Xceed.Wpf.AvalonDock.Layout.Serialization;
+using System.IO;
+using System.Text;
 
 namespace Micro.Future.UI
 {
@@ -92,6 +95,7 @@ namespace Micro.Future.UI
         public void Initialize()
         {
             // Initailize UI events
+
             MarketDataControl.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
             PositionControl.OnPositionSelected += FastOrderCtl.OnPositionSelected;
             marketDataLV.AnchorablePane = quotePane;
@@ -135,6 +139,7 @@ namespace Micro.Future.UI
             tradeWindow.TradeHandler = tradeHandler;
             positionsWindow.TradeHandler = tradeHandler;
             positionsWindow.MarketDataHandler = marketdataHandler;
+
         }
 
         private void _ctpMdSignIner_OnLogged(IUserInfo obj)
@@ -191,6 +196,17 @@ namespace Micro.Future.UI
             executionWindow.ReloadData();
 
             LoginTaskSource.TrySetResult(true);
+
+            var layoutInfo = ClientDbContext.GetLayout(tradeHandler.MessageWrapper.User.Id, domesticDM.Uid);
+            if (layoutInfo != null)
+            {
+                XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(domesticDM);
+
+                using (var reader = new StringReader(layoutInfo.LayoutCFG))
+                {
+                    layoutSerializer.Deserialize(reader);
+                }
+            }
         }
 
         private void MenuItem_Click_Contract(object sender, RoutedEventArgs e)
@@ -324,6 +340,24 @@ namespace Micro.Future.UI
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             await tradeHandler.SyncContractInfoAsync(true);
             MessageBox.Show(Application.Current.MainWindow, "合约已刷新，请重新启动应用！");
+        }
+
+        private void Domestic_Unloaded(object sender, RoutedEventArgs e)
+        {
+            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+
+            var layoutInfo = ClientDbContext.GetLayout(tradeHandler.MessageWrapper.User.Id, domesticDM.Uid);
+            if (layoutInfo != null)
+            {
+                XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(domesticDM);
+                var strBuilder = new StringBuilder();
+                using (var writer = new StringWriter(strBuilder))
+                {
+                    layoutSerializer.Serialize(writer);
+                }
+                ClientDbContext.SaveLayoutInfo(tradeHandler.MessageWrapper.User.Id, domesticDM.Uid, strBuilder.ToString());
+
+            }
         }
     }
 }

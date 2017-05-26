@@ -130,6 +130,9 @@
             <GroupBox x:Name="Counter_TxtBox" Header="{lex:Loc Key=Counter}">
                 <xctk:IntegerUpDown x:Name="CountertextBox" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding MaxAutoTrade}" Spinned="Spinned" ValueChanged="MaxAutoTradeValueChanged" ShowButtonSpinner="False"/>
             </GroupBox>
+            <GroupBox x:Name="tickSize_GB" Header="{lex:Loc Key=TickSize}">
+                <xctk:IntegerUpDown x:Name="TickSizeIUD" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding TickSize}" Spinned="Spinned" ValueChanged="TickSizeValueChanged" ShowButtonSpinner="False"/>
+            </GroupBox>
             <GroupBox x:Name="RefreshCounter_GroupBox" Header="{lex:Loc Key=RefreshCounter}">
                 <Button x:Name="RefreshCounter_button" Content="{lex:Loc Key=Refresh}" VerticalAlignment="Top" Width="75" Click="RefreshCounter_Click"/>
             </GroupBox>
@@ -156,7 +159,7 @@
                     <GridViewColumn x:Name="POrderCnt" Header="POrderCnt" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PutStrategyVM.OrderCounter}" TextAlignment="Right" Width="auto"/>
+                                <TextBlock Text="{Binding PutStrategyVM.OrderCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource PutOrderCounterChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -258,6 +261,7 @@
                     <GridViewColumn x:Name="Theta" Header="Theta" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Theta365,StringFormat=N2}"/>
                     <GridViewColumn x:Name="Gamma" Header="Gamma" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Gamma,StringFormat=N4}"/>
                     <GridViewColumn x:Name="Vega" Header="Vega%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Vega100,StringFormat=N2}"/>
+                    <GridViewColumn x:Name="Rho" Header="Rho" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Rho100,StringFormat=N2}"/>
                     <!--<GridViewColumn x:Name="PutContract" Header="PutContract" DisplayMemberBinding="{Binding PutOptionVM.Contract,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>-->
                     <GridViewColumn x:Name="Strike" Header="Strike" DisplayMemberBinding="{Binding StrikePrice}"/>
                     <!--<GridViewColumn x:Name="Callcontract" Header="CallContract" DisplayMemberBinding="{Binding CallOptionVM.Contract,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>-->
@@ -354,7 +358,7 @@
                     <GridViewColumn x:Name="COrderCnt" Header="COrderCnt" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding CallStrategyVM.OrderCounter}" TextAlignment="Right" Width="auto"/>
+                                <TextBlock Text="{Binding CallStrategyVM.OrderCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource CallOrderCounterChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
