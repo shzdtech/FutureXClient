@@ -109,6 +109,11 @@ namespace Micro.Future.UI
             TradingServerLogin();
         }
 
+        public void OnClosing()
+        {
+            throw new NotImplementedException();
+        }
+
         public TaskCompletionSource<bool> LoginTaskSource
         {
             get;

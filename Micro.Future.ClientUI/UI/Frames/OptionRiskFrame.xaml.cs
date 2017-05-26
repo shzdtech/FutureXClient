@@ -192,6 +192,11 @@ namespace Micro.Future.UI
         {
             optionRiskCtrl.portfolioCtl.AutoHedgeUpdate(false);
         }
+
+        public void OnClosing()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

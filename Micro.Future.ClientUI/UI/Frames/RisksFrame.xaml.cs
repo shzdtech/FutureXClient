@@ -123,5 +123,9 @@ namespace Micro.Future.UI
             }
         }
 
+        public void OnClosing()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

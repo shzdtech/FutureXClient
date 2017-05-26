@@ -147,6 +147,22 @@ namespace Micro.Future.UI
                 {
                     e.Cancel = true;
                 }
+
+                foreach(var pane in mainPane.Children)
+                {
+                    var frame = pane.Content as IUserFrame;
+                    if (frame != null)
+                    {
+                        try
+                        {
+                            frame.OnClosing();
+                        }
+                        catch(Exception)
+                        {
+
+                        }
+                    }
+                }
             }
         }
     }

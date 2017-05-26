@@ -342,11 +342,11 @@ namespace Micro.Future.UI
             MessageBox.Show(Application.Current.MainWindow, "合约已刷新，请重新启动应用！");
         }
 
-        private void Domestic_Unloaded(object sender, RoutedEventArgs e)
+        public void SaveLayout()
         {
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
 
-            var layoutInfo = ClientDbContext.GetLayout(tradeHandler.MessageWrapper.User.Id, domesticDM.Uid);
+            var layoutInfo = ClientDbContext.GetLayout(tradeHandler.MessageWrapper.User?.Id, domesticDM.Uid);
             if (layoutInfo != null)
             {
                 XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(domesticDM);
@@ -358,6 +358,16 @@ namespace Micro.Future.UI
                 ClientDbContext.SaveLayoutInfo(tradeHandler.MessageWrapper.User.Id, domesticDM.Uid, strBuilder.ToString());
 
             }
+        }
+
+        public void OnClosing()
+        {
+            SaveLayout();
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            SaveLayout();
         }
     }
 }

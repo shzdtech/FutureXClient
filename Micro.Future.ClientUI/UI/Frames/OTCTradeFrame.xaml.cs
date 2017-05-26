@@ -291,5 +291,10 @@ namespace Micro.Future.UI
             await tradeHandler.SyncContractInfoAsync(true);
             MessageBox.Show(Application.Current.MainWindow, "合约已刷新，请重新启动应用！");
         }
+
+        public void OnClosing()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

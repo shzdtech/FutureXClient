@@ -127,5 +127,9 @@ namespace Micro.Future.UI
             TDServerLogin();
         }
 
+        public void OnClosing()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

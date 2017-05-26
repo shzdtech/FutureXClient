@@ -313,5 +313,10 @@ namespace Micro.Future.UI
         {
             positionsWindow.DeletePositionDB();
         }
+
+        public void OnClosing()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

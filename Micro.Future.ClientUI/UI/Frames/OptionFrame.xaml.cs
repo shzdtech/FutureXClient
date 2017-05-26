@@ -262,6 +262,11 @@ namespace Micro.Future.UI
             OpMarketMakerLV.AutoOrderUpdate(false);
 
         }
+
+        public void OnClosing()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
