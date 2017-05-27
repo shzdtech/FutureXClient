@@ -162,7 +162,7 @@ namespace Micro.Future.UI
         private async void LoadMarketData(string contract)
         {
 
-            if (MarketDataHandler != null)
+            if (MarketDataHandler.MessageWrapper.HasSignIn)
                 _marketDataList.Add(await MarketDataHandler.SubMarketDataAsync(contract));
         }
 
