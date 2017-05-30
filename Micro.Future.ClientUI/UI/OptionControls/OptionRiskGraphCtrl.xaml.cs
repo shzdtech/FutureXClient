@@ -106,6 +106,8 @@ namespace Micro.Future.UI
                                         barItem.Value += vm.Vega100;
                                     else if (thetaRadioButton.IsChecked.Value)
                                         barItem.Value += vm.Theta365;
+                                    else if (rhoRadioButton.IsChecked.Value)
+                                        barItem.Value += vm.Rho100;
                                 }
                             }
                         }

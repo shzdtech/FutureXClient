@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -25,6 +26,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Xceed.Wpf.AvalonDock.Layout;
+using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
 namespace Micro.Future.UI
 {
@@ -151,6 +153,16 @@ namespace Micro.Future.UI
             Thread.Sleep(2000);
             LoginTaskSource.TrySetResult(true);
             Reload();
+            var layoutInfo = ClientDbContext.GetLayout(_otcOptionTradeHandler.MessageWrapper.User.Id, optionRiskDM.Uid);
+            if (layoutInfo != null)
+            {
+                XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(optionRiskDM);
+
+                using (var reader = new StringReader(layoutInfo.LayoutCFG))
+                {
+                    layoutSerializer.Deserialize(reader);
+                }
+            }
         }
         private void TDServerLogin()
         {
@@ -193,9 +205,28 @@ namespace Micro.Future.UI
             optionRiskCtrl.portfolioCtl.AutoHedgeUpdate(false);
         }
 
+        public void SaveLayout()
+        {
+
+            var layoutInfo = ClientDbContext.GetLayout(_otcOptionTradeHandler.MessageWrapper.User?.Id, optionRiskDM.Uid);
+
+            XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(optionRiskDM);
+            var strBuilder = new StringBuilder();
+            using (var writer = new StringWriter(strBuilder))
+            {
+                layoutSerializer.Serialize(writer);
+            }
+            ClientDbContext.SaveLayoutInfo(_otcOptionTradeHandler.MessageWrapper.User.Id, optionRiskDM.Uid, strBuilder.ToString());
+        }
+
         public void OnClosing()
         {
-            throw new NotImplementedException();
+            SaveLayout();
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            SaveLayout();
         }
     }
 }

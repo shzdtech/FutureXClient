@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 using System.Threading;
 using Micro.Future.LocalStorage;
 using Micro.Future.Windows;
+using Xceed.Wpf.AvalonDock.Layout.Serialization;
+using System.IO;
+using System.Text;
 
 namespace Micro.Future.UI
 {
@@ -177,6 +180,8 @@ namespace Micro.Future.UI
 
         private void _tdSignIner_OnLogged(IUserInfo obj)
         {
+            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+
             clientFundLV.ReloadData();
             Thread.Sleep(1000);
             positionsWindow.ReloadData();
@@ -186,6 +191,16 @@ namespace Micro.Future.UI
             executionWindow.ReloadData();
 
             LoginTaskSource.TrySetResult(true);
+            var layoutInfo = ClientDbContext.GetLayout(tradeHandler.MessageWrapper.User.Id, otcTradeDM.Uid);
+            if (layoutInfo != null)
+            {
+                XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(otcTradeDM);
+
+                using (var reader = new StringReader(layoutInfo.LayoutCFG))
+                {
+                    layoutSerializer.Deserialize(reader);
+                }
+            }
         }
 
         private void MenuItem_Click_Contract(object sender, RoutedEventArgs e)
@@ -292,9 +307,29 @@ namespace Micro.Future.UI
             MessageBox.Show(Application.Current.MainWindow, "合约已刷新，请重新启动应用！");
         }
 
+        public void SaveLayout()
+        {
+            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+
+            var layoutInfo = ClientDbContext.GetLayout(tradeHandler.MessageWrapper.User?.Id, otcTradeDM.Uid);
+
+            XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(otcTradeDM);
+            var strBuilder = new StringBuilder();
+            using (var writer = new StringWriter(strBuilder))
+            {
+                layoutSerializer.Serialize(writer);
+            }
+            ClientDbContext.SaveLayoutInfo(tradeHandler.MessageWrapper.User.Id, otcTradeDM.Uid, strBuilder.ToString());
+        }
+
         public void OnClosing()
         {
-            throw new NotImplementedException();
+            SaveLayout();
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            SaveLayout();
         }
     }
 }

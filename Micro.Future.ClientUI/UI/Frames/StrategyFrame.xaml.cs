@@ -1,14 +1,17 @@
 ﻿using Micro.Future.CustomizedControls;
+using Micro.Future.LocalStorage;
 using Micro.Future.Message;
 using Micro.Future.Resources.Localization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-
+using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
 namespace Micro.Future.UI
 {
@@ -107,10 +110,22 @@ namespace Micro.Future.UI
 
         private async void _otcSignIner_OnLogged(IUserInfo obj)
         {
+            var handler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
             strategyListView.ReloadData();
             contractParamListView.ReloadData();
             await MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().QueryPortfolioAsync();
             LoginTaskSource.TrySetResult(true);
+
+            var layoutInfo = ClientDbContext.GetLayout(handler.MessageWrapper.User.Id, strategyDM.Uid);
+            if (layoutInfo != null)
+            {
+                XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(strategyDM);
+
+                using (var reader = new StringReader(layoutInfo.LayoutCFG))
+                {
+                    layoutSerializer.Deserialize(reader);
+                }
+            }
         }
 
         private void TDServerLogin()
@@ -126,10 +141,27 @@ namespace Micro.Future.UI
         {
             TDServerLogin();
         }
+        public void SaveLayout()
+        {
+            var handler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
 
+            var layoutInfo = ClientDbContext.GetLayout(handler.MessageWrapper.User?.Id, strategyDM.Uid);
+
+            XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(strategyDM);
+            var strBuilder = new StringBuilder();
+            using (var writer = new StringWriter(strBuilder))
+            {
+                layoutSerializer.Serialize(writer);
+            }
+            ClientDbContext.SaveLayoutInfo(handler.MessageWrapper.User.Id, strategyDM.Uid, strBuilder.ToString());
+        }
         public void OnClosing()
         {
-            throw new NotImplementedException();
+            SaveLayout();
+        }
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            SaveLayout();
         }
     }
 }

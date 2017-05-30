@@ -38,6 +38,8 @@
                                  SourcePropertyName="Vega100" />
                         <xcdg:SumFunction ResultPropertyName="SumOfTheta"
                                  SourcePropertyName="Theta365" />
+                        <xcdg:SumFunction ResultPropertyName="SumOfRho"
+                                 SourcePropertyName="Rho100" />
                     </xcdg:DataGridCollectionViewSource.StatFunctions>
 
                 </xcdg:DataGridCollectionViewSource>
@@ -60,6 +62,8 @@
                                     <xcdg:StatCell FieldName="Gamma" ResultPropertyName="SumOfGamma" ContentStringFormat="{}{0:N4}"/>
                                     <xcdg:StatCell FieldName="Vega100" ResultPropertyName="SumOfVega100" ContentStringFormat="{}{0:N2}"/>
                                     <xcdg:StatCell FieldName="Theta365" ResultPropertyName="SumOfTheta365" ContentStringFormat="{}{0:N2}"/>
+                                    <xcdg:StatCell FieldName="Rho100" ResultPropertyName="SumOfRho100" ContentStringFormat="{}{0:N2}"/>
+
                                 </xcdg:StatRow>
                             </DataTemplate>
                         </xcdg:GroupHeaderFooterItemTemplate>
@@ -74,6 +78,8 @@
                 <xcdg:Column FieldName="Gamma" Title="Gamma" Width="*" CellContentStringFormat="{}{0:N4}" />
                 <xcdg:Column FieldName="Vega100" Title="Vega" Width="*" CellContentStringFormat="{}{0:N}" />
                 <xcdg:Column FieldName="Theta365" Title="Theta" Width="*" CellContentStringFormat="{}{0:N}"/>
+                <xcdg:Column FieldName="Rho100" Title="Rho" Width="*" CellContentStringFormat="{}{0:N}"/>
+
             </xcdg:DataGridControl.Columns>
         </xcdg:DataGridControl>
     </Grid>

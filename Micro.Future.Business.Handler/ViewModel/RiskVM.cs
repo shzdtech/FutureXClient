@@ -81,7 +81,7 @@ namespace Micro.Future.ViewModel
         {
             get
             {
-                return Rho100 / 100;
+                return Rho / 100;
             }
         }
         private double _position;

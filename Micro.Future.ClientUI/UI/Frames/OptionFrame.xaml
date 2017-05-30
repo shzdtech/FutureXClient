@@ -14,7 +14,8 @@
       lex:LocalizeDictionary.OutputMissingKeys="True"
       lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
       lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-      mc:Ignorable="d" d:DesignWidth="800">
+      mc:Ignorable="d" d:DesignWidth="800"
+      Unloaded="UserControl_Unloaded">
     <UserControl.Resources>
         <x:Array Type="{x:Type MenuItem}" x:Key="exOptionMenuItems">
             <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=Option}">
@@ -40,7 +41,7 @@
             </StatusBarItem>
         </x:Array>
     </UserControl.Resources>
-    <avalonDock:DockingManager x:Name="dockingManager">
+    <avalonDock:DockingManager x:Name="optionDM" Uid="optionDMUID">
         <avalonDock:DockingManager.Theme>
             <avalonDock:GenericTheme/>
         </avalonDock:DockingManager.Theme>

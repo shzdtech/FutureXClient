@@ -7,6 +7,7 @@ using Micro.Future.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -21,6 +22,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Xceed.Wpf.AvalonDock.Layout;
+using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
 namespace Micro.Future.UI
 {
@@ -127,6 +129,17 @@ namespace Micro.Future.UI
             domesticTradeWindow.ReloadData();
             domesticPositionsWindow.ShowCloseAll = false;
             otcPositionsWindow.ShowCloseAll = false;
+            var layoutInfo = ClientDbContext.GetLayout(_otcOptionTradeHandler.MessageWrapper.User.Id, optionRiskCtrlDM.Uid);
+            if (layoutInfo != null)
+            {
+                XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(optionRiskCtrlDM);
+
+                using (var reader = new StringReader(layoutInfo.LayoutCFG))
+                {
+                    layoutSerializer.Deserialize(reader);
+                }
+            }
+
         }
 
         private LayoutAnchorablePane _pane;
@@ -154,6 +167,29 @@ namespace Micro.Future.UI
             {
                 throw new NotImplementedException();
             }
+        }
+        public void SaveLayout()
+        {
+
+            var layoutInfo = ClientDbContext.GetLayout(_otcOptionTradeHandler.MessageWrapper.User?.Id, optionRiskCtrlDM.Uid);
+
+            XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(optionRiskCtrlDM);
+            var strBuilder = new StringBuilder();
+            using (var writer = new StringWriter(strBuilder))
+            {
+                layoutSerializer.Serialize(writer);
+            }
+            ClientDbContext.SaveLayoutInfo(_otcOptionTradeHandler.MessageWrapper.User.Id, optionRiskCtrlDM.Uid, strBuilder.ToString());
+        }
+
+        public void OnClosing()
+        {
+            SaveLayout();
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            SaveLayout();
         }
     }
 }

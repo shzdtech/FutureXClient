@@ -335,8 +335,13 @@ namespace Micro.Future.LocalStorage
                         LayoutCFG = layoutCFG,
                     };
                     clientCtx.LayoutInfo.Add(layoutInfo);
-                    clientCtx.SaveChanges();
                 }
+                else
+                {
+                    layoutInfo.LayoutCFG = layoutCFG;
+                }
+                clientCtx.SaveChanges();
+                
             }
         }
 

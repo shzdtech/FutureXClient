@@ -37,6 +37,8 @@
                     <RadioButton x:Name="gammaRadioButton" Content="Gamma" VerticalAlignment="Top"/>
                     <RadioButton x:Name="vegaRadioButton" Content="Vega" VerticalAlignment="Top"/>
                     <RadioButton x:Name="thetaRadioButton" Content="Theta" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="rhoRadioButton" Content="Rho" VerticalAlignment="Top"/>
+
                 </StackPanel>
             </GroupBox>
             <GroupBox x:Name="expirationGB" Header="{lex:Loc Key=Expiration}" Width="Auto">

@@ -65,6 +65,7 @@ namespace Micro.Future.UI
                     riskvm.Gamma += vm.Gamma;
                     riskvm.Theta += vm.Theta;
                     riskvm.Vega += vm.Vega;
+                    riskvm.Rho += vm.Rho;
                 }
             }
 

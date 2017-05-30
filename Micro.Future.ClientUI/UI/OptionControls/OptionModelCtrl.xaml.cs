@@ -5,6 +5,7 @@ using Micro.Future.Message;
 using Micro.Future.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -19,13 +20,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Xceed.Wpf.AvalonDock.Layout;
+using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
 namespace Micro.Future.UI
 {
     /// <summary>
     /// UserControl1.xaml 的交互逻辑
     /// </summary>
-    public partial class OptionModelCtrl : UserControl, ILayoutAnchorableControl
+    public partial class OptionModelCtrl : UserControl, ILayoutAnchorableControl, IReloadData
 
     {
         private OTCOptionTradingDeskHandler _otcHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
@@ -41,6 +43,7 @@ namespace Micro.Future.UI
             WMSettingsLV.setReferenceBtn.Click += SetCurrentBtn_Click;
             OpMarketControl.adjustment2.ValueChanged += Adjustment2_ValueChanged;
             OpMarketControl.contract2.SelectionChanged += Contract2CB1_SelectionChanged;
+
         }
 
         private void Adjustment2_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -67,6 +70,19 @@ namespace Micro.Future.UI
             {
                 _pane = value;
                 WMSettingsLV.LayoutContent = _pane.SelectedContent;
+            }
+        }
+
+        public string PersistanceId
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
             }
         }
 
@@ -135,5 +151,42 @@ namespace Micro.Future.UI
             //Task.Run(() => { Task.Delay(5000); Dispatcher.Invoke(() => VolCurvLV.TempCurveReset()); });        
             VolCurvLV.TempCurveReset();
         }
+
+        public void Initialize()
+        {
+        }
+
+        public void ReloadData()
+        {
+            Initialize();
+            var layoutInfo = ClientDbContext.GetLayout(_otcHandler.MessageWrapper.User.Id, optionmodelDM.Uid);
+            if (layoutInfo != null)
+            {
+                XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(optionmodelDM);
+
+                using (var reader = new StringReader(layoutInfo.LayoutCFG))
+                {
+                    layoutSerializer.Deserialize(reader);
+                }
+            }
+        }
+        public void SaveLayout()
+        {
+
+            var layoutInfo = ClientDbContext.GetLayout(_otcHandler.MessageWrapper.User?.Id, optionmodelDM.Uid);
+
+            XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(optionmodelDM);
+            var strBuilder = new StringBuilder();
+            using (var writer = new StringWriter(strBuilder))
+            {
+                layoutSerializer.Serialize(writer);
+            }
+            ClientDbContext.SaveLayoutInfo(_otcHandler.MessageWrapper.User.Id, optionmodelDM.Uid, strBuilder.ToString());
+        }
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            SaveLayout();
+        }
+
     }
 }

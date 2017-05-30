@@ -11,9 +11,10 @@
              lex:LocalizeDictionary.OutputMissingKeys="True"
              lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
              lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-             mc:Ignorable="d" d:DesignWidth="800">
+             mc:Ignorable="d" d:DesignWidth="800"
+             Unloaded="UserControl_Unloaded">
 
-    <avalonDock:DockingManager x:Name="dockingManager">
+    <avalonDock:DockingManager x:Name="optionRiskCtrlDM" Uid="optionRiskCtrlDMUID">
         <avalonDock:DockingManager.Theme>
             <avalonDock:GenericTheme/>
         </avalonDock:DockingManager.Theme>

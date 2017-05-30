@@ -5,11 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
              mc:Ignorable="d" 
-             xmlns:c="clr-namespace:Micro.Future.UI"
-              
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:c="clr-namespace:Micro.Future.UI"              
+             d:DesignHeight="300" d:DesignWidth="300"
+             Unloaded="UserControl_Unloaded">
 
-    <avalonDock:DockingManager x:Name="dockingManager" >
+    <avalonDock:DockingManager x:Name="optionmodelDM" Uid="optionmodelDMUID" >
 
         <avalonDock:DockingManager.Theme>
             <avalonDock:GenericTheme/>

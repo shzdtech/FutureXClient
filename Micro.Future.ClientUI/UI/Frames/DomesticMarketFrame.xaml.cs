@@ -347,17 +347,14 @@ namespace Micro.Future.UI
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
 
             var layoutInfo = ClientDbContext.GetLayout(tradeHandler.MessageWrapper.User?.Id, domesticDM.Uid);
-            if (layoutInfo != null)
-            {
+            
                 XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(domesticDM);
                 var strBuilder = new StringBuilder();
                 using (var writer = new StringWriter(strBuilder))
                 {
                     layoutSerializer.Serialize(writer);
                 }
-                ClientDbContext.SaveLayoutInfo(tradeHandler.MessageWrapper.User.Id, domesticDM.Uid, strBuilder.ToString());
-
-            }
+                ClientDbContext.SaveLayoutInfo(tradeHandler.MessageWrapper.User.Id, domesticDM.Uid, strBuilder.ToString());          
         }
 
         public void OnClosing()
