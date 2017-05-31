@@ -83,18 +83,29 @@ namespace Micro.Future.UI
                     }
                     foreach (var vm in riskVMlist)
                     {
-
-                        if (_riskSet.Contains(vm.Contract))
+                        var contractinfo = ClientDbContext.FindContract(vm.Contract);
+                        string basecontract = null;
+                        if (contractinfo != null)
                         {
-                            var contractinfo = ClientDbContext.FindContract(vm.Contract);
+                            if (!string.IsNullOrEmpty(contractinfo.UnderlyingContract))
+                            {
+                                basecontract = contractinfo.UnderlyingContract;
+                            }
+                            else
+                                basecontract = contractinfo.Contract;
+                        }
+                        if (_riskSet.Contains(basecontract))
+                        {
+                            //var contractinfo = ClientDbContext.FindContract(vm.Contract);
 
                             if ((callCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION)
-                        || (putCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION))
+                        || (putCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION)
+                        || (futureCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_FUTURE))
 
                             {
                                 int index;
 
-                                if (_riskDict.TryGetValue(vm.Contract, out index))
+                                if (_riskDict.TryGetValue(basecontract, out index))
                                 {
 
                                     var barItem = BarItemCollection[index];
@@ -111,8 +122,29 @@ namespace Micro.Future.UI
                                 }
                             }
                         }
+                        //if (_riskSet.Contains(futurecontract))
+                        //{
+                        //    if(futureCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_FUTURE)
+                        //    {
+                        //        int index;
 
-                        plotModel.InvalidatePlot(true);
+                        //        if (_riskDict.TryGetValue(basecontract, out index))
+                        //        {
+
+                        //            var barItem = BarItemCollection[index];
+                        //            if (deltaRadioButton.IsChecked.Value)
+                        //                barItem.Value += vm.Delta;
+                        //            else if (gammaRadioButton.IsChecked.Value)
+                        //                barItem.Value += vm.Gamma;
+                        //            else if (vegaRadioButton.IsChecked.Value)
+                        //                barItem.Value += vm.Vega100;
+                        //            else if (thetaRadioButton.IsChecked.Value)
+                        //                barItem.Value += vm.Theta365;
+                        //        }
+                        //    }
+                        //}
+
+                            plotModel.InvalidatePlot(true);
                     }
                 }
             });
@@ -134,7 +166,7 @@ namespace Micro.Future.UI
                 marketRadioButton.IsChecked = true;
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
                 var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
-                    .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract}).ToList();
+                    .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
                 var strategyVMList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract)).ToList();
                 foreach (var vm in strategyContractList)
                 {
@@ -148,24 +180,20 @@ namespace Micro.Future.UI
                 expirationLV.ItemsSource = strategyContractList;
 
 
-                var strikeSet = new SortedSet<double>();
+                var baseContractSet = new SortedSet<string>();
                 foreach (var vm in strategyVMList)
                 {
-                    var contractinfo = ClientDbContext.FindContract(vm.Contract);
-                    if (contractinfo != null)
-                    {
-                        strikeSet.Add(contractinfo.StrikePrice);
-                    }
+                    if (vm.BaseContract != null)
+                        baseContractSet.Add(vm.BaseContract);
                 }
 
-                var strikeList = strikeSet.ToList();
-                strikeAxis.ItemsSource = strikeList;
+                var baseContractList = baseContractSet.ToList();
+                baseContractAxis.ItemsSource = baseContractList;
                 foreach (var vm in strategyVMList)
                 {
-                    var contractinfo = ClientDbContext.FindContract(vm.Contract);
-                    if (contractinfo != null)
+                    if (vm.BaseContract != null)
                     {
-                        _riskDict[contractinfo.Contract] = strikeList.FindIndex(s => s == contractinfo.StrikePrice);
+                        _riskDict[vm.BaseContract] = baseContractList.FindIndex(s => s == vm.BaseContract);
                     }
                 }
                 // set x-axis using strikeList;
@@ -173,7 +201,7 @@ namespace Micro.Future.UI
                 {
                     BarItemCollection.Clear();
 
-                    for (int i = 0; i < strikeList.Count; i++)
+                    for (int i = 0; i < baseContractList.Count; i++)
                     {
                         BarItemCollection.Add(new ColumnItem { CategoryIndex = i, Value = 0 });
                     }
@@ -195,9 +223,8 @@ namespace Micro.Future.UI
                 var strategyVMList = strategyVMCollection.Where(s => s.BaseContract == strategyBaseVM.Contract);
                 foreach (var vm in strategyVMList)
                 {
-                    var contractinfo = ClientDbContext.FindContract(vm.Contract);
-                    if (contractinfo.ExpireDate == strategyBaseVM.Expiration)
-                        _riskSet.Add(vm.Contract);
+                    if (vm.BaseContract != null)
+                        _riskSet.Add(vm.BaseContract);
                 }
             }
         }
@@ -212,9 +239,8 @@ namespace Micro.Future.UI
                 var strategyVMList = strategyVMCollection.Where(s => s.BaseContract == strategyBaseVM.Contract);
                 foreach (var vm in strategyVMList)
                 {
-                    var contractinfo = ClientDbContext.FindContract(vm.Contract);
-                    if (contractinfo.ExpireDate == strategyBaseVM.Expiration)
-                        _riskSet.Remove(vm.Contract);
+                    if (vm.BaseContract != null)
+                        _riskSet.Remove(vm.BaseContract);
                 }
             }
         }
@@ -249,6 +275,5 @@ namespace Micro.Future.UI
         {
             plotModel.ResetAllAxes();
         }
-
     }
 }

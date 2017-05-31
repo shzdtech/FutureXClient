@@ -166,11 +166,11 @@
     <Compile Include="UI\OptionControls\OpMarketData.xaml.cs">
       <DependentUpon>OpMarketData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\OptionControls\OptionContractRiskGraphCtrl.xaml.cs">
-      <DependentUpon>OptionContractRiskGraphCtrl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\OptionControls\OptionRiskMatrixCtrl.xaml.cs">
       <DependentUpon>OptionRiskMatrixCtrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\OptionControls\OptionContractRiskGraphCtrl.xaml.cs">
+      <DependentUpon>OptionContractRiskGraphCtrl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\OptionControls\OptionRiskGraphCtrl.xaml.cs">
       <DependentUpon>OptionRiskGraphCtrl.xaml</DependentUpon>
@@ -329,11 +329,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\OptionControls\OptionContractRiskGraphCtrl.xaml">
+    <Page Include="UI\OptionControls\OptionRiskMatrixCtrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\OptionControls\OptionRiskMatrixCtrl.xaml">
+    <Page Include="UI\OptionControls\OptionContractRiskGraphCtrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

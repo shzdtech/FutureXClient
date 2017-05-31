@@ -134,7 +134,7 @@ namespace Micro.Future.ViewModel
             }
             set
             {
-                _vega = value;
+                _rho = value;
                 OnPropertyChanged(nameof(Rho));
                 OnPropertyChanged(nameof(Rho100));
 
