@@ -38,7 +38,7 @@
                     <RadioButton x:Name="vegaRadioButton" Content="Vega" VerticalAlignment="Top"/>
                     <RadioButton x:Name="thetaRadioButton" Content="Theta" VerticalAlignment="Top"/>
                     <RadioButton x:Name="rhoRadioButton" Content="Rho" VerticalAlignment="Top"/>
-
+                    <RadioButton x:Name="pnlRadioButton" Content="PnL" VerticalAlignment="Top"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox x:Name="expirationGB" Header="{lex:Loc Key=Expiration}" Width="Auto">
@@ -71,6 +71,30 @@
                     <CheckBox x:Name="callCheckBox" Content="Call"/>
                     <CheckBox x:Name="putCheckBox" Content="Put"/>
                     <CheckBox x:Name="futureCheckBox" Content="Future"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox x:Name="riskMatrixGB" Header="{lex:Loc Key=MatrixSet}">
+                <StackPanel>
+                    <WrapPanel>
+                        <GroupBox x:Name="tickCountBox" Header="{lex:Loc Key=Tick_Count}">
+                            <StackPanel>
+                                <WrapPanel>
+                                    <Label Content="{lex:Loc Key=StrikePrice}" Width="50"/>
+                                    <xctk:IntegerUpDown x:Name="strikepriceIUP" HorizontalAlignment="Center"  KeyUp="OnKeyDown" Tag="{Binding CallStrategyVM}"></xctk:IntegerUpDown>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="{lex:Loc Key=Volatility}" Width="50"/>
+                                    <xctk:IntegerUpDown x:Name="volIUP" HorizontalAlignment="Center"  KeyUp="OnKeyDown" Tag="{Binding CallStrategyVM}"></xctk:IntegerUpDown>
+                                </WrapPanel>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox x:Name="tickSizeBox1" Header="{lex:Loc Key=Tick_Size}">
+                            <StackPanel>
+
+                            </StackPanel>
+                        </GroupBox>
+                    </WrapPanel>
+
                 </StackPanel>
             </GroupBox>
             <GroupBox x:Name="resetGB">

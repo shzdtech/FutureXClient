@@ -831,4 +831,19 @@
   <data name="TickSize" xml:space="preserve">
     <value>报价变动单位</value>
   </data>
+  <data name="MatrixSet" xml:space="preserve">
+    <value>Matrix设置</value>
+  </data>
+  <data name="StrikePrice" xml:space="preserve">
+    <value>标的价格</value>
+  </data>
+  <data name="Tick_Count" xml:space="preserve">
+    <value>步数</value>
+  </data>
+  <data name="Tick_Size" xml:space="preserve">
+    <value>步长</value>
+  </data>
+  <data name="Volatility" xml:space="preserve">
+    <value>波动率</value>
+  </data>
 </root>

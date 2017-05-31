@@ -831,4 +831,19 @@
   <data name="TickSize" xml:space="preserve">
     <value>TickSize</value>
   </data>
+  <data name="MatrixSet" xml:space="preserve">
+    <value>MatrixSet</value>
+  </data>
+  <data name="StrikePrice" xml:space="preserve">
+    <value>StrikePrice</value>
+  </data>
+  <data name="Tick_Count" xml:space="preserve">
+    <value>Tick Count</value>
+  </data>
+  <data name="Tick_Size" xml:space="preserve">
+    <value>Tick Size</value>
+  </data>
+  <data name="Volatility" xml:space="preserve">
+    <value>Volatility</value>
+  </data>
 </root>

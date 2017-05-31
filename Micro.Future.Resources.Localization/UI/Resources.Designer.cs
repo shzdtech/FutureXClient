@@ -988,6 +988,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 Matrix设置 的本地化字符串。
+        /// </summary>
+        internal static string MatrixSet {
+            get {
+                return ResourceManager.GetString("MatrixSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 状态信息 的本地化字符串。
         /// </summary>
         internal static string Message {
@@ -1852,6 +1861,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 标的价格 的本地化字符串。
+        /// </summary>
+        internal static string StrikePrice {
+            get {
+                return ResourceManager.GetString("StrikePrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 理论 的本地化字符串。
         /// </summary>
         internal static string Theoretical {
@@ -1866,6 +1884,24 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string TheoVolModel {
             get {
                 return ResourceManager.GetString("TheoVolModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 步数 的本地化字符串。
+        /// </summary>
+        internal static string Tick_Count {
+            get {
+                return ResourceManager.GetString("Tick_Count", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 步长 的本地化字符串。
+        /// </summary>
+        internal static string Tick_Size {
+            get {
+                return ResourceManager.GetString("Tick_Size", resourceCulture);
             }
         }
         
@@ -2118,6 +2154,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Valuation {
             get {
                 return ResourceManager.GetString("Valuation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 波动率 的本地化字符串。
+        /// </summary>
+        internal static string Volatility {
+            get {
+                return ResourceManager.GetString("Volatility", resourceCulture);
             }
         }
         
