@@ -595,6 +595,7 @@ namespace Micro.Future.Message
                 strategyVM.BidCounter = strategy.BidCounter;
                 strategyVM.CloseMode = strategy.CloseMode;
                 strategyVM.TickSize = strategy.TickSizeMult;
+                strategyVM.OrderCounter = strategy.LimitOrderCounter;
                 strategyVM.PricingContractParams.Clear();
 
                 foreach (var wtContract in strategy.PricingContracts)

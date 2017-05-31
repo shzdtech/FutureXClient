@@ -131,7 +131,7 @@
                 <xctk:IntegerUpDown x:Name="CountertextBox" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding MaxAutoTrade}" Spinned="Spinned" ValueChanged="MaxAutoTradeValueChanged" ShowButtonSpinner="False"/>
             </GroupBox>
             <GroupBox x:Name="tickSize_GB" Header="{lex:Loc Key=TickSize}">
-                <xctk:IntegerUpDown x:Name="TickSizeIUD" UpdateValueOnEnterKey="True" Minimum="1" Value="{Binding TickSize}" Spinned="Spinned" ValueChanged="TickSizeValueChanged"/>
+                <xctk:IntegerUpDown x:Name="TickSizeIUD" UpdateValueOnEnterKey="True" Minimum="1" Value="{Binding TickSize}" Spinned="IntSpinned" ValueChanged="TickSizeValueChanged"/>
             </GroupBox>
             <GroupBox x:Name="RefreshCounter_GroupBox" Header="{lex:Loc Key=RefreshCounter}">
                 <Button x:Name="RefreshCounter_button" Content="{lex:Loc Key=Refresh}" VerticalAlignment="Top" Width="75" Click="RefreshCounter_Click"/>

@@ -306,6 +306,14 @@ namespace Micro.Future.UI
                 Task.Run(() => { Task.Delay(100); Dispatcher.Invoke(() => updownctrl.CommitInput()); });
             }
         }
+        private void IntSpinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
+        {
+            var updownctrl = sender as IntegerUpDown;
+            if (updownctrl != null)
+            {
+                Task.Run(() => { Task.Delay(100); Dispatcher.Invoke(() => updownctrl.CommitInput()); });
+            }
+        }
         public void AutoMaxTradeUpdate(int autoMaX)
         {
             if (CallPutTDOptionVMCollection != null)

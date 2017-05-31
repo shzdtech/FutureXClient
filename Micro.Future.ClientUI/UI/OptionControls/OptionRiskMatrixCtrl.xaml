@@ -76,7 +76,7 @@
             <GroupBox x:Name="riskMatrixGB" Header="{lex:Loc Key=MatrixSet}">
                 <StackPanel>
                     <WrapPanel>
-                        <GroupBox x:Name="tickCountBox" Header="{lex:Loc Key=Tick_Count}">
+                        <GroupBox x:Name="tickCountBox" Header="{lex:Loc Key=Tick_Count}" >
                             <StackPanel>
                                 <WrapPanel>
                                     <Label Content="{lex:Loc Key=StrikePrice}" Width="50"/>
