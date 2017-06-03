@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.Client.TestCas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Future.Simulator", "Micro.Future.Simulator\Micro.Future.Simulator.csproj", "{C3E9285A-C9C5-4406-99D5-FF1BA7D46D87}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Micro.Future.Client.Setup", "Micro.Future.Client.Setup\Micro.Future.Client.Setup.vdproj", "{EDEC9962-C396-4881-AC26-0437CAEA1C2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -251,6 +253,14 @@ Global
 		{C3E9285A-C9C5-4406-99D5-FF1BA7D46D87}.Release|Win32.Build.0 = Release|Any CPU
 		{C3E9285A-C9C5-4406-99D5-FF1BA7D46D87}.Release|x86.ActiveCfg = Release|Any CPU
 		{C3E9285A-C9C5-4406-99D5-FF1BA7D46D87}.Release|x86.Build.0 = Release|Any CPU
+		{EDEC9962-C396-4881-AC26-0437CAEA1C2F}.Debug|Any CPU.ActiveCfg = Debug
+		{EDEC9962-C396-4881-AC26-0437CAEA1C2F}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{EDEC9962-C396-4881-AC26-0437CAEA1C2F}.Debug|Win32.ActiveCfg = Debug
+		{EDEC9962-C396-4881-AC26-0437CAEA1C2F}.Debug|x86.ActiveCfg = Debug
+		{EDEC9962-C396-4881-AC26-0437CAEA1C2F}.Release|Any CPU.ActiveCfg = Release
+		{EDEC9962-C396-4881-AC26-0437CAEA1C2F}.Release|Mixed Platforms.ActiveCfg = Release
+		{EDEC9962-C396-4881-AC26-0437CAEA1C2F}.Release|Win32.ActiveCfg = Release
+		{EDEC9962-C396-4881-AC26-0437CAEA1C2F}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
