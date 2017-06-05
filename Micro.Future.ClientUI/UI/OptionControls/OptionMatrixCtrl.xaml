@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Micro.Future.UI.OptionRiskMatrixCtrl"
+﻿<UserControl x:Class="Micro.Future.UI.OptionMatrixCtrl"
              xmlns:local="clr-namespace:Micro.Future.UI"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -15,13 +15,13 @@
              lex:ResxLocalizationProvider.DefaultDictionary="Resources"
              mc:Ignorable="d" d:DesignWidth="800">
 
-    <Grid>
+    <Grid ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.22*"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="0.35*" />
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Width="Auto">
+        <StackPanel Grid.Column="0" Width="Auto" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True">
             <GroupBox x:Name="portfolioGB" Header="{lex:Loc Key=Portfolio}">
                 <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
             </GroupBox>
@@ -33,14 +33,18 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox x:Name="riskGB" Header="{lex:Loc Key=Risk}">
-                <StackPanel>
-                    <RadioButton x:Name="deltaRadioButton" Content="Delta" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="gammaRadioButton" Content="Gamma" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="vegaRadioButton" Content="Vega" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="thetaRadioButton" Content="Theta" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="rhoRadioButton" Content="Rho" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="pnlRadioButton" Content="PnL" VerticalAlignment="Top"/>
-                </StackPanel>
+                <WrapPanel>
+                    <StackPanel>
+                        <CheckBox Name="deltaCheckBox" Content="Delta" HorizontalAlignment="Left"/>
+                        <CheckBox Name="gammaCheckBox" Content="Gamma" HorizontalAlignment="Left"/>
+                        <CheckBox Name="vegaCheckBox" Content="Vega" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <CheckBox Name="thetaCheckBox" Content="Theta" HorizontalAlignment="Left"/>
+                        <CheckBox Name="rhoCheckBox" Content="Rho" HorizontalAlignment="Left"/>
+                        <CheckBox Name="pnlCheckBox" Content="Pnl" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </WrapPanel>
             </GroupBox>
             <GroupBox x:Name="expirationGB" Header="{lex:Loc Key=Expiration}" Width="Auto">
                 <ListView x:Name="expirationLV" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Visible" Width="Auto">
@@ -67,19 +71,21 @@
                     </ListView.View>
                 </ListView>
             </GroupBox>
-            <GroupBox x:Name="typeGB" Header="{lex:Loc Key=Type}">
-                <StackPanel>
-                    <CheckBox x:Name="callCheckBox" Content="Call"/>
-                    <CheckBox x:Name="putCheckBox" Content="Put"/>
-                    <CheckBox x:Name="futureCheckBox" Content="Future"/>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox x:Name="displayGB" Header="{lex:Loc Key=DisplaySet}">
-                <StackPanel>
-                    <RadioButton x:Name="absoluteRadioButton" Content="{lex:Loc Key=Absolute}" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="variateRadioButton" Content="{lex:Loc Key=Variate}" VerticalAlignment="Top"/>
-                </StackPanel>
-            </GroupBox>
+            <WrapPanel>
+                <GroupBox x:Name="typeGB" Header="{lex:Loc Key=Type}">
+                    <StackPanel>
+                        <CheckBox x:Name="callCheckBox" Content="Call"/>
+                        <CheckBox x:Name="putCheckBox" Content="Put"/>
+                        <CheckBox x:Name="futureCheckBox" Content="Future"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox x:Name="displayGB" Header="{lex:Loc Key=DisplaySet}">
+                    <StackPanel>
+                        <RadioButton x:Name="absoluteRadioButton" Content="{lex:Loc Key=Absolute}" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="variateRadioButton" Content="{lex:Loc Key=Variate}" VerticalAlignment="Top"/>
+                    </StackPanel>
+                </GroupBox>
+            </WrapPanel>
             <GroupBox x:Name="riskMatrixGB" Header="{lex:Loc Key=MatrixSet}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -97,24 +103,35 @@
                     <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key=StrikePrice}" Width="50"/>
                     <Label Grid.Row="0" Grid.Column="1" Content="{lex:Loc Key=Tick_Count}" Width="50"/>
                     <Label Grid.Row="0" Grid.Column="2" Content="{lex:Loc Key=Tick_Size}" Width="50"/>
-                    <xctk:IntegerUpDown x:Name="strikepriceCntIUP"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Minimum="1" Maximum="10"></xctk:IntegerUpDown>
-                    <xctk:DoubleUpDown x:Name="strikepriceSizeIUP" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch"  ShowButtonSpinner="False" Width="70" Minimum="0"></xctk:DoubleUpDown>
-                    <Label Grid.Row="2"     Grid.Column="0" Content="{lex:Loc Key=Volatility}" Width="50"/>
-                    <xctk:IntegerUpDown x:Name="volCntIUP"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Minimum="1" Maximum="10" ></xctk:IntegerUpDown>
-                    <xctk:DoubleUpDown x:Name="volSizeIUP" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch" ShowButtonSpinner="False" Width="70" Minimum="0"></xctk:DoubleUpDown>
+                    <xctk:IntegerUpDown x:Name="priceCntIUP" UpdateValueOnEnterKey="True"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Spinned="IntSpinned" ValueChanged="priceCntValueChanged" Minimum="1" Maximum="10"></xctk:IntegerUpDown>
+                    <xctk:DoubleUpDown x:Name="priceSizeIUP" UpdateValueOnEnterKey="True" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" Spinned="Spinned" ValueChanged="priceSizeValueChanged"  ShowButtonSpinner="False" Width="70" Minimum="0"></xctk:DoubleUpDown>
+                    <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key=Volatility}" Width="50"/>
+                    <xctk:IntegerUpDown x:Name="volCntIUP" UpdateValueOnEnterKey="True"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Spinned="IntSpinned" ValueChanged="volCntValueChanged" Minimum="1" Maximum="10" ></xctk:IntegerUpDown>
+                    <xctk:DoubleUpDown x:Name="volSizeIUP" UpdateValueOnEnterKey="True" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch" Spinned="Spinned" ValueChanged="volSizeValueChanged" ShowButtonSpinner="False" Width="70" Minimum="0"></xctk:DoubleUpDown>
                     <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key=Expiration}" Width="50"/>
-                    <xctk:IntegerUpDown x:Name="expIUP"  Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Minimum="0"></xctk:IntegerUpDown>
+                    <xctk:IntegerUpDown x:Name="expIUP" UpdateValueOnEnterKey="True"  Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Minimum="0"></xctk:IntegerUpDown>
                     <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key=Interest}" Width="50"/>
-                    <xctk:DoubleUpDown x:Name="interestUP" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" Width="70" Minimum="0"></xctk:DoubleUpDown>
+                    <xctk:DoubleUpDown x:Name="interestUP" UpdateValueOnEnterKey="True" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" Width="70" Minimum="0"></xctk:DoubleUpDown>
                 </Grid>
+            </GroupBox>
+            <GroupBox x:Name="resetGB">
+                <StackPanel>
+                    <Button x:Name="resetButton" Content="{lex:Loc Key=Reset}" Width="75" Click="resetButton_Click" HorizontalAlignment="Left"/>
+                </StackPanel>
             </GroupBox>
         </StackPanel>
         <oxy:Plot x:Name="plotModel" Grid.Column="1">
             <oxy:ColumnSeries x:Name="columnSeries" />
             <oxy:Plot.Axes>
-                <oxy:CategoryAxis  x:Name="baseContractAxis" Position="Bottom" Title="{lex:Loc Key=Contract}"/>
+                <oxy:CategoryAxis  x:Name="strikeAxis" Position="Bottom" Title="StrikePrice"/>
                 <oxy:LinearAxis x:Name="greeksAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="Greeks"/>
             </oxy:Plot.Axes>
         </oxy:Plot>
+        <FlowDocumentReader Grid.Column="2">
+            <FlowDocument>
+                <Table Name="riskMatrixTable" BorderThickness="10">
+                </Table>
+            </FlowDocument>
+        </FlowDocumentReader>
     </Grid>
 </UserControl>

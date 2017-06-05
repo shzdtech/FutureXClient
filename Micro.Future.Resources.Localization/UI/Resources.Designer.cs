@@ -61,6 +61,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 绝对值 的本地化字符串。
+        /// </summary>
+        internal static string Absolute {
+            get {
+                return ResourceManager.GetString("Absolute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 投资者账户 的本地化字符串。
         /// </summary>
         internal static string AccountID {
@@ -543,6 +552,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Direction {
             get {
                 return ResourceManager.GetString("Direction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 显示设置 的本地化字符串。
+        /// </summary>
+        internal static string DisplaySet {
+            get {
+                return ResourceManager.GetString("DisplaySet", resourceCulture);
             }
         }
         
@@ -2154,6 +2172,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Valuation {
             get {
                 return ResourceManager.GetString("Valuation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 变化值 的本地化字符串。
+        /// </summary>
+        internal static string Variate {
+            get {
+                return ResourceManager.GetString("Variate", resourceCulture);
             }
         }
         

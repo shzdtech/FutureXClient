@@ -114,6 +114,8 @@ namespace Micro.Future.UI
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(Vega));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(Gamma));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(Theta));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(PRho));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(CRho));
             theoPriceNode.Children.Add(ColumnObject.CreateColumn(PBidTheo));
             theoPriceNode.Children.Add(ColumnObject.CreateColumn(PAskTheo));
             theoPriceNode.Children.Add(ColumnObject.CreateColumn(CBidTheo));
@@ -138,6 +140,9 @@ namespace Micro.Future.UI
             QTNode.Children.Add(ColumnObject.CreateColumn(CNotCross));
             QTNode.Children.Add(ColumnObject.CreateColumn(PCloseMode));
             QTNode.Children.Add(ColumnObject.CreateColumn(CCloseMode));
+            QTNode.Children.Add(ColumnObject.CreateColumn(POrderCnt));
+            QTNode.Children.Add(ColumnObject.CreateColumn(COrderCnt));
+
             marketNode.Initialize();
             ivolNode.Initialize();
             riskGreekNode.Initialize();
@@ -457,7 +462,7 @@ namespace Micro.Future.UI
             Control ctrl = sender as Control;
             if (ctrl != null)
             {
-                if (e.Key == Key.Escape || e.Key == Key.Enter)
+                if (e.Key == Key.Enter)
                 {
 
                     StrategyVM strategyVM = ctrl.Tag as StrategyVM;

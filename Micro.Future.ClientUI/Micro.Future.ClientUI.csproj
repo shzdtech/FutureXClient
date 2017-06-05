@@ -166,6 +166,9 @@
     <Compile Include="UI\OptionControls\OpMarketData.xaml.cs">
       <DependentUpon>OpMarketData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\OptionControls\OptionMatrixCtrl.xaml.cs">
+      <DependentUpon>OptionMatrixCtrl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\OptionControls\OptionRiskMatrixCtrl.xaml.cs">
       <DependentUpon>OptionRiskMatrixCtrl.xaml</DependentUpon>
     </Compile>
@@ -328,6 +331,10 @@
     <Page Include="UI\OptionControls\OpMarketData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\OptionControls\OptionMatrixCtrl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\OptionControls\OptionRiskMatrixCtrl.xaml">
       <Generator>MSBuild:Compile</Generator>

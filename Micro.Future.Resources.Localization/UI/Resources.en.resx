@@ -846,4 +846,13 @@
   <data name="Volatility" xml:space="preserve">
     <value>Volatility</value>
   </data>
+  <data name="Absolute" xml:space="preserve">
+    <value>Absolute</value>
+  </data>
+  <data name="DisplaySet" xml:space="preserve">
+    <value>DisplaySet</value>
+  </data>
+  <data name="Variate" xml:space="preserve">
+    <value>Variate</value>
+  </data>
 </root>

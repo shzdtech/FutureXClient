@@ -65,6 +65,11 @@ namespace Micro.Future.UI
             }
 
         }
+        public MarketDataVM MarketData
+        {
+            get;
+            set;
+        }
 
         private TraderExHandler _tradeExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
