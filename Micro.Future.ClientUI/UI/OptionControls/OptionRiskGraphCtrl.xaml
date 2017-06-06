@@ -22,7 +22,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Width="Auto">
             <GroupBox x:Name="portfolioGB" Header="{lex:Loc Key=Portfolio}">
-                    <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
+                <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
             </GroupBox>
             <GroupBox x:Name="priceGB" Header="{lex:Loc Key=Price}">
                 <StackPanel>
@@ -32,14 +32,18 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox x:Name="riskGB" Header="{lex:Loc Key=Risk}">
-                <StackPanel>
-                    <RadioButton x:Name="deltaRadioButton" Content="Delta" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="gammaRadioButton" Content="Gamma" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="vegaRadioButton" Content="Vega" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="thetaRadioButton" Content="Theta" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="rhoRadioButton" Content="Rho" VerticalAlignment="Top"/>
-
-                </StackPanel>
+                <WrapPanel>
+                    <StackPanel>
+                        <RadioButton x:Name="deltaRadioButton" Content="Delta" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="gammaRadioButton" Content="Gamma" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="vegaRadioButton" Content="Vega" VerticalAlignment="Top"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <RadioButton x:Name="thetaRadioButton" Content="Theta" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="rhoRadioButton" Content="Rho" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="pnlRadioButton" Content="Pnl" VerticalAlignment="Top"/>
+                    </StackPanel>
+                </WrapPanel>
             </GroupBox>
             <GroupBox x:Name="expirationGB" Header="{lex:Loc Key=Expiration}" Width="Auto">
                 <ListView x:Name="expirationLV" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Visible" Width="Auto">

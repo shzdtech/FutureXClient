@@ -60,7 +60,7 @@ namespace Micro.Future.UI
         private void MenuItemColumns_Click(object sender, RoutedEventArgs e)
         {
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
-            win.Show();
+            win.ShowDialog();
         }
 
         public void Initialize()

@@ -30,37 +30,37 @@
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0">
             <GroupBox x:Name="Op_Exchange" Header="{lex:Loc Key=Exchange}">
-                <ComboBox x:Name="exchangeCB"  SelectionChanged="exchangeCB_SelectionChanged"/>
+                <ComboBox x:Name="exchangeCB"  SelectionChanged="exchangeCB_SelectionChanged" Height="20"/>
             </GroupBox>
             <GroupBox x:Name="Op_Underlying" Header="{lex:Loc Key=Underlying}">
-                <ComboBox x:Name="underlyingCB" SelectionChanged="underlyingCB_SelectionChanged"/>
+                <ComboBox x:Name="underlyingCB" SelectionChanged="underlyingCB_SelectionChanged" Height="20"/>
             </GroupBox>
             <GroupBox x:Name="Op_UnderlyingContract" Header="{lex:Loc Key=Product}">
-                <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged"/>
+                <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged" Height="20"/>
             </GroupBox>
             <GroupBox x:Name="Op_ExpireDate" Header="{lex:Loc Key=ExpireDate}">
-                <ComboBox x:Name="expireDateCB" SelectionChanged="expireDateCB_SelectionChanged"/>
+                <ComboBox x:Name="expireDateCB" SelectionChanged="expireDateCB_SelectionChanged" Height="20"/>
             </GroupBox>
             <GroupBox x:Name="Op_PricingModel" Header="{lex:Loc Key=PricingModel}">
-                <ComboBox x:Name="pricingModelCB" DisplayMemberPath="InstanceName" SelectionChanged="pricingModelCB_SelectionChanged" SelectedValuePath="InstanceName"/>
+                <ComboBox x:Name="pricingModelCB" DisplayMemberPath="InstanceName" SelectionChanged="pricingModelCB_SelectionChanged" SelectedValuePath="InstanceName" Height="20"/>
             </GroupBox>
             <GroupBox x:Name="Interest" Header="{lex:Loc Key=Interest}">
-                <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate" UpdateValueOnEnterKey="True" FormatString="F3" Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1" Increment="0.001" ValueChanged="ValueChanged" Spinned="Spinned" VerticalAlignment="Top"/>
+                <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate" UpdateValueOnEnterKey="True" FormatString="F3" Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1" Increment="0.001" ValueChanged="ValueChanged" Spinned="Spinned" VerticalAlignment="Center" Height="20"/>
             </GroupBox>
             <GroupBox x:Name="Op_VolModel" Header="{lex:Loc Key=TheoVolModel}">
                 <Label x:Name="volModelLB" Content="" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </GroupBox>
             <GroupBox x:Name="Op_Exchange1" Header="{lex:Loc Key=Exchange}">
-                <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged"/>
+                <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged" Height="20"/>
             </GroupBox>
             <GroupBox x:Name="Op_Underlying1" Header="{lex:Loc Key=Underlying}">
-                <ComboBox x:Name="underlyingCB1"  SelectionChanged="underlyingCB1_SelectionChanged"/>
+                <ComboBox x:Name="underlyingCB1"  SelectionChanged="underlyingCB1_SelectionChanged" Height="20"/>
             </GroupBox>
             <GroupBox x:Name="Op_UnderlyingContract1" Header="{lex:Loc Key=Product}">
-                <ComboBox x:Name="underlyingContractCB1" SelectionChanged="underlyingContractCB1_SelectionChanged"/>
+                <ComboBox x:Name="underlyingContractCB1" SelectionChanged="underlyingContractCB1_SelectionChanged" Height="20"/>
             </GroupBox>
             <GroupBox x:Name="Adjustment" Header="{lex:Loc Key=Adjustment}">
-                <xctk:DoubleUpDown x:Name="adjustment" UpdateValueOnEnterKey="True" FormatString="F2" Minimum="-1000000" Maximum="1000000" Increment="0.1" ValueChanged="Adjustment_ValueChanged" Spinned="Spinned"/>
+                <xctk:DoubleUpDown x:Name="adjustment" UpdateValueOnEnterKey="True" FormatString="F2" Minimum="-1000000" Maximum="1000000" Increment="0.1" ValueChanged="Adjustment_ValueChanged" Spinned="Spinned" Height="20"/>
             </GroupBox>
 
             <ListView Name="quoteListView1">
@@ -119,22 +119,22 @@
                 </ListView.View>
             </ListView>
             <GroupBox x:Name="AutoOrder_GroupBox" Header="{lex:Loc Key=AutoOrder}">
-                <CheckBox Name="AutoOrder_CheckBox" HorizontalAlignment="Center" IsChecked="{Binding Hedging}" Checked="AutoOrder_Checked" Unchecked="AutoOrder_Unchecked" />
+                <CheckBox Name="AutoOrder_CheckBox" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Hedging}" Checked="AutoOrder_Checked" Unchecked="AutoOrder_Unchecked" Height="30" />
             </GroupBox>
             <GroupBox x:Name="OrderConditionGB" Header="{lex:Loc Key=OrderCondition}">
-                <ComboBox x:Name="orderConditionCombo"  ItemsSource="{Binding Source={StaticResource orderConditionEnum}}"  Grid.ColumnSpan="2" Width="101" VerticalAlignment="Center" Margin="0,4" SelectionChanged="orderCondition_SelectionChanged"/>
+                <ComboBox x:Name="orderConditionCombo"  ItemsSource="{Binding Source={StaticResource orderConditionEnum}}"  Grid.ColumnSpan="2" Width="101" VerticalAlignment="Center" Margin="0,4" SelectionChanged="orderCondition_SelectionChanged" Height="20"/>
             </GroupBox>
             <!--<GroupBox x:Name="OrderProtect_GroupBox" Header="{lex:Loc Key=OrderProtect}">
                 <CheckBox Name="BidNotCross_CheckBox" HorizontalAlignment="Center" IsChecked="{Binding BidNotCross}" Checked="BidNotCross_Checked" Unchecked="BidNotCross_Unchecked" />
             </GroupBox>-->
             <GroupBox x:Name="Counter_TxtBox" Header="{lex:Loc Key=Counter}">
-                <xctk:IntegerUpDown x:Name="CountertextBox" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding MaxAutoTrade}" Spinned="Spinned" ValueChanged="MaxAutoTradeValueChanged" ShowButtonSpinner="False"/>
+                <xctk:IntegerUpDown x:Name="CountertextBox" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding MaxAutoTrade}" Spinned="Spinned" ValueChanged="MaxAutoTradeValueChanged" ShowButtonSpinner="False" Height="20"/>
             </GroupBox>
             <GroupBox x:Name="tickSize_GB" Header="{lex:Loc Key=TickSize}">
-                <xctk:IntegerUpDown x:Name="TickSizeIUD" UpdateValueOnEnterKey="True" Minimum="1" Value="{Binding TickSize}" Spinned="IntSpinned" ValueChanged="TickSizeValueChanged"/>
+                <xctk:IntegerUpDown x:Name="TickSizeIUD" UpdateValueOnEnterKey="True" Minimum="1" Value="{Binding TickSize}" Spinned="IntSpinned" ValueChanged="TickSizeValueChanged" Height="20"/>
             </GroupBox>
             <GroupBox x:Name="RefreshCounter_GroupBox" Header="{lex:Loc Key=RefreshCounter}">
-                <Button x:Name="RefreshCounter_button" Content="{lex:Loc Key=Refresh}" VerticalAlignment="Top" Width="75" Click="RefreshCounter_Click"/>
+                <Button x:Name="RefreshCounter_button" Content="{lex:Loc Key=Refresh}" VerticalAlignment="Center" Width="75" Click="RefreshCounter_Click"/>
             </GroupBox>
         </WrapPanel>
 
@@ -258,8 +258,8 @@
                     </GridViewColumn>
                     <GridViewColumn x:Name="PRho" Header="PRho" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Rho100,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PDelta" Header="PDelta" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Delta,StringFormat=N2}"/>
+                    <GridViewColumn x:Name="PTheta" Header="PTheta" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Theta365,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PPosition" Header="PPosition" DisplayMemberBinding="{Binding PutOptionVM.Position}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
-                    <GridViewColumn x:Name="Theta" Header="Theta" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Theta365,StringFormat=N2}"/>
                     <GridViewColumn x:Name="Gamma" Header="Gamma" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Gamma,StringFormat=N4}"/>
                     <GridViewColumn x:Name="Vega" Header="Vega%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Vega100,StringFormat=N2}"/>
                     <!--<GridViewColumn x:Name="PutContract" Header="PutContract" DisplayMemberBinding="{Binding PutOptionVM.Contract,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>-->
@@ -269,6 +269,7 @@
                     <GridViewColumn x:Name="TheoBidVol" Header="BidTheoVol%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.BidVol,StringFormat=P2}" />
                     <GridViewColumn x:Name="TheoMidVol" Header="MidTheoVol%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.MidVol,StringFormat=P2}" />
                     <GridViewColumn x:Name="CPosition" Header="CPosition" DisplayMemberBinding="{Binding CallOptionVM.Position}" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
+                    <GridViewColumn x:Name="CTheta" Header="CTheta" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Theta365,StringFormat=N2}" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
                     <GridViewColumn x:Name="CDelta" Header="CDelta" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Delta,StringFormat=N2}"/>
                     <GridViewColumn x:Name="CRho" Header="CRho" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Rho100,StringFormat=N2}" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
                     <GridViewColumn x:Name="CCloseMode" Header="CCloseMode" HeaderContainerStyle="{StaticResource RedHeaderStyle}">

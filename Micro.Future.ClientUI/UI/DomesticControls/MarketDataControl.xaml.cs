@@ -236,7 +236,7 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Columns(object sender, RoutedEventArgs e)
         {
             ColumnSettingsWindow win = new ColumnSettingsWindow(mColumns);
-            win.Show();
+            win.ShowDialog();
         }
 
         private void MenuItem_Click_DeleteWindow(object sender, RoutedEventArgs e)

@@ -113,7 +113,8 @@ namespace Micro.Future.UI
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(CDelta));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(Vega));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(Gamma));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(Theta));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(PTheta));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(CTheta));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(PRho));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(CRho));
             theoPriceNode.Children.Add(ColumnObject.CreateColumn(PBidTheo));

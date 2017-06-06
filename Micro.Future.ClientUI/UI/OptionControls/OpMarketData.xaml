@@ -28,72 +28,72 @@
                 <Label x:Name="labelOption1" Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key=Implied}"/>
                 <WrapPanel Grid.Row="0" Grid.Column="1">
                     <GroupBox x:Name="Op_Exchange" Header="{lex:Loc Key=Exchange}">
-                        <ComboBox x:Name="underlyingEX"  SelectionChanged="underlyingEX_SelectionChanged"/>
+                        <ComboBox x:Name="underlyingEX"  SelectionChanged="underlyingEX_SelectionChanged" Height="20"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_Underlying" Header="{lex:Loc Key=Underlying}">
-                        <ComboBox x:Name="underlyingCB"  SelectionChanged="underlyingCB_SelectionChanged"/>
+                        <ComboBox x:Name="underlyingCB"  SelectionChanged="underlyingCB_SelectionChanged" Height="20"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_UnderlyingContract" Header="{lex:Loc Key=Product}">
-                        <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged"/>
+                        <ComboBox x:Name="underlyingContractCB" SelectionChanged="underlyingContractCB_SelectionChanged" Height="20"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_ExpireDate" Header="{lex:Loc Key=ExpireDate}">
-                        <ComboBox x:Name="expireDateCB" SelectionChanged="expireDateCB_SelectionChanged"/>
+                        <ComboBox x:Name="expireDateCB" SelectionChanged="expireDateCB_SelectionChanged" Height="20"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_VolModel" Header="{lex:Loc Key=ImpVolModel}">
-                        <ComboBox x:Name="volModelCB" DisplayMemberPath="InstanceName" SelectedValuePath="InstanceName" SelectionChanged="volModelCB_SelectionChanged">
+                        <ComboBox x:Name="volModelCB" DisplayMemberPath="InstanceName" SelectedValuePath="InstanceName" SelectionChanged="volModelCB_SelectionChanged" Height="20">
                         </ComboBox>
                     </GroupBox>
                     <GroupBox x:Name="Interest" Header="{lex:Loc Key=Interest}">
-                        <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate" UpdateValueOnEnterKey="True" FormatString="F3" Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1" Increment="0.001" ValueChanged="riskFree_Interest_ValueChanged" Spinned="Spinned"/>
+                        <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate" UpdateValueOnEnterKey="True" FormatString="F3" Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1" Increment="0.001" ValueChanged="riskFree_Interest_ValueChanged" Spinned="Spinned" Height="20"/>
                     </GroupBox>
                 </WrapPanel>
                 <Label x:Name="labelOption2" Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key=Theoretical}"/>
                 <WrapPanel Grid.Row="1" Grid.Column="1">
                     <GroupBox x:Name="Op_Exchange1" Header="{lex:Loc Key=Exchange}">
-                        <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged"/>
+                        <ComboBox x:Name="underlyingEX1"  SelectionChanged="underlyingEX1_SelectionChanged" Height="20"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_Underlying1" Header="{lex:Loc Key=Underlying}">
-                        <ComboBox x:Name="underlyingCB1"  SelectionChanged="underlyingCB1_SelectionChanged"/>
+                        <ComboBox x:Name="underlyingCB1"  SelectionChanged="underlyingCB1_SelectionChanged" Height="20"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_UnderlyingContract1" Header="{lex:Loc Key=Product}">
-                        <ComboBox x:Name="underlyingContractCB1"   SelectionChanged="underlyingContractCB1_SelectionChanged"/>
+                        <ComboBox x:Name="underlyingContractCB1"   SelectionChanged="underlyingContractCB1_SelectionChanged" Height="20"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_ExpireDate1" Header="{lex:Loc Key=ExpireDate}">
-                        <ComboBox x:Name="expireDateCB1" SelectionChanged="expireDateCB1_SelectionChanged"/>
+                        <ComboBox x:Name="expireDateCB1" SelectionChanged="expireDateCB1_SelectionChanged" Height="20"/>
                     </GroupBox>
                     <GroupBox x:Name="Op_VolModel1" Header="{lex:Loc Key=TheoVolModel}">
-                        <ComboBox x:Name="volModelCB1" DisplayMemberPath="InstanceName" SelectedValuePath="InstanceName" SelectionChanged="volModelCB1_SelectionChanged">
+                        <ComboBox x:Name="volModelCB1" DisplayMemberPath="InstanceName" SelectedValuePath="InstanceName" SelectionChanged="volModelCB1_SelectionChanged" Height="20">
                         </ComboBox>
                     </GroupBox>
                 </WrapPanel>
                 <!--<Label x:Name="labelFuture1" Grid.Row="0" Grid.Column="2" Content="{lex:Loc Key=Future1}"/>-->
                 <WrapPanel Grid.Row="0" Grid.Column="3">
                     <GroupBox x:Name="Exchange1" Header="{lex:Loc Key=Exchange}">
-                        <ComboBox x:Name="exchange1"  SelectionChanged="exchange1_SelectionChanged"/>
+                        <ComboBox x:Name="exchange1"  SelectionChanged="exchange1_SelectionChanged" Height="20"/>
                     </GroupBox>
                     <GroupBox x:Name="Underlying1" Header="{lex:Loc Key=Underlying}">
-                        <ComboBox x:Name="underlying1"  SelectionChanged="underlying1_SelectionChanged"/>
+                        <ComboBox x:Name="underlying1"  SelectionChanged="underlying1_SelectionChanged" Height="20"/>
                     </GroupBox>
                     <GroupBox x:Name="Contract1" Header="{lex:Loc Key=Product}">
-                        <ComboBox x:Name="contract1"  SelectionChanged="contract1_SelectionChanged"/>
+                        <ComboBox x:Name="contract1"  SelectionChanged="contract1_SelectionChanged" Height="20"/>
                     </GroupBox>
                     <GroupBox x:Name="Adjustment1" Header="{lex:Loc Key=Adjustment}">
-                        <xctk:DoubleUpDown x:Name="adjustment1" UpdateValueOnEnterKey="True" FormatString="F2" Minimum="-1000000" Maximum="1000000" Increment="0.1" ValueChanged="Adjustment1_ValueChanged" Spinned="Spinned"/>
+                        <xctk:DoubleUpDown x:Name="adjustment1" UpdateValueOnEnterKey="True" FormatString="F2" Minimum="-1000000" Maximum="1000000" Increment="0.1" ValueChanged="Adjustment1_ValueChanged" Spinned="Spinned" Height="20"/>
                     </GroupBox>
                 </WrapPanel>
                 <!--<Label x:Name="labelFuture2" Grid.Row="1" Grid.Column="2" Content="{lex:Loc Key=Future2}"/>-->
                 <WrapPanel Grid.Row="1" Grid.Column="3">
                     <GroupBox x:Name="Exchange2" Header="{lex:Loc Key=Exchange}">
-                        <ComboBox x:Name="exchange2"  SelectionChanged="exchange2_SelectionChanged"/>
+                        <ComboBox x:Name="exchange2"  SelectionChanged="exchange2_SelectionChanged" Height="20"/>
                     </GroupBox>
                     <GroupBox x:Name="Underlying2" Header="{lex:Loc Key=Underlying}">
-                        <ComboBox x:Name="underlying2"  SelectionChanged="underlying2_SelectionChanged"/>
+                        <ComboBox x:Name="underlying2"  SelectionChanged="underlying2_SelectionChanged" Height="20"/>
                     </GroupBox>
                     <GroupBox x:Name="Contract2" Header="{lex:Loc Key=Product}">
-                        <ComboBox x:Name="contract2"  SelectionChanged="contract2_SelectionChanged"/>
+                        <ComboBox x:Name="contract2"  SelectionChanged="contract2_SelectionChanged" Height="20"/>
                     </GroupBox>
                     <GroupBox x:Name="Adjustment2" Header="{lex:Loc Key=Adjustment}">
-                        <xctk:DoubleUpDown x:Name="adjustment2" UpdateValueOnEnterKey="True" FormatString="F2" Minimum="-1000000" Maximum="1000000" Increment="0.1" ValueChanged="Adjustment2_ValueChanged" Spinned="Spinned"/>
+                        <xctk:DoubleUpDown x:Name="adjustment2" UpdateValueOnEnterKey="True" FormatString="F2" Minimum="-1000000" Maximum="1000000" Increment="0.1" ValueChanged="Adjustment2_ValueChanged" Spinned="Spinned" Height="20"/>
                     </GroupBox>
                 </WrapPanel>
                 <ListView Name="quoteListView1" Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" >

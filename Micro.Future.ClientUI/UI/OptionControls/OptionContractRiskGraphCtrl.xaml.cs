@@ -67,12 +67,16 @@ namespace Micro.Future.UI
         }
 
         private TraderExHandler _tradeExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+        private MarketDataHandler _marketDataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private void ReloadDataCallback(object state)
         {
             Dispatcher.Invoke(async () =>
             {
+                _tradeExHandler.QueryPosition();
+
                 var portfolio = portfolioCB.SelectedValue?.ToString();
                 var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
                 lock (BarItemCollection)
