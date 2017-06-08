@@ -1,4 +1,5 @@
 ﻿using Micro.Future.CustomizedControls.Controls;
+using System;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Micro.Future.CustomizedControls
@@ -9,6 +10,7 @@ namespace Micro.Future.CustomizedControls
         {
 
             var layoutAnchorable = new LayoutAnchorable();
+            layoutAnchorable.ContentId = Guid.NewGuid().ToString();
             layoutAnchorable.Content = content;
             var anchorableCtr = content as ILayoutAnchorableControl;
             if (anchorableCtr != null) anchorableCtr.AnchorablePane = pane;

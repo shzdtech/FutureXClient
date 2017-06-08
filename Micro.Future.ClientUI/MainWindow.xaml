@@ -13,6 +13,7 @@
                 Icon="/Micro.Future.ClientUI;component/Images/Logo.png"
                 Name="clientMainWindow"
                 Title="U.F.O." Closing="OnClosing">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -20,6 +21,9 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Menu x:Name="mainMenu" Grid.Row="0" IsMainMenu="True">
+            <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=DomesticTradingMarket}">
+
+            </MenuItem>
         </Menu>
 
         <avalonDock:DockingManager x:Name="dockingManager" Grid.Row="1">
