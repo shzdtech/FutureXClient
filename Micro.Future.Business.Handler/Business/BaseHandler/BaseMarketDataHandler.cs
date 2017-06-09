@@ -3,7 +3,6 @@ using System.Linq;
 using System.Text;
 using Micro.Future.ViewModel;
 using Micro.Future.Message.Business;
-using System.Threading;
 using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
@@ -17,7 +16,7 @@ namespace Micro.Future.Message
         protected uint MSG_ID_RET_MD = (uint)BusinessMessageID.MSG_ID_RET_MARKETDATA;
 
         public const int RETRY_TIMES = 5;
-       
+
         public event Action<MarketDataVM> OnNewMarketData;
 
 
@@ -37,15 +36,17 @@ namespace Micro.Future.Message
             MessageWrapper.RegisterAction<PBMarketData, ExceptionMessage>(MSG_ID_RET_MD, RetMDSuccessAction, ErrorMsgAction);
         }
 
-        public virtual async Task<MarketDataVM> SubMarketDataAsync(string contract, string exchange = "")
+        public virtual async Task<MarketDataVM> SubMarketDataAsync(string contract, string exchange = null)
         {
-            var mktDataList = await SubMarketDataAsync(new [] { new ContractKeyVM(exchange, contract) });
+            var mktDataList = await SubMarketDataAsync(new[] { new ContractKeyVM(exchange, contract) });
             return mktDataList?.FirstOrDefault();
         }
 
 
         public virtual Task<IList<MarketDataVM>> SubMarketDataAsync(IEnumerable<ContractKeyVM> instrIDList, int timeout = 10000)
         {
+            var tempList = AddToMarketDataMap(instrIDList);
+
             var tcs = new TimeoutTaskCompletionSource<IList<MarketDataVM>>(timeout);
 
             var serialId = NextSerialId;
@@ -59,11 +60,15 @@ namespace Micro.Future.Message
                 {
                     tcs.TrySetResult(SubMDSuccessAction(resp));
                 }
+
+                tempList.Clear();
             },
             (bizErr) =>
             {
                 if (bizErr.SerialId == serialId)
                     tcs.TrySetException(new MessageException(bizErr.MessageId, ErrorType.BIZ_ERROR, bizErr.Errorcode, bizErr.Description.ToStringUtf8()));
+
+                tempList.Clear();
             }
             );
             #endregion
@@ -114,10 +119,11 @@ namespace Micro.Future.Message
             return mktVM;
         }
 
-        protected virtual IList<MarketDataVM> SubMDSuccessAction(PBMarketDataList marketList)
+
+        protected virtual IList<MarketDataVM> AddToMarketDataMap(IEnumerable<ContractKeyVM> subList)
         {
             var ret = new List<MarketDataVM>();
-            foreach (var md in marketList.MarketData)
+            foreach (var md in subList)
             {
                 MarketDataVM mktVM = FindMarketData(md.Contract);
                 if (mktVM == null)
@@ -136,6 +142,32 @@ namespace Micro.Future.Message
             return ret;
         }
 
+        protected virtual IList<MarketDataVM> SubMDSuccessAction(PBMarketDataList marketList)
+        {
+            var ret = new List<MarketDataVM>();
+            foreach (var md in marketList.MarketData)
+            {
+                MarketDataVM mktVM = FindMarketData(md.Contract);
+
+                if (mktVM != null)
+                {
+                    if (mktVM.OpenValue == 0)
+                    {
+                        UpdateMarketDataVM(mktVM, md);
+                    }
+
+                    if (string.IsNullOrEmpty(mktVM.Exchange))
+                    {
+                        mktVM.Exchange = md.Exchange;
+                    }
+
+                    ret.Add(mktVM);
+                }
+            }
+
+            return ret;
+        }
+
         protected virtual void UnsubMDSuccessAction(SimpleStringTable strTbl)
         {
             foreach (var contract in strTbl.Columns[0].Entry)
@@ -145,31 +177,29 @@ namespace Micro.Future.Message
             }
         }
 
+        protected void UpdateMarketDataVM(MarketDataVM mktVM, PBMarketData md)
+        {
+            mktVM.LastPrice = md.MatchPrice;
+            mktVM.BidPrice = md.BidPrice[0];
+            mktVM.AskPrice = md.AskPrice[0];
+            mktVM.BidSize = md.BidVolume[0];
+            mktVM.AskSize = md.AskVolume[0];
+            mktVM.Volume = md.Volume;
+            mktVM.OpenValue = md.OpenValue;
+            mktVM.PreCloseValue = md.PreCloseValue;
+            mktVM.HighValue = md.HighValue;
+            mktVM.LowValue = md.LowValue;
+            mktVM.UpperLimitPrice = md.HighLimit;
+            mktVM.LowerLimitPrice = md.LowLimit;
+        }
+
         protected virtual void RetMDSuccessAction(PBMarketData md)
         {
             var mktVM = FindMarketData(md.Contract);
             if (mktVM != null)
             {
-                if (mktVM.LastPrice != md.MatchPrice ||
-                    mktVM.BidPrice != md.BidPrice[0] ||
-                    mktVM.AskPrice != md.AskPrice[0] ||
-                    mktVM.Volume != md.Volume)
-                {
-                    mktVM.LastPrice = md.MatchPrice;
-                    mktVM.BidPrice = md.BidPrice[0];
-                    mktVM.AskPrice = md.AskPrice[0];
-                    mktVM.BidSize = md.BidVolume[0];
-                    mktVM.AskSize = md.AskVolume[0];
-                    mktVM.Volume = md.Volume;
-                    mktVM.OpenValue = md.OpenValue;
-                    mktVM.PreCloseValue = md.PreCloseValue;
-                    mktVM.HighValue = md.HighValue;
-                    mktVM.LowValue = md.LowValue;
-                    mktVM.UpperLimitPrice = md.HighLimit;
-                    mktVM.LowerLimitPrice = md.LowLimit;
-
-                    RaiseNewMD(mktVM);
-                }
+                UpdateMarketDataVM(mktVM, md);
+                RaiseNewMD(mktVM);
             }
             else
             {
