@@ -160,15 +160,15 @@ namespace Micro.Future.UI
         {
             Initialize();
             var layoutInfo = ClientDbContext.GetLayout(_otcHandler.MessageWrapper.User.Id, optionmodelDM.Uid);
-            if (layoutInfo != null)
-            {
-                XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(optionmodelDM);
+            //if (layoutInfo != null)
+            //{
+            //    XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(optionmodelDM);
 
-                using (var reader = new StringReader(layoutInfo.LayoutCFG))
-                {
-                    layoutSerializer.Deserialize(reader);
-                }
-            }
+            //    using (var reader = new StringReader(layoutInfo.LayoutCFG))
+            //    {
+            //        layoutSerializer.Deserialize(reader);
+            //    }
+            //}
         }
         public void SaveLayout()
         {

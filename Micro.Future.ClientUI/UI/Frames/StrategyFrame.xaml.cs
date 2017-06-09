@@ -116,16 +116,16 @@ namespace Micro.Future.UI
             await MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().QueryPortfolioAsync();
             LoginTaskSource.TrySetResult(true);
 
-            var layoutInfo = ClientDbContext.GetLayout(handler.MessageWrapper.User.Id, strategyDM.Uid);
-            if (layoutInfo != null)
-            {
-                XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(strategyDM);
+            //var layoutInfo = ClientDbContext.GetLayout(handler.MessageWrapper.User.Id, strategyDM.Uid);
+            //if (layoutInfo != null)
+            //{
+            //    XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(strategyDM);
 
-                using (var reader = new StringReader(layoutInfo.LayoutCFG))
-                {
-                    layoutSerializer.Deserialize(reader);
-                }
-            }
+            //    using (var reader = new StringReader(layoutInfo.LayoutCFG))
+            //    {
+            //        layoutSerializer.Deserialize(reader);
+            //    }
+            //}
         }
 
         private void TDServerLogin()
