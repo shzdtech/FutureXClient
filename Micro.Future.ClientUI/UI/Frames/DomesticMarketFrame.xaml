@@ -53,6 +53,8 @@
                     <MenuItem Header="{lex:Loc Key=FutureAccountInfo}" Click="MenuItem_Click_FutureAccount">
                     </MenuItem>
                 </MenuItem>
+                <MenuItem Header="{lex:Loc Key=System}" Click="MenuItem_Click_System">
+                </MenuItem>
             </MenuItem>
         </x:Array>
         <x:Array Type="{x:Type StatusBarItem}" x:Key="exStatusBarItems">

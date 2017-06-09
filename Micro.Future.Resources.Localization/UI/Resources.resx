@@ -855,4 +855,7 @@
   <data name="Variate" xml:space="preserve">
     <value>变化值</value>
   </data>
+  <data name="System" xml:space="preserve">
+    <value>系统</value>
+  </data>
 </root>

@@ -1888,6 +1888,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 系统 的本地化字符串。
+        /// </summary>
+        internal static string System {
+            get {
+                return ResourceManager.GetString("System", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 理论 的本地化字符串。
         /// </summary>
         internal static string Theoretical {

@@ -18,6 +18,7 @@ using Micro.Future.Windows;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using System.IO;
 using System.Text;
+using AutoUpdaterDotNET;
 
 namespace Micro.Future.UI
 {
@@ -328,6 +329,10 @@ namespace Micro.Future.UI
         {
             FutureAccountInfoWindow win = new FutureAccountInfoWindow();
             win.Show();
+        }
+        private void MenuItem_Click_System(object sender, RoutedEventArgs e)
+        {
+            AutoUpdater.Start("http://rbsoft.org/updates/AutoUpdaterTest.xml");
         }
 
         private void ClosingPositionPane(object sender, CancelEventArgs e)
