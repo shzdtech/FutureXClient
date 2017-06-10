@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AutoUpdaterDotNET;
 
 namespace Micro.Future.AutoUpdate
 {
@@ -23,6 +24,7 @@ namespace Micro.Future.AutoUpdate
         public MainWindow()
         {
             InitializeComponent();
+            AutoUpdater.Start("http://rbsoft.org/updates/AutoUpdaterTest.xml");
         }
     }
 }
