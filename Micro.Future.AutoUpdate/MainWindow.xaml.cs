@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AutoUpdaterDotNET;
+using System.Diagnostics;
 
 namespace Micro.Future.AutoUpdate
 {
@@ -24,13 +25,15 @@ namespace Micro.Future.AutoUpdate
         public MainWindow()
         {
             InitializeComponent();
-            AutoUpdater.Start("http://rbsoft.org/updates/AutoUpdaterTest.xml");
         }
-
+        private Process _serverProcess;
         private void Update_Button_Click(object sender, RoutedEventArgs e)
         {
-            AutoUpdater.Start("http://rbsoft.org/updates/AutoUpdaterTest.xml");
-
+            AutoUpdater.Start("http://localhost:63321/Client/AutoUpdater.xml");
+            _serverProcess = new Process();
+            _serverProcess.StartInfo.FileName = @"D:\project\FutureXClient\Micro.Future.ClientUI\bin\Debug\Micro.Future.ClientUI.exe";
+            _serverProcess.StartInfo.WorkingDirectory = @"D:\project\FutureXClient\Micro.Future.ClientUI\bin\Debug";
+            _serverProcess.Start();
         }
     }
 }
