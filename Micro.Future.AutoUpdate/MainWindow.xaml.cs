@@ -24,5 +24,11 @@ namespace Micro.Future.AutoUpdate
         {
             InitializeComponent();
         }
+
+        private void Update_Button_Click(object sender, RoutedEventArgs e)
+        {
+            AutoUpdater.Start("http://rbsoft.org/updates/AutoUpdaterTest.xml");
+
+        }
     }
 }
