@@ -191,16 +191,16 @@ namespace Micro.Future.UI
             executionWindow.ReloadData();
 
             LoginTaskSource.TrySetResult(true);
-            var layoutInfo = ClientDbContext.GetLayout(tradeHandler.MessageWrapper.User.Id, otcTradeDM.Uid);
-            if (layoutInfo != null)
-            {
-                XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(otcTradeDM);
+            //var layoutInfo = ClientDbContext.GetLayout(tradeHandler.MessageWrapper.User.Id, otcTradeDM.Uid);
+            //if (layoutInfo != null)
+            //{
+            //    XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(otcTradeDM);
 
-                using (var reader = new StringReader(layoutInfo.LayoutCFG))
-                {
-                    layoutSerializer.Deserialize(reader);
-                }
-            }
+            //    using (var reader = new StringReader(layoutInfo.LayoutCFG))
+            //    {
+            //        layoutSerializer.Deserialize(reader);
+            //    }
+            //}
         }
 
         private void MenuItem_Click_Contract(object sender, RoutedEventArgs e)

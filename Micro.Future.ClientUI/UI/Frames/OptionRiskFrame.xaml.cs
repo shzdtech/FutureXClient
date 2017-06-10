@@ -153,16 +153,16 @@ namespace Micro.Future.UI
             Thread.Sleep(2000);
             LoginTaskSource.TrySetResult(true);
             Reload();
-            var layoutInfo = ClientDbContext.GetLayout(_otcOptionTradeHandler.MessageWrapper.User.Id, optionRiskDM.Uid);
-            if (layoutInfo != null)
-            {
-                XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(optionRiskDM);
+            //var layoutInfo = ClientDbContext.GetLayout(_otcOptionTradeHandler.MessageWrapper.User.Id, optionRiskDM.Uid);
+            //if (layoutInfo != null)
+            //{
+            //    XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(optionRiskDM);
 
-                using (var reader = new StringReader(layoutInfo.LayoutCFG))
-                {
-                    layoutSerializer.Deserialize(reader);
-                }
-            }
+            //    using (var reader = new StringReader(layoutInfo.LayoutCFG))
+            //    {
+            //        layoutSerializer.Deserialize(reader);
+            //    }
+            //}
         }
         private void TDServerLogin()
         {
