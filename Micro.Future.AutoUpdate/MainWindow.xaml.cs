@@ -51,6 +51,7 @@ namespace Micro.Future.AutoUpdate
                 {
                     AutoUpdater.CheckForUpdateEvent -= AutoUpdaterOnCheckForUpdateEvent;
                     AutoUpdater.Start("http://localhost:63321/Client/AutoUpdater.xml");
+                    LauchMainApp();
                 }
                 else
                 {
