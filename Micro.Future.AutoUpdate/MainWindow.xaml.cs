@@ -41,6 +41,8 @@ namespace Micro.Future.AutoUpdate
             mainApp.StartInfo.FileName = System.IO.Path.Combine(workingDir, "Micro.Future.ClientUI.exe");
             mainApp.StartInfo.WorkingDirectory = workingDir;
             mainApp.Start();
+
+            Environment.Exit(0);
         }
 
         private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)
