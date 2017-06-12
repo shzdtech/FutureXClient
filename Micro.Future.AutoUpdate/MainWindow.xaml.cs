@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AutoUpdaterDotNET;
 using System.Diagnostics;
+//using System.Windows.Forms;
 
 namespace Micro.Future.AutoUpdate
 {
@@ -25,15 +26,45 @@ namespace Micro.Future.AutoUpdate
         public MainWindow()
         {
             InitializeComponent();
+            AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
+            AutoUpdater.Start("http://localhost:63321/Client/AutoUpdater.xml");
         }
         private Process _serverProcess;
-        private void Update_Button_Click(object sender, RoutedEventArgs e)
+        //private void Update_Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    AutoUpdater.Start("http://localhost:63321/Client/AutoUpdater.xml");
+        //}
+        private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)
         {
-            AutoUpdater.Start("http://localhost:63321/Client/AutoUpdater.xml");
-            _serverProcess = new Process();
-            _serverProcess.StartInfo.FileName = @"D:\project\FutureXClient\Micro.Future.ClientUI\bin\Debug\Micro.Future.ClientUI.exe";
-            _serverProcess.StartInfo.WorkingDirectory = @"D:\project\FutureXClient\Micro.Future.ClientUI\bin\Debug";
-            _serverProcess.Start();
+            if (args != null)
+            {
+                if (args.IsUpdateAvailable)
+                {
+                    AutoUpdater.CheckForUpdateEvent -= AutoUpdaterOnCheckForUpdateEvent;
+                    AutoUpdater.Start("http://localhost:63321/Client/AutoUpdater.xml");
+
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show(@"There is no update available please try again later.", @"No update available",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    _serverProcess = new Process();
+                    _serverProcess.StartInfo.FileName = @"D:\project\FutureXClient\Micro.Future.ClientUI\bin\Debug\Micro.Future.ClientUI.exe";
+                    _serverProcess.StartInfo.WorkingDirectory = @"D:\project\FutureXClient\Micro.Future.ClientUI\bin\Debug";
+                    _serverProcess.Start();
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show(
+                       @"There is a problem reaching update server please check your internet connection and try again later.",
+                       @"Update check failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                _serverProcess = new Process();
+                _serverProcess.StartInfo.FileName = @"D:\project\FutureXClient\Micro.Future.ClientUI\bin\Debug\Micro.Future.ClientUI.exe";
+                _serverProcess.StartInfo.WorkingDirectory = @"D:\project\FutureXClient\Micro.Future.ClientUI\bin\Debug";
+                _serverProcess.Start();
+            }
         }
+
     }
 }
