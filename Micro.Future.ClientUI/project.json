@@ -13,8 +13,7 @@
     "Microsoft.EntityFrameworkCore": "1.1.0",
     "OxyPlot.Wpf": "2.0.0-unstable0956",
     "WpfControls.AutoCompleteTextBox": "1.0.0.7",
-    "WpfLocalizeExtension": "2.3.2",
-    "Autoupdater.NET.Official": "1.4.0"
+    "WpfLocalizeExtension": "2.3.2"
   },
   "frameworks": {
     "net461": {}
