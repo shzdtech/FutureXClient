@@ -31,6 +31,7 @@ namespace Micro.Future.AutoUpdate
             Application.Current.Exit += AppExit;
 
             AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
+            AutoUpdater.ShowSkipButton = false;
             AutoUpdater.Start("http://localhost:63321/Client/AutoUpdater.xml");
         }
 
@@ -58,6 +59,8 @@ namespace Micro.Future.AutoUpdate
                     AutoUpdater.CheckForUpdateEvent -= AutoUpdaterOnCheckForUpdateEvent;
                     AutoUpdater.Start("http://localhost:63321/Client/AutoUpdater.xml");
                 }
+                else
+                    Dispatcher.Invoke(() => Close());
             }
             else
             {
