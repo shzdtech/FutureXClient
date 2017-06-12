@@ -28,10 +28,16 @@ namespace Micro.Future.AutoUpdate
         public MainWindow()
         {
             InitializeComponent();
+            Application.Current.Exit += AppExit;
+
             AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
             AutoUpdater.Start("http://localhost:63321/Client/AutoUpdater.xml");
         }
 
+        private void AppExit(object sender, ExitEventArgs e)
+        {
+            LauchMainApp();
+        }
 
         private void LauchMainApp()
         {
@@ -41,8 +47,6 @@ namespace Micro.Future.AutoUpdate
             mainApp.StartInfo.FileName = System.IO.Path.Combine(workingDir, "Micro.Future.ClientUI.exe");
             mainApp.StartInfo.WorkingDirectory = workingDir;
             mainApp.Start();
-
-            Environment.Exit(0);
         }
 
         private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)
@@ -54,14 +58,10 @@ namespace Micro.Future.AutoUpdate
                     AutoUpdater.CheckForUpdateEvent -= AutoUpdaterOnCheckForUpdateEvent;
                     AutoUpdater.Start("http://localhost:63321/Client/AutoUpdater.xml");
                 }
-                else
-                {
-                    LauchMainApp();
-                }
             }
             else
             {
-                LauchMainApp();
+                Dispatcher.Invoke(() => Close());
             }
         }
 
