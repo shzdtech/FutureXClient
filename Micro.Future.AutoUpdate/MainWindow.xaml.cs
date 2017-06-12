@@ -42,7 +42,7 @@ namespace Micro.Future.AutoUpdate
             mainApp.StartInfo.WorkingDirectory = workingDir;
             mainApp.Start();
 
-            Environment.Exit(0);
+            //Environment.Exit(0);
         }
 
         private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)
