@@ -7,6 +7,7 @@ using System.Configuration;
 using System.Collections.Generic;
 using Micro.Future.CustomizedControls;
 using Micro.Future.Resources.Localization;
+using AutoUpdaterDotNET;
 
 namespace Micro.Future.UI
 {
@@ -27,8 +28,39 @@ namespace Micro.Future.UI
         public MainWindow()
         {
             InitializeComponent();
-            Title += " (" + MFUtilities.ClientVersion + ")";
-            Initialize();
+            Hide();
+
+            AutoUpdater.ShowSkipButton = false;
+            AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
+            AutoUpdater.Start("http://localhost:63321/Client/AutoUpdater.xml");
+        }
+
+        private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)
+        {
+            if (args != null)
+            {
+                if (args.IsUpdateAvailable)
+                {
+                    AutoUpdater.CheckForUpdateEvent -= AutoUpdaterOnCheckForUpdateEvent;
+                    AutoUpdater.Start("http://localhost:63321/Client/AutoUpdater.xml");
+                }
+                else
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        Title += " (" + args.CurrentVersion + ")";
+                        Initialize();
+                    });
+                }
+            }
+            else
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    Title += " (" + MFUtilities.ClientVersion + ")";
+                    Initialize();
+                });
+            }
         }
 
         private void _currentLoginWindow_Closed(object sender, EventArgs e)
@@ -50,6 +82,7 @@ namespace Micro.Future.UI
         public void Initialize()
         {
             Login();
+            Show();
         }
 
 
