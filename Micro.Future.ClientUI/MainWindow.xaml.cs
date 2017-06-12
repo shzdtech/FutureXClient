@@ -28,7 +28,6 @@ namespace Micro.Future.UI
         public MainWindow()
         {
             InitializeComponent();
-            Hide();
 
             AutoUpdater.ShowSkipButton = false;
             AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
@@ -48,6 +47,7 @@ namespace Micro.Future.UI
                 {
                     Dispatcher.Invoke(() =>
                     {
+                        Hide();
                         Title += " (" + args.CurrentVersion + ")";
                         Initialize();
                     });
@@ -57,6 +57,7 @@ namespace Micro.Future.UI
             {
                 Dispatcher.Invoke(() =>
                 {
+                    Hide();
                     Title += " (" + MFUtilities.ClientVersion + ")";
                     Initialize();
                 });
