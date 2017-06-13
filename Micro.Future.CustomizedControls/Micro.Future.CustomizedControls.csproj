@@ -188,7 +188,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Micro.Future.UIObjects\Micro.Future.UIObjects.csproj">
       <Project>{4bd98165-b411-4890-b74a-30619059502b}</Project>
-      <Name>Micro.Future.UIObject</Name>
+      <Name>Micro.Future.UIObjects</Name>
     </ProjectReference>
     <ProjectReference Include="..\Micro.Future.WPFThemeLib\Micro.Future.WPFThemeLib.csproj">
       <Project>{fc6c36d7-d378-4cb9-a50c-e5a0050e9182}</Project>
