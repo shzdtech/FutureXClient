@@ -30,6 +30,7 @@ namespace AutoUpdaterDotNET
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
             this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.labelUpdate = new System.Windows.Forms.Label();
             this.labelDescription = new System.Windows.Forms.Label();
@@ -43,40 +44,30 @@ namespace AutoUpdaterDotNET
             // 
             // webBrowser
             // 
-            this.webBrowser.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.webBrowser, "webBrowser");
             this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(250, 250);
-            this.webBrowser.TabIndex = 4;
             // 
             // labelUpdate
             // 
-            this.labelUpdate.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.labelUpdate, "labelUpdate");
             this.labelUpdate.Name = "labelUpdate";
-            this.labelUpdate.Size = new System.Drawing.Size(100, 23);
-            this.labelUpdate.TabIndex = 3;
             // 
             // labelDescription
             // 
-            this.labelDescription.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.labelDescription, "labelDescription");
             this.labelDescription.Name = "labelDescription";
-            this.labelDescription.Size = new System.Drawing.Size(100, 23);
-            this.labelDescription.TabIndex = 2;
             // 
             // labelReleaseNotes
             // 
-            this.labelReleaseNotes.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.labelReleaseNotes, "labelReleaseNotes");
             this.labelReleaseNotes.Name = "labelReleaseNotes";
-            this.labelReleaseNotes.Size = new System.Drawing.Size(100, 23);
-            this.labelReleaseNotes.TabIndex = 1;
             // 
             // buttonUpdate
             // 
             this.buttonUpdate.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonUpdate.Image = global::AutoUpdaterDotNET.Properties.Resources.download;
-            this.buttonUpdate.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.buttonUpdate, "buttonUpdate");
             this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(75, 23);
-            this.buttonUpdate.TabIndex = 5;
             this.buttonUpdate.UseVisualStyleBackColor = true;
             this.buttonUpdate.Click += new System.EventHandler(this.ButtonUpdateClick);
             // 
@@ -84,40 +75,33 @@ namespace AutoUpdaterDotNET
             // 
             this.buttonRemindLater.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonRemindLater.Image = global::AutoUpdaterDotNET.Properties.Resources.clock_go;
-            this.buttonRemindLater.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.buttonRemindLater, "buttonRemindLater");
             this.buttonRemindLater.Name = "buttonRemindLater";
-            this.buttonRemindLater.Size = new System.Drawing.Size(75, 23);
-            this.buttonRemindLater.TabIndex = 7;
             this.buttonRemindLater.UseVisualStyleBackColor = true;
             this.buttonRemindLater.Click += new System.EventHandler(this.ButtonRemindLaterClick);
             // 
             // pictureBoxIcon
             // 
             this.pictureBoxIcon.Image = global::AutoUpdaterDotNET.Properties.Resources.update;
-            this.pictureBoxIcon.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.pictureBoxIcon, "pictureBoxIcon");
             this.pictureBoxIcon.Name = "pictureBoxIcon";
-            this.pictureBoxIcon.Size = new System.Drawing.Size(100, 50);
-            this.pictureBoxIcon.TabIndex = 0;
             this.pictureBoxIcon.TabStop = false;
             // 
             // buttonSkip
             // 
             this.buttonSkip.DialogResult = System.Windows.Forms.DialogResult.Abort;
             this.buttonSkip.Image = global::AutoUpdaterDotNET.Properties.Resources.hand_point;
-            this.buttonSkip.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.buttonSkip, "buttonSkip");
             this.buttonSkip.Name = "buttonSkip";
-            this.buttonSkip.Size = new System.Drawing.Size(75, 23);
-            this.buttonSkip.TabIndex = 6;
             this.buttonSkip.UseVisualStyleBackColor = true;
             this.buttonSkip.Click += new System.EventHandler(this.ButtonSkipClick);
             // 
             // UpdateForm
             // 
             this.AcceptButton = this.buttonUpdate;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonRemindLater;
-            this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.pictureBoxIcon);
             this.Controls.Add(this.labelReleaseNotes);
             this.Controls.Add(this.labelDescription);
@@ -133,6 +117,7 @@ namespace AutoUpdaterDotNET
             this.Load += new System.EventHandler(this.UpdateFormLoad);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
