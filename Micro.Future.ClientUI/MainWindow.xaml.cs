@@ -30,8 +30,9 @@ namespace Micro.Future.UI
             InitializeComponent();
 
             AutoUpdater.ShowSkipButton = false;
+            AutoUpdater.ShowRemindLaterButton = false;
             AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
-            AutoUpdater.Start("http://localhost:63321/Client/AutoUpdater.xml");
+            AutoUpdater.Start(Settings.Default.AutoUpdateAddress);
         }
 
         private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)
@@ -41,7 +42,7 @@ namespace Micro.Future.UI
                 if (args.IsUpdateAvailable)
                 {
                     AutoUpdater.CheckForUpdateEvent -= AutoUpdaterOnCheckForUpdateEvent;
-                    AutoUpdater.Start("http://localhost:63321/Client/AutoUpdater.xml");
+                    AutoUpdater.Start(Settings.Default.AutoUpdateAddress);
                 }
                 else
                 {
@@ -56,7 +57,7 @@ namespace Micro.Future.UI
             else
             {
                 Dispatcher.Invoke(() =>
-                {
+                {   
                     Hide();
                     Title += " (" + MFUtilities.ClientVersion + ")";
                     Initialize();

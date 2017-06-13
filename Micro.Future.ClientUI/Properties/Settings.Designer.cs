@@ -31,5 +31,14 @@ namespace Micro.Future.Properties {
                 return ((string)(this["ConfigFile"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://139.196.202.235/AutoUpdater/AutoUpdater.xml")]
+        public string AutoUpdateAddress {
+            get {
+                return ((string)(this["AutoUpdateAddress"]));
+            }
+        }
     }
 }
