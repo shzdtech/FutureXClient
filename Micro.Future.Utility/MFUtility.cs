@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Micro.Future.LocalStorage;
-
-
-
-
+using System.Reflection;
 
 namespace Micro.Future.Utility
 {
@@ -38,29 +35,11 @@ namespace Micro.Future.Utility
 
 
         //get client version from localStorage
-        public static string ClientVersion
+        public static Version ClientVersion
         {
             get
             {
-                using (var clientDbCtx = new ClientDbContext())
-                {
-                    var queryClicentInfo = from db in clientDbCtx.ClientInfo
-                                           group db by db.Id into g
-                                           select new { g.Key, MaxVersion = g.Max(db => db.Version) };
-
-                    int queryCount = queryClicentInfo.Count();
-
-                    if (queryCount == 1)
-                    {
-                        Console.WriteLine("找到了最大版本号");
-                        foreach (var result in queryClicentInfo)
-                        {
-                            clientVersion = result.MaxVersion;
-                            Console.WriteLine(clientVersion);
-                        }
-                    }
-                    return clientVersion;
-                }
+                return Assembly.GetEntryAssembly().GetName().Version;
             }
         }
 
