@@ -6,7 +6,7 @@
       <Value Profile="(Default)">Settings.ini</Value>
     </Setting>
     <Setting Name="AutoUpdateAddress" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://139.196.202.235/AutoUpdater/AutoUpdater.xml</Value>
+      <Value Profile="(Default)">http://139.196.202.235/AutoUpdater/AutoUpdater.xml</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -43,6 +43,10 @@ namespace Micro.Future.UI
                 {
                     AutoUpdater.CheckForUpdateEvent -= AutoUpdaterOnCheckForUpdateEvent;
                     AutoUpdater.Start(Settings.Default.AutoUpdateAddress);
+                    Dispatcher.Invoke(() =>
+                    {
+                        Hide();
+                    });
                 }
                 else
                 {

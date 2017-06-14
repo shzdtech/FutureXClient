@@ -34,7 +34,7 @@ namespace Micro.Future.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://139.196.202.235/AutoUpdater/AutoUpdater.xml")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://139.196.202.235/AutoUpdater/AutoUpdater.xml")]
         public string AutoUpdateAddress {
             get {
                 return ((string)(this["AutoUpdateAddress"]));
