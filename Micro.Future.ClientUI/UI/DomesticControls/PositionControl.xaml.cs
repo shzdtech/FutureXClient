@@ -216,6 +216,8 @@ namespace Micro.Future.UI
                                         orderVM.LimitPrice = mktdataVM.BidPrice;
                                         orderVM.TIF = OrderTIFType.GFD;
                                         orderVM.ExecType = OrderExecType.LIMIT;
+                                        if (positionVM.Portfolio != null)
+                                            orderVM.Portfolio = positionVM.Portfolio;
                                         orderVM.SendOrder();
                                     }
                                 }
@@ -233,6 +235,8 @@ namespace Micro.Future.UI
                                         orderVM.LimitPrice = mktdataVM.BidPrice;
                                         orderVM.TIF = OrderTIFType.GFD;
                                         orderVM.ExecType = OrderExecType.LIMIT;
+                                        if (positionVM.Portfolio != null)
+                                            orderVM.Portfolio = positionVM.Portfolio;
                                         orderVM.SendOrder();
                                     }
                                 }
@@ -253,6 +257,8 @@ namespace Micro.Future.UI
                                         orderVM.SendOrder();
                                         orderVM.OpenClose = OrderOpenCloseType.CLOSETODAY;
                                         orderVM.Volume = positionVM.TodayPosition;
+                                        if (positionVM.Portfolio != null)
+                                            orderVM.Portfolio = positionVM.Portfolio;
                                         orderVM.SendOrder();
                                     }
                                 }
@@ -282,6 +288,8 @@ namespace Micro.Future.UI
                                         orderVM.LimitPrice = mktdataVM.AskPrice;
                                         orderVM.TIF = OrderTIFType.GFD;
                                         orderVM.ExecType = OrderExecType.LIMIT;
+                                        if (positionVM.Portfolio != null)
+                                            orderVM.Portfolio = positionVM.Portfolio;
                                         orderVM.SendOrder();
                                     }
                                 }
@@ -299,6 +307,8 @@ namespace Micro.Future.UI
                                         orderVM.LimitPrice = mktdataVM.AskPrice;
                                         orderVM.TIF = OrderTIFType.GFD;
                                         orderVM.ExecType = OrderExecType.LIMIT;
+                                        if (positionVM.Portfolio != null)
+                                            orderVM.Portfolio = positionVM.Portfolio;
                                         orderVM.SendOrder();
                                     }
                                 }
@@ -319,6 +329,8 @@ namespace Micro.Future.UI
                                         orderVM.SendOrder();
                                         orderVM.OpenClose = OrderOpenCloseType.CLOSETODAY;
                                         orderVM.Volume = positionVM.TodayPosition;
+                                        if (positionVM.Portfolio != null)
+                                            orderVM.Portfolio = positionVM.Portfolio;
                                         orderVM.SendOrder();
                                     }
                                 }
