@@ -269,8 +269,7 @@ namespace Micro.Future.UI
 
                     if (strategyBaseVM != null)
                     {
-
-                        _abstractOTCHandler.UpdateValuation(new ValuationVM { Contract = strategyBaseVM.Contract, Price = strategyBaseVM.Valuation });
+                                                
                     }
                 }
             }

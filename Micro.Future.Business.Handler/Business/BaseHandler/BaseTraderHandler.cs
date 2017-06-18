@@ -493,6 +493,56 @@ namespace Micro.Future.Message
             CancelOrder(orderVM);
             CreateOrder(orderVM);
         }
+
+
+        public Task<ObservableCollection<RiskVM>> QueryValuationRiskAsync(QueryValuation queryValuation, string portfolio, double interest = 0, int timeout = 10000)
+        {
+            var sst = new PBValuationRisk();
+            var msgId = (uint)BusinessMessageID.MSG_ID_QUERY_VALUATION_RISK;
+            var tcs = new TaskCompletionSource<ObservableCollection<RiskVM>>(new CancellationTokenSource(timeout));
+
+            var serialId = NextSerialId;
+            sst.Header = new DataHeader { SerialId = serialId };
+
+            sst.Interest = queryValuation.Interest.HasValue ? queryValuation.Interest.Value : -1;
+            sst.DaysRemain = queryValuation.DaysRemain.HasValue ? queryValuation.DaysRemain.Value : -1;
+
+            foreach (var cv in queryValuation.ContractParams)
+            {
+                var valuation = new PBValuationContract()
+                {
+                    Contract = cv.Key,
+                    Price = cv.Value.Price
+                };
+
+                if (cv.Value.Volatitly > 0)
+                    valuation.Volatility = cv.Value.Volatitly;
+
+                sst.ContractValue.Add(valuation);
+            }
+
+            MessageWrapper.RegisterAction<PBRiskList, ExceptionMessage>
+                    (msgId,
+                    (resp) =>
+                    {
+                        if (resp.Header?.SerialId == serialId)
+                        {
+                            tcs.TrySetResult(OnQueryRiskSuccessAction(resp));
+                        }
+                    },
+                    (bizErr) =>
+                    {
+                        OnErrorAction(bizErr);
+                        tcs.SetResult(null);
+                    }
+                    );
+
+            MessageWrapper.SendMessage(msgId, sst);
+
+            return tcs.Task;
+        }
+
+
         public Task<ObservableCollection<RiskVM>> QueryRiskAsync(string portfolio, int timeout = 10000)
         {
             var sst = new StringMap();
@@ -548,6 +598,7 @@ namespace Micro.Future.Message
 
             return riskList;
         }
+
         protected void OnErrorAction(ExceptionMessage bizErr)
         {
             if (bizErr.Description != null)
