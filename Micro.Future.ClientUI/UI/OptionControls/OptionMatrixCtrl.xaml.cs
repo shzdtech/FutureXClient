@@ -102,55 +102,63 @@ namespace Micro.Future.UI
         private MarketDataHandler _marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
         private AbstractOTCHandler _abstractOTCHandler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
 
+        //private void ReloadDataCallback(object state)
+        //{
+        //    Dispatcher.Invoke(async () =>
+        //    {
+        //        var portfolio = portfolioCB.SelectedValue?.ToString();
+        //        var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+        //        lock (BarItemCollection)
+        //        {
+        //            foreach (var baritem in BarItemCollection)
+        //            {
+        //                baritem.Value = 0;
+        //            }
+        //            foreach (var vm in riskVMlist)
+        //            {
+
+        //                if (_riskSet.Contains(vm.Contract))
+        //                {
+        //                    var contractinfo = ClientDbContext.FindContract(vm.Contract);
+
+        //                    if ((callCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION)
+        //                || (putCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION))
+
+        //                    {
+        //                        int index;
+
+        //                        if (_riskDict.TryGetValue(vm.Contract, out index))
+        //                        {
+
+        //                            var barItem = BarItemCollection[index];
+        //                            if (deltaCheckBox.IsChecked.Value)
+        //                                barItem.Value += vm.Delta;
+        //                            else if (gammaCheckBox.IsChecked.Value)
+        //                                barItem.Value += vm.Gamma;
+        //                            else if (vegaCheckBox.IsChecked.Value)
+        //                                barItem.Value += vm.Vega100;
+        //                            else if (thetaCheckBox.IsChecked.Value)
+        //                                barItem.Value += vm.Theta365;
+        //                            else if (rhoCheckBox.IsChecked.Value)
+        //                                barItem.Value += vm.Rho100;
+        //                        }
+        //                    }
+        //                }
+
+        //                plotModel.InvalidatePlot(true);
+        //            }
+        //        }
+        //    });
+        //}
         private void ReloadDataCallback(object state)
         {
-            Dispatcher.Invoke(async () =>
+            var portfolio = portfolioCB.SelectedValue?.ToString();
+            if (priceCntIUP != null && priceSizeIUP != null && volCntIUP != null && volSizeIUP != null)
             {
-                var portfolio = portfolioCB.SelectedValue?.ToString();
-                var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
-                lock (BarItemCollection)
-                {
-                    foreach (var baritem in BarItemCollection)
-                    {
-                        baritem.Value = 0;
-                    }
-                    foreach (var vm in riskVMlist)
-                    {
 
-                        if (_riskSet.Contains(vm.Contract))
-                        {
-                            var contractinfo = ClientDbContext.FindContract(vm.Contract);
+            }
 
-                            if ((callCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION)
-                        || (putCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION))
-
-                            {
-                                int index;
-
-                                if (_riskDict.TryGetValue(vm.Contract, out index))
-                                {
-
-                                    var barItem = BarItemCollection[index];
-                                    if (deltaCheckBox.IsChecked.Value)
-                                        barItem.Value += vm.Delta;
-                                    else if (gammaCheckBox.IsChecked.Value)
-                                        barItem.Value += vm.Gamma;
-                                    else if (vegaCheckBox.IsChecked.Value)
-                                        barItem.Value += vm.Vega100;
-                                    else if (thetaCheckBox.IsChecked.Value)
-                                        barItem.Value += vm.Theta365;
-                                    else if (rhoCheckBox.IsChecked.Value)
-                                        barItem.Value += vm.Rho100;
-                                }
-                            }
-                        }
-
-                        plotModel.InvalidatePlot(true);
-                    }
-                }
-            });
         }
-
         public OptionMatrixCtrl()
         {
             InitializeComponent();
