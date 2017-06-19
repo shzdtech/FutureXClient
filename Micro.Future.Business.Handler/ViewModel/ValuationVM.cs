@@ -6,22 +6,21 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.ViewModel
 {
-    //报价
-    public class ValuationVM : ContractKeyVM
-    {
-        private double _price;
-        public double Price
-        {
-            get
-            {
-                return _price;
-            }
-            set
-            {
-                _price = value;
-                OnPropertyChanged("Price");
-            }
-        }
 
+    public class ValuationParam
+    {
+        public double Price { get; set; }
+        public double Volatitly { get; set; }
+    }
+    //报价
+    public class QueryValuation
+    {
+        public IDictionary<string, ValuationParam> ContractParams
+        {
+            get;
+        } = new Dictionary<string, ValuationParam>();
+
+        public double? Interest { get; set; }
+        public int? DaysRemain { get; set; }
     }
 }

@@ -34,11 +34,7 @@ namespace Micro.Future.Message
                         Encoding.UTF8.GetString(msg)));
             }
         }
-        public ValuationVM ValuationVM
-        {
-            get;
-            set;
-        }
+
         public ObservableCollection<StrategyVM> StrategyVMCollection
         {
             get;
@@ -101,8 +97,6 @@ namespace Micro.Future.Message
                       ((uint)BusinessMessageID.MSG_ID_MODIFY_PRICING_CONTRACT, OnQueryStrategySuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBInstrumentList, ExceptionMessage>
                       ((uint)BusinessMessageID.MSG_ID_UNSUB_TRADINGDESK_PRICING, UnsubTDSuccessAction, OnErrorAction);
-            MessageWrapper.RegisterAction<PBValuationContract, ExceptionMessage>
-                      ((uint)BusinessMessageID.MSG_ID_QUERY_VALUATION_PRICING, OnQueryValuationSuccessAction, OnErrorAction);
         }
 
         public Task<ModelParamsVM> QueryModelParamsAsync(string modelName, int timeout = 10000)
@@ -410,6 +404,7 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }
 
+
         public void UpdatePortfolio(PortfolioVM pVM)
         {
             var portfolio = new PBPortfolio();
@@ -420,14 +415,7 @@ namespace Micro.Future.Message
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_PORTFOLIO, portfolio);
         }
-        public void UpdateValuation(ValuationVM vVM)
-        {
-            var valuation = new PBValuationContract();
-            //valuation.Exchange = vVM.Exchange;
-            valuation.Contract = vVM.Contract;
-            valuation.Price = vVM.Price;
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_UPDATE_VALUATION_PRICING, valuation);
-        }
+
 
         public void UpdateStrategyModel(StrategyVM sVM, StrategyVM.Model model)
         {
@@ -649,17 +637,6 @@ namespace Micro.Future.Message
                         });
                 }
             }
-        }
-        public void QueryValuation()
-        {
-            var sst = new StringMap();
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_VALUATION_PRICING, sst);
-        }
-        protected void OnQueryValuationSuccessAction(PBValuationContract valuationContract)
-        {
-            ValuationVM.Contract = valuationContract.Contract;
-            ValuationVM.Exchange = valuationContract.Exchange;
-            ValuationVM.Price = valuationContract.Price;
         }
 
         public void QueryContractParam()
