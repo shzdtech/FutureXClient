@@ -152,18 +152,33 @@ namespace Micro.Future.UI
         //}
         private void ReloadDataCallback(object state)
         {
-            var portfolio = portfolioCB.SelectedValue?.ToString();
-            if (priceCntIUP != null && priceSizeIUP != null && volCntIUP != null && volSizeIUP != null)
+            Dispatcher.Invoke(() =>
             {
-
+                var portfolio = portfolioCB.SelectedValue?.ToString();
+                if (priceCntIUP.Value != null && priceSizeIUP.Value != null && volCntIUP.Value != null && volSizeIUP.Value != null)
+                {
+                    int volCount = 2 * VolCnt + 2;
+                    int priceCount = 2 * PriceCnt + 2;
+                    if (riskMatrixTable.RowGroups.Count != 0)
+                    {
+                        for (int x = 1; x < volCount; x++)
+                        {
+                            TableRow currentRow = riskMatrixTable.RowGroups[0].Rows[x];
+                            for (int y = 1; y < riskMatrixTable.Columns.Count; y++)
+                            {
+                                currentRow.Cells[y].DataContext = 1;
+                            }
+                        }
+                }
             }
-
+            });
         }
         public OptionMatrixCtrl()
         {
             InitializeComponent();
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
+
         }
 
         private void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -225,7 +240,6 @@ namespace Micro.Future.UI
                 _timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
             }
         }
-
 
         private async void exCheckBox_Checked(object sender, RoutedEventArgs e)
         {
@@ -366,7 +380,6 @@ namespace Micro.Future.UI
                 {
                     riskMatrixTable.RowGroups[0].Rows.Add(new TableRow());
                     //TableRow currentRow0 = riskMatrixTable.RowGroups[0].Rows[0];
-
                     if (x == 0)
                     {
                         addRowHeader(PriceCnt, columnsize);
