@@ -17,9 +17,8 @@
 
     <Grid ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.35*" />
+            <ColumnDefinition Width="0.3*" />
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Width="Auto" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True">
             <GroupBox x:Name="portfolioGB" Header="{lex:Loc Key=Portfolio}">
@@ -49,12 +48,12 @@
             <GroupBox x:Name="expirationGB" Header="{lex:Loc Key=Expiration}" Width="Auto">
                 <ListView x:Name="expirationLV" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Visible" Width="Auto">
                     <ListView.View>
-                        <GridView>
+                        <GridView x:Name="expirationGV">
                             <!--<GridViewColumn x:Name="contract" Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.BidVol,StringFormat=P2}" />-->
                             <GridViewColumn>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <CheckBox Name="expCheckBox" HorizontalAlignment="Center" Checked="exCheckBox_Checked" Unchecked="exCheckBox_UnChecked" ></CheckBox>
+                                        <CheckBox Name="expCheckBox" HorizontalAlignment="Center" Checked="exCheckBox_Checked" Unchecked="exCheckBox_UnChecked" IsChecked="{Binding Selected}" ></CheckBox>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -103,33 +102,28 @@
                     <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key=StrikePrice}" Width="50"/>
                     <Label Grid.Row="0" Grid.Column="1" Content="{lex:Loc Key=Tick_Count}" Width="50"/>
                     <Label Grid.Row="0" Grid.Column="2" Content="{lex:Loc Key=Tick_Size}" Width="50"/>
-                    <xctk:IntegerUpDown x:Name="priceCntIUP" UpdateValueOnEnterKey="True"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Spinned="IntSpinned" ValueChanged="priceCntValueChanged" Minimum="1" Maximum="10"></xctk:IntegerUpDown>
-                    <xctk:DoubleUpDown x:Name="priceSizeIUP" UpdateValueOnEnterKey="True" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" Spinned="Spinned" ValueChanged="priceSizeValueChanged"  ShowButtonSpinner="False" Width="70" Minimum="0"></xctk:DoubleUpDown>
+                    <xctk:IntegerUpDown x:Name="priceCntIUP" UpdateValueOnEnterKey="True"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Spinned="IntSpinned" ValueChanged="priceCntValueChanged" Minimum="1" Maximum="10" Value="1"></xctk:IntegerUpDown>
+                    <xctk:DoubleUpDown x:Name="priceSizeIUP" UpdateValueOnEnterKey="True" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" Spinned="Spinned" ValueChanged="priceSizeValueChanged"  ShowButtonSpinner="False" Width="70" Minimum="0" Value="1"></xctk:DoubleUpDown>
                     <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key=Volatility}" Width="50"/>
-                    <xctk:IntegerUpDown x:Name="volCntIUP" UpdateValueOnEnterKey="True"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Spinned="IntSpinned" ValueChanged="volCntValueChanged" Minimum="1" Maximum="10" ></xctk:IntegerUpDown>
-                    <xctk:DoubleUpDown x:Name="volSizeIUP" UpdateValueOnEnterKey="True" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch" Spinned="Spinned" ValueChanged="volSizeValueChanged" ShowButtonSpinner="False" Width="70" Minimum="0"></xctk:DoubleUpDown>
+                    <xctk:IntegerUpDown x:Name="volCntIUP" UpdateValueOnEnterKey="True"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Spinned="IntSpinned" ValueChanged="volCntValueChanged" Minimum="1" Maximum="10" Value="1"></xctk:IntegerUpDown>
+                    <xctk:DoubleUpDown x:Name="volSizeIUP" UpdateValueOnEnterKey="True" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch" Spinned="Spinned" ValueChanged="volSizeValueChanged" ShowButtonSpinner="False" Width="70" Minimum="0" Value="1"></xctk:DoubleUpDown>
                     <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key=Expiration}" Width="50"/>
-                    <xctk:IntegerUpDown x:Name="expIUP" UpdateValueOnEnterKey="True"  Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Minimum="0"></xctk:IntegerUpDown>
+                    <xctk:IntegerUpDown x:Name="expIUP" UpdateValueOnEnterKey="True"  Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Minimum="0" Spinned="IntSpinned" ValueChanged="expirationValueChanged"></xctk:IntegerUpDown>
                     <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key=Interest}" Width="50"/>
-                    <xctk:DoubleUpDown x:Name="interestUP" UpdateValueOnEnterKey="True" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" Width="70" Minimum="0"></xctk:DoubleUpDown>
+                    <xctk:DoubleUpDown x:Name="interestUP" UpdateValueOnEnterKey="True" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" Width="70" Minimum="0" Spinned="Spinned" ValueChanged="interestValueChanged" ShowButtonSpinner="False"></xctk:DoubleUpDown>
                 </Grid>
             </GroupBox>
-            <GroupBox x:Name="resetGB">
-                <StackPanel>
-                    <Button x:Name="resetButton" Content="{lex:Loc Key=Reset}" Width="75" Click="resetButton_Click" HorizontalAlignment="Left"/>
-                </StackPanel>
-            </GroupBox>
         </StackPanel>
-        <oxy:Plot x:Name="plotModel" Grid.Column="1">
+        <!--<oxy:Plot x:Name="plotModel" Grid.Column="1">
             <oxy:ColumnSeries x:Name="columnSeries" />
             <oxy:Plot.Axes>
                 <oxy:CategoryAxis  x:Name="strikeAxis" Position="Bottom" Title="StrikePrice"/>
                 <oxy:LinearAxis x:Name="greeksAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="Greeks"/>
             </oxy:Plot.Axes>
-        </oxy:Plot>
-        <FlowDocumentReader Grid.Column="2">
+        </oxy:Plot>-->
+        <FlowDocumentReader Grid.Column="1">
             <FlowDocument>
-                <Table Name="riskMatrixTable" BorderThickness="10">
+                <Table Name="riskMatrixTable" BorderThickness="1" BorderBrush="Gray">
                 </Table>
             </FlowDocument>
         </FlowDocumentReader>
