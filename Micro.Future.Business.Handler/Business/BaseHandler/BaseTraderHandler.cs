@@ -495,7 +495,7 @@ namespace Micro.Future.Message
         }
 
 
-        public Task<ObservableCollection<RiskVM>> QueryValuationRiskAsync(QueryValuation queryValuation, string portfolio, double interest = 0, int timeout = 10000)
+        public Task<ObservableCollection<RiskVM>> QueryValuationRiskAsync(QueryValuation queryValuation, string portfolio, int timeout = 10000)
         {
             var sst = new PBValuationRisk();
             var msgId = (uint)BusinessMessageID.MSG_ID_QUERY_VALUATION_RISK;
@@ -504,6 +504,7 @@ namespace Micro.Future.Message
             var serialId = NextSerialId;
             sst.Header = new DataHeader { SerialId = serialId };
 
+            sst.Portfolio = portfolio;
             sst.Interest = queryValuation.Interest.HasValue ? queryValuation.Interest.Value : -1;
             sst.DaysRemain = queryValuation.DaysRemain.HasValue ? queryValuation.DaysRemain.Value : -1;
 
