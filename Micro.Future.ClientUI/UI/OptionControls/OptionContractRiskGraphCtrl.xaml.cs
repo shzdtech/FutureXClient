@@ -67,6 +67,31 @@ namespace Micro.Future.UI
                 get;
                 set;
             }
+            public double Valuation
+            {
+                get;
+                set;
+            }
+            public bool Selected
+            {
+                get;
+                set;
+            }
+            public double LastPrice
+            {
+                get;
+                set;
+            }
+            public double SettlePrice
+            {
+                get;
+                set;
+            }
+            public MarketDataVM MktVM
+            {
+                get;
+                set;
+            }
 
         }
 
@@ -118,10 +143,36 @@ namespace Micro.Future.UI
                     }
                 }
             }
+            plotModel.InvalidatePlot(true);
         }
         private async void RiskIndex(string portfolio)
         {
-            var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+            var queryvaluation = new QueryValuation();
+            foreach (var item in expirationLV.ItemsSource)
+            {
+                var strategyvm = item as StrategyBaseVM;
+
+                double price = 0;
+                if (strategyvm.Selected)
+                {
+                    if (marketRadioButton.IsChecked.Value)
+                    {
+                        price = strategyvm.MktVM.LastPrice;
+                    }
+                    else if (settlementRadioButton.IsChecked.Value)
+                    {
+                        price = strategyvm.MktVM.SettlePrice;
+                    }
+                    else if (valuationRadioButton.IsChecked.Value)
+                    {
+                        price = strategyvm.Valuation;
+                    }
+
+                    queryvaluation.ContractParams[strategyvm.Contract] = new ValuationParam { Price = price, Volatitly = 0 };
+
+                }
+            }
+            var riskVMlist = await _otcOptionTradeHandler.QueryValuationRiskAsync(queryvaluation, portfolio);
             foreach (var vm in riskVMlist)
             {
                 var contractinfo = ClientDbContext.FindContract(vm.Contract);
@@ -205,13 +256,13 @@ namespace Micro.Future.UI
         }
         private void ReloadDataCallback(object state)
         {
-            Dispatcher.Invoke(async () =>
+            Dispatcher.Invoke( () =>
             {
                 _tradeExHandler.QueryPosition();
                 var positionCollection = _tradeExHandler.PositionVMCollection;
                 var portfolio = portfolioCB.SelectedValue?.ToString();
                 var positions = _tradeExHandler.PositionVMCollection.Where(p => p.Portfolio == portfolio);
-                var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+                //var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
                 lock (BarItemCollection)
                 {
                     foreach (var baritem in BarItemCollection)
@@ -219,11 +270,11 @@ namespace Micro.Future.UI
                         baritem.Value = 0;
                     }
                 }
-                RiskIndex(portfolio);
-                //if (pnlRadioButton.IsChecked.Value)
-                //    PnLIndex(portfolio);
-                //else if (!pnlRadioButton.IsChecked.Value)
-                //    RiskIndex(portfolio);
+                //RiskIndex(portfolio);
+                if (pnlRadioButton.IsChecked.Value)
+                    PnLIndex(portfolio);
+                else if (!pnlRadioButton.IsChecked.Value)
+                    RiskIndex(portfolio);
             });
         }
 
@@ -234,7 +285,7 @@ namespace Micro.Future.UI
             portfolioCB.ItemsSource = portfolioVMCollection;
         }
 
-        private void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (portfolioCB.SelectedValue != null)
             {
@@ -251,6 +302,8 @@ namespace Micro.Future.UI
                     if (contractinfo != null)
                     {
                         vm.Expiration = contractinfo.ExpireDate;
+                        vm.MktVM = await _marketDataHandler.SubMarketDataAsync(vm.Contract);
+
                     }
                 }
 

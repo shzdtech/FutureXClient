@@ -191,6 +191,8 @@ namespace Micro.Future.Message
             mktVM.LowValue = md.LowValue;
             mktVM.UpperLimitPrice = md.HighLimit;
             mktVM.LowerLimitPrice = md.LowLimit;
+            mktVM.SettlePrice = md.SettlePrice;
+
         }
 
         protected virtual void RetMDSuccessAction(PBMarketData md)

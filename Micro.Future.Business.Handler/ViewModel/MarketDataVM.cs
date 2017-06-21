@@ -87,6 +87,17 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private double settleprice;
+
+        public double SettlePrice
+        {
+            get { return settleprice; }
+            set
+            {
+                settleprice = value;
+                OnPropertyChanged("SettlePrice");
+            }
+        }
         private double upperlimitprice;
 
         public double UpperLimitPrice

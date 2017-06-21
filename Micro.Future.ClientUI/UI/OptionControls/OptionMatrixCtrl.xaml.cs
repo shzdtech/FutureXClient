@@ -32,10 +32,7 @@ namespace Micro.Future.UI
 
     {
         private IDictionary<string, int> _riskDict = new Dictionary<string, int>();
-        public List<ColumnItem> BarItemCollection
-        {
-            get;
-        } = new List<ColumnItem>();
+
 
         private HashSet<string> _riskSet = new HashSet<string>();
 
@@ -160,6 +157,11 @@ namespace Micro.Future.UI
             get;
             set;
         }
+        public double TablePnL
+        {
+            get;
+            set;
+        }
         private TraderExHandler _tradeExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
@@ -244,21 +246,23 @@ namespace Micro.Future.UI
         {
             if (string.IsNullOrEmpty(portfolio))
                 return;
-            foreach (var item in expirationLV.ItemsSource)
-            {
-                var strategyvm = item as StrategyBaseVM;
-                    if (marketRadioButton.IsChecked.Value)
-                    {
-                        var mktDataVM = await _marketdataHandler.SubMarketDataAsync(strategyvm.Contract);
-                        strategyvm.LastPrice = mktDataVM.LastPrice;
-                    }
-                    else if (settlementRadioButton.IsChecked.Value)
-                    {
-                        var mktDataVM = await _marketdataHandler.SubMarketDataAsync(strategyvm.Contract);
-                        strategyvm.SettlePrice = mktDataVM.LastPrice;
-                    }
-            }
+            var positions = _tradeExHandler.PositionVMCollection.Where(p => p.Portfolio == portfolio);
+            //foreach (var item in expirationLV.ItemsSource)
+            //{
+            //    var strategyvm = item as StrategyBaseVM;
+            //    if (marketRadioButton.IsChecked.Value)
+            //    {
+            //        var mktDataVM = await _marketdataHandler.SubMarketDataAsync(strategyvm.Contract);
+            //        strategyvm.LastPrice = mktDataVM.LastPrice;
+            //    }
+            //    else if (settlementRadioButton.IsChecked.Value)
+            //    {
+            //        var mktDataVM = await _marketdataHandler.SubMarketDataAsync(strategyvm.Contract);
+            //        strategyvm.SettlePrice = mktDataVM.LastPrice;
+            //    }
+            //}
             var queryvaluation = new QueryValuation();
+            var queryvaluationzero = new QueryValuation();
             if (expIUP.Value != null && interestUP.Value != null)
             {
                 queryvaluation.Interest = interestUP.Value;
@@ -273,14 +277,14 @@ namespace Micro.Future.UI
                     for (int x = 1; x < riskMatrixTable.RowGroups[0].Rows.Count; x++)
                     {
                         TableRow currentRow = riskMatrixTable.RowGroups[0].Rows[x];
-
+                        double pnl = 0;
                         for (int y = 1; y < riskMatrixTable.Columns.Count; y++)
                         {
 
                             foreach (var item in expirationLV.ItemsSource)
                             {
                                 var strategyvm = item as StrategyBaseVM;
-                                double price = 0; 
+                                double price = 0;
                                 if (strategyvm.Selected)
                                 {
                                     if (marketRadioButton.IsChecked.Value)
@@ -289,75 +293,106 @@ namespace Micro.Future.UI
                                     }
                                     else if (settlementRadioButton.IsChecked.Value)
                                     {
-                                        price = strategyvm.MktVM.LastPrice;
+                                        price = strategyvm.MktVM.SettlePrice;
                                     }
                                     else if (valuationRadioButton.IsChecked.Value)
                                     {
                                         price = strategyvm.Valuation;
                                     }
                                     var tableValuation = price - priceCntIUP.Value * priceSizeIUP.Value + (y - 1) * priceSizeIUP.Value;
-                                    var tableVol = 1 - volCntIUP.Value * volSizeIUP.Value + (x - 1) * volSizeIUP.Value;
+                                    var tableVol = 0 + volCntIUP.Value * volSizeIUP.Value - (x - 1) * volSizeIUP.Value;
                                     TableValuation = (double)tableValuation;
                                     TableVol = (double)tableVol;
-
+                                    //if (variateRadioButton.IsChecked.Value)
+                                    //{
+                                    //    queryvaluationzero.ContractParams[strategyvm.Contract] = new ValuationParam { Price = price, Volatitly = 0 };
+                                    //}
                                     queryvaluation.ContractParams[strategyvm.Contract] = new ValuationParam { Price = (double)tableValuation, Volatitly = (double)tableVol };
+
+                                    foreach (var vm in positions)
+                                    {
+                                        var contractinfo = ClientDbContext.FindContract(vm.Contract);
+                                        string basecontract = null;
+                                        if (contractinfo != null)
+                                        {
+                                            if (!string.IsNullOrEmpty(contractinfo.UnderlyingContract))
+                                            {
+                                                basecontract = contractinfo.UnderlyingContract;
+                                            }
+                                            else
+                                                basecontract = contractinfo.Contract;
+                                        }
+                                        if (_riskSet.Contains(basecontract))
+                                        {
+                                            if ((callCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION)
+                                         || (putCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION)
+                                         || (futureCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_FUTURE))
+                                            {
+                                                var basecontractPosition = positions.Where(p => p.Contract == basecontract).FirstOrDefault();
+                                                if (basecontractPosition.Direction == PositionDirectionType.PD_LONG)
+                                                {
+                                                    basecontractPosition.Profit = ((double)tableValuation - price) * basecontractPosition.Position * basecontractPosition.Multiplier;
+                                                }
+                                                else if (basecontractPosition.Direction == PositionDirectionType.PD_SHORT)
+                                                {
+                                                    basecontractPosition.Profit = (price - (double)tableValuation) * basecontractPosition.Position * basecontractPosition.Multiplier;
+                                                }
+                                                pnl = basecontractPosition.Profit;
+                                            }
+                                        }
+                                    }
                                 }
                             }
 
                             var riskVMlist = await _otcOptionTradeHandler.QueryValuationRiskAsync(queryvaluation, portfolio);
+                            var riskzeroVMlist = await _otcOptionTradeHandler.QueryValuationRiskAsync(queryvaluationzero, portfolio);
                             //riskVMlist.Add(new RiskVM { Contract = "m1709", Delta = 0.3, Gamma = 0.2 });
-                            if (riskMatrixTable.RowGroups.Count != 0)
-                                foreach (var vm in riskVMlist)
+                            double delta = 0;
+                            double gamma = 0;
+                            double vega = 0;
+                            double theta = 0;
+                            double rho = 0;
+                            //if (riskMatrixTable.RowGroups.Count != 0)
+                            foreach (var vm in riskVMlist)
+                            {
+                                var contractinfo = ClientDbContext.FindContract(vm.Contract);
+                                string basecontract = null;
+                                if (contractinfo != null)
                                 {
-                                    var contractinfo = ClientDbContext.FindContract(vm.Contract);
-                                    string basecontract = null;
-                                    if (contractinfo != null)
+                                    if (!string.IsNullOrEmpty(contractinfo.UnderlyingContract))
                                     {
-                                        if (!string.IsNullOrEmpty(contractinfo.UnderlyingContract))
-                                        {
-                                            basecontract = contractinfo.UnderlyingContract;
-                                        }
-                                        else
-                                            basecontract = contractinfo.Contract;
+                                        basecontract = contractinfo.UnderlyingContract;
                                     }
+                                    else
+                                        basecontract = contractinfo.Contract;
+                                }
 
-                                    if (_riskSet.Contains(basecontract))
+                                if (_riskSet.Contains(basecontract))
+                                {
+                                    //var contractinfo = ClientDbContext.FindContract(vm.Contract);
+
+                                    if ((callCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION)
+                                || (putCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION)
+                                || (futureCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_FUTURE))
                                     {
-                                        //var contractinfo = ClientDbContext.FindContract(vm.Contract);
-
-                                        if ((callCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION)
-                                    || (putCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION)
-                                    || (futureCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_FUTURE))
-                                        {
-                                            if (deltaCheckBox.IsChecked.Value)
-                                                Delta += vm.Delta;
-                                            else if (gammaCheckBox.IsChecked.Value)
-                                                Gamma += vm.Gamma;
-                                            else if (vegaCheckBox.IsChecked.Value)
-                                                Vega += vm.Vega100;
-                                            else if (thetaCheckBox.IsChecked.Value)
-                                                Theta += vm.Theta365;
-                                            else if (rhoCheckBox.IsChecked.Value)
-                                                Rho += vm.Rho100;
-                                            else if (!deltaCheckBox.IsChecked.Value)
-                                                Delta = 0;
-                                            else if (!gammaCheckBox.IsChecked.Value)
-                                                Gamma = 0;
-                                            else if (!vegaCheckBox.IsChecked.Value)
-                                                Vega = 0;
-                                            else if (!thetaCheckBox.IsChecked.Value)
-                                                Theta = 0;
-                                            else if (!rhoCheckBox.IsChecked.Value)
-                                                Rho = 0;
-                                            //else if (pnlRadioButton.IsChecked.Value)
-                                            //    barItem.Value += basecontractPosition.Profit;
-                                        }
+                                        if (deltaCheckBox.IsChecked.Value)
+                                            delta += vm.Delta;
+                                        if (gammaCheckBox.IsChecked.Value)
+                                            gamma += vm.Gamma;
+                                        if (vegaCheckBox.IsChecked.Value)
+                                            vega += vm.Vega100;
+                                        if (thetaCheckBox.IsChecked.Value)
+                                            theta += vm.Theta365;
+                                        if (rhoCheckBox.IsChecked.Value)
+                                            rho += vm.Rho100;
+                                        //else if (pnlRadioButton.IsChecked.Value)
+                                        //    barItem.Value += basecontractPosition.Profit;
                                     }
                                 }
+                            }
+
                             currentRow.Cells[y].Blocks.Clear();
-                            currentRow.Cells[y].BorderThickness = new Thickness(1.0);
-                            currentRow.Cells[y].BorderBrush = new SolidColorBrush(Color.FromRgb(192, 192, 192));
-                            string msg = string.Format("D:{0}\n G:{1}\n V:{2}\n T:{3}\n R:{4}\nPnL:{5}\n{6}", Delta, Gamma, Vega, Theta, Rho, TableValuation, TableVol);
+                            string msg = string.Format("D:{0}\n G:{1}\n V:{2}\n T:{3}\n R:{4}\nPnL:{5}", delta, gamma, vega, theta, rho, pnl);
                             currentRow.Cells[y].Blocks.Add(new Paragraph(new Run(msg)));
                         }
                     }
@@ -582,7 +617,7 @@ namespace Micro.Future.UI
                     riskMatrixTable.Columns.Add(new TableColumn());
                 }
                 int volCount = 2 * row + 2;
-                double vol = 0 - row * rowsize;
+                double vol = row * rowsize;
                 riskMatrixTable.RowGroups.Add(new TableRowGroup());
                 for (int x = 0; x < volCount; x++)
                 {
@@ -599,7 +634,7 @@ namespace Micro.Future.UI
                         currentRow.Cells.Add(new TableCell(new Paragraph(new Run(vol.ToString()))));
                         currentRow.Cells[0].BorderThickness = new Thickness(1.0);
                         currentRow.Cells[0].BorderBrush = new SolidColorBrush(Color.FromRgb(192, 192, 192));
-                        vol = vol + rowsize;
+                        vol = vol - rowsize;
                         for (int y = 1; y < (2 * column + 2); y++)
                         {
                             currentRow.Cells.Add(new TableCell());

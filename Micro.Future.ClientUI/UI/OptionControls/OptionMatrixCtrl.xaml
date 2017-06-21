@@ -66,8 +66,8 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn x:Name="lastpriceHeader" DisplayMemberBinding="{Binding MktVM.LastPrice}" Header="{lex:Loc Key=LastPrice}" />
-                            <GridViewColumn x:Name="settlepriceHeader" DisplayMemberBinding="{Binding MktVM.SettlePrice}" Header="{lex:Loc Key=SettlementPrice}" />
+                            <!--<GridViewColumn x:Name="lastpriceHeader" DisplayMemberBinding="{Binding MktVM.LastPrice}" Header="{lex:Loc Key=LastPrice}" />
+                            <GridViewColumn x:Name="settlepriceHeader" DisplayMemberBinding="{Binding MktVM.SettlePrice, StringFormat={}{0:N}}" Header="{lex:Loc Key=SettlementPrice}" />-->
 
                         </GridView>
                     </ListView.View>
