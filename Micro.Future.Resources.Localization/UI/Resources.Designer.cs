@@ -1771,7 +1771,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 本次结算价 的本地化字符串。
+        ///   查找类似 结算价 的本地化字符串。
         /// </summary>
         internal static string SettlementPrice {
             get {

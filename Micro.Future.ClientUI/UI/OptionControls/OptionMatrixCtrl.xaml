@@ -26,9 +26,9 @@
             </GroupBox>
             <GroupBox x:Name="priceGB" Header="{lex:Loc Key=Price}">
                 <StackPanel>
-                    <RadioButton x:Name="marketRadioButton" Content="{lex:Loc Key=Market}" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="settlementRadioButton" Content="{lex:Loc Key=Settlement}" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="valuationRadioButton" Content="{lex:Loc Key=Valuation}" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="marketRadioButton" Content="{lex:Loc Key=Market}" VerticalAlignment="Top" Checked="marketRadioButton_Checked"/>
+                    <RadioButton x:Name="settlementRadioButton" Content="{lex:Loc Key=Settlement}" VerticalAlignment="Top" Checked="settlementRadioButton_Checked"/>
+                    <RadioButton x:Name="valuationRadioButton" Content="{lex:Loc Key=Valuation}" VerticalAlignment="Top" Checked="valuationRadioButton_Checked"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox x:Name="riskGB" Header="{lex:Loc Key=Risk}">
@@ -66,6 +66,9 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
+                            <GridViewColumn x:Name="lastpriceHeader" DisplayMemberBinding="{Binding MktVM.LastPrice}" Header="{lex:Loc Key=LastPrice}" />
+                            <GridViewColumn x:Name="settlepriceHeader" DisplayMemberBinding="{Binding MktVM.SettlePrice}" Header="{lex:Loc Key=SettlementPrice}" />
+
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -123,7 +126,7 @@
         </oxy:Plot>-->
         <FlowDocumentReader Grid.Column="1">
             <FlowDocument>
-                <Table Name="riskMatrixTable" BorderThickness="1" BorderBrush="Gray">
+                <Table Name="riskMatrixTable" BorderThickness="1" BorderBrush="Gray" >
                 </Table>
             </FlowDocument>
         </FlowDocumentReader>

@@ -74,6 +74,21 @@ namespace Micro.Future.UI
                 get;
                 set;
             }
+            public double LastPrice
+            {
+                get;
+                set;
+            }
+            public double SettlePrice
+            {
+                get;
+                set;
+            }
+            public MarketDataVM MktVM
+            {
+                get;
+                set;
+            }
         }
         public MarketDataVM MarketData
         {
@@ -229,6 +244,20 @@ namespace Micro.Future.UI
         {
             if (string.IsNullOrEmpty(portfolio))
                 return;
+            foreach (var item in expirationLV.ItemsSource)
+            {
+                var strategyvm = item as StrategyBaseVM;
+                    if (marketRadioButton.IsChecked.Value)
+                    {
+                        var mktDataVM = await _marketdataHandler.SubMarketDataAsync(strategyvm.Contract);
+                        strategyvm.LastPrice = mktDataVM.LastPrice;
+                    }
+                    else if (settlementRadioButton.IsChecked.Value)
+                    {
+                        var mktDataVM = await _marketdataHandler.SubMarketDataAsync(strategyvm.Contract);
+                        strategyvm.SettlePrice = mktDataVM.LastPrice;
+                    }
+            }
             var queryvaluation = new QueryValuation();
             if (expIUP.Value != null && interestUP.Value != null)
             {
@@ -251,12 +280,25 @@ namespace Micro.Future.UI
                             foreach (var item in expirationLV.ItemsSource)
                             {
                                 var strategyvm = item as StrategyBaseVM;
+                                double price = 0; 
                                 if (strategyvm.Selected)
-                                { 
-                                var tableValuation = strategyvm.Valuation - priceCntIUP.Value * priceSizeIUP.Value + (y - 1) * priceSizeIUP.Value;
-                                var tableVol = 1 - volCntIUP.Value * volSizeIUP.Value + (x - 1) * volSizeIUP.Value;
-                                TableValuation = (double)tableValuation;
-                                TableVol = (double)tableVol;
+                                {
+                                    if (marketRadioButton.IsChecked.Value)
+                                    {
+                                        price = strategyvm.MktVM.LastPrice;
+                                    }
+                                    else if (settlementRadioButton.IsChecked.Value)
+                                    {
+                                        price = strategyvm.MktVM.LastPrice;
+                                    }
+                                    else if (valuationRadioButton.IsChecked.Value)
+                                    {
+                                        price = strategyvm.Valuation;
+                                    }
+                                    var tableValuation = price - priceCntIUP.Value * priceSizeIUP.Value + (y - 1) * priceSizeIUP.Value;
+                                    var tableVol = 1 - volCntIUP.Value * volSizeIUP.Value + (x - 1) * volSizeIUP.Value;
+                                    TableValuation = (double)tableValuation;
+                                    TableVol = (double)tableVol;
 
                                     queryvaluation.ContractParams[strategyvm.Contract] = new ValuationParam { Price = (double)tableValuation, Volatitly = (double)tableVol };
                                 }
@@ -314,8 +356,8 @@ namespace Micro.Future.UI
                                 }
                             currentRow.Cells[y].Blocks.Clear();
                             currentRow.Cells[y].BorderThickness = new Thickness(1.0);
-                            currentRow.Cells[y].BorderBrush = new SolidColorBrush(Color.FromRgb(79, 129, 189));
-                            string msg = string.Format("D:{0}\n G:{1}\n V:{2}\n T:{3}\n R:{4}\nPnL:{5}\n{6}", Delta, Gamma, Vega, Theta, Rho, TableValuation,TableVol);
+                            currentRow.Cells[y].BorderBrush = new SolidColorBrush(Color.FromRgb(192, 192, 192));
+                            string msg = string.Format("D:{0}\n G:{1}\n V:{2}\n T:{3}\n R:{4}\nPnL:{5}\n{6}", Delta, Gamma, Vega, Theta, Rho, TableValuation, TableVol);
                             currentRow.Cells[y].Blocks.Add(new Paragraph(new Run(msg)));
                         }
                     }
@@ -331,7 +373,7 @@ namespace Micro.Future.UI
 
         }
 
-        private void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (portfolioCB.SelectedValue != null)
             {
@@ -348,9 +390,11 @@ namespace Micro.Future.UI
                     if (contractinfo != null)
                     {
                         vm.Expiration = contractinfo.ExpireDate;
+                        vm.MktVM = await _marketdataHandler.SubMarketDataAsync(vm.Contract);
+
                     }
                 }
-
+                var mktList = await _marketdataHandler.SubMarketDataAsync(strategyVMList);
                 expirationLV.ItemsSource = strategyContractList;
 
 
@@ -553,10 +597,14 @@ namespace Micro.Future.UI
                     {
                         TableRow currentRow = riskMatrixTable.RowGroups[0].Rows[x];
                         currentRow.Cells.Add(new TableCell(new Paragraph(new Run(vol.ToString()))));
+                        currentRow.Cells[0].BorderThickness = new Thickness(1.0);
+                        currentRow.Cells[0].BorderBrush = new SolidColorBrush(Color.FromRgb(192, 192, 192));
                         vol = vol + rowsize;
                         for (int y = 1; y < (2 * column + 2); y++)
                         {
                             currentRow.Cells.Add(new TableCell());
+                            currentRow.Cells[y].BorderThickness = new Thickness(1.0);
+                            currentRow.Cells[y].BorderBrush = new SolidColorBrush(Color.FromRgb(192, 192, 192));
                         }
                     }
                 }
@@ -573,14 +621,32 @@ namespace Micro.Future.UI
                     if (y == 0)
                     {
                         currentRow.Cells.Add(new TableCell(new Paragraph(new Run(""))));
+                        currentRow.Cells[y].BorderThickness = new Thickness(1.0);
+                        currentRow.Cells[y].BorderBrush = new SolidColorBrush(Color.FromRgb(192, 192, 192));
                     }
                     else
                     {
                         currentRow.Cells.Add(new TableCell(new Paragraph(new Run(price.ToString()))));
+                        currentRow.Cells[y].BorderThickness = new Thickness(1.0);
+                        currentRow.Cells[y].BorderBrush = new SolidColorBrush(Color.FromRgb(192, 192, 192));
                         price = price + columnsize;
                     }
                 }
             }
+        }
+        private void marketRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void settlementRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void valuationRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

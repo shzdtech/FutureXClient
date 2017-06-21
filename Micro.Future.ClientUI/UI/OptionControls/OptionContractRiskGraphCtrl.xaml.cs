@@ -352,5 +352,20 @@ namespace Micro.Future.UI
         {
             plotModel.ResetAllAxes();
         }
+
+        private void marketRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void settlementRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void valuationRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

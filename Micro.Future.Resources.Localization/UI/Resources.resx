@@ -661,7 +661,7 @@
     <value>风险</value>
   </data>
   <data name="SettlementPrice" xml:space="preserve">
-    <value>本次结算价</value>
+    <value>结算价</value>
   </data>
   <data name="Strategy" xml:space="preserve">
     <value>策略</value>
