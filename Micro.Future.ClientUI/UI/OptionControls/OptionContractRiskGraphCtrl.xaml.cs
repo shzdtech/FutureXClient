@@ -161,7 +161,7 @@ namespace Micro.Future.UI
                     }
                     else if (settlementRadioButton.IsChecked.Value)
                     {
-                        price = strategyvm.MktVM.SettlePrice;
+                        price = strategyvm.MktVM.PreSettlePrice;
                     }
                     else if (valuationRadioButton.IsChecked.Value)
                     {

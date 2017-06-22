@@ -98,6 +98,16 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("SettlePrice");
             }
         }
+        private double presettleprice;
+        public double PreSettlePrice
+        {
+            get { return presettleprice; }
+            set
+            {
+                presettleprice = value;
+                OnPropertyChanged("PreSettlePrice");
+            }
+        }
         private double upperlimitprice;
 
         public double UpperLimitPrice
