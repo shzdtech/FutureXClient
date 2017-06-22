@@ -37,7 +37,7 @@ namespace Micro.Future.UI
         private HashSet<string> _riskSet = new HashSet<string>();
 
         private Timer _timer;
-        private const int UpdateInterval = 100;
+        private const int UpdateInterval = 500;
 
         public class RiskSet
         {
@@ -413,19 +413,24 @@ namespace Micro.Future.UI
                         TableRow currentRow = riskMatrixTable.RowGroups[0].Rows[x];
                         for (int y = 1; y < riskMatrixTable.Columns.Count; y++)
                         {
-                            currentRow.Cells[y].Blocks.Clear();
+                            //currentRow.Cells[y].Blocks.Clear();
                             if (variateRadioButton.IsChecked.Value)
                             {
                                 var risksetzero = await MakeRisk(x + VolCnt, y + PriceCnt);
                                 var riskset = await MakeRisk(x, y);
-                                string msg = string.Format("Δ:{0}\n Γ:{1}\n V:{2}\n Θ:{3}\n Ρ:{4}\nPnL:{5}", riskset.Delta- risksetzero.Delta, riskset.Gamma- risksetzero.Gamma, riskset.Vega- risksetzero.Vega, riskset.Theta- risksetzero.Theta, riskset.Rho- risksetzero.Rho, riskset.PnL);
-                                currentRow.Cells[y].Blocks.Add(new Paragraph(new Run(msg)));
+                                string msg = string.Format("Δ:{0:N2}\n Γ:{1:N4}\n V:{2:N2}\n Θ:{3:N2}\n Ρ:{4:N2}\nPnL:{5:N2}", riskset.Delta - risksetzero.Delta, riskset.Gamma - risksetzero.Gamma, riskset.Vega - risksetzero.Vega, riskset.Theta - risksetzero.Theta, riskset.Rho - risksetzero.Rho, riskset.PnL);
+                                var firstblock = currentRow.Cells[y].Blocks.FirstBlock as Paragraph;
+                                var firstrun = firstblock.Inlines.FirstInline as Run;
+                                firstrun.Text = msg;
                             }
                             else
                             {
                                 var riskset = await MakeRisk(x, y);
                                 string msg = string.Format("Δ:{0}\n Γ:{1}\n V:{2}\n Θ:{3}\n Ρ:{4}\nPnL:{5}", riskset.Delta, riskset.Gamma, riskset.Vega, riskset.Theta, riskset.Rho, riskset.PnL);
-                                currentRow.Cells[y].Blocks.Add(new Paragraph(new Run(msg)));
+                                //currentRow.Cells[y].Blocks.Add(new Paragraph(new Run(msg)));
+                                var firstblock = currentRow.Cells[y].Blocks.FirstBlock as Paragraph;
+                                var firstrun = firstblock.Inlines.FirstInline as Run;
+                                firstrun.Text = msg;
                             }
 
                         }
@@ -671,7 +676,7 @@ namespace Micro.Future.UI
                         vol = vol - rowsize;
                         for (int y = 1; y < (2 * column + 2); y++)
                         {
-                            currentRow.Cells.Add(new TableCell());
+                            currentRow.Cells.Add(new TableCell(new Paragraph(new Run())));
                             currentRow.Cells[y].BorderThickness = new Thickness(1.0);
                             currentRow.Cells[y].BorderBrush = new SolidColorBrush(Color.FromRgb(192, 192, 192));
                         }
