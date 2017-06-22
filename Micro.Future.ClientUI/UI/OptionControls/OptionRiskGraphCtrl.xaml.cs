@@ -63,18 +63,69 @@ namespace Micro.Future.UI
                 get;
                 set;
             }
-
+            public double Valuation
+            {
+                get;
+                set;
+            }
+            public bool Selected
+            {
+                get;
+                set;
+            }
+            public double LastPrice
+            {
+                get;
+                set;
+            }
+            public double SettlePrice
+            {
+                get;
+                set;
+            }
+            public MarketDataVM MktVM
+            {
+                get;
+                set;
+            }
         }
 
         private TraderExHandler _tradeExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+        private MarketDataHandler _marketDataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+
         private void ReloadDataCallback(object state)
         {
             Dispatcher.Invoke(async () =>
             {
                 var portfolio = portfolioCB.SelectedValue?.ToString();
-                var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+                var queryvaluation = new QueryValuation();
+                foreach (var item in expirationLV.ItemsSource)
+                {
+                    var strategyvm = item as StrategyBaseVM;
+
+                    double price = 0;
+                    if (strategyvm.Selected)
+                    {
+                        if (marketRadioButton.IsChecked.Value)
+                        {
+                            price = strategyvm.MktVM.LastPrice;
+                        }
+                        else if (settlementRadioButton.IsChecked.Value)
+                        {
+                            price = strategyvm.MktVM.SettlePrice;
+                        }
+                        else if (valuationRadioButton.IsChecked.Value)
+                        {
+                            price = strategyvm.Valuation;
+                        }
+
+                        queryvaluation.ContractParams[strategyvm.Contract] = new ValuationParam { Price = price, Volatitly = 0 };
+
+                    }
+                }
+                var riskVMlist = await _otcOptionTradeHandler.QueryValuationRiskAsync(queryvaluation, portfolio);
                 lock (BarItemCollection)
                 {
                     foreach (var baritem in BarItemCollection)
@@ -125,7 +176,7 @@ namespace Micro.Future.UI
             portfolioCB.ItemsSource = portfolioVMCollection;
         }
 
-        private void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (portfolioCB.SelectedValue != null)
             {
@@ -142,6 +193,7 @@ namespace Micro.Future.UI
                     if (contractinfo != null)
                     {
                         vm.Expiration = contractinfo.ExpireDate;
+                        vm.MktVM = await _marketDataHandler.SubMarketDataAsync(vm.Contract);
                     }
                 }
 
