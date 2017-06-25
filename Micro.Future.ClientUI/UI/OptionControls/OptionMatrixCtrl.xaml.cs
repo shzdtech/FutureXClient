@@ -37,8 +37,13 @@ namespace Micro.Future.UI
         private HashSet<string> _riskSet = new HashSet<string>();
 
         private Timer _timer;
-        private const int UpdateInterval = 500;
+        private const int UpdateInterval = 2147483647;
 
+        public QueryValuation Queryvaluation
+        {
+            get;
+            set;
+        }
         public class RiskSet
         {
             public double Gamma
@@ -249,7 +254,7 @@ namespace Micro.Future.UI
         //        }
         //    });
         //}
-        private void ReloadDataCallback(object state)
+        private void ReloadDataCallback()
         {
             Dispatcher.Invoke(() =>
             {
@@ -331,15 +336,18 @@ namespace Micro.Future.UI
                          || (futureCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_FUTURE))
                             {
                                 var basecontractPosition = positions.Where(p => p.Contract == basecontract).FirstOrDefault();
-                                if (basecontractPosition.Direction == PositionDirectionType.PD_LONG)
+                                if (basecontractPosition != null)
                                 {
-                                    basecontractPosition.Profit = ((double)tableValuation - price) * basecontractPosition.Position * basecontractPosition.Multiplier;
+                                    if (basecontractPosition.Direction == PositionDirectionType.PD_LONG)
+                                    {
+                                        basecontractPosition.Profit = ((double)tableValuation - price) * basecontractPosition.Position * basecontractPosition.Multiplier;
+                                    }
+                                    else if (basecontractPosition.Direction == PositionDirectionType.PD_SHORT)
+                                    {
+                                        basecontractPosition.Profit = (price - (double)tableValuation) * basecontractPosition.Position * basecontractPosition.Multiplier;
+                                    }
+                                    riskset.PnL = basecontractPosition.Profit;
                                 }
-                                else if (basecontractPosition.Direction == PositionDirectionType.PD_SHORT)
-                                {
-                                    basecontractPosition.Profit = (price - (double)tableValuation) * basecontractPosition.Position * basecontractPosition.Multiplier;
-                                }
-                                riskset.PnL = basecontractPosition.Profit;
                             }
                         }
                     }
@@ -426,7 +434,7 @@ namespace Micro.Future.UI
                             else
                             {
                                 var riskset = await MakeRisk(x, y);
-                                string msg = string.Format("Δ:{0}\n Γ:{1}\n V:{2}\n Θ:{3}\n Ρ:{4}\nPnL:{5}", riskset.Delta, riskset.Gamma, riskset.Vega, riskset.Theta, riskset.Rho, riskset.PnL);
+                                string msg = string.Format("Δ:{0:N2}\n Γ:{1:N4}\n V:{2:N2}\n Θ:{3:N2}\n Ρ:{4:N2}\nPnL:{5:N2}", riskset.Delta, riskset.Gamma, riskset.Vega, riskset.Theta, riskset.Rho, riskset.PnL);
                                 //currentRow.Cells[y].Blocks.Add(new Paragraph(new Run(msg)));
                                 var firstblock = currentRow.Cells[y].Blocks.FirstBlock as Paragraph;
                                 var firstrun = firstblock.Inlines.FirstInline as Run;
@@ -504,8 +512,9 @@ namespace Micro.Future.UI
                 //}
 
                 //columnSeries.ItemsSource = BarItemCollection;
+                //_timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
+                ReloadDataCallback();
 
-                _timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
             }
         }
 
@@ -721,6 +730,11 @@ namespace Micro.Future.UI
         private void valuationRadioButton_Checked(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void resetButton_Click(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
         }
     }
 }

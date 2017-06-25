@@ -17,8 +17,8 @@
 
     <Grid ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.3*" />
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.3*" AllowDrop="True"/>
+            <ColumnDefinition Width="*" AllowDrop="True"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Width="Auto" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True">
             <GroupBox x:Name="portfolioGB" Header="{lex:Loc Key=Portfolio}">
@@ -115,6 +115,11 @@
                     <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key=Interest}" Width="50"/>
                     <xctk:DoubleUpDown x:Name="interestUP" UpdateValueOnEnterKey="True" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" Width="70" Minimum="0" Spinned="Spinned" ValueChanged="interestValueChanged" ShowButtonSpinner="False"></xctk:DoubleUpDown>
                 </Grid>
+            </GroupBox>
+            <GroupBox x:Name="resetGB">
+                <StackPanel>
+                    <Button x:Name="resetButton" Content="{lex:Loc Key=Reset}" Width="75" Click="resetButton_Click" HorizontalAlignment="Left"/>
+                </StackPanel>
             </GroupBox>
         </StackPanel>
         <!--<oxy:Plot x:Name="plotModel" Grid.Column="1">

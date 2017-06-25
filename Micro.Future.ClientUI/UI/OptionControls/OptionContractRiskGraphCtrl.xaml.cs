@@ -254,7 +254,7 @@ namespace Micro.Future.UI
             }
 
         }
-        private void ReloadDataCallback(object state)
+        private void ReloadDataCallback()
         {
             Dispatcher.Invoke( () =>
             {
@@ -339,7 +339,7 @@ namespace Micro.Future.UI
 
                 columnSeries.ItemsSource = BarItemCollection;
 
-                _timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
+                ReloadDataCallback();
             }
         }
 
@@ -419,6 +419,11 @@ namespace Micro.Future.UI
         private void valuationRadioButton_Checked(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void resetRiskButton_Click(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
         }
     }
 }

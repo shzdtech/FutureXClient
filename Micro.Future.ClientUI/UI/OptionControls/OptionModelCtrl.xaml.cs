@@ -85,7 +85,7 @@ namespace Micro.Future.UI
                 throw new NotImplementedException();
             }
         }
-
+        
         private void ExpireDateCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = OpMarketControl.underlyingEX.SelectedValue;
