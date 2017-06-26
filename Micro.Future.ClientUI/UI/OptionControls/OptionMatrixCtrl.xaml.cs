@@ -296,7 +296,7 @@ namespace Micro.Future.UI
                 {
                     if (marketRadioButton.IsChecked.Value)
                     {
-                        price = strategyvm.MktVM.LastPrice;
+                        price = (strategyvm.MktVM.AskPrice+ strategyvm.MktVM.BidPrice)/2;
                     }
                     else if (settlementRadioButton.IsChecked.Value)
                     {
@@ -473,12 +473,11 @@ namespace Micro.Future.UI
                     {
                         vm.Expiration = contractinfo.ExpireDate;
                         vm.MktVM = await _marketdataHandler.SubMarketDataAsync(vm.Contract);
-
                     }
                 }
                 var mktList = await _marketdataHandler.SubMarketDataAsync(strategyVMList);
                 expirationLV.ItemsSource = strategyContractList;
-
+                
 
                 //var strikeSet = new SortedSet<double>();
                 //foreach (var vm in strategyVMList)
