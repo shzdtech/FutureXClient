@@ -110,7 +110,7 @@ namespace Micro.Future.UI
                     {
                         if (marketRadioButton.IsChecked.Value)
                         {
-                            price = strategyvm.MktVM.LastPrice;
+                            price = (strategyvm.MktVM.AskPrice + strategyvm.MktVM.BidPrice) / 2;
                         }
                         else if (settlementRadioButton.IsChecked.Value)
                         {
