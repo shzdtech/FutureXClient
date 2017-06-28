@@ -296,7 +296,7 @@ namespace Micro.Future.UI
                 {
                     if (marketRadioButton.IsChecked.Value)
                     {
-                        price = (strategyvm.MktVM.AskPrice+ strategyvm.MktVM.BidPrice)/2;
+                        price = (strategyvm.MktVM.AskPrice + strategyvm.MktVM.BidPrice) / 2;
                     }
                     else if (settlementRadioButton.IsChecked.Value)
                     {
@@ -338,15 +338,18 @@ namespace Micro.Future.UI
                                 var basecontractPosition = positions.Where(p => p.Contract == basecontract).FirstOrDefault();
                                 if (basecontractPosition != null)
                                 {
-                                    if (basecontractPosition.Direction == PositionDirectionType.PD_LONG)
+                                    if (pnlCheckBox.IsChecked.Value)
                                     {
-                                        basecontractPosition.Profit = ((double)tableValuation - price) * basecontractPosition.Position * basecontractPosition.Multiplier;
+                                        if (basecontractPosition.Direction == PositionDirectionType.PD_LONG)
+                                        {
+                                            basecontractPosition.Profit = ((double)tableValuation - price) * basecontractPosition.Position * basecontractPosition.Multiplier;
+                                        }
+                                        else if (basecontractPosition.Direction == PositionDirectionType.PD_SHORT)
+                                        {
+                                            basecontractPosition.Profit = (price - (double)tableValuation) * basecontractPosition.Position * basecontractPosition.Multiplier;
+                                        }
+                                        riskset.PnL += basecontractPosition.Profit;
                                     }
-                                    else if (basecontractPosition.Direction == PositionDirectionType.PD_SHORT)
-                                    {
-                                        basecontractPosition.Profit = (price - (double)tableValuation) * basecontractPosition.Position * basecontractPosition.Multiplier;
-                                    }
-                                    riskset.PnL = basecontractPosition.Profit;
                                 }
                             }
                         }
@@ -477,7 +480,7 @@ namespace Micro.Future.UI
                 }
                 var mktList = await _marketdataHandler.SubMarketDataAsync(strategyVMList);
                 expirationLV.ItemsSource = strategyContractList;
-                
+
 
                 //var strikeSet = new SortedSet<double>();
                 //foreach (var vm in strategyVMList)
@@ -606,7 +609,7 @@ namespace Micro.Future.UI
                 //}
                 PriceCnt = (int)e.OldValue;
                 PriceCnt = (int)e.NewValue;
-                    makeTable(VolCnt, VolSize, PriceCnt, PriceSize);
+                makeTable(VolCnt, VolSize, PriceCnt, PriceSize);
             }
         }
         private void priceSizeValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
