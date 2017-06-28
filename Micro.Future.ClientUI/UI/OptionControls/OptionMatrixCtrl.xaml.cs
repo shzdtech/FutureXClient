@@ -424,7 +424,7 @@ namespace Micro.Future.UI
                             //currentRow.Cells[y].Blocks.Clear();
                             if (variateRadioButton.IsChecked.Value)
                             {
-                                var risksetzero = await MakeRisk(x + VolCnt, y + PriceCnt);
+                                var risksetzero = await MakeRisk(1 + VolCnt, 1 + PriceCnt);
                                 var riskset = await MakeRisk(x, y);
                                 string msg = string.Format("Δ:{0:N2}\n Γ:{1:N4}\n V:{2:N2}\n Θ:{3:N2}\n Ρ:{4:N2}\nPnL:{5:N2}", riskset.Delta - risksetzero.Delta, riskset.Gamma - risksetzero.Gamma, riskset.Vega - risksetzero.Vega, riskset.Theta - risksetzero.Theta, riskset.Rho - risksetzero.Rho, riskset.PnL);
                                 var firstblock = currentRow.Cells[y].Blocks.FirstBlock as Paragraph;
@@ -604,8 +604,9 @@ namespace Micro.Future.UI
                 //    riskMatrixTable.Columns.Add(new TableColumn());
 
                 //}
+                PriceCnt = (int)e.OldValue;
                 PriceCnt = (int)e.NewValue;
-                makeTable(VolCnt, VolSize, PriceCnt, PriceSize);
+                    makeTable(VolCnt, VolSize, PriceCnt, PriceSize);
             }
         }
         private void priceSizeValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -613,6 +614,7 @@ namespace Micro.Future.UI
             var updownctrl = sender as DoubleUpDown;
             if (updownctrl != null && e.OldValue != null && e.NewValue != null)
             {
+                PriceSize = (double)e.OldValue;
                 PriceSize = (double)e.NewValue;
                 makeTable(VolCnt, VolSize, PriceCnt, PriceSize);
             }
@@ -622,6 +624,7 @@ namespace Micro.Future.UI
             var updownctrl = sender as IntegerUpDown;
             if (updownctrl != null && e.OldValue != null && e.NewValue != null)
             {
+                VolCnt = (int)e.OldValue;
                 VolCnt = (int)e.NewValue;
                 makeTable(VolCnt, VolSize, PriceCnt, PriceSize);
             }
@@ -631,6 +634,7 @@ namespace Micro.Future.UI
             var updownctrl = sender as DoubleUpDown;
             if (updownctrl != null && e.OldValue != null && e.NewValue != null)
             {
+                VolSize = (double)e.OldValue;
                 VolSize = (double)e.NewValue;
                 makeTable(VolCnt, VolSize, PriceCnt, PriceSize);
             }
@@ -733,6 +737,7 @@ namespace Micro.Future.UI
 
         private void resetButton_Click(object sender, RoutedEventArgs e)
         {
+            makeTable(VolCnt, VolSize, PriceCnt, PriceSize);
             ReloadDataCallback();
         }
     }
