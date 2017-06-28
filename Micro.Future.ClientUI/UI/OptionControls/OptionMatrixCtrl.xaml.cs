@@ -287,7 +287,11 @@ namespace Micro.Future.UI
             var portfolio = portfolioCB.SelectedValue?.ToString();
             var positions = _tradeExHandler.PositionVMCollection.Where(p => p.Portfolio == portfolio);
             var riskset = new RiskSet();
-
+            if (expIUP.Value != null && interestUP.Value != null)
+            {
+                queryvaluation.Interest = interestUP.Value;
+                queryvaluation.DaysRemain = expIUP.Value;
+            }
             foreach (var item in expirationLV.ItemsSource)
             {
                 var strategyvm = item as StrategyBaseVM;
