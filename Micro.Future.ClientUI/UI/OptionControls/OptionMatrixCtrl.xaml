@@ -66,9 +66,15 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <!--<GridViewColumn x:Name="lastpriceHeader" DisplayMemberBinding="{Binding MktVM.LastPrice}" Header="{lex:Loc Key=LastPrice}" />
-                            <GridViewColumn x:Name="settlepriceHeader" DisplayMemberBinding="{Binding MktVM.SettlePrice, StringFormat={}{0:N}}" Header="{lex:Loc Key=SettlementPrice}" />-->
-
+                            <!--<GridViewColumn x:Name="lastpriceHeader" DisplayMemberBinding="{Binding MktVM.LastPrice}" Header="{lex:Loc Key=LastPrice}"/>-->
+                            <GridViewColumn x:Name="lastpriceHeader" Header="{lex:Loc Key=LastPrice}" Width="auto">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Value}" DataContext="{Binding MktVM.LastPrice}" Style="{DynamicResource DoubleChangeStyle}" Width="auto"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="settlepriceHeader" DisplayMemberBinding="{Binding MktVM.PreSettlePrice}" Header="{lex:Loc Key=PreSettlePrice}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

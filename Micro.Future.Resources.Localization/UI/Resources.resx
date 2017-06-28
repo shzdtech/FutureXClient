@@ -858,4 +858,7 @@
   <data name="System" xml:space="preserve">
     <value>系统</value>
   </data>
+  <data name="PreSettlePrice" xml:space="preserve">
+    <value>前结算价</value>
+  </data>
 </root>

@@ -858,4 +858,7 @@
   <data name="System" xml:space="preserve">
     <value>System</value>
   </data>
+  <data name="PreSettlePrice" xml:space="preserve">
+    <value>PreSettlePrice</value>
+  </data>
 </root>

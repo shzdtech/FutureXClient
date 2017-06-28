@@ -1492,6 +1492,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 前结算价 的本地化字符串。
+        /// </summary>
+        internal static string PreSettlePrice {
+            get {
+                return ResourceManager.GetString("PreSettlePrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 价格 的本地化字符串。
         /// </summary>
         internal static string Price {
