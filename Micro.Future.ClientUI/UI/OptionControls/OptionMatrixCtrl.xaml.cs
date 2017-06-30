@@ -32,7 +32,8 @@ namespace Micro.Future.UI
 
     {
         private IDictionary<string, int> _riskDict = new Dictionary<string, int>();
-
+        private IList<string> _contractList;
+        private IList<MarketDataVM> _theoPriceList;
 
         private HashSet<string> _riskSet = new HashSet<string>();
 
@@ -40,6 +41,11 @@ namespace Micro.Future.UI
         private const int UpdateInterval = 2147483647;
 
         public QueryValuation Queryvaluation
+        {
+            get;
+            set;
+        }
+        public double TheoPrice
         {
             get;
             set;
@@ -205,6 +211,7 @@ namespace Micro.Future.UI
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private MarketDataHandler _marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
         private AbstractOTCHandler _abstractOTCHandler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
+        private OTCOptionDataHandler _otcOptionDataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
 
         //private void ReloadDataCallback(object state)
         //{
@@ -298,6 +305,7 @@ namespace Micro.Future.UI
                 double price = 0;
                 if (strategyvm.Selected)
                 {
+                    //_contractList.Add(strategyvm.MktVM.Contract);
                     if (marketRadioButton.IsChecked.Value)
                     {
                         price = (strategyvm.MktVM.AskPrice + strategyvm.MktVM.BidPrice) / 2;
@@ -324,20 +332,45 @@ namespace Micro.Future.UI
                     {
                         var contractinfo = ClientDbContext.FindContract(vm.Contract);
                         string basecontract = null;
+                        string contract = null;
                         if (contractinfo != null)
                         {
                             if (!string.IsNullOrEmpty(contractinfo.UnderlyingContract))
                             {
                                 basecontract = contractinfo.UnderlyingContract;
+                                contract = contractinfo.Contract;
                             }
                             else
                                 basecontract = contractinfo.Contract;
                         }
                         if (_riskSet.Contains(basecontract))
                         {
+                            //_contractList.Add(basecontract);
+
                             if ((callCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION)
-                         || (putCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION)
-                         || (futureCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_FUTURE))
+                         || (putCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION))
+                            {
+                                var theoprice = _theoPriceList.Where(c => c.Contract == contract).Select(c => c.MidPrice).FirstOrDefault();
+                                var theotableValuation = theoprice - priceCntIUP.Value * priceSizeIUP.Value + (y - 1) * priceSizeIUP.Value;
+
+                                var basecontractPosition = positions.Where(p => p.Contract == basecontract).FirstOrDefault();
+                                if (basecontractPosition != null)
+                                {
+                                    if (pnlCheckBox.IsChecked.Value)
+                                    {
+                                        if (basecontractPosition.Direction == PositionDirectionType.PD_LONG)
+                                        {
+                                            basecontractPosition.Profit = ((double)theotableValuation - theoprice) * basecontractPosition.Position * basecontractPosition.Multiplier;
+                                        }
+                                        else if (basecontractPosition.Direction == PositionDirectionType.PD_SHORT)
+                                        {
+                                            basecontractPosition.Profit = (theoprice - (double)theotableValuation) * basecontractPosition.Position * basecontractPosition.Multiplier;
+                                        }
+                                        riskset.PnL += basecontractPosition.Profit;
+                                    }
+                                }
+                            }
+                            if (futureCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_FUTURE)
                             {
                                 var basecontractPosition = positions.Where(p => p.Contract == basecontract).FirstOrDefault();
                                 if (basecontractPosition != null)
@@ -482,7 +515,7 @@ namespace Micro.Future.UI
                         vm.MktVM = await _marketdataHandler.SubMarketDataAsync(vm.Contract);
                     }
                 }
-                var mktList = await _marketdataHandler.SubMarketDataAsync(strategyVMList);
+                _theoPriceList = await _otcOptionDataHandler.SubMarketDataAsync(strategyVMList);
                 expirationLV.ItemsSource = strategyContractList;
 
 
@@ -532,10 +565,22 @@ namespace Micro.Future.UI
                 StrategyBaseVM strategyBaseVM = ctrl.DataContext as StrategyBaseVM;
                 var basecontract = strategyBaseVM.Contract;
                 _riskSet.Add(basecontract);
+                if (marketRadioButton.IsChecked.Value)
+                {
+                    string msg = string.Format("  Contract: {0} Price: {1:N2}", basecontract, (strategyBaseVM.MktVM.AskPrice + strategyBaseVM.MktVM.BidPrice) / 2 );
+                    selectedWrapPanel.Children.Add(new Label { Content = msg });
+                }
+                else if (settlementRadioButton.IsChecked.Value)
+                {
+                    string msg = string.Format("  Contract: {0} Price: {1:N2}", basecontract, strategyBaseVM.MktVM.PreSettlePrice);
+                    selectedWrapPanel.Children.Add(new Label { Content = msg });
+                }
+                else if (valuationRadioButton.IsChecked.Value)
+                {
+                    string msg = string.Format("  Contract: {0} Price: {1:N2}", basecontract, strategyBaseVM.Valuation);
+                    selectedWrapPanel.Children.Add(new Label { Content = msg, Tag = basecontract });
+                }
                 MarketData = await _marketdataHandler.SubMarketDataAsync(basecontract);
-
-                //var lastprice = mktVM.LastPrice;
-
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
                 var strategyVMList = strategyVMCollection.Where(s => s.BaseContract == strategyBaseVM.Contract);
                 foreach (var vm in strategyVMList)
@@ -544,6 +589,7 @@ namespace Micro.Future.UI
                     if (contractinfo.ExpireDate == strategyBaseVM.Expiration)
                         _riskSet.Add(vm.Contract);
                 }
+
             }
         }
 
@@ -555,6 +601,19 @@ namespace Micro.Future.UI
                 StrategyBaseVM strategyBaseVM = ctrl.DataContext as StrategyBaseVM;
                 var basecontract = strategyBaseVM.Contract;
                 _riskSet.Remove(basecontract);
+                if (marketRadioButton.IsChecked.Value)
+                {
+                    string msg = string.Format("{0}", basecontract);
+                    selectedWrapPanel.Children.Contains(UIElement.);
+                }
+                else if (settlementRadioButton.IsChecked.Value)
+                {
+                    //SelectedContractVMCollection.Remove(new SelectedContractVM { Contract = basecontract, Price = strategyBaseVM.MktVM.PreSettlePrice });
+                }
+                else if (valuationRadioButton.IsChecked.Value)
+                {
+                    //SelectedContractVMCollection.Remove(new SelectedContractVM { Contract = basecontract, Price = strategyBaseVM.Valuation });
+                }
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
                 var strategyVMList = strategyVMCollection.Where(s => s.BaseContract == basecontract);
                 foreach (var vm in strategyVMList)

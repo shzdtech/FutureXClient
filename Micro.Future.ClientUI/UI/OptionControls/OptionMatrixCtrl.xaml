@@ -135,11 +135,15 @@
                 <oxy:LinearAxis x:Name="greeksAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="Greeks"/>
             </oxy:Plot.Axes>
         </oxy:Plot>-->
-        <FlowDocumentReader Grid.Column="1">
-            <FlowDocument>
-                <Table Name="riskMatrixTable" BorderThickness="1" BorderBrush="Gray" >
-                </Table>
-            </FlowDocument>
-        </FlowDocumentReader>
+        <StackPanel Grid.Column="1">
+            <WrapPanel Name="selectedWrapPanel">
+            </WrapPanel>
+            <FlowDocumentReader>
+                <FlowDocument>
+                    <Table Name="riskMatrixTable" BorderThickness="1" BorderBrush="Gray" >
+                    </Table>
+                </FlowDocument>
+            </FlowDocumentReader>
+        </StackPanel>
     </Grid>
 </UserControl>
