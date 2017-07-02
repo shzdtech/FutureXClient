@@ -74,6 +74,18 @@ namespace Micro.Future.Message
             return tcs.Task;
         }
 
+        public override void SendMessage(uint serialId, uint msgId, IEnumerable<ContractKeyVM> instrIDList)
+        {
+            var sst = new PBInstrumentList();
+            foreach (var instrID in instrIDList)
+            {
+                sst.Instrument.Add(new PBInstrument { Exchange = instrID.Exchange, Contract = instrID.Contract});
+            }
+
+            sst.Header = new DataHeader { SerialId = serialId };
+            MessageWrapper.SendMessage(msgId, sst);
+        }
+
         protected virtual IList<MarketDataVM> SubMDSuccessAction(PBPricingDataList marketList)
         {
             var ret = new List<MarketDataVM>();
