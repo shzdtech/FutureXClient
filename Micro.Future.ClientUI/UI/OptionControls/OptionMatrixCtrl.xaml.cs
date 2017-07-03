@@ -303,7 +303,11 @@ namespace Micro.Future.UI
             {
                 var strategyvm = item as StrategyBaseVM;
                 double price = 0;
-                if (strategyvm.Selected)
+                if (!strategyvm.Selected)
+                {
+                    selectedWrapPanel.Children.Clear();
+                }
+                else if (strategyvm.Selected)
                 {
                     //_contractList.Add(strategyvm.MktVM.Contract);
                     if (marketRadioButton.IsChecked.Value)
@@ -318,6 +322,7 @@ namespace Micro.Future.UI
                     {
                         price = strategyvm.Valuation;
                     }
+                    AddSelectContractMsg(strategyvm.Contract, price);
                     var tableValuation = price - priceCntIUP.Value * priceSizeIUP.Value + (y - 1) * priceSizeIUP.Value;
                     var tableVol = 0 + volCntIUP.Value * volSizeIUP.Value - (x - 1) * volSizeIUP.Value;
                     TableValuation = (double)tableValuation;
@@ -556,7 +561,13 @@ namespace Micro.Future.UI
 
             }
         }
+        private void AddSelectContractMsg(string basecontract, double price)
+        {
 
+                string msg = string.Format("  Contract: {0} Price: {1:N2}", basecontract, price);
+                selectedWrapPanel.Children.Add(new Label { Content = msg });
+
+        }
         private async void exCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             Control ctrl = sender as Control;
@@ -565,21 +576,21 @@ namespace Micro.Future.UI
                 StrategyBaseVM strategyBaseVM = ctrl.DataContext as StrategyBaseVM;
                 var basecontract = strategyBaseVM.Contract;
                 _riskSet.Add(basecontract);
-                if (marketRadioButton.IsChecked.Value)
-                {
-                    string msg = string.Format("  Contract: {0} Price: {1:N2}", basecontract, (strategyBaseVM.MktVM.AskPrice + strategyBaseVM.MktVM.BidPrice) / 2 );
-                    selectedWrapPanel.Children.Add(new Label { Content = msg });
-                }
-                else if (settlementRadioButton.IsChecked.Value)
-                {
-                    string msg = string.Format("  Contract: {0} Price: {1:N2}", basecontract, strategyBaseVM.MktVM.PreSettlePrice);
-                    selectedWrapPanel.Children.Add(new Label { Content = msg });
-                }
-                else if (valuationRadioButton.IsChecked.Value)
-                {
-                    string msg = string.Format("  Contract: {0} Price: {1:N2}", basecontract, strategyBaseVM.Valuation);
-                    selectedWrapPanel.Children.Add(new Label { Content = msg, Tag = basecontract });
-                }
+                //if (marketRadioButton.IsChecked.Value)
+                //{
+                //    string msg = string.Format("  Contract: {0} Price: {1:N2}", basecontract, (strategyBaseVM.MktVM.AskPrice + strategyBaseVM.MktVM.BidPrice) / 2);
+                //    selectedWrapPanel.Children.Add(new Label { Content = msg });
+                //}
+                //else if (settlementRadioButton.IsChecked.Value)
+                //{
+                //    string msg = string.Format("  Contract: {0} Price: {1:N2}", basecontract, strategyBaseVM.MktVM.PreSettlePrice);
+                //    selectedWrapPanel.Children.Add(new Label { Content = msg });
+                //}
+                //else if (valuationRadioButton.IsChecked.Value)
+                //{
+                //    string msg = string.Format("  Contract: {0} Price: {1:N2}", basecontract, strategyBaseVM.Valuation);
+                //    selectedWrapPanel.Children.Add(new Label { Content = msg });
+                //}
                 MarketData = await _marketdataHandler.SubMarketDataAsync(basecontract);
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
                 var strategyVMList = strategyVMCollection.Where(s => s.BaseContract == strategyBaseVM.Contract);
@@ -589,7 +600,7 @@ namespace Micro.Future.UI
                     if (contractinfo.ExpireDate == strategyBaseVM.Expiration)
                         _riskSet.Add(vm.Contract);
                 }
-
+                ReloadDataCallback();
             }
         }
 
@@ -604,7 +615,7 @@ namespace Micro.Future.UI
                 if (marketRadioButton.IsChecked.Value)
                 {
                     string msg = string.Format("{0}", basecontract);
-                    selectedWrapPanel.Children.Contains(UIElement.);
+                    //selectedWrapPanel.Children.Contains(UIElement.);
                 }
                 else if (settlementRadioButton.IsChecked.Value)
                 {
@@ -622,6 +633,7 @@ namespace Micro.Future.UI
                     if (contractinfo.ExpireDate == strategyBaseVM.Expiration)
                         _riskSet.Remove(vm.Contract);
                 }
+                ReloadDataCallback();
             }
         }
         private void OnKeyDown(object sender, KeyEventArgs e)
