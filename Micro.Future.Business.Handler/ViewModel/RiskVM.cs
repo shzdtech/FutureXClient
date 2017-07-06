@@ -8,7 +8,16 @@ namespace Micro.Future.ViewModel
 {
     public class RiskVM : ContractKeyVM
     {
-
+        private double _price;
+        public double Price
+        {
+            get { return _price; }
+            set
+            {
+                _price = value;
+                OnPropertyChanged("Price");
+            }
+        }
         private double _delta;
         public double Delta
         {

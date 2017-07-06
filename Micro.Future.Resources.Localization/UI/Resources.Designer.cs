@@ -475,6 +475,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 标的价格 的本地化字符串。
+        /// </summary>
+        internal static string ContractPrice {
+            get {
+                return ResourceManager.GetString("ContractPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 计数 的本地化字符串。
         /// </summary>
         internal static string Counter {
@@ -1650,6 +1659,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string RiskValue {
             get {
                 return ResourceManager.GetString("RiskValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 选择的价格 的本地化字符串。
+        /// </summary>
+        internal static string SelectedPrice {
+            get {
+                return ResourceManager.GetString("SelectedPrice", resourceCulture);
             }
         }
         

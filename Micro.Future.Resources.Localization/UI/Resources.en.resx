@@ -861,4 +861,10 @@
   <data name="PreSettlePrice" xml:space="preserve">
     <value>PreSettlePrice</value>
   </data>
+  <data name="SelectedPrice" xml:space="preserve">
+    <value>SelectedPrice</value>
+  </data>
+  <data name="ContractPrice" xml:space="preserve">
+    <value>ContractPrice</value>
+  </data>
 </root>

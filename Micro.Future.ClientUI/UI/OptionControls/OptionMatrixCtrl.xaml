@@ -15,33 +15,39 @@
              lex:ResxLocalizationProvider.DefaultDictionary="Resources"
              mc:Ignorable="d" d:DesignWidth="800">
 
-    <Grid ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True">
+    <Grid ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.3*" AllowDrop="True"/>
-            <ColumnDefinition Width="*" AllowDrop="True"/>
+            <ColumnDefinition Width="0.3*" AllowDrop="True" ScrollViewer.VerticalScrollBarVisibility="Visible"  ScrollViewer.CanContentScroll="True"/>
+            <ColumnDefinition Width="*" AllowDrop="True" ScrollViewer.VerticalScrollBarVisibility="Visible"  ScrollViewer.CanContentScroll="True"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Width="Auto" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True">
             <GroupBox x:Name="portfolioGB" Header="{lex:Loc Key=Portfolio}">
                 <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
             </GroupBox>
-            <GroupBox x:Name="priceGB" Header="{lex:Loc Key=Price}">
+            <WrapPanel>
+            <GroupBox x:Name="priceGB" Header="{lex:Loc Key=ContractPrice}">
                 <StackPanel>
                     <RadioButton x:Name="marketRadioButton" Content="{lex:Loc Key=Market}" VerticalAlignment="Top" Checked="marketRadioButton_Checked"/>
                     <RadioButton x:Name="settlementRadioButton" Content="{lex:Loc Key=Settlement}" VerticalAlignment="Top" Checked="settlementRadioButton_Checked"/>
                     <RadioButton x:Name="valuationRadioButton" Content="{lex:Loc Key=Valuation}" VerticalAlignment="Top" Checked="valuationRadioButton_Checked"/>
                 </StackPanel>
             </GroupBox>
+                <GroupBox x:Name="pricedisplayGB" Header="{lex:Loc Key=SelectedPrice}">
+                <WrapPanel Name="selectedWrapPanel">
+                </WrapPanel>
+            </GroupBox>
+            </WrapPanel>
             <GroupBox x:Name="riskGB" Header="{lex:Loc Key=Risk}">
                 <WrapPanel>
                     <StackPanel>
-                        <CheckBox Name="deltaCheckBox" Content="Delta" HorizontalAlignment="Left"/>
-                        <CheckBox Name="gammaCheckBox" Content="Gamma" HorizontalAlignment="Left"/>
-                        <CheckBox Name="vegaCheckBox" Content="Vega" HorizontalAlignment="Left"/>
+                        <CheckBox Name="deltaCheckBox" Content="Delta" HorizontalAlignment="Left" Checked="deltaCheckBox_Checked" Unchecked="deltaCheckBox_Unchecked"/>
+                        <CheckBox Name="gammaCheckBox" Content="Gamma" HorizontalAlignment="Left" Checked="gammaCheckBox_Checked" Unchecked="gammaCheckBox_Unchecked"/>
+                        <CheckBox Name="vegaCheckBox" Content="Vega" HorizontalAlignment="Left" Checked="vegaCheckBox_Checked" Unchecked="vegaCheckBox_Unchecked"/>
                     </StackPanel>
                     <StackPanel>
-                        <CheckBox Name="thetaCheckBox" Content="Theta" HorizontalAlignment="Left"/>
-                        <CheckBox Name="rhoCheckBox" Content="Rho" HorizontalAlignment="Left"/>
-                        <CheckBox Name="pnlCheckBox" Content="Pnl" HorizontalAlignment="Left"/>
+                        <CheckBox Name="thetaCheckBox" Content="Theta" HorizontalAlignment="Left" Checked="thetaCheckBox_Checked" Unchecked="thetaCheckBox_Unchecked"/>
+                        <CheckBox Name="rhoCheckBox" Content="Rho" HorizontalAlignment="Left" Checked="rhoCheckBox_Checked" Unchecked="rhoCheckBox_Unchecked"/>
+                        <CheckBox Name="pnlCheckBox" Content="Pnl" HorizontalAlignment="Left" Checked="pnlCheckBox_Checked" Unchecked="pnlCheckBox_Unchecked"/>
                     </StackPanel>
                 </WrapPanel>
             </GroupBox>
@@ -82,15 +88,15 @@
             <WrapPanel>
                 <GroupBox x:Name="typeGB" Header="{lex:Loc Key=Type}">
                     <StackPanel>
-                        <CheckBox x:Name="callCheckBox" Content="Call"/>
-                        <CheckBox x:Name="putCheckBox" Content="Put"/>
-                        <CheckBox x:Name="futureCheckBox" Content="Future"/>
+                        <CheckBox x:Name="callCheckBox" Content="Call" Checked="callCheckBox_Checked" Unchecked="callCheckBox_Unchecked"/>
+                        <CheckBox x:Name="putCheckBox" Content="Put" Checked="putCheckBox_Checked" Unchecked="putCheckBox_Unchecked"/>
+                        <CheckBox x:Name="futureCheckBox" Content="Future" Checked="futureCheckBox_Checked" Unchecked="futureCheckBox_Unchecked"/>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox x:Name="displayGB" Header="{lex:Loc Key=DisplaySet}">
                     <StackPanel>
-                        <RadioButton x:Name="absoluteRadioButton" Content="{lex:Loc Key=Absolute}" VerticalAlignment="Top"/>
-                        <RadioButton x:Name="variateRadioButton" Content="{lex:Loc Key=Variate}" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="absoluteRadioButton" Content="{lex:Loc Key=Absolute}" VerticalAlignment="Top" Click="absoluteRadioButton_Click"/>
+                        <RadioButton x:Name="variateRadioButton" Content="{lex:Loc Key=Variate}" VerticalAlignment="Top" Click="variateRadioButton_Click"/>
                     </StackPanel>
                 </GroupBox>
             </WrapPanel>
@@ -128,22 +134,11 @@
                 </StackPanel>
             </GroupBox>
         </StackPanel>
-        <!--<oxy:Plot x:Name="plotModel" Grid.Column="1">
-            <oxy:ColumnSeries x:Name="columnSeries" />
-            <oxy:Plot.Axes>
-                <oxy:CategoryAxis  x:Name="strikeAxis" Position="Bottom" Title="StrikePrice"/>
-                <oxy:LinearAxis x:Name="greeksAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="Greeks"/>
-            </oxy:Plot.Axes>
-        </oxy:Plot>-->
-        <StackPanel Grid.Column="1">
-            <WrapPanel Name="selectedWrapPanel">
-            </WrapPanel>
-            <FlowDocumentReader>
-                <FlowDocument>
-                    <Table Name="riskMatrixTable" BorderThickness="1" BorderBrush="Gray" >
-                    </Table>
-                </FlowDocument>
-            </FlowDocumentReader>
-        </StackPanel>
+        <FlowDocumentReader Grid.Column="1" >
+            <FlowDocument>
+                <Table Name="riskMatrixTable" BorderThickness="1" BorderBrush="Gray" >
+                </Table>
+            </FlowDocument>
+        </FlowDocumentReader>
     </Grid>
 </UserControl>

@@ -593,6 +593,7 @@ namespace Micro.Future.Message
                     Vega = risk.Vega,
                     Rho = risk.Rho,
                     Position = risk.Position,
+                    Price = risk.Price,
                     //ContractKey = contractinfo.UnderlyingContract
                 });
             }

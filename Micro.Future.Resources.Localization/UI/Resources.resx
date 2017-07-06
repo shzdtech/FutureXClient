@@ -861,4 +861,10 @@
   <data name="PreSettlePrice" xml:space="preserve">
     <value>前结算价</value>
   </data>
+  <data name="SelectedPrice" xml:space="preserve">
+    <value>选择的价格</value>
+  </data>
+  <data name="ContractPrice" xml:space="preserve">
+    <value>标的价格</value>
+  </data>
 </root>
