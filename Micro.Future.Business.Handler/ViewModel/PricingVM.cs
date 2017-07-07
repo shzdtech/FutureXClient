@@ -62,5 +62,79 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(AskSize));
             }
         }
+
+        private double averagePrice;
+        public double AveragePrice
+        {
+            get { return averagePrice; }
+            set
+            {
+                averagePrice = value;
+                OnPropertyChanged(nameof(AveragePrice));
+            }
+        }
+
+        private double highLimint;
+        public double HighLimint
+        {
+            get { return highLimint; }
+            set
+            {
+                highLimint = value;
+                OnPropertyChanged(nameof(HighLimint));
+            }
+        }
+
+        private double lowLimint;
+        public double LowLimint
+        {
+            get { return lowLimint; }
+            set
+            {
+                lowLimint = value;
+                OnPropertyChanged(nameof(LowLimint));
+            }
+        }
+        private double openInterest;
+        public double OpenInterest
+        {
+            get { return openInterest; }
+            set
+            {
+                openInterest = value;
+                OnPropertyChanged(nameof(OpenInterest));
+            }
+        }
+        private double preOpenInterest;
+        public double PreOpenInterest
+        {
+            get { return preOpenInterest; }
+            set
+            {
+                preOpenInterest = value;
+                OnPropertyChanged(nameof(PreOpenInterest));
+            }
+        }
+        private double priceChange;
+        public double PriceChange
+        {
+            get { return priceChange; }
+            set
+            {
+                priceChange = value;
+                OnPropertyChanged(nameof(PriceChange));
+            }
+        }
+        private int updateTime;
+        public int UpdateTime
+        {
+            get { return updateTime; }
+            set
+            {
+                updateTime = value;
+                OnPropertyChanged(nameof(UpdateTime));
+            }
+        }
+
     }
 }

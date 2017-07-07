@@ -864,7 +864,43 @@
   <data name="SelectedPrice" xml:space="preserve">
     <value>SelectedPrice</value>
   </data>
+  <data name="AveragePrice" xml:space="preserve">
+    <value>AveragePrice</value>
+  </data>
   <data name="ContractPrice" xml:space="preserve">
     <value>ContractPrice</value>
+  </data>
+  <data name="HighValue" xml:space="preserve">
+    <value>HighValue</value>
+  </data>
+  <data name="InvestorID" xml:space="preserve">
+    <value>InvestorID</value>
+  </data>
+  <data name="LowerLimitPrice" xml:space="preserve">
+    <value>LowerLimitPrice</value>
+  </data>
+  <data name="LowValue" xml:space="preserve">
+    <value>LowValue</value>
+  </data>
+  <data name="MeanCost" xml:space="preserve">
+    <value>MeanCost</value>
+  </data>
+  <data name="OpenInterest" xml:space="preserve">
+    <value>OpenInterest</value>
+  </data>
+  <data name="OpenValue" xml:space="preserve">
+    <value>OpenValue</value>
+  </data>
+  <data name="PreCloseValue" xml:space="preserve">
+    <value>PreCloseValue</value>
+  </data>
+  <data name="PreOpenInterest" xml:space="preserve">
+    <value>PreOpenInterest</value>
+  </data>
+  <data name="SettlePrice" xml:space="preserve">
+    <value>SettlePrice</value>
+  </data>
+  <data name="UpperLimitPrice" xml:space="preserve">
+    <value>UpperLimitPrice</value>
   </data>
 </root>
