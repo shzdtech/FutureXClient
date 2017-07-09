@@ -506,7 +506,8 @@ namespace Micro.Future.Message
 
             sst.Portfolio = portfolio;
             sst.Interest = queryValuation.Interest.HasValue ? queryValuation.Interest.Value : -1;
-            sst.DaysRemain = queryValuation.DaysRemain.HasValue ? queryValuation.DaysRemain.Value : -1;
+            if (queryValuation.DaysRemain.HasValue)
+                sst.DaysRemain = queryValuation.DaysRemain.Value;
 
             foreach (var cv in queryValuation.ContractParams)
             {
@@ -516,7 +517,7 @@ namespace Micro.Future.Message
                     Price = cv.Value.Price
                 };
 
-                if (cv.Value.Volatitly > 0)
+                if (cv.Value.Volatitly != 0)
                     valuation.Volatility = cv.Value.Volatitly;
 
                 sst.ContractValue.Add(valuation);
