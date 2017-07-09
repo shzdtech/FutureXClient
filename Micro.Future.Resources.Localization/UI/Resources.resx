@@ -864,7 +864,43 @@
   <data name="SelectedPrice" xml:space="preserve">
     <value>选择的价格</value>
   </data>
+  <data name="AveragePrice" xml:space="preserve">
+    <value>均价</value>
+  </data>
   <data name="ContractPrice" xml:space="preserve">
     <value>标的价格</value>
+  </data>
+  <data name="HighValue" xml:space="preserve">
+    <value>最高价</value>
+  </data>
+  <data name="InvestorID" xml:space="preserve">
+    <value>用户代码</value>
+  </data>
+  <data name="LowerLimitPrice" xml:space="preserve">
+    <value>跌停价</value>
+  </data>
+  <data name="LowValue" xml:space="preserve">
+    <value>最低价</value>
+  </data>
+  <data name="MeanCost" xml:space="preserve">
+    <value>持仓均价</value>
+  </data>
+  <data name="OpenInterest" xml:space="preserve">
+    <value>持仓量</value>
+  </data>
+  <data name="OpenValue" xml:space="preserve">
+    <value>今开盘</value>
+  </data>
+  <data name="PreCloseValue" xml:space="preserve">
+    <value>昨收盘价</value>
+  </data>
+  <data name="PreOpenInterest" xml:space="preserve">
+    <value>昨持仓量</value>
+  </data>
+  <data name="SettlePrice" xml:space="preserve">
+    <value>结算价</value>
+  </data>
+  <data name="UpperLimitPrice" xml:space="preserve">
+    <value>涨停价</value>
   </data>
 </root>

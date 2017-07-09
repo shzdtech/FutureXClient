@@ -293,6 +293,12 @@ namespace Micro.Future.Message
                         Exchange = rsp.Exchange,
                         Contract = rsp.Contract,
                         Message = Encoding.UTF8.GetString(rsp.Message.ToByteArray()),
+                        InvestorID = rsp.InvestorID,
+                        //rsp.InsertDate
+                        //rsp.Message
+                        //rsp.OrderType
+                        //rsp.StopPrice
+                        //rsp.TradingDay
                     };
 
                     OrderVMCollection.Add(orderVM);
