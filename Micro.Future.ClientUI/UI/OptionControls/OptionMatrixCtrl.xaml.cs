@@ -405,7 +405,7 @@ namespace Micro.Future.UI
                         {
                             if (pnlCheckBox.IsChecked.Value)
                             {
-                                zeropnl += vm.Price * contractPosition.Multiplier;
+                                zeropnl += vm.Price * contractPosition.Multiplier * contractPosition.Position;
                             }
                         }
                     }
@@ -451,7 +451,7 @@ namespace Micro.Future.UI
                                 riskset.Rho += vm.Rho100;
                             if (pnlCheckBox.IsChecked.Value)
                             {
-                                riskset.PnL += vm.Price * contractPosition.Multiplier;
+                                riskset.PnL += vm.Price * contractPosition.Multiplier * contractPosition.Position;
                             }
                         }
                     }
