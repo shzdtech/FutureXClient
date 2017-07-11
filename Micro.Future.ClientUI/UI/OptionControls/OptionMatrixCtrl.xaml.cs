@@ -405,7 +405,14 @@ namespace Micro.Future.UI
                         {
                             if (pnlCheckBox.IsChecked.Value)
                             {
-                                zeropnl += vm.Price * contractPosition.Multiplier;
+                                if (contractPosition.Direction == PositionDirectionType.PD_LONG)
+                                {
+                                    zeropnl += vm.Price * contractPosition.Multiplier * contractPosition.Position;
+                                }
+                                else if (contractPosition.Direction == PositionDirectionType.PD_SHORT)
+                                {
+                                    zeropnl -= vm.Price * contractPosition.Multiplier * contractPosition.Position;
+                                }
                             }
                         }
                     }
@@ -451,13 +458,22 @@ namespace Micro.Future.UI
                                 riskset.Rho += vm.Rho100;
                             if (pnlCheckBox.IsChecked.Value)
                             {
-                                riskset.PnL += vm.Price * contractPosition.Multiplier;
+                                if (contractPosition.Direction == PositionDirectionType.PD_LONG)
+                                {
+                                    riskset.PnL += vm.Price * contractPosition.Multiplier * contractPosition.Position;
+                                }
+                                else if (contractPosition.Direction == PositionDirectionType.PD_SHORT)
+                                {
+                                    riskset.PnL -= vm.Price * contractPosition.Multiplier * contractPosition.Position;
+                                }
                             }
                         }
                     }
                 }
             }
+
             riskset.PnL -= zeropnl;
+
             return riskset;
         }
         private async void RiskIndex(string portfolio)
