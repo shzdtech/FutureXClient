@@ -411,7 +411,7 @@ namespace Micro.Future.UI
                                 }
                                 else if (contractPosition.Direction == PositionDirectionType.PD_SHORT)
                                 {
-                                    zeropnl += -vm.Price * contractPosition.Multiplier * contractPosition.Position;
+                                    zeropnl -= vm.Price * contractPosition.Multiplier * contractPosition.Position;
                                 }
                             }
                         }
@@ -464,7 +464,7 @@ namespace Micro.Future.UI
                                 }
                                 else if (contractPosition.Direction == PositionDirectionType.PD_SHORT)
                                 {
-                                    riskset.PnL += -vm.Price * contractPosition.Multiplier * contractPosition.Position;
+                                    riskset.PnL -= vm.Price * contractPosition.Multiplier * contractPosition.Position;
                                 }
                             }
                         }
