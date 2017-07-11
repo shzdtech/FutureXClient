@@ -194,7 +194,7 @@
                     <GridViewColumn x:Name="PBidQV" Header="PBidQV" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <xctk:IntegerUpDown x:Name="pBidQVTextBox" HorizontalAlignment="Center" Value="{Binding PutStrategyVM.BidQV}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" ShowButtonSpinner="False"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="pBidQVTextBox" HorizontalAlignment="Center" Value="{Binding PutStrategyVM.BidQV}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" ShowButtonSpinner="False" ></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
