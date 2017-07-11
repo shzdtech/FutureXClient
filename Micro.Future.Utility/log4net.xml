@@ -15,7 +15,7 @@
    <param name="MaxSizeRollBackups" value="100" />
    <param name="MaxFileSize" value="1024000" />
    <param name="StaticLogFileName" value="false" />
-   <param name="DatePattern" value="yyyy-MM-dd.lo\g" />
+   <param name="DatePattern" value="yyyy-MM-dd.log" />
    <param name="RollingStyle" value="Date" />
    <layout type="log4net.Layout.PatternLayout">
     <param name="ConversionPattern" value="[%p][%d] %m%n" />
