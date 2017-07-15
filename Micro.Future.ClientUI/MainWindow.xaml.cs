@@ -94,10 +94,11 @@ namespace Micro.Future.UI
 
         private void Login()
         {
+            _accountSignIner.SignInOptions.EncryptPassword = true;
             _currentLoginWindow = new LoginWindow(_accountSignIner)
             {
                 MD5Round = 2,
-                AddressCollection = _config.Content["ACCOUNTSERVER.ADDRESS"].Values
+                AddressCollection = _config.Content["ACCOUNTSERVER.FRONT"].Values
             };
             _currentLoginWindow.Closed += _currentLoginWindow_Closed;
             _currentLoginWindow.OnLogged += LoginWindow_OnLogged;
@@ -107,6 +108,8 @@ namespace Micro.Future.UI
 
         private async void LoginWindow_OnLogged(LoginWindow sender, IUserInfo userInfo)
         {
+            MessageHandlerContainer.DefaultInstance.Get<AccountHandler>().RegisterMessageWrapper(_accountSignIner.MessageWrapper);
+
             var roleType = userInfo.Role.ToString();
             var frameDict = (Dictionary<string, IList<string>>)ConfigurationManager.GetSection("frames/roles");
             IList<string> frames;
