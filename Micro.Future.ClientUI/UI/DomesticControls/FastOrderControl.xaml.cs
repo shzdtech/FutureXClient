@@ -56,6 +56,8 @@ namespace Micro.Future.UI
         private void Initialize()
         {
             portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
+            radioButtonBuy.IsChecked = true;
+            RadioA.IsChecked = true;
             FuturecontractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
 
             FuturecontractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));

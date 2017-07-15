@@ -38,7 +38,7 @@ namespace Micro.Future.Message
         }
 
 
-        Task<bool> ResetPassword(string newPassword, int timeout = 10000)
+        public Task<bool> ResetPassword(string newPassword, int timeout = 10000)
         {
             if (string.IsNullOrEmpty(newPassword))
                 return Task.FromResult(false);

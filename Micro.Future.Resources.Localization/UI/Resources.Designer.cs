@@ -187,6 +187,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 确认密码 的本地化字符串。
+        /// </summary>
+        internal static string AffirmPassword {
+            get {
+                return ResourceManager.GetString("AffirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 所有持仓 的本地化字符串。
         /// </summary>
         internal static string All_Position {
@@ -1713,6 +1722,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Reset {
             get {
                 return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 重置密码 的本地化字符串。
+        /// </summary>
+        internal static string ResetPassword {
+            get {
+                return ResourceManager.GetString("ResetPassword", resourceCulture);
             }
         }
         

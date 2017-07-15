@@ -903,4 +903,10 @@
   <data name="UpperLimitPrice" xml:space="preserve">
     <value>UpperLimitPrice</value>
   </data>
+  <data name="AffirmPassword" xml:space="preserve">
+    <value>Affirm Password</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
 </root>

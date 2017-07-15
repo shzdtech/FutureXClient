@@ -5,6 +5,7 @@ using Micro.Future.Message;
 using System.Collections;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Micro.Future.CustomizedControls.Windows;
 
 namespace Micro.Future.CustomizedControls
 {

@@ -903,4 +903,10 @@
   <data name="UpperLimitPrice" xml:space="preserve">
     <value>涨停价</value>
   </data>
+  <data name="AffirmPassword" xml:space="preserve">
+    <value>确认密码</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>重置密码</value>
+  </data>
 </root>

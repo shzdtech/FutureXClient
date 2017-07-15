@@ -2,6 +2,7 @@
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
+using Micro.Future.Utility;
 using Micro.Future.ViewModel;
 using OxyPlot.Series;
 using System;
@@ -467,12 +468,13 @@ namespace Micro.Future.UI
                                     riskset.PnL -= vm.Price * contractPosition.Multiplier * contractPosition.Position;
                                 }
                             }
-                        }
+                            Logger.Debug(vm.Price.ToString());
+                         }
                     }
                 }
             }
 
-            riskset.PnL -= zeropnl;
+                riskset.PnL -= zeropnl;
 
             return riskset;
         }
