@@ -44,8 +44,8 @@
             <oxy:Plot.Axes>
                 <oxy:LinearColorAxis Key="greenLineColorAxis" Minimum="0.1" Maximum="0.9" HighColor="Red" LowColor="Gray" Position ="None"/>
                 <oxy:LinearColorAxis Key="redLineColorAxis" Minimum="0.1" Maximum="0.9" HighColor="Blue" LowColor="Gray" Position ="None"/>
-                <oxy:LinearAxis x:Name="strikeAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Bottom" Title="StrikePrice"/>
-                <oxy:LinearAxis x:Name="voleAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="Volatility"/>
+                <oxy:LinearAxis x:Name="strikeAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Bottom" Title="{lex:Loc Key=StrikePrice}" AxislineColor="Black" TitleColor="Black" TitleFont="0xffffff"/>
+                <oxy:LinearAxis x:Name="voleAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="{lex:Loc Key=Volatility}" AxislineColor="Black" TitleColor="Black"/>
             </oxy:Plot.Axes>
             <oxy:Plot.Annotations>
                 <oxy:LineAnnotation Name="refPriceLS" Type="Vertical" X="{Binding ReferencePriceLine}" Color="Purple"></oxy:LineAnnotation>
@@ -61,21 +61,49 @@
             <Button x:Name="resetButton" Content="{lex:Loc Key=Reset}" Width="75" Click="resetButton_Click" />
         </WrapPanel>-->
         <WrapPanel Grid.Row="1" MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <CheckBox x:Name="checkBoxCallBid" Content="CallBidVol" IsChecked="True"/>
-            <CheckBox x:Name="checkBoxCallAsk" Content="CallAskVol" IsChecked="True"/>
-            <CheckBox x:Name="checkBoxCallMid" Content="CallMidVol" IsChecked="True"/>
-            <CheckBox x:Name="checkBoxPutBid" Content="PutBidVol" IsChecked="True"/>
-            <CheckBox x:Name="checkBoxPutAsk" Content="PutAskVol" IsChecked="True"/>
-            <CheckBox x:Name="checkBoxPutMid" Content="PutMidVol" IsChecked="True"/>
-        </WrapPanel>
-        <WrapPanel Grid.Row="2" MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Button x:Name="resetButton" Content="{lex:Loc Key=Reset}" Width="75" Height="auto" Click="resetButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <CheckBox x:Name="checkBoxTheoBid1" Content="TheoBidVol" IsChecked="True"/>
-            <CheckBox x:Name="checkBoxTheoAsk1" Content="TheoAskVol" IsChecked="True"/>
-            <CheckBox x:Name="checkBoxTheoMid1" Content="TheoMidVol" IsChecked="True"/>
-            <CheckBox x:Name="checkBoxTheoBid2" Content="TheoBidVolTemp" IsChecked="True"/>
-            <CheckBox x:Name="checkBoxTheoAsk2" Content="TheoAskVolTemp" IsChecked="True"/>
-            <CheckBox x:Name="checkBoxTheoMid2" Content="TheoMidVolTemp" IsChecked="True"/>
+            <Button x:Name="resetButton" Content="{lex:Loc Key=Reset}" Width="72" Height="72" Click="resetButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <StackPanel>
+                <WrapPanel>
+                    <GroupBox>
+                        <CheckBox x:Name="checkBoxCallBid" Content="{lex:Loc Key=CallBid}" IsChecked="True"/>
+                    </GroupBox>
+                    <GroupBox>
+                        <CheckBox x:Name="checkBoxCallAsk" Content="{lex:Loc Key=CallAsk}" IsChecked="True"/>
+                    </GroupBox>
+                    <GroupBox>
+                        <CheckBox x:Name="checkBoxCallMid" Content="{lex:Loc Key=CallMid}" IsChecked="True"/>
+                    </GroupBox>
+                    <GroupBox>
+                        <CheckBox x:Name="checkBoxPutBid" Content="{lex:Loc Key=PutBid}" IsChecked="True"/>
+                    </GroupBox>
+                    <GroupBox>
+                        <CheckBox x:Name="checkBoxPutAsk" Content="{lex:Loc Key=PutAsk}" IsChecked="True"/>
+                    </GroupBox>
+                    <GroupBox>
+                        <CheckBox x:Name="checkBoxPutMid" Content="{lex:Loc Key=PutMid}" IsChecked="True"/>
+                    </GroupBox>
+                </WrapPanel>
+                <WrapPanel MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <GroupBox>
+                        <CheckBox x:Name="checkBoxTheoBid1" Content="{lex:Loc Key=TheoBid}" IsChecked="True"/>
+                    </GroupBox>
+                    <GroupBox>
+                        <CheckBox x:Name="checkBoxTheoAsk1" Content="{lex:Loc Key=TheoAsk}" IsChecked="True"/>
+                    </GroupBox>
+                    <GroupBox>
+                        <CheckBox x:Name="checkBoxTheoMid1" Content="{lex:Loc Key=TheoMid}" IsChecked="True"/>
+                    </GroupBox>
+                    <GroupBox>
+                        <CheckBox x:Name="checkBoxTheoBid2" Content="{lex:Loc Key=TheoBidTemp}" IsChecked="True"/>
+                    </GroupBox>
+                    <GroupBox>
+                        <CheckBox x:Name="checkBoxTheoAsk2" Content="{lex:Loc Key=TheoAskTemp}" IsChecked="True"/>
+                    </GroupBox>
+                    <GroupBox>
+                        <CheckBox x:Name="checkBoxTheoMid2" Content="{lex:Loc Key=TheoMidTemp}" IsChecked="True"/>
+                    </GroupBox>
+                </WrapPanel>
+            </StackPanel>
         </WrapPanel>
     </Grid>
 </UserControl>

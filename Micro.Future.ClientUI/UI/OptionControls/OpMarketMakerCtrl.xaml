@@ -45,7 +45,7 @@
                 <ComboBox x:Name="pricingModelCB" DisplayMemberPath="InstanceName" SelectionChanged="pricingModelCB_SelectionChanged" SelectedValuePath="InstanceName" Height="22"/>
             </GroupBox>
             <GroupBox x:Name="Interest" Header="{lex:Loc Key=Interest}">
-                <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate" UpdateValueOnEnterKey="True" FormatString="F3" Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1" Increment="0.001" ValueChanged="ValueChanged" Spinned="Spinned" VerticalAlignment="Center" Height="22"/>
+                <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate" UpdateValueOnEnterKey="True" FormatString="F3" Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1" Increment="0.001" ValueChanged="Risk_ValueChanged" Spinned="Spinned" VerticalAlignment="Center" Height="22"/>
             </GroupBox>
             <GroupBox x:Name="Op_VolModel" Header="{lex:Loc Key=TheoVolModel}">
                 <Label x:Name="volModelLB" Content="" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -143,10 +143,15 @@
                 <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="GreenHeaderStyle">
                     <Setter Property="Background" Value="Blue"/>
                     <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 </Style>
                 <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="RedHeaderStyle">
                     <Setter Property="Background" Value="Red" />
                     <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
                 </Style>
             </ListView.Resources>
             <!--<ListView.Items>
@@ -159,7 +164,7 @@
                     <GridViewColumn x:Name="POrderCnt" Header="POrderCnt" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PutStrategyVM.OrderCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource PutOrderCounterChangeStyle}"/>
+                                <TextBlock Text="{Binding PutStrategyVM.OrderCounter}" TextAlignment="Center" Width="auto" Style="{DynamicResource PutOrderCounterChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -180,7 +185,7 @@
                     <GridViewColumn x:Name="PAODepth" Header="PDepth" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <xctk:IntegerUpDown x:Name="pAODepthUpDown" HorizontalAlignment="Center" Value="{Binding PutStrategyVM.Depth}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" ShowButtonSpinner="False"  ></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="pAODepthUpDown" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding PutStrategyVM.Depth}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" Minimum="0"></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -194,21 +199,21 @@
                     <GridViewColumn x:Name="PBidQV" Header="PBidQV" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <xctk:IntegerUpDown x:Name="pBidQVTextBox" HorizontalAlignment="Center" Value="{Binding PutStrategyVM.BidQV}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" ShowButtonSpinner="False" ></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="pBidQVTextBox" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding PutStrategyVM.BidQV}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" Minimum="0" ></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="PAskQV" Header="PAskQV" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <xctk:IntegerUpDown x:Name="pAskQVTextBox" HorizontalAlignment="Center" Value="{Binding PutStrategyVM.AskQV}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" ShowButtonSpinner="False"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="pAskQVTextBox" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding PutStrategyVM.AskQV}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" Minimum="0"></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="PBidTheo" Header="PBidTheo" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PutOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" TextAlignment="Right" Width="auto" Style="{DynamicResource PutBidChangeStyle}"/>
+                                <TextBlock Text="{Binding PutOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" TextAlignment="Center" Width="auto" Style="{DynamicResource PutBidChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -216,29 +221,64 @@
                     <GridViewColumn x:Name="PAskTheo" Header="PAskTheo" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PutOptionVM.TheoDataVM.AskPrice,StringFormat=N2}" TextAlignment="Right" Width="auto" Style="{DynamicResource PutAskChangeStyle}"/>
+                                <TextBlock Text="{Binding PutOptionVM.TheoDataVM.AskPrice,StringFormat=N2}" TextAlignment="Center" Width="auto" Style="{DynamicResource PutAskChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PBidIV" Header="PBidIV%" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.BidVol,StringFormat=P2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
-                    <GridViewColumn x:Name="PMidIV" Header="PMidIV%" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.MidVol,StringFormat=P2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
-                    <GridViewColumn x:Name="PAskIV" Header="PAskIV%" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.AskVol,StringFormat=P2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
-                    <GridViewColumn x:Name="PBid" Header="PBid" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidPrice,StringFormat=N2}"/>
-                    <GridViewColumn x:Name="PBidSize" Header="PBidSize" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidSize}"/>
+                    <GridViewColumn x:Name="PBidIV" Header="PBidIV%" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.BidVol,StringFormat=P2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PMidIV" Header="PMidIV%" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.MidVol,StringFormat=P2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PAskIV" Header="PAskIV%" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.AskVol,StringFormat=P2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <GridViewColumn x:Name="PBid" Header="PBid" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.BidPrice,StringFormat=N2}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <!--<GridViewColumn x:Name="PBid" Header="PBid" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidPrice,StringFormat=N2}"/>-->
+                    <!--<GridViewColumn x:Name="PBidSize" Header="PBidSize" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.BidSize}"/>-->
+                    <GridViewColumn x:Name="PBidSize" Header="PBidSize" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.BidSize}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn x:Name="PBidCnt" Header="PBidCnt" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PutStrategyVM.BidCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource PutCounterBidChangeStyle}"/>
+                                <TextBlock Text="{Binding PutStrategyVM.BidCounter}" TextAlignment="Center" Width="auto" Style="{DynamicResource PutCounterBidChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PMid" Header="PMid" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.MidPrice,StringFormat=N2}"/>
-                    <GridViewColumn x:Name="PAsk" Header="PAsk" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskPrice,StringFormat=N2}"/>
-                    <GridViewColumn x:Name="PAskSize" Header="PAskSize" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskSize}"/>
+                    <GridViewColumn x:Name="PMid" Header="PMid" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.MidPrice,StringFormat=N2}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <!--<GridViewColumn x:Name="PMid" Header="PMid" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.MidPrice,StringFormat=N2}"/>-->
+                    <!--<GridViewColumn x:Name="PAsk" Header="PAsk" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskPrice,StringFormat=N2}"/>-->
+                    <GridViewColumn x:Name="PAsk" Header="PAsk" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.AskPrice,StringFormat=N2}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <!--<GridViewColumn x:Name="PAskSize" Header="PAskSize" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.MarketDataVM.AskSize}"/>-->
+                    <GridViewColumn x:Name="PAskSize" Header="PAskSize" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.AskSize}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn> 
                     <GridViewColumn x:Name="PAskCnt" Header="PAskCnt" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PutStrategyVM.AskCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource PutCounterAskChangeStyle}"/>
+                                <TextBlock Text="{Binding PutStrategyVM.AskCounter}" TextAlignment="Center" Width="auto" Style="{DynamicResource PutCounterAskChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -259,7 +299,14 @@
                     <GridViewColumn x:Name="PRho" Header="PRho" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Rho100,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
                     <GridViewColumn x:Name="PDelta" Header="PDelta" HeaderContainerStyle="{StaticResource GreenHeaderStyle}" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Delta,StringFormat=N2}"/>
                     <GridViewColumn x:Name="PTheta" Header="PTheta" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Theta365,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
-                    <GridViewColumn x:Name="PPosition" Header="PPosition" DisplayMemberBinding="{Binding PutOptionVM.Position}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>
+                    <!--<GridViewColumn x:Name="PPosition" Header="PPosition" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding PutOptionVM.Position}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>-->
+                    <GridViewColumn x:Name="PPosition" Header="PPosition" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.Position}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn x:Name="Gamma" Header="Gamma" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Gamma,StringFormat=N4}"/>
                     <GridViewColumn x:Name="Vega" Header="Vega%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Vega100,StringFormat=N2}"/>
                     <!--<GridViewColumn x:Name="PutContract" Header="PutContract" DisplayMemberBinding="{Binding PutOptionVM.Contract,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>-->
@@ -268,7 +315,14 @@
                     <GridViewColumn x:Name="TheoAskVol" Header="AskTheoVol%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.AskVol,StringFormat=P2}" />
                     <GridViewColumn x:Name="TheoBidVol" Header="BidTheoVol%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.BidVol,StringFormat=P2}" />
                     <GridViewColumn x:Name="TheoMidVol" Header="MidTheoVol%" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.MidVol,StringFormat=P2}" />
-                    <GridViewColumn x:Name="CPosition" Header="CPosition" DisplayMemberBinding="{Binding CallOptionVM.Position}" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
+                    <!--<GridViewColumn x:Name="CPosition" Header="CPosition" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding CallOptionVM.Position}" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>-->
+                    <GridViewColumn x:Name="CPosition" Header="CPosition" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.Position}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn x:Name="CTheta" Header="CTheta" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Theta365,StringFormat=N2}" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
                     <GridViewColumn x:Name="CDelta" Header="CDelta" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Delta,StringFormat=N2}"/>
                     <GridViewColumn x:Name="CRho" Header="CRho" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Rho100,StringFormat=N2}" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
@@ -289,50 +343,85 @@
                     <GridViewColumn x:Name="CAskCnt" Header="CAskCnt" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding CallStrategyVM.AskCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource CallCounterAskChangeStyle}"/>
+                                <TextBlock Text="{Binding CallStrategyVM.AskCounter}" TextAlignment="Center" Width="auto" Style="{DynamicResource CallCounterAskChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CAskSize" Header="CAskSize" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskSize}"/>
-                    <GridViewColumn x:Name="CAsk" Header="CAsk" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskPrice,StringFormat=N2}"/>
-                    <GridViewColumn x:Name="CMid" Header="CMid" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.MidPrice,StringFormat=N2}"/>
+                    <!--<GridViewColumn x:Name="CAskSize" Header="CAskSize" TextBlock.TextAlignment="Center" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskSize}"/>-->
+                    <GridViewColumn x:Name="CAskSize" Header="CAskSize" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.AskSize}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn> 
+                    <!--<GridViewColumn x:Name="CAsk" Header="CAsk" TextBlock.TextAlignment="Center" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.AskPrice,StringFormat=N2}"/>-->
+                    <GridViewColumn x:Name="CAsk" Header="CAsk" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.AskPrice,StringFormat=N2}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>  
+                    <!--<GridViewColumn x:Name="CMid" Header="CMid" TextBlock.TextAlignment="Center" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.MidPrice,StringFormat=N2}"/>-->
+                    <GridViewColumn x:Name="CMid" Header="CMid" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.MidPrice,StringFormat=N2}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn x:Name="CBidCnt" Header="CBidCnt" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding CallStrategyVM.BidCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource CallCounterBidChangeStyle}"/>
+                                <TextBlock Text="{Binding CallStrategyVM.BidCounter}" TextAlignment="Center" Width="auto" Style="{DynamicResource CallCounterBidChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CBidSize" Header="CBidSize" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidSize}"/>
-                    <GridViewColumn x:Name="CBid" Header="CBid" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidPrice,StringFormat=N2}"/>
-                    <GridViewColumn x:Name="CBidIV" DisplayMemberBinding="{Binding CallOptionVM.ImpliedVolVM.BidVol,StringFormat=P2}" Header="CBidIV%" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
-                    <GridViewColumn x:Name="CMidIV" DisplayMemberBinding="{Binding CallOptionVM.ImpliedVolVM.MidVol,StringFormat=P2}" Header="CMidIV%" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
-                    <GridViewColumn x:Name="CAskIV" DisplayMemberBinding="{Binding CallOptionVM.ImpliedVolVM.AskVol,StringFormat=P2}" Header="CAskIV%" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
+                    <!--<GridViewColumn x:Name="CBidSize" Header="CBidSize" TextBlock.TextAlignment="Center" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidSize}"/>-->
+                    <GridViewColumn x:Name="CBidSize" Header="CBidSize" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.BidSize}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <!--<GridViewColumn x:Name="CBid" Header="CBid" TextBlock.TextAlignment="Center" HeaderContainerStyle="{StaticResource RedHeaderStyle}" DisplayMemberBinding="{Binding CallOptionVM.MarketDataVM.BidPrice,StringFormat=N2}"/>-->
+                    <GridViewColumn x:Name="CBid" Header="CBid" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.BidPrice,StringFormat=N2}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="CBidIV" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding CallOptionVM.ImpliedVolVM.BidVol,StringFormat=P2}" Header="CBidIV%" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
+                    <GridViewColumn x:Name="CMidIV" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding CallOptionVM.ImpliedVolVM.MidVol,StringFormat=P2}" Header="CMidIV%" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
+                    <GridViewColumn x:Name="CAskIV" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding CallOptionVM.ImpliedVolVM.AskVol,StringFormat=P2}" Header="CAskIV%" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>
                     <GridViewColumn x:Name="CBidTheo" Header="CBidTheo" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding CallOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" TextAlignment="Right" Width="auto" Style="{DynamicResource CallBidChangeStyle}"/>
+                                <TextBlock Text="{Binding CallOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" TextAlignment="Center" Width="auto" Style="{DynamicResource CallBidChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="CAskTheo" Header="CAskTheo" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding CallOptionVM.TheoDataVM.AskPrice,StringFormat=N2}" TextAlignment="Right" Width="auto" Style="{DynamicResource CallAskChangeStyle}"/>
+                                <TextBlock Text="{Binding CallOptionVM.TheoDataVM.AskPrice,StringFormat=N2}" TextAlignment="Center" Width="auto" Style="{DynamicResource CallAskChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="CAskQV" Header="CAskQV" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <xctk:IntegerUpDown x:Name="cAskQVTextBox" HorizontalAlignment="Center" Value="{Binding CallStrategyVM.AskQV}" KeyUp="OnKeyDown" Tag="{Binding CallStrategyVM}" ShowButtonSpinner="False"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="cAskQVTextBox" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding CallStrategyVM.AskQV}" KeyUp="OnKeyDown" Tag="{Binding CallStrategyVM}" Minimum="0"></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="CBidQV" Header="CBidQV" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <xctk:IntegerUpDown x:Name="cBidQVTextBox" HorizontalAlignment="Center" Value="{Binding CallStrategyVM.BidQV}" KeyUp="OnKeyDown" Tag="{Binding CallStrategyVM}" ShowButtonSpinner="False"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="cBidQVTextBox" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding CallStrategyVM.BidQV}" KeyUp="OnKeyDown" Tag="{Binding CallStrategyVM}" Minimum="0"></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -353,14 +442,14 @@
                     <GridViewColumn x:Name="CAODepth" Header="CDepth" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <xctk:IntegerUpDown x:Name="cAODepthUpDown" HorizontalAlignment="Center" Value="{Binding CallStrategyVM.Depth}" KeyUp="OnKeyDown" ShowButtonSpinner="False" Tag="{Binding CallStrategyVM}"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="cAODepthUpDown" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding CallStrategyVM.Depth}" KeyUp="OnKeyDown" Minimum="0" Tag="{Binding CallStrategyVM}"></xctk:IntegerUpDown>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="COrderCnt" Header="COrderCnt" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding CallStrategyVM.OrderCounter}" TextAlignment="Right" Width="auto" Style="{DynamicResource CallOrderCounterChangeStyle}"/>
+                                <TextBlock Text="{Binding CallStrategyVM.OrderCounter}" TextAlignment="Center" Width="auto" Style="{DynamicResource CallOrderCounterChangeStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
