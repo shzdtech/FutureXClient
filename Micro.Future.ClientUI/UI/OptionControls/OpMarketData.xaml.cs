@@ -82,7 +82,12 @@ namespace Micro.Future.UI
             underlyingContractCB.ItemsSource = null;
             expireDateCB.ItemsSource = null;
             var exchange = underlyingEX.SelectedValue.ToString();
-            underlyingCB.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+            var productID = (from c in _contractList
+                             where c.Exchange == exchange.ToString()
+                             orderby c.ProductID ascending
+                             select c.ProductID).Distinct().ToList();
+            //underlyingCB.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+            underlyingCB.ItemsSource = productID;
         }
         private void underlyingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -92,6 +97,7 @@ namespace Micro.Future.UI
             {
                 var underlyingContracts = (from c in _contractList
                                            where c.ProductID == productId.ToString()
+                                           orderby c.UnderlyingContract ascending
                                            select c.UnderlyingContract).Distinct().ToList();
 
                 underlyingContractCB.ItemsSource = underlyingContracts;
@@ -184,7 +190,12 @@ namespace Micro.Future.UI
             underlyingContractCB1.ItemsSource = null;
             expireDateCB1.ItemsSource = null;
             var exchange = underlyingEX1.SelectedValue.ToString();
-            underlyingCB1.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+            var productID = (from c in _contractList
+                             where c.Exchange == exchange.ToString()
+                             orderby c.ProductID ascending
+                             select c.ProductID).Distinct().ToList();
+            //underlyingCB1.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+            underlyingCB1.ItemsSource = productID;
         }
         private void underlyingCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -194,6 +205,7 @@ namespace Micro.Future.UI
             {
                 var underlyingContracts = (from c in _contractList
                                            where c.ProductID == productId.ToString()
+                                           orderby c.UnderlyingContract ascending
                                            select c.UnderlyingContract).Distinct().ToList();
 
                 underlyingContractCB1.ItemsSource = underlyingContracts;
@@ -277,7 +289,12 @@ namespace Micro.Future.UI
             var exchange = exchange1.SelectedValue?.ToString();
             if (exchange != null)
             {
-                underlying1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+                var productID = (from c in _futurecontractList
+                                 where c.Exchange == exchange.ToString()
+                                 orderby c.ProductID ascending
+                                 select c.ProductID).Distinct().ToList();
+                //underlying1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+                underlying1.ItemsSource = productID;
                 contract1.ItemsSource = null;
             }
         }
@@ -333,7 +350,12 @@ namespace Micro.Future.UI
         private void exchange2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = exchange2.SelectedValue?.ToString();
-            underlying2.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+            var productID = (from c in _futurecontractList
+                             where c.Exchange == exchange.ToString()
+                             orderby c.ProductID ascending
+                             select c.ProductID).Distinct().ToList();
+            //underlying2.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+            underlying2.ItemsSource = productID;
             contract2.ItemsSource = null;
 
         }

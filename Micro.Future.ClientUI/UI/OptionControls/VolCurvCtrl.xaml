@@ -57,10 +57,10 @@
                 <oxy:LineAnnotation Name="x3FLS" Type="Vertical" X="{Binding X3Line}" Color="Red"></oxy:LineAnnotation>
             </oxy:Plot.Annotations>
         </oxy:Plot>
-        <WrapPanel Grid.Row="1" MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <!--<WrapPanel Grid.Row="1" MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Button x:Name="resetButton" Content="{lex:Loc Key=Reset}" Width="75" Click="resetButton_Click" />
-        </WrapPanel>
-        <WrapPanel Grid.Row="2" MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        </WrapPanel>-->
+        <WrapPanel Grid.Row="1" MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <CheckBox x:Name="checkBoxCallBid" Content="CallBidVol" IsChecked="True"/>
             <CheckBox x:Name="checkBoxCallAsk" Content="CallAskVol" IsChecked="True"/>
             <CheckBox x:Name="checkBoxCallMid" Content="CallMidVol" IsChecked="True"/>
@@ -68,7 +68,8 @@
             <CheckBox x:Name="checkBoxPutAsk" Content="PutAskVol" IsChecked="True"/>
             <CheckBox x:Name="checkBoxPutMid" Content="PutMidVol" IsChecked="True"/>
         </WrapPanel>
-        <WrapPanel Grid.Row="3" MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <WrapPanel Grid.Row="2" MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Button x:Name="resetButton" Content="{lex:Loc Key=Reset}" Width="75" Height="auto" Click="resetButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <CheckBox x:Name="checkBoxTheoBid1" Content="TheoBidVol" IsChecked="True"/>
             <CheckBox x:Name="checkBoxTheoAsk1" Content="TheoAskVol" IsChecked="True"/>
             <CheckBox x:Name="checkBoxTheoMid1" Content="TheoMidVol" IsChecked="True"/>
