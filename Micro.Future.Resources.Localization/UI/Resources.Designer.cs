@@ -331,6 +331,33 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 看涨(卖价) 的本地化字符串。
+        /// </summary>
+        internal static string CallAsk {
+            get {
+                return ResourceManager.GetString("CallAsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 看涨(买价) 的本地化字符串。
+        /// </summary>
+        internal static string CallBid {
+            get {
+                return ResourceManager.GetString("CallBid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 看涨(中间价) 的本地化字符串。
+        /// </summary>
+        internal static string CallMid {
+            get {
+                return ResourceManager.GetString("CallMid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 取消全部订单 的本地化字符串。
         /// </summary>
         internal static string CancelAllOrder {
@@ -1042,7 +1069,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 期权行情 的本地化字符串。
+        ///   查找类似 做市商 的本地化字符串。
         /// </summary>
         internal static string MarketMaker {
             get {
@@ -1101,6 +1128,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Model {
             get {
                 return ResourceManager.GetString("Model", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 模型选择 的本地化字符串。
+        /// </summary>
+        internal static string ModelSelect {
+            get {
+                return ResourceManager.GetString("ModelSelect", resourceCulture);
             }
         }
         
@@ -1636,6 +1672,33 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 看跌(卖价) 的本地化字符串。
+        /// </summary>
+        internal static string PutAsk {
+            get {
+                return ResourceManager.GetString("PutAsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 看跌(买价) 的本地化字符串。
+        /// </summary>
+        internal static string PutBid {
+            get {
+                return ResourceManager.GetString("PutBid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 看跌(中间价) 的本地化字符串。
+        /// </summary>
+        internal static string PutMid {
+            get {
+                return ResourceManager.GetString("PutMid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 行情 的本地化字符串。
         /// </summary>
         internal static string Quote {
@@ -1672,7 +1735,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 更新 的本地化字符串。
+        ///   查找类似 重置 的本地化字符串。
         /// </summary>
         internal static string Refresh {
             get {
@@ -1735,7 +1798,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 Revert Current 的本地化字符串。
+        ///   查找类似 取消 的本地化字符串。
         /// </summary>
         internal static string RevertCurrent {
             get {
@@ -1879,7 +1942,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 Set Reference 的本地化字符串。
+        ///   查找类似 确认 的本地化字符串。
         /// </summary>
         internal static string SetReference {
             get {
@@ -2023,7 +2086,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 标的价格 的本地化字符串。
+        ///   查找类似 执行价格 的本地化字符串。
         /// </summary>
         internal static string StrikePrice {
             get {
@@ -2037,6 +2100,60 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string System {
             get {
                 return ResourceManager.GetString("System", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 实际(卖价) 的本地化字符串。
+        /// </summary>
+        internal static string TheoAsk {
+            get {
+                return ResourceManager.GetString("TheoAsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 临时(卖价) 的本地化字符串。
+        /// </summary>
+        internal static string TheoAskTemp {
+            get {
+                return ResourceManager.GetString("TheoAskTemp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 实际(买价) 的本地化字符串。
+        /// </summary>
+        internal static string TheoBid {
+            get {
+                return ResourceManager.GetString("TheoBid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 临时(买价) 的本地化字符串。
+        /// </summary>
+        internal static string TheoBidTemp {
+            get {
+                return ResourceManager.GetString("TheoBidTemp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 实际(中间价) 的本地化字符串。
+        /// </summary>
+        internal static string TheoMid {
+            get {
+                return ResourceManager.GetString("TheoMid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 临时(中间价) 的本地化字符串。
+        /// </summary>
+        internal static string TheoMidTemp {
+            get {
+                return ResourceManager.GetString("TheoMidTemp", resourceCulture);
             }
         }
         
@@ -2356,6 +2473,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 波动率曲线管理 的本地化字符串。
+        /// </summary>
+        internal static string VolatilityCurveManager {
+            get {
+                return ResourceManager.GetString("VolatilityCurveManager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 波动率模型 的本地化字符串。
         /// </summary>
         internal static string VolModel {
@@ -2406,6 +2532,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string WindowTitle {
             get {
                 return ResourceManager.GetString("WindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Wing模型设置 的本地化字符串。
+        /// </summary>
+        internal static string WingModelSettings {
+            get {
+                return ResourceManager.GetString("WingModelSettings", resourceCulture);
             }
         }
         

@@ -198,6 +198,7 @@ namespace Micro.Future.UI
             {
                 var underlyingContracts = (from c in _contractList
                                            where c.ProductID == productId.ToString()
+                                           orderby c.UnderlyingContract ascending
                                            select c.UnderlyingContract).Distinct().ToList();
 
                 underlyingContractCB.ItemsSource = underlyingContracts;
@@ -457,6 +458,18 @@ namespace Micro.Future.UI
                 _otcOptionHandler.UpdateStrategyModel(option.PutStrategyVM, StrategyVM.Model.PM);
             }
         }
+        private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var updownctrl = sender as IntegerUpDown;
+            if (updownctrl != null && e.OldValue != null && e.NewValue != null)
+            {
+                StrategyVM strategyVM = updownctrl.Tag as StrategyVM;
+                if (strategyVM != null)
+                {
+                    strategyVM.UpdateStrategy();
+                }
+            }
+        }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
@@ -535,7 +548,7 @@ namespace Micro.Future.UI
                 OnCallAskStatusChanged?.Invoke(checkbox.Tag.ToString(), false);
         }
 
-        private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void Risk_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var updownctrl = sender as DoubleUpDown;
             if (updownctrl != null && e.OldValue != null && e.NewValue != null)

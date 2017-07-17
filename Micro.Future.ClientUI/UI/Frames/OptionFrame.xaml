@@ -48,10 +48,10 @@
         <avalonDock:LayoutRoot>
             <avalonDock:LayoutPanel Orientation="Vertical">
                 <avalonDock:LayoutAnchorablePane x:Name="optionModelPane">
-                    <avalonDock:LayoutAnchorable Title="Model">
+                    <avalonDock:LayoutAnchorable Title="{lex:Loc Key=VolModel}">
                         <c:OptionModelCtrl x:Name="optionModelCtrl"/>
                     </avalonDock:LayoutAnchorable>
-                    <avalonDock:LayoutAnchorable Title="Market Maker" Closed="OpMarketMaker_Closed">
+                    <avalonDock:LayoutAnchorable Title="{lex:Loc Key=MarketMaker}" Closed="OpMarketMaker_Closed">
                         <c:OpMarketMakerCtrl x:Name="OpMarketMakerLV"/>
                     </avalonDock:LayoutAnchorable>
                 </avalonDock:LayoutAnchorablePane>

@@ -4,8 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com" 
              mc:Ignorable="d" 
-             xmlns:c="clr-namespace:Micro.Future.UI"              
+             xmlns:c="clr-namespace:Micro.Future.UI"   
+             lex:LocalizeDictionary.DesignCulture="zh_CN"
+             lex:LocalizeDictionary.OutputMissingKeys="True"
+             lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources"
              d:DesignHeight="300" d:DesignWidth="300"
              Unloaded="UserControl_Unloaded">
 
@@ -18,7 +23,7 @@
             <avalonDock:LayoutPanel Orientation="Vertical">
                 <avalonDock:LayoutPanel DockHeight="0.2*" >
                     <avalonDock:LayoutAnchorablePane x:Name="OPMarketPane" >
-                        <avalonDock:LayoutAnchorable Title="Model Select">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=ModelSelect}">
                             <c:OpMarketData x:Name="OpMarketControl"/>
                         </avalonDock:LayoutAnchorable >
                     </avalonDock:LayoutAnchorablePane>
@@ -26,12 +31,12 @@
                 <avalonDock:LayoutPanel Orientation="Vertical">
                     <avalonDock:LayoutPanel Orientation="Horizontal">
                         <avalonDock:LayoutAnchorablePane x:Name="WMSettingsPane" DockWidth="0.15*">
-                            <avalonDock:LayoutAnchorable Title="Wing Model Settings">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=WingModelSettings}">
                                 <c:WMSettingsCtrl x:Name="WMSettingsLV" x:FieldModifier="public"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="VolCurvPane" DockWidth="0.3*">
-                            <avalonDock:LayoutAnchorable Title="Volatility Curve Manager">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=VolatilityCurveManager}">
                                 <c:VolCurvCtrl x:Name="VolCurvLV"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>

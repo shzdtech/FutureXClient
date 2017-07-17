@@ -667,7 +667,7 @@
     <value>Strategy</value>
   </data>
   <data name="VolModel" xml:space="preserve">
-    <value>VolModel</value>
+    <value>Volatility Model</value>
   </data>
   <data name="CanceledOrder" xml:space="preserve">
     <value>Canceled Orders</value>
@@ -748,7 +748,7 @@
     <value>LastPrice</value>
   </data>
   <data name="MarketMaker" xml:space="preserve">
-    <value>MarketMaker</value>
+    <value>Market Maker</value>
   </data>
   <data name="Model" xml:space="preserve">
     <value>Model</value>
@@ -908,5 +908,50 @@
   </data>
   <data name="ResetPassword" xml:space="preserve">
     <value>Reset Password</value>
+  </data>
+  <data name="CallAsk" xml:space="preserve">
+    <value>CallAsk</value>
+  </data>
+  <data name="CallBid" xml:space="preserve">
+    <value>CallBid</value>
+  </data>
+  <data name="CallMid" xml:space="preserve">
+    <value>CallMid</value>
+  </data>
+  <data name="ModelSelect" xml:space="preserve">
+    <value>Model Select</value>
+  </data>
+  <data name="PutAsk" xml:space="preserve">
+    <value>PutAsk</value>
+  </data>
+  <data name="PutBid" xml:space="preserve">
+    <value>PutBid</value>
+  </data>
+  <data name="PutMid" xml:space="preserve">
+    <value>PutMid</value>
+  </data>
+  <data name="TheoAsk" xml:space="preserve">
+    <value>TheoAsk</value>
+  </data>
+  <data name="TheoAskTemp" xml:space="preserve">
+    <value>TheoAskTemp</value>
+  </data>
+  <data name="TheoBid" xml:space="preserve">
+    <value>TheoBid</value>
+  </data>
+  <data name="TheoBidTemp" xml:space="preserve">
+    <value>TheoBidTemp</value>
+  </data>
+  <data name="TheoMid" xml:space="preserve">
+    <value>TheoMid</value>
+  </data>
+  <data name="TheoMidTemp" xml:space="preserve">
+    <value>TheoMidTemp</value>
+  </data>
+  <data name="VolatilityCurveManager" xml:space="preserve">
+    <value>Volatility Curve Manager</value>
+  </data>
+  <data name="WingModelSettings" xml:space="preserve">
+    <value>Wing Model Settings</value>
   </data>
 </root>

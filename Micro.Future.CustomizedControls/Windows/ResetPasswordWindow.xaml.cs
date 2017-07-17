@@ -61,7 +61,8 @@ namespace Micro.Future.CustomizedControls.Windows
                 bool bSuc = await MessageHandlerContainer.DefaultInstance.Get<AccountHandler>().ResetPassword(resetPasswordTextBox.Password);
                 if (!bSuc)
                     MessageBox.Show(this, "修改密码失败!", "系统提示");
-
+                else
+                    MessageBox.Show(this, "密码修改成功!", "系统提示");
                 this.Close();
             }
         }
