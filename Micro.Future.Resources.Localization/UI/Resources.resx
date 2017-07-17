@@ -655,7 +655,7 @@
     <value>合约</value>
   </data>
   <data name="Refresh" xml:space="preserve">
-    <value>更新</value>
+    <value>重置</value>
   </data>
   <data name="Risk" xml:space="preserve">
     <value>风险</value>
@@ -748,7 +748,7 @@
     <value>最新价</value>
   </data>
   <data name="MarketMaker" xml:space="preserve">
-    <value>期权行情</value>
+    <value>做市商</value>
   </data>
   <data name="Model" xml:space="preserve">
     <value>模型</value>

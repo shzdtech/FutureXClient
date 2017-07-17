@@ -1069,7 +1069,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 期权行情 的本地化字符串。
+        ///   查找类似 做市商 的本地化字符串。
         /// </summary>
         internal static string MarketMaker {
             get {
@@ -1735,7 +1735,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 更新 的本地化字符串。
+        ///   查找类似 重置 的本地化字符串。
         /// </summary>
         internal static string Refresh {
             get {

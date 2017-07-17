@@ -350,12 +350,12 @@ namespace Micro.Future.UI
         private void exchange2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var exchange = exchange2.SelectedValue?.ToString();
-            var productID = (from c in _futurecontractList
-                             where c.Exchange == exchange.ToString()
-                             orderby c.ProductID ascending
-                             select c.ProductID).Distinct().ToList();
-            //underlying2.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
-            underlying2.ItemsSource = productID;
+            //var productID = (from c in _futurecontractList
+            //                 where c.Exchange == exchange.ToString()
+            //                 orderby c.ProductID ascending
+            //                 select c.ProductID).Distinct().ToList();
+            underlying2.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+            //underlying2.ItemsSource = productID;
             contract2.ItemsSource = null;
 
         }
