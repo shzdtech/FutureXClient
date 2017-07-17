@@ -50,6 +50,7 @@ namespace Micro.Future.Message
             var serialId = NextSerialId;
 
             var sst = new StringMap();
+            sst.Header = new DataHeader { SerialId = serialId };
 
             _hashEncoder.Option.Iteration = MD5Round;
             sst.Entry[FieldName.PASSWORD] = _hashEncoder.Encode(newPassword);
