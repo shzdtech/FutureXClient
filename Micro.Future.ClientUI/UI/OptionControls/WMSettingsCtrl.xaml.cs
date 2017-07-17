@@ -87,14 +87,15 @@ namespace Micro.Future.UI
         }
 
         private void SetReference_Click(object sender, RoutedEventArgs e)
+
         {
             if (TempSettings.Any())
             {
                 var modelParamsVM = DataContext as ModelParamsVM;
                 if (modelParamsVM != null)
                 {
-                    _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, TempSettings);
                     _otcOptionHandler.RemoveTempModel(modelParamsVM.InstanceName);
+                    _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, TempSettings);
                     DeleteTempSettings();
                 }
             }
