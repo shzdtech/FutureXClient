@@ -954,4 +954,10 @@
   <data name="WingModelSettings" xml:space="preserve">
     <value>Wing Model Settings</value>
   </data>
+  <data name="ImpVol" xml:space="preserve">
+    <value>ImpVol</value>
+  </data>
+  <data name="TheoVol" xml:space="preserve">
+    <value>TheoVol</value>
+  </data>
 </root>

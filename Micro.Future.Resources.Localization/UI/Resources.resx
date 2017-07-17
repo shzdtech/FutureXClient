@@ -954,4 +954,10 @@
   <data name="WingModelSettings" xml:space="preserve">
     <value>Wing模型设置</value>
   </data>
+  <data name="ImpVol" xml:space="preserve">
+    <value>隐含波动率</value>
+  </data>
+  <data name="TheoVol" xml:space="preserve">
+    <value>理论波动率</value>
+  </data>
 </root>

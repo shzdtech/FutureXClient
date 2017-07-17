@@ -64,6 +64,7 @@
             <Button x:Name="resetButton" Content="{lex:Loc Key=Reset}" Width="72" Height="36" Click="resetButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <StackPanel>
                 <WrapPanel>
+                    <Label Content="{lex:Loc Key=ImpVol}"/>
                     <GroupBox>
                         <CheckBox x:Name="checkBoxCallBid" Content="{lex:Loc Key=CallBid}" IsChecked="True"/>
                     </GroupBox>
@@ -84,6 +85,7 @@
                     </GroupBox>
                 </WrapPanel>
                 <WrapPanel MinHeight="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Label Content="{lex:Loc Key=TheoVol}"/>
                     <GroupBox>
                         <CheckBox x:Name="checkBoxTheoBid1" Content="{lex:Loc Key=TheoBid}" IsChecked="True"/>
                     </GroupBox>

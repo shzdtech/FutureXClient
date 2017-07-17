@@ -916,6 +916,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 隐含波动率 的本地化字符串。
+        /// </summary>
+        internal static string ImpVol {
+            get {
+                return ResourceManager.GetString("ImpVol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 隐含波动率模型 的本地化字符串。
         /// </summary>
         internal static string ImpVolModel {
@@ -2163,6 +2172,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Theoretical {
             get {
                 return ResourceManager.GetString("Theoretical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 理论波动率 的本地化字符串。
+        /// </summary>
+        internal static string TheoVol {
+            get {
+                return ResourceManager.GetString("TheoVol", resourceCulture);
             }
         }
         
