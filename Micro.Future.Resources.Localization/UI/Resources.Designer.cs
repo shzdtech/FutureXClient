@@ -250,6 +250,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 卖理波% 的本地化字符串。
+        /// </summary>
+        internal static string AskTheoVol {
+            get {
+                return ResourceManager.GetString("AskTheoVol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 自动订单 的本地化字符串。
         /// </summary>
         internal static string AutoOrder {
@@ -309,6 +318,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string BidSize {
             get {
                 return ResourceManager.GetString("BidSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 买理波% 的本地化字符串。
+        /// </summary>
+        internal static string BidTheoVol {
+            get {
+                return ResourceManager.GetString("BidTheoVol", resourceCulture);
             }
         }
         
@@ -403,7 +421,34 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CAskQT启用 的本地化字符串。
+        ///   查找类似 C.卖价 的本地化字符串。
+        /// </summary>
+        internal static string CAsk {
+            get {
+                return ResourceManager.GetString("CAsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.卖计数 的本地化字符串。
+        /// </summary>
+        internal static string CAskCnt {
+            get {
+                return ResourceManager.GetString("CAskCnt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.卖隐波 的本地化字符串。
+        /// </summary>
+        internal static string CAskIV {
+            get {
+                return ResourceManager.GetString("CAskIV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.卖QT 的本地化字符串。
         /// </summary>
         internal static string CAskQTEnable {
             get {
@@ -412,11 +457,119 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CBidQT启用 的本地化字符串。
+        ///   查找类似 C.卖QV 的本地化字符串。
+        /// </summary>
+        internal static string CAskQV {
+            get {
+                return ResourceManager.GetString("CAskQV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.卖量 的本地化字符串。
+        /// </summary>
+        internal static string CAskSize {
+            get {
+                return ResourceManager.GetString("CAskSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.卖理价 的本地化字符串。
+        /// </summary>
+        internal static string CAskTheo {
+            get {
+                return ResourceManager.GetString("CAskTheo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.买价 的本地化字符串。
+        /// </summary>
+        internal static string CBid {
+            get {
+                return ResourceManager.GetString("CBid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.买计数 的本地化字符串。
+        /// </summary>
+        internal static string CBidCnt {
+            get {
+                return ResourceManager.GetString("CBidCnt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.买隐波 的本地化字符串。
+        /// </summary>
+        internal static string CBidIV {
+            get {
+                return ResourceManager.GetString("CBidIV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.买QT 的本地化字符串。
         /// </summary>
         internal static string CBidQTEnable {
             get {
                 return ResourceManager.GetString("CBidQTEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.买QV 的本地化字符串。
+        /// </summary>
+        internal static string CBidQV {
+            get {
+                return ResourceManager.GetString("CBidQV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.买量 的本地化字符串。
+        /// </summary>
+        internal static string CBidSize {
+            get {
+                return ResourceManager.GetString("CBidSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.买理价 的本地化字符串。
+        /// </summary>
+        internal static string CBidTheo {
+            get {
+                return ResourceManager.GetString("CBidTheo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.CloseMode 的本地化字符串。
+        /// </summary>
+        internal static string CCloseMode {
+            get {
+                return ResourceManager.GetString("CCloseMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.Delta 的本地化字符串。
+        /// </summary>
+        internal static string CDelta {
+            get {
+                return ResourceManager.GetString("CDelta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.深度 的本地化字符串。
+        /// </summary>
+        internal static string CDepth {
+            get {
+                return ResourceManager.GetString("CDepth", resourceCulture);
             }
         }
         
@@ -484,6 +637,33 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 C.中间价 的本地化字符串。
+        /// </summary>
+        internal static string CMid {
+            get {
+                return ResourceManager.GetString("CMid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.中间隐波 的本地化字符串。
+        /// </summary>
+        internal static string CMidIV {
+            get {
+                return ResourceManager.GetString("CMidIV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.NotCross 的本地化字符串。
+        /// </summary>
+        internal static string CNotCross {
+            get {
+                return ResourceManager.GetString("CNotCross", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 列设置 的本地化字符串。
         /// </summary>
         internal static string ColumnSettings {
@@ -529,6 +709,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 C.订单计数 的本地化字符串。
+        /// </summary>
+        internal static string COrderCnt {
+            get {
+                return ResourceManager.GetString("COrderCnt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 计数 的本地化字符串。
         /// </summary>
         internal static string Counter {
@@ -538,11 +727,38 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 C.仓位 的本地化字符串。
+        /// </summary>
+        internal static string CPosition {
+            get {
+                return ResourceManager.GetString("CPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 信用额度 的本地化字符串。
         /// </summary>
         internal static string Credit {
             get {
                 return ResourceManager.GetString("Credit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.Rho 的本地化字符串。
+        /// </summary>
+        internal static string CRho {
+            get {
+                return ResourceManager.GetString("CRho", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.Theta 的本地化字符串。
+        /// </summary>
+        internal static string CTheta {
+            get {
+                return ResourceManager.GetString("CTheta", resourceCulture);
             }
         }
         
@@ -853,6 +1069,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 Gamma 的本地化字符串。
+        /// </summary>
+        internal static string Gamma {
+            get {
+                return ResourceManager.GetString("Gamma", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 当日有效 的本地化字符串。
         /// </summary>
         internal static string GFD {
@@ -1128,6 +1353,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Message {
             get {
                 return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 中间理波% 的本地化字符串。
+        /// </summary>
+        internal static string MidTheoVol {
+            get {
+                return ResourceManager.GetString("MidTheoVol", resourceCulture);
             }
         }
         
@@ -1492,11 +1726,65 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 PAskQT启用 的本地化字符串。
+        ///   查找类似 P.卖价 的本地化字符串。
+        /// </summary>
+        internal static string PAsk {
+            get {
+                return ResourceManager.GetString("PAsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.卖计数 的本地化字符串。
+        /// </summary>
+        internal static string PAskCnt {
+            get {
+                return ResourceManager.GetString("PAskCnt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.卖隐波 的本地化字符串。
+        /// </summary>
+        internal static string PAskIV {
+            get {
+                return ResourceManager.GetString("PAskIV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.卖QT启用 的本地化字符串。
         /// </summary>
         internal static string PAskQTEnable {
             get {
                 return ResourceManager.GetString("PAskQTEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.卖QV 的本地化字符串。
+        /// </summary>
+        internal static string PAskQV {
+            get {
+                return ResourceManager.GetString("PAskQV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.卖量 的本地化字符串。
+        /// </summary>
+        internal static string PAskSize {
+            get {
+                return ResourceManager.GetString("PAskSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.卖理价 的本地化字符串。
+        /// </summary>
+        internal static string PAskTheo {
+            get {
+                return ResourceManager.GetString("PAskTheo", resourceCulture);
             }
         }
         
@@ -1510,11 +1798,128 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 PBidQT启用 的本地化字符串。
+        ///   查找类似 P.买价 的本地化字符串。
+        /// </summary>
+        internal static string PBid {
+            get {
+                return ResourceManager.GetString("PBid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.买计数 的本地化字符串。
+        /// </summary>
+        internal static string PBidCnt {
+            get {
+                return ResourceManager.GetString("PBidCnt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.买隐波 的本地化字符串。
+        /// </summary>
+        internal static string PBidIV {
+            get {
+                return ResourceManager.GetString("PBidIV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.买QT启用 的本地化字符串。
         /// </summary>
         internal static string PBidQTEnable {
             get {
                 return ResourceManager.GetString("PBidQTEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.买QV 的本地化字符串。
+        /// </summary>
+        internal static string PBidQV {
+            get {
+                return ResourceManager.GetString("PBidQV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.买量 的本地化字符串。
+        /// </summary>
+        internal static string PBidSize {
+            get {
+                return ResourceManager.GetString("PBidSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.买理价 的本地化字符串。
+        /// </summary>
+        internal static string PBidTheo {
+            get {
+                return ResourceManager.GetString("PBidTheo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.CloseMode 的本地化字符串。
+        /// </summary>
+        internal static string PCloseMode {
+            get {
+                return ResourceManager.GetString("PCloseMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.Delta 的本地化字符串。
+        /// </summary>
+        internal static string PDelta {
+            get {
+                return ResourceManager.GetString("PDelta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.深度 的本地化字符串。
+        /// </summary>
+        internal static string PDepth {
+            get {
+                return ResourceManager.GetString("PDepth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.中间价 的本地化字符串。
+        /// </summary>
+        internal static string PMid {
+            get {
+                return ResourceManager.GetString("PMid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.中间隐波 的本地化字符串。
+        /// </summary>
+        internal static string PMidIV {
+            get {
+                return ResourceManager.GetString("PMidIV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.NotCross 的本地化字符串。
+        /// </summary>
+        internal static string PNotCross {
+            get {
+                return ResourceManager.GetString("PNotCross", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.订单计数 的本地化字符串。
+        /// </summary>
+        internal static string POrderCnt {
+            get {
+                return ResourceManager.GetString("POrderCnt", resourceCulture);
             }
         }
         
@@ -1578,6 +1983,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string PositionWindow {
             get {
                 return ResourceManager.GetString("PositionWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.仓位 的本地化字符串。
+        /// </summary>
+        internal static string PPosition {
+            get {
+                return ResourceManager.GetString("PPosition", resourceCulture);
             }
         }
         
@@ -1654,6 +2068,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 P.Rho 的本地化字符串。
+        /// </summary>
+        internal static string PRho {
+            get {
+                return ResourceManager.GetString("PRho", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 价格 的本地化字符串。
         /// </summary>
         internal static string Price {
@@ -1677,6 +2100,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Product {
             get {
                 return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.Theta 的本地化字符串。
+        /// </summary>
+        internal static string PTheta {
+            get {
+                return ResourceManager.GetString("PTheta", resourceCulture);
             }
         }
         
@@ -2095,6 +2527,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 执行价 的本地化字符串。
+        /// </summary>
+        internal static string Strike {
+            get {
+                return ResourceManager.GetString("Strike", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 执行价格 的本地化字符串。
         /// </summary>
         internal static string StrikePrice {
@@ -2478,6 +2919,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Variate {
             get {
                 return ResourceManager.GetString("Variate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Vega 的本地化字符串。
+        /// </summary>
+        internal static string Vega {
+            get {
+                return ResourceManager.GetString("Vega", resourceCulture);
             }
         }
         

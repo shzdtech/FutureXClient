@@ -613,10 +613,10 @@
     <value>BidEnable</value>
   </data>
   <data name="CAskQTEnable" xml:space="preserve">
-    <value>CAskQTEnable</value>
+    <value>CAskQT</value>
   </data>
   <data name="CBidQTEnable" xml:space="preserve">
-    <value>CBidQTEnable</value>
+    <value>CBidQT</value>
   </data>
   <data name="Future1" xml:space="preserve">
     <value>Future1</value>
@@ -954,10 +954,160 @@
   <data name="WingModelSettings" xml:space="preserve">
     <value>Wing Model Settings</value>
   </data>
+  <data name="AskTheoVol" xml:space="preserve">
+    <value>AskTheoVol%</value>
+  </data>
+  <data name="BidTheoVol" xml:space="preserve">
+    <value>BidTheoVol%</value>
+  </data>
+  <data name="CAsk" xml:space="preserve">
+    <value>C.Ask</value>
+  </data>
+  <data name="CAskCnt" xml:space="preserve">
+    <value>C.AskCnt</value>
+  </data>
+  <data name="CAskIV" xml:space="preserve">
+    <value>C.AskIV</value>
+  </data>
+  <data name="CAskQV" xml:space="preserve">
+    <value>C.AskQV</value>
+  </data>
+  <data name="CAskSize" xml:space="preserve">
+    <value>C.AskSize</value>
+  </data>
+  <data name="CAskTheo" xml:space="preserve">
+    <value>C.AskTheo</value>
+  </data>
+  <data name="CBid" xml:space="preserve">
+    <value>C.Bid</value>
+  </data>
+  <data name="CBidCnt" xml:space="preserve">
+    <value>C.BidCnt</value>
+  </data>
+  <data name="CBidIV" xml:space="preserve">
+    <value>C.BidIV</value>
+  </data>
+  <data name="CBidQV" xml:space="preserve">
+    <value>C.BidQV</value>
+  </data>
+  <data name="CBidSize" xml:space="preserve">
+    <value>C.BidSize</value>
+  </data>
+  <data name="CBidTheo" xml:space="preserve">
+    <value>C.BidTheo</value>
+  </data>
+  <data name="CCloseMode" xml:space="preserve">
+    <value>C.CloseMode</value>
+  </data>
+  <data name="CDelta" xml:space="preserve">
+    <value>C.Delta</value>
+  </data>
+  <data name="CDepth" xml:space="preserve">
+    <value>C.Depth</value>
+  </data>
+  <data name="CMid" xml:space="preserve">
+    <value>C.Mid</value>
+  </data>
+  <data name="CMidIV" xml:space="preserve">
+    <value>C.MidIV</value>
+  </data>
+  <data name="CNotCross" xml:space="preserve">
+    <value>C.NotCross</value>
+  </data>
+  <data name="COrderCnt" xml:space="preserve">
+    <value>C.OrderCnt</value>
+  </data>
+  <data name="CPosition" xml:space="preserve">
+    <value>C.Position</value>
+  </data>
+  <data name="CRho" xml:space="preserve">
+    <value>C.Rho</value>
+  </data>
+  <data name="CTheta" xml:space="preserve">
+    <value>C.Theta</value>
+  </data>
+  <data name="Gamma" xml:space="preserve">
+    <value>Gamma</value>
+  </data>
   <data name="ImpVol" xml:space="preserve">
     <value>ImpVol</value>
   </data>
+  <data name="MidTheoVol" xml:space="preserve">
+    <value>MidTheoVol%</value>
+  </data>
+  <data name="PAsk" xml:space="preserve">
+    <value>P.Ask</value>
+  </data>
+  <data name="PAskCnt" xml:space="preserve">
+    <value>P.AskCnt</value>
+  </data>
+  <data name="PAskIV" xml:space="preserve">
+    <value>P.AskIV</value>
+  </data>
+  <data name="PAskQV" xml:space="preserve">
+    <value>P.AskQV</value>
+  </data>
+  <data name="PAskSize" xml:space="preserve">
+    <value>P.AskSize</value>
+  </data>
+  <data name="PAskTheo" xml:space="preserve">
+    <value>P.AskTheo</value>
+  </data>
+  <data name="PBid" xml:space="preserve">
+    <value>P.Bid</value>
+  </data>
+  <data name="PBidCnt" xml:space="preserve">
+    <value>P.BidCnt</value>
+  </data>
+  <data name="PBidIV" xml:space="preserve">
+    <value>P.BidIV</value>
+  </data>
+  <data name="PBidQV" xml:space="preserve">
+    <value>P.BidQV</value>
+  </data>
+  <data name="PBidSize" xml:space="preserve">
+    <value>P.BidSize</value>
+  </data>
+  <data name="PBidTheo" xml:space="preserve">
+    <value>P.BidTheo</value>
+  </data>
+  <data name="PCloseMode" xml:space="preserve">
+    <value>P.CloseMode</value>
+  </data>
+  <data name="PDelta" xml:space="preserve">
+    <value>P.Delta</value>
+  </data>
+  <data name="PDepth" xml:space="preserve">
+    <value>P.Depth</value>
+  </data>
+  <data name="PMid" xml:space="preserve">
+    <value>P.Mid</value>
+  </data>
+  <data name="PMidIV" xml:space="preserve">
+    <value>P.MidIV</value>
+  </data>
+  <data name="PNotCross" xml:space="preserve">
+    <value>P.NotCross</value>
+  </data>
+  <data name="POrderCnt" xml:space="preserve">
+    <value>P.OrderCnt</value>
+  </data>
+  <data name="PPosition" xml:space="preserve">
+    <value>P.Position</value>
+  </data>
+  <data name="PRho" xml:space="preserve">
+    <value>P.Rho</value>
+  </data>
+  <data name="PTheta" xml:space="preserve">
+    <value>P.Theta</value>
+  </data>
+  <data name="Strike" xml:space="preserve">
+    <value>Strike</value>
+  </data>
   <data name="TheoVol" xml:space="preserve">
     <value>TheoVol</value>
+  </data>
+  <data name="Vega" xml:space="preserve">
+    <value>Vega</value>
   </data>
 </root>
