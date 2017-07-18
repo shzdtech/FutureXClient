@@ -178,7 +178,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PAODepth" Header="{lex:Loc Key=PAskQTEnable}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                    <GridViewColumn x:Name="PAODepth" Header="{lex:Loc Key=PDepth}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <xctk:IntegerUpDown x:Name="pAODepthUpDown" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding PutStrategyVM.Depth}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" Minimum="0"></xctk:IntegerUpDown>

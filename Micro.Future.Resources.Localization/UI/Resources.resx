@@ -613,10 +613,10 @@
     <value>启用Bid报价</value>
   </data>
   <data name="CAskQTEnable" xml:space="preserve">
-    <value>C.卖QT</value>
+    <value>C.卖挂单</value>
   </data>
   <data name="CBidQTEnable" xml:space="preserve">
-    <value>C.买QT</value>
+    <value>C.买挂单</value>
   </data>
   <data name="Future1" xml:space="preserve">
     <value>期货1</value>
@@ -643,10 +643,10 @@
     <value>参数</value>
   </data>
   <data name="PAskQTEnable" xml:space="preserve">
-    <value>P.卖QT启用</value>
+    <value>P.卖挂单</value>
   </data>
   <data name="PBidQTEnable" xml:space="preserve">
-    <value>P.买QT启用</value>
+    <value>P.买挂单</value>
   </data>
   <data name="PricingModel" xml:space="preserve">
     <value>定价模型</value>
@@ -775,13 +775,13 @@
     <value>成交</value>
   </data>
   <data name="Counter" xml:space="preserve">
-    <value>计数</value>
+    <value>成交计数</value>
   </data>
   <data name="OrderProtect" xml:space="preserve">
     <value>挂单保护</value>
   </data>
   <data name="RefreshCounter" xml:space="preserve">
-    <value>刷新计数</value>
+    <value>刷新成交计数</value>
   </data>
   <data name="RiskGraph" xml:space="preserve">
     <value>风险图形</value>
@@ -964,13 +964,13 @@
     <value>C.卖价</value>
   </data>
   <data name="CAskCnt" xml:space="preserve">
-    <value>C.卖计数</value>
+    <value>C.卖成交计数</value>
   </data>
   <data name="CAskIV" xml:space="preserve">
     <value>C.卖隐波</value>
   </data>
   <data name="CAskQV" xml:space="preserve">
-    <value>C.卖QV</value>
+    <value>C.卖挂单数量</value>
   </data>
   <data name="CAskSize" xml:space="preserve">
     <value>C.卖量</value>
@@ -982,13 +982,13 @@
     <value>C.买价</value>
   </data>
   <data name="CBidCnt" xml:space="preserve">
-    <value>C.买计数</value>
+    <value>C.买成交计数</value>
   </data>
   <data name="CBidIV" xml:space="preserve">
     <value>C.买隐波</value>
   </data>
   <data name="CBidQV" xml:space="preserve">
-    <value>C.买QV</value>
+    <value>C.买挂单数量</value>
   </data>
   <data name="CBidSize" xml:space="preserve">
     <value>C.买量</value>
@@ -997,13 +997,13 @@
     <value>C.买理价</value>
   </data>
   <data name="CCloseMode" xml:space="preserve">
-    <value>C.CloseMode</value>
+    <value>C.平仓模式</value>
   </data>
   <data name="CDelta" xml:space="preserve">
     <value>C.Delta</value>
   </data>
   <data name="CDepth" xml:space="preserve">
-    <value>C.深度</value>
+    <value>C.挂单深度</value>
   </data>
   <data name="CMid" xml:space="preserve">
     <value>C.中间价</value>
@@ -1012,7 +1012,7 @@
     <value>C.中间隐波</value>
   </data>
   <data name="CNotCross" xml:space="preserve">
-    <value>C.NotCross</value>
+    <value>C.挂单价格保护</value>
   </data>
   <data name="COrderCnt" xml:space="preserve">
     <value>C.订单计数</value>
@@ -1039,13 +1039,13 @@
     <value>P.卖价</value>
   </data>
   <data name="PAskCnt" xml:space="preserve">
-    <value>P.卖计数</value>
+    <value>P.卖成交计数</value>
   </data>
   <data name="PAskIV" xml:space="preserve">
     <value>P.卖隐波</value>
   </data>
   <data name="PAskQV" xml:space="preserve">
-    <value>P.卖QV</value>
+    <value>P.卖挂单数量</value>
   </data>
   <data name="PAskSize" xml:space="preserve">
     <value>P.卖量</value>
@@ -1057,13 +1057,13 @@
     <value>P.买价</value>
   </data>
   <data name="PBidCnt" xml:space="preserve">
-    <value>P.买计数</value>
+    <value>P.买成交计数</value>
   </data>
   <data name="PBidIV" xml:space="preserve">
     <value>P.买隐波</value>
   </data>
   <data name="PBidQV" xml:space="preserve">
-    <value>P.买QV</value>
+    <value>P.买挂单数量</value>
   </data>
   <data name="PBidSize" xml:space="preserve">
     <value>P.买量</value>
@@ -1072,13 +1072,13 @@
     <value>P.买理价</value>
   </data>
   <data name="PCloseMode" xml:space="preserve">
-    <value>P.CloseMode</value>
+    <value>P.平仓模式</value>
   </data>
   <data name="PDelta" xml:space="preserve">
     <value>P.Delta</value>
   </data>
   <data name="PDepth" xml:space="preserve">
-    <value>P.深度</value>
+    <value>P.挂单深度</value>
   </data>
   <data name="PMid" xml:space="preserve">
     <value>P.中间价</value>
@@ -1087,7 +1087,7 @@
     <value>P.中间隐波</value>
   </data>
   <data name="PNotCross" xml:space="preserve">
-    <value>P.NotCross</value>
+    <value>P.挂单价格保护</value>
   </data>
   <data name="POrderCnt" xml:space="preserve">
     <value>P.订单计数</value>

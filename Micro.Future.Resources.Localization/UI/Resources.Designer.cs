@@ -430,7 +430,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.卖计数 的本地化字符串。
+        ///   查找类似 C.卖成交计数 的本地化字符串。
         /// </summary>
         internal static string CAskCnt {
             get {
@@ -448,7 +448,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.卖QT 的本地化字符串。
+        ///   查找类似 C.卖挂单 的本地化字符串。
         /// </summary>
         internal static string CAskQTEnable {
             get {
@@ -457,7 +457,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.卖QV 的本地化字符串。
+        ///   查找类似 C.卖挂单数量 的本地化字符串。
         /// </summary>
         internal static string CAskQV {
             get {
@@ -493,7 +493,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.买计数 的本地化字符串。
+        ///   查找类似 C.买成交计数 的本地化字符串。
         /// </summary>
         internal static string CBidCnt {
             get {
@@ -511,7 +511,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.买QT 的本地化字符串。
+        ///   查找类似 C.买挂单 的本地化字符串。
         /// </summary>
         internal static string CBidQTEnable {
             get {
@@ -520,7 +520,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.买QV 的本地化字符串。
+        ///   查找类似 C.买挂单数量 的本地化字符串。
         /// </summary>
         internal static string CBidQV {
             get {
@@ -547,7 +547,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.CloseMode 的本地化字符串。
+        ///   查找类似 C.平仓模式 的本地化字符串。
         /// </summary>
         internal static string CCloseMode {
             get {
@@ -565,7 +565,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.深度 的本地化字符串。
+        ///   查找类似 C.挂单深度 的本地化字符串。
         /// </summary>
         internal static string CDepth {
             get {
@@ -655,7 +655,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.NotCross 的本地化字符串。
+        ///   查找类似 C.挂单价格保护 的本地化字符串。
         /// </summary>
         internal static string CNotCross {
             get {
@@ -718,7 +718,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 计数 的本地化字符串。
+        ///   查找类似 成交计数 的本地化字符串。
         /// </summary>
         internal static string Counter {
             get {
@@ -1735,7 +1735,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.卖计数 的本地化字符串。
+        ///   查找类似 P.卖成交计数 的本地化字符串。
         /// </summary>
         internal static string PAskCnt {
             get {
@@ -1753,7 +1753,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.卖QT启用 的本地化字符串。
+        ///   查找类似 P.卖挂单 的本地化字符串。
         /// </summary>
         internal static string PAskQTEnable {
             get {
@@ -1762,7 +1762,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.卖QV 的本地化字符串。
+        ///   查找类似 P.卖挂单数量 的本地化字符串。
         /// </summary>
         internal static string PAskQV {
             get {
@@ -1807,7 +1807,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.买计数 的本地化字符串。
+        ///   查找类似 P.买成交计数 的本地化字符串。
         /// </summary>
         internal static string PBidCnt {
             get {
@@ -1825,7 +1825,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.买QT启用 的本地化字符串。
+        ///   查找类似 P.买挂单 的本地化字符串。
         /// </summary>
         internal static string PBidQTEnable {
             get {
@@ -1834,7 +1834,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.买QV 的本地化字符串。
+        ///   查找类似 P.买挂单数量 的本地化字符串。
         /// </summary>
         internal static string PBidQV {
             get {
@@ -1861,7 +1861,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.CloseMode 的本地化字符串。
+        ///   查找类似 P.平仓模式 的本地化字符串。
         /// </summary>
         internal static string PCloseMode {
             get {
@@ -1879,7 +1879,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.深度 的本地化字符串。
+        ///   查找类似 P.挂单深度 的本地化字符串。
         /// </summary>
         internal static string PDepth {
             get {
@@ -1906,7 +1906,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.NotCross 的本地化字符串。
+        ///   查找类似 P.挂单价格保护 的本地化字符串。
         /// </summary>
         internal static string PNotCross {
             get {
@@ -2194,7 +2194,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 刷新计数 的本地化字符串。
+        ///   查找类似 刷新成交计数 的本地化字符串。
         /// </summary>
         internal static string RefreshCounter {
             get {
