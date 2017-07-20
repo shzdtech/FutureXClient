@@ -9,6 +9,7 @@ using Micro.Future.CustomizedControls;
 using Micro.Future.Resources.Localization;
 using AutoUpdaterDotNET;
 using System.Windows.Controls;
+using Micro.Future.CustomizedControls.Windows;
 
 namespace Micro.Future.UI
 {
@@ -62,7 +63,7 @@ namespace Micro.Future.UI
             else
             {
                 Dispatcher.Invoke(() =>
-                {   
+                {
                     Hide();
                     Title += " (" + MFUtilities.ClientVersion + ")";
                     Initialize();
@@ -145,9 +146,9 @@ namespace Micro.Future.UI
                         {
                             foreach (var statusbaritem in frameUI.StatusBarItems)
                             {
-                                if(!string.IsNullOrEmpty(statusbaritem.Uid))
+                                if (!string.IsNullOrEmpty(statusbaritem.Uid))
                                 {
-                                    if(statusBarIdSet.Contains(statusbaritem.Uid))
+                                    if (statusBarIdSet.Contains(statusbaritem.Uid))
                                     {
                                         continue;
                                     }
@@ -194,7 +195,7 @@ namespace Micro.Future.UI
                     e.Cancel = true;
                 }
 
-                foreach(var pane in mainPane.Children)
+                foreach (var pane in mainPane.Children)
                 {
                     var frame = pane.Content as IUserFrame;
                     if (frame != null)
@@ -203,7 +204,7 @@ namespace Micro.Future.UI
                         {
                             frame.OnClosing();
                         }
-                        catch(Exception)
+                        catch (Exception)
                         {
 
                         }
@@ -218,6 +219,14 @@ namespace Micro.Future.UI
             {
                 return Resources["sysMenuItems"] as IEnumerable<MenuItem>;
             }
+        }
+        private void MenuItem_Click_ResetPassword(object sender, RoutedEventArgs e)
+        {
+
+            ResetPasswordWindow win = new ResetPasswordWindow(_accountSignIner.SignInOptions.Password) { MD5Round = 2 };
+
+            win.ShowDialog();
+
         }
     }
 }

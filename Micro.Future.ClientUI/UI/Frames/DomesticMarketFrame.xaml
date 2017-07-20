@@ -53,8 +53,6 @@
                     <MenuItem Header="{lex:Loc Key=FutureAccountInfo}" Click="MenuItem_Click_FutureAccount">
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{lex:Loc Key=ResetPassword}" Click="MenuItem_Click_ResetPassword">
-                </MenuItem>
             </MenuItem>
         </x:Array>
         <x:Array Type="{x:Type StatusBarItem}" x:Key="exStatusBarItems">

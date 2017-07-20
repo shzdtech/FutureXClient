@@ -15,8 +15,8 @@
                 Title="U.F.O." Closing="OnClosing">
     <Window.Resources>
         <x:Array Type="{x:Type MenuItem}" x:Key="sysMenuItems">
-            <MenuItem x:Name="sysMenuItem" Header="System Menu">
-                <MenuItem Header="Test">
+            <MenuItem x:Name="sysMenuItem" Header="{lex:Loc Key=System}">
+                <MenuItem Header="{lex:Loc Key=ResetPassword}" Click="MenuItem_Click_ResetPassword">
                 </MenuItem>
             </MenuItem>
         </x:Array>

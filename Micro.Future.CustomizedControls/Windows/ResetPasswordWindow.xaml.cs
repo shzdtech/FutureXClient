@@ -17,6 +17,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Security.Cryptography;
+
 
 namespace Micro.Future.CustomizedControls.Windows
 {
@@ -30,10 +32,29 @@ namespace Micro.Future.CustomizedControls.Windows
             get; protected set;
         }
         private PBSignInManager _accountSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AccountHandler>());
+        public string Password
+        {
+            get;
+            set;
+        }
 
-        public ResetPasswordWindow()
+        private HashEncoder<HashEncoderOption> _hashEncoder =
+    new HashEncoder<HashEncoderOption>(MD5.Create(),
+       (md5, byteArray) =>
+       {
+           return ((MD5)md5).ComputeHash(byteArray);
+       }
+       );
+
+        public uint MD5Round
+        {
+            get;
+            set;
+        }
+        public ResetPasswordWindow(string password)
         {
             InitializeComponent();
+            Password = password;
 
         }
 
@@ -50,8 +71,14 @@ namespace Micro.Future.CustomizedControls.Windows
         private async void Button_Click_Reset(object sender, RoutedEventArgs e)
         {
             string password = originalPasswordTextBox.Password;
+            if (password!=null)
+            {
 
-            if (_accountSignIner.SignInOptions.Password == password)
+                _hashEncoder.Option.Iteration = MD5Round;
+                password = _hashEncoder.Encode(password);
+            }
+
+            if (Password == password)
             {
 
                 if (resetPasswordTextBox.Password == "")
