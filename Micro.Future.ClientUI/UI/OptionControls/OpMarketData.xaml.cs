@@ -157,7 +157,12 @@ namespace Micro.Future.UI
                             var exchangeTemp = exchange1.SelectedValue?.ToString();
                             if (exchangeTemp != null)
                             {
-                                underlying1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchangeTemp).Select(c => c.ProductID).Distinct();
+                                var productID = (from c in _futurecontractList
+                                                 where c.Exchange == exchange.ToString()
+                                                 orderby c.ProductID ascending
+                                                 select c.ProductID).Distinct().ToList();
+                                //underlying1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchangeTemp).Select(c => c.ProductID).Distinct();
+                                underlying1.ItemsSource = productID;
                                 contract1.ItemsSource = null;
                             }
                             underlying1.SelectedValue = futureunderlying;
@@ -262,7 +267,12 @@ namespace Micro.Future.UI
                         var exchangeTemp = exchange2.SelectedValue?.ToString();
                         if (exchangeTemp != null)
                         {
-                            underlying2.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchangeTemp).Select(c => c.ProductID).Distinct();
+                            var productID = (from c in _futurecontractList
+                                             where c.Exchange == exchange.ToString()
+                                             orderby c.ProductID ascending
+                                             select c.ProductID).Distinct().ToList();
+                            //underlying2.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchangeTemp).Select(c => c.ProductID).Distinct();
+                            underlying2.ItemsSource = productID;
                             contract2.ItemsSource = null;
                         }
                         underlying2.SelectedValue = futureunderlying;
@@ -286,7 +296,7 @@ namespace Micro.Future.UI
 
         private void exchange1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var exchange = exchange1.SelectedValue?.ToString();
+            var exchange = exchange1.SelectedItem?.ToString();
             if (exchange != null)
             {
                 var productID = (from c in _futurecontractList

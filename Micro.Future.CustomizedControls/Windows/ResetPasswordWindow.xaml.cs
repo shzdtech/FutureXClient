@@ -25,6 +25,11 @@ namespace Micro.Future.CustomizedControls.Windows
     /// </summary>
     public partial class ResetPasswordWindow : Window
     {
+        public AbstractSignInManager SignInManager
+        {
+            get; protected set;
+        }
+        private PBSignInManager _accountSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AccountHandler>());
 
         public ResetPasswordWindow()
         {
@@ -44,27 +49,35 @@ namespace Micro.Future.CustomizedControls.Windows
 
         private async void Button_Click_Reset(object sender, RoutedEventArgs e)
         {
-            if (resetPasswordTextBox.Password == "")
+            string password = originalPasswordTextBox.Password;
+
+            if (_accountSignIner.SignInOptions.Password == password)
             {
-                this.resetPasswordTextBox.Background = new SolidColorBrush(Colors.Red);
-                MessageBox.Show(this, "输入不能为空");
-                this.resetPasswordTextBox.Background = new SolidColorBrush(Colors.White);
-                return;
+
+                if (resetPasswordTextBox.Password == "")
+                {
+                    this.resetPasswordTextBox.Background = new SolidColorBrush(Colors.Red);
+                    MessageBox.Show(this, "输入不能为空");
+                    this.resetPasswordTextBox.Background = new SolidColorBrush(Colors.White);
+                    return;
+                }
+                else if (resetPasswordTextBox.Password != affirmPasswordTextBox.Password)
+                {
+                    MessageBox.Show(this, "两次密码输入不一致,请重新输入!", "系统提示");
+                    return;
+                }
+                else if (resetPasswordTextBox.Password == affirmPasswordTextBox.Password)
+                {
+                    bool bSuc = await MessageHandlerContainer.DefaultInstance.Get<AccountHandler>().ResetPassword(resetPasswordTextBox.Password);
+                    if (!bSuc)
+                        MessageBox.Show(this, "修改密码失败!", "系统提示");
+                    else
+                        MessageBox.Show(this, "密码修改成功!", "系统提示");
+                    this.Close();
+                }
             }
-            else if (resetPasswordTextBox.Password != affirmPasswordTextBox.Password)
-            {
-                MessageBox.Show(this, "两次密码输入不一致,请重新输入!", "系统提示");
-                return;
-            }
-            else if (resetPasswordTextBox.Password == affirmPasswordTextBox.Password)
-            {
-                bool bSuc = await MessageHandlerContainer.DefaultInstance.Get<AccountHandler>().ResetPassword(resetPasswordTextBox.Password);
-                if (!bSuc)
-                    MessageBox.Show(this, "修改密码失败!", "系统提示");
-                else
-                    MessageBox.Show(this, "密码修改成功!", "系统提示");
-                this.Close();
-            }
+            else
+                MessageBox.Show(this, "原密码错误!", "系统提示");
         }
 
     }

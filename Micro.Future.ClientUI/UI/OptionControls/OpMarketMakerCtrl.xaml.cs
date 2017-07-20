@@ -78,6 +78,7 @@ namespace Micro.Future.UI
             // Initialize Market Data
             quoteListView1.ItemsSource = QuoteVMCollection1;
             option_priceLV.ItemsSource = CallPutTDOptionVMCollection;
+
             _otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
             _tradeExHandler.OnPositionUpdated += OnPositionUpdated;
 
@@ -94,56 +95,55 @@ namespace Micro.Future.UI
             marketNode.Children.Add(ColumnObject.CreateColumn(PBidSize));
             marketNode.Children.Add(ColumnObject.CreateColumn(PAsk));
             marketNode.Children.Add(ColumnObject.CreateColumn(PAskSize));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PMid));
             marketNode.Children.Add(ColumnObject.CreateColumn(CBid));
             marketNode.Children.Add(ColumnObject.CreateColumn(CBidSize));
             marketNode.Children.Add(ColumnObject.CreateColumn(CAsk));
             marketNode.Children.Add(ColumnObject.CreateColumn(CAskSize));
             marketNode.Children.Add(ColumnObject.CreateColumn(CMid));
-            marketNode.Children.Add(ColumnObject.CreateColumn(PMid));
             ivolNode.Children.Add(ColumnObject.CreateColumn(PBidIV));
             ivolNode.Children.Add(ColumnObject.CreateColumn(PAskIV));
             ivolNode.Children.Add(ColumnObject.CreateColumn(PMidIV));
-            ivolNode.Children.Add(ColumnObject.CreateColumn(CBidIV));
-            ivolNode.Children.Add(ColumnObject.CreateColumn(CAskIV));
-            ivolNode.Children.Add(ColumnObject.CreateColumn(CMidIV));
             ivolNode.Children.Add(ColumnObject.CreateColumn(TheoAskVol));
             ivolNode.Children.Add(ColumnObject.CreateColumn(TheoBidVol));
             ivolNode.Children.Add(ColumnObject.CreateColumn(TheoMidVol));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(PDelta));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(CDelta));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(Vega));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(Gamma));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(PTheta));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(CTheta));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(PRho));
-            riskGreekNode.Children.Add(ColumnObject.CreateColumn(CRho));
+            ivolNode.Children.Add(ColumnObject.CreateColumn(CBidIV));
+            ivolNode.Children.Add(ColumnObject.CreateColumn(CAskIV));
+            ivolNode.Children.Add(ColumnObject.CreateColumn(CMidIV));
             theoPriceNode.Children.Add(ColumnObject.CreateColumn(PBidTheo));
             theoPriceNode.Children.Add(ColumnObject.CreateColumn(PAskTheo));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(PRho));
+            positionNode.Children.Add(ColumnObject.CreateColumn(PPosition));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(PDelta));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(PTheta));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(Vega));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(Gamma));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(CDelta));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(CTheta));
+            riskGreekNode.Children.Add(ColumnObject.CreateColumn(CRho));
             theoPriceNode.Children.Add(ColumnObject.CreateColumn(CBidTheo));
             theoPriceNode.Children.Add(ColumnObject.CreateColumn(CAskTheo));
-            positionNode.Children.Add(ColumnObject.CreateColumn(PPosition));
             positionNode.Children.Add(ColumnObject.CreateColumn(CPosition));
-            QTNode.Children.Add(ColumnObject.CreateColumn(PAskQT));
             QTNode.Children.Add(ColumnObject.CreateColumn(PBidQT));
-            QTNode.Children.Add(ColumnObject.CreateColumn(CBidQT));
-            QTNode.Children.Add(ColumnObject.CreateColumn(CAskQT));
             QTNode.Children.Add(ColumnObject.CreateColumn(PBidQV));
-            QTNode.Children.Add(ColumnObject.CreateColumn(PAskQV));
-            QTNode.Children.Add(ColumnObject.CreateColumn(CBidQV));
-            QTNode.Children.Add(ColumnObject.CreateColumn(CAskQV));
-            QTNode.Children.Add(ColumnObject.CreateColumn(PAODepth));
-            QTNode.Children.Add(ColumnObject.CreateColumn(CAODepth));
             QTNode.Children.Add(ColumnObject.CreateColumn(PBidCnt));
+            QTNode.Children.Add(ColumnObject.CreateColumn(PAskQT));
+            QTNode.Children.Add(ColumnObject.CreateColumn(PAskQV));
             QTNode.Children.Add(ColumnObject.CreateColumn(PAskCnt));
-            QTNode.Children.Add(ColumnObject.CreateColumn(CAskCnt));
-            QTNode.Children.Add(ColumnObject.CreateColumn(CBidCnt));
+            QTNode.Children.Add(ColumnObject.CreateColumn(PAODepth));
             QTNode.Children.Add(ColumnObject.CreateColumn(PNotCross));
-            QTNode.Children.Add(ColumnObject.CreateColumn(CNotCross));
             QTNode.Children.Add(ColumnObject.CreateColumn(PCloseMode));
-            QTNode.Children.Add(ColumnObject.CreateColumn(CCloseMode));
             QTNode.Children.Add(ColumnObject.CreateColumn(POrderCnt));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CBidQT));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CBidQV));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CBidCnt));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CAskQT));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CAskQV));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CAskCnt));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CAODepth));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CNotCross));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CCloseMode));
             QTNode.Children.Add(ColumnObject.CreateColumn(COrderCnt));
-
             marketNode.Initialize();
             ivolNode.Initialize();
             riskGreekNode.Initialize();
@@ -394,7 +394,12 @@ namespace Micro.Future.UI
             var exchange = underlyingEX1.SelectedItem?.ToString();
             if (exchange != null)
             {
-                underlyingCB1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+                var underlying = (from c in _futurecontractList
+                                           where c.Exchange == exchange.ToString()
+                                           orderby c.ProductID ascending
+                                           select c.ProductID).Distinct().ToList();
+                //underlyingCB1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+                underlyingCB1.ItemsSource = underlying;
                 underlyingContractCB1.ItemsSource = null;
             }
         }

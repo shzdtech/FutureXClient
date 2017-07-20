@@ -145,7 +145,7 @@
             <DataTrigger Binding="{Binding PutStrategyVM.CounterAskDirection}" Value = "1">
                 <Setter Property="Background">
                     <Setter.Value>
-                        <SolidColorBrush Color="Gray"/>
+                        <SolidColorBrush Color="LightGray"/>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
@@ -164,7 +164,7 @@
             <DataTrigger Binding="{Binding PutStrategyVM.CounterBidDirection}" Value = "1">
                 <Setter Property="Background">
                     <Setter.Value>
-                        <SolidColorBrush Color="Gray"/>
+                        <SolidColorBrush Color="LightGray"/>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
@@ -184,7 +184,7 @@
             <DataTrigger Binding="{Binding CallStrategyVM.CounterAskDirection}" Value = "1">
                 <Setter Property="Background">
                     <Setter.Value>
-                        <SolidColorBrush Color="Gray"/>
+                        <SolidColorBrush Color="LightGray"/>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
@@ -203,7 +203,7 @@
             <DataTrigger Binding="{Binding CallStrategyVM.CounterBidDirection}" Value = "1">
                 <Setter Property="Background">
                     <Setter.Value>
-                        <SolidColorBrush Color="Gray"/>
+                        <SolidColorBrush Color="LightGray"/>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
@@ -223,7 +223,7 @@
             <DataTrigger Binding="{Binding CallStrategyVM.OrderCounterDirection}" Value = "1">
                 <Setter Property="Background">
                     <Setter.Value>
-                        <SolidColorBrush Color="Gray"/>
+                        <SolidColorBrush Color="LightGray"/>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
@@ -242,7 +242,7 @@
             <DataTrigger Binding="{Binding PutStrategyVM.OrderCounterDirection}" Value = "1">
                 <Setter Property="Background">
                     <Setter.Value>
-                        <SolidColorBrush Color="Gray"/>
+                        <SolidColorBrush Color="LightGray"/>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>

@@ -95,12 +95,14 @@ namespace Micro.Future.UI
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private MarketDataHandler _marketDataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
 
-        private void ReloadDataCallback(object state)
+        //private void ReloadDataCallback(object state)
+        private void ReloadDataCallback()
         {
             Dispatcher.Invoke(async () =>
             {
                 var portfolio = portfolioCB.SelectedValue?.ToString();
                 var queryvaluation = new QueryValuation();
+                selectedWrapPanel.Children.Clear();
                 foreach (var item in expirationLV.ItemsSource)
                 {
                     var strategyvm = item as StrategyBaseVM;
@@ -120,7 +122,7 @@ namespace Micro.Future.UI
                         {
                             price = strategyvm.Valuation;
                         }
-
+                        AddSelectContractMsg(strategyvm.Contract, price);
                         queryvaluation.ContractParams[strategyvm.Contract] = new ValuationParam { Price = price, Volatitly = 0 };
 
                     }
@@ -185,7 +187,7 @@ namespace Micro.Future.UI
                 marketRadioButton.IsChecked = true;
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
                 var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
-                    .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract}).ToList();
+                    .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
                 var strategyVMList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract)).ToList();
                 foreach (var vm in strategyContractList)
                 {
@@ -232,11 +234,17 @@ namespace Micro.Future.UI
                 }
 
                 columnSeries.ItemsSource = BarItemCollection;
-
-                _timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
+                ReloadDataCallback();
+                //_timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
             }
         }
+        private void AddSelectContractMsg(string basecontract, double price)
+        {
 
+            string msg = string.Format("  Contract: {0}  Price: {1:N}  ", basecontract, price);
+            selectedWrapPanel.Children.Add(new Label { Content = msg });
+
+        }
         private void exCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             Control ctrl = sender as Control;
@@ -251,6 +259,7 @@ namespace Micro.Future.UI
                     if (contractinfo.ExpireDate == strategyBaseVM.Expiration)
                         _riskSet.Add(vm.Contract);
                 }
+                ReloadDataCallback();
             }
         }
 
@@ -268,6 +277,7 @@ namespace Micro.Future.UI
                     if (contractinfo.ExpireDate == strategyBaseVM.Expiration)
                         _riskSet.Remove(vm.Contract);
                 }
+                ReloadDataCallback();
             }
         }
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -302,5 +312,9 @@ namespace Micro.Future.UI
             plotModel.ResetAllAxes();
         }
 
+        private void resetRiskButton_Click(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
+        }
     }
 }

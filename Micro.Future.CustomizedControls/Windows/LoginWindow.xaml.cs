@@ -60,6 +60,7 @@ namespace Micro.Future.CustomizedControls
             LoginCombo.Text = userInfo.FrontServer;
             userTxt.Text = userInfo.UserName;
             passwordTxt.Password = userInfo.Password;
+            //LanguageCombo. = 
         }
 
         private void OnLoginError(MessageException ex)

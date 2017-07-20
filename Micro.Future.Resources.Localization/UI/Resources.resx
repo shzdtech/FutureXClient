@@ -613,10 +613,10 @@
     <value>启用Bid报价</value>
   </data>
   <data name="CAskQTEnable" xml:space="preserve">
-    <value>CAskQT启用</value>
+    <value>C.卖挂单</value>
   </data>
   <data name="CBidQTEnable" xml:space="preserve">
-    <value>CBidQT启用</value>
+    <value>C.买挂单</value>
   </data>
   <data name="Future1" xml:space="preserve">
     <value>期货1</value>
@@ -643,10 +643,10 @@
     <value>参数</value>
   </data>
   <data name="PAskQTEnable" xml:space="preserve">
-    <value>PAskQT启用</value>
+    <value>P.卖挂单</value>
   </data>
   <data name="PBidQTEnable" xml:space="preserve">
-    <value>PBidQT启用</value>
+    <value>P.买挂单</value>
   </data>
   <data name="PricingModel" xml:space="preserve">
     <value>定价模型</value>
@@ -775,13 +775,13 @@
     <value>成交</value>
   </data>
   <data name="Counter" xml:space="preserve">
-    <value>计数</value>
+    <value>成交计数</value>
   </data>
   <data name="OrderProtect" xml:space="preserve">
     <value>挂单保护</value>
   </data>
   <data name="RefreshCounter" xml:space="preserve">
-    <value>刷新计数</value>
+    <value>刷新成交计数</value>
   </data>
   <data name="RiskGraph" xml:space="preserve">
     <value>风险图形</value>
@@ -953,5 +953,164 @@
   </data>
   <data name="WingModelSettings" xml:space="preserve">
     <value>Wing模型设置</value>
+  </data>
+  <data name="AskTheoVol" xml:space="preserve">
+    <value>卖理波</value>
+  </data>
+  <data name="BidTheoVol" xml:space="preserve">
+    <value>买理波</value>
+  </data>
+  <data name="CAsk" xml:space="preserve">
+    <value>C.卖价</value>
+  </data>
+  <data name="CAskCnt" xml:space="preserve">
+    <value>C.卖成交计数</value>
+  </data>
+  <data name="CAskIV" xml:space="preserve">
+    <value>C.卖隐波</value>
+  </data>
+  <data name="CAskQV" xml:space="preserve">
+    <value>C.卖挂单数量</value>
+  </data>
+  <data name="CAskSize" xml:space="preserve">
+    <value>C.卖量</value>
+  </data>
+  <data name="CAskTheo" xml:space="preserve">
+    <value>C.卖理价</value>
+  </data>
+  <data name="CBid" xml:space="preserve">
+    <value>C.买价</value>
+  </data>
+  <data name="CBidCnt" xml:space="preserve">
+    <value>C.买成交计数</value>
+  </data>
+  <data name="CBidIV" xml:space="preserve">
+    <value>C.买隐波</value>
+  </data>
+  <data name="CBidQV" xml:space="preserve">
+    <value>C.买挂单数量</value>
+  </data>
+  <data name="CBidSize" xml:space="preserve">
+    <value>C.买量</value>
+  </data>
+  <data name="CBidTheo" xml:space="preserve">
+    <value>C.买理价</value>
+  </data>
+  <data name="CCloseMode" xml:space="preserve">
+    <value>C.平仓模式</value>
+  </data>
+  <data name="CDelta" xml:space="preserve">
+    <value>C.Delta</value>
+  </data>
+  <data name="CDepth" xml:space="preserve">
+    <value>C.挂单深度</value>
+  </data>
+  <data name="CMid" xml:space="preserve">
+    <value>C.中间价</value>
+  </data>
+  <data name="CMidIV" xml:space="preserve">
+    <value>C.中间隐波</value>
+  </data>
+  <data name="CNotCross" xml:space="preserve">
+    <value>C.挂单价格保护</value>
+  </data>
+  <data name="COrderCnt" xml:space="preserve">
+    <value>C.订单计数</value>
+  </data>
+  <data name="CPosition" xml:space="preserve">
+    <value>C.持仓</value>
+  </data>
+  <data name="CRho" xml:space="preserve">
+    <value>C.Rho</value>
+  </data>
+  <data name="CTheta" xml:space="preserve">
+    <value>C.Theta</value>
+  </data>
+  <data name="Gamma" xml:space="preserve">
+    <value>Gamma</value>
+  </data>
+  <data name="ImpVol" xml:space="preserve">
+    <value>隐含波动率</value>
+  </data>
+  <data name="MidTheoVol" xml:space="preserve">
+    <value>中间理波%</value>
+  </data>
+  <data name="PAsk" xml:space="preserve">
+    <value>P.卖价</value>
+  </data>
+  <data name="PAskCnt" xml:space="preserve">
+    <value>P.卖成交计数</value>
+  </data>
+  <data name="PAskIV" xml:space="preserve">
+    <value>P.卖隐波</value>
+  </data>
+  <data name="PAskQV" xml:space="preserve">
+    <value>P.卖挂单数量</value>
+  </data>
+  <data name="PAskSize" xml:space="preserve">
+    <value>P.卖量</value>
+  </data>
+  <data name="PAskTheo" xml:space="preserve">
+    <value>P.卖理价</value>
+  </data>
+  <data name="PBid" xml:space="preserve">
+    <value>P.买价</value>
+  </data>
+  <data name="PBidCnt" xml:space="preserve">
+    <value>P.买成交计数</value>
+  </data>
+  <data name="PBidIV" xml:space="preserve">
+    <value>P.买隐波</value>
+  </data>
+  <data name="PBidQV" xml:space="preserve">
+    <value>P.买挂单数量</value>
+  </data>
+  <data name="PBidSize" xml:space="preserve">
+    <value>P.买量</value>
+  </data>
+  <data name="PBidTheo" xml:space="preserve">
+    <value>P.买理价</value>
+  </data>
+  <data name="PCloseMode" xml:space="preserve">
+    <value>P.平仓模式</value>
+  </data>
+  <data name="PDelta" xml:space="preserve">
+    <value>P.Delta</value>
+  </data>
+  <data name="PDepth" xml:space="preserve">
+    <value>P.挂单深度</value>
+  </data>
+  <data name="PMid" xml:space="preserve">
+    <value>P.中间价</value>
+  </data>
+  <data name="PMidIV" xml:space="preserve">
+    <value>P.中间隐波</value>
+  </data>
+  <data name="PNotCross" xml:space="preserve">
+    <value>P.挂单价格保护</value>
+  </data>
+  <data name="POrderCnt" xml:space="preserve">
+    <value>P.订单计数</value>
+  </data>
+  <data name="PPosition" xml:space="preserve">
+    <value>P.持仓</value>
+  </data>
+  <data name="PRho" xml:space="preserve">
+    <value>P.Rho</value>
+  </data>
+  <data name="PTheta" xml:space="preserve">
+    <value>P.Theta</value>
+  </data>
+  <data name="Strike" xml:space="preserve">
+    <value>执行价</value>
+  </data>
+  <data name="TheoVol" xml:space="preserve">
+    <value>理论波动率</value>
+  </data>
+  <data name="Vega" xml:space="preserve">
+    <value>Vega%</value>
+  </data>
+  <data name="OriginalPassWord" xml:space="preserve">
+    <value>原密码</value>
   </data>
 </root>

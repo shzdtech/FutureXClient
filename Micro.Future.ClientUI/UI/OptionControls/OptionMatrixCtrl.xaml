@@ -25,17 +25,17 @@
                 <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
             </GroupBox>
             <WrapPanel>
-            <GroupBox x:Name="priceGB" Header="{lex:Loc Key=ContractPrice}">
-                <StackPanel>
-                    <RadioButton x:Name="marketRadioButton" Content="{lex:Loc Key=Market}" VerticalAlignment="Top" Checked="marketRadioButton_Checked"/>
-                    <RadioButton x:Name="settlementRadioButton" Content="{lex:Loc Key=Settlement}" VerticalAlignment="Top" Checked="settlementRadioButton_Checked"/>
-                    <RadioButton x:Name="valuationRadioButton" Content="{lex:Loc Key=Valuation}" VerticalAlignment="Top" Checked="valuationRadioButton_Checked"/>
-                </StackPanel>
-            </GroupBox>
+                <GroupBox x:Name="priceGB" Header="{lex:Loc Key=ContractPrice}">
+                    <StackPanel>
+                        <RadioButton x:Name="marketRadioButton" Content="{lex:Loc Key=Market}" VerticalAlignment="Top" Checked="marketRadioButton_Checked"/>
+                        <RadioButton x:Name="settlementRadioButton" Content="{lex:Loc Key=Settlement}" VerticalAlignment="Top" Checked="settlementRadioButton_Checked"/>
+                        <RadioButton x:Name="valuationRadioButton" Content="{lex:Loc Key=Valuation}" VerticalAlignment="Top" Checked="valuationRadioButton_Checked"/>
+                    </StackPanel>
+                </GroupBox>
                 <GroupBox x:Name="pricedisplayGB" Header="{lex:Loc Key=SelectedPrice}">
-                <WrapPanel Name="selectedWrapPanel">
-                </WrapPanel>
-            </GroupBox>
+                    <WrapPanel Name="selectedWrapPanel">
+                    </WrapPanel>
+                </GroupBox>
             </WrapPanel>
             <GroupBox x:Name="riskGB" Header="{lex:Loc Key=Risk}">
                 <WrapPanel>
