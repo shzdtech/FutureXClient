@@ -173,7 +173,8 @@ namespace Micro.Future.UI
                 }
             }
 
-            mainMenu.Items.Add(SysMenus);
+            foreach (var menuitem in SysMenus)
+                mainMenu.Items.Add(menuitem);
 
             sender.Close();
         }
