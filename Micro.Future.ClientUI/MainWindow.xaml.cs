@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Micro.Future.CustomizedControls;
 using Micro.Future.Resources.Localization;
 using AutoUpdaterDotNET;
+using System.Windows.Controls;
 
 namespace Micro.Future.UI
 {
@@ -172,6 +173,8 @@ namespace Micro.Future.UI
                 }
             }
 
+            mainMenu.Items.Add(SysMenus);
+
             sender.Close();
         }
 
@@ -205,6 +208,14 @@ namespace Micro.Future.UI
                         }
                     }
                 }
+            }
+        }
+
+        public IEnumerable<MenuItem> SysMenus
+        {
+            get
+            {
+                return Resources["sysMenuItems"] as IEnumerable<MenuItem>;
             }
         }
     }
