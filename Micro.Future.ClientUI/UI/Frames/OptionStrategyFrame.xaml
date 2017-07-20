@@ -21,7 +21,7 @@
             </MenuItem>
         </x:Array>
         <x:Array Type="{x:Type StatusBarItem}" x:Key="exTDStatusBarItems">
-            <StatusBarItem>
+            <StatusBarItem Uid="TdLogin">
                 <Controls:LoginStatus x:Name="TdLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_TradingDesk_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_TradingDesk_DisConnected}" Connected="False" OnConnButtonClick="TdLoginStatus_OnConnButtonClick"/>
             </StatusBarItem>
         </x:Array>

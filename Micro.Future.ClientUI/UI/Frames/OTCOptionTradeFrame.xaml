@@ -52,10 +52,10 @@
             </MenuItem>
         </x:Array>
         <x:Array Type="{x:Type StatusBarItem}" x:Key="exStatusBarItems">
-            <StatusBarItem>
+            <StatusBarItem Uid="ctpLogin">
                 <Controls:LoginStatus x:Name="ctpLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_CTP_MD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_CTP_MD_Unconnected}" Connected="False" OnConnButtonClick="ctpMdLoginStatus_OnConnButtonClick"/>
             </StatusBarItem>
-            <StatusBarItem >
+            <StatusBarItem Uid="ctpTrade">
                 <Controls:LoginStatus x:Name="ctpTradeLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_CTP_TD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_CTP_TD_Unconnected}" Connected="False" OnConnButtonClick="ctpTradingLoginStatus_OnConnButtonClick"/>
             </StatusBarItem>
         </x:Array>

@@ -36,7 +36,7 @@
             </MenuItem>
         </x:Array>
         <x:Array Type="{x:Type StatusBarItem}" x:Key="exOptionStatusBarItems">
-            <StatusBarItem>
+            <StatusBarItem Uid ="optionLogin">
                 <Controls:LoginStatus x:Name="OptionLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OptionServer_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OptionServer_DisConnected}" Connected="False" OnConnButtonClick="OptionLoginStatus_OnConnButtonClick"/>
             </StatusBarItem>
         </x:Array>
