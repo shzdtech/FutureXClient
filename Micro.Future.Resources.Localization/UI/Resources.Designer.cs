@@ -3047,5 +3047,14 @@ namespace Micro.Future.Resources.Localization.UI {
                 return ResourceManager.GetString("YdPosition", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 栈道科技 的本地化字符串。
+        /// </summary>
+        internal static string ZDTech {
+            get {
+                return ResourceManager.GetString("ZDTech", resourceCulture);
+            }
+        }
     }
 }

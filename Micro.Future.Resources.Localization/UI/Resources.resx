@@ -1113,4 +1113,7 @@
   <data name="OriginalPassWord" xml:space="preserve">
     <value>原密码</value>
   </data>
+  <data name="ZDTech" xml:space="preserve">
+    <value>栈道科技</value>
+  </data>
 </root>

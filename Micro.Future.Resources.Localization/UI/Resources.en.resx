@@ -1113,4 +1113,7 @@
   <data name="OriginalPassWord" xml:space="preserve">
     <value>Original PassWord</value>
   </data>
+  <data name="ZDTech" xml:space="preserve">
+    <value>ZDTech</value>
+  </data>
 </root>

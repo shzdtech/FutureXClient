@@ -12,7 +12,7 @@ namespace Micro.Future.CustomizedControls
     /// <summary>
     /// Login.xaml 的交互逻辑
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class LoginWindowTest: Window
     {
         public event Action<LoginWindow, IUserInfo> OnLogged;
         public AbstractSignInManager SignInManager
@@ -47,7 +47,7 @@ namespace Micro.Future.CustomizedControls
             }
         }
 
-        public LoginWindow(AbstractSignInManager signInMgr)
+        public LoginWindowTest(AbstractSignInManager signInMgr)
         {
             SignInManager = signInMgr;
             SignInManager.OnLogged += OnLogSuccess;
@@ -60,6 +60,7 @@ namespace Micro.Future.CustomizedControls
             LoginCombo.Text = userInfo.FrontServer;
             userTxt.Text = userInfo.UserName;
             passwordTxt.Password = userInfo.Password;
+            //LanguageCombo. = 
         }
 
         private void OnLoginError(MessageException ex)
@@ -73,7 +74,7 @@ namespace Micro.Future.CustomizedControls
 
         private void OnLogSuccess(IUserInfo userinfo)
         {
-            OnLogged?.Invoke(this, userinfo);
+            //OnLogged?.Invoke(this, userinfo);
         }
 
 

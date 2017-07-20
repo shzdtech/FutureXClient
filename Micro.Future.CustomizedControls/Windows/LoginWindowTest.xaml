@@ -1,0 +1,102 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" x:Class="Micro.Future.CustomizedControls.LoginWindowTest"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+    lex:LocalizeDictionary.DesignCulture="zh_CN"
+    lex:LocalizeDictionary.OutputMissingKeys="True"
+    lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+    lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+    Style="{StaticResource {x:Type Window}}"
+    WindowStartupLocation="CenterScreen" Icon="/Images/Logo.png"
+    Height="550" Width="366" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize"  Background="Transparent" >
+    <Window.Resources>
+
+        <Storyboard x:Key="cloudMove" RepeatBehavior="Forever">
+            <!--白云移动-->
+            <DoubleAnimation BeginTime="00:00:00" Duration="00:00:20" From="0" To="200" Storyboard.TargetProperty="X" Storyboard.TargetName="igCloud" AutoReverse="False">
+            </DoubleAnimation>
+            <!--白云透明度-->
+            <DoubleAnimation BeginTime="00:00:00" Duration="00:00:14" From="0.8" To="0.1" AutoReverse="False" Storyboard.TargetName="imgCloud" Storyboard.TargetProperty="Opacity">
+            </DoubleAnimation>
+        </Storyboard>
+    </Window.Resources>
+    <Grid Margin="0,50,0,0">
+        <Border CornerRadius="5" BorderThickness="0" Height="420">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF070741" Offset="0" />
+                    <GradientStop Color="#FF06062B" Offset="0.415" />
+                    <GradientStop Color="#FF03032B" Offset="0.989" />
+                    <GradientStop Color="#FF0B0B4E" Offset="0.204" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <Label Content="{lex:Loc Key=ZDTech}" Foreground="White" FontWeight="Bold" Margin="0,40,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
+
+        <Image Source="Images/cloud.png" Width="190" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-25" x:Name="imgCloud">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform x:Name="igCloud"></TranslateTransform>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image Source="Images/close0.png" Width="22" Height="22" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,50,0,0" Tag="close" ></Image>
+        <Image Source="Images/mini0.png" Width="22" Height="22" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,50,25,0" Tag="mini" ></Image>
+        <Label Content="{lex:Loc Key=Login_Server}" VerticalAlignment="Bottom" Foreground="White" Margin="43,0,0,418.4" HorizontalAlignment="Left" Opacity="0.5" RenderTransformOrigin="0.813,-4.461"/>
+        <ComboBox x:Name="LoginCombo" SelectedIndex="0" IsEditable="True" Width="280" Height="30" HorizontalAlignment="Center"  FontWeight="Bold" Background="Transparent" BorderBrush="Transparent" Foreground="Transparent" Margin="43,91,43.4,379.4"/>
+        <Label Content="{lex:Loc Key=BrokerId}" VerticalAlignment="Bottom" Foreground="White" Margin="43,0,0,355.4" HorizontalAlignment="Left" Opacity="0.5" RenderTransformOrigin="0.813,-4.461"/>
+        <TextBox x:Name="userBroker" Width="280" Height="30" HorizontalAlignment="Center" FontWeight="Bold" Background="{x:Null}" BorderBrush="#FFDFE6EB" Foreground="#FFF8F8F8" Margin="43,155,43.4,315.4"/>
+        <Label Content="{lex:Loc Key=UserName}" VerticalAlignment="Bottom" Foreground="White" Margin="43,0,0,291.4" HorizontalAlignment="Left" Opacity="0.5" RenderTransformOrigin="0.813,-4.461"/>
+        <TextBox x:Name="userTxt" Width="280" Height="30" HorizontalAlignment="Center" FontWeight="Bold" Background="{x:Null}" BorderBrush="#FFDFE6EB" Foreground="#FFF8F8F8" Margin="43,219,43.4,251.4"></TextBox>
+        <Label Content="{lex:Loc Key=PassWord}" VerticalAlignment="Bottom" Foreground="White" Margin="43,0,0,228.4" HorizontalAlignment="Left" Opacity="0.5" RenderTransformOrigin="0.813,-4.461"></Label>
+        <PasswordBox x:Name="passwordTxt" Width="280" Height="30" HorizontalAlignment="Center" Margin="0,90,0,0" FontWeight="Bold" Foreground="White" Background="{x:Null}" BorderBrush="White"></PasswordBox>
+        <Button x:Name="loginBtn" Content="{lex:Loc Key=LogIn}" Click="Button_Click" IsDefault="True" Width="80" Height="30" Margin="243,337,43.4,133.4" ></Button>
+        <!--<Button Width="80" Height="30" Margin="200,200,0,0" Content="取消"></Button>-->
+        <Label Content="语言/Language" VerticalAlignment="Bottom" Foreground="White" Margin="49,0,0,111.4" HorizontalAlignment="Left" Opacity="0.5" RenderTransformOrigin="0.813,-4.461"/>
+        <ComboBox x:Name="LanguageCombo" ItemsSource="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=MergedAvailableCultures}"
+        SelectedItem="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=Culture}" 
+        DisplayMemberPath="NativeName"  VerticalAlignment="Bottom"  Width="280" Height="30" HorizontalAlignment="Center" Margin="43,397,43.4,73.4" FontWeight="Bold" Foreground="White" Background="{x:Null}" BorderBrush="White"/>
+        <!--<TextBlock Text="Made by ZDTech" VerticalAlignment="Bottom" Foreground="White" Margin="10,0,0,44.4" HorizontalAlignment="Left" Opacity="0.5"></TextBlock>-->
+        <StatusBar >
+            <StatusBarItem>
+                <Grid>
+                    <ProgressBar x:Name="DataLoadingProgressBar" x:FieldModifier="public" Margin="10,0,0,44.4" Opacity="0.5" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                    <TextBlock x:Name="DataLoadingStatus" x:FieldModifier="public"/>
+                </Grid>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+
+    <!--<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Label Content="{lex:Loc Key=Login_Server}"/>
+            <ComboBox x:Name="LoginCombo" SelectedIndex="0" IsEditable="True"/>
+            <Label Content="{lex:Loc Key=BrokerId}"/>
+            <TextBox x:Name="userBroker"/>
+            <Label Content="{lex:Loc Key=UserName}"/>
+            <TextBox x:Name="userTxt"/>
+            <Label Content="{lex:Loc Key=PassWord}"/>
+            <PasswordBox x:Name="passwordTxt"/>
+            <Button x:Name="loginBtn" Content="{lex:Loc Key=LogIn}" Click="Button_Click" IsDefault="True"/>
+            <Label Content="语言/Language"/>
+            <ComboBox x:Name="LanguageCombo" ItemsSource="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=MergedAvailableCultures}"
+        SelectedItem="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=Culture}" 
+        DisplayMemberPath="NativeName" Margin="0" VerticalAlignment="Bottom" />
+        </StackPanel>
+        <StatusBar Grid.Row="1">
+            <StatusBarItem>
+                <Grid>
+                    <ProgressBar x:Name="DataLoadingProgressBar" x:FieldModifier="public"/>
+                    <TextBlock x:Name="DataLoadingStatus" x:FieldModifier="public"/>
+                </Grid>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>-->
+</Window>
