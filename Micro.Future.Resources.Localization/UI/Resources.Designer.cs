@@ -250,7 +250,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 卖理波% 的本地化字符串。
+        ///   查找类似 卖理波 的本地化字符串。
         /// </summary>
         internal static string AskTheoVol {
             get {
@@ -322,7 +322,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 买理波% 的本地化字符串。
+        ///   查找类似 买理波 的本地化字符串。
         /// </summary>
         internal static string BidTheoVol {
             get {
@@ -727,7 +727,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.仓位 的本地化字符串。
+        ///   查找类似 C.持仓 的本地化字符串。
         /// </summary>
         internal static string CPosition {
             get {
@@ -1672,6 +1672,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 原密码 的本地化字符串。
+        /// </summary>
+        internal static string OriginalPassWord {
+            get {
+                return ResourceManager.GetString("OriginalPassWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 OTC联系信息 的本地化字符串。
         /// </summary>
         internal static string OTCContactInfo {
@@ -1987,7 +1996,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.仓位 的本地化字符串。
+        ///   查找类似 P.持仓 的本地化字符串。
         /// </summary>
         internal static string PPosition {
             get {
@@ -2923,7 +2932,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 Vega 的本地化字符串。
+        ///   查找类似 Vega% 的本地化字符串。
         /// </summary>
         internal static string Vega {
             get {

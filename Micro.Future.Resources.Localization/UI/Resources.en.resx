@@ -955,10 +955,10 @@
     <value>Wing Model Settings</value>
   </data>
   <data name="AskTheoVol" xml:space="preserve">
-    <value>AskTheoVol%</value>
+    <value>AskTheoVol</value>
   </data>
   <data name="BidTheoVol" xml:space="preserve">
-    <value>BidTheoVol%</value>
+    <value>BidTheoVol</value>
   </data>
   <data name="CAsk" xml:space="preserve">
     <value>C.Ask</value>
@@ -1108,6 +1108,9 @@
     <value>TheoVol</value>
   </data>
   <data name="Vega" xml:space="preserve">
-    <value>Vega</value>
+    <value>Vega%</value>
+  </data>
+  <data name="OriginalPassWord" xml:space="preserve">
+    <value>Original PassWord</value>
   </data>
 </root>

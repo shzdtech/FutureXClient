@@ -24,22 +24,29 @@
             <GroupBox x:Name="portfolioGB" Header="{lex:Loc Key=Portfolio}">
                 <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
             </GroupBox>
-            <GroupBox x:Name="priceGB" Header="{lex:Loc Key=Price}">
-                <StackPanel>
-                    <RadioButton x:Name="marketRadioButton" Content="{lex:Loc Key=Market}" VerticalAlignment="Top" Checked="marketRadioButton_Checked"/>
-                    <RadioButton x:Name="settlementRadioButton" Content="{lex:Loc Key=Settlement}" VerticalAlignment="Top" Checked="settlementRadioButton_Checked"/>
-                    <RadioButton x:Name="valuationRadioButton" Content="{lex:Loc Key=Valuation}" VerticalAlignment="Top" Checked="valuationRadioButton_Checked"/>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox x:Name="riskGB" Header="{lex:Loc Key=Risk}">
+            <WrapPanel>
+                <GroupBox x:Name="priceGB" Header="{lex:Loc Key=Price}">
                     <StackPanel>
-                        <RadioButton x:Name="deltaRadioButton" Content="Delta" VerticalAlignment="Top"/>
-                        <RadioButton x:Name="gammaRadioButton" Content="Gamma" VerticalAlignment="Top"/>
-                        <RadioButton x:Name="vegaRadioButton" Content="Vega" VerticalAlignment="Top"/>
-                        <RadioButton x:Name="thetaRadioButton" Content="Theta" VerticalAlignment="Top"/>
-                        <RadioButton x:Name="rhoRadioButton" Content="Rho" VerticalAlignment="Top"/>
-                        <RadioButton x:Name="pnlRadioButton" Content="Pnl" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="marketRadioButton" Content="{lex:Loc Key=Market}" VerticalAlignment="Top" Checked="marketRadioButton_Checked"/>
+                        <RadioButton x:Name="settlementRadioButton" Content="{lex:Loc Key=Settlement}" VerticalAlignment="Top" Checked="settlementRadioButton_Checked"/>
+                        <RadioButton x:Name="valuationRadioButton" Content="{lex:Loc Key=Valuation}" VerticalAlignment="Top" Checked="valuationRadioButton_Checked"/>
                     </StackPanel>
+                </GroupBox>
+                <GroupBox x:Name="pricedisplayGB" Header="{lex:Loc Key=SelectedPrice}">
+                    <WrapPanel Name="selectedWrapPanel">
+                    </WrapPanel>
+                </GroupBox>
+            </WrapPanel>
+
+            <GroupBox x:Name="riskGB" Header="{lex:Loc Key=Risk}">
+                <StackPanel>
+                    <RadioButton x:Name="deltaRadioButton" Content="Delta" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="gammaRadioButton" Content="Gamma" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="vegaRadioButton" Content="Vega" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="thetaRadioButton" Content="Theta" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="rhoRadioButton" Content="Rho" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="pnlRadioButton" Content="Pnl" VerticalAlignment="Top"/>
+                </StackPanel>
             </GroupBox>
             <GroupBox x:Name="expirationGB" Header="{lex:Loc Key=Expiration}" Width="Auto">
                 <ListView x:Name="expirationLV" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Visible" Width="Auto">
@@ -62,6 +69,14 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
+                            <GridViewColumn x:Name="lastpriceHeader" Header="{lex:Loc Key=LastPrice}" Width="auto">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Value}" DataContext="{Binding MktVM.LastPrice}" Style="{DynamicResource DoubleChangeStyle}" Width="auto"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn x:Name="settlepriceHeader" DisplayMemberBinding="{Binding MktVM.PreSettlePrice}" Header="{lex:Loc Key=PreSettlePrice}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

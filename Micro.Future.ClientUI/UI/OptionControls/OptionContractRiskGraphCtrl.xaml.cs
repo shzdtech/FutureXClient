@@ -148,6 +148,7 @@ namespace Micro.Future.UI
         private async void RiskIndex(string portfolio)
         {
             var queryvaluation = new QueryValuation();
+            selectedWrapPanel.Children.Clear();
             foreach (var item in expirationLV.ItemsSource)
             {
                 var strategyvm = item as StrategyBaseVM;
@@ -167,7 +168,7 @@ namespace Micro.Future.UI
                     {
                         price = strategyvm.Valuation;
                     }
-
+                    AddSelectContractMsg(strategyvm.Contract, price);
                     queryvaluation.ContractParams[strategyvm.Contract] = new ValuationParam { Price = price, Volatitly = 0 };
 
                 }
@@ -373,6 +374,13 @@ namespace Micro.Future.UI
                         _riskSet.Remove(vm.BaseContract);
                 }
             }
+        }
+        private void AddSelectContractMsg(string basecontract, double price)
+        {
+
+            string msg = string.Format("  Contract: {0}  Price: {1:N}  ", basecontract, price);
+            selectedWrapPanel.Children.Add(new Label { Content = msg });
+
         }
         private void OnKeyDown(object sender, KeyEventArgs e)
         {

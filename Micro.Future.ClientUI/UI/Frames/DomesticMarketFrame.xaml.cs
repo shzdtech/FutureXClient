@@ -321,6 +321,7 @@ namespace Micro.Future.UI
         }
         private void MenuItem_Click_ResetPassword(object sender, RoutedEventArgs e)
         {
+
             ResetPasswordWindow win = new ResetPasswordWindow();
             win.Show();
         }

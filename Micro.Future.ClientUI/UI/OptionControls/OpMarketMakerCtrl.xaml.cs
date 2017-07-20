@@ -78,6 +78,7 @@ namespace Micro.Future.UI
             // Initialize Market Data
             quoteListView1.ItemsSource = QuoteVMCollection1;
             option_priceLV.ItemsSource = CallPutTDOptionVMCollection;
+
             _otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
             _tradeExHandler.OnPositionUpdated += OnPositionUpdated;
 
@@ -134,12 +135,12 @@ namespace Micro.Future.UI
             QTNode.Children.Add(ColumnObject.CreateColumn(PCloseMode));
             QTNode.Children.Add(ColumnObject.CreateColumn(POrderCnt));
             QTNode.Children.Add(ColumnObject.CreateColumn(CBidQT));
-            QTNode.Children.Add(ColumnObject.CreateColumn(CAskQT));
             QTNode.Children.Add(ColumnObject.CreateColumn(CBidQV));
-            QTNode.Children.Add(ColumnObject.CreateColumn(CAskQV));
-            QTNode.Children.Add(ColumnObject.CreateColumn(CAODepth));
-            QTNode.Children.Add(ColumnObject.CreateColumn(CAskCnt));
             QTNode.Children.Add(ColumnObject.CreateColumn(CBidCnt));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CAskQT));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CAskQV));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CAskCnt));
+            QTNode.Children.Add(ColumnObject.CreateColumn(CAODepth));
             QTNode.Children.Add(ColumnObject.CreateColumn(CNotCross));
             QTNode.Children.Add(ColumnObject.CreateColumn(CCloseMode));
             QTNode.Children.Add(ColumnObject.CreateColumn(COrderCnt));

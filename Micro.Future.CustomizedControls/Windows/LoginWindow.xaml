@@ -27,7 +27,7 @@
             <PasswordBox x:Name="passwordTxt"/>
             <Button x:Name="loginBtn" Content="{lex:Loc Key=LogIn}" Click="Button_Click" IsDefault="True"/>
             <Label Content="语言/Language"/>
-            <ComboBox ItemsSource="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=MergedAvailableCultures}"
+            <ComboBox x:Name="LanguageCombo" ItemsSource="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=MergedAvailableCultures}"
         SelectedItem="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=Culture}" 
         DisplayMemberPath="NativeName" Margin="0" VerticalAlignment="Bottom" />
         </StackPanel>
