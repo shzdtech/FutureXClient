@@ -99,7 +99,7 @@ namespace Micro.Future.CustomizedControls.Windows
                     if (!bSuc)
                         MessageBox.Show(this, "修改密码失败!", "系统提示");
                     else
-                        MessageBox.Show(this, "密码修改成功!", "系统提示");
+                        MessageBox.Show(this, "密码修改成功!请重启程序", "系统提示");
                     this.Close();
                 }
             }

@@ -2185,7 +2185,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 重置 的本地化字符串。
+        ///   查找类似 刷新 的本地化字符串。
         /// </summary>
         internal static string Refresh {
             get {

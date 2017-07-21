@@ -10,13 +10,17 @@
     lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"
     Style="{StaticResource {x:Type Window}}"
-    WindowStartupLocation="CenterScreen" Topmost="True" Width="250" Height="265" Icon="/Images/Logo.png">
+    WindowStartupLocation="CenterScreen" Topmost="True" Width="500" Height="265" Icon="/Images/Logo.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" Source = "/Images/logo.png" Height="141" Width="145" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="51,47,50.4,47.2" />
+        <StackPanel Grid.Column="1">
             <Label Content="{lex:Loc Key=Login_Server}"/>
             <ComboBox x:Name="LoginCombo" SelectedIndex="0" IsEditable="True"/>
             <Label Content="{lex:Loc Key=BrokerId}"/>
@@ -30,14 +34,14 @@
             <ComboBox x:Name="LanguageCombo" ItemsSource="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=MergedAvailableCultures}"
         SelectedItem="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=Culture}" 
         DisplayMemberPath="NativeName" Margin="0" VerticalAlignment="Bottom" />
+            <StatusBar>
+                <StatusBarItem>
+                    <Grid>
+                        <ProgressBar x:Name="DataLoadingProgressBar" x:FieldModifier="public"/>
+                        <TextBlock x:Name="DataLoadingStatus" x:FieldModifier="public"/>
+                    </Grid>
+                </StatusBarItem>
+            </StatusBar>
         </StackPanel>
-        <StatusBar Grid.Row="1">
-            <StatusBarItem>
-                <Grid>
-                    <ProgressBar x:Name="DataLoadingProgressBar" x:FieldModifier="public"/>
-                    <TextBlock x:Name="DataLoadingStatus" x:FieldModifier="public"/>
-                </Grid>
-            </StatusBarItem>
-        </StatusBar>
     </Grid>
 </Window>
