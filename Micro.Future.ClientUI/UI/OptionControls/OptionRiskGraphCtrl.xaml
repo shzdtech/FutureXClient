@@ -27,9 +27,9 @@
             <WrapPanel>
                 <GroupBox x:Name="priceGB" Header="{lex:Loc Key=Price}">
                     <StackPanel>
-                        <RadioButton x:Name="marketRadioButton" Content="{lex:Loc Key=Market}" VerticalAlignment="Top"/>
-                        <RadioButton x:Name="settlementRadioButton" Content="{lex:Loc Key=Settlement}" VerticalAlignment="Top"/>
-                        <RadioButton x:Name="valuationRadioButton" Content="{lex:Loc Key=Valuation}" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="marketRadioButton" Checked="marketRadioButton_Checked" Content="{lex:Loc Key=Market}" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="settlementRadioButton" Checked="settlementRadioButton_Checked" Content="{lex:Loc Key=Settlement}" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="valuationRadioButton" Checked="valuationRadioButton_Checked" Content="{lex:Loc Key=Valuation}" VerticalAlignment="Top"/>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox x:Name="pricedisplayGB" Header="{lex:Loc Key=SelectedPrice}">
@@ -39,12 +39,12 @@
             </WrapPanel>
             <GroupBox x:Name="riskGB" Header="{lex:Loc Key=Risk}">
                 <StackPanel>
-                    <RadioButton x:Name="deltaRadioButton" Content="Delta" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="gammaRadioButton" Content="Gamma" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="vegaRadioButton" Content="Vega" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="thetaRadioButton" Content="Theta" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="rhoRadioButton" Content="Rho" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="pnlRadioButton" Content="Pnl" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="deltaRadioButton" Checked="deltaRadioButton_Checked" Content="Delta" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="gammaRadioButton" Checked="gammaRadioButton_Checked" Content="Gamma" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="vegaRadioButton" Checked="vegaRadioButton_Checked" Content="Vega" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="thetaRadioButton" Content="Theta" Checked="thetaRadioButton_Checked" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="rhoRadioButton" Content="Rho" Checked="rhoRadioButton_Checked" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="pnlRadioButton" Checked="pnlRadioButton_Checked" Content="Pnl" VerticalAlignment="Top"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox x:Name="expirationGB" Header="{lex:Loc Key=Expiration}" Width="Auto">
@@ -83,14 +83,14 @@
             </GroupBox>
             <GroupBox x:Name="typeGB" Header="{lex:Loc Key=Type}">
                 <StackPanel>
-                    <CheckBox x:Name="callCheckBox" Content="Call"/>
-                    <CheckBox x:Name="putCheckBox" Content="Put"/>
+                    <CheckBox x:Name="callCheckBox" Checked="callCheckBox_Checked" Unchecked="callCheckBox_Unchecked" Content="Call"/>
+                    <CheckBox x:Name="putCheckBox" Checked="putCheckBox_Checked" Unchecked="putCheckBox_Unchecked" Content="Put"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox x:Name="resetGB">
                 <StackPanel>
-                    <Button x:Name="resetButton" Content="{lex:Loc Key=Reset}" Width="75" Click="resetButton_Click" HorizontalAlignment="Left"/>
-                    <Button x:Name="resetRiskButton" Content="ResetRisk" Width="75" Click="resetRiskButton_Click"  HorizontalAlignment="Left"/>
+                    <!--<Button x:Name="resetButton" Content="{lex:Loc Key=Reset}" Width="75" Click="resetButton_Click" HorizontalAlignment="Left"/>-->
+                    <Button x:Name="resetRiskButton" Content="{lex:Loc Key=Refresh}" Width="75" Click="resetRiskButton_Click"  HorizontalAlignment="Left"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>

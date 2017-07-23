@@ -314,6 +314,73 @@ namespace Micro.Future.UI
         private void resetRiskButton_Click(object sender, RoutedEventArgs e)
         {
             ReloadDataCallback();
+            plotModel.ResetAllAxes();
+        }
+
+        private void marketRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
+        }
+
+        private void settlementRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
+        }
+
+        private void valuationRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
+        }
+
+        private void deltaRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
+        }
+
+        private void gammaRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
+        }
+
+        private void vegaRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
+        }
+
+        private void thetaRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
+        }
+
+        private void rhoRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
+        }
+
+        private void pnlRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
+        }
+
+        private void callCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
+
+        }
+
+        private void callCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
+        }
+
+        private void putCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
+        }
+
+        private void putCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ReloadDataCallback();
         }
     }
 }

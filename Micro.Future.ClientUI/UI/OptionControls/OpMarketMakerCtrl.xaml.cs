@@ -411,6 +411,7 @@ namespace Micro.Future.UI
             {
                 var underlyingContracts = (from c in _futurecontractList
                                            where c.ProductID == productId
+                                           orderby c.Contract ascending
                                            select c.Contract).Distinct().ToList();
 
                 underlyingContractCB1.ItemsSource = underlyingContracts;

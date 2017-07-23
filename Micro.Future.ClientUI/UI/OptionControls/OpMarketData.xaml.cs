@@ -110,6 +110,7 @@ namespace Micro.Future.UI
             {
                 var expireDate = (from c in _contractList
                                   where c.UnderlyingContract == contract.ToString() && c.Exchange == underlyingEX.SelectedValue.ToString()
+                                  orderby c.ExpireDate ascending
                                   select c.ExpireDate).Distinct().ToList();
 
                 expireDateCB.ItemsSource = expireDate;
@@ -224,6 +225,7 @@ namespace Micro.Future.UI
             {
                 var expireDate = (from c in _contractList
                                   where c.UnderlyingContract == contract.ToString() && c.Exchange == underlyingEX1.SelectedValue.ToString()
+                                  orderby c.ExpireDate ascending
                                   select c.ExpireDate).Distinct().ToList();
 
                 expireDateCB1.ItemsSource = expireDate;
@@ -316,6 +318,7 @@ namespace Micro.Future.UI
             {
                 var underlyingContracts = (from c in _futurecontractList
                                            where c.ProductID == productId.ToString()
+                                           orderby c.Contract ascending
                                            select c.Contract).Distinct().ToList();
 
                 contract1.ItemsSource = underlyingContracts;
@@ -377,6 +380,7 @@ namespace Micro.Future.UI
             {
                 var underlyingContracts = (from c in _futurecontractList
                                            where c.ProductID == productId.ToString()
+                                           orderby c.Contract ascending
                                            select c.Contract).Distinct().ToList();
 
                 contract2.ItemsSource = underlyingContracts;
