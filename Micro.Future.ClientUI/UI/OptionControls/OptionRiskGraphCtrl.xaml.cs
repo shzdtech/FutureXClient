@@ -38,7 +38,6 @@ namespace Micro.Future.UI
 
         private HashSet<string> _riskSet = new HashSet<string>();
 
-        private Timer _timer;
         private const int UpdateInterval = 1000;
 
         public class StrategyBaseVM

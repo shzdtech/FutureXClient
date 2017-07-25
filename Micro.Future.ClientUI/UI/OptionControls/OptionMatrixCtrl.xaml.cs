@@ -33,12 +33,10 @@ namespace Micro.Future.UI
 
     {
         private IDictionary<string, int> _riskDict = new Dictionary<string, int>();
-        private IList<string> _contractList;
         private IList<MarketDataVM> _theoPriceList;
 
         private HashSet<string> _riskSet = new HashSet<string>();
 
-        private Timer _timer;
         private const int UpdateInterval = 2147483647;
 
         public QueryValuation Queryvaluation
