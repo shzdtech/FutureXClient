@@ -95,6 +95,7 @@ namespace Micro.Future.UI
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private MarketDataHandler _marketDataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
 
+
         //private void ReloadDataCallback(object state)
         private void ReloadDataCallback()
         {
@@ -174,8 +175,21 @@ namespace Micro.Future.UI
         public OptionRiskGraphCtrl()
         {
             InitializeComponent();
+            _tradeExHandler.OnPositionUpdated += OnPositionUpdated;
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
+        }
+        private void OnPositionUpdated(PositionVM vm)
+        {
+            if (portfolioCB.SelectedValue != null)
+            {
+                var portfolio = portfolioCB.SelectedValue?.ToString();
+
+                if (vm.Portfolio == portfolio)
+                {
+                    ReloadDataCallback();
+                }
+            }
         }
 
         private async void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
