@@ -551,9 +551,22 @@ namespace Micro.Future.UI
         public OptionMatrixCtrl()
         {
             InitializeComponent();
+            _tradeExHandler.OnPositionUpdated += OnPositionUpdated;
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
 
+        }
+        private void OnPositionUpdated(PositionVM vm)
+        {
+            if (portfolioCB.SelectedValue != null)
+            {
+                var portfolio = portfolioCB.SelectedValue?.ToString();
+
+                if (vm.Portfolio == portfolio)
+                {
+                    ReloadDataCallback();
+                }
+            }
         }
 
         private async void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)

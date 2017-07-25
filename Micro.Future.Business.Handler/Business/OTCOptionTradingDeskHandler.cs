@@ -138,7 +138,9 @@ namespace Micro.Future.Message
                 putOption.InitProperties();
 
                 var callStrategyVM = StrategyVMCollection.FirstOrDefault(s => s.EqualContract(callList[i]));
+                callStrategyVM.Depth = 1;
                 var putStrategyVM = StrategyVMCollection.FirstOrDefault(s => s.EqualContract(putList[i]));
+                putStrategyVM.Depth = 1;
                 retList.Add(new CallPutTDOptionVM()
                 {
                     StrikePrice = strikeList[i],
@@ -146,6 +148,7 @@ namespace Micro.Future.Message
                     PutOptionVM = putOption,
                     CallStrategyVM = callStrategyVM,
                     PutStrategyVM = putStrategyVM
+                    
                 });
             }
 
