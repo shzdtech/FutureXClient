@@ -79,7 +79,11 @@ namespace Micro.Future.Message
             var sst = new PBInstrumentList();
             foreach (var instrID in instrIDList)
             {
-                sst.Instrument.Add(new PBInstrument { Exchange = instrID.Exchange, Contract = instrID.Contract});
+                var pb = new PBInstrument { Contract = instrID.Contract };
+                if (!string.IsNullOrEmpty(instrID.Exchange))
+                    pb.Exchange = instrID.Exchange;
+
+                sst.Instrument.Add(pb);
             }
 
             sst.Header = new DataHeader { SerialId = serialId };

@@ -36,12 +36,9 @@ namespace Micro.Future.UI
     {
         private AbstractSignInManager _ctpMdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<MarketDataHandler>());
         private AbstractSignInManager _otcOptionSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
+        private MarketDataHandler _mdHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
-
-        //private List<PBSignInManager> _signIns = new List<PBSignInManager>();
-        //private List<AbstractOTCHandler> _otcHdls = new List<AbstractOTCHandler>();
-        //private int _cnt = 0;
 
         public IStatusCollector StatusReporter
         {
@@ -80,16 +77,9 @@ namespace Micro.Future.UI
 
         public Task<bool> LoginAsync(string brokerId, string usernname, string password, string server)
         {
-            if (_ctpMdSignIner.MessageWrapper == null)
+            if (!_mdHandler.MessageWrapper.HasSignIn)
             {
                 // Initialize Market Data
-                var msgWrapper = _ctpMdSignIner.MessageWrapper;
-
-                _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
-                _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
-                msgWrapper.MessageClient.OnDisconnected += ctpLoginStatus.OnDisconnected;
-                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().RegisterMessageWrapper(msgWrapper);
-
                 _ctpMdSignIner.SignInOptions.BrokerID = brokerId;
                 _ctpMdSignIner.SignInOptions.UserName = usernname;
                 _ctpMdSignIner.SignInOptions.Password = password;
@@ -97,10 +87,10 @@ namespace Micro.Future.UI
                 if (server != null && entries.Length < 2)
                     _ctpMdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
-                _ctpMdSignIner.SignIn();
+                MarketDataServerLogin();
             }
 
-            if (_otcOptionSignIner.LoggedUser == null)
+            if (!_otcOptionHandler.MessageWrapper.HasSignIn)
             {
                 _otcOptionSignIner.SignInOptions.BrokerID = brokerId;
                 _otcOptionSignIner.SignInOptions.UserName = usernname;
@@ -120,28 +110,38 @@ namespace Micro.Future.UI
             return LoginTaskSource.Task;
         }
 
+        private void _ctpMdSignIner_OnLoginError(MessageException obj)
+        {
+            LoginTaskSource.TrySetException(obj);
+        }
+
         private void ctpMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
         {
-            if (!_ctpMdSignIner.MessageWrapper.HasSignIn)
-                _ctpMdSignIner.SignIn();
+            MarketDataServerLogin();
         }
 
         public void Initialize()
         {
             // Initialize Market Data
 
+            if(_mdHandler.MessageWrapper == null)
+            {
+                _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
+                _ctpMdSignIner.OnLoginError += _ctpMdSignIner_OnLoginError;
+                _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
+                _ctpMdSignIner.MessageWrapper.MessageClient.OnDisconnected += ctpLoginStatus.OnDisconnected;
+                _mdHandler.RegisterMessageWrapper(_ctpMdSignIner.MessageWrapper);
+            }
 
-            var msgWrapper = _otcOptionSignIner.MessageWrapper;
-            _otcOptionSignIner.OnLogged += OptionLoginStatus.OnLogged;
-            _otcOptionSignIner.OnLoginError += _tdSignIner_OnLoginError;
-            _otcOptionSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
-            _otcOptionSignIner.OnLogged += _tdSignIner_OnLogged;
-
-            msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
-            _otcOptionHandler.RegisterMessageWrapper(msgWrapper);
-            //optionPane.AddContent(new OptionModelCtrl()).Title = "Model";
-            //optionPane.AddContent(new OpMarketMakerCtrl()).Title = "Market Maker";
-            //optionPane.AddContent(new OpHedgeCtrl()).Title = "Hedge";
+            if (_otcOptionHandler.MessageWrapper == null)
+            {
+                _otcOptionSignIner.OnLogged += OptionLoginStatus.OnLogged;
+                _otcOptionSignIner.OnLoginError += _tdSignIner_OnLoginError;
+                _otcOptionSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
+                _otcOptionSignIner.OnLogged += _tdSignIner_OnLogged;
+                _otcOptionSignIner.MessageWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
+                _otcOptionHandler.RegisterMessageWrapper(_otcOptionSignIner.MessageWrapper);
+            }
         }
 
         private void _tdSignIner_OnLoginError(MessageException obj)
@@ -170,6 +170,15 @@ namespace Micro.Future.UI
             //        layoutSerializer.Deserialize(reader);
             //    }
             //}
+        }
+
+        private void MarketDataServerLogin()
+        {
+            if (!_ctpMdSignIner.MessageWrapper.HasSignIn)
+            {
+                ctpLoginStatus.Prompt = "正在连接CTP行情服务器...";
+                _ctpMdSignIner.SignIn();
+            }
         }
 
         private void TDServerLogin()
