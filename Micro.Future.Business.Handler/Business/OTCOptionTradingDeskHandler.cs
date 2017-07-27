@@ -40,17 +40,7 @@ namespace Micro.Future.Message
 
             if (FindTradingDeskData(quote) != null)
             {
-                if (tradingDeskOption.MarketData != null)
-                {
-                    quote.MarketDataVM = new PricingVM
-                    {
-                        AskPrice = tradingDeskOption.MarketData.AskPrice,
-                        AskSize = tradingDeskOption.MarketData.AskSize,
-                        BidPrice = tradingDeskOption.MarketData.BidPrice,
-                        BidSize = tradingDeskOption.MarketData.BidSize,
-                        MidPrice = (tradingDeskOption.MarketData.BidPrice + tradingDeskOption.MarketData.AskPrice) / 2
-                    };
-                }
+
 
                 if (tradingDeskOption.ImpliedVol != null)
                 {
@@ -126,21 +116,28 @@ namespace Micro.Future.Message
 
         public event Action<TradingDeskOptionVM> OnTradingDeskOptionParamsReceived;
 
-        public IList<CallPutTDOptionVM> MakeCallPutTDOptionData(IList<double> strikeList, IList<ContractKeyVM> callList, IList<ContractKeyVM> putList)
+        public IList<CallPutTDOptionVM> MakeCallPutTDOptionData(IList<double> strikeList, IList<ContractKeyVM> callList, IList<ContractKeyVM> putList, IList<MarketDataVM> marketDataList = null)
         {
             var retList = new List<CallPutTDOptionVM>();
 
             for (int i = 0; i < callList.Count; i++)
             {
                 var callOption = new TradingDeskOptionVM { Exchange = callList[i].Exchange, Contract = callList[i].Contract };
-                callOption.InitProperties();
                 var putOption = new TradingDeskOptionVM { Exchange = putList[i].Exchange, Contract = putList[i].Contract };
+                if (marketDataList != null)
+                {
+                    callOption.MarketDataVM = marketDataList.FirstOrDefault(c => c.Contract == callList[i].Contract);
+                    putOption.MarketDataVM = marketDataList.FirstOrDefault(c => c.Contract == putList[i].Contract);
+                }
+                callOption.InitProperties();
                 putOption.InitProperties();
 
                 var callStrategyVM = StrategyVMCollection.FirstOrDefault(s => s.EqualContract(callList[i]));
-                callStrategyVM.Depth = 1;
+                if (callStrategyVM != null)
+                    callStrategyVM.Depth = 1;
                 var putStrategyVM = StrategyVMCollection.FirstOrDefault(s => s.EqualContract(putList[i]));
-                putStrategyVM.Depth = 1;
+                if (putStrategyVM != null)
+                    putStrategyVM.Depth = 1;
                 retList.Add(new CallPutTDOptionVM()
                 {
                     StrikePrice = strikeList[i],
@@ -148,7 +145,7 @@ namespace Micro.Future.Message
                     PutOptionVM = putOption,
                     CallStrategyVM = callStrategyVM,
                     PutStrategyVM = putStrategyVM
-                    
+
                 });
             }
 
@@ -177,14 +174,6 @@ namespace Micro.Future.Message
 
             if (quote != null)
             {
-                if (newVM.MarketDataVM != null)
-                {
-                    quote.MarketDataVM.AskPrice = newVM.MarketDataVM.AskPrice;
-                    quote.MarketDataVM.AskSize = newVM.MarketDataVM.AskSize;
-                    quote.MarketDataVM.BidPrice = newVM.MarketDataVM.BidPrice;
-                    quote.MarketDataVM.BidSize = newVM.MarketDataVM.BidSize;
-                    quote.MarketDataVM.MidPrice = newVM.MarketDataVM.MidPrice;
-                }
 
                 if (newVM.ImpliedVolVM != null)
                 {
@@ -211,8 +200,8 @@ namespace Micro.Future.Message
                 }
                 if (newVM.TheoDataVM != null && newVM.MarketDataVM != null)
                 {
-                    quote.TheoDataVM.Askdirection = quote.TheoDataVM.AskPrice <= quote.MarketDataVM.AskPrice ? 1 : -1;
-                    quote.TheoDataVM.Biddirection = quote.TheoDataVM.BidPrice >= quote.MarketDataVM.BidPrice ? 1 : -1;
+                    quote.TheoDataVM.Askdirection = quote.TheoDataVM.AskPrice <= quote.MarketDataVM?.AskPrice ? 1 : -1;
+                    quote.TheoDataVM.Biddirection = quote.TheoDataVM.BidPrice >= quote.MarketDataVM?.BidPrice ? 1 : -1;
                 }
             }
             return quote;

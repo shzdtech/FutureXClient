@@ -208,6 +208,12 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        public static int MaxLimitOrder
+        {
+            get;
+            set;
+        }
+
         private int _orderCounterDirection;
         public int OrderCounterDirection
         {

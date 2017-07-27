@@ -148,6 +148,7 @@ namespace Micro.Future.UI
         private async void _tdSignIner_OnLogged(IUserInfo obj)
         {
             _otcOptionTradeHandler.RegisterMessageWrapper(_otcOptionHandler.MessageWrapper);
+
             await _otcOptionHandler.QueryStrategyAsync();
             await _otcOptionHandler.QueryAllModelParamsAsync();
             await _otcOptionTradeHandler.SyncContractInfoAsync();

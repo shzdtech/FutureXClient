@@ -298,7 +298,7 @@ namespace Micro.Future.UI
 
                 if (vm.Portfolio == portfolio)
                 {
-                    ReloadDataCallback();
+                    Task.Run(() => ReloadDataCallback());
                 }
             }
         }

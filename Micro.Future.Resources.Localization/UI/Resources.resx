@@ -1116,4 +1116,79 @@
   <data name="ZDTech" xml:space="preserve">
     <value>栈道科技</value>
   </data>
+  <data name="CAveragePrice" xml:space="preserve">
+    <value>C.均价</value>
+  </data>
+  <data name="CHighLimitPrice" xml:space="preserve">
+    <value>C.涨停价</value>
+  </data>
+  <data name="PAveragePrice" xml:space="preserve">
+    <value>P.均价</value>
+  </data>
+  <data name="PHighLimitPrice" xml:space="preserve">
+    <value>P.涨停价</value>
+  </data>
+  <data name="CHighValue" xml:space="preserve">
+    <value>C.最高价</value>
+  </data>
+  <data name="CLastPrice" xml:space="preserve">
+    <value>C.最新价</value>
+  </data>
+  <data name="CLowerLimitPrice" xml:space="preserve">
+    <value>C.跌停价</value>
+  </data>
+  <data name="CLowValue" xml:space="preserve">
+    <value>C.最低价</value>
+  </data>
+  <data name="COpenValue" xml:space="preserve">
+    <value>C.开盘价</value>
+  </data>
+  <data name="CPreCloseValue" xml:space="preserve">
+    <value>C.昨收盘价</value>
+  </data>
+  <data name="CPreSettlePrice" xml:space="preserve">
+    <value>C.前结算价</value>
+  </data>
+  <data name="CSettlePrice" xml:space="preserve">
+    <value>C.结算价</value>
+  </data>
+  <data name="CTurnover" xml:space="preserve">
+    <value>C.成交量</value>
+  </data>
+  <data name="CUpperLimitPrice" xml:space="preserve">
+    <value>C.涨停价</value>
+  </data>
+  <data name="PHighValue" xml:space="preserve">
+    <value>P.最高价</value>
+  </data>
+  <data name="PLastPrice" xml:space="preserve">
+    <value>P.最新价</value>
+  </data>
+  <data name="PLowerLimitPrice" xml:space="preserve">
+    <value>P.跌停价</value>
+  </data>
+  <data name="PLowValue" xml:space="preserve">
+    <value>P.最低价</value>
+  </data>
+  <data name="POpenValue" xml:space="preserve">
+    <value>P.开盘价</value>
+  </data>
+  <data name="PPreCloseValue" xml:space="preserve">
+    <value>P.昨收盘价</value>
+  </data>
+  <data name="PPreSettlePrice" xml:space="preserve">
+    <value>P.前结算价</value>
+  </data>
+  <data name="PSettlePrice" xml:space="preserve">
+    <value>P.结算价</value>
+  </data>
+  <data name="PTurnover" xml:space="preserve">
+    <value>P.成交量</value>
+  </data>
+  <data name="PUpperLimitPrice" xml:space="preserve">
+    <value>P.涨停价</value>
+  </data>
+  <data name="Turnover" xml:space="preserve">
+    <value>成交量</value>
+  </data>
 </root>

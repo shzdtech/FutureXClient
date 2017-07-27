@@ -484,6 +484,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 C.均价 的本地化字符串。
+        /// </summary>
+        internal static string CAveragePrice {
+            get {
+                return ResourceManager.GetString("CAveragePrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 C.买价 的本地化字符串。
         /// </summary>
         internal static string CBid {
@@ -583,6 +592,33 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 C.涨停价 的本地化字符串。
+        /// </summary>
+        internal static string CHighLimitPrice {
+            get {
+                return ResourceManager.GetString("CHighLimitPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.最高价 的本地化字符串。
+        /// </summary>
+        internal static string CHighValue {
+            get {
+                return ResourceManager.GetString("CHighValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.最新价 的本地化字符串。
+        /// </summary>
+        internal static string CLastPrice {
+            get {
+                return ResourceManager.GetString("CLastPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 平仓 的本地化字符串。
         /// </summary>
         internal static string Close {
@@ -633,6 +669,24 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string CloseVolume {
             get {
                 return ResourceManager.GetString("CloseVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.跌停价 的本地化字符串。
+        /// </summary>
+        internal static string CLowerLimitPrice {
+            get {
+                return ResourceManager.GetString("CLowerLimitPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.最低价 的本地化字符串。
+        /// </summary>
+        internal static string CLowValue {
+            get {
+                return ResourceManager.GetString("CLowValue", resourceCulture);
             }
         }
         
@@ -709,6 +763,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 C.开盘价 的本地化字符串。
+        /// </summary>
+        internal static string COpenValue {
+            get {
+                return ResourceManager.GetString("COpenValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 C.订单计数 的本地化字符串。
         /// </summary>
         internal static string COrderCnt {
@@ -736,6 +799,24 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 C.昨收盘价 的本地化字符串。
+        /// </summary>
+        internal static string CPreCloseValue {
+            get {
+                return ResourceManager.GetString("CPreCloseValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.前结算价 的本地化字符串。
+        /// </summary>
+        internal static string CPreSettlePrice {
+            get {
+                return ResourceManager.GetString("CPreSettlePrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 信用额度 的本地化字符串。
         /// </summary>
         internal static string Credit {
@@ -754,11 +835,38 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 C.结算价 的本地化字符串。
+        /// </summary>
+        internal static string CSettlePrice {
+            get {
+                return ResourceManager.GetString("CSettlePrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 C.Theta 的本地化字符串。
         /// </summary>
         internal static string CTheta {
             get {
                 return ResourceManager.GetString("CTheta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.成交量 的本地化字符串。
+        /// </summary>
+        internal static string CTurnover {
+            get {
+                return ResourceManager.GetString("CTurnover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 C.涨停价 的本地化字符串。
+        /// </summary>
+        internal static string CUpperLimitPrice {
+            get {
+                return ResourceManager.GetString("CUpperLimitPrice", resourceCulture);
             }
         }
         
@@ -1807,6 +1915,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 P.均价 的本地化字符串。
+        /// </summary>
+        internal static string PAveragePrice {
+            get {
+                return ResourceManager.GetString("PAveragePrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 P.买价 的本地化字符串。
         /// </summary>
         internal static string PBid {
@@ -1897,6 +2014,51 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 P.涨停价 的本地化字符串。
+        /// </summary>
+        internal static string PHighLimitPrice {
+            get {
+                return ResourceManager.GetString("PHighLimitPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.最高价 的本地化字符串。
+        /// </summary>
+        internal static string PHighValue {
+            get {
+                return ResourceManager.GetString("PHighValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.最新价 的本地化字符串。
+        /// </summary>
+        internal static string PLastPrice {
+            get {
+                return ResourceManager.GetString("PLastPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.跌停价 的本地化字符串。
+        /// </summary>
+        internal static string PLowerLimitPrice {
+            get {
+                return ResourceManager.GetString("PLowerLimitPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.最低价 的本地化字符串。
+        /// </summary>
+        internal static string PLowValue {
+            get {
+                return ResourceManager.GetString("PLowValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 P.中间价 的本地化字符串。
         /// </summary>
         internal static string PMid {
@@ -1920,6 +2082,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string PNotCross {
             get {
                 return ResourceManager.GetString("PNotCross", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.开盘价 的本地化字符串。
+        /// </summary>
+        internal static string POpenValue {
+            get {
+                return ResourceManager.GetString("POpenValue", resourceCulture);
             }
         }
         
@@ -2001,6 +2172,24 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string PPosition {
             get {
                 return ResourceManager.GetString("PPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.昨收盘价 的本地化字符串。
+        /// </summary>
+        internal static string PPreCloseValue {
+            get {
+                return ResourceManager.GetString("PPreCloseValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.前结算价 的本地化字符串。
+        /// </summary>
+        internal static string PPreSettlePrice {
+            get {
+                return ResourceManager.GetString("PPreSettlePrice", resourceCulture);
             }
         }
         
@@ -2113,11 +2302,38 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 P.结算价 的本地化字符串。
+        /// </summary>
+        internal static string PSettlePrice {
+            get {
+                return ResourceManager.GetString("PSettlePrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 P.Theta 的本地化字符串。
         /// </summary>
         internal static string PTheta {
             get {
                 return ResourceManager.GetString("PTheta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.成交量 的本地化字符串。
+        /// </summary>
+        internal static string PTurnover {
+            get {
+                return ResourceManager.GetString("PTurnover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.涨停价 的本地化字符串。
+        /// </summary>
+        internal static string PUpperLimitPrice {
+            get {
+                return ResourceManager.GetString("PUpperLimitPrice", resourceCulture);
             }
         }
         
@@ -2847,6 +3063,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string TradingType {
             get {
                 return ResourceManager.GetString("TradingType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 成交量 的本地化字符串。
+        /// </summary>
+        internal static string Turnover {
+            get {
+                return ResourceManager.GetString("Turnover", resourceCulture);
             }
         }
         

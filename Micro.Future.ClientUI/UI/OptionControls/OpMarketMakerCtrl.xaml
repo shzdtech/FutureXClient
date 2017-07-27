@@ -299,6 +299,76 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn x:Name="PPreCloseValue" Header="{lex:Loc Key=PPreCloseValue}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.PreCloseValue}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="POpenValue" Header="{lex:Loc Key=POpenValue}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.OpenValue}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="PTurnover" Header="{lex:Loc Key=PTurnover}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.Turnover}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="PHighValue" Header="{lex:Loc Key=PHighValue}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.HighValue}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="PLowValue" Header="{lex:Loc Key=PLowValue}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.HighValue}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="PLastPrice" Header="{lex:Loc Key=PLastPrice}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.LastPrice}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="PSettlePrice" Header="{lex:Loc Key=PSettlePrice}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.SettlePrice}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="PPreSettlePrice" Header="{lex:Loc Key=PPreSettlePrice}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.PreSettlePrice}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="PUpperLimitPrice" Header="{lex:Loc Key=PUpperLimitPrice}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.UpperLimitPrice}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="PLowerLimitPrice" Header="{lex:Loc Key=PLowerLimitPrice}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.LowerLimitPrice}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn x:Name="PNotCross" Header="{lex:Loc Key=PNotCross}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -445,6 +515,76 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding CallStrategyVM.AskCounter}" TextAlignment="Center" Width="auto" Style="{DynamicResource CallCounterAskChangeStyle}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="CPreCloseValue" Header="{lex:Loc Key=CPreCloseValue}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.PreCloseValue}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="COpenValue" Header="{lex:Loc Key=COpenValue}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.OpenValue}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="CTurnover" Header="{lex:Loc Key=CTurnover}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.Turnover}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="CHighValue" Header="{lex:Loc Key=CHighValue}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.HighValue}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="CLowValue" Header="{lex:Loc Key=CLowValue}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.HighValue}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="CLastPrice" Header="{lex:Loc Key=CLastPrice}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.LastPrice}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="CSettlePrice" Header="{lex:Loc Key=CSettlePrice}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.SettlePrice}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="CPreSettlePrice" Header="{lex:Loc Key=CPreSettlePrice}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.PreSettlePrice}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="CUpperLimitPrice" Header="{lex:Loc Key=CUpperLimitPrice}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.UpperLimitPrice}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="CLowerLimitPrice" Header="{lex:Loc Key=CLowerLimitPrice}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.LowerLimitPrice}" TextAlignment="Center" Width="auto"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

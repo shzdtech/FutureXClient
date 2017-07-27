@@ -10,7 +10,7 @@
     lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"
     Style="{StaticResource {x:Type Window}}"
-    WindowStartupLocation="CenterScreen" Topmost="True" Width="500" Height="265" Icon="/Images/Logo.png">
+    WindowStartupLocation="CenterScreen" Topmost="True" Width="500" Height="225" Icon="/Images/Logo.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -19,12 +19,12 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Image Grid.Column="0" Source = "/Images/logo.png" Height="141" Width="145" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="51,47,50.4,47.2" />
+        <Image Grid.Column="0" Source = "/Images/logo.png" Height="95" Width="145" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="51,47,50.4,47.2" />
         <StackPanel Grid.Column="1">
             <Label Content="{lex:Loc Key=Login_Server}"/>
             <ComboBox x:Name="LoginCombo" SelectedIndex="0" IsEditable="True"/>
-            <Label Content="{lex:Loc Key=BrokerId}"/>
-            <TextBox x:Name="userBroker"/>
+            <Label Content="{lex:Loc Key=BrokerId}" Visibility="Collapsed"/>
+            <TextBox x:Name="userBroker" Visibility="Collapsed"/>
             <Label Content="{lex:Loc Key=UserName}"/>
             <TextBox x:Name="userTxt"/>
             <Label Content="{lex:Loc Key=PassWord}"/>

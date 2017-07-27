@@ -33,6 +33,10 @@ namespace Micro.Future.UI
 
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private TraderExHandler _tradeExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+        private AbstractOTCHandler _abstractOTCHandler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
+        private MarketDataHandler _marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+
+
 
         private IList<ContractInfo> _contractList;
         private IList<ContractInfo> _futurecontractList;
@@ -64,7 +68,7 @@ namespace Micro.Future.UI
         }
 
 
-        public void Initialize()
+        public async void Initialize()
         {
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
@@ -82,6 +86,7 @@ namespace Micro.Future.UI
             _otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
             _tradeExHandler.OnPositionUpdated += OnPositionUpdated;
 
+            StrategyVM.MaxLimitOrder = await _otcOptionHandler.QueryMaxLimitOrderAsync();
 
             // Set columns tree
             var marketNode = new ColumnObject(new GridViewColumn() { Header = "行情" });
@@ -95,11 +100,33 @@ namespace Micro.Future.UI
             marketNode.Children.Add(ColumnObject.CreateColumn(PBidSize));
             marketNode.Children.Add(ColumnObject.CreateColumn(PAsk));
             marketNode.Children.Add(ColumnObject.CreateColumn(PAskSize));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PPreCloseValue));
+            marketNode.Children.Add(ColumnObject.CreateColumn(POpenValue));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PTurnover));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PHighValue));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PLowValue));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PLastPrice));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PSettlePrice));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PPreSettlePrice));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PUpperLimitPrice));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PLowerLimitPrice));
+
             marketNode.Children.Add(ColumnObject.CreateColumn(PMid));
             marketNode.Children.Add(ColumnObject.CreateColumn(CBid));
             marketNode.Children.Add(ColumnObject.CreateColumn(CBidSize));
             marketNode.Children.Add(ColumnObject.CreateColumn(CAsk));
             marketNode.Children.Add(ColumnObject.CreateColumn(CAskSize));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CPreCloseValue));
+            marketNode.Children.Add(ColumnObject.CreateColumn(COpenValue));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CTurnover));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CHighValue));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CLowValue));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CLastPrice));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CSettlePrice));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CPreSettlePrice));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CUpperLimitPrice));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CLowerLimitPrice));
+
             marketNode.Children.Add(ColumnObject.CreateColumn(CMid));
             ivolNode.Children.Add(ColumnObject.CreateColumn(PBidIV));
             ivolNode.Children.Add(ColumnObject.CreateColumn(PAskIV));
@@ -153,6 +180,7 @@ namespace Micro.Future.UI
             _optionColumns = new List<ColumnObject>() { marketNode, ivolNode, riskGreekNode, theoPriceNode, positionNode, QTNode };
 
         }
+
 
         private void OnTradingDeskOptionParamsReceived(TradingDeskOptionVM vm)
         {
@@ -249,7 +277,8 @@ namespace Micro.Future.UI
                                    orderby o.StrikePrice descending
                                    select new ContractKeyVM(exchange, o.Contract)).ToList();
 
-                    var retList = _otcOptionHandler.MakeCallPutTDOptionData(strikeList, callList, putList);
+                    var marketDataList = await _marketdataHandler.SubMarketDataAsync(optionList.Select(c => new ContractKeyVM(c.Exchange, c.Contract)));
+                    var retList = _otcOptionHandler.MakeCallPutTDOptionData(strikeList, callList, putList, marketDataList);
                     _subbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList.Select(c => new ContractKeyVM(c.Exchange, c.Contract)));
 
                     CallPutTDOptionVMCollection.Clear();

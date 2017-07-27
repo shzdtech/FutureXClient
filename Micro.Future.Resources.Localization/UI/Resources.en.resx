@@ -1116,4 +1116,73 @@
   <data name="ZDTech" xml:space="preserve">
     <value>ZDTech</value>
   </data>
+  <data name="CAveragePrice" xml:space="preserve">
+    <value>C.AvPrice</value>
+  </data>
+  <data name="CHighLimitPrice" xml:space="preserve">
+    <value>C.HighLimit</value>
+  </data>
+  <data name="PAveragePrice" xml:space="preserve">
+    <value>P.AvPrice</value>
+  </data>
+  <data name="PHighLimitPrice" xml:space="preserve">
+    <value>P.HighLimit</value>
+  </data>
+  <data name="CHighValue" xml:space="preserve">
+    <value>C.HighValue</value>
+  </data>
+  <data name="CLastPrice" xml:space="preserve">
+    <value>C.LastPrice</value>
+  </data>
+  <data name="CLowerLimitPrice" xml:space="preserve">
+    <value>C.LowerLimitPrice</value>
+  </data>
+  <data name="COpenValue" xml:space="preserve">
+    <value>C.OpenValue</value>
+  </data>
+  <data name="CPreCloseValue" xml:space="preserve">
+    <value>C.PreCloseValue</value>
+  </data>
+  <data name="CPreSettlePrice" xml:space="preserve">
+    <value>C.PreSettlePrice</value>
+  </data>
+  <data name="CSettlePrice" xml:space="preserve">
+    <value>C.SettlePrice</value>
+  </data>
+  <data name="CTurnover" xml:space="preserve">
+    <value>C.Turnover</value>
+  </data>
+  <data name="CUpperLimitPrice" xml:space="preserve">
+    <value>C.UpperLimitPrice</value>
+  </data>
+  <data name="PHighValue" xml:space="preserve">
+    <value>P.HighValue</value>
+  </data>
+  <data name="PLastPrice" xml:space="preserve">
+    <value>P.LastPrice</value>
+  </data>
+  <data name="PLowerLimitPrice" xml:space="preserve">
+    <value>P.LowerLimitPrice</value>
+  </data>
+  <data name="POpenValue" xml:space="preserve">
+    <value>P.OpenValue</value>
+  </data>
+  <data name="PPreCloseValue" xml:space="preserve">
+    <value>P.PreCloseValue</value>
+  </data>
+  <data name="PPreSettlePrice" xml:space="preserve">
+    <value>P.PreSettlePrice</value>
+  </data>
+  <data name="PSettlePrice" xml:space="preserve">
+    <value>P.SettlePrice</value>
+  </data>
+  <data name="PTurnover" xml:space="preserve">
+    <value>P.Turnover</value>
+  </data>
+  <data name="PUpperLimitPrice" xml:space="preserve">
+    <value>P.UpperLimitPrice</value>
+  </data>
+  <data name="Turnover" xml:space="preserve">
+    <value>Turnover</value>
+  </data>
 </root>

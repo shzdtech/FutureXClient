@@ -6,6 +6,7 @@ using System.Collections;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Micro.Future.CustomizedControls.Windows;
+using System.Collections.Generic;
 
 namespace Micro.Future.CustomizedControls
 {
@@ -39,14 +40,18 @@ namespace Micro.Future.CustomizedControls
             private set;
         }
 
-        public IEnumerable AddressCollection
+        public IList<string> AddressCollection
+        {
+            get;
+            set;
+        }
+        public IList<string> NameCollection
         {
             set
             {
                 LoginCombo.ItemsSource = value;
             }
         }
-
         public LoginWindow(AbstractSignInManager signInMgr)
         {
             SignInManager = signInMgr;
@@ -79,31 +84,34 @@ namespace Micro.Future.CustomizedControls
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string frontserver = LoginCombo.Text;
-            string brokerId = userBroker.Text;
-            string uid = userTxt.Text;
-            string password = passwordTxt.Password;
-
-            if (SignInManager.SignInOptions.FrontServer != frontserver ||
-                SignInManager.SignInOptions.BrokerID != brokerId ||
-                SignInManager.SignInOptions.UserName != uid ||
-                SignInManager.SignInOptions.Password != password)
+            if (LoginCombo.SelectedIndex >= 0)
             {
-                SignInManager.SignInOptions.FrontServer = frontserver;
-                SignInManager.SignInOptions.BrokerID = brokerId;
-                SignInManager.SignInOptions.UserName = uid;
-                if (SignInManager.SignInOptions.EncryptPassword)
+                string frontserver = AddressCollection[LoginCombo.SelectedIndex];
+                string brokerId = userBroker.Text;
+                string uid = userTxt.Text;
+                string password = passwordTxt.Password;
+
+                if (SignInManager.SignInOptions.FrontServer != frontserver ||
+                    SignInManager.SignInOptions.BrokerID != brokerId ||
+                    SignInManager.SignInOptions.UserName != uid ||
+                    SignInManager.SignInOptions.Password != password)
                 {
-                    _hashEncoder.Option.Iteration = MD5Round;
-                    password = _hashEncoder.Encode(password);
+                    SignInManager.SignInOptions.FrontServer = frontserver;
+                    SignInManager.SignInOptions.BrokerID = brokerId;
+                    SignInManager.SignInOptions.UserName = uid;
+                    if (SignInManager.SignInOptions.EncryptPassword)
+                    {
+                        _hashEncoder.Option.Iteration = MD5Round;
+                        password = _hashEncoder.Encode(password);
+                    }
+
+                    SignInManager.SignInOptions.Password = password;
                 }
 
-                SignInManager.SignInOptions.Password = password;
+                SignInManager.SignIn();
+
+                loginBtn.IsEnabled = false;
             }
-
-            SignInManager.SignIn();
-
-            loginBtn.IsEnabled = false;
         }
 
         public void ReportStatus(string statusMsg)

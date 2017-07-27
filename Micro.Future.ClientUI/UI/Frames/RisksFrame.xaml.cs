@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Micro.Future.LocalStorage;
 using Micro.Future.Windows;
+using Micro.Future.ViewModel;
 
 namespace Micro.Future.UI
 {
@@ -45,7 +46,6 @@ namespace Micro.Future.UI
         {
             get; set;
         }
-
         public TaskCompletionSource<bool> LoginTaskSource
         {
             get;

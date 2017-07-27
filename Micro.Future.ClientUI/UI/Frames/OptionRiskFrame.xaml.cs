@@ -37,7 +37,7 @@ namespace Micro.Future.UI
     {
         private AbstractSignInManager _otcOptionSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
-        private AbstractOTCHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+        private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
 
         //private List<PBSignInManager> _signIns = new List<PBSignInManager>();
         //private List<AbstractOTCHandler> _otcHdls = new List<AbstractOTCHandler>();

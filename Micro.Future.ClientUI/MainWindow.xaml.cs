@@ -10,6 +10,7 @@ using Micro.Future.Resources.Localization;
 using AutoUpdaterDotNET;
 using System.Windows.Controls;
 using Micro.Future.CustomizedControls.Windows;
+using System.Linq;
 
 namespace Micro.Future.UI
 {
@@ -100,7 +101,9 @@ namespace Micro.Future.UI
             _currentLoginWindow = new LoginWindow(_accountSignIner)
             {
                 MD5Round = 2,
-                AddressCollection = _config.Content["ACCOUNTSERVER.FRONT"].Values
+                AddressCollection = _config.Content["ACCOUNTSERVER.FRONT"].Values.ToList(),
+                NameCollection = _config.Content["ACCOUNTSERVER.FRONTNAME"].Values.ToList()
+
             };
             _currentLoginWindow.Closed += _currentLoginWindow_Closed;
             _currentLoginWindow.OnLogged += LoginWindow_OnLogged;

@@ -610,46 +610,6 @@ namespace Micro.Future.Message
         }
 
 
-        public Task<int> QueryMaxLimitOrderAsync(int timeout = 10000)
-        {
-            const string LIMITORDERMAX = "LIMITORDER.MAXCOUNT";
-
-            var sst = new StringMap();
-            var msgId = (uint)SystemMessageID.MSG_ID_QUERY_SYSPARAMS;
-            var tcs = new TaskCompletionSource<int>(new CancellationTokenSource(timeout));
-
-            var serialId = NextSerialId;
-            sst.Header = new DataHeader { SerialId = serialId };
-            sst.Entry.Add(LIMITORDERMAX, string.Empty);
-
-            MessageWrapper.RegisterAction<StringMap, ExceptionMessage>
-                (msgId,
-                (resp) =>
-                {
-                    if (resp.Header?.SerialId == serialId)
-                    {
-                        string strMaxOrder;
-                        if (resp.Entry.TryGetValue(LIMITORDERMAX, out strMaxOrder))
-                        {
-                            tcs.SetResult(int.Parse(strMaxOrder));
-                        }
-                        else
-                        {
-                            tcs.SetResult(0);
-                        }
-                    }
-                },
-                (bizErr) =>
-                {
-                    OnErrorAction(bizErr);
-                    tcs.SetResult(0);
-                }
-                );
-
-            MessageWrapper.SendMessage(msgId, sst);
-
-            return tcs.Task;
-        }
 
         protected void OnErrorAction(ExceptionMessage bizErr)
         {
