@@ -34,6 +34,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OptionFrame : UserControl, IUserFrame
     {
+        private AbstractSignInManager _ctpMdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<MarketDataHandler>());
         private AbstractSignInManager _otcOptionSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
@@ -79,48 +80,51 @@ namespace Micro.Future.UI
 
         public Task<bool> LoginAsync(string brokerId, string usernname, string password, string server)
         {
-            _otcOptionSignIner.SignInOptions.BrokerID = brokerId;
-            _otcOptionSignIner.SignInOptions.UserName = usernname;
-            _otcOptionSignIner.SignInOptions.Password = password;
+            if (_ctpMdSignIner.MessageWrapper == null)
+            {
+                // Initialize Market Data
+                var msgWrapper = _ctpMdSignIner.MessageWrapper;
 
-            var entries = _otcOptionSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            if (server != null && entries.Length < 2)
-                _otcOptionSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+                _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
+                _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
+                msgWrapper.MessageClient.OnDisconnected += ctpLoginStatus.OnDisconnected;
+                MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().RegisterMessageWrapper(msgWrapper);
 
-            //entries = _ctpSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            //if (server != null && entries.Length < 2)
-            //    _ctpSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
-            //Test(_tdSignIner.SignInOptions);
+                _ctpMdSignIner.SignInOptions.BrokerID = brokerId;
+                _ctpMdSignIner.SignInOptions.UserName = usernname;
+                _ctpMdSignIner.SignInOptions.Password = password;
+                var entries = _ctpMdSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                if (server != null && entries.Length < 2)
+                    _ctpMdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
-            TDServerLogin();
+                _ctpMdSignIner.SignIn();
+            }
+
+            if (_otcOptionSignIner.LoggedUser == null)
+            {
+                _otcOptionSignIner.SignInOptions.BrokerID = brokerId;
+                _otcOptionSignIner.SignInOptions.UserName = usernname;
+                _otcOptionSignIner.SignInOptions.Password = password;
+
+                var entries = _otcOptionSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                if (server != null && entries.Length < 2)
+                    _otcOptionSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
+                TDServerLogin();
+            }
+            else
+            {
+                return Task.FromResult(true);
+            }
 
             return LoginTaskSource.Task;
         }
 
-        //public void Test(SignInOptions signInOpt)
-        //{
-        //    for (int i = 0; i < 50; i++)
-        //    {
-        //        PBSignInManager tradeSignIner = new PBSignInManager(signInOpt);
-        //        tradeSignIner.OnLogged += Test_OnLogged;
-        //        _signIns.Add(tradeSignIner);
-        //        tradeSignIner.SignIn();
-        //        var hdl = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
-        //        hdl.RegisterMessageWrapper(tradeSignIner.MessageWrapper);
-        //        _otcHdls.Add(hdl);
-        //    }
-        //}
-
-        //private void Test_OnLogged(IUserInfo userInfo)
-        //{
-        //    Console.WriteLine("Test Logged: " + userInfo.Name);
-
-        //    if (++_cnt == 50)
-        //    {
-        //        foreach (var hdl in _otcHdls)
-        //            hdl.QueryStrategy();
-        //    }
-        //}
+        private void ctpMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
+        {
+            if (!_ctpMdSignIner.MessageWrapper.HasSignIn)
+                _ctpMdSignIner.SignIn();
+        }
 
         public void Initialize()
         {
@@ -196,8 +200,8 @@ namespace Micro.Future.UI
             var volModel = optionModelCtrl.OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
             if (volModel != null)
             {
-                if( OpMarketMakerLV.expireDateCB.SelectedValue !=null )
-                OpMarketMakerLV.volModelLB.Content = volModel;
+                if (OpMarketMakerLV.expireDateCB.SelectedValue != null)
+                    OpMarketMakerLV.volModelLB.Content = volModel;
             }
         }
         private void OptionWin_KeyDown(object sender, KeyEventArgs e)
