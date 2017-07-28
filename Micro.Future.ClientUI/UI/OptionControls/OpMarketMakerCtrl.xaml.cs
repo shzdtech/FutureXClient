@@ -86,7 +86,7 @@ namespace Micro.Future.UI
             _otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
             _tradeExHandler.OnPositionUpdated += OnPositionUpdated;
 
-            StrategyVM.MaxLimitOrder = await _otcOptionHandler.QueryMaxLimitOrderAsync();
+            //StrategyVM.MaxLimitOrder = await _otcOptionHandler.QueryMaxLimitOrderAsync();
 
             // Set columns tree
             var marketNode = new ColumnObject(new GridViewColumn() { Header = "行情" });

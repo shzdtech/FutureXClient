@@ -37,7 +37,12 @@ namespace Micro.Future.UI
             AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
             AutoUpdater.Start(Settings.Default.AutoUpdateAddress);
         }
-
+        private async void MenuItem_RefreshContracts_Click(object sender, RoutedEventArgs e)
+        {
+            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            await tradeHandler.SyncContractInfoAsync(true);
+            MessageBox.Show(Application.Current.MainWindow, "合约已刷新，请重新启动应用！");
+        }
         private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)
         {
             if (args != null)

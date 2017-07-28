@@ -69,7 +69,7 @@
                         <GridViewColumn Header="{lex:Loc Key=Contract}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Contract}" TextAlignment="Right" Style="{DynamicResource DoubleChangeStyle}"/>
+                                    <TextBlock Text="{Binding Contract}" TextAlignment="Right" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -209,7 +209,7 @@
                     <GridViewColumn x:Name="PBidTheo" Header="{lex:Loc Key=PBidTheo}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PutOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" TextAlignment="Center" Width="auto" Style="{DynamicResource PutBidChangeStyle}"/>
+                                <TextBlock Text="{Binding PutOptionVM.TheoDataVM.BidPrice,StringFormat=N2}" Style="{DynamicResource PutBidChangeStyle}" TextAlignment="Center" Width="auto" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -217,7 +217,7 @@
                     <GridViewColumn x:Name="PAskTheo" Header="{lex:Loc Key=PAskTheo}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PutOptionVM.TheoDataVM.AskPrice,StringFormat=N2}" TextAlignment="Center" Width="auto" Style="{DynamicResource PutAskChangeStyle}"/>
+                                <TextBlock Text="{Binding PutOptionVM.TheoDataVM.AskPrice,StringFormat=N2}" Style="{DynamicResource PutAskChangeStyle}" TextAlignment="Center" Width="auto" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -248,7 +248,7 @@
                     <GridViewColumn x:Name="PBid" Header="{lex:Loc Key=PBid}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.BidPrice,StringFormat=N2}" TextAlignment="Center" Width="auto"/>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.BidPrice,StringFormat=N2}" Style="{DynamicResource DoubleChangeStyle}"  TextAlignment="Center" Width="auto"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -280,7 +280,7 @@
                     <GridViewColumn x:Name="PAsk" Header="{lex:Loc Key=PAsk}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.AskPrice,StringFormat=N2}" TextAlignment="Center" Width="auto"/>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.AskPrice,StringFormat=N2}" Style="{DynamicResource DoubleChangeStyle}" TextAlignment="Center" Width="auto"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -600,7 +600,7 @@
                     <GridViewColumn x:Name="CAsk" Header="{lex:Loc Key=CAsk}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.AskPrice,StringFormat=N2}" TextAlignment="Center" Width="auto"/>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.AskPrice,StringFormat=N2}" Style="{DynamicResource DoubleChangeStyle}" TextAlignment="Center" Width="auto"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>  
@@ -631,7 +631,7 @@
                     <GridViewColumn x:Name="CBid" Header="{lex:Loc Key=CBid}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.BidPrice,StringFormat=N2}" TextAlignment="Center" Width="auto"/>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.BidPrice,StringFormat=N2}" Style="{DynamicResource DoubleChangeStyle}" TextAlignment="Center" Width="auto"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
