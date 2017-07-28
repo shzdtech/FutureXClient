@@ -7,7 +7,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:c="clr-namespace:Micro.Future.UI"
       xmlns:lex="http://wpflocalizeextension.codeplex.com" 
-      xmlns:AVBehav="clr-namespace:Micro.Future.UI.Behavior"
       lex:LocalizeDictionary.DesignCulture="zh_CN"
       lex:LocalizeDictionary.OutputMissingKeys="True"
       lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
