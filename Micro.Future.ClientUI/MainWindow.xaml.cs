@@ -39,8 +39,8 @@ namespace Micro.Future.UI
         }
         private async void MenuItem_RefreshContracts_Click(object sender, RoutedEventArgs e)
         {
-            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
-            await tradeHandler.SyncContractInfoAsync(true);
+            var mktHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+            await mktHandler.SyncContractInfoAsync(true);
             MessageBox.Show(Application.Current.MainWindow, "合约已刷新，请重新启动应用！");
         }
         private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)
