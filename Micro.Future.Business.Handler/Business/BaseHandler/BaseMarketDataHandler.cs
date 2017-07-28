@@ -205,6 +205,7 @@ namespace Micro.Future.Message
             mktVM.PriceChange = md.PriceChange;
             mktVM.UpdateTime = md.UpdateTime;
             mktVM.CloseValue = md.CloseValue;
+            mktVM.Turnover = md.Turnover;
             mktVM.MidPrice = (mktVM.BidPrice + mktVM.AskPrice) / 2
                 ;
         }

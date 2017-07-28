@@ -781,6 +781,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 C.持仓量 的本地化字符串。
+        /// </summary>
+        internal static string COpenInterest {
+            get {
+                return ResourceManager.GetString("COpenInterest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 C.今开盘 的本地化字符串。
         /// </summary>
         internal static string COpenValue {
@@ -808,7 +817,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.持仓量 的本地化字符串。
+        ///   查找类似 C.持仓 的本地化字符串。
         /// </summary>
         internal static string CPosition {
             get {
@@ -2122,6 +2131,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 P.持仓量 的本地化字符串。
+        /// </summary>
+        internal static string POpenInterest {
+            get {
+                return ResourceManager.GetString("POpenInterest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 P.今开盘 的本地化字符串。
         /// </summary>
         internal static string POpenValue {
@@ -2203,7 +2221,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.持仓量 的本地化字符串。
+        ///   查找类似 P.持仓 的本地化字符串。
         /// </summary>
         internal static string PPosition {
             get {
@@ -3112,7 +3130,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 成交量 的本地化字符串。
+        ///   查找类似 成交额 的本地化字符串。
         /// </summary>
         internal static string Turnover {
             get {

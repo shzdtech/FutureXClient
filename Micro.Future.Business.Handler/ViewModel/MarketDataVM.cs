@@ -32,8 +32,8 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private long turnover;
-        public long Turnover
+        private double turnover;
+        public double Turnover
         {
             get { return turnover; }
             set

@@ -1018,7 +1018,7 @@
     <value>C.订单计数</value>
   </data>
   <data name="CPosition" xml:space="preserve">
-    <value>C.持仓量</value>
+    <value>C.持仓</value>
   </data>
   <data name="CRho" xml:space="preserve">
     <value>C.Rho</value>
@@ -1093,7 +1093,7 @@
     <value>P.订单计数</value>
   </data>
   <data name="PPosition" xml:space="preserve">
-    <value>P.持仓量</value>
+    <value>P.持仓</value>
   </data>
   <data name="PRho" xml:space="preserve">
     <value>P.Rho</value>
@@ -1195,7 +1195,7 @@
     <value>P.成交量</value>
   </data>
   <data name="Turnover" xml:space="preserve">
-    <value>成交量</value>
+    <value>成交额</value>
   </data>
   <data name="CCloseValue" xml:space="preserve">
     <value>C.今收盘</value>
@@ -1203,7 +1203,13 @@
   <data name="CloseValue" xml:space="preserve">
     <value>今收盘</value>
   </data>
+  <data name="COpenInterest" xml:space="preserve">
+    <value>C.持仓量</value>
+  </data>
   <data name="PCloseValue" xml:space="preserve">
     <value>P.今收盘</value>
+  </data>
+  <data name="POpenInterest" xml:space="preserve">
+    <value>P.持仓量</value>
   </data>
 </root>
