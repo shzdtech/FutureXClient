@@ -136,47 +136,51 @@ namespace Micro.Future.UI
                 {
                     sender.DataLoadingProgressBar.Value++;
 
-                    var frameUI = Activator.CreateInstance(Type.GetType(frame)) as IUserFrame;
-                    if (frameUI != null)
+                    var type = Type.GetType(frame);
+                    if (type != null)
                     {
-                        frameUI.StatusReporter = this;
-                        mainPane.AddContent(frameUI).Title = frameUI.Title;
-
-                        ReportStatus("Loading " + frameUI.Title + " ...");
-
-                        if (frameUI.FrameMenus != null)
+                        var frameUI = Activator.CreateInstance(type) as IUserFrame;
+                        if (frameUI != null)
                         {
-                            foreach (var menuitem in frameUI.FrameMenus)
-                                mainMenu.Items.Add(menuitem);
-                        }
+                            frameUI.StatusReporter = this;
+                            mainPane.AddContent(frameUI).Title = frameUI.Title;
 
-                        if (frameUI.StatusBarItems != null)
-                        {
-                            foreach (var statusbaritem in frameUI.StatusBarItems)
+                            ReportStatus("Loading " + frameUI.Title + " ...");
+
+                            if (frameUI.FrameMenus != null)
                             {
-                                if (!string.IsNullOrEmpty(statusbaritem.Uid))
-                                {
-                                    if (statusBarIdSet.Contains(statusbaritem.Uid))
-                                    {
-                                        continue;
-                                    }
-                                    statusBarIdSet.Add(statusbaritem.Uid);
-                                }
-                                statusBar.Items.Add(statusbaritem);
+                                foreach (var menuitem in frameUI.FrameMenus)
+                                    mainMenu.Items.Add(menuitem);
                             }
-                        }
 
-                        var entries = _accountSignIner.SignInOptions.FrontServer.Split(':');
+                            if (frameUI.StatusBarItems != null)
+                            {
+                                foreach (var statusbaritem in frameUI.StatusBarItems)
+                                {
+                                    if (!string.IsNullOrEmpty(statusbaritem.Uid))
+                                    {
+                                        if (statusBarIdSet.Contains(statusbaritem.Uid))
+                                        {
+                                            continue;
+                                        }
+                                        statusBarIdSet.Add(statusbaritem.Uid);
+                                    }
+                                    statusBar.Items.Add(statusbaritem);
+                                }
+                            }
 
-                        try
-                        {
-                            _logged = await frameUI.LoginAsync(_accountSignIner.SignInOptions.BrokerID, _accountSignIner.SignInOptions.UserName, _accountSignIner.SignInOptions.Password, entries[0]);
-                            if (!_logged)
-                                Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(this, ex.Message);
+                            var entries = _accountSignIner.SignInOptions.FrontServer.Split(':');
+
+                            try
+                            {
+                                _logged = await frameUI.LoginAsync(_accountSignIner.SignInOptions.BrokerID, _accountSignIner.SignInOptions.UserName, _accountSignIner.SignInOptions.Password, entries[0]);
+                                if (!_logged)
+                                    Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(this, ex.Message);
+                            }
                         }
                     }
                 }
