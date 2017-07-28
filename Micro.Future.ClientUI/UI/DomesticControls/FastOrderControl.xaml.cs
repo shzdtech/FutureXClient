@@ -126,14 +126,36 @@ namespace Micro.Future.UI
         {
             if (positionVM != null)
             {
+                if (positionVM.Direction == PositionDirectionType.PD_SHORT)
+                {
+                    radioButtonBuy.IsChecked = true;
+                    //OrderVM.Direction = DirectionType.BUY;
+                }
+                else
+                {
+                    radioButtonSell.IsChecked = true;
+                    //OrderVM.Direction = DirectionType.SELL;
+                }
+                if (positionVM.Position != 0)
+                {
+                    if (positionVM.Exchange == "SHFE")
+                    {
+                        if (positionVM.TodayPosition != 0)
+                            RadioC.IsChecked = true;
+                        else
+                            RadioB.IsChecked = true;
+                    }
+                    else
+                        RadioB.IsChecked = true;
+                }
                 OrderVM.Contract = positionVM.Contract;
                 var quote = OrderVM.Contract;
                 if (quote != null)
                 {
                     checkBox.IsEnabled = true;
-                    radioButtonBuy.IsChecked = true;
+                    //radioButtonBuy.IsChecked = true;
                     //radioButtonSell.IsChecked = false;
-                    RadioA.IsChecked = true;
+                    //RadioA.IsChecked = true;
                     //RadioB.IsChecked = false;
                     //RadioC.IsChecked = false;
                     FastOrderContract.SelectedItem = quote;

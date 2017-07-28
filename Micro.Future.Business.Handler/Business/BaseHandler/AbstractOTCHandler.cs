@@ -349,12 +349,11 @@ namespace Micro.Future.Message
                     strategyVM.CounterBidDirection = 1;
                 else
                     strategyVM.CounterBidDirection = -1;
-                OnStrategyUpdated?.Invoke(strategyVM);
                 if (strategyVM.OrderCounter >= StrategyVM.MaxLimitOrder && strategyVM.TIF == OrderTIFType.GFD && strategy.VolCond == (int)OrderVolType.ANYVOLUME)
                     strategyVM.OrderCounterDirection = 1;
                 else
                     strategyVM.OrderCounterDirection = -1;
-
+                OnStrategyUpdated?.Invoke(strategyVM);
             }
         }
 
