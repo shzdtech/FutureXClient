@@ -1,0 +1,24 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Micro.Future.TradeControls",
+  "authors": [
+    "milk"
+  ],
+  "tags": [
+    ""
+  ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "Microsoft.EntityFrameworkCore": "1.1.0",
+    "WpfControls.AutoCompleteTextBox": "1.0.0.7",
+    "WpfLocalizeExtension": "2.3.2"
+  },
+  "frameworks": {
+    "net461": {}
+  },
+  "runtimes": {
+    "win-anycpu": {},
+    "win": {}
+  }
+}

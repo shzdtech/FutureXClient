@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Micro.Future.UI"
         xmlns:lex="http://wpflocalizeextension.codeplex.com" 
         xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
-        xmlns:c="clr-namespace:Micro.Future.UI"
+        xmlns:c="clr-namespace:Micro.Future.UI;assembly=Micro.Future.TradeControls"
         lex:LocalizeDictionary.DesignCulture="zh_CN"
         lex:LocalizeDictionary.OutputMissingKeys="True"
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
@@ -33,19 +33,19 @@
                 <avalonDock:LayoutPanel Orientation="Horizontal">
                     <avalonDock:LayoutAnchorablePane x:Name="portfolioselectPane" DockWidth="0.25*">
                         <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Portfolio}" CanClose="False" CanAutoHide="True">
-                            <c:PortfolioSelectCtrl x:Name="portfolioCtl"/>
+                            <local:PortfolioSelectCtrl x:Name="portfolioCtl"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                     <avalonDock:LayoutAnchorablePane x:Name="quotePane">
                         <avalonDock:LayoutAnchorable>
-                            <c:OPMarketDataControl x:Name="marketDataLV" PersistanceId="Risk:MarketDataControl" />
+                            <local:OPMarketDataControl x:Name="marketDataLV" PersistanceId="Risk:MarketDataControl" />
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
                 <avalonDock:LayoutPanel Orientation="Horizontal">
                     <avalonDock:LayoutAnchorablePane x:Name="greeksPane">
                         <avalonDock:LayoutAnchorable  CanClose="False" CanAutoHide="True">
-                            <c:GreekCtrl x:Name="greeksControl"/>
+                            <local:GreekCtrl x:Name="greeksControl"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                     <avalonDock:LayoutAnchorablePane x:Name="positionPane" >

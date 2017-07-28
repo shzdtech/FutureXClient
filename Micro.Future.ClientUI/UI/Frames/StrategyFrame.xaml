@@ -47,7 +47,6 @@
                 <avalonDock:LayoutPanel DockWidth="4*">
                     <avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorable Title="{lex:Loc Key=MarketData}">
-                            <c:MarketDataControl x:Name="MarketDataLV"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>

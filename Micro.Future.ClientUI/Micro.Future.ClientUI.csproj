@@ -90,117 +90,26 @@
     </ApplicationDefinition>
     <Compile Include="RoleSectionHandler.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="UI\Behavior\AvalonDockLayoutSerializer.cs" />
-    <Compile Include="UI\DomesticControls\AdvancedMakeOrderWin.xaml.cs">
-      <DependentUpon>AdvancedMakeOrderWin.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\ForeignControls\ForeignFastOrderWindow.xaml.cs">
       <DependentUpon>ForeignFastOrderWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\DomesticControls\MarketDataControl.xaml.cs">
-      <DependentUpon>MarketDataControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Frames\OTCTradeFrame.xaml.cs">
       <DependentUpon>OTCTradeFrame.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Frames\OptionRiskFrame.xaml.cs">
-      <DependentUpon>OptionRiskFrame.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Frames\RisksFrame.xaml.cs">
-      <DependentUpon>RisksFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Frames\OTCOptionTradeFrame.xaml.cs">
       <DependentUpon>OTCOptionTradeFrame.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Frames\OptionTradeFrame.xaml.cs">
-      <DependentUpon>OptionTradeFrame.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Frames\OptionStrategyFrame.xaml.cs">
-      <DependentUpon>OptionStrategyFrame.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Frames\StrategyFrame.xaml.cs">
       <DependentUpon>StrategyFrame.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Frames\DomesticMarketFrame.xaml.cs">
-      <DependentUpon>DomesticMarketFrame.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\DomesticControls\TradeRecordControl.xaml.cs">
-      <DependentUpon>TradeRecordControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\DomesticLogin.xaml.cs">
       <DependentUpon>DomesticLogin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\DomesticControls\ExecutionControl.xaml.cs">
-      <DependentUpon>ExecutionControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Hedge\OPHedgeLV.xaml.cs">
-      <DependentUpon>OPHedgeLV.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Hedge\OPRiskLV.xaml.cs">
-      <DependentUpon>OPRiskLV.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Hedge\OPPositionLV.xaml.cs">
-      <DependentUpon>OPPositionLV.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\DomesticControls\PositionControl.xaml.cs">
-      <DependentUpon>PositionControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\DomesticControls\FastOrderControl.xaml.cs">
-      <DependentUpon>FastOrderControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Frames\OptionFrame.xaml.cs">
-      <DependentUpon>OptionFrame.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OptionControls\OPMarketDataControl.xaml.cs">
-      <DependentUpon>OPMarketDataControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OptionControls\OpMarketMakerCtrl.xaml.cs">
-      <DependentUpon>OpMarketMakerCtrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OptionControls\OpMarketData.xaml.cs">
-      <DependentUpon>OpMarketData.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OptionControls\OptionMatrixCtrl.xaml.cs">
-      <DependentUpon>OptionMatrixCtrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OptionControls\OptionRiskMatrixCtrl.xaml.cs">
-      <DependentUpon>OptionRiskMatrixCtrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OptionControls\OptionContractRiskGraphCtrl.xaml.cs">
-      <DependentUpon>OptionContractRiskGraphCtrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OptionControls\OptionRiskGraphCtrl.xaml.cs">
-      <DependentUpon>OptionRiskGraphCtrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OptionControls\OptionRiskCtrl.xaml.cs">
-      <DependentUpon>OptionRiskCtrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OptionControls\OptionModelCtrl.xaml.cs">
-      <DependentUpon>OptionModelCtrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OptionControls\OpHedgeCtrl.xaml.cs">
-      <DependentUpon>OpHedgeCtrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OptionControls\PortfolioSelectCtrl.xaml.cs">
-      <DependentUpon>PortfolioSelectCtrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OptionControls\GreekCtrl.xaml.cs">
-      <DependentUpon>GreekCtrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OptionControls\VolCurvCtrl.xaml.cs">
-      <DependentUpon>VolCurvCtrl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OptionControls\OpOrderWin.xaml.cs">
-      <DependentUpon>OpOrderWin.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\OptionControls\WMSettingsCtrl.xaml.cs">
-      <DependentUpon>WMSettingsCtrl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\OtcControls\QuoteGroupViewOTC.xaml.cs">
       <DependentUpon>QuoteGroupViewOTC.xaml</DependentUpon>
@@ -223,19 +132,12 @@
     <Compile Include="UI\OtcControls\OTCContactWindow.xaml.cs">
       <DependentUpon>OTCContactWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\DomesticControls\AccountInfoControl.xaml.cs">
-      <DependentUpon>AccountInfoControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Frames\ForeignMarketFrame.xaml.cs">
       <DependentUpon>ForeignMarketFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="UI\DomesticControls\AdvancedMakeOrderWin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\ForeignControls\ForeignFastOrderWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -244,23 +146,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Frames\OptionRiskFrame.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Frames\RisksFrame.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\Frames\OTCOptionTradeFrame.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Frames\OptionTradeFrame.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Frames\OptionStrategyFrame.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -268,51 +154,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Frames\DomesticMarketFrame.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\DomesticControls\TradeRecordControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\DomesticLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\DomesticControls\ExecutionControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Hedge\OPHedgeLV.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Hedge\OPRiskLV.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Hedge\OPPositionLV.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\InputBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\DomesticControls\PositionControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\DomesticControls\FastOrderControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\DomesticControls\MarketDataControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Frames\OptionFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -320,66 +166,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UI\OptionControls\OPMarketDataControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\OptionControls\OpMarketMakerCtrl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\OptionControls\OpMarketData.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\OptionControls\OptionMatrixCtrl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\OptionControls\OptionRiskMatrixCtrl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\OptionControls\OptionContractRiskGraphCtrl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\OptionControls\OptionRiskGraphCtrl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\OptionControls\OptionRiskCtrl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\OptionControls\OptionModelCtrl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\OptionControls\OpHedgeCtrl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\OptionControls\PortfolioSelectCtrl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\OptionControls\GreekCtrl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\OptionControls\VolCurvCtrl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\OptionControls\OpOrderWin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\OptionControls\WMSettingsCtrl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\OtcControls\QuoteGroupViewOTC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -411,10 +197,6 @@
     <Page Include="UI\OtcControls\OTCContactWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\DomesticControls\AccountInfoControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Frames\ForeignMarketFrame.xaml">
       <SubType>Designer</SubType>
@@ -478,6 +260,10 @@
     <ProjectReference Include="..\Micro.Future.LocalStorage\Micro.Future.LocalStorage.csproj">
       <Project>{8a2127d2-8c14-4a0e-8608-e355acda150d}</Project>
       <Name>Micro.Future.LocalStorage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Micro.Future.OptionControls\Micro.Future.OptionControls.csproj">
+      <Project>{b0266d54-ff6c-4658-8c67-d9ba39f7e1a1}</Project>
+      <Name>Micro.Future.OptionControls</Name>
     </ProjectReference>
     <ProjectReference Include="..\Micro.Future.Utility\Micro.Future.Utility.csproj">
       <Project>{A6A3AF60-A359-49C4-8747-C79B695489E2}</Project>
@@ -559,6 +345,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\login.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UI\DomesticControls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
