@@ -265,6 +265,10 @@
       <Project>{b0266d54-ff6c-4658-8c67-d9ba39f7e1a1}</Project>
       <Name>Micro.Future.OptionControls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Micro.Future.TradeControls\Micro.Future.TradeControls.csproj">
+      <Project>{64a1e98e-4d2b-4b32-8365-7ac080c04f04}</Project>
+      <Name>Micro.Future.TradeControls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Micro.Future.Utility\Micro.Future.Utility.csproj">
       <Project>{A6A3AF60-A359-49C4-8747-C79B695489E2}</Project>
       <Name>Micro.Future.Utility</Name>

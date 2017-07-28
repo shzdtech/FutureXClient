@@ -4,7 +4,8 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
                 xmlns:ribbon="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon"
-                xmlns:c="clr-namespace:Micro.Future.UI"
+                xmlns:c="clr-namespace:Micro.Future.UI;assembly=Micro.Future.TradeControls"
+                xmlns:local="clr-namespace:Micro.Future.UI"
                 xmlns:data="clr-namespace:Micro.Future.ViewModel"  
                 xmlns:lex="http://wpflocalizeextension.codeplex.com"    
                 lex:LocalizeDictionary.DesignCulture="zh_CN"
@@ -39,7 +40,7 @@
                     <avalonDock:LayoutPanel Orientation="Horizontal" >
                         <avalonDock:LayoutAnchorablePane x:Name="globalfastorderPane" DockWidth="0.23*" DockHeight="1*" >
                             <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}">
-                                <c:ForeignFastOrderWindow x:Name="GlobalFastOrderCtl"  />
+                                <local:ForeignFastOrderWindow x:Name="GlobalFastOrderCtl"  />
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="globalquotePane">
