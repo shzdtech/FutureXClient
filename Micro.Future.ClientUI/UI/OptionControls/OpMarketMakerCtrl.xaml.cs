@@ -68,7 +68,7 @@ namespace Micro.Future.UI
         }
 
 
-        public async void Initialize()
+        public void Initialize()
         {
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);

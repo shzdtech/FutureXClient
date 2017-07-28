@@ -28,7 +28,7 @@ namespace Micro.Future.UI
     {
         private const string DEFAULT_ID = "6210A109-5291-4CEF-866E-9CEC7EF3A602";
         private Timer _timer;
-        private const int UpdateInterval = 10000;
+        private const int UpdateInterval = 1000;
         private IList<ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public FilterSettingsWindow FilterSettingsWin { get; }

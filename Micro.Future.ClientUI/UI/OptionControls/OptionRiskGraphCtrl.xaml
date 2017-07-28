@@ -18,6 +18,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.22*"/>
+            <ColumnDefinition Width="3"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Width="Auto">
@@ -94,7 +95,8 @@
                 </StackPanel>
             </GroupBox>
         </StackPanel>
-        <oxy:Plot x:Name="plotModel" Grid.Column="1">
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
+        <oxy:Plot x:Name="plotModel" Grid.Column="2" BorderThickness="3">
             <oxy:ColumnSeries x:Name="columnSeries" />
             <oxy:Plot.Axes>
                 <oxy:CategoryAxis  x:Name="strikeAxis" Position="Bottom" Title="StrikePrice"/>

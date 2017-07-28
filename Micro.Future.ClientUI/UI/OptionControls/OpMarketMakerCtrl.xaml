@@ -271,7 +271,7 @@
                     <GridViewColumn x:Name="PMid" Header="{lex:Loc Key=PMid}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.MidPrice,StringFormat=N2}" TextAlignment="Center" Width="auto"/>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.MidPrice,StringFormat=N2}" Style="{DynamicResource DoubleChangeStyle}" TextAlignment="Center" Width="auto"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
