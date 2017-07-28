@@ -321,6 +321,7 @@ namespace Micro.Future.UI
                                 adjustment.Value = adjust;
                                 AutoOrder_CheckBox.DataContext = strategyVM;
                                 CountertextBox.DataContext = strategyVM;
+                                AutoMaxTradeUpdate((int)CountertextBox.Value);
                                 TickSizeIUD.DataContext = strategyVM;
                                 orderConditionCombo.SelectedValue = OrderConditionType.LIMIT;
                                 var modelVM = pricingModelCB.SelectedItem as ModelParamsVM;
