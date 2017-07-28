@@ -465,7 +465,7 @@ namespace Micro.Future.UI
                                     riskset.PnL -= vm.Price * contractPosition.Multiplier * contractPosition.Position;
                                 }
                             }
-                            Logger.Debug(vm.Price.ToString());
+                            //Logger.Debug(vm.Price.ToString());
                          }
                     }
                 }

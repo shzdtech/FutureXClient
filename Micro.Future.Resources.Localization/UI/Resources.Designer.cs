@@ -565,6 +565,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 C.今收盘 的本地化字符串。
+        /// </summary>
+        internal static string CCloseValue {
+            get {
+                return ResourceManager.GetString("CCloseValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 C.Delta 的本地化字符串。
         /// </summary>
         internal static string CDelta {
@@ -660,6 +669,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string CloseToday {
             get {
                 return ResourceManager.GetString("CloseToday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 今收盘 的本地化字符串。
+        /// </summary>
+        internal static string CloseValue {
+            get {
+                return ResourceManager.GetString("CloseValue", resourceCulture);
             }
         }
         
@@ -2001,6 +2019,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string PCloseMode {
             get {
                 return ResourceManager.GetString("PCloseMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P.今收盘 的本地化字符串。
+        /// </summary>
+        internal static string PCloseValue {
+            get {
+                return ResourceManager.GetString("PCloseValue", resourceCulture);
             }
         }
         

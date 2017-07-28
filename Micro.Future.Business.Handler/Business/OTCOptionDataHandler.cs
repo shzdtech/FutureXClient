@@ -35,7 +35,7 @@ namespace Micro.Future.Message
                     mktVM.AskPrice = md.AskPrice;
                     mktVM.BidSize = md.BidSize;
                     mktVM.AskSize = md.AskSize;
-
+                    mktVM.MidPrice = (mktVM.BidPrice + mktVM.AskPrice) / 2;
                     RaiseNewMD(mktVM);
                 }
             }

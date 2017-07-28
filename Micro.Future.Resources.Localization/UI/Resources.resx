@@ -1197,4 +1197,13 @@
   <data name="Turnover" xml:space="preserve">
     <value>成交量</value>
   </data>
+  <data name="CCloseValue" xml:space="preserve">
+    <value>C.今收盘</value>
+  </data>
+  <data name="CloseValue" xml:space="preserve">
+    <value>今收盘</value>
+  </data>
+  <data name="PCloseValue" xml:space="preserve">
+    <value>P.今收盘</value>
+  </data>
 </root>

@@ -100,6 +100,7 @@ namespace Micro.Future.UI
             marketNode.Children.Add(ColumnObject.CreateColumn(PBidSize));
             marketNode.Children.Add(ColumnObject.CreateColumn(PAsk));
             marketNode.Children.Add(ColumnObject.CreateColumn(PAskSize));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PCloseValue));
             marketNode.Children.Add(ColumnObject.CreateColumn(PPreCloseValue));
             marketNode.Children.Add(ColumnObject.CreateColumn(POpenValue));
             marketNode.Children.Add(ColumnObject.CreateColumn(PTurnover));
@@ -116,6 +117,7 @@ namespace Micro.Future.UI
             marketNode.Children.Add(ColumnObject.CreateColumn(CBidSize));
             marketNode.Children.Add(ColumnObject.CreateColumn(CAsk));
             marketNode.Children.Add(ColumnObject.CreateColumn(CAskSize));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CCloseValue));
             marketNode.Children.Add(ColumnObject.CreateColumn(CPreCloseValue));
             marketNode.Children.Add(ColumnObject.CreateColumn(COpenValue));
             marketNode.Children.Add(ColumnObject.CreateColumn(CTurnover));

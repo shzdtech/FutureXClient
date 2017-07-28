@@ -131,5 +131,15 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("LowerLimitPrice");
             }
         }
+        private double closeValue;
+        public double CloseValue
+        {
+            get { return closeValue; }
+            set
+            {
+                closeValue = value;
+                OnPropertyChanged("CloseValue");
+            }
+        }
     }
 }
