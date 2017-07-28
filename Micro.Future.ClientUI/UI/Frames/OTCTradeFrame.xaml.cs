@@ -302,8 +302,8 @@ namespace Micro.Future.UI
 
         private async void MenuItem_RefreshContracts_Click(object sender, RoutedEventArgs e)
         {
-            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
-            await tradeHandler.SyncContractInfoAsync(true);
+            var mdHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
+            await mdHandler.SyncContractInfoAsync(true);
             MessageBox.Show(Application.Current.MainWindow, "合约已刷新，请重新启动应用！");
         }
 

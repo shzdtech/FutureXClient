@@ -94,75 +94,6 @@ namespace Micro.Future.Message
 
         }
 
-        //To read contract data into contractNameList
-        //To invoke the function of saving contract data to local sqlite
-        private void OnSyncContractInfo(string key, PBContractInfoList rsp)
-        {
-            using (var clientCtx = new ClientDbContext())
-            {
-                var types = rsp.ContractInfo.Select(c => c.ProductType).Distinct().ToList();
-                foreach (var productType in types)
-                {
-                    var oldContracts = from p in clientCtx.ContractInfo
-                                       where p.ProductType == productType
-                                       select p;
-
-                    if (oldContracts.Any())
-                    {
-                        clientCtx.RemoveRange(oldContracts);
-                        clientCtx.SaveChanges();
-                    }
-
-                    var contractList = from c in rsp.ContractInfo
-                                       where c.ProductType == productType
-                                       select c;
-
-                    foreach (var contract in contractList)
-                    {
-                        clientCtx.ContractInfo.Add(new ContractInfo()
-                        {
-                            Exchange = contract.Exchange,
-                            Contract = contract.Contract,
-                            Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
-                            ProductID = contract.ProductID,
-                            ProductType = contract.ProductType,
-                            DeliveryYear = contract.DeliveryYear,
-                            DeliveryMonth = contract.DeliveryMonth,
-                            MaxMarketOrderVolume = contract.MaxMarketOrderVolume,
-                            MinMarketOrderVolume = contract.MinMarketOrderVolume,
-                            MaxLimitOrderVolume = contract.MaxMarketOrderVolume,
-                            MinLimitOrderVolume = contract.MinMarketOrderVolume,
-                            VolumeMultiple = contract.VolumeMultiple,
-                            PriceTick = contract.PriceTick,
-                            CreateDate = contract.CreateDate,
-                            OpenDate = contract.OpenDate,
-                            ExpireDate = contract.ExpireDate,
-                            StartDelivDate = contract.EndDelivDate,
-                            EndDelivDate = contract.EndDelivDate,
-                            LifePhase = contract.LifePhase,
-                            IsTrading = contract.IsTrading,
-                            PositionType = contract.PositionType,
-                            PositionDateType = contract.PositionDateType,
-                            LongMarginRatio = contract.LongMarginRatio,
-                            ShortMarginRatio = contract.ShortMarginRatio,
-                            UnderlyingExchange = contract.UnderlyingExchange,
-                            UnderlyingContract = contract.UnderlyingContract,
-                            StrikePrice = contract.StrikePrice,
-                            ContractType = contract.ContractType
-                        });
-                    }
-
-                    if (contractList.Any())
-                        clientCtx.SaveChanges();
-
-                    ClientDbContext.GetContractFromCache(productType);
-                }
-
-                clientCtx.SetSyncVersion(key, DateTime.Now.Date.ToShortDateString());
-                clientCtx.SaveChanges();
-            }
-        }
-
         private void OnQueryPosition(PBPosition rsp)
         {
             UpdatePosition(rsp);
@@ -391,49 +322,6 @@ namespace Micro.Future.Message
 
         }
 
-        public Task<bool> SyncContractInfoAsync(bool forced = false)
-        {
-            var today = DateTime.Now.Date.ToShortDateString();
-            var key = string.Format("{0}:{1}", nameof(ContractInfo), GetType().Name);
-
-            if (!forced && MFUtilities.GetSyncVersion(key) == today)
-            {
-                return Task.FromResult(true);
-            }
-
-            var sst = new StringMap();
-            sst.Header = new DataHeader();
-            sst.Header.SerialId = NextSerialId;
-            var msgId = (uint)BusinessMessageID.MSG_ID_QUERY_INSTRUMENT;
-
-            var tcs = new TaskCompletionSource<bool>();
-
-            var serialId = NextSerialId;
-            sst.Header = new DataHeader { SerialId = serialId };
-
-            MessageWrapper.RegisterAction<PBContractInfoList, ExceptionMessage>
-                (msgId,
-                (resp) =>
-                {
-                    if (resp.Header?.SerialId == serialId)
-                    {
-                        OnSyncContractInfo(key, resp);
-
-                        tcs.TrySetResult(true);
-                    }
-                },
-                (bizErr) =>
-                {
-                    tcs.SetResult(false);
-                }
-                );
-
-            MessageWrapper.SendMessage(msgId, sst);
-
-            return tcs.Task;
-        }
-
-
         public void CreateOrder(OrderVM orderVM)
         {
             if (orderVM == null)
@@ -609,7 +497,116 @@ namespace Micro.Future.Message
             return riskList;
         }
 
+        public Task<bool> SyncContractInfoAsync(bool forced = false)
+        {
+            var today = DateTime.Now.Date.ToShortDateString();
+            var key = string.Format("{0}:{1}", nameof(ContractInfo), GetType().Name);
 
+            if (!forced && MFUtilities.GetSyncVersion(key) == today)
+            {
+                return Task.FromResult(true);
+            }
+
+            var sst = new StringMap();
+            sst.Header = new DataHeader();
+            sst.Header.SerialId = NextSerialId;
+            var msgId = (uint)BusinessMessageID.MSG_ID_QUERY_INSTRUMENT;
+
+            var tcs = new TaskCompletionSource<bool>();
+
+            var serialId = NextSerialId;
+            sst.Header = new DataHeader { SerialId = serialId };
+
+            MessageWrapper.RegisterAction<PBContractInfoList, ExceptionMessage>
+                (msgId,
+                (resp) =>
+                {
+                    if (resp.Header?.SerialId == serialId)
+                    {
+                        OnSyncContractInfo(key, resp);
+
+                        tcs.TrySetResult(true);
+                    }
+                },
+                (bizErr) =>
+                {
+                    tcs.SetResult(false);
+                }
+                );
+
+            MessageWrapper.SendMessage(msgId, sst);
+
+            return tcs.Task;
+        }
+
+        //To read contract data into contractNameList
+        //To invoke the function of saving contract data to local sqlite
+        private void OnSyncContractInfo(string key, PBContractInfoList rsp)
+        {
+            using (var clientCtx = new ClientDbContext())
+            {
+                var types = rsp.ContractInfo.Select(c => c.ProductType).Distinct().ToList();
+                foreach (var productType in types)
+                {
+                    var oldContracts = from p in clientCtx.ContractInfo
+                                       where p.ProductType == productType
+                                       select p;
+
+                    if (oldContracts.Any())
+                    {
+                        clientCtx.RemoveRange(oldContracts);
+                        clientCtx.SaveChanges();
+                    }
+
+                    var contractList = from c in rsp.ContractInfo
+                                       where c.ProductType == productType
+                                       select c;
+
+                    foreach (var contract in contractList)
+                    {
+                        clientCtx.ContractInfo.Add(new ContractInfo()
+                        {
+                            Exchange = contract.Exchange,
+                            Contract = contract.Contract,
+                            Name = Encoding.UTF8.GetString(contract.Name.ToByteArray()),
+                            ProductID = contract.ProductID,
+                            ProductType = contract.ProductType,
+                            DeliveryYear = contract.DeliveryYear,
+                            DeliveryMonth = contract.DeliveryMonth,
+                            MaxMarketOrderVolume = contract.MaxMarketOrderVolume,
+                            MinMarketOrderVolume = contract.MinMarketOrderVolume,
+                            MaxLimitOrderVolume = contract.MaxMarketOrderVolume,
+                            MinLimitOrderVolume = contract.MinMarketOrderVolume,
+                            VolumeMultiple = contract.VolumeMultiple,
+                            PriceTick = contract.PriceTick,
+                            CreateDate = contract.CreateDate,
+                            OpenDate = contract.OpenDate,
+                            ExpireDate = contract.ExpireDate,
+                            StartDelivDate = contract.EndDelivDate,
+                            EndDelivDate = contract.EndDelivDate,
+                            LifePhase = contract.LifePhase,
+                            IsTrading = contract.IsTrading,
+                            PositionType = contract.PositionType,
+                            PositionDateType = contract.PositionDateType,
+                            LongMarginRatio = contract.LongMarginRatio,
+                            ShortMarginRatio = contract.ShortMarginRatio,
+                            UnderlyingExchange = contract.UnderlyingExchange,
+                            UnderlyingContract = contract.UnderlyingContract,
+                            StrikePrice = contract.StrikePrice,
+                            ContractType = contract.ContractType
+                        });
+                    }
+
+                    if (contractList.Any())
+                        clientCtx.SaveChanges();
+
+                    ClientDbContext.GetContractFromCache(productType);
+                }
+
+                clientCtx.SetSyncVersion(key, DateTime.Now.Date.ToShortDateString());
+                clientCtx.SaveChanges();
+            }
+        }
 
         protected void OnErrorAction(ExceptionMessage bizErr)
         {

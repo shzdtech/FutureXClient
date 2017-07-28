@@ -179,7 +179,7 @@ namespace Micro.Future.UI
 
         private async void _ctpTradeSignIner_OnLogged(IUserInfo obj)
         {
-            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
             await tradeHandler.SyncContractInfoAsync();
 
             Thread.Sleep(1000);
@@ -332,8 +332,8 @@ namespace Micro.Future.UI
 
         private async void MenuItem_RefreshContracts_Click(object sender, RoutedEventArgs e)
         {
-            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
-            await tradeHandler.SyncContractInfoAsync(true);
+            var mdHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+            await mdHandler.SyncContractInfoAsync(true);
             MessageBox.Show(Application.Current.MainWindow, "合约已刷新，请重新启动应用！");
         }
 
