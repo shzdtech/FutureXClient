@@ -1155,6 +1155,9 @@
   <data name="CUpperLimitPrice" xml:space="preserve">
     <value>C.UpperLimitPrice</value>
   </data>
+  <data name="CVolume" xml:space="preserve">
+    <value>C.Volume</value>
+  </data>
   <data name="PHighValue" xml:space="preserve">
     <value>P.HighValue</value>
   </data>
@@ -1181,6 +1184,9 @@
   </data>
   <data name="PUpperLimitPrice" xml:space="preserve">
     <value>P.UpperLimitPrice</value>
+  </data>
+  <data name="PVolume" xml:space="preserve">
+    <value>P.Volume</value>
   </data>
   <data name="Turnover" xml:space="preserve">
     <value>Turnover</value>

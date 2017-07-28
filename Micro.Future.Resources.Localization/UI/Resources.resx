@@ -859,7 +859,7 @@
     <value>系统</value>
   </data>
   <data name="PreSettlePrice" xml:space="preserve">
-    <value>前结算价</value>
+    <value>昨结算</value>
   </data>
   <data name="SelectedPrice" xml:space="preserve">
     <value>选择的价格</value>
@@ -1018,7 +1018,7 @@
     <value>C.订单计数</value>
   </data>
   <data name="CPosition" xml:space="preserve">
-    <value>C.持仓</value>
+    <value>C.持仓量</value>
   </data>
   <data name="CRho" xml:space="preserve">
     <value>C.Rho</value>
@@ -1093,7 +1093,7 @@
     <value>P.订单计数</value>
   </data>
   <data name="PPosition" xml:space="preserve">
-    <value>P.持仓</value>
+    <value>P.持仓量</value>
   </data>
   <data name="PRho" xml:space="preserve">
     <value>P.Rho</value>
@@ -1141,22 +1141,25 @@
     <value>C.最低价</value>
   </data>
   <data name="COpenValue" xml:space="preserve">
-    <value>C.开盘价</value>
+    <value>C.今开盘</value>
   </data>
   <data name="CPreCloseValue" xml:space="preserve">
-    <value>C.昨收盘价</value>
+    <value>C.昨收盘</value>
   </data>
   <data name="CPreSettlePrice" xml:space="preserve">
-    <value>C.前结算价</value>
+    <value>C.昨结算</value>
   </data>
   <data name="CSettlePrice" xml:space="preserve">
     <value>C.结算价</value>
   </data>
   <data name="CTurnover" xml:space="preserve">
-    <value>C.成交量</value>
+    <value>C.成交额</value>
   </data>
   <data name="CUpperLimitPrice" xml:space="preserve">
     <value>C.涨停价</value>
+  </data>
+  <data name="CVolume" xml:space="preserve">
+    <value>C.成交量</value>
   </data>
   <data name="PHighValue" xml:space="preserve">
     <value>P.最高价</value>
@@ -1171,22 +1174,25 @@
     <value>P.最低价</value>
   </data>
   <data name="POpenValue" xml:space="preserve">
-    <value>P.开盘价</value>
+    <value>P.今开盘</value>
   </data>
   <data name="PPreCloseValue" xml:space="preserve">
-    <value>P.昨收盘价</value>
+    <value>P.昨收盘</value>
   </data>
   <data name="PPreSettlePrice" xml:space="preserve">
-    <value>P.前结算价</value>
+    <value>P.昨结算</value>
   </data>
   <data name="PSettlePrice" xml:space="preserve">
     <value>P.结算价</value>
   </data>
   <data name="PTurnover" xml:space="preserve">
-    <value>P.成交量</value>
+    <value>P.成交额</value>
   </data>
   <data name="PUpperLimitPrice" xml:space="preserve">
     <value>P.涨停价</value>
+  </data>
+  <data name="PVolume" xml:space="preserve">
+    <value>P.成交量</value>
   </data>
   <data name="Turnover" xml:space="preserve">
     <value>成交量</value>
