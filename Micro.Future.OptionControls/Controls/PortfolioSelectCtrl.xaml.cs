@@ -40,7 +40,7 @@ namespace Micro.Future.UI
         public PortfolioSelectCtrl()
         {
             InitializeComponent();
-            var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
+            var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
