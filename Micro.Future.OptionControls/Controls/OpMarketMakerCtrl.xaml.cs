@@ -100,9 +100,12 @@ namespace Micro.Future.UI
             marketNode.Children.Add(ColumnObject.CreateColumn(PBidSize));
             marketNode.Children.Add(ColumnObject.CreateColumn(PAsk));
             marketNode.Children.Add(ColumnObject.CreateColumn(PAskSize));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PCloseValue));
             marketNode.Children.Add(ColumnObject.CreateColumn(PPreCloseValue));
             marketNode.Children.Add(ColumnObject.CreateColumn(POpenValue));
+            marketNode.Children.Add(ColumnObject.CreateColumn(PVolume));
             marketNode.Children.Add(ColumnObject.CreateColumn(PTurnover));
+            marketNode.Children.Add(ColumnObject.CreateColumn(POpenInterest));
             marketNode.Children.Add(ColumnObject.CreateColumn(PHighValue));
             marketNode.Children.Add(ColumnObject.CreateColumn(PLowValue));
             marketNode.Children.Add(ColumnObject.CreateColumn(PLastPrice));
@@ -110,15 +113,17 @@ namespace Micro.Future.UI
             marketNode.Children.Add(ColumnObject.CreateColumn(PPreSettlePrice));
             marketNode.Children.Add(ColumnObject.CreateColumn(PUpperLimitPrice));
             marketNode.Children.Add(ColumnObject.CreateColumn(PLowerLimitPrice));
-
             marketNode.Children.Add(ColumnObject.CreateColumn(PMid));
             marketNode.Children.Add(ColumnObject.CreateColumn(CBid));
             marketNode.Children.Add(ColumnObject.CreateColumn(CBidSize));
             marketNode.Children.Add(ColumnObject.CreateColumn(CAsk));
             marketNode.Children.Add(ColumnObject.CreateColumn(CAskSize));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CCloseValue));
             marketNode.Children.Add(ColumnObject.CreateColumn(CPreCloseValue));
             marketNode.Children.Add(ColumnObject.CreateColumn(COpenValue));
+            marketNode.Children.Add(ColumnObject.CreateColumn(CVolume));
             marketNode.Children.Add(ColumnObject.CreateColumn(CTurnover));
+            marketNode.Children.Add(ColumnObject.CreateColumn(COpenInterest));
             marketNode.Children.Add(ColumnObject.CreateColumn(CHighValue));
             marketNode.Children.Add(ColumnObject.CreateColumn(CLowValue));
             marketNode.Children.Add(ColumnObject.CreateColumn(CLastPrice));
@@ -126,7 +131,6 @@ namespace Micro.Future.UI
             marketNode.Children.Add(ColumnObject.CreateColumn(CPreSettlePrice));
             marketNode.Children.Add(ColumnObject.CreateColumn(CUpperLimitPrice));
             marketNode.Children.Add(ColumnObject.CreateColumn(CLowerLimitPrice));
-
             marketNode.Children.Add(ColumnObject.CreateColumn(CMid));
             ivolNode.Children.Add(ColumnObject.CreateColumn(PBidIV));
             ivolNode.Children.Add(ColumnObject.CreateColumn(PAskIV));

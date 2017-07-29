@@ -565,6 +565,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 C.今收盘 的本地化字符串。
+        /// </summary>
+        internal static string CCloseValue {
+            get {
+                return ResourceManager.GetString("CCloseValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 C.Delta 的本地化字符串。
         /// </summary>
         internal static string CDelta {
@@ -660,6 +669,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string CloseToday {
             get {
                 return ResourceManager.GetString("CloseToday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 今收盘 的本地化字符串。
+        /// </summary>
+        internal static string CloseValue {
+            get {
+                return ResourceManager.GetString("CloseValue", resourceCulture);
             }
         }
         
@@ -763,6 +781,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 C.持仓量 的本地化字符串。
+        /// </summary>
+        internal static string COpenInterest {
+            get {
+                return ResourceManager.GetString("COpenInterest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 C.今开盘 的本地化字符串。
         /// </summary>
         internal static string COpenValue {
@@ -790,7 +817,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.持仓量 的本地化字符串。
+        ///   查找类似 C.持仓 的本地化字符串。
         /// </summary>
         internal static string CPosition {
             get {
@@ -2005,6 +2032,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 P.今收盘 的本地化字符串。
+        /// </summary>
+        internal static string PCloseValue {
+            get {
+                return ResourceManager.GetString("PCloseValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 P.Delta 的本地化字符串。
         /// </summary>
         internal static string PDelta {
@@ -2095,6 +2131,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 P.持仓量 的本地化字符串。
+        /// </summary>
+        internal static string POpenInterest {
+            get {
+                return ResourceManager.GetString("POpenInterest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 P.今开盘 的本地化字符串。
         /// </summary>
         internal static string POpenValue {
@@ -2176,7 +2221,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.持仓量 的本地化字符串。
+        ///   查找类似 P.持仓 的本地化字符串。
         /// </summary>
         internal static string PPosition {
             get {
@@ -3085,7 +3130,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 成交量 的本地化字符串。
+        ///   查找类似 成交额 的本地化字符串。
         /// </summary>
         internal static string Turnover {
             get {

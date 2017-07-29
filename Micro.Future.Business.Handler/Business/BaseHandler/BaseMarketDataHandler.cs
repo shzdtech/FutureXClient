@@ -204,6 +204,10 @@ namespace Micro.Future.Message
             mktVM.PreOpenInterest = md.PreOpenInterest;
             mktVM.PriceChange = md.PriceChange;
             mktVM.UpdateTime = md.UpdateTime;
+            mktVM.CloseValue = md.CloseValue;
+            mktVM.Turnover = md.Turnover;
+            mktVM.MidPrice = (mktVM.BidPrice + mktVM.AskPrice) / 2
+                ;
         }
 
         protected virtual void RetMDSuccessAction(PBMarketData md)

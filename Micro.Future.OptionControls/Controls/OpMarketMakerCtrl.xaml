@@ -306,6 +306,13 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn x:Name="PCloseValue" Header="{lex:Loc Key=PCloseValue}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.CloseValue}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn x:Name="POpenValue" Header="{lex:Loc Key=POpenValue}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -313,10 +320,24 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="PTurnover" Header="{lex:Loc Key=PVolume}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                    <GridViewColumn x:Name="PVolume" Header="{lex:Loc Key=PVolume}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding PutOptionVM.MarketDataVM.Volume}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="PTurnover" Header="{lex:Loc Key=PTurnover}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.Turnover}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="POpenInterest" Header="{lex:Loc Key=POpenInterest}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PutOptionVM.MarketDataVM.OpenInterest}" TextAlignment="Center" Width="auto"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -525,6 +546,13 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn x:Name="CCloseValue" Header="{lex:Loc Key=CCloseValue}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.CloseValue}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn x:Name="COpenValue" Header="{lex:Loc Key=COpenValue}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -532,10 +560,24 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CTurnover" Header="{lex:Loc Key=CVolume}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                    <GridViewColumn x:Name="CVolume" Header="{lex:Loc Key=CVolume}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding CallOptionVM.MarketDataVM.Volume}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="CTurnover" Header="{lex:Loc Key=CTurnover}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.Turnover}" TextAlignment="Center" Width="auto"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="COpenInterest" Header="{lex:Loc Key=COpenInterest}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CallOptionVM.MarketDataVM.OpenInterest}" TextAlignment="Center" Width="auto"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

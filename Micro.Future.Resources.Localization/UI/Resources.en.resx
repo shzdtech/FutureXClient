@@ -1191,4 +1191,19 @@
   <data name="Turnover" xml:space="preserve">
     <value>Turnover</value>
   </data>
+  <data name="CCloseValue" xml:space="preserve">
+    <value>CCloseValue</value>
+  </data>
+  <data name="CloseValue" xml:space="preserve">
+    <value>CloseValue</value>
+  </data>
+  <data name="COpenInterest" xml:space="preserve">
+    <value>COpenInterest</value>
+  </data>
+  <data name="PCloseValue" xml:space="preserve">
+    <value>PCloseValue</value>
+  </data>
+  <data name="POpenInterest" xml:space="preserve">
+    <value>POpenInterest</value>
+  </data>
 </root>
