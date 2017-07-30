@@ -1212,4 +1212,7 @@
   <data name="RefreshFrequency" xml:space="preserve">
     <value>RefreshFrequency/s</value>
   </data>
+  <data name="RefreshAll" xml:space="preserve">
+    <value>RefreshAll</value>
+  </data>
 </root>

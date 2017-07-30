@@ -228,6 +228,17 @@ namespace Micro.Future.UI
         {
             SaveLayout();
         }
+
+        private void refreshAll_Click(object sender, RoutedEventArgs e)
+        {
+            optionRiskGraphCtrl.ReloadDataCallback();
+            optionRiskGraphCtrl.resetGraph();
+            optionContractRiskGraphCtrl.ReloadDataCallback();
+            optionContractRiskGraphCtrl.resetGraph();
+            optionMatrixCtrl.makeTable(optionMatrixCtrl.VolCnt, optionMatrixCtrl.VolSize, optionMatrixCtrl.PriceCnt, optionMatrixCtrl.PriceSize);
+            optionMatrixCtrl.ReloadDataCallback();
+
+        }
     }
 }
 

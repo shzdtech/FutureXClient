@@ -2473,6 +2473,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 全部刷新 的本地化字符串。
+        /// </summary>
+        internal static string RefreshAll {
+            get {
+                return ResourceManager.GetString("RefreshAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 刷新按钮 的本地化字符串。
         /// </summary>
         internal static string RefreshButton {

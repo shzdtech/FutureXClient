@@ -266,7 +266,7 @@ namespace Micro.Future.UI
                 }
             }
         }
-        private void ReloadDataCallback()
+        public void ReloadDataCallback()
         {
             Dispatcher.Invoke(() =>
            {
@@ -465,8 +465,11 @@ namespace Micro.Future.UI
             ReloadDataCallback();
 
         }
-
-        private void resetRiskButton_Click(object sender, RoutedEventArgs e)
+        public void resetGraph()
+        {
+            plotModel.ResetAllAxes();
+        }
+        public void resetRiskButton_Click(object sender, RoutedEventArgs e)
         {
             plotModel.ResetAllAxes();
             ReloadDataCallback();

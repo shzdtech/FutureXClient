@@ -239,7 +239,7 @@ namespace Micro.Future.UI
         private AbstractOTCHandler _abstractOTCHandler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
         private OTCOptionDataHandler _otcOptionDataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
 
-        private void ReloadDataCallback()
+        public void ReloadDataCallback()
         {
             Dispatcher.Invoke(() =>
             {
@@ -829,7 +829,7 @@ namespace Micro.Future.UI
 
             }
         }
-        private void makeTable(int row, double rowsize, int column, double columnsize)
+        public void makeTable(int row, double rowsize, int column, double columnsize)
         {
             if (column != 0 && columnsize != 0 && row != 0 && rowsize != 0)
             {
@@ -909,7 +909,7 @@ namespace Micro.Future.UI
             ReloadDataCallback();
         }
 
-        private void resetButton_Click(object sender, RoutedEventArgs e)
+        public void resetButton_Click(object sender, RoutedEventArgs e)
         {
             makeTable(VolCnt, VolSize, PriceCnt, PriceSize);
             ReloadDataCallback();
