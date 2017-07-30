@@ -429,13 +429,13 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <!--<GridViewColumn x:Name="PPosition" Header="PPosition" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding PutOptionVM.Position}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>-->
-                    <GridViewColumn x:Name="PPosition" Header="{lex:Loc Key=PPosition}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
+                    <!--<GridViewColumn x:Name="PPosition" Header="{lex:Loc Key=PPosition}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding PutOptionVM.Position}" TextAlignment="Center" Width="auto"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    </GridViewColumn>-->
                     <!--<GridViewColumn x:Name="Gamma" Header="Gamma" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding PutOptionVM.TheoDataVM.Gamma,StringFormat=N4}"/>-->
                     <GridViewColumn x:Name="Gamma" Header="{lex:Loc Key=Gamma}" >
                         <GridViewColumn.CellTemplate>
@@ -487,13 +487,13 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <!--<GridViewColumn x:Name="CPosition" Header="CPosition" TextBlock.TextAlignment="Center" DisplayMemberBinding="{Binding CallOptionVM.Position}" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>-->
-                    <GridViewColumn x:Name="CPosition" Header="{lex:Loc Key=CPosition}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
+                    <!--<GridViewColumn x:Name="CPosition" Header="{lex:Loc Key=CPosition}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding CallOptionVM.Position}" TextAlignment="Center" Width="auto"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    </GridViewColumn>-->
                     <!--<GridViewColumn x:Name="CTheta" Header="CTheta" DisplayMemberBinding="{Binding CallOptionVM.TheoDataVM.Theta365,StringFormat=N2}" HeaderContainerStyle="{StaticResource RedHeaderStyle}"/>-->
                     <GridViewColumn x:Name="CTheta" Header="{lex:Loc Key=CTheta}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                         <GridViewColumn.CellTemplate>

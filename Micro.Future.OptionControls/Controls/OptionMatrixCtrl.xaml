@@ -129,11 +129,14 @@
                     <xctk:DoubleUpDown x:Name="interestUP" UpdateValueOnEnterKey="True" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" MinWidth="41" Width="auto" Minimum="0" Spinned="Spinned" ValueChanged="interestValueChanged" ShowButtonSpinner="False"></xctk:DoubleUpDown>
                 </Grid>
             </GroupBox>
-            <GroupBox x:Name="resetGB">
-                <StackPanel>
-                    <Button x:Name="resetButton" Content="{lex:Loc Key=Reset}" Width="75" Click="resetButton_Click" HorizontalAlignment="Left"/>
-                </StackPanel>
-            </GroupBox>
+            <WrapPanel>
+                <GroupBox x:Name="resetGB" Header="{lex:Loc Key=RefreshButton}">
+                    <Button x:Name="resetButton" Content="{lex:Loc Key=Refresh}" Width="75" Click="resetButton_Click" HorizontalAlignment="Left"/>
+                </GroupBox>
+                <!--<GroupBox x:Name="refreshSizeGB" Header="{lex:Loc Key=RefreshFrequency}" Visibility="Collapsed">
+                    <xctk:IntegerUpDown x:Name="refreshsSizeIUP" UpdateValueOnEnterKey="True" Minimum="0" Spinned="IntSpinned" ValueChanged="refreshsSizeIUP_ValueChanged" Height="22"/>
+                </GroupBox>-->
+            </WrapPanel>
         </StackPanel>
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
         <FlowDocumentReader Grid.Column="2" >

@@ -21,6 +21,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Xceed.Wpf.AvalonDock.Layout;
+using Xceed.Wpf.Toolkit;
+
 
 namespace Micro.Future.UI
 {
@@ -31,6 +33,13 @@ namespace Micro.Future.UI
 
     {
         private IDictionary<string, int> _riskDict = new Dictionary<string, int>();
+        //private Timer _timer;
+        //public bool PositionUpdated
+        //{
+        //    get;
+        //    set;
+        //}
+
         public List<ColumnItem> BarItemCollection
         {
             get;
@@ -38,7 +47,7 @@ namespace Micro.Future.UI
 
         private HashSet<string> _riskSet = new HashSet<string>();
 
-        private const int UpdateInterval = 1000;
+        //private int UpdateInterval = 1000;
 
         public class StrategyBaseVM
         {
@@ -174,22 +183,30 @@ namespace Micro.Future.UI
         public OptionRiskGraphCtrl()
         {
             InitializeComponent();
-            _tradeExHandler.OnPositionUpdated += OnPositionUpdated;
-            var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
+            var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
+            //_timer = new Timer(PositionUpdateCallback, null, UpdateInterval, UpdateInterval);
+            //_tradeExHandler.OnPositionUpdated += OnPositionUpdated;
+            //refreshsSizeIUP.Value = 0;
         }
-        private void OnPositionUpdated(PositionVM vm)
-        {
-            if (portfolioCB.SelectedValue != null)
-            {
-                var portfolio = portfolioCB.SelectedValue?.ToString();
+        //private void PositionUpdateCallback(object state)
+        //{
 
-                if (vm.Portfolio == portfolio)
-                {
-                    ReloadDataCallback();
-                }
-            }
-        }
+        //    if (PositionUpdated)
+        //    {
+        //        PositionUpdated = false;
+        //        if (portfolioCB.SelectedValue != null)
+        //        {
+        //            ReloadDataCallback();
+        //        }
+        //    }
+
+
+        //}
+        //private void OnPositionUpdated(PositionVM vm)
+        //{
+        //    PositionUpdated = true;
+        //}
 
         private async void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -396,5 +413,21 @@ namespace Micro.Future.UI
         {
             ReloadDataCallback();
         }
+        //private void IntSpinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
+        //{
+        //    var updownctrl = sender as IntegerUpDown;
+        //    if (updownctrl != null)
+        //    {
+        //        Task.Run(() => { Task.Delay(100); Dispatcher.Invoke(() => updownctrl.CommitInput()); });
+        //    }
+        //}
+        //private void refreshsSizeIUP_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        //{
+        //    var updownctrl = sender as IntegerUpDown;
+        //    if (updownctrl != null && e.OldValue != null && e.NewValue != null)
+        //    {
+        //        UpdateInterval = (int)e.NewValue * 1000;
+        //    }
+        //}
     }
 }

@@ -2473,6 +2473,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 刷新按钮 的本地化字符串。
+        /// </summary>
+        internal static string RefreshButton {
+            get {
+                return ResourceManager.GetString("RefreshButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 刷新合约 的本地化字符串。
         /// </summary>
         internal static string RefreshContracts {
@@ -2487,6 +2496,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string RefreshCounter {
             get {
                 return ResourceManager.GetString("RefreshCounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 刷新频率/秒 的本地化字符串。
+        /// </summary>
+        internal static string RefreshFrequency {
+            get {
+                return ResourceManager.GetString("RefreshFrequency", resourceCulture);
             }
         }
         

@@ -32,12 +32,19 @@ namespace Micro.Future.UI
     public partial class OptionMatrixCtrl : UserControl
 
     {
+        //private Timer _timer;
+        //public bool PositionUpdated
+        //{
+        //    get;
+        //    set;
+        //}
+
         private IDictionary<string, int> _riskDict = new Dictionary<string, int>();
         private IList<MarketDataVM> _theoPriceList;
 
         private HashSet<string> _riskSet = new HashSet<string>();
 
-        private const int UpdateInterval = 2147483647;
+        //private int UpdateInterval = 1000;
 
         public QueryValuation Queryvaluation
         {
@@ -552,21 +559,29 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             //_tradeExHandler.OnPositionUpdated += OnPositionUpdated;
-            var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection;
+            var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
-
+            //_timer = new Timer(PositionUpdateCallback, null, UpdateInterval, UpdateInterval);
+            //_tradeExHandler.OnPositionUpdated += OnPositionUpdated;
+            //refreshsSizeIUP.Value = 0;
         }
-        //private void OnPositionUpdated(PositionVM vm)
+        //private void PositionUpdateCallback(object state)
         //{
-        //    if (portfolioCB.SelectedValue != null)
-        //    {
-        //        var portfolio = portfolioCB.SelectedValue?.ToString();
 
-        //        if (vm.Portfolio == portfolio)
+        //    if (PositionUpdated)
+        //    {
+        //        PositionUpdated = false;
+        //        if (portfolioCB.SelectedValue != null)
         //        {
         //            ReloadDataCallback();
         //        }
         //    }
+
+
+        //}
+        //private void OnPositionUpdated(PositionVM vm)
+        //{
+        //    PositionUpdated = true;
         //}
 
         private async void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -999,5 +1014,14 @@ namespace Micro.Future.UI
         {
             ReloadDataCallback();
         }
+
+        //private void refreshsSizeIUP_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        //{
+        //    var updownctrl = sender as IntegerUpDown;
+        //    if (updownctrl != null && e.OldValue != null && e.NewValue != null)
+        //    {
+        //        UpdateInterval = (int)e.NewValue * 1000;
+        //    }
+        //}
     }
 }

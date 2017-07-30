@@ -1212,4 +1212,10 @@
   <data name="POpenInterest" xml:space="preserve">
     <value>P.持仓量</value>
   </data>
+  <data name="RefreshButton" xml:space="preserve">
+    <value>刷新按钮</value>
+  </data>
+  <data name="RefreshFrequency" xml:space="preserve">
+    <value>刷新频率/秒</value>
+  </data>
 </root>

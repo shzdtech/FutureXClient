@@ -1206,4 +1206,10 @@
   <data name="POpenInterest" xml:space="preserve">
     <value>POpenInterest</value>
   </data>
+  <data name="RefreshButton" xml:space="preserve">
+    <value>RefreshButton</value>
+  </data>
+  <data name="RefreshFrequency" xml:space="preserve">
+    <value>RefreshFrequency/s</value>
+  </data>
 </root>

@@ -89,12 +89,15 @@
                     <CheckBox x:Name="futureCheckBox" Content="Future" Checked="futureCheckBox_Checked" Unchecked="futureCheckBox_Unchecked"/>
                 </StackPanel>
             </GroupBox>
-            <GroupBox x:Name="resetGB">
-                <StackPanel>
+            <WrapPanel>
+                <GroupBox x:Name="resetGB" Header="{lex:Loc Key=RefreshButton}">
                     <!--<Button x:Name="resetButton" Content="{lex:Loc Key=Reset}" Width="75" Click="resetButton_Click" HorizontalAlignment="Left"/>-->
                     <Button x:Name="resetRiskButton" Content="{lex:Loc Key=Refresh}" Width="75" Click="resetRiskButton_Click"  HorizontalAlignment="Left"/>
-                </StackPanel>
-            </GroupBox>
+                </GroupBox>
+                <!--<GroupBox x:Name="refreshSizeGB" Header="{lex:Loc Key=RefreshFrequency}">
+                    <xctk:IntegerUpDown x:Name="refreshsSizeIUP" UpdateValueOnEnterKey="True" Minimum="0" Spinned="IntSpinned" ValueChanged="refreshsSizeIUP_ValueChanged" Height="22"/>
+                </GroupBox>-->
+            </WrapPanel>
         </StackPanel>
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
         <oxy:Plot x:Name="plotModel" Grid.Column="2">
