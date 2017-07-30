@@ -271,9 +271,9 @@ namespace Micro.Future.UI
             var positions = _tradeExHandler.PositionVMCollection.Where(p => p.Portfolio == portfolio);
             var riskset = new RiskSet();
 
-                queryvaluation.Interest = interestUP.Value;
-                queryvaluation.DaysRemain = expIUP.Value;
-           
+            queryvaluation.Interest = interestUP.Value;
+            queryvaluation.DaysRemain = expIUP.Value;
+
             foreach (var item in expirationLV.ItemsSource)
             {
                 var strategyvm = item as StrategyBaseVM;
@@ -408,13 +408,16 @@ namespace Micro.Future.UI
                         {
                             if (pnlCheckBox.IsChecked.Value)
                             {
-                                if (contractPosition.Direction == PositionDirectionType.PD_LONG)
+                                if (contractPosition != null)
                                 {
-                                    zeropnl += vm.Price * contractPosition.Multiplier * contractPosition.Position;
-                                }
-                                else if (contractPosition.Direction == PositionDirectionType.PD_SHORT)
-                                {
-                                    zeropnl -= vm.Price * contractPosition.Multiplier * contractPosition.Position;
+                                    if (contractPosition.Direction == PositionDirectionType.PD_LONG)
+                                    {
+                                        zeropnl += vm.Price * contractPosition.Multiplier * contractPosition.Position;
+                                    }
+                                    else if (contractPosition.Direction == PositionDirectionType.PD_SHORT)
+                                    {
+                                        zeropnl -= vm.Price * contractPosition.Multiplier * contractPosition.Position;
+                                    }
                                 }
                             }
                         }
@@ -461,22 +464,25 @@ namespace Micro.Future.UI
                                 riskset.Rho += vm.Rho100;
                             if (pnlCheckBox.IsChecked.Value)
                             {
-                                if (contractPosition.Direction == PositionDirectionType.PD_LONG)
+                                if (contractPosition != null)
                                 {
-                                    riskset.PnL += vm.Price * contractPosition.Multiplier * contractPosition.Position;
-                                }
-                                else if (contractPosition.Direction == PositionDirectionType.PD_SHORT)
-                                {
-                                    riskset.PnL -= vm.Price * contractPosition.Multiplier * contractPosition.Position;
+                                    if (contractPosition.Direction == PositionDirectionType.PD_LONG)
+                                    {
+                                        riskset.PnL += vm.Price * contractPosition.Multiplier * contractPosition.Position;
+                                    }
+                                    else if (contractPosition.Direction == PositionDirectionType.PD_SHORT)
+                                    {
+                                        riskset.PnL -= vm.Price * contractPosition.Multiplier * contractPosition.Position;
+                                    }
                                 }
                             }
                             //Logger.Debug(vm.Price.ToString());
-                         }
+                        }
                     }
                 }
             }
 
-                riskset.PnL -= zeropnl;
+            riskset.PnL -= zeropnl;
 
             return riskset;
         }
@@ -513,8 +519,8 @@ namespace Micro.Future.UI
                 }
             }
 
-                queryvaluation.Interest = interestUP.Value;
-                queryvaluation.DaysRemain = expIUP.Value;
+            queryvaluation.Interest = interestUP.Value;
+            queryvaluation.DaysRemain = expIUP.Value;
 
             if (priceCntIUP.Value != null && priceSizeIUP.Value != null && volCntIUP.Value != null && volSizeIUP.Value != null)
             {

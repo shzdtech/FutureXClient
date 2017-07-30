@@ -38,6 +38,10 @@ namespace Micro.Future.UI
         private AbstractSignInManager _otcOptionSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+        private TraderExHandler _traderexHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+        private AbstractSignInManager _ctpTdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<TraderExHandler>());
+
+
 
         //private List<PBSignInManager> _signIns = new List<PBSignInManager>();
         //private List<AbstractOTCHandler> _otcHdls = new List<AbstractOTCHandler>();
@@ -126,7 +130,14 @@ namespace Micro.Future.UI
         public void Initialize()
         {
             // Initialize Market Data
-
+            if (_traderexHandler.MessageWrapper == null)
+            {
+                _ctpTdSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
+                _ctpTdSignIner.OnLoginError += _tdSignIner_OnLoginError;
+                _ctpTdSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
+                _ctpTdSignIner.MessageWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
+                _traderexHandler.RegisterMessageWrapper(_ctpTdSignIner.MessageWrapper);
+            }
 
             var msgWrapper = _otcOptionSignIner.MessageWrapper;
             _otcOptionSignIner.OnLogged += OptionLoginStatus.OnLogged;
@@ -140,7 +151,20 @@ namespace Micro.Future.UI
             //optionPane.AddContent(new OpMarketMakerCtrl()).Title = "Market Maker";
             //optionPane.AddContent(new OpHedgeCtrl()).Title = "Hedge";
         }
+        private void TradingServerLogin()
+        {
+            if (!_ctpTdSignIner.MessageWrapper.HasSignIn)
+            {
+                ctpTradeLoginStatus.Prompt = "正在连接CTP交易服务器...";
+                _ctpTdSignIner.SignIn();
+            }
+        }
 
+
+        private void ctpTradingLoginStatus_OnConnButtonClick(object sender, EventArgs e)
+        {
+            TradingServerLogin();
+        }
         private void _tdSignIner_OnLoginError(MessageException obj)
         {
             LoginTaskSource.TrySetException(obj);

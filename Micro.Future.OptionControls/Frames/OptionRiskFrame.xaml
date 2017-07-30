@@ -24,6 +24,9 @@
             </MenuItem>
         </x:Array>        
         <x:Array Type="{x:Type StatusBarItem}" x:Key="exOptionStatusBarItems">
+            <StatusBarItem Uid ="ctpTrade">
+                <Controls:LoginStatus x:Name="ctpTradeLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_CTP_TD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_CTP_TD_Unconnected}" Connected="False" OnConnButtonClick="ctpTradingLoginStatus_OnConnButtonClick"/>
+            </StatusBarItem>
             <StatusBarItem Uid="optionLogin">
                 <Controls:LoginStatus x:Name="OptionLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OptionServer_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OptionServer_DisConnected}" Connected="False" OnConnButtonClick="OptionLoginStatus_OnConnButtonClick"/>
             </StatusBarItem>

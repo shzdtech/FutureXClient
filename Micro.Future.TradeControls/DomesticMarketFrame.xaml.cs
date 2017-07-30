@@ -157,6 +157,10 @@ namespace Micro.Future.UI
             }
         }
 
+        private void ctpMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
+        {
+            MarketDataServerLogin();
+        }
         private void TradingServerLogin()
         {
             if (!_ctpTradeSignIner.MessageWrapper.HasSignIn)
@@ -166,10 +170,6 @@ namespace Micro.Future.UI
             }
         }
 
-        private void ctpMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
-        {
-            MarketDataServerLogin();
-        }
 
         private void ctpTradingLoginStatus_OnConnButtonClick(object sender, EventArgs e)
         {
