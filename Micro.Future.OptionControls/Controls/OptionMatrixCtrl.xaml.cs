@@ -40,7 +40,6 @@ namespace Micro.Future.UI
         //}
 
         private IDictionary<string, int> _riskDict = new Dictionary<string, int>();
-        private IList<MarketDataVM> _theoPriceList;
 
         private HashSet<string> _riskSet = new HashSet<string>();
 
@@ -237,7 +236,6 @@ namespace Micro.Future.UI
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private MarketDataHandler _marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
         private AbstractOTCHandler _abstractOTCHandler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
-        private OTCOptionDataHandler _otcOptionDataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
 
         public void ReloadDataCallback()
         {
@@ -605,7 +603,7 @@ namespace Micro.Future.UI
                         vm.MktVM = await _marketdataHandler.SubMarketDataAsync(vm.Contract);
                     }
                 }
-                _theoPriceList = await _otcOptionDataHandler.SubMarketDataAsync(strategyVMList);
+
                 expirationLV.ItemsSource = strategyContractList;
 
 
