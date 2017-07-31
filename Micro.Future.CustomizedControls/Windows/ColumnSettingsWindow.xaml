@@ -12,35 +12,16 @@
         Title="{lex:Loc Key=ColumnSettings}" WindowStartupLocation="CenterScreen" Topmost="True" Icon="/Micro.Future.CustomizedControls;component/Images/Logo.png"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        mc:Ignorable="d" Width="200" ScrollViewer.HorizontalScrollBarVisibility="Visible" Height="200" ScrollViewer.CanContentScroll="True" Grid.IsSharedSizeScope="True" UseLayoutRounding="True" >
+        mc:Ignorable="d" Width="200"  Height="200">
     <!--d:DesignHeight="10" d:DesignWidth="30">-->
-
-    <StackPanel Name="ColumnSettingsPanel"  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" ScrollViewer.IsDeferredScrollingEnabled="True" ScrollViewer.HorizontalScrollBarVisibility="Visible" CanVerticallyScroll="True" CanHorizontallyScroll="True" Grid.IsSharedSizeScope="True" UseLayoutRounding="True" >
-        <!-- 列管理代码 -->
-        <!-- loc命名空间是ColumnObject的CLR命名空间 -->
-        <TreeView x:Name="treeColumns" Height="auto" ItemsSource="{Binding Mode=OneTime}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" ScrollViewer.IsDeferredScrollingEnabled="True" Grid.IsSharedSizeScope="True" UseLayoutRounding="True">
+        <TreeView x:Name="treeColumns" Height="auto" ItemsSource="{Binding Mode=OneTime}">
             <TreeView.ItemTemplate >
                 <HierarchicalDataTemplate ItemsSource="{Binding Children, Mode=OneTime}">
-                    <StackPanel Orientation="Horizontal" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" ScrollViewer.IsDeferredScrollingEnabled="True" CanVerticallyScroll="True" CanHorizontallyScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible" Grid.IsSharedSizeScope="True" UseLayoutRounding="True">
-                        <CheckBox x:Name="columncheck" Focusable="False" IsChecked="{Binding IsVisible}" VerticalAlignment="Center" Checked="column_checked" Unchecked="column_unchecked" ScrollViewer.CanContentScroll="True" UseLayoutRounding="True" />
-                        <ContentPresenter Content="{Binding OriginalHeader, Mode=OneWay}" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible" />
+                    <StackPanel Orientation="Horizontal" >
+                        <CheckBox x:Name="columncheck" Focusable="False" IsChecked="{Binding IsVisible}" VerticalAlignment="Center" Checked="column_checked" Unchecked="column_unchecked" />
+                        <ContentPresenter Content="{Binding OriginalHeader, Mode=OneWay}" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
-        <!--<ListBox Name="columnsList" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="Focusable" Value="False" />
-                </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemTemplate>
-                <HierarchicalDataTemplate>
-                    <CheckBox IsChecked="{Binding IsVisible}" 
-                              Content="{Binding Column.Header}"
-                              Margin="2"/>
-                </HierarchicalDataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>-->
-    </StackPanel>
 </Window>
