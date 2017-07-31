@@ -147,8 +147,10 @@ namespace Micro.Future.Message
                             Profit = rsp.Profit,
                             CloseProfit = rsp.CloseProfit,
                             UseMargin = rsp.UseMargin,
-                            MeanCost = rsp.Cost / rsp.Position / positionVM.Multiplier,
                         };
+
+                        positionVM.MeanCost = rsp.Cost / rsp.Position / positionVM.Multiplier;
+
                         PositionVMCollection.Add(positionVM);
                         PositionContractSet.Add(rsp.Contract);
 
