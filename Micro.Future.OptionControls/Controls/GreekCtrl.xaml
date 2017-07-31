@@ -58,11 +58,11 @@
                         <xcdg:GroupHeaderFooterItemTemplate>
                             <DataTemplate>
                                 <xcdg:StatRow>
-                                    <xcdg:StatCell FieldName="Delta" ResultPropertyName="SumOfDelta"  ContentStringFormat="{}{0:N2}"/>
-                                    <xcdg:StatCell FieldName="Gamma" ResultPropertyName="SumOfGamma" ContentStringFormat="{}{0:N4}"/>
-                                    <xcdg:StatCell FieldName="Vega100" ResultPropertyName="SumOfVega100" ContentStringFormat="{}{N2}"/>
-                                    <xcdg:StatCell FieldName="Theta365" ResultPropertyName="SumOfTheta365" ContentStringFormat="{}{N2}"/>
-                                    <xcdg:StatCell FieldName="Rho100" ResultPropertyName="SumOfRho100" ContentStringFormat="{}{N2}"/>
+                                    <xcdg:StatCell FieldName="Delta" ResultPropertyName="SumOfDelta"  ContentStringFormat="N2"/>
+                                    <xcdg:StatCell FieldName="Gamma" ResultPropertyName="SumOfGamma" ContentStringFormat="N4"/>
+                                    <xcdg:StatCell FieldName="Vega100" ResultPropertyName="SumOfVega100" ContentStringFormat="N2"/>
+                                    <xcdg:StatCell FieldName="Theta365" ResultPropertyName="SumOfTheta365" ContentStringFormat="N2"/>
+                                    <xcdg:StatCell FieldName="Rho100" ResultPropertyName="SumOfRho100" ContentStringFormat="N2"/>
                                 </xcdg:StatRow>
                             </DataTemplate>
                         </xcdg:GroupHeaderFooterItemTemplate>
