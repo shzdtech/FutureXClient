@@ -43,7 +43,17 @@
                 </avalonDock:LayoutPanel>
             </avalonDock:LayoutRoot>
         </avalonDock:DockingManager>
-        <StatusBar x:Name="statusBar" Grid.Row="2">
-        </StatusBar>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <StatusBar x:Name="statusBar" Grid.Column="0">
+            </StatusBar>
+            <StatusBar x:Name="statusBarLogin" Grid.Column="1">
+                <TextBlock x:Name="txtblkUserName"></TextBlock>
+                <TextBlock x:Name="txtblkTime"></TextBlock>
+            </StatusBar>
+        </Grid>
     </Grid>
 </Window>

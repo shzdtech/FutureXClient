@@ -841,7 +841,7 @@
     <value>步数</value>
   </data>
   <data name="Tick_Size" xml:space="preserve">
-    <value>步长</value>
+    <value>步长%</value>
   </data>
   <data name="Volatility" xml:space="preserve">
     <value>波动率</value>
@@ -1111,7 +1111,7 @@
     <value>Vega%</value>
   </data>
   <data name="OriginalPassWord" xml:space="preserve">
-    <value>原密码</value>
+    <value>  原密码</value>
   </data>
   <data name="ZDTech" xml:space="preserve">
     <value>栈道科技</value>
@@ -1220,5 +1220,35 @@
   </data>
   <data name="RefreshAll" xml:space="preserve">
     <value>全部刷新</value>
+  </data>
+  <data name="AccountControl" xml:space="preserve">
+    <value>账户面板</value>
+  </data>
+  <data name="AddAccountControl" xml:space="preserve">
+    <value>添加账户面板</value>
+  </data>
+  <data name="AddContractRiskGraph" xml:space="preserve">
+    <value>添加风险图形</value>
+  </data>
+  <data name="AddRiskAnalysisGraph" xml:space="preserve">
+    <value>添加风险图形</value>
+  </data>
+  <data name="AddRiskGraph" xml:space="preserve">
+    <value>添加风险图形</value>
+  </data>
+  <data name="AddRiskMatrix" xml:space="preserve">
+    <value>添加风险矩阵</value>
+  </data>
+  <data name="ContractRiskGraph" xml:space="preserve">
+    <value>风险图形</value>
+  </data>
+  <data name="FastOrderControl" xml:space="preserve">
+    <value>快速下单面板</value>
+  </data>
+  <data name="RiskAnalysisGraph" xml:space="preserve">
+    <value>风险图形</value>
+  </data>
+  <data name="RiskMatrix" xml:space="preserve">
+    <value>风险矩阵</value>
   </data>
 </root>

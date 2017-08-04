@@ -49,7 +49,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="{lex:Loc Key=BidSize}">
+                        <GridViewColumn Header="{lex:Loc Key=BidSize}" Width="auto">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding BidSize}" TextAlignment="Right"/>
@@ -157,7 +157,7 @@
                         <GridViewColumn Header="{lex:Loc Key=AveragePrice}" Width="auto">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding AveragePrice, StringFormat={}{0:N2}}" TextAlignment="Right" Width="auto"/>
+                                    <TextBlock Text="{Binding AveragePriceMultiplier, StringFormat={}{0:N2}}" TextAlignment="Right" Width="auto"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

@@ -12,7 +12,7 @@
         Title="{lex:Loc Key=ColumnSettings}" WindowStartupLocation="CenterScreen" Topmost="True" Icon="/Micro.Future.CustomizedControls;component/Images/Logo.png"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        mc:Ignorable="d" Width="200"  Height="200">
+        mc:Ignorable="d" Width="200"  Height="400">
     <!--d:DesignHeight="10" d:DesignWidth="30">-->
         <TreeView x:Name="treeColumns" Height="auto" ItemsSource="{Binding Mode=OneTime}">
             <TreeView.ItemTemplate >

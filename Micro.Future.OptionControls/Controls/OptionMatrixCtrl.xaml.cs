@@ -44,7 +44,11 @@ namespace Micro.Future.UI
         private HashSet<string> _riskSet = new HashSet<string>();
 
         //private int UpdateInterval = 1000;
-
+        public double Price
+        {
+            get;
+            set;
+        }
         public QueryValuation Queryvaluation
         {
             get;
@@ -102,11 +106,7 @@ namespace Micro.Future.UI
                 get;
                 set;
             }
-            public double Price
-            {
-                get;
-                set;
-            }
+
         }
         public class StrategyBaseVM
         {
@@ -288,17 +288,22 @@ namespace Micro.Future.UI
                     if (marketRadioButton.IsChecked.Value)
                     {
                         price = (strategyvm.MktVM.AskPrice + strategyvm.MktVM.BidPrice) / 2;
+                        Price = price;
                     }
                     else if (settlementRadioButton.IsChecked.Value)
                     {
                         price = strategyvm.MktVM.PreSettlePrice;
+                        Price = price;
+
                     }
                     else if (valuationRadioButton.IsChecked.Value)
                     {
                         price = strategyvm.Valuation;
+                        Price = price;
+
                     }
-                    var tableValuation = price - priceCntIUP.Value * priceSizeIUP.Value + (y - 1) * priceSizeIUP.Value;
-                    var tableVol = 0 + volCntIUP.Value * volSizeIUP.Value - (x - 1) * volSizeIUP.Value;
+                    var tableValuation = price - priceCntIUP.Value * price * priceSizeIUP.Value / 100 + (y - 1) * price * priceSizeIUP.Value / 100;
+                    var tableVol = 0 + volCntIUP.Value * volSizeIUP.Value/100 - (x - 1) * volSizeIUP.Value/100;
                     TableValuation = (double)tableValuation;
                     TableVol = (double)tableVol;
                     //if (variateRadioButton.IsChecked.Value)
@@ -538,7 +543,7 @@ namespace Micro.Future.UI
                             {
                                 var risksetzero = await MakeRisk(1 + VolCnt, 1 + PriceCnt);
                                 var riskset = await MakeRisk(x, y);
-                                string msg = string.Format("Δ:{0:N2}\n Γ:{1:N4}\n V:{2:N2}\n Θ:{3:N2}\n Ρ:{4:N2}\nPnL:{5:N2}", riskset.Delta - risksetzero.Delta, riskset.Gamma - risksetzero.Gamma, riskset.Vega - risksetzero.Vega, riskset.Theta - risksetzero.Theta, riskset.Rho - risksetzero.Rho, riskset.PnL);
+                                string msg = string.Format("Δ:{0:N2}\n Γ:{1:N4}\n V:{2:N2}\n Θ:{3:N2}\n Ρ:{4:N2}\nPnL:{5:N0}", riskset.Delta - risksetzero.Delta, riskset.Gamma - risksetzero.Gamma, riskset.Vega - risksetzero.Vega, riskset.Theta - risksetzero.Theta, riskset.Rho - risksetzero.Rho, riskset.PnL);
                                 var firstblock = currentRow.Cells[y].Blocks.FirstBlock as Paragraph;
                                 var firstrun = firstblock.Inlines.FirstInline as Run;
                                 firstrun.Text = msg;
@@ -546,7 +551,7 @@ namespace Micro.Future.UI
                             else
                             {
                                 var riskset = await MakeRisk(x, y);
-                                string msg = string.Format("Δ:{0:N2}\n Γ:{1:N4}\n V:{2:N2}\n Θ:{3:N2}\n Ρ:{4:N2}\nPnL:{5:N2}", riskset.Delta, riskset.Gamma, riskset.Vega, riskset.Theta, riskset.Rho, riskset.PnL);
+                                string msg = string.Format("Δ:{0:N2}\n Γ:{1:N4}\n V:{2:N2}\n Θ:{3:N2}\n Ρ:{4:N2}\nPnL:{5:N0}", riskset.Delta, riskset.Gamma, riskset.Vega, riskset.Theta, riskset.Rho, riskset.PnL);
                                 //currentRow.Cells[y].Blocks.Add(new Paragraph(new Run(msg)));
                                 var firstblock = currentRow.Cells[y].Blocks.FirstBlock as Paragraph;
                                 var firstrun = firstblock.Inlines.FirstInline as Run;
@@ -611,8 +616,10 @@ namespace Micro.Future.UI
                 }
 
                 expirationLV.ItemsSource = strategyContractList;
-
-
+                priceSizeIUP.Value = 10;
+                volSizeIUP.Value = 1;
+                expIUP.Value = 0;
+                interestUP.Value = 0;
                 //var strikeSet = new SortedSet<double>();
                 //foreach (var vm in strategyVMList)
                 //{
@@ -859,8 +866,9 @@ namespace Micro.Future.UI
                     }
                     else
                     {
+                        string msg = string.Format("{0}%", vol);
                         TableRow currentRow = riskMatrixTable.RowGroups[0].Rows[x];
-                        currentRow.Cells.Add(new TableCell(new Paragraph(new Run(vol.ToString()))));
+                        currentRow.Cells.Add(new TableCell(new Paragraph(new Run(msg.ToString()))));
                         currentRow.Cells[0].BorderThickness = new Thickness(1.0);
                         currentRow.Cells[0].BorderBrush = new SolidColorBrush(Color.FromRgb(192, 192, 192));
                         vol = vol - rowsize;
@@ -882,15 +890,19 @@ namespace Micro.Future.UI
                 double price = 0 - columnCnt * columnsize;
                 for (int y = 0; y < (2 * columnCnt + 2); y++)
                 {
+
                     if (y == 0)
                     {
                         currentRow.Cells.Add(new TableCell(new Paragraph(new Run(""))));
                         currentRow.Cells[y].BorderThickness = new Thickness(1.0);
                         currentRow.Cells[y].BorderBrush = new SolidColorBrush(Color.FromRgb(192, 192, 192));
                     }
+
                     else
                     {
-                        currentRow.Cells.Add(new TableCell(new Paragraph(new Run(price.ToString()))));
+                        string msg = string.Format("{0}%", price);
+
+                        currentRow.Cells.Add(new TableCell(new Paragraph(new Run(msg))));
                         currentRow.Cells[y].BorderThickness = new Thickness(1.0);
                         currentRow.Cells[y].BorderBrush = new SolidColorBrush(Color.FromRgb(192, 192, 192));
                         price = price + columnsize;

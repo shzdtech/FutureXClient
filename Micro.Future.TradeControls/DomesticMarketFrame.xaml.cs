@@ -288,7 +288,18 @@ namespace Micro.Future.UI
             tradePane.AddContent(tradeRecordWin).Title = title;
             tradeRecordWin.FilterSettingsWin.Save();
         }
-
+        private void MenuItem_Click_FastOrderCtrl(object sender, RoutedEventArgs e)
+        {
+            var title = WPFUtility.GetLocalizedString("FastOrderControl", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var fastOrderCtrl = new FastOrderControl();
+            fastorderPane.AddContent(fastOrderCtrl).Title = title;
+        }
+        private void MenuItem_Click_AccountCtrl(object sender, RoutedEventArgs e)
+        {
+            var title = WPFUtility.GetLocalizedString("AccountControl", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var accountCtrl = new AccountInfoControl();
+            fundPane.AddContent(accountCtrl).Title = title;
+        }
         //private void MenuItem_Click_Open(object sender, RoutedEventArgs e)
         //{
         //    var tradeWin = new TradeRecordControl(Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());

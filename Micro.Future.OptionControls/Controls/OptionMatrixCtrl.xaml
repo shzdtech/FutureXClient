@@ -126,7 +126,7 @@
                     <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key=Expiration}" Width="50"/>
                     <xctk:IntegerUpDown x:Name="expIUP" UpdateValueOnEnterKey="True"  Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Minimum="0" Spinned="IntSpinned" ValueChanged="expirationValueChanged"></xctk:IntegerUpDown>
                     <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key=Interest}" Width="50"/>
-                    <xctk:DoubleUpDown x:Name="interestUP" UpdateValueOnEnterKey="True" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" MinWidth="41" Width="auto" Minimum="0" Spinned="Spinned" ValueChanged="interestValueChanged" ShowButtonSpinner="False"></xctk:DoubleUpDown>
+                    <xctk:DoubleUpDown x:Name="interestUP" UpdateValueOnEnterKey="True" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" MinWidth="41" Width="auto" Minimum="0" Spinned="Spinned" ValueChanged="interestValueChanged" ShowButtonSpinner="True"></xctk:DoubleUpDown>
                 </Grid>
             </GroupBox>
             <WrapPanel>

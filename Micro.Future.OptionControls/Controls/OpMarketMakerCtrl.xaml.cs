@@ -144,7 +144,7 @@ namespace Micro.Future.UI
             theoPriceNode.Children.Add(ColumnObject.CreateColumn(PBidTheo));
             theoPriceNode.Children.Add(ColumnObject.CreateColumn(PAskTheo));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(PRho));
-            //positionNode.Children.Add(ColumnObject.CreateColumn(PPosition));
+            positionNode.Children.Add(ColumnObject.CreateColumn(PPosition));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(PDelta));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(PTheta));
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(Vega));
@@ -154,7 +154,7 @@ namespace Micro.Future.UI
             riskGreekNode.Children.Add(ColumnObject.CreateColumn(CRho));
             theoPriceNode.Children.Add(ColumnObject.CreateColumn(CBidTheo));
             theoPriceNode.Children.Add(ColumnObject.CreateColumn(CAskTheo));
-            //positionNode.Children.Add(ColumnObject.CreateColumn(CPosition));
+            positionNode.Children.Add(ColumnObject.CreateColumn(CPosition));
             QTNode.Children.Add(ColumnObject.CreateColumn(PBidQT));
             QTNode.Children.Add(ColumnObject.CreateColumn(PBidQV));
             QTNode.Children.Add(ColumnObject.CreateColumn(PBidCnt));

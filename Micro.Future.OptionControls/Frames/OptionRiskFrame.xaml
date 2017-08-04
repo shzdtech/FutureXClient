@@ -21,6 +21,14 @@
             <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=OptionRisk}">
                 <MenuItem x:Name="refreshAll" Header="{lex:Loc Key=RefreshAll}" Click="refreshAll_Click" >
                 </MenuItem>
+                <MenuItem Header="{lex:Loc Key=AddRiskAnalysisGraph}" Click="Add_RiskAnalysisGraph_Click">
+                </MenuItem>
+                <MenuItem Header="{lex:Loc Key=AddRiskGraph}" Click="Add_RiskGraph_Click">
+                </MenuItem>
+                <MenuItem Header="{lex:Loc Key=AddContractRiskGraph}" Click="Add_ContractRiskGraph_Click">
+                </MenuItem>
+                <MenuItem Header="{lex:Loc Key=AddRiskMatrix}" Click="Add_RiskMatrix_Click">
+                </MenuItem>
             </MenuItem>
         </x:Array>        
         <x:Array Type="{x:Type StatusBarItem}" x:Key="exOptionStatusBarItems">

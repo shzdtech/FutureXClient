@@ -22,6 +22,7 @@ namespace Micro.Future.UI
         private Config _config = new Config(Settings.Default.ConfigFile);
         private PBSignInManager _accountSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AccountHandler>());
         private LoginWindow _currentLoginWindow;
+        private SplashScreen _splashScreen = new SplashScreen("/Images/Splash.jpg");
 
         public static int maketDataTabCount = 0;
 
@@ -36,6 +37,10 @@ namespace Micro.Future.UI
             AutoUpdater.ShowRemindLaterButton = false;
             AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
             AutoUpdater.Start(Settings.Default.AutoUpdateAddress);
+
+            _splashScreen.Show(false, true);
+
+            Hide();
         }
         private async void MenuItem_RefreshContracts_Click(object sender, RoutedEventArgs e)
         {
@@ -51,16 +56,11 @@ namespace Micro.Future.UI
                 {
                     AutoUpdater.CheckForUpdateEvent -= AutoUpdaterOnCheckForUpdateEvent;
                     AutoUpdater.Start(Settings.Default.AutoUpdateAddress);
-                    Dispatcher.Invoke(() =>
-                    {
-                        Hide();
-                    });
                 }
                 else
                 {
                     Dispatcher.Invoke(() =>
                     {
-                        Hide();
                         Title += " (" + args.CurrentVersion + ")";
                         Initialize();
                     });
@@ -70,7 +70,6 @@ namespace Micro.Future.UI
             {
                 Dispatcher.Invoke(() =>
                 {
-                    Hide();
                     Title += " (" + MFUtilities.ClientVersion + ")";
                     Initialize();
                 });
@@ -95,6 +94,8 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
+            _splashScreen.Close(TimeSpan.FromSeconds(1));
+
             Login();
             Show();
         }
@@ -112,7 +113,6 @@ namespace Micro.Future.UI
             };
             _currentLoginWindow.Closed += _currentLoginWindow_Closed;
             _currentLoginWindow.OnLogged += LoginWindow_OnLogged;
-
             _currentLoginWindow.ShowDialog();
         }
 
@@ -186,6 +186,8 @@ namespace Micro.Future.UI
                 }
             }
 
+            txtblkUserName.Text = userInfo.Name;
+            txtblkTime.Text = DateTime.Now.ToLongTimeString();
             foreach (var menuitem in SysMenus)
                 mainMenu.Items.Add(menuitem);
 

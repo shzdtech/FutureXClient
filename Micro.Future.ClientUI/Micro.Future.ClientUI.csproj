@@ -345,13 +345,13 @@
     <Resource Include="Images\Logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Bitmap1.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\login.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\DomesticControls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Splash.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

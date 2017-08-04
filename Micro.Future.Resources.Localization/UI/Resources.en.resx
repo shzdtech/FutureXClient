@@ -841,7 +841,7 @@
     <value>Tick Count</value>
   </data>
   <data name="Tick_Size" xml:space="preserve">
-    <value>Tick Size</value>
+    <value>Tick Size%</value>
   </data>
   <data name="Volatility" xml:space="preserve">
     <value>Volatility</value>
@@ -1214,5 +1214,35 @@
   </data>
   <data name="RefreshAll" xml:space="preserve">
     <value>RefreshAll</value>
+  </data>
+  <data name="AccountControl" xml:space="preserve">
+    <value>AccountControl</value>
+  </data>
+  <data name="AddAccountControl" xml:space="preserve">
+    <value>AddAccountControl</value>
+  </data>
+  <data name="AddContractRiskGraph" xml:space="preserve">
+    <value>AddRiskGraph</value>
+  </data>
+  <data name="AddRiskAnalysisGraph" xml:space="preserve">
+    <value>AddRiskAnalysisGraph</value>
+  </data>
+  <data name="AddRiskGraph" xml:space="preserve">
+    <value>Add RiskGraph</value>
+  </data>
+  <data name="AddRiskMatrix" xml:space="preserve">
+    <value>AddRiskMatrix</value>
+  </data>
+  <data name="ContractRiskGraph" xml:space="preserve">
+    <value>ContractRiskGraph</value>
+  </data>
+  <data name="FastOrderControl" xml:space="preserve">
+    <value>FastOrderControl</value>
+  </data>
+  <data name="RiskAnalysisGraph" xml:space="preserve">
+    <value>RiskAnalysisGraph</value>
+  </data>
+  <data name="RiskMatrix" xml:space="preserve">
+    <value>RiskMatrix</value>
   </data>
 </root>

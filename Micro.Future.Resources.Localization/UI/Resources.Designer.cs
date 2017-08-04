@@ -70,6 +70,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 账户面板 的本地化字符串。
+        /// </summary>
+        internal static string AccountControl {
+            get {
+                return ResourceManager.GetString("AccountControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 投资者账户 的本地化字符串。
         /// </summary>
         internal static string AccountID {
@@ -102,6 +111,24 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Add {
             get {
                 return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 添加账户面板 的本地化字符串。
+        /// </summary>
+        internal static string AddAccountControl {
+            get {
+                return ResourceManager.GetString("AddAccountControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 添加风险图形 的本地化字符串。
+        /// </summary>
+        internal static string AddContractRiskGraph {
+            get {
+                return ResourceManager.GetString("AddContractRiskGraph", resourceCulture);
             }
         }
         
@@ -156,6 +183,33 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string AddQuote {
             get {
                 return ResourceManager.GetString("AddQuote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 添加风险图形 的本地化字符串。
+        /// </summary>
+        internal static string AddRiskAnalysisGraph {
+            get {
+                return ResourceManager.GetString("AddRiskAnalysisGraph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 添加风险图形 的本地化字符串。
+        /// </summary>
+        internal static string AddRiskGraph {
+            get {
+                return ResourceManager.GetString("AddRiskGraph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 添加风险矩阵 的本地化字符串。
+        /// </summary>
+        internal static string AddRiskMatrix {
+            get {
+                return ResourceManager.GetString("AddRiskMatrix", resourceCulture);
             }
         }
         
@@ -781,6 +835,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 风险图形 的本地化字符串。
+        /// </summary>
+        internal static string ContractRiskGraph {
+            get {
+                return ResourceManager.GetString("ContractRiskGraph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 C.持仓量 的本地化字符串。
         /// </summary>
         internal static string COpenInterest {
@@ -1119,6 +1182,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string FastOrder {
             get {
                 return ResourceManager.GetString("FastOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 快速下单面板 的本地化字符串。
+        /// </summary>
+        internal static string FastOrderControl {
+            get {
+                return ResourceManager.GetString("FastOrderControl", resourceCulture);
             }
         }
         
@@ -1816,7 +1888,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 原密码 的本地化字符串。
+        ///   查找类似   原密码 的本地化字符串。
         /// </summary>
         internal static string OriginalPassWord {
             get {
@@ -2574,9 +2646,27 @@ namespace Micro.Future.Resources.Localization.UI {
         /// <summary>
         ///   查找类似 风险图形 的本地化字符串。
         /// </summary>
+        internal static string RiskAnalysisGraph {
+            get {
+                return ResourceManager.GetString("RiskAnalysisGraph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 风险图形 的本地化字符串。
+        /// </summary>
         internal static string RiskGraph {
             get {
                 return ResourceManager.GetString("RiskGraph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 风险矩阵 的本地化字符串。
+        /// </summary>
+        internal static string RiskMatrix {
+            get {
+                return ResourceManager.GetString("RiskMatrix", resourceCulture);
             }
         }
         
@@ -2959,7 +3049,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 步长 的本地化字符串。
+        ///   查找类似 步长% 的本地化字符串。
         /// </summary>
         internal static string Tick_Size {
             get {

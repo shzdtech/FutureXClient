@@ -21,9 +21,9 @@
                 <MenuItem Header="{lex:Loc Key=RefreshContracts}" Click="MenuItem_RefreshContracts_Click">
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=AddWindow}">
+                    <MenuItem Header="{lex:Loc Key=AccountControl}" Click="MenuItem_Click_AccountCtrl">
+                    </MenuItem>
                     <MenuItem Header="{lex:Loc Key=QuoteWindow}" Click="MenuItem_Click_Contract">
-                        <!--<MenuItem Header="{lex:Loc Key=Optional}" Click="MenuItem_Click_Contract">
-                        </MenuItem>-->
                     </MenuItem>
                     <MenuItem Header="{lex:Loc Key=ExecutionWindow}">
                         <MenuItem Header="{lex:Loc Key=AllExecution}" Click="MenuItem_Click_Execution">
@@ -34,12 +34,8 @@
                         </MenuItem>
                     </MenuItem>
                     <MenuItem Header="{lex:Loc Key=TradedWindow}" Click="MenuItem_Click_AllTraded">
-                        <!--<MenuItem Header="{lex:Loc Key=AllTraded}" Click="MenuItem_Click_AllTraded">
-                        </MenuItem>
-                        <MenuItem Header="{lex:Loc Key=Traded_Open}" Click="MenuItem_Click_Open">
-                        </MenuItem>
-                        <MenuItem Header="{lex:Loc Key=Traded_Close}" Click="MenuItem_Click_Close">
-                        </MenuItem>-->
+                    </MenuItem>
+                    <MenuItem Header="{lex:Loc Key=FastOrderControl}" Click="MenuItem_Click_FastOrderCtrl">
                     </MenuItem>
                     <MenuItem Header="{lex:Loc Key=PositionWindow}" Click="MenuItem_Click_Position">
                         <!--<MenuItem Header="{lex:Loc Key=Position}" Click="MenuItem_Click_Position">

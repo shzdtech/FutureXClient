@@ -73,7 +73,16 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(AveragePrice));
             }
         }
-
+        private double averagePriceMultiplier;
+        public double AveragePriceMultiplier
+        {
+            get { return averagePriceMultiplier; }
+            set
+            {
+                averagePriceMultiplier = value;
+                OnPropertyChanged(nameof(AveragePriceMultiplier));
+            }
+        }
         private double highLimint;
         public double HighLimint
         {

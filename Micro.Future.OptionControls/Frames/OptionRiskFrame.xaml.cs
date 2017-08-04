@@ -263,6 +263,31 @@ namespace Micro.Future.UI
             optionMatrixCtrl.ReloadDataCallback();
 
         }
+        private void Add_RiskAnalysisGraph_Click(object sender, RoutedEventArgs e)
+        {
+            var title = WPFUtility.GetLocalizedString("RiskAnalysisGraph", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var riskAnalysisGraphCtrl = new OptionRiskCtrl();
+            optionRiskPane.AddContent(riskAnalysisGraphCtrl).Title = title;
+        }
+        private void Add_RiskGraph_Click(object sender, RoutedEventArgs e)
+        {
+            var title = WPFUtility.GetLocalizedString("RiskGraph", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var riskGraphCtrl = new OptionRiskGraphCtrl();
+            optionRiskPane.AddContent(riskGraphCtrl).Title = title;
+        }
+        private void Add_ContractRiskGraph_Click(object sender, RoutedEventArgs e)
+        {
+            var title = WPFUtility.GetLocalizedString("ContractRiskGraph", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var contractriskGraphCtrl = new OptionContractRiskGraphCtrl();
+            optionRiskPane.AddContent(contractriskGraphCtrl).Title = title;
+        }
+        private void Add_RiskMatrix_Click(object sender, RoutedEventArgs e)
+        {
+            var title = WPFUtility.GetLocalizedString("RiskMatrix", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var riskMatrixCtrl = new OptionMatrixCtrl();
+            optionRiskPane.AddContent(riskMatrixCtrl).Title = title;
+        }
+
     }
 }
 

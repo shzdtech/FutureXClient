@@ -182,6 +182,8 @@ namespace Micro.Future.Message
 
         protected void UpdateMarketDataVM(MarketDataVM mktVM, PBMarketData md)
         {
+            var contractInfo = ClientDbContext.FindContract(md.Contract);
+
             mktVM.LastPrice = md.MatchPrice;
             mktVM.BidPrice = md.BidPrice[0];
             mktVM.AskPrice = md.AskPrice[0];
@@ -206,7 +208,8 @@ namespace Micro.Future.Message
             mktVM.UpdateTime = md.UpdateTime;
             mktVM.CloseValue = md.CloseValue;
             mktVM.Turnover = md.Turnover;
-            mktVM.MidPrice = (mktVM.BidPrice + mktVM.AskPrice) / 2
+            mktVM.MidPrice = (mktVM.BidPrice + mktVM.AskPrice) / 2;
+            mktVM.AveragePriceMultiplier = mktVM.AveragePrice / contractInfo.VolumeMultiple;
                 ;
         }
 
