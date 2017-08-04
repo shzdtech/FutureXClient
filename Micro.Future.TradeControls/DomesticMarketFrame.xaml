@@ -35,8 +35,8 @@
                     </MenuItem>
                     <MenuItem Header="{lex:Loc Key=TradedWindow}" Click="MenuItem_Click_AllTraded">
                     </MenuItem>
-                    <MenuItem Header="{lex:Loc Key=FastOrderControl}" Click="MenuItem_Click_FastOrderCtrl">
-                    </MenuItem>
+                    <!--<MenuItem Header="{lex:Loc Key=FastOrderControl}" Click="MenuItem_Click_FastOrderCtrl">
+                    </MenuItem>-->
                     <MenuItem Header="{lex:Loc Key=PositionWindow}" Click="MenuItem_Click_Position">
                         <!--<MenuItem Header="{lex:Loc Key=Position}" Click="MenuItem_Click_Position">
                         </MenuItem>-->
@@ -84,7 +84,7 @@
                 <avalonDock:LayoutPanel Orientation="Vertical">
                     <avalonDock:LayoutPanel Orientation="Horizontal">
                         <avalonDock:LayoutAnchorablePane x:Name="fastorderPane" DockWidth="0.25*">
-                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}" CanClose="True" CanAutoHide="True" ContentId="FastOrderContent">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}" CanClose="False" CanHide="False" ContentId="FastOrderContent">
                                 <c:FastOrderControl x:Name="FastOrderCtl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
