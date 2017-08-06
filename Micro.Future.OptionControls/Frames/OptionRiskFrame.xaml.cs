@@ -84,6 +84,15 @@ namespace Micro.Future.UI
 
         public Task<bool> LoginAsync(string brokerId, string usernname, string password, string server)
         {
+            var msgWrapper = _otcOptionSignIner.MessageWrapper;
+            msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
+
+            _otcOptionSignIner.OnLogged += OptionLoginStatus.OnLogged;
+            _otcOptionSignIner.OnLoginError += _tdSignIner_OnLoginError;
+            _otcOptionSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
+            _otcOptionSignIner.OnLogged += _tdSignIner_OnLogged;
+
+            _otcOptionHandler.RegisterMessageWrapper(msgWrapper);
             _otcOptionSignIner.SignInOptions.BrokerID = brokerId;
             _otcOptionSignIner.SignInOptions.UserName = usernname;
             _otcOptionSignIner.SignInOptions.Password = password;
@@ -92,65 +101,34 @@ namespace Micro.Future.UI
             if (server != null && entries.Length < 2)
                 _otcOptionSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
-            //entries = _ctpSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            //if (server != null && entries.Length < 2)
-            //    _ctpSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
-            //Test(_tdSignIner.SignInOptions);
-
             TDServerLogin();
 
-            return LoginTaskSource.Task;
-        }
-
-        //public void Test(SignInOptions signInOpt)
-        //{
-        //    for (int i = 0; i < 50; i++)
-        //    {
-        //        PBSignInManager tradeSignIner = new PBSignInManager(signInOpt);
-        //        tradeSignIner.OnLogged += Test_OnLogged;
-        //        _signIns.Add(tradeSignIner);
-        //        tradeSignIner.SignIn();
-        //        var hdl = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
-        //        hdl.RegisterMessageWrapper(tradeSignIner.MessageWrapper);
-        //        _otcHdls.Add(hdl);
-        //    }
-        //}
-
-        //private void Test_OnLogged(IUserInfo userInfo)
-        //{
-        //    Console.WriteLine("Test Logged: " + userInfo.Name);
-
-        //    if (++_cnt == 50)
-        //    {
-        //        foreach (var hdl in _otcHdls)
-        //            hdl.QueryStrategy();
-        //    }
-        //}
-
-        public void Initialize()
-        {
-            // Initialize Market Data
             if (_traderexHandler.MessageWrapper == null)
             {
+                _ctpTdSignIner.OnLogged += _ctpTdSignIner_OnLogged;
                 _ctpTdSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
                 _ctpTdSignIner.OnLoginError += _tdSignIner_OnLoginError;
                 _ctpTdSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
                 _ctpTdSignIner.MessageWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
                 _traderexHandler.RegisterMessageWrapper(_ctpTdSignIner.MessageWrapper);
+
+                TradingServerLogin();
             }
 
-            var msgWrapper = _otcOptionSignIner.MessageWrapper;
-            _otcOptionSignIner.OnLogged += OptionLoginStatus.OnLogged;
-            _otcOptionSignIner.OnLoginError += _tdSignIner_OnLoginError;
-            _otcOptionSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
-            _otcOptionSignIner.OnLogged += _tdSignIner_OnLogged;
-
-            msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
-            _otcOptionHandler.RegisterMessageWrapper(msgWrapper);
-            //optionPane.AddContent(new OptionModelCtrl()).Title = "Model";
-            //optionPane.AddContent(new OpMarketMakerCtrl()).Title = "Market Maker";
-            //optionPane.AddContent(new OpHedgeCtrl()).Title = "Hedge";
+            return LoginTaskSource.Task;
         }
+
+        public void Initialize()
+        {
+            // Initialize Market Data
+        }
+
+        private void _ctpTdSignIner_OnLogged(IUserInfo obj)
+        {
+            _traderexHandler.QueryPosition();
+        }
+
+
         private void TradingServerLogin()
         {
             if (!_ctpTdSignIner.MessageWrapper.HasSignIn)
@@ -165,6 +143,7 @@ namespace Micro.Future.UI
         {
             TradingServerLogin();
         }
+
         private void _tdSignIner_OnLoginError(MessageException obj)
         {
             LoginTaskSource.TrySetException(obj);

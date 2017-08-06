@@ -27,7 +27,6 @@ namespace Micro.Future.UI
     public partial class PositionControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
         private const string DEFAULT_ID = "6210A109-5291-4CEF-866E-9CEC7EF3A602";
-        private Timer _timer;
         private const int UpdateInterval = 1000;
         private IList<ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
@@ -124,15 +123,10 @@ namespace Micro.Future.UI
 
         public static event Action<PositionVM> OnPositionSelected;
 
-        private void ReloadDataCallback(object state)
-        {
-            TradeHandler.QueryPosition();
-        }
-
         public void ReloadData()
         {
             Initialize();
-            _timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
+
             LayoutAnchorable defaultTab =
                 AnchorablePane.Children.FirstOrDefault(pane => ((PositionControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
 

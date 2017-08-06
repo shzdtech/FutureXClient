@@ -15,7 +15,7 @@ namespace Micro.Future.UI
     /// <summary>
     /// Positions.xaml 的交互逻辑
     /// </summary>
-    public partial class OPPositionLV : UserControl
+    public partial class OPPositionLV : UserControl, IReloadData
     {
         private IList<ColumnObject> mColumns;
         private FilterSettingsWindow _filterSettingsWin = new FilterSettingsWindow() { CancelClosing = true };
@@ -23,6 +23,10 @@ namespace Micro.Future.UI
         public LayoutContent LayoutContent { get; set; }
         public LayoutAnchorablePane AnchorablePane { get; set; }
 
+        public string PersistanceId
+        {
+            get;set;
+        }
 
         public OPPositionLV()
         {
@@ -46,8 +50,7 @@ namespace Micro.Future.UI
         }
         public void ReloadData()
         {
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().PositionVMCollection.Clear();
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().QueryPosition();
+           
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -90,6 +93,9 @@ namespace Micro.Future.UI
             };
         }
 
-
+        public void Initialize()
+        {
+           
+        }
     }
 }

@@ -270,7 +270,6 @@ namespace Micro.Future.UI
         {
             Dispatcher.Invoke(() =>
            {
-               _tradeExHandler.QueryPosition();
                var positionCollection = _tradeExHandler.PositionVMCollection;
                var portfolio = portfolioCB.SelectedValue?.ToString();
                var positions = _tradeExHandler.PositionVMCollection.Where(p => p.Portfolio == portfolio);
