@@ -127,7 +127,7 @@ namespace Micro.Future.UI
         {
             if (positionVM != null)
             {
-                portofolioCB.SelectedValue = positionVM.Portfolio;
+                portofolioCB.Text = positionVM.Portfolio;
                 if (positionVM.Direction == PositionDirectionType.PD_SHORT)
                 {
                     radioButtonBuy.IsChecked = true;
@@ -158,8 +158,6 @@ namespace Micro.Future.UI
                         RadioB.IsChecked = true;
                         SizeTxt.Value = positionVM.Position;
                     }
-
-
                 }
                 OrderVM.Contract = positionVM.Contract;
                 var quote = OrderVM.Contract;
