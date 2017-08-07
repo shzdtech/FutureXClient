@@ -97,6 +97,7 @@ namespace Micro.Future.UI
                 //    .Where(c => c.Name == portfolio).Distinct();
                 DelayTxt.DataContext = portfolioVM;
                 Threshold.DataContext = portfolioVM;
+                HedgeVolumeIUD.DataContext = portfolioVM;
                 AutoHedge_CheckBox.DataContext = portfolioVM;
                 var basecontractsList = strategyVMCollection.Select(c => c.BaseContract).Distinct().ToList();
                 foreach (var sVM in strategyVMCollection)
@@ -128,6 +129,20 @@ namespace Micro.Future.UI
             if (updownctrl != null)
             {
                 Task.Run(() => { Task.Delay(100); Dispatcher.Invoke(() => updownctrl.CommitInput()); });
+            }
+        }
+        private void HedgeVolumeValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var updownctrl = sender as IntegerUpDown;
+            if (updownctrl != null && e.OldValue != null && e.NewValue != null)
+            {
+                var portfolioVM = updownctrl.DataContext as PortfolioVM;
+                if (portfolioVM != null)
+                {
+                    int hedgeVolume = (int)e.NewValue;
+                    portfolioVM.HedgeVolume = hedgeVolume;
+                    portfolioVM.UpdatePortfolio();
+                }
             }
         }
         private void DelayValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)

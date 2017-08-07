@@ -997,6 +997,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 延时 的本地化字符串。
+        /// </summary>
+        internal static string Delay {
+            get {
+                return ResourceManager.GetString("Delay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 删除报价 的本地化字符串。
         /// </summary>
         internal static string DeleteOrder {
@@ -1330,6 +1339,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 对冲订单量 的本地化字符串。
+        /// </summary>
+        internal static string HedgeVolume {
+            get {
+                return ResourceManager.GetString("HedgeVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 对冲 的本地化字符串。
         /// </summary>
         internal static string Hedging {
@@ -1578,6 +1596,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string MidTheoVol {
             get {
                 return ResourceManager.GetString("MidTheoVol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 合成期货 的本地化字符串。
+        /// </summary>
+        internal static string MixFuture {
+            get {
+                return ResourceManager.GetString("MixFuture", resourceCulture);
             }
         }
         
@@ -3040,6 +3067,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 对冲阈值 的本地化字符串。
+        /// </summary>
+        internal static string Threshold {
+            get {
+                return ResourceManager.GetString("Threshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 步数 的本地化字符串。
         /// </summary>
         internal static string Tick_Count {
@@ -3099,6 +3135,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string TodayPosition {
             get {
                 return ResourceManager.GetString("TodayPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 持仓合计 的本地化字符串。
+        /// </summary>
+        internal static string TotalPosition {
+            get {
+                return ResourceManager.GetString("TotalPosition", resourceCulture);
             }
         }
         

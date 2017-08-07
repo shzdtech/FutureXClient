@@ -22,24 +22,30 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <WrapPanel Grid.Row="0" Grid.Column="0" Width="auto">
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            
+        <WrapPanel  Width="auto">
             <GroupBox x:Name="portforlioGB" Header="{lex:Loc Key=Portfolio}" >
                 <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
             </GroupBox>
             <GroupBox x:Name="AutoHedge_GroupBox" Header="{lex:Loc Key=Hedging}" >
                 <CheckBox Name="AutoHedge_CheckBox" IsChecked="{Binding Hedging}" Command="{Binding UpdateCommand}" Checked="AutoHedge_Checked" Unchecked="AutoHege_Unchecked" />
             </GroupBox>
-        </WrapPanel>
-        <WrapPanel Grid.Row="0" Grid.Column="1" Width="auto">
-            <GroupBox x:Name="Delay" Header="Delay" Width="auto">
+                <GroupBox x:Name="hedgeOrder_GB" Header="{lex:Loc Key=HedgeVolume}">
+                    <xctk:IntegerUpDown x:Name="HedgeVolumeIUD" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding HedgeVolume}" Spinned="Spinned" ValueChanged="HedgeVolumeValueChanged"/>
+                </GroupBox>
+            </WrapPanel>
+        <WrapPanel Width="auto">
+                <GroupBox x:Name="Delay" Header="{lex:Loc Key=Delay}" Width="auto">
                 <!--<TextBox x:Name="DelayTxt" KeyUp="Delay_KeyUp" HorizontalAlignment="Left" Height="auto" TextWrapping="Wrap" Text="{Binding Delay, StringFormat={}{0:N}}" VerticalAlignment="Top" MinWidth="50"/>-->
                 <xctk:IntegerUpDown x:Name="DelayTxt" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding Delay}" Spinned="Spinned" ValueChanged="DelayValueChanged"/>
             </GroupBox>
-            <GroupBox x:Name="Threshold" Header="Threshold" Width="auto">
+                <GroupBox x:Name="Threshold" Header="{lex:Loc Key=Threshold}" Width="auto">
                 <!--<TextBox x:Name="ThresholdTxt"  HorizontalAlignment="Left" Height="auto" TextWrapping="Wrap" Text="{Binding Threshold, StringFormat={}{0:N}}" VerticalAlignment="Top" MinWidth="50" KeyUp="Threshold_KeyUp"/>-->
                 <xctk:DoubleUpDown x:Name="ThresholdTxt" UpdateValueOnEnterKey="True" Minimum="0" Increment="1" Value="{Binding Threshold}" Spinned="Spinned" ValueChanged="ThresholdValueChanged"/>
             </GroupBox>
         </WrapPanel>
+        </StackPanel>
 
         <ListView Name="strategyListView" Grid.Row="1" Grid.Column="0" Width="Auto" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <ListView.View>

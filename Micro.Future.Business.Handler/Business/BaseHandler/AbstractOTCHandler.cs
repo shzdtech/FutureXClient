@@ -291,13 +291,14 @@ namespace Micro.Future.Message
             var port = PortfolioVMCollection.FirstOrDefault(p => p.Name == portfolio.Name);
             if (port == null)
             {
-                PortfolioVMCollection.Add(new PortfolioVM(this) { Name = portfolio.Name, Delay = portfolio.HedgeDelay, Threshold = portfolio.Threshold, Hedging = portfolio.Hedging });
+                PortfolioVMCollection.Add(new PortfolioVM(this) { Name = portfolio.Name, Delay = portfolio.HedgeDelay, Threshold = portfolio.Threshold, Hedging = portfolio.Hedging, HedgeVolume = portfolio.HedgeVolume });
             }
             else
             {
                 port.Delay = portfolio.HedgeDelay;
                 port.Threshold = portfolio.Threshold;
                 port.Hedging = portfolio.Hedging;
+                port.HedgeVolume = portfolio.HedgeVolume;
             }
         }
 
@@ -412,6 +413,7 @@ namespace Micro.Future.Message
             portfolio.HedgeDelay = pVM.Delay;
             portfolio.Threshold = pVM.Threshold;
             portfolio.Hedging = pVM.Hedging;
+            portfolio.HedgeVolume = pVM.HedgeVolume;
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_PORTFOLIO, portfolio);
         }

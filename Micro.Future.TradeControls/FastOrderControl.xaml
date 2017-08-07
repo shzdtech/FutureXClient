@@ -83,8 +83,8 @@
             </StackPanel>
             <StackPanel MinWidth="13">
                 <Label x:Name="Null1" Content=" "/>
-                <Label x:Name="LabelAskPriceVol" Content="{Binding AskSize}" HorizontalAlignment="Center" />
-                <Label x:Name="LabelBidPriceVol" Content="{Binding BidSize}" HorizontalAlignment="Center" />
+                <Label x:Name="LabelAskPriceVol" Content="{Binding AskSize}" HorizontalAlignment="Center" Foreground="Gray" />
+                <Label x:Name="LabelBidPriceVol" Content="{Binding BidSize}" HorizontalAlignment="Center" Foreground="Gray" />
                 <Label x:Name="Null2" Content=" "/>
             </StackPanel>
             <Button x:Name="BuySummitButton" Content="{lex:Loc Key=Order}" MinWidth="100" Click="SendOrder" />

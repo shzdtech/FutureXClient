@@ -54,6 +54,16 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(Threshold));
             }
         }
+        private int _hedgeVolume;
+        public int HedgeVolume
+        {
+            get { return _hedgeVolume; }
+            set
+            {
+                _hedgeVolume = value;
+                OnPropertyChanged(nameof(HedgeVolume));
+            }
+        }
         private bool _hedging;
         public bool Hedging
         {

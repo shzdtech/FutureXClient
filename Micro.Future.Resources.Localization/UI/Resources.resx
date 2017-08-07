@@ -1251,4 +1251,19 @@
   <data name="RiskMatrix" xml:space="preserve">
     <value>风险矩阵</value>
   </data>
+  <data name="Delay" xml:space="preserve">
+    <value>延时</value>
+  </data>
+  <data name="HedgeVolume" xml:space="preserve">
+    <value>对冲订单量</value>
+  </data>
+  <data name="MixFuture" xml:space="preserve">
+    <value>合成期货</value>
+  </data>
+  <data name="Threshold" xml:space="preserve">
+    <value>对冲阈值</value>
+  </data>
+  <data name="TotalPosition" xml:space="preserve">
+    <value>持仓合计</value>
+  </data>
 </root>

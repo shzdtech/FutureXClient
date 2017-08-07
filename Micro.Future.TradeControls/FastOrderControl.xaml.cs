@@ -127,6 +127,7 @@ namespace Micro.Future.UI
         {
             if (positionVM != null)
             {
+                portofolioCB.SelectedValue = positionVM.Portfolio;
                 if (positionVM.Direction == PositionDirectionType.PD_SHORT)
                 {
                     radioButtonBuy.IsChecked = true;
@@ -142,12 +143,23 @@ namespace Micro.Future.UI
                     if (positionVM.Exchange == "SHFE")
                     {
                         if (positionVM.TodayPosition != 0)
+                        {
                             RadioC.IsChecked = true;
+                            SizeTxt.Value = positionVM.TodayPosition;
+                        }
                         else
+                        {
                             RadioB.IsChecked = true;
+                            SizeTxt.Value = positionVM.YdPosition;
+                        }
                     }
                     else
+                    {
                         RadioB.IsChecked = true;
+                        SizeTxt.Value = positionVM.Position;
+                    }
+
+
                 }
                 OrderVM.Contract = positionVM.Contract;
                 var quote = OrderVM.Contract;

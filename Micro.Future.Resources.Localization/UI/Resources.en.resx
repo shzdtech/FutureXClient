@@ -1245,4 +1245,19 @@
   <data name="RiskMatrix" xml:space="preserve">
     <value>RiskMatrix</value>
   </data>
+  <data name="Delay" xml:space="preserve">
+    <value>Delay</value>
+  </data>
+  <data name="HedgeVolume" xml:space="preserve">
+    <value>HedgeVolume</value>
+  </data>
+  <data name="MixFuture" xml:space="preserve">
+    <value>MixFuture</value>
+  </data>
+  <data name="Threshold" xml:space="preserve">
+    <value>Threshold</value>
+  </data>
+  <data name="TotalPosition" xml:space="preserve">
+    <value>TotalPosition</value>
+  </data>
 </root>
