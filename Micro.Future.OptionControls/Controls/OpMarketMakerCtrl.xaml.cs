@@ -86,6 +86,7 @@ namespace Micro.Future.UI
             _otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
             _tradeExHandler.OnPositionUpdated += OnPositionUpdated;
 
+
             //StrategyVM.MaxLimitOrder = await _otcOptionHandler.QueryMaxLimitOrderAsync();
 
             // Set columns tree
@@ -291,6 +292,32 @@ namespace Micro.Future.UI
                     foreach (var vm in retList)
                     {
                         CallPutTDOptionVMCollection.Add(vm);
+                        var CallPositionLong = 0;
+                        var CallPositionShort = 0;
+                        var PutPositionLong = 0;
+                        var PutPositionShort = 0;
+                        var CallPositionVMLong = _tradeExHandler.PositionVMCollection.FirstOrDefault(c => c.Contract == vm.CallOptionVM.Contract && c.Direction == PositionDirectionType.PD_LONG);
+                        var PutPositionVMLong = _tradeExHandler.PositionVMCollection.FirstOrDefault(c => c.Contract == vm.PutOptionVM.Contract && c.Direction == PositionDirectionType.PD_LONG);
+                        var CallPositionVMShort = _tradeExHandler.PositionVMCollection.FirstOrDefault(c => c.Contract == vm.CallOptionVM.Contract && c.Direction == PositionDirectionType.PD_SHORT);
+                        var PutPositionVMShort = _tradeExHandler.PositionVMCollection.FirstOrDefault(c => c.Contract == vm.PutOptionVM.Contract && c.Direction == PositionDirectionType.PD_SHORT);
+                        if (CallPositionVMLong != null)
+                        {
+                            CallPositionLong = CallPositionVMLong.Position;
+                        }
+                        if (CallPositionVMShort != null)
+                        {
+                            CallPositionShort = CallPositionVMShort.Position;
+                        }
+                        if (PutPositionVMLong != null)
+                        {
+                            PutPositionLong = PutPositionVMLong.Position;
+                        }
+                        if (PutPositionVMShort != null)
+                        {
+                            PutPositionShort = PutPositionVMShort.Position;
+                        }
+                        vm.PutOptionVM.Position = PutPositionLong - PutPositionShort;
+                        vm.CallOptionVM.Position = CallPositionLong - CallPositionShort;
                     }
                     var strategyVM = CallPutTDOptionVMCollection.FirstOrDefault().CallStrategyVM ??
                         CallPutTDOptionVMCollection.LastOrDefault().CallStrategyVM;
@@ -431,9 +458,9 @@ namespace Micro.Future.UI
             if (exchange != null)
             {
                 var underlying = (from c in _futurecontractList
-                                           where c.Exchange == exchange.ToString()
-                                           orderby c.ProductID ascending
-                                           select c.ProductID).Distinct().ToList();
+                                  where c.Exchange == exchange.ToString()
+                                  orderby c.ProductID ascending
+                                  select c.ProductID).Distinct().ToList();
                 //underlyingCB1.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
                 underlyingCB1.ItemsSource = underlying;
                 underlyingContractCB1.ItemsSource = null;
@@ -630,27 +657,27 @@ namespace Micro.Future.UI
         public void AutoOrderUpdate(bool autoStatus)
         {
 
-                var orderCDSelectedValue = orderConditionCombo.SelectedValue == null ? OrderConditionType.LIMIT : (OrderConditionType)orderConditionCombo.SelectedValue;
-                if (CallPutTDOptionVMCollection != null)
+            var orderCDSelectedValue = orderConditionCombo.SelectedValue == null ? OrderConditionType.LIMIT : (OrderConditionType)orderConditionCombo.SelectedValue;
+            if (CallPutTDOptionVMCollection != null)
+            {
+                foreach (var vm in CallPutTDOptionVMCollection)
                 {
-                    foreach (var vm in CallPutTDOptionVMCollection)
+                    if (vm.CallStrategyVM != null)
                     {
-                        if (vm.CallStrategyVM != null)
-                        {
-                            vm.CallStrategyVM.ConditionType = orderCDSelectedValue;
-                            vm.CallStrategyVM.Hedging = autoStatus;
-                            vm.CallStrategyVM.UpdateStrategy();
+                        vm.CallStrategyVM.ConditionType = orderCDSelectedValue;
+                        vm.CallStrategyVM.Hedging = autoStatus;
+                        vm.CallStrategyVM.UpdateStrategy();
 
-                        }
-                        if (vm.PutStrategyVM != null)
-                        {
-                            vm.PutStrategyVM.ConditionType = orderCDSelectedValue;
+                    }
+                    if (vm.PutStrategyVM != null)
+                    {
+                        vm.PutStrategyVM.ConditionType = orderCDSelectedValue;
 
-                            vm.PutStrategyVM.Hedging = autoStatus;
-                            vm.PutStrategyVM.UpdateStrategy();
-                        }
+                        vm.PutStrategyVM.Hedging = autoStatus;
+                        vm.PutStrategyVM.UpdateStrategy();
                     }
                 }
+            }
         }
         private void AutoOrder_Checked(object sender, RoutedEventArgs e)
         {

@@ -32,7 +32,7 @@
                 <CheckBox Name="AutoHedge_CheckBox" IsChecked="{Binding Hedging}" Command="{Binding UpdateCommand}" Checked="AutoHedge_Checked" Unchecked="AutoHege_Unchecked" />
             </GroupBox>
                 <GroupBox x:Name="hedgeOrder_GB" Header="{lex:Loc Key=HedgeVolume}">
-                    <xctk:IntegerUpDown x:Name="HedgeVolumeIUD" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding HedgeVolume}" Spinned="Spinned" ValueChanged="HedgeVolumeValueChanged"/>
+                    <xctk:IntegerUpDown x:Name="HedgeVolumeIUD" UpdateValueOnEnterKey="True" Minimum="1" Value="{Binding HedgeVolume}" Spinned="Spinned" ValueChanged="HedgeVolumeValueChanged"/>
                 </GroupBox>
             </WrapPanel>
         <WrapPanel Width="auto">
