@@ -157,7 +157,14 @@ namespace Micro.Future.UI
         {
 
             if (MarketDataHandler.MessageWrapper.HasSignIn)
-                _marketDataList.Add(await MarketDataHandler.SubMarketDataAsync(contract));
+            {
+                await Task.Run(async () =>
+                 {
+                     _marketDataList.Add(await MarketDataHandler.SubMarketDataAsync(contract));
+                 });
+            }
+
+
         }
 
         private void MenuItem_Click_Columns(object sender, RoutedEventArgs e)

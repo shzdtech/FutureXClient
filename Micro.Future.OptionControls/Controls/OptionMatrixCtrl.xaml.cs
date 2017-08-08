@@ -755,6 +755,8 @@ namespace Micro.Future.UI
             if (updownctrl != null)
             {
                 Task.Run(() => { Task.Delay(100); Dispatcher.Invoke(() => updownctrl.CommitInput()); });
+                ReloadDataCallback();
+
             }
         }
         private void Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
@@ -763,6 +765,8 @@ namespace Micro.Future.UI
             if (updownctrl != null)
             {
                 Task.Run(() => { Task.Delay(100); Dispatcher.Invoke(() => updownctrl.CommitInput()); });
+                ReloadDataCallback();
+
             }
         }
         private void priceCntValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)

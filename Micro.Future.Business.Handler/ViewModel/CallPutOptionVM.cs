@@ -13,12 +13,18 @@ namespace Micro.Future.ViewModel
         public double StrikePrice { get; set; }
         public StrategyVM CallStrategyVM { get; set; }
         public StrategyVM PutStrategyVM { get; set; }
+        private double _totalPosition;
         public double TotalPosition
         {
             get
             {
                 return CallOptionVM.Position + PutOptionVM.Position;
             }
+            //set
+            //{
+            //    _totalPosition = value;
+            //    OnPropertyChanged(nameof(TotalPosition));
+            //}
         }
         public double MixFuture
         {
