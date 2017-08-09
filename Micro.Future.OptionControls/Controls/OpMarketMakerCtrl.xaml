@@ -446,7 +446,7 @@
                     <GridViewColumn x:Name="MixFuture" Header="{lex:Loc Key=MixFuture}" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding MixFuture,StringFormat=N2}" TextAlignment="Center" Width="auto"/>
+                                <TextBlock Text="{Binding MixFuture,StringFormat=N0}" TextAlignment="Center" Width="auto"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

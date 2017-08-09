@@ -126,6 +126,7 @@ namespace Micro.Future.Message
         protected virtual IList<MarketDataVM> AddToMarketDataMap(IEnumerable<ContractKeyVM> subList)
         {
             var ret = new List<MarketDataVM>();
+
             foreach (var md in subList)
             {
                 MarketDataVM mktVM = FindMarketData(md.Contract);
@@ -182,7 +183,7 @@ namespace Micro.Future.Message
 
         protected void UpdateMarketDataVM(MarketDataVM mktVM, PBMarketData md)
         {
-            var contractInfo = ClientDbContext.FindContract(md.Contract);
+            //var contractInfo = ClientDbContext.FindContract(md.Contract);
 
             mktVM.LastPrice = md.MatchPrice;
             mktVM.BidPrice = md.BidPrice[0];
@@ -205,12 +206,12 @@ namespace Micro.Future.Message
             mktVM.OpenValue = md.OpenValue;
             mktVM.PreOpenInterest = md.PreOpenInterest;
             mktVM.PriceChange = md.PriceChange;
-            mktVM.UpdateTime = md.UpdateTime;
             mktVM.CloseValue = md.CloseValue;
             mktVM.Turnover = md.Turnover;
             mktVM.MidPrice = (mktVM.BidPrice + mktVM.AskPrice) / 2;
-            mktVM.AveragePriceMultiplier = mktVM.AveragePrice / contractInfo.VolumeMultiple;
-                ;
+            //mktVM.AveragePriceMultiplier = mktVM.AveragePrice / contractInfo.VolumeMultiple;
+
+            mktVM.UpdateTime = string.Format("{0:D2}:{1:D2}:{2:D2}", md.UpdateTime / 3600, (md.UpdateTime / 60) % 60, md.UpdateTime % 60);
         }
 
         protected virtual void RetMDSuccessAction(PBMarketData md)

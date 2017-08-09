@@ -134,8 +134,8 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(PriceChange));
             }
         }
-        private int updateTime;
-        public int UpdateTime
+        private string updateTime;
+        public string UpdateTime
         {
             get { return updateTime; }
             set

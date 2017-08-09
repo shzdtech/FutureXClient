@@ -358,7 +358,7 @@
     <value>交易类型</value>
   </data>
   <data name="UpdateTime" xml:space="preserve">
-    <value>最后修改时间</value>
+    <value>更新时间</value>
   </data>
   <data name="UseMargin" xml:space="preserve">
     <value>占用保证金</value>
@@ -1256,6 +1256,9 @@
   </data>
   <data name="HedgeVolume" xml:space="preserve">
     <value>对冲订单量</value>
+  </data>
+  <data name="InterestVariation" xml:space="preserve">
+    <value>利率变化%</value>
   </data>
   <data name="MixFuture" xml:space="preserve">
     <value>合成期货</value>

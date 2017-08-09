@@ -181,7 +181,8 @@ namespace Micro.Future.UI
         {
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
             await tradeHandler.SyncContractInfoAsync();
-
+            FastOrderCtl.GetContractInfo();
+            marketDataLV.GetContractInfo();
             Thread.Sleep(1000);
             clientFundLV.ReloadData();
             Thread.Sleep(1000);

@@ -157,7 +157,8 @@ namespace Micro.Future.UI
             await _otcOptionHandler.QueryAllModelParamsAsync();
             await _otcOptionTradeHandler.SyncContractInfoAsync();
             optionModelCtrl.ReloadData();
-
+            optionModelCtrl.OpMarketDataGetContractInfo();
+            OpMarketMakerLV.GetContractInfo();
             LoginTaskSource.TrySetResult(true);
 
             //var layoutInfo = ClientDbContext.GetLayout(_otcOptionTradeHandler.MessageWrapper.User.Id, optionDM.Uid);

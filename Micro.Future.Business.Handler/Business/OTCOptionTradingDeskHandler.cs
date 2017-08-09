@@ -209,6 +209,7 @@ namespace Micro.Future.Message
         {
             TradingDeskOptionVM quote = null;
             var cp = collection.FirstOrDefault((pb) => string.Compare(pb.PutOptionVM.Contract, newVM.Contract, true) == 0);
+
             if (cp != null)
             {
                 quote = cp.PutOptionVM;
@@ -230,8 +231,12 @@ namespace Micro.Future.Message
                     quote.ShortPosition = newVM.Position;
                 quote.Position = quote.LongPosition - quote.ShortPosition;
             }
+            if(cp!=null)
+            {
+                cp.TotalPosition = 1;
+                cp.MixFuture = 1; 
+            }
             return quote;
         }
-
     }
 }

@@ -62,19 +62,30 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
-            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
-            var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
-            _contractList = options.Union(otcOptions).ToList();
+            //_futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            //var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
+            //var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
+            //_contractList = options.Union(otcOptions).ToList();
 
-            underlyingEX.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
-            underlyingEX1.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
-            exchange1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
-            exchange2.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
+            //underlyingEX.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
+            //underlyingEX1.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
+            //exchange1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
+            //exchange2.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
             quoteListView1.ItemsSource = QuoteVMCollection1;
             quoteListView2.ItemsSource = QuoteVMCollection2;
             volModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("ivm");
             volModelCB1.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("vm");
+        }
+        public void GetContractInfo()
+        {
+            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
+            var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
+            _contractList = options.Union(otcOptions).ToList();
+            underlyingEX.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
+            underlyingEX1.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
+            exchange1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
+            exchange2.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
         }
         private void underlyingEX_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

@@ -278,13 +278,8 @@ namespace Micro.Future.UI
             {
                 var strategyvm = item as StrategyBaseVM;
                 double price = 0;
-                //if (!strategyvm.Selected)
-                //{
-                //    selectedWrapPanel.Children.Clear();
-                //}
                 if (strategyvm.Selected)
                 {
-                    //_contractList.Add(strategyvm.MktVM.Contract);
                     if (marketRadioButton.IsChecked.Value)
                     {
                         price = (strategyvm.MktVM.AskPrice + strategyvm.MktVM.BidPrice) / 2;
@@ -306,74 +301,9 @@ namespace Micro.Future.UI
                     var tableVol = 0 + volCntIUP.Value * volSizeIUP.Value/100 - (x - 1) * volSizeIUP.Value/100;
                     TableValuation = (double)tableValuation;
                     TableVol = (double)tableVol;
-                    //if (variateRadioButton.IsChecked.Value)
-                    //{
-                    //    queryvaluationzero.ContractParams[strategyvm.Contract] = new ValuationParam { Price = price, Volatitly = 0 };
-                    //}
                     queryvaluationzero.ContractParams[strategyvm.Contract] = new ValuationParam { Price = price, Volatitly = 0 };
                     queryvaluation.ContractParams[strategyvm.Contract] = new ValuationParam { Price = (double)tableValuation, Volatitly = (double)tableVol };
 
-                    //foreach (var vm in positions)
-                    //{
-                    //    var contractinfo = ClientDbContext.FindContract(vm.Contract);
-                    //    string basecontract = null;
-                    //    string contract = null;
-                    //    if (contractinfo != null)
-                    //    {
-                    //        if (!string.IsNullOrEmpty(contractinfo.UnderlyingContract))
-                    //        {
-                    //            basecontract = contractinfo.UnderlyingContract;
-                    //            contract = contractinfo.Contract;
-                    //        }
-                    //        else
-                    //            basecontract = contractinfo.Contract;
-                    //    }
-                    //    if (_riskSet.Contains(basecontract))
-                    //    {
-                    //        if ((callCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_CALL_OPTION)
-                    //     || (putCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_PUT_OPTION))
-                    //        {
-                    //            var theoprice = _theoPriceList.Where(c => c.Contract == contract).Select(c => c.MidPrice).FirstOrDefault();
-                    //            var theotableValuation = theoprice - priceCntIUP.Value * priceSizeIUP.Value + (y - 1) * priceSizeIUP.Value;
-                    //            var theotableVol = 0 + volCntIUP.Value * volSizeIUP.Value - (x - 1) * volSizeIUP.Value;
-                    //            var basecontractPosition = positions.Where(p => p.Contract == basecontract).FirstOrDefault();
-                    //            if (basecontractPosition != null)
-                    //            {
-                    //                if (pnlCheckBox.IsChecked.Value)
-                    //                {
-                    //                    if (basecontractPosition.Direction == PositionDirectionType.PD_LONG)
-                    //                    {
-                    //                        basecontractPosition.Profit = ((double)theotableValuation - theoprice) * basecontractPosition.Position * basecontractPosition.Multiplier;
-                    //                    }
-                    //                    else if (basecontractPosition.Direction == PositionDirectionType.PD_SHORT)
-                    //                    {
-                    //                        basecontractPosition.Profit = (theoprice - (double)theotableValuation) * basecontractPosition.Position * basecontractPosition.Multiplier;
-                    //                    }
-                    //                    riskset.PnL += basecontractPosition.Profit;
-                    //                }
-                    //            }
-                    //        }
-                    //        if (futureCheckBox.IsChecked.Value && contractinfo.ContractType == (int)ContractType.CONTRACTTYPE_FUTURE)
-                    //        {
-                    //            var basecontractPosition = positions.Where(p => p.Contract == basecontract).FirstOrDefault();
-                    //            if (basecontractPosition != null)
-                    //            {
-                    //                if (pnlCheckBox.IsChecked.Value)
-                    //                {
-                    //                    if (basecontractPosition.Direction == PositionDirectionType.PD_LONG)
-                    //                    {
-                    //                        basecontractPosition.Profit = ((double)tableValuation - price) * basecontractPosition.Position * basecontractPosition.Multiplier;
-                    //                    }
-                    //                    else if (basecontractPosition.Direction == PositionDirectionType.PD_SHORT)
-                    //                    {
-                    //                        basecontractPosition.Profit = (price - (double)tableValuation) * basecontractPosition.Position * basecontractPosition.Multiplier;
-                    //                    }
-                    //                    riskset.PnL += basecontractPosition.Profit;
-                    //                }
-                    //            }
-                    //        }
-                    //    }
-                    //}
                 }
             }
 
@@ -526,6 +456,8 @@ namespace Micro.Future.UI
 
             queryvaluation.Interest = interestUP.Value;
             queryvaluation.DaysRemain = expIUP.Value;
+            queryvaluationzero.Interest = interestUP.Value;
+            queryvaluationzero.DaysRemain = expIUP.Value;
 
             if (priceCntIUP.Value != null && priceSizeIUP.Value != null && volCntIUP.Value != null && volSizeIUP.Value != null)
             {
@@ -618,8 +550,14 @@ namespace Micro.Future.UI
                 expirationLV.ItemsSource = strategyContractList;
                 priceSizeIUP.Value = 10;
                 volSizeIUP.Value = 1;
+                volCntIUP.Value = 1;
+                priceCntIUP.Value = 1;
                 expIUP.Value = 0;
                 interestUP.Value = 0;
+                VolCnt = (int)volCntIUP.Value;
+                VolSize = (int)volSizeIUP.Value;
+                PriceCnt = (int)priceCntIUP.Value;
+                PriceSize = (int)priceSizeIUP.Value;
                 //var strikeSet = new SortedSet<double>();
                 //foreach (var vm in strategyVMList)
                 //{
@@ -755,9 +693,8 @@ namespace Micro.Future.UI
             if (updownctrl != null)
             {
                 Task.Run(() => { Task.Delay(100); Dispatcher.Invoke(() => updownctrl.CommitInput()); });
-                ReloadDataCallback();
-
             }
+            ReloadDataCallback();
         }
         private void Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
         {
@@ -765,9 +702,8 @@ namespace Micro.Future.UI
             if (updownctrl != null)
             {
                 Task.Run(() => { Task.Delay(100); Dispatcher.Invoke(() => updownctrl.CommitInput()); });
-                ReloadDataCallback();
-
             }
+            ReloadDataCallback();
         }
         private void priceCntValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {

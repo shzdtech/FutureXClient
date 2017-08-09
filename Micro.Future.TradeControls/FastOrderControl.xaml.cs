@@ -58,6 +58,15 @@ namespace Micro.Future.UI
             portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             radioButtonBuy.IsChecked = true;
             RadioA.IsChecked = true;
+            //FuturecontractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
+
+            //FuturecontractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
+
+            //FastOrderContract.Provider = new SuggestionProvider((string c) => { return FuturecontractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
+
+        }
+        public void GetContractInfo()
+        {
             FuturecontractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
 
             FuturecontractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
@@ -65,7 +74,6 @@ namespace Micro.Future.UI
             FastOrderContract.Provider = new SuggestionProvider((string c) => { return FuturecontractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
 
         }
-
 
 
         private void Callback_OnOrderError(Exception obj)

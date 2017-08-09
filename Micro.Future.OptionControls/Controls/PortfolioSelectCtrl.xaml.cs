@@ -46,8 +46,8 @@ namespace Micro.Future.UI
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
             var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
             _contractList = options.Union(otcOptions).ToList();
-
         }
+
 
 
         public string PersistanceId
@@ -105,6 +105,7 @@ namespace Micro.Future.UI
                     var _pricingcontractList = sVM.PricingContractParams.Select(c => c.Contract).Distinct().ToList();
                 }
                 PortfolioIndex = portfolioCB.SelectedValue.ToString();
+                HedgeVolumeIUD.Value = 1;
                 //var mixcontractList = basecontractsList.Union(_pricingcontractList).ToList();
             }
 

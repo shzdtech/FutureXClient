@@ -67,8 +67,7 @@ namespace Micro.Future.UI
             private set;
         }
 
-
-        public void Initialize()
+        public void GetContractInfo()
         {
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
@@ -78,6 +77,17 @@ namespace Micro.Future.UI
             exchangeCB.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
             pricingModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("pm");
+        }
+        public void Initialize()
+        {
+            //_futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            //var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
+            //var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
+            //_contractList = options.Union(otcOptions).ToList();
+
+            //exchangeCB.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
+            //underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
+            //pricingModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("pm");
 
             // Initialize Market Data
             quoteListView1.ItemsSource = QuoteVMCollection1;
@@ -196,6 +206,7 @@ namespace Micro.Future.UI
         private void OnPositionUpdated(PositionVM vm)
         {
             CallPutTDOptionVMCollection.UpdatePosition(vm);
+
         }
         public OpMarketMakerCtrl()
         {
