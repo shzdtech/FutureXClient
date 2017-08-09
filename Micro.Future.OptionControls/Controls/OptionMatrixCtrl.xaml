@@ -123,8 +123,10 @@
                     <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key=Volatility}" Width="60"/>
                     <xctk:IntegerUpDown x:Name="volCntIUP" UpdateValueOnEnterKey="True"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Spinned="IntSpinned" ValueChanged="volCntValueChanged" Minimum="1" Maximum="10" Value="1"></xctk:IntegerUpDown>
                     <xctk:DoubleUpDown x:Name="volSizeIUP" UpdateValueOnEnterKey="True" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" Spinned="Spinned" ValueChanged="volSizeValueChanged" ShowButtonSpinner="True" Width="40" Minimum="0" Value="1"></xctk:DoubleUpDown>
-                    <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key=Expiration}" Width="60"/>
-                    <xctk:IntegerUpDown x:Name="expIUP" UpdateValueOnEnterKey="True"  Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Minimum="0" Spinned="IntSpinned" ValueChanged="expirationValueChanged"></xctk:IntegerUpDown>
+                    <Label Grid.Row="3" Grid.Column="0"  Content="{lex:Loc Key=Expiration}" Width="60"/>
+                    <xctk:IntegerUpDown x:Name="expIUP" Grid.Row="3" Grid.Column="1" UpdateValueOnEnterKey="True"   HorizontalAlignment="Left" Minimum="0" Spinned="IntSpinned" ValueChanged="expirationValueChanged"></xctk:IntegerUpDown>
+                    <Label x:Name="LabelExpiredate" Grid.Row="3" Grid.Column="2" ContentStringFormat="N0" BorderBrush="Black" />
+
                     <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key=InterestVariation}" Width="60"/>
                     <xctk:DoubleUpDown x:Name="interestUP" UpdateValueOnEnterKey="True" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" MinWidth="41" Width="auto" Minimum="0" Maximum="1" Increment="0.001" Spinned="Spinned" ValueChanged="interestValueChanged" ShowButtonSpinner="True"></xctk:DoubleUpDown>
                 </Grid>

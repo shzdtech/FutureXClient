@@ -8,6 +8,7 @@ using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -558,6 +559,7 @@ namespace Micro.Future.UI
                 VolSize = (int)volSizeIUP.Value;
                 PriceCnt = (int)priceCntIUP.Value;
                 PriceSize = (int)priceSizeIUP.Value;
+
                 //var strikeSet = new SortedSet<double>();
                 //foreach (var vm in strategyVMList)
                 //{
@@ -763,11 +765,17 @@ namespace Micro.Future.UI
         private void expirationValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var updownctrl = sender as IntegerUpDown;
+
             if (updownctrl != null && e.OldValue != null && e.NewValue != null)
             {
                 Expiration = (int)e.NewValue;
                 ReloadDataCallback();
-
+                var tradingday = _tradeExHandler.FundVM.TradingDay;
+                var tradingdatetime = DateTime.ParseExact(tradingday.ToString(),
+                                        "yyyyMMdd",
+                                        CultureInfo.InvariantCulture);
+                var datetime = tradingdatetime.AddDays((int)e.NewValue);
+                LabelExpiredate.Content = datetime.ToString("yyyyMMdd");
             }
         }
         private void interestValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -777,7 +785,6 @@ namespace Micro.Future.UI
             {
                 Interest = (double)e.NewValue;
                 ReloadDataCallback();
-
             }
         }
         public void makeTable(int row, double rowsize, int column, double columnsize)
