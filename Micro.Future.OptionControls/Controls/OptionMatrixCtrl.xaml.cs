@@ -762,7 +762,7 @@ namespace Micro.Future.UI
         }
         private void expirationValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var updownctrl = sender as DoubleUpDown;
+            var updownctrl = sender as IntegerUpDown;
             if (updownctrl != null && e.OldValue != null && e.NewValue != null)
             {
                 Expiration = (int)e.NewValue;
@@ -772,10 +772,10 @@ namespace Micro.Future.UI
         }
         private void interestValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var updownctrl = sender as IntegerUpDown;
+            var updownctrl = sender as DoubleUpDown;
             if (updownctrl != null && e.OldValue != null && e.NewValue != null)
             {
-                Interest = (int)e.NewValue;
+                Interest = (double)e.NewValue;
                 ReloadDataCallback();
 
             }

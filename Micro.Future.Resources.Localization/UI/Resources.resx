@@ -1258,7 +1258,7 @@
     <value>对冲订单量</value>
   </data>
   <data name="InterestVariation" xml:space="preserve">
-    <value>利率变化%</value>
+    <value>利率变化</value>
   </data>
   <data name="MixFuture" xml:space="preserve">
     <value>合成期货</value>

@@ -1429,7 +1429,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 利率变化% 的本地化字符串。
+        ///   查找类似 利率变化 的本地化字符串。
         /// </summary>
         internal static string InterestVariation {
             get {

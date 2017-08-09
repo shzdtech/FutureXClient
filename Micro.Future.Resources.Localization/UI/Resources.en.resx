@@ -1252,7 +1252,7 @@
     <value>HedgeVolume</value>
   </data>
   <data name="InterestVariation" xml:space="preserve">
-    <value>InterestVariation%</value>
+    <value>InterestVariation</value>
   </data>
   <data name="MixFuture" xml:space="preserve">
     <value>MixFuture</value>
