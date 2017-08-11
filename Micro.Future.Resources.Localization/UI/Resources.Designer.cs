@@ -1168,7 +1168,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 到期日 的本地化字符串。
+        ///   查找类似 计算日 的本地化字符串。
         /// </summary>
         internal static string Expiration {
             get {

@@ -160,6 +160,19 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged(nameof(Askdirection));
             }
         }
+        private int _askdirection1;
+        public int Askdirection1
+        {
+            get
+            {
+                return _askdirection1;
+            }
+            set
+            {
+                _askdirection1 = value;
+                OnPropertyChanged(nameof(Askdirection1));
+            }
+        }
         private int _biddirection;
         public int Biddirection
         {
@@ -171,6 +184,19 @@ namespace Micro.Future.ViewModel
             {
                 _biddirection = value;
                 OnPropertyChanged(nameof(Biddirection));
+            }
+        }
+        private int _biddirection1;
+        public int Biddirection1
+        {
+            get
+            {
+                return _biddirection1;
+            }
+            set
+            {
+                _biddirection1 = value;
+                OnPropertyChanged(nameof(Biddirection1));
             }
         }
     }

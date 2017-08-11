@@ -54,6 +54,19 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("Exchange");
             }
         }
+        private int _multiple;
+        public int Multiple
+        {
+            get
+            {
+                return _multiple;
+            }
+            set
+            {
+                _multiple = value;
+                OnPropertyChanged("Multiple");
+            }
+        }
         private string _investorID;
         public string InvestorID
         {
