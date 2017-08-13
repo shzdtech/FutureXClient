@@ -143,7 +143,11 @@ namespace Micro.Future.UI
                         if (frameUI != null)
                         {
                             frameUI.StatusReporter = this;
-                            mainPane.AddContent(frameUI).Title = frameUI.Title;
+                            var layoutAnchorable = mainPane.AddContent(frameUI);
+
+                            layoutAnchorable.Title = frameUI.Title;
+                            layoutAnchorable.CanClose = false;
+                            layoutAnchorable.CanHide = false;
 
                             ReportStatus("Loading " + frameUI.Title + " ...");
 
