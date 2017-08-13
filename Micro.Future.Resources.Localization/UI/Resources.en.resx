@@ -1263,4 +1263,10 @@
   <data name="TotalPosition" xml:space="preserve">
     <value>TotalPosition</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NewPassWord" xml:space="preserve">
+    <value>NewPassWord</value>
+  </data>
 </root>

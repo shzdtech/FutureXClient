@@ -12,17 +12,20 @@
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
 
         mc:Ignorable="d"
-        Title="Portfolio" Height="60" Width="300">
+        Title="{lex:Loc Key=Portfolio}" Height="100" Width="180">
     <DockPanel>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <WrapPanel Grid.Row="0">
-                <Label Content="Portfolio"></Label>
-                <TextBox Name="portofolioTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" />
-                <Button Content="{lex:Loc Key=Add}" Click="Button_Click_Add" IsDefault="True"/>
-            </WrapPanel>
+            <GroupBox Grid.Row="0" Header="{lex:Loc Key=Name}">
+                <StackPanel>
+                    <TextBox Name="portofolioTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" />
+                </StackPanel>
+            </GroupBox>
+            <Button Grid.Row="1" Content="{lex:Loc Key=Add}" Click="Button_Click_Add" IsDefault="True" Width="100" HorizontalAlignment="Left"/>
+
         </Grid>
     </DockPanel>
 </Window>

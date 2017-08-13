@@ -22,41 +22,41 @@
             <avalonDock:LayoutPanel Orientation="Horizontal">
                 <avalonDock:LayoutPanel Orientation="Vertical" DockWidth="0.5*" >
                     <avalonDock:LayoutAnchorablePane x:Name="portfolioselectPane">
-                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Portfolio}" CanClose="False" CanAutoHide="True">
+                        <avalonDock:LayoutAnchorable x:Name="portfolioLayout" Title="{lex:Loc Key=Portfolio}" CanClose="False" CanHide="False">
                             <local:PortfolioSelectCtrl x:Name="portfolioCtl"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
-                    <avalonDock:LayoutAnchorablePane x:Name="quotePane">
-                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=MarketData}">
+                    <avalonDock:LayoutAnchorablePane x:Name="quotePane" >
+                        <avalonDock:LayoutAnchorable x:Name="quoteLayout" Title="{lex:Loc Key=MarketData}" CanClose="False" CanHide="False">
                             <local:OPMarketDataControl x:Name="marketDataLV" PersistanceId="Risk:MarketDataControl" />
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                     <avalonDock:LayoutAnchorablePane x:Name="greeksPane" DockWidth="0.2*" >
-                        <avalonDock:LayoutAnchorable  CanClose="False" CanAutoHide="True" Title="{lex:Loc Key=RiskValue}">
+                        <avalonDock:LayoutAnchorable  CanClose="False" CanHide="False" Title="{lex:Loc Key=RiskValue}">
                             <local:GreekCtrl x:Name="greeksControl"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
                 <avalonDock:LayoutPanel Orientation="Vertical" >
                     <avalonDock:LayoutAnchorablePane x:Name="domesticPositionPane" >
-                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=DomesticPosition}">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=DomesticPosition}" CanClose="False" CanHide="False">
                             <c:PositionControl x:Name="domesticPositionsWindow" PersistanceId="OptionRisk:DomesticPositionControl"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                     <avalonDock:LayoutAnchorablePane x:Name="otcPositionPane" >
-                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=OTCPosition}">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=OTCPosition}" CanClose="False" CanHide="False">
                             <c:PositionControl x:Name="otcPositionsWindow" PersistanceId="OptionRisk:OTCPositionControl"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
                 <avalonDock:LayoutPanel Orientation="Vertical" >
-                    <avalonDock:LayoutAnchorablePane x:Name="domesticTradePane">
-                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=DomesticTradeRecord}">
+                    <avalonDock:LayoutAnchorablePane x:Name="domesticTradePane" >
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=DomesticTradeRecord}" CanClose="False" CanHide="False">
                             <c:TradeRecordControl x:Name="domesticTradeWindow" PersistanceId="OptionRisk:DomesticTradeRecordControl"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
-                    <avalonDock:LayoutAnchorablePane x:Name="otcTradePane">
-                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=OTCTradeRecord}">
+                    <avalonDock:LayoutAnchorablePane x:Name="otcTradePane" >
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=OTCTradeRecord}" CanClose="False" CanHide="False">
                             <c:TradeRecordControl x:Name="otcTradeWindow" PersistanceId="OptionRisk:OTCTradeRecordControl"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>

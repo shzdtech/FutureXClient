@@ -205,7 +205,7 @@
     <value>订单明细</value>
   </data>
   <data name="ExecutionWindow" xml:space="preserve">
-    <value>委托单板块</value>
+    <value>委托单</value>
   </data>
   <data name="FastOrder" xml:space="preserve">
     <value>快速下单</value>
@@ -217,7 +217,7 @@
     <value>内盘交易</value>
   </data>
   <data name="Fund" xml:space="preserve">
-    <value>资金</value>
+    <value>账户</value>
   </data>
   <data name="HedgeFlag" xml:space="preserve">
     <value>投保</value>
@@ -286,7 +286,7 @@
     <value>持仓盈亏</value>
   </data>
   <data name="PositionWindow" xml:space="preserve">
-    <value>持仓板块</value>
+    <value>持仓</value>
   </data>
   <data name="Quote" xml:space="preserve">
     <value>行情</value>
@@ -295,7 +295,7 @@
     <value>成交量</value>
   </data>
   <data name="QuoteWindow" xml:space="preserve">
-    <value>报价表</value>
+    <value>行情</value>
   </data>
   <data name="Server_CTP_MD_Connected" xml:space="preserve">
     <value>CTP行情服务器已连接</value>
@@ -334,7 +334,7 @@
     <value>成交明细</value>
   </data>
   <data name="TradedWindow" xml:space="preserve">
-    <value>成交板块</value>
+    <value>成交</value>
   </data>
   <data name="Traded_Close" xml:space="preserve">
     <value>平仓记录</value>
@@ -493,7 +493,7 @@
     <value>结算编号</value>
   </data>
   <data name="TradeWindow" xml:space="preserve">
-    <value>成交板块</value>
+    <value>成交</value>
   </data>
   <data name="TradingDay" xml:space="preserve">
     <value>交易日</value>
@@ -598,7 +598,7 @@
     <value>添加模型</value>
   </data>
   <data name="AddPortfolio" xml:space="preserve">
-    <value>添加组合</value>
+    <value>添加持仓组合</value>
   </data>
   <data name="AddQuote" xml:space="preserve">
     <value>添加行情</value>
@@ -613,10 +613,10 @@
     <value>启用Bid报价</value>
   </data>
   <data name="CAskQTEnable" xml:space="preserve">
-    <value>C.卖挂单</value>
+    <value>C.卖单</value>
   </data>
   <data name="CBidQTEnable" xml:space="preserve">
-    <value>C.买挂单</value>
+    <value>C.买单</value>
   </data>
   <data name="Future1" xml:space="preserve">
     <value>期货1</value>
@@ -643,10 +643,10 @@
     <value>参数</value>
   </data>
   <data name="PAskQTEnable" xml:space="preserve">
-    <value>P.卖挂单</value>
+    <value>P.卖单</value>
   </data>
   <data name="PBidQTEnable" xml:space="preserve">
-    <value>P.买挂单</value>
+    <value>P.买单</value>
   </data>
   <data name="PricingModel" xml:space="preserve">
     <value>定价模型</value>
@@ -658,7 +658,7 @@
     <value>刷新</value>
   </data>
   <data name="Risk" xml:space="preserve">
-    <value>风险</value>
+    <value>自动对冲</value>
   </data>
   <data name="SettlementPrice" xml:space="preserve">
     <value>结算价</value>
@@ -736,7 +736,7 @@
     <value>理论波动率模型</value>
   </data>
   <data name="AddMarketMaker" xml:space="preserve">
-    <value>添加期权行情</value>
+    <value>添加做市商</value>
   </data>
   <data name="AddOption" xml:space="preserve">
     <value>添加期权</value>
@@ -766,7 +766,7 @@
     <value>对冲</value>
   </data>
   <data name="OptionRisk" xml:space="preserve">
-    <value>期权风险</value>
+    <value>风险管理</value>
   </data>
   <data name="RiskValue" xml:space="preserve">
     <value>风险值</value>
@@ -784,7 +784,7 @@
     <value>刷新成交计数</value>
   </data>
   <data name="RiskGraph" xml:space="preserve">
-    <value>风险图形</value>
+    <value>执行价结构</value>
   </data>
   <data name="OTCTrade" xml:space="preserve">
     <value>场外交易</value>
@@ -997,7 +997,7 @@
     <value>C.买理价</value>
   </data>
   <data name="CCloseMode" xml:space="preserve">
-    <value>C.平仓模式</value>
+    <value>C.平仓</value>
   </data>
   <data name="CDelta" xml:space="preserve">
     <value>C.Delta</value>
@@ -1033,7 +1033,7 @@
     <value>隐含波动率</value>
   </data>
   <data name="MidTheoVol" xml:space="preserve">
-    <value>中间理波%</value>
+    <value>中间理波</value>
   </data>
   <data name="PAsk" xml:space="preserve">
     <value>P.卖价</value>
@@ -1045,7 +1045,7 @@
     <value>P.卖隐波</value>
   </data>
   <data name="PAskQV" xml:space="preserve">
-    <value>P.卖挂单数量</value>
+    <value>P.卖单数量</value>
   </data>
   <data name="PAskSize" xml:space="preserve">
     <value>P.卖量</value>
@@ -1063,7 +1063,7 @@
     <value>P.买隐波</value>
   </data>
   <data name="PBidQV" xml:space="preserve">
-    <value>P.买挂单数量</value>
+    <value>P.买单数量</value>
   </data>
   <data name="PBidSize" xml:space="preserve">
     <value>P.买量</value>
@@ -1072,7 +1072,7 @@
     <value>P.买理价</value>
   </data>
   <data name="PCloseMode" xml:space="preserve">
-    <value>P.平仓模式</value>
+    <value>P.平仓</value>
   </data>
   <data name="PDelta" xml:space="preserve">
     <value>P.Delta</value>
@@ -1222,25 +1222,25 @@
     <value>全部刷新</value>
   </data>
   <data name="AccountControl" xml:space="preserve">
-    <value>账户面板</value>
+    <value>账户</value>
   </data>
   <data name="AddAccountControl" xml:space="preserve">
     <value>添加账户面板</value>
   </data>
   <data name="AddContractRiskGraph" xml:space="preserve">
-    <value>添加风险图形</value>
+    <value>添加期限结构</value>
   </data>
   <data name="AddRiskAnalysisGraph" xml:space="preserve">
-    <value>添加风险图形</value>
+    <value>添加自动对冲</value>
   </data>
   <data name="AddRiskGraph" xml:space="preserve">
-    <value>添加风险图形</value>
+    <value>添加执行价结构</value>
   </data>
   <data name="AddRiskMatrix" xml:space="preserve">
-    <value>添加风险矩阵</value>
+    <value>添加情景分析</value>
   </data>
   <data name="ContractRiskGraph" xml:space="preserve">
-    <value>风险图形</value>
+    <value>期限结构</value>
   </data>
   <data name="FastOrderControl" xml:space="preserve">
     <value>快速下单面板</value>
@@ -1249,7 +1249,7 @@
     <value>风险图形</value>
   </data>
   <data name="RiskMatrix" xml:space="preserve">
-    <value>风险矩阵</value>
+    <value>情景分析</value>
   </data>
   <data name="Delay" xml:space="preserve">
     <value>延时</value>
@@ -1268,5 +1268,11 @@
   </data>
   <data name="TotalPosition" xml:space="preserve">
     <value>持仓合计</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="NewPassWord" xml:space="preserve">
+    <value>新密码</value>
   </data>
 </root>

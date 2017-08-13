@@ -70,7 +70,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 账户面板 的本地化字符串。
+        ///   查找类似 账户 的本地化字符串。
         /// </summary>
         internal static string AccountControl {
             get {
@@ -124,7 +124,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 添加风险图形 的本地化字符串。
+        ///   查找类似 添加期限结构 的本地化字符串。
         /// </summary>
         internal static string AddContractRiskGraph {
             get {
@@ -142,7 +142,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 添加期权行情 的本地化字符串。
+        ///   查找类似 添加做市商 的本地化字符串。
         /// </summary>
         internal static string AddMarketMaker {
             get {
@@ -169,7 +169,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 添加组合 的本地化字符串。
+        ///   查找类似 添加持仓组合 的本地化字符串。
         /// </summary>
         internal static string AddPortfolio {
             get {
@@ -187,7 +187,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 添加风险图形 的本地化字符串。
+        ///   查找类似 添加自动对冲 的本地化字符串。
         /// </summary>
         internal static string AddRiskAnalysisGraph {
             get {
@@ -196,7 +196,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 添加风险图形 的本地化字符串。
+        ///   查找类似 添加执行价结构 的本地化字符串。
         /// </summary>
         internal static string AddRiskGraph {
             get {
@@ -205,7 +205,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 添加风险矩阵 的本地化字符串。
+        ///   查找类似 添加情景分析 的本地化字符串。
         /// </summary>
         internal static string AddRiskMatrix {
             get {
@@ -502,7 +502,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.卖挂单 的本地化字符串。
+        ///   查找类似 C.卖单 的本地化字符串。
         /// </summary>
         internal static string CAskQTEnable {
             get {
@@ -574,7 +574,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.买挂单 的本地化字符串。
+        ///   查找类似 C.买单 的本地化字符串。
         /// </summary>
         internal static string CBidQTEnable {
             get {
@@ -610,7 +610,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.平仓模式 的本地化字符串。
+        ///   查找类似 C.平仓 的本地化字符串。
         /// </summary>
         internal static string CCloseMode {
             get {
@@ -835,7 +835,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 风险图形 的本地化字符串。
+        ///   查找类似 期限结构 的本地化字符串。
         /// </summary>
         internal static string ContractRiskGraph {
             get {
@@ -1159,7 +1159,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 委托单板块 的本地化字符串。
+        ///   查找类似 委托单 的本地化字符串。
         /// </summary>
         internal static string ExecutionWindow {
             get {
@@ -1258,7 +1258,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 资金 的本地化字符串。
+        ///   查找类似 账户 的本地化字符串。
         /// </summary>
         internal static string Fund {
             get {
@@ -1600,7 +1600,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 中间理波% 的本地化字符串。
+        ///   查找类似 中间理波 的本地化字符串。
         /// </summary>
         internal static string MidTheoVol {
             get {
@@ -1641,6 +1641,24 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Mortgage {
             get {
                 return ResourceManager.GetString("Mortgage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 名称 的本地化字符串。
+        /// </summary>
+        internal static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 新密码 的本地化字符串。
+        /// </summary>
+        internal static string NewPassWord {
+            get {
+                return ResourceManager.GetString("NewPassWord", resourceCulture);
             }
         }
         
@@ -1825,7 +1843,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 期权风险 的本地化字符串。
+        ///   查找类似 风险管理 的本地化字符串。
         /// </summary>
         internal static string OptionRisk {
             get {
@@ -2014,7 +2032,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.卖挂单 的本地化字符串。
+        ///   查找类似 P.卖单 的本地化字符串。
         /// </summary>
         internal static string PAskQTEnable {
             get {
@@ -2023,7 +2041,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.卖挂单数量 的本地化字符串。
+        ///   查找类似 P.卖单数量 的本地化字符串。
         /// </summary>
         internal static string PAskQV {
             get {
@@ -2095,7 +2113,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.买挂单 的本地化字符串。
+        ///   查找类似 P.买单 的本地化字符串。
         /// </summary>
         internal static string PBidQTEnable {
             get {
@@ -2104,7 +2122,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.买挂单数量 的本地化字符串。
+        ///   查找类似 P.买单数量 的本地化字符串。
         /// </summary>
         internal static string PBidQV {
             get {
@@ -2131,7 +2149,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.平仓模式 的本地化字符串。
+        ///   查找类似 P.平仓 的本地化字符串。
         /// </summary>
         internal static string PCloseMode {
             get {
@@ -2320,7 +2338,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 持仓板块 的本地化字符串。
+        ///   查找类似 持仓 的本地化字符串。
         /// </summary>
         internal static string PositionWindow {
             get {
@@ -2554,7 +2572,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 报价表 的本地化字符串。
+        ///   查找类似 行情 的本地化字符串。
         /// </summary>
         internal static string QuoteWindow {
             get {
@@ -2671,7 +2689,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 风险 的本地化字符串。
+        ///   查找类似 自动对冲 的本地化字符串。
         /// </summary>
         internal static string Risk {
             get {
@@ -2689,7 +2707,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 风险图形 的本地化字符串。
+        ///   查找类似 执行价结构 的本地化字符串。
         /// </summary>
         internal static string RiskGraph {
             get {
@@ -2698,7 +2716,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 风险矩阵 的本地化字符串。
+        ///   查找类似 情景分析 的本地化字符串。
         /// </summary>
         internal static string RiskMatrix {
             get {
@@ -3211,7 +3229,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 成交板块 的本地化字符串。
+        ///   查找类似 成交 的本地化字符串。
         /// </summary>
         internal static string TradedWindow {
             get {
@@ -3256,7 +3274,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 成交板块 的本地化字符串。
+        ///   查找类似 成交 的本地化字符串。
         /// </summary>
         internal static string TradeWindow {
             get {

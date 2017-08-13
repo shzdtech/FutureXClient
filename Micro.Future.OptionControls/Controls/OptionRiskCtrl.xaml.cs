@@ -43,6 +43,8 @@ namespace Micro.Future.UI
         public OptionRiskCtrl()
         {
             InitializeComponent();
+            portfolioLayout.CanClose = false;
+            portfolioLayout.CanHide = false;
             var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
             var otcmarketdataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
             var domesticTradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
@@ -65,7 +67,6 @@ namespace Micro.Future.UI
             otcTradeWindow.AnchorablePane = otcTradePane;
             otcTradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             portfolioCtl.portfolioCB.SelectionChanged += PortfolioCB_SelectionChanged;
-
         }
         private void ReloadDataCallback(object state)
         {

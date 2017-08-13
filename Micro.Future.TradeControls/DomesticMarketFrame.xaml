@@ -18,8 +18,6 @@
     <UserControl.Resources>
         <x:Array Type="{x:Type MenuItem}" x:Key="exMenuItems">
             <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=DomesticTradingMarket}">
-                <MenuItem Header="{lex:Loc Key=RefreshContracts}" Click="MenuItem_RefreshContracts_Click">
-                </MenuItem>
                 <MenuItem Header="{lex:Loc Key=AddWindow}">
                     <MenuItem Header="{lex:Loc Key=AccountControl}" Click="MenuItem_Click_AccountCtrl">
                     </MenuItem>

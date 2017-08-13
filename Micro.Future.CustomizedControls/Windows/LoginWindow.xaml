@@ -10,7 +10,7 @@
     lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"
     Style="{StaticResource {x:Type Window}}"
-    WindowStartupLocation="CenterScreen" Topmost="True" Width="500" Height="225" Icon="/Images/Logo.png">
+    WindowStartupLocation="CenterScreen" Topmost="True" Width="500" Height="260" Icon="/Images/Logo.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -21,19 +21,24 @@
         </Grid.ColumnDefinitions>
         <Image Grid.Column="0" Source = "/Images/logo.png" Height="95" Width="145" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="51,47,50.4,47.2" />
         <StackPanel Grid.Column="1">
-            <Label Content="{lex:Loc Key=Login_Server}"/>
-            <ComboBox x:Name="LoginCombo" SelectedIndex="0" IsEditable="True"/>
-            <Label Content="{lex:Loc Key=BrokerId}" Visibility="Collapsed"/>
-            <TextBox x:Name="userBroker" Visibility="Collapsed"/>
-            <Label Content="{lex:Loc Key=UserName}"/>
-            <TextBox x:Name="userTxt"/>
-            <Label Content="{lex:Loc Key=PassWord}"/>
-            <PasswordBox x:Name="passwordTxt"/>
+            <GroupBox Header="{lex:Loc Key=Login_Server}">
+                <ComboBox x:Name="LoginCombo" SelectedIndex="0" IsEditable="True"/>
+            </GroupBox>
+            <GroupBox Header="{lex:Loc Key=BrokerId}" Visibility="Collapsed">
+                <TextBox x:Name="userBroker" Visibility="Collapsed"/>
+            </GroupBox>
+            <GroupBox Header="{lex:Loc Key=UserName}">
+                <TextBox x:Name="userTxt"/>
+            </GroupBox>
+            <GroupBox Header="{lex:Loc Key=PassWord}">
+                <PasswordBox x:Name="passwordTxt"/>
+            </GroupBox>
             <Button x:Name="loginBtn" Content="{lex:Loc Key=LogIn}" Click="Button_Click" IsDefault="True"/>
-            <Label Content="语言/Language"/>
-            <ComboBox x:Name="LanguageCombo" ItemsSource="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=MergedAvailableCultures}"
+            <GroupBox Header="语言/Language">
+                <ComboBox x:Name="LanguageCombo" ItemsSource="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=MergedAvailableCultures}"
         SelectedItem="{Binding Source={x:Static lex:LocalizeDictionary.Instance}, Path=Culture}" 
         DisplayMemberPath="NativeName" Margin="0" VerticalAlignment="Bottom" />
+            </GroupBox>
             <StatusBar>
                 <StatusBarItem>
                     <Grid>
