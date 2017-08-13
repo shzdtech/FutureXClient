@@ -45,7 +45,10 @@ namespace Micro.Future.UI
             OpMarketControl.contract2.SelectionChanged += Contract2CB1_SelectionChanged;
 
         }
-
+        public void OpMarketDataGetContractInfo()
+        {
+            OpMarketControl.GetContractInfo();
+        }
         private void Adjustment2_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             if (e.OldValue != null && e.NewValue != null)

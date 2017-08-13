@@ -6,25 +6,23 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.ViewModel
 {
-    public class CallPutTDOptionVM
+    public class CallPutTDOptionVM : ViewModelBase
     {
         public TradingDeskOptionVM CallOptionVM { get; set; }
         public TradingDeskOptionVM PutOptionVM { get; set; }
         public double StrikePrice { get; set; }
         public StrategyVM CallStrategyVM { get; set; }
         public StrategyVM PutStrategyVM { get; set; }
-        private double _totalPosition;
         public double TotalPosition
         {
             get
             {
                 return CallOptionVM.Position + PutOptionVM.Position;
             }
-            //set
-            //{
-            //    _totalPosition = value;
-            //    OnPropertyChanged(nameof(TotalPosition));
-            //}
+            set
+            {
+                OnPropertyChanged(nameof(TotalPosition));
+            }
         }
         public double MixFuture
         {
@@ -34,9 +32,9 @@ namespace Micro.Future.ViewModel
                     return 0;
                 else
                 {
-                    double absCallPosition = System.Math.Abs(CallOptionVM.Position);
-                    double absPutPosition = System.Math.Abs(PutOptionVM.Position);
-                    double[] absPostion = new double[] { absCallPosition, absPutPosition };
+                    int absCallPosition = System.Math.Abs(CallOptionVM.Position);
+                    int absPutPosition = System.Math.Abs(PutOptionVM.Position);
+                    int[] absPostion = new int[] { absCallPosition, absPutPosition };
                     if (CallOptionVM.Position > 0)
                         return absPostion.Min();
                     else if (CallOptionVM.Position < 0)
@@ -44,6 +42,10 @@ namespace Micro.Future.ViewModel
                     else
                         return 0;
                 }
+            }
+            set
+            {
+                OnPropertyChanged(nameof(MixFuture));
             }
         }
 

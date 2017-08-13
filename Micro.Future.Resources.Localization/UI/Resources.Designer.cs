@@ -1168,7 +1168,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 到期日 的本地化字符串。
+        ///   查找类似 计算日 的本地化字符串。
         /// </summary>
         internal static string Expiration {
             get {
@@ -1425,6 +1425,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string InterestBase {
             get {
                 return ResourceManager.GetString("InterestBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 利率变化 的本地化字符串。
+        /// </summary>
+        internal static string InterestVariation {
+            get {
+                return ResourceManager.GetString("InterestVariation", resourceCulture);
             }
         }
         
@@ -3319,7 +3328,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 最后修改时间 的本地化字符串。
+        ///   查找类似 更新时间 的本地化字符串。
         /// </summary>
         internal static string UpdateTime {
             get {

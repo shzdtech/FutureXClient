@@ -80,8 +80,8 @@ namespace Micro.Future.UI
             quoteListView.ItemsSource = _viewSource.View;
             mColumns = ColumnObject.GetColumns(quoteListView);
             FilterSettingsWin.UserID = MarketDataHandler.MessageWrapper?.User.Id;
-            FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
-            FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
+            //FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
+            //FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
 
             QuoteChanged = _viewSource.View as ICollectionViewLiveShaping;
             if (QuoteChanged.CanChangeLiveFiltering)
@@ -92,9 +92,15 @@ namespace Micro.Future.UI
             }
 
 
-            contractTextBox.Provider = new SuggestionProvider((string c) => { return FutureOptionList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
+            //contractTextBox.Provider = new SuggestionProvider((string c) => { return FutureOptionList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
         }
+        public void GetContractInfo()
+        {
+            FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
+            FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
+            contractTextBox.Provider = new SuggestionProvider((string c) => { return FutureOptionList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
 
+        }
         public ICollectionViewLiveShaping QuoteChanged { get; set; }
 
         public virtual async void LoadUserContracts()

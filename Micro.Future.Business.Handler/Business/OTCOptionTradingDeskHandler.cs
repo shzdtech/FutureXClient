@@ -104,8 +104,30 @@ namespace Micro.Future.Message
                         MidVol = tradingDeskOption.TheoDataTemp.MidVolatility,
                     };
                 }
+                if (tradingDeskOption.TheoData.BidPrice >= tradingDeskOption.MarketData?.AskPrice)
+                    quote.TheoDataVM.Biddirection = 2;
+                else
+                {
+                    if (tradingDeskOption.TheoData.BidPrice >= tradingDeskOption.MarketData?.BidPrice)
+                        quote.TheoDataVM.Biddirection = 1;
+                    else if (tradingDeskOption.TheoData.BidPrice < tradingDeskOption.MarketData?.AskPrice)
+                        quote.TheoDataVM.Biddirection = -1;
+                    else if (tradingDeskOption.TheoData.BidPrice < tradingDeskOption.MarketData?.AskPrice)
+                        quote.TheoDataVM.Biddirection = -2;
+                }
 
-                OnTradingDeskOptionParamsReceived?.Invoke(quote);
+                if (tradingDeskOption.TheoData.AskPrice <= tradingDeskOption.MarketData?.BidPrice)
+                    quote.TheoDataVM.Askdirection = 2;
+                else
+                {
+                    if (tradingDeskOption.TheoData.AskPrice <= tradingDeskOption.MarketData?.AskPrice)
+                        quote.TheoDataVM.Askdirection = 1;
+                    else if (tradingDeskOption.TheoData.AskPrice > tradingDeskOption.MarketData?.AskPrice)
+                        quote.TheoDataVM.Askdirection = -1;
+                    else if (tradingDeskOption.TheoData.AskPrice > tradingDeskOption.MarketData?.BidPrice)
+                        quote.TheoDataVM.Askdirection = -2;
+                }
+                    OnTradingDeskOptionParamsReceived?.Invoke(quote);
             }
             else
             {
@@ -197,11 +219,35 @@ namespace Micro.Future.Message
                     quote.TheoDataVM.BidPrice = newVM.TheoDataVM.BidPrice;
                     quote.TheoDataVM.BidSize = newVM.TheoDataVM.BidSize;
                     quote.TheoDataVM.BidVol = newVM.TheoDataVM.BidVol;
+                    quote.TheoDataVM.Askdirection = newVM.TheoDataVM.Askdirection;
+                    quote.TheoDataVM.Biddirection = newVM.TheoDataVM.Biddirection;
+
                 }
 
-                    quote.TheoDataVM.Askdirection = quote.TheoDataVM.AskPrice <= quote.MarketDataVM?.AskPrice ? 1 : -1;
-                    quote.TheoDataVM.Biddirection = quote.TheoDataVM.BidPrice >= quote.MarketDataVM?.BidPrice ? 1 : -1;
-                
+                //if (quote.TheoDataVM.BidPrice >= quote.MarketDataVM?.AskPrice)
+                //    quote.TheoDataVM.Biddirection = 2;
+                //else
+                //{
+                //    if (quote.TheoDataVM.BidPrice >= quote.MarketDataVM?.BidPrice)
+                //        quote.TheoDataVM.Biddirection = 1;
+                //    else if (quote.TheoDataVM.BidPrice < quote.MarketDataVM?.AskPrice)
+                //        quote.TheoDataVM.Biddirection = -1;
+                //    else if (quote.TheoDataVM.BidPrice < quote.MarketDataVM?.AskPrice)
+                //        quote.TheoDataVM.Biddirection = -2;
+                //}
+
+                //if (quote.TheoDataVM.AskPrice <= quote.MarketDataVM?.BidPrice)
+                //    quote.TheoDataVM.Askdirection = 2;
+                //else
+                //{
+                //    if (quote.TheoDataVM.AskPrice <= quote.MarketDataVM?.AskPrice)
+                //        quote.TheoDataVM.Askdirection = 1;
+                //    else if (quote.TheoDataVM.AskPrice > quote.MarketDataVM?.AskPrice)
+                //        quote.TheoDataVM.Askdirection = -1;
+                //    else if (quote.TheoDataVM.AskPrice > quote.MarketDataVM?.BidPrice)
+                //        quote.TheoDataVM.Askdirection = -2;
+                //}
+
             }
             return quote;
         }
@@ -209,6 +255,7 @@ namespace Micro.Future.Message
         {
             TradingDeskOptionVM quote = null;
             var cp = collection.FirstOrDefault((pb) => string.Compare(pb.PutOptionVM.Contract, newVM.Contract, true) == 0);
+
             if (cp != null)
             {
                 quote = cp.PutOptionVM;
@@ -230,8 +277,12 @@ namespace Micro.Future.Message
                     quote.ShortPosition = newVM.Position;
                 quote.Position = quote.LongPosition - quote.ShortPosition;
             }
+            if (cp != null)
+            {
+                cp.TotalPosition = 1;
+                cp.MixFuture = 1;
+            }
             return quote;
         }
-
     }
 }
