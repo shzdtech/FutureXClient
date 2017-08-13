@@ -23,7 +23,7 @@
             <avalonDock:LayoutPanel Orientation="Vertical">
                 <avalonDock:LayoutPanel DockHeight="0.2*" >
                     <avalonDock:LayoutAnchorablePane x:Name="OPMarketPane" >
-                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=ModelSelect}">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=ModelSelect}" CanClose="False" CanHide="False">
                             <c:OpMarketData x:Name="OpMarketControl"/>
                         </avalonDock:LayoutAnchorable >
                     </avalonDock:LayoutAnchorablePane>
@@ -31,12 +31,12 @@
                 <avalonDock:LayoutPanel Orientation="Vertical">
                     <avalonDock:LayoutPanel Orientation="Horizontal">
                         <avalonDock:LayoutAnchorablePane x:Name="WMSettingsPane" DockWidth="0.15*">
-                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=WingModelSettings}">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=WingModelSettings}" CanClose="False" CanHide="False">
                                 <c:WMSettingsCtrl x:Name="WMSettingsLV" x:FieldModifier="public"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="VolCurvPane" DockWidth="0.3*">
-                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=VolatilityCurveManager}">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=VolatilityCurveManager}" CanClose="False" CanHide="False">
                                 <c:VolCurvCtrl x:Name="VolCurvLV"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>

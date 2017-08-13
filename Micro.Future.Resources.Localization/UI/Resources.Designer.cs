@@ -511,7 +511,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.卖挂单数量 的本地化字符串。
+        ///   查找类似 C.卖单量 的本地化字符串。
         /// </summary>
         internal static string CAskQV {
             get {
@@ -583,7 +583,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.买挂单数量 的本地化字符串。
+        ///   查找类似 C.买单量 的本地化字符串。
         /// </summary>
         internal static string CBidQV {
             get {
@@ -781,7 +781,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 C.挂单价格保护 的本地化字符串。
+        ///   查找类似 C.挂单保护 的本地化字符串。
         /// </summary>
         internal static string CNotCross {
             get {
@@ -2230,7 +2230,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 P.挂单价格保护 的本地化字符串。
+        ///   查找类似 P.挂单保护 的本地化字符串。
         /// </summary>
         internal static string PNotCross {
             get {

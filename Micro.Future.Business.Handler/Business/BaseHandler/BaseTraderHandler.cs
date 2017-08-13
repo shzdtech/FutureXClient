@@ -59,6 +59,8 @@ namespace Micro.Future.Message
                 ((uint)BusinessMessageID.MSG_ID_QUERY_EXCHANGE, OnMarketInfo, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBPosition, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_POSITION, OnQueryPosition, ErrorMsgAction);
+            MessageWrapper.RegisterAction<PBPositionCompareList, ExceptionMessage>
+                ((uint)BusinessMessageID.MSG_ID_QUERY_POSITION_DIFFER, OnQueryPositionDiffer, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBAccountInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_ACCOUNT_INFO, OnFund, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
@@ -75,6 +77,7 @@ namespace Micro.Future.Message
                 ((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, OnUpdateOrder, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBPosition, ExceptionMessage>
                ((uint)BusinessMessageID.MSG_ID_POSITION_UPDATED, OnUpdatePosition, ErrorMsgAction);
+
         }
 
         private void ErrorMsgAction(ExceptionMessage bizErr)
@@ -93,7 +96,10 @@ namespace Micro.Future.Message
         {
 
         }
+        private void OnQueryPositionDiffer(PBPositionCompareList pb)
+        {
 
+        }
         private void OnQueryPosition(PBPosition rsp)
         {
             UpdatePosition(rsp);
@@ -181,7 +187,7 @@ namespace Micro.Future.Message
                             positionVM.Position = rsp.Position;
                         }
                     }
-                } 
+                }
             }
         }
 
@@ -331,7 +337,14 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_POSITION, sst);
 
         }
+        public void QueryPositionDiffer()
+        {
+            var sst = new StringMap();
+            sst.Header = new DataHeader();
+            sst.Header.SerialId = NextSerialId;
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_POSITION_DIFFER, sst);
 
+        }
         public void QueryOrder()
         {
             var sst = new StringMap();

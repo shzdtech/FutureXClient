@@ -970,7 +970,7 @@
     <value>C.卖隐波</value>
   </data>
   <data name="CAskQV" xml:space="preserve">
-    <value>C.卖挂单数量</value>
+    <value>C.卖单量</value>
   </data>
   <data name="CAskSize" xml:space="preserve">
     <value>C.卖量</value>
@@ -988,7 +988,7 @@
     <value>C.买隐波</value>
   </data>
   <data name="CBidQV" xml:space="preserve">
-    <value>C.买挂单数量</value>
+    <value>C.买单量</value>
   </data>
   <data name="CBidSize" xml:space="preserve">
     <value>C.买量</value>
@@ -1012,7 +1012,7 @@
     <value>C.中间隐波</value>
   </data>
   <data name="CNotCross" xml:space="preserve">
-    <value>C.挂单价格保护</value>
+    <value>C.挂单保护</value>
   </data>
   <data name="COrderCnt" xml:space="preserve">
     <value>C.订单计数</value>
@@ -1087,7 +1087,7 @@
     <value>P.中间隐波</value>
   </data>
   <data name="PNotCross" xml:space="preserve">
-    <value>P.挂单价格保护</value>
+    <value>P.挂单保护</value>
   </data>
   <data name="POrderCnt" xml:space="preserve">
     <value>P.订单计数</value>
