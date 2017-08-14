@@ -98,6 +98,8 @@ namespace Micro.Future.UI
         {
             FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
             FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
+            FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
+            FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK));
             contractTextBox.Provider = new SuggestionProvider((string c) => { return FutureOptionList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
 
         }

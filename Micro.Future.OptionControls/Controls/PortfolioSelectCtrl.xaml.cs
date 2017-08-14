@@ -44,8 +44,10 @@ namespace Micro.Future.UI
             portfolioCB.ItemsSource = portfolioVMCollection;
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
-            var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
-            _contractList = options.Union(otcOptions).ToList();
+            options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
+            options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK));
+            options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION));
+            _contractList = options.ToList();
         }
 
 

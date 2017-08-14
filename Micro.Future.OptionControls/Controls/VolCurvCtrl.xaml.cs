@@ -60,8 +60,10 @@ namespace Micro.Future.UI
         public void Initialize()
         {
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
-            var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
-            _contractList = options.Union(otcOptions).ToList();            //VegaPosition.Model = _otcHandler.OptionOxyVM.PlotModelBar;
+            options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
+            options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK));
+            options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION));
+            _contractList = options.ToList();            //VegaPosition.Model = _otcHandler.OptionOxyVM.PlotModelBar;
             volPlot.DataContext = VolatilityModelVM;
             //theoAskLS1.ItemsSource = VolatilityModelVM1.TheoAskVolLine;
             //theoBidLS1.ItemsSource = VolatilityModelVM1.TheoBidVolLine;

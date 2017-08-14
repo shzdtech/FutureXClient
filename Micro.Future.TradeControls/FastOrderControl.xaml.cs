@@ -24,7 +24,7 @@ namespace Micro.Future.UI
     public partial class FastOrderControl : UserControl
     {
         private string _currentContract;
-        public List<ContractInfo> FuturecontractList
+        public List<ContractInfo> FutureContractList
         {
             get;
         } = new List<ContractInfo>();
@@ -67,11 +67,13 @@ namespace Micro.Future.UI
         }
         public void GetContractInfo()
         {
-            FuturecontractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
+            FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
+            FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
+            FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
+            FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK));
 
-            FuturecontractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
 
-            FastOrderContract.Provider = new SuggestionProvider((string c) => { return FuturecontractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
+            FastOrderContract.Provider = new SuggestionProvider((string c) => { return FutureContractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
 
         }
 
@@ -286,7 +288,7 @@ namespace Micro.Future.UI
             }
 
             var contract = FastOrderContract.SelectedItem.ToString();
-            if (FuturecontractList.Any(c => c.Contract == contract))
+            if (FutureContractList.Any(c => c.Contract == contract))
             {
                 OrderVM.Contract = contract;
                 var quote = OrderVM.Contract;
