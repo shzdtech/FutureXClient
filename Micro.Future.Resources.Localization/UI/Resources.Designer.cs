@@ -1294,6 +1294,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 期货到期日 的本地化字符串。
+        /// </summary>
+        internal static string FutureExp {
+            get {
+                return ResourceManager.GetString("FutureExp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Gamma 的本地化字符串。
         /// </summary>
         internal static string Gamma {
@@ -1573,7 +1582,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 Matrix设置 的本地化字符串。
+        ///   查找类似 情景分析 的本地化字符串。
         /// </summary>
         internal static string MatrixSet {
             get {
@@ -1839,6 +1848,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Optional {
             get {
                 return ResourceManager.GetString("Optional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 期权到期日 的本地化字符串。
+        /// </summary>
+        internal static string OptionExp {
+            get {
+                return ResourceManager.GetString("OptionExp", resourceCulture);
             }
         }
         
@@ -2698,7 +2716,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 风险图形 的本地化字符串。
+        ///   查找类似 自动对冲 的本地化字符串。
         /// </summary>
         internal static string RiskAnalysisGraph {
             get {
@@ -3342,6 +3360,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Underlying {
             get {
                 return ResourceManager.GetString("Underlying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 标的到期日 的本地化字符串。
+        /// </summary>
+        internal static string UnderlyingExpiration {
+            get {
+                return ResourceManager.GetString("UnderlyingExpiration", resourceCulture);
             }
         }
         

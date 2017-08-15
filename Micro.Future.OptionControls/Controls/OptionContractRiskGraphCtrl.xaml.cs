@@ -68,6 +68,11 @@ namespace Micro.Future.UI
                 get;
                 set;
             }
+            public string FutureExpiration
+            {
+                get;
+                set;
+            }
             public bool RiskGraphEnable
             {
                 get;
@@ -324,7 +329,7 @@ namespace Micro.Future.UI
                 deltaRadioButton.IsChecked = true;
                 marketRadioButton.IsChecked = true;
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
-                var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
+                var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio /*&& !string.IsNullOrEmpty(s.BaseContract)*/)
                     .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
                 var strategyVMList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract)).ToList();
                 foreach (var vm in strategyContractList)
@@ -334,7 +339,11 @@ namespace Micro.Future.UI
                     {
                         vm.Expiration = contractinfo.ExpireDate;
                         vm.MktVM = await _marketDataHandler.SubMarketDataAsync(vm.Contract);
-
+                    }
+                    var futurecontractinfo = ClientDbContext.FindContract(vm.Contract);
+                    if (futurecontractinfo != null)
+                    {
+                        vm.FutureExpiration = futurecontractinfo.ExpireDate;
                     }
                 }
 

@@ -832,7 +832,7 @@
     <value>报价变动单位</value>
   </data>
   <data name="MatrixSet" xml:space="preserve">
-    <value>Matrix设置</value>
+    <value>情景分析</value>
   </data>
   <data name="StrikePrice" xml:space="preserve">
     <value>执行价格</value>
@@ -1246,7 +1246,7 @@
     <value>快速下单面板</value>
   </data>
   <data name="RiskAnalysisGraph" xml:space="preserve">
-    <value>风险图形</value>
+    <value>自动对冲</value>
   </data>
   <data name="RiskMatrix" xml:space="preserve">
     <value>情景分析</value>
@@ -1274,5 +1274,14 @@
   </data>
   <data name="NewPassWord" xml:space="preserve">
     <value>新密码</value>
+  </data>
+  <data name="FutureExp" xml:space="preserve">
+    <value>期货到期日</value>
+  </data>
+  <data name="OptionExp" xml:space="preserve">
+    <value>期权到期日</value>
+  </data>
+  <data name="UnderlyingExpiration" xml:space="preserve">
+    <value>标的到期日</value>
   </data>
 </root>

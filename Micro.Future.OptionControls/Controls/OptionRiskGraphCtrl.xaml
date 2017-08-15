@@ -60,8 +60,9 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn x:Name="contractHeader" DisplayMemberBinding="{Binding Contract}" Header="{lex:Loc Key=Contract}" />
-                            <GridViewColumn x:Name="expirationHeader" DisplayMemberBinding="{Binding Expiration}" Header="{lex:Loc Key=Expiration}" />
+                            <GridViewColumn x:Name="contractHeader" DisplayMemberBinding="{Binding Contract}" Header="{lex:Loc Key=Underlying}" />
+                            <GridViewColumn x:Name="futureexpirationHeader" DisplayMemberBinding="{Binding FutureExpiration}" Header="{lex:Loc Key=FutureExp}" />
+                            <GridViewColumn x:Name="expirationHeader" DisplayMemberBinding="{Binding Expiration}" Header="{lex:Loc Key=OptionExp}" />
                             <GridViewColumn Header="{lex:Loc Key=Valuation}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
