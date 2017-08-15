@@ -38,6 +38,7 @@ namespace Micro.Future.UI
         //    get;
         //    set;
         //}
+        private IList<ContractInfo> _futurecontractList;
         public List<ColumnItem> BarItemCollection
         {
             get;
@@ -297,6 +298,7 @@ namespace Micro.Future.UI
         public OptionContractRiskGraphCtrl()
         {
             InitializeComponent();
+            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
             //_timer = new Timer(PositionUpdateCallback, null, UpdateInterval, UpdateInterval);
@@ -328,10 +330,16 @@ namespace Micro.Future.UI
                 var portfolio = portfolioCB.SelectedValue?.ToString();
                 deltaRadioButton.IsChecked = true;
                 marketRadioButton.IsChecked = true;
+                var positionList = _tradeExHandler?.PositionVMCollection.Where(s => s.Portfolio == portfolio).Select(s => s.Contract).Distinct();
+                positionList = positionList.Intersect(_futurecontractList.Select(c => c.Contract));
+
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
-                var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio /*&& !string.IsNullOrEmpty(s.BaseContract)*/)
-                    .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
+                var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
+                                    .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
                 var strategyVMList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract)).ToList();
+                var unshowContracts = positionList.Except(strategyContractList.Select(s => s.Contract));
+
+                strategyContractList.AddRange(unshowContracts.Select(c => new StrategyBaseVM { Contract = c }));
                 foreach (var vm in strategyContractList)
                 {
                     var contractinfo = ClientDbContext.FindContract(vm.OptionContract);

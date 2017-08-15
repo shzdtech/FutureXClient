@@ -200,7 +200,8 @@ namespace Micro.Future.Message
             FundVM.AccountID = rsp.AccountID;
             FundVM.SettlementID = rsp.SettlementID;
             FundVM.PreMortgage = rsp.PreMortgage;
-            FundVM.PreCredit = rsp.PreCredit;
+            if (rsp.PreCredit >= 0)
+                FundVM.PreCredit = rsp.PreCredit;
             FundVM.PreDeposit = rsp.PreDeposit;
             FundVM.PreBalance = rsp.PreBalance;
             FundVM.PreMargin = rsp.PreMargin;
