@@ -45,9 +45,13 @@ namespace Micro.Future.UI
             current_Slope1.DataContext = _wingsReturnVM;
             current_Volatility.DataContext = _wingsReturnVM;
             current_Volatility1.DataContext = _wingsReturnVM;
+
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
-            var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
-            _contractList = options.Union(otcOptions).ToList();
+            options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
+            options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK));
+            options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION));
+
+            _contractList = options.ToList();
 
             _otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
         }
