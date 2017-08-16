@@ -279,8 +279,8 @@ namespace Micro.Future.UI
 
             queryvaluation.Interest = interestUP.Value;
             queryvaluation.DaysRemain = expIUP.Value;
-            queryvaluationzero.Interest = interestUP.Value;
-            queryvaluationzero.DaysRemain = expIUP.Value;
+            queryvaluationzero.Interest = 0;
+            queryvaluationzero.DaysRemain = 0;
             foreach (var item in expirationLV.ItemsSource)
             {
                 var strategyvm = item as StrategyBaseVM;
@@ -463,8 +463,8 @@ namespace Micro.Future.UI
 
             queryvaluation.Interest = interestUP.Value;
             queryvaluation.DaysRemain = expIUP.Value;
-            queryvaluationzero.Interest = 0;
-            queryvaluationzero.DaysRemain = 0;
+            //queryvaluationzero.Interest = 0;
+            //queryvaluationzero.DaysRemain = 0;
 
             if (priceCntIUP.Value != null && priceSizeIUP.Value != null && volCntIUP.Value != null && volSizeIUP.Value != null)
             {
