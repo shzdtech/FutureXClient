@@ -30,20 +30,20 @@
         <ListView Name="TradeTreeView" Grid.Row="1" GridViewColumnHeader.Click="TradeTreeView_Click" ItemsSource="{Binding TradeVMCollection}">
             <ListView.View>
                 <GridView AllowsColumnReorder="True">
-                    <GridViewColumn Header="{lex:Loc Key=TradeID}" DisplayMemberBinding="{Binding TradeID}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=OpenClose}" DisplayMemberBinding="{Binding Path=OpenClose, Converter={StaticResource enumItemsConverter}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=MatchPrice}" DisplayMemberBinding="{Binding Price}"/>
-                    <GridViewColumn Header="{lex:Loc Key=QuoteVolume}" DisplayMemberBinding="{Binding Volume}"/>
-                    <GridViewColumn Header="{lex:Loc Key=TradeDate}" DisplayMemberBinding="{Binding TradeDate}" />
-                    <GridViewColumn Header="{lex:Loc Key=TradeTime}" DisplayMemberBinding="{Binding TradeTime}" />
-                    <GridViewColumn Header="{lex:Loc Key=OrderSysID}" DisplayMemberBinding="{Binding OrderSysID}" />
-                    <GridViewColumn Header="{lex:Loc Key=TradingType}" DisplayMemberBinding="{Binding Path=TradingType, Converter={StaticResource enumItemsConverter}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=HedgeFlag}" DisplayMemberBinding="{Binding Path=HedgeFlag, Converter={StaticResource enumItemsConverter}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Commission}" DisplayMemberBinding="{Binding Commission}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}"/>
+                    <GridViewColumn Header="{lex:Loc Key=TradeID}" DisplayMemberBinding="{Binding TradeID}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=OpenClose}" DisplayMemberBinding="{Binding Path=OpenClose, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=MatchPrice}" DisplayMemberBinding="{Binding Price}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=QuoteVolume}" DisplayMemberBinding="{Binding Volume}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=TradeDate}" DisplayMemberBinding="{Binding TradeDate}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=TradeTime}" DisplayMemberBinding="{Binding TradeTime}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=OrderSysID}" DisplayMemberBinding="{Binding OrderSysID}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=TradingType}" DisplayMemberBinding="{Binding Path=TradingType, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=HedgeFlag}" DisplayMemberBinding="{Binding Path=HedgeFlag, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Commission}" DisplayMemberBinding="{Binding Commission}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>

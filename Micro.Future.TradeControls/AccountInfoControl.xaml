@@ -72,33 +72,33 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>-->
-                    <GridViewColumn Header="{lex:Loc Key=BrokerID}" DisplayMemberBinding="{Binding BrokerID}"/>
-                    <GridViewColumn Header="{lex:Loc Key=AccountID}" DisplayMemberBinding="{Binding AccountID}"/>
-                    <GridViewColumn Header="{lex:Loc Key=PreMortgage}" DisplayMemberBinding="{Binding PreMortgage, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=PreCredit}" DisplayMemberBinding="{Binding PreCredit, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=PreDeposit}" DisplayMemberBinding="{Binding PreDeposit, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=PreBalance}" DisplayMemberBinding="{Binding PreBalance, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=PreMargin}" DisplayMemberBinding="{Binding PreMargin, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=InterestBase}" DisplayMemberBinding="{Binding InterestBase}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Deposit}" DisplayMemberBinding="{Binding Deposit, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Commission}" DisplayMemberBinding="{Binding Commission, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Withdraw}" DisplayMemberBinding="{Binding Withdraw, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=FrozenMargin}" DisplayMemberBinding="{Binding FrozenMargin, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=FrozenCash}" DisplayMemberBinding="{Binding FrozenCash, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=FrozenCommission}" DisplayMemberBinding="{Binding FrozenCommission, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=CurrMargin}" DisplayMemberBinding="{Binding CurrMargin, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=CashIn}" DisplayMemberBinding="{Binding CashIn, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=CloseProfit}" DisplayMemberBinding="{Binding CloseProfit, StringFormat={}{0:N} }"/>
-                    <GridViewColumn Header="{lex:Loc Key=PositionProfit}" DisplayMemberBinding="{Binding PositionProfit, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Balance}" DisplayMemberBinding="{Binding Balance, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Available}" DisplayMemberBinding="{Binding Available, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=WithdrawQuota}" DisplayMemberBinding="{Binding WithdrawQuota, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Reserve}" DisplayMemberBinding="{Binding Reserve, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=TradingDay}" DisplayMemberBinding="{Binding TradingDay}"/>
-                    <GridViewColumn Header="{lex:Loc Key=SettlementID}" DisplayMemberBinding="{Binding SettlementID}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Credit}" DisplayMemberBinding="{Binding Credit, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Mortgage}" DisplayMemberBinding="{Binding Mortgage, StringFormat={}{0:N}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=ExchangeMargin}" DisplayMemberBinding="{Binding ExchangeMargin, StringFormat={}{0:N}}"/>
+                    <GridViewColumn Header="{lex:Loc Key=BrokerID}" DisplayMemberBinding="{Binding BrokerID}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=AccountID}" DisplayMemberBinding="{Binding AccountID}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreMortgage}" DisplayMemberBinding="{Binding PreMortgage, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreCredit}" DisplayMemberBinding="{Binding PreCredit, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreDeposit}" DisplayMemberBinding="{Binding PreDeposit, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreBalance}" DisplayMemberBinding="{Binding PreBalance, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=PreMargin}" DisplayMemberBinding="{Binding PreMargin, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=InterestBase}" DisplayMemberBinding="{Binding InterestBase}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Deposit}" DisplayMemberBinding="{Binding Deposit, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Commission}" DisplayMemberBinding="{Binding Commission, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Withdraw}" DisplayMemberBinding="{Binding Withdraw, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=FrozenMargin}" DisplayMemberBinding="{Binding FrozenMargin, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=FrozenCash}" DisplayMemberBinding="{Binding FrozenCash, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=FrozenCommission}" DisplayMemberBinding="{Binding FrozenCommission, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=CurrMargin}" DisplayMemberBinding="{Binding CurrMargin, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=CashIn}" DisplayMemberBinding="{Binding CashIn, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=CloseProfit}" DisplayMemberBinding="{Binding CloseProfit, StringFormat={}{0:N} }" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=PositionProfit}" DisplayMemberBinding="{Binding PositionProfit, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Balance}" DisplayMemberBinding="{Binding Balance, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Available}" DisplayMemberBinding="{Binding Available, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=WithdrawQuota}" DisplayMemberBinding="{Binding WithdrawQuota, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Reserve}" DisplayMemberBinding="{Binding Reserve, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=TradingDay}" DisplayMemberBinding="{Binding TradingDay}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=SettlementID}" DisplayMemberBinding="{Binding SettlementID}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Credit}" DisplayMemberBinding="{Binding Credit, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Mortgage}" DisplayMemberBinding="{Binding Mortgage, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=ExchangeMargin}" DisplayMemberBinding="{Binding ExchangeMargin, StringFormat={}{0:N}}" Width="auto"/>
 
 
                 </GridView>

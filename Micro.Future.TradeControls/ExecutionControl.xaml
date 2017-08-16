@@ -30,26 +30,26 @@
         <ListView Name="ExecutionTreeView" Grid.Row="1" GridViewColumnHeader.Click="ExecutionTreeView_Click" ItemsSource="{Binding OrderVMCollection}">         
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="{lex:Loc Key=OrderID}" DisplayMemberBinding="{Binding OrderID}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}"/>
-                    <GridViewColumn Header="{lex:Loc Key=OrderSysID}" DisplayMemberBinding="{Binding OrderSysID}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Volume}" DisplayMemberBinding="{Binding Volume}"/>
-                    <GridViewColumn Header="{lex:Loc Key=VolumeTraded}" DisplayMemberBinding="{Binding VolumeTraded}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=InsertTime}" DisplayMemberBinding="{Binding InsertTime}"/>
-                    <GridViewColumn Header="{lex:Loc Key=OpenClose}" DisplayMemberBinding="{Binding OpenClose, Converter={StaticResource enumItemsConverter}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=UpdateTime}" DisplayMemberBinding="{Binding UpdateTime}"/>
-                    <GridViewColumn Header="{lex:Loc Key=CancelTime}" DisplayMemberBinding="{Binding CancelTime}"/>
-                    <GridViewColumn Header="{lex:Loc Key=VolumeRemain}" DisplayMemberBinding="{Binding VolumeRemain}"/>
-                    <GridViewColumn Header="{lex:Loc Key=ExecType}" DisplayMemberBinding="{Binding ExecType, Converter={StaticResource enumItemsConverter}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=TIF}" DisplayMemberBinding="{Binding TIF}"/>
-                    <GridViewColumn Header="{lex:Loc Key=TradingType}" DisplayMemberBinding="{Binding Path=TradingType, Converter={StaticResource enumItemsConverter}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Active}" DisplayMemberBinding="{Binding Active}"/>
-                    <GridViewColumn Header="{lex:Loc Key=LimitPrice}" DisplayMemberBinding="{Binding LimitPrice}" />
-                    <GridViewColumn Header="{lex:Loc Key=Status}" DisplayMemberBinding="{Binding Path=Status, Converter={StaticResource enumItemsConverter}}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Message}" DisplayMemberBinding="{Binding Message}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}"/>
-                    <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}"/>
+                    <GridViewColumn Header="{lex:Loc Key=OrderID}" DisplayMemberBinding="{Binding OrderID}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=OrderSysID}" DisplayMemberBinding="{Binding OrderSysID}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Volume}" DisplayMemberBinding="{Binding Volume}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=VolumeTraded}" DisplayMemberBinding="{Binding VolumeTraded}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=InsertTime}" DisplayMemberBinding="{Binding InsertTime}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=OpenClose}" DisplayMemberBinding="{Binding OpenClose, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=UpdateTime}" DisplayMemberBinding="{Binding UpdateTime}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=CancelTime}" DisplayMemberBinding="{Binding CancelTime}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=VolumeRemain}" DisplayMemberBinding="{Binding VolumeRemain}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=ExecType}" DisplayMemberBinding="{Binding ExecType, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=TIF}" DisplayMemberBinding="{Binding TIF}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=TradingType}" DisplayMemberBinding="{Binding Path=TradingType, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Active}" DisplayMemberBinding="{Binding Active}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=LimitPrice}" DisplayMemberBinding="{Binding LimitPrice}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Status}" DisplayMemberBinding="{Binding Path=Status, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Message}" DisplayMemberBinding="{Binding Message}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
