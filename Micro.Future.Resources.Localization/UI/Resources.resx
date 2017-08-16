@@ -1284,7 +1284,13 @@
   <data name="UnderlyingExpiration" xml:space="preserve">
     <value>标的到期日</value>
   </data>
+  <data name="Contract1" xml:space="preserve">
+    <value>标的</value>
+  </data>
   <data name="Greeks" xml:space="preserve">
     <value>希腊值</value>
+  </data>
+  <data name="YesterdaySettlement" xml:space="preserve">
+    <value>昨结算</value>
   </data>
 </root>

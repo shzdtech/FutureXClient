@@ -463,8 +463,8 @@ namespace Micro.Future.UI
 
             queryvaluation.Interest = interestUP.Value;
             queryvaluation.DaysRemain = expIUP.Value;
-            queryvaluationzero.Interest = interestUP.Value;
-            queryvaluationzero.DaysRemain = expIUP.Value;
+            queryvaluationzero.Interest = 0;
+            queryvaluationzero.DaysRemain = 0;
 
             if (priceCntIUP.Value != null && priceSizeIUP.Value != null && volCntIUP.Value != null && volSizeIUP.Value != null)
             {
@@ -568,6 +568,7 @@ namespace Micro.Future.UI
                         if (futurecontractinfo != null)
                         {
                             vm.FutureExpiration = futurecontractinfo.ExpireDate;
+                            vm.MktVM = await _marketdataHandler.SubMarketDataAsync(vm.Contract);
                         }
                     }
                 }

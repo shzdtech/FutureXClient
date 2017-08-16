@@ -361,6 +361,7 @@ namespace Micro.Future.UI
                         if (futurecontractinfo != null)
                         {
                             vm.FutureExpiration = futurecontractinfo.ExpireDate;
+                            vm.MktVM = await _marketDataHandler.SubMarketDataAsync(vm.Contract);
                         }
                     }
                 }

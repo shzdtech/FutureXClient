@@ -1278,7 +1278,13 @@
   <data name="UnderlyingExpiration" xml:space="preserve">
     <value>UnderlyingExpiration</value>
   </data>
+  <data name="Contract1" xml:space="preserve">
+    <value>Contract</value>
+  </data>
   <data name="Greeks" xml:space="preserve">
     <value>Greeks</value>
+  </data>
+  <data name="YesterdaySettlement" xml:space="preserve">
+    <value>YesterdaySettlement</value>
   </data>
 </root>

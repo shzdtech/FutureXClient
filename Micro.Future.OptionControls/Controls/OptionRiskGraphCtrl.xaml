@@ -29,7 +29,7 @@
                 <GroupBox x:Name="priceGB" Header="{lex:Loc Key=Price}">
                     <StackPanel>
                         <RadioButton x:Name="marketRadioButton" Checked="marketRadioButton_Checked" Content="{lex:Loc Key=Market}" VerticalAlignment="Top"/>
-                        <RadioButton x:Name="settlementRadioButton" Checked="settlementRadioButton_Checked" Content="{lex:Loc Key=Settlement}" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="settlementRadioButton" Checked="settlementRadioButton_Checked" Content="{lex:Loc Key=YesterdaySettlement}" VerticalAlignment="Top"/>
                         <RadioButton x:Name="valuationRadioButton" Checked="valuationRadioButton_Checked" Content="{lex:Loc Key=Valuation}" VerticalAlignment="Top"/>
                     </StackPanel>
                 </GroupBox>
@@ -60,7 +60,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn x:Name="contractHeader" DisplayMemberBinding="{Binding Contract}" Header="{lex:Loc Key=Underlying}" />
+                            <GridViewColumn x:Name="contractHeader" DisplayMemberBinding="{Binding Contract}" Header="{lex:Loc Key=Contract1}" />
                             <GridViewColumn x:Name="futureexpirationHeader" DisplayMemberBinding="{Binding FutureExpiration}" Header="{lex:Loc Key=FutureExp}" />
                             <GridViewColumn x:Name="expirationHeader" DisplayMemberBinding="{Binding Expiration}" Header="{lex:Loc Key=OptionExp}" />
                             <GridViewColumn Header="{lex:Loc Key=Valuation}">

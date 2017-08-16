@@ -826,6 +826,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 标的 的本地化字符串。
+        /// </summary>
+        internal static string Contract1 {
+            get {
+                return ResourceManager.GetString("Contract1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 标的价格 的本地化字符串。
         /// </summary>
         internal static string ContractPrice {
@@ -3558,6 +3567,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string YdPosition {
             get {
                 return ResourceManager.GetString("YdPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 昨结算 的本地化字符串。
+        /// </summary>
+        internal static string YesterdaySettlement {
+            get {
+                return ResourceManager.GetString("YesterdaySettlement", resourceCulture);
             }
         }
         
