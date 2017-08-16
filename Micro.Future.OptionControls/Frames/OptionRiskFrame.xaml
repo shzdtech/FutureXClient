@@ -53,7 +53,7 @@
                     <avalonDock:LayoutAnchorable Title="{lex:Loc Key=RiskGraph}">
                         <c:OptionRiskGraphCtrl x:Name="optionRiskGraphCtrl"/>
                     </avalonDock:LayoutAnchorable>
-                    <avalonDock:LayoutAnchorable Title="{lex:Loc Key=RiskGraph}">
+                    <avalonDock:LayoutAnchorable Title="{lex:Loc Key=ContractRiskGraph}">
                         <c:OptionContractRiskGraphCtrl x:Name="optionContractRiskGraphCtrl"/>
                     </avalonDock:LayoutAnchorable>
                     <avalonDock:LayoutAnchorable Title="{lex:Loc Key=MatrixSet}">

@@ -32,6 +32,8 @@ namespace Micro.Future.UI
     public partial class OptionRiskGraphCtrl : UserControl
 
     {
+        private IList<ContractInfo> _contractList;
+        private IList<ContractInfo> _futurecontractList;
         private IDictionary<string, int> _riskDict = new Dictionary<string, int>();
         //private Timer _timer;
         //public bool PositionUpdated
@@ -62,6 +64,11 @@ namespace Micro.Future.UI
                 set;
             }
             public string Expiration
+            {
+                get;
+                set;
+            }
+            public string FutureExpiration
             {
                 get;
                 set;
@@ -185,6 +192,7 @@ namespace Micro.Future.UI
             InitializeComponent();
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
+            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             //_timer = new Timer(PositionUpdateCallback, null, UpdateInterval, UpdateInterval);
             //_tradeExHandler.OnPositionUpdated += OnPositionUpdated;
             //refreshsSizeIUP.Value = 0;
@@ -216,16 +224,34 @@ namespace Micro.Future.UI
                 deltaRadioButton.IsChecked = true;
                 marketRadioButton.IsChecked = true;
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+
+                var positionList = _tradeExHandler?.PositionVMCollection.Where(s => s.Portfolio == portfolio).Select(s => s.Contract).Distinct();
+                positionList = positionList.Intersect(_futurecontractList.Select(c=>c.Contract));
                 var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
-                    .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
+                                    .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
+
                 var strategyVMList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract)).ToList();
+
+                var unshowContracts = positionList.Except(strategyContractList.Select(s => s.Contract));
+
+                strategyContractList.AddRange(unshowContracts.Select(c => new StrategyBaseVM { Contract = c }));
+
                 foreach (var vm in strategyContractList)
                 {
-                    var contractinfo = ClientDbContext.FindContract(vm.OptionContract);
-                    if (contractinfo != null)
+                    if (vm.OptionContract != null)
                     {
-                        vm.Expiration = contractinfo.ExpireDate;
-                        vm.MktVM = await _marketDataHandler.SubMarketDataAsync(vm.Contract);
+                        var contractinfo = ClientDbContext.FindContract(vm.OptionContract);
+                        if (contractinfo != null)
+                        {
+                            vm.Expiration = contractinfo.ExpireDate;
+                            vm.MktVM = await _marketDataHandler.SubMarketDataAsync(vm.Contract);
+                        }
+                    }
+
+                    var futurecontractinfo = ClientDbContext.FindContract(vm.Contract);
+                    if (futurecontractinfo != null)
+                    {
+                        vm.FutureExpiration = futurecontractinfo.ExpireDate;
                     }
                 }
 

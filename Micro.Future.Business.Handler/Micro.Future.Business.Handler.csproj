@@ -43,13 +43,13 @@
     <Compile Include="Business\BaseHandler\BaseTraderHandler.cs" />
     <Compile Include="Business\BaseHandler\BaseMarketDataHandler.cs" />
     <Compile Include="Business\CTSTradeHandler.cs" />
-    <Compile Include="Business\CTSMarketDataHandler.cs" />
+    <Compile Include="Business\MarketDataHandler\CTSMarketDataHandler.cs" />
     <Compile Include="Business\CTPOptionDataHandler.cs" />
     <Compile Include="Business\AccountHandler.cs" />
-    <Compile Include="Business\MarketDataHandler.cs" />
+    <Compile Include="Business\MarketDataHandler\MarketDataHandler.cs" />
     <Compile Include="Business\OrderEnums.cs" />
     <Compile Include="Business\OTCContractHandler.cs" />
-    <Compile Include="Business\OTCOptionDataHandler.cs" />
+    <Compile Include="Business\MarketDataHandler\OTCOptionDataHandler.cs" />
     <Compile Include="Business\OTCOptionTradeHandler.cs" />
     <Compile Include="Business\ProductEnums.cs" />
     <Compile Include="Business\TraderExHandler.cs" />

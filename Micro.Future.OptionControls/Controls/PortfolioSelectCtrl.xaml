@@ -22,29 +22,84 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Grid.Column="0">
-            
-        <WrapPanel  Width="auto">
-            <GroupBox x:Name="portforlioGB" Header="{lex:Loc Key=Portfolio}" >
-                <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
-            </GroupBox>
-            <GroupBox x:Name="AutoHedge_GroupBox" Header="{lex:Loc Key=Hedging}" >
-                <CheckBox Name="AutoHedge_CheckBox" IsChecked="{Binding Hedging}" Command="{Binding UpdateCommand}" Checked="AutoHedge_Checked" Unchecked="AutoHege_Unchecked" />
-            </GroupBox>
+        <WrapPanel>
+            <StackPanel>
+                <GroupBox x:Name="portforlioGB" Header="{lex:Loc Key=Portfolio}" >
+                    <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
+                </GroupBox>
+                <ListView Name="strategyListView" Grid.Row="1" Grid.Column="0" Width="Auto" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="{lex:Loc Key=Strategy}" DisplayMemberBinding="{Binding StrategyName}" Width="auto" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+            <StackPanel>
+                <WrapPanel>
+                    <GroupBox x:Name="AutoHedge_GroupBox" Header="{lex:Loc Key=Hedging}" >
+                        <CheckBox Name="AutoHedge_CheckBox" IsChecked="{Binding Hedging}" Command="{Binding UpdateCommand}" Checked="AutoHedge_Checked" Unchecked="AutoHege_Unchecked" HorizontalAlignment="Center"/>
+                    </GroupBox>
+                    <GroupBox x:Name="hedgeOrder_GB" Header="{lex:Loc Key=HedgeVolume}">
+                        <xctk:IntegerUpDown x:Name="HedgeVolumeIUD" UpdateValueOnEnterKey="True" Minimum="1" Value="{Binding HedgeVolume}" Spinned="Spinned" ValueChanged="HedgeVolumeValueChanged"/>
+                    </GroupBox>
+                    <GroupBox x:Name="Delay" Header="{lex:Loc Key=Delay}" Width="auto">
+                        <!--<TextBox x:Name="DelayTxt" KeyUp="Delay_KeyUp" HorizontalAlignment="Left" Height="auto" TextWrapping="Wrap" Text="{Binding Delay, StringFormat={}{0:N}}" VerticalAlignment="Top" MinWidth="50"/>-->
+                        <xctk:IntegerUpDown x:Name="DelayTxt" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding Delay}" Spinned="Spinned" ValueChanged="DelayValueChanged"/>
+                    </GroupBox>
+                    <GroupBox x:Name="Threshold" Header="{lex:Loc Key=Threshold}" Width="auto">
+                        <!--<TextBox x:Name="ThresholdTxt"  HorizontalAlignment="Left" Height="auto" TextWrapping="Wrap" Text="{Binding Threshold, StringFormat={}{0:N}}" VerticalAlignment="Top" MinWidth="50" KeyUp="Threshold_KeyUp"/>-->
+                        <xctk:DoubleUpDown x:Name="ThresholdTxt" UpdateValueOnEnterKey="True" Minimum="0" Increment="1" Value="{Binding Threshold}" Spinned="Spinned" ValueChanged="ThresholdValueChanged"/>
+                    </GroupBox>
+                </WrapPanel>
+                <ListView Name="hedgeListView" Grid.Row="1" Grid.Column="1" Width="Auto" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn x:Name="HedgeExchange" Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" />
+                            <GridViewColumn x:Name="HedgeUnderlying" Header="{lex:Loc Key=Underlying}" DisplayMemberBinding="{Binding Underlying}"/>
+                            <!--<GridViewColumn Header="{lex:Loc Key=Contract}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <wpf:AutoCompleteTextBox x:Name="HedgeContractTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" KeyUp="HedgeContract_KeyUp" MouseLeftButtonUp="HedgeContract_MouseLeftButtonUp" Focusable="False" Loaded="HedgeContractTextBox_Loaded" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>-->
+                            <GridViewColumn x:Name="contractComboHead" Header="{lex:Loc Key=Contract}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox x:Name="comboBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Focusable="False" Loaded="HedgeContractComboBox_Loaded" SelectionChanged="HedgeContract_SelectionChanged"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </StackPanel>
+        </WrapPanel>
+
+        <!--<StackPanel Grid.Row="0" Grid.Column="0">
+            <WrapPanel  Width="auto">
+                <GroupBox x:Name="portforlioGB" Header="{lex:Loc Key=Portfolio}" >
+                    <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
+                </GroupBox>
+                <GroupBox x:Name="AutoHedge_GroupBox" Header="{lex:Loc Key=Hedging}" >
+                    <CheckBox Name="AutoHedge_CheckBox" IsChecked="{Binding Hedging}" Command="{Binding UpdateCommand}" Checked="AutoHedge_Checked" Unchecked="AutoHege_Unchecked" HorizontalAlignment="Center"/>
+                </GroupBox>
                 <GroupBox x:Name="hedgeOrder_GB" Header="{lex:Loc Key=HedgeVolume}">
                     <xctk:IntegerUpDown x:Name="HedgeVolumeIUD" UpdateValueOnEnterKey="True" Minimum="1" Value="{Binding HedgeVolume}" Spinned="Spinned" ValueChanged="HedgeVolumeValueChanged"/>
                 </GroupBox>
             </WrapPanel>
-        <WrapPanel Width="auto">
+            <WrapPanel Width="auto">
                 <GroupBox x:Name="Delay" Header="{lex:Loc Key=Delay}" Width="auto">
-                <!--<TextBox x:Name="DelayTxt" KeyUp="Delay_KeyUp" HorizontalAlignment="Left" Height="auto" TextWrapping="Wrap" Text="{Binding Delay, StringFormat={}{0:N}}" VerticalAlignment="Top" MinWidth="50"/>-->
-                <xctk:IntegerUpDown x:Name="DelayTxt" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding Delay}" Spinned="Spinned" ValueChanged="DelayValueChanged"/>
-            </GroupBox>
+                    --><!--<TextBox x:Name="DelayTxt" KeyUp="Delay_KeyUp" HorizontalAlignment="Left" Height="auto" TextWrapping="Wrap" Text="{Binding Delay, StringFormat={}{0:N}}" VerticalAlignment="Top" MinWidth="50"/>--><!--
+                    <xctk:IntegerUpDown x:Name="DelayTxt" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding Delay}" Spinned="Spinned" ValueChanged="DelayValueChanged"/>
+                </GroupBox>
                 <GroupBox x:Name="Threshold" Header="{lex:Loc Key=Threshold}" Width="auto">
-                <!--<TextBox x:Name="ThresholdTxt"  HorizontalAlignment="Left" Height="auto" TextWrapping="Wrap" Text="{Binding Threshold, StringFormat={}{0:N}}" VerticalAlignment="Top" MinWidth="50" KeyUp="Threshold_KeyUp"/>-->
-                <xctk:DoubleUpDown x:Name="ThresholdTxt" UpdateValueOnEnterKey="True" Minimum="0" Increment="1" Value="{Binding Threshold}" Spinned="Spinned" ValueChanged="ThresholdValueChanged"/>
-            </GroupBox>
-        </WrapPanel>
+                    --><!--<TextBox x:Name="ThresholdTxt"  HorizontalAlignment="Left" Height="auto" TextWrapping="Wrap" Text="{Binding Threshold, StringFormat={}{0:N}}" VerticalAlignment="Top" MinWidth="50" KeyUp="Threshold_KeyUp"/>--><!--
+                    <xctk:DoubleUpDown x:Name="ThresholdTxt" UpdateValueOnEnterKey="True" Minimum="0" Increment="1" Value="{Binding Threshold}" Spinned="Spinned" ValueChanged="ThresholdValueChanged"/>
+                </GroupBox>
+            </WrapPanel>
         </StackPanel>
 
         <ListView Name="strategyListView" Grid.Row="1" Grid.Column="0" Width="Auto" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
@@ -60,23 +115,23 @@
                     <GridView>
                         <GridViewColumn x:Name="HedgeExchange" Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" />
                         <GridViewColumn x:Name="HedgeUnderlying" Header="{lex:Loc Key=Underlying}" DisplayMemberBinding="{Binding Underlying}"/>
-                        <!--<GridViewColumn Header="{lex:Loc Key=Contract}">
+                        --><!--<GridViewColumn Header="{lex:Loc Key=Contract}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <wpf:AutoCompleteTextBox x:Name="HedgeContractTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" KeyUp="HedgeContract_KeyUp" MouseLeftButtonUp="HedgeContract_MouseLeftButtonUp" Focusable="False" Loaded="HedgeContractTextBox_Loaded" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
-                        </GridViewColumn>-->
+                        </GridViewColumn>--><!--
                         <GridViewColumn x:Name="contractComboHead" Header="{lex:Loc Key=Contract}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox x:Name="comboBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Focusable="False" Loaded="HedgeContractComboBox_Loaded" SelectionChanged="HedgeContract_SelectionChanged"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
-                        </GridViewColumn>                        
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
-        </WrapPanel>
+        </WrapPanel>-->
     </Grid>
 </UserControl>

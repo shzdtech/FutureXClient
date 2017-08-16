@@ -1269,4 +1269,13 @@
   <data name="NewPassWord" xml:space="preserve">
     <value>NewPassWord</value>
   </data>
+  <data name="FutureExp" xml:space="preserve">
+    <value>FutureExp</value>
+  </data>
+  <data name="OptionExp" xml:space="preserve">
+    <value>OptionExp</value>
+  </data>
+  <data name="UnderlyingExpiration" xml:space="preserve">
+    <value>UnderlyingExpiration</value>
+  </data>
 </root>
