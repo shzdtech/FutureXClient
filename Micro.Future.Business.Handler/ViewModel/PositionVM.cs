@@ -23,15 +23,9 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        private int _position;
         public int Position
         {
-            get { return _position; }
-            set
-            {
-                _position = value;
-                OnPropertyChanged("Position");
-            }
+            get { return YdPosition + TodayPosition; }
         }
 
         ///上日持仓
@@ -42,7 +36,7 @@ namespace Micro.Future.ViewModel
             set
             {
                 _ydPosition = value;
-                OnPropertyChanged("YdPosition");
+                OnPropertyChanged(nameof(YdPosition));
             }
         }
 
@@ -119,14 +113,30 @@ namespace Micro.Future.ViewModel
         }
 
         ///持仓成本
-        private double _cost;
         public double Cost
         {
-            get { return _cost; }
+            get { return TdCost + YdCost; }
+        }
+
+        private double _tdCost;
+        public double TdCost
+        {
+            get { return _tdCost; }
             set
             {
-                _cost = value;
-                OnPropertyChanged("Cost");
+                _tdCost = value;
+                OnPropertyChanged(nameof(Cost));
+            }
+        }
+
+        private double _ydCost;
+        public double YdCost
+        {
+            get { return _ydCost; }
+            set
+            {
+                _ydCost = value;
+                OnPropertyChanged(nameof(Cost));
             }
         }
 
@@ -300,18 +310,11 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("PositionVega");
             }
         }
-
-        private double _meanCost;
         public double MeanCost
         {
             get
             {
-                return _meanCost;
-            }
-            set
-            {
-                _meanCost = value;
-                OnPropertyChanged(nameof(MeanCost));
+                return Cost / Position / Multiplier; ;
             }
         }
 

@@ -77,7 +77,39 @@ namespace Micro.Future.Message
                 ((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, OnUpdateOrder, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBPosition, ExceptionMessage>
                ((uint)BusinessMessageID.MSG_ID_POSITION_UPDATED, OnUpdatePosition, ErrorMsgAction);
+            MessageWrapper.RegisterAction<PBPosition, ExceptionMessage>
+               ((uint)BusinessMessageID.MSG_ID_EXCHANGE_POSITION_UPDATED, OnExchangeUpdatePosition, ErrorMsgAction);
 
+        }
+
+        private void OnExchangeUpdatePosition(PBPosition rsp)
+        {
+            lock (PositionVMCollection)
+            {
+                var positionCollection = PositionVMCollection.Where(p =>
+                    p.Contract == rsp.Contract && (int)p.Direction == rsp.Direction);
+
+                foreach (var positionVM in positionCollection)
+                {
+                    if (positionVM != null)
+                    {
+                        if (rsp.PositionDateFlag == (int)PositionDateFlagType.PSD_TODAY)
+                        {
+                            if (rsp.TdPosition > 0)
+                            {
+                                positionVM.TdCost = rsp.TdCost / rsp.TdPosition * positionVM.TdCost;
+                            }
+                        }
+                        else
+                        {
+                            if (rsp.YdPosition > 0)
+                            {
+                                positionVM.YdCost = rsp.YdCost / rsp.YdPosition * positionVM.YdCost;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void ErrorMsgAction(ExceptionMessage bizErr)
@@ -117,7 +149,7 @@ namespace Micro.Future.Message
                 PositionVM positionVM = PositionVMCollection.FirstOrDefault(p =>
                     p.Contract == rsp.Contract && (int)p.Direction == rsp.Direction && p.Portfolio == rsp.Portfolio);
 
-                if (rsp.Position == 0)
+                if (rsp.TdPosition == 0 && rsp.YdPosition == 0)
                 {
                     if (positionVM != null)
                         PositionVMCollection.Remove(positionVM);
@@ -141,21 +173,19 @@ namespace Micro.Future.Message
                             HedgeFlag = (HedgeType)rsp.HedgeFlag,
                             PositionDateFlag = (PositionDateFlagType)rsp.PositionDateFlag,
                             Multiplier = contractInfo == null ? 1 : contractInfo.VolumeMultiple,
-                            Position = rsp.Position,
                             TodayPosition = rsp.TdPosition,
                             YdPosition = rsp.YdPosition,
                             OpenVolume = rsp.OpenVolume,
                             CloseVolume = rsp.CloseVolume,
                             OpenAmount = rsp.OpenAmount,
                             CloseAmount = rsp.CloseAmount,
-                            Cost = rsp.Cost,
+                            TdCost = rsp.TdCost,
+                            YdCost = rsp.YdCost,
                             OpenCost = rsp.OpenCost,
                             Profit = rsp.Profit,
                             CloseProfit = rsp.CloseProfit,
                             UseMargin = rsp.UseMargin,
                         };
-
-                        positionVM.MeanCost = rsp.Cost / rsp.Position / positionVM.Multiplier;
 
                         PositionVMCollection.Add(positionVM);
                         PositionContractSet.Add(rsp.Contract);
@@ -164,27 +194,17 @@ namespace Micro.Future.Message
                     }
                     else
                     {
-                        positionVM.TodayPosition = rsp.TdPosition;
-                        positionVM.YdPosition = rsp.YdPosition;
                         positionVM.OpenVolume = rsp.OpenVolume;
                         positionVM.CloseVolume = rsp.CloseVolume;
                         positionVM.OpenAmount = rsp.OpenAmount;
                         positionVM.CloseAmount = rsp.CloseAmount;
-                        positionVM.Cost = rsp.Cost;
                         positionVM.OpenCost = rsp.OpenCost;
-                        positionVM.Profit = rsp.Profit;
-                        positionVM.CloseProfit = rsp.CloseProfit;
-                        positionVM.UseMargin = rsp.UseMargin;
-                        positionVM.MeanCost = rsp.Cost / rsp.Position / positionVM.Multiplier;
 
-                        if (positionVM.Position != rsp.Position)
+                        if (positionVM.YdPosition != rsp.YdPosition || positionVM.TodayPosition != rsp.TdPosition)
                         {
-                            positionVM.Position = rsp.Position;
+                            positionVM.TodayPosition = rsp.TdPosition;
+                            positionVM.YdPosition = rsp.YdPosition;
                             OnPositionUpdated?.Invoke(positionVM);
-                        }
-                        else
-                        {
-                            positionVM.Position = rsp.Position;
                         }
                     }
                 }
