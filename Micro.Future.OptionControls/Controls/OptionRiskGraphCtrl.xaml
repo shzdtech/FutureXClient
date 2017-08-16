@@ -17,7 +17,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.22*"/>
+            <ColumnDefinition Width="0.4*"/>
             <ColumnDefinition Width="3"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -103,8 +103,8 @@
         <oxy:Plot x:Name="plotModel" Grid.Column="2" BorderThickness="3">
             <oxy:ColumnSeries x:Name="columnSeries" />
             <oxy:Plot.Axes>
-                <oxy:CategoryAxis  x:Name="strikeAxis" Position="Bottom" Title="StrikePrice"/>
-                <oxy:LinearAxis x:Name="greeksAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="Greeks"/>
+                <oxy:CategoryAxis  x:Name="strikeAxis" Position="Bottom" Title="{lex:Loc Key=StrikePrice}"/>
+                <oxy:LinearAxis x:Name="greeksAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="{lex:Loc Key=Greeks}"/>
             </oxy:Plot.Axes>
         </oxy:Plot>
     </Grid>

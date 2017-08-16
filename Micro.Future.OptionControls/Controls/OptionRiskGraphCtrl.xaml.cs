@@ -32,7 +32,6 @@ namespace Micro.Future.UI
     public partial class OptionRiskGraphCtrl : UserControl
 
     {
-        private IList<ContractInfo> _contractList;
         private IList<ContractInfo> _futurecontractList;
         private IDictionary<string, int> _riskDict = new Dictionary<string, int>();
         //private Timer _timer;
@@ -224,15 +223,19 @@ namespace Micro.Future.UI
                 deltaRadioButton.IsChecked = true;
                 marketRadioButton.IsChecked = true;
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
-
+                var riskVMCollection = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+                var riskVMList = riskVMCollection.Select(s => s.Contract).Distinct();
                 var positionList = _tradeExHandler?.PositionVMCollection.Where(s => s.Portfolio == portfolio).Select(s => s.Contract).Distinct();
-                positionList = positionList.Intersect(_futurecontractList.Select(c=>c.Contract));
+                positionList = positionList.Intersect(_futurecontractList.Select(c => c.Contract));
+                var portfolioVM = _otcOptionHandler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
+                var hedgeContractList = portfolioVM.HedgeContractParams.Select(c => c.Contract).Distinct().ToList();
                 var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
                                     .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
 
                 var strategyVMList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract)).ToList();
 
                 var unshowContracts = positionList.Except(strategyContractList.Select(s => s.Contract));
+                var unshowRiskContracts = hedgeContractList.Except(strategyContractList.Select(s => s.Contract));
 
                 strategyContractList.AddRange(unshowContracts.Select(c => new StrategyBaseVM { Contract = c }));
 
@@ -247,11 +250,13 @@ namespace Micro.Future.UI
                             vm.MktVM = await _marketDataHandler.SubMarketDataAsync(vm.Contract);
                         }
                     }
-
-                    var futurecontractinfo = ClientDbContext.FindContract(vm.Contract);
-                    if (futurecontractinfo != null)
+                    if (vm.Contract != null)
                     {
-                        vm.FutureExpiration = futurecontractinfo.ExpireDate;
+                        var futurecontractinfo = ClientDbContext.FindContract(vm.Contract);
+                        if (futurecontractinfo != null)
+                        {
+                            vm.FutureExpiration = futurecontractinfo.ExpireDate;
+                        }
                     }
                 }
 

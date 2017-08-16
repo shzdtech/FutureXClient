@@ -1276,12 +1276,15 @@
     <value>新密码</value>
   </data>
   <data name="FutureExp" xml:space="preserve">
-    <value>期货到期日</value>
+    <value>标的到期日</value>
   </data>
   <data name="OptionExp" xml:space="preserve">
     <value>期权到期日</value>
   </data>
   <data name="UnderlyingExpiration" xml:space="preserve">
     <value>标的到期日</value>
+  </data>
+  <data name="Greeks" xml:space="preserve">
+    <value>希腊值</value>
   </data>
 </root>

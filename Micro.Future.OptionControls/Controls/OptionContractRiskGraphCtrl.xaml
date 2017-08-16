@@ -17,7 +17,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.22*"/>
+            <ColumnDefinition Width="0.4*"/>
             <ColumnDefinition Width="3"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -105,7 +105,7 @@
             <oxy:ColumnSeries x:Name="columnSeries" />
             <oxy:Plot.Axes>
                 <oxy:CategoryAxis  x:Name="baseContractAxis" Position="Bottom" Title="{lex:Loc Key=Contract}"/>
-                <oxy:LinearAxis x:Name="greeksAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="Greeks"/>
+                <oxy:LinearAxis x:Name="greeksAxis" MajorGridlineStyle="Solid" MinorGridlineStyle="Dot" Position="Left" Title="{lex:Loc Key=Greeks}"/>
             </oxy:Plot.Axes>
         </oxy:Plot>
     </Grid>

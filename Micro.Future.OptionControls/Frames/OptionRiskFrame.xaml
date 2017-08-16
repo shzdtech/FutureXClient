@@ -47,7 +47,7 @@
         <avalonDock:LayoutRoot>
             <avalonDock:LayoutPanel Orientation="Vertical">
                 <avalonDock:LayoutAnchorablePane x:Name="optionRiskPane">
-                    <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Risk}" Closed="OptionRiskCtrl_Closed" >
+                    <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Risk}" Closed="OptionRiskCtrl_Closed">
                         <c:OptionRiskCtrl x:Name="optionRiskCtrl"/>
                     </avalonDock:LayoutAnchorable>
                     <avalonDock:LayoutAnchorable Title="{lex:Loc Key=RiskGraph}">

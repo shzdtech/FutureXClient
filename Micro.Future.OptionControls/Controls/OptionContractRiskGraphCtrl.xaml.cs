@@ -330,6 +330,10 @@ namespace Micro.Future.UI
                 var portfolio = portfolioCB.SelectedValue?.ToString();
                 deltaRadioButton.IsChecked = true;
                 marketRadioButton.IsChecked = true;
+                var riskVMCollection = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+                var riskVMList = riskVMCollection.Select(s => s.Contract).Distinct();
+                var portfolioVM = _otcOptionHandler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
+                var hedgeContractList = portfolioVM.HedgeContractParams.Select(c => c.Contract).Distinct().ToList();
                 var positionList = _tradeExHandler?.PositionVMCollection.Where(s => s.Portfolio == portfolio).Select(s => s.Contract).Distinct();
                 positionList = positionList.Intersect(_futurecontractList.Select(c => c.Contract));
 
@@ -338,20 +342,26 @@ namespace Micro.Future.UI
                                     .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
                 var strategyVMList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract)).ToList();
                 var unshowContracts = positionList.Except(strategyContractList.Select(s => s.Contract));
-
-                strategyContractList.AddRange(unshowContracts.Select(c => new StrategyBaseVM { Contract = c }));
+                var unshowRiskContracts = hedgeContractList.Except(strategyContractList.Select(s => s.OptionContract));
+                strategyContractList.AddRange(unshowRiskContracts.Select(c => new StrategyBaseVM { Contract = c }));
                 foreach (var vm in strategyContractList)
                 {
-                    var contractinfo = ClientDbContext.FindContract(vm.OptionContract);
-                    if (contractinfo != null)
+                    if (vm.OptionContract != null)
                     {
-                        vm.Expiration = contractinfo.ExpireDate;
-                        vm.MktVM = await _marketDataHandler.SubMarketDataAsync(vm.Contract);
+                        var contractinfo = ClientDbContext.FindContract(vm.OptionContract);
+                        if (contractinfo != null)
+                        {
+                            vm.Expiration = contractinfo.ExpireDate;
+                            vm.MktVM = await _marketDataHandler.SubMarketDataAsync(vm.Contract);
+                        }
                     }
-                    var futurecontractinfo = ClientDbContext.FindContract(vm.Contract);
-                    if (futurecontractinfo != null)
+                    if (vm.Contract != null)
                     {
-                        vm.FutureExpiration = futurecontractinfo.ExpireDate;
+                        var futurecontractinfo = ClientDbContext.FindContract(vm.Contract);
+                        if (futurecontractinfo != null)
+                        {
+                            vm.FutureExpiration = futurecontractinfo.ExpireDate;
+                        }
                     }
                 }
 

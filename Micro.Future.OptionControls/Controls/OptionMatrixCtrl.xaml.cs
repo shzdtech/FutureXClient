@@ -126,6 +126,11 @@ namespace Micro.Future.UI
                 get;
                 set;
             }
+            public string FutureExpiration
+            {
+                get;
+                set;
+            }
             public bool RiskGraphEnable
             {
                 get;
@@ -274,7 +279,8 @@ namespace Micro.Future.UI
 
             queryvaluation.Interest = interestUP.Value;
             queryvaluation.DaysRemain = expIUP.Value;
-
+            queryvaluationzero.Interest = interestUP.Value;
+            queryvaluationzero.DaysRemain = expIUP.Value;
             foreach (var item in expirationLV.ItemsSource)
             {
                 var strategyvm = item as StrategyBaseVM;
@@ -299,7 +305,7 @@ namespace Micro.Future.UI
 
                     }
                     var tableValuation = price - priceCntIUP.Value * price * priceSizeIUP.Value / 100 + (y - 1) * price * priceSizeIUP.Value / 100;
-                    var tableVol = 0 + volCntIUP.Value * volSizeIUP.Value/100 - (x - 1) * volSizeIUP.Value/100;
+                    var tableVol = 0 + volCntIUP.Value * volSizeIUP.Value / 100 - (x - 1) * volSizeIUP.Value / 100;
                     TableValuation = (double)tableValuation;
                     TableVol = (double)tableVol;
                     queryvaluationzero.ContractParams[strategyvm.Contract] = new ValuationParam { Price = price, Volatitly = 0 };
@@ -534,17 +540,35 @@ namespace Micro.Future.UI
                 deltaCheckBox.IsChecked = true;
                 marketRadioButton.IsChecked = true;
                 absoluteRadioButton.IsChecked = true;
+                var riskVMCollection = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+                var riskVMList = riskVMCollection.Select(s => s.Contract).Distinct();
+                var portfolioVM = _otcOptionHandler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
+                var hedgeContractList = portfolioVM.HedgeContractParams.Select(c => c.Contract).Distinct().ToList();
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
                 var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
                     .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
                 var strategyVMList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract)).ToList();
+                var unshowRiskContracts = hedgeContractList.Except(strategyContractList.Select(s => s.Contract));
+                strategyContractList.AddRange(unshowRiskContracts.Select(c => new StrategyBaseVM { Contract = c }));
+
                 foreach (var vm in strategyContractList)
                 {
-                    var contractinfo = ClientDbContext.FindContract(vm.OptionContract);
-                    if (contractinfo != null)
+                    if (vm.OptionContract != null)
                     {
-                        vm.Expiration = contractinfo.ExpireDate;
-                        vm.MktVM = await _marketdataHandler.SubMarketDataAsync(vm.Contract);
+                        var contractinfo = ClientDbContext.FindContract(vm.OptionContract);
+                        if (contractinfo != null)
+                        {
+                            vm.Expiration = contractinfo.ExpireDate;
+                            vm.MktVM = await _marketdataHandler.SubMarketDataAsync(vm.Contract);
+                        }
+                    }
+                    if (vm.Contract != null)
+                    {
+                        var futurecontractinfo = ClientDbContext.FindContract(vm.Contract);
+                        if (futurecontractinfo != null)
+                        {
+                            vm.FutureExpiration = futurecontractinfo.ExpireDate;
+                        }
                     }
                 }
 
@@ -559,7 +583,12 @@ namespace Micro.Future.UI
                 VolSize = (int)volSizeIUP.Value;
                 PriceCnt = (int)priceCntIUP.Value;
                 PriceSize = (int)priceSizeIUP.Value;
-
+                var tradingday = _tradeExHandler.FundVM.TradingDay;
+                var tradingdatetime = DateTime.ParseExact(tradingday.ToString(),
+                                        "yyyyMMdd",
+                                        CultureInfo.InvariantCulture);
+                var datetime = tradingdatetime.AddDays((int)expIUP.Value);
+                LabelExpiredate.Content = datetime.ToString("yyyyMMdd");
                 //var strikeSet = new SortedSet<double>();
                 //foreach (var vm in strategyVMList)
                 //{

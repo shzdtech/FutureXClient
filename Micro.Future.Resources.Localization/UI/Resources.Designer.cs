@@ -1294,7 +1294,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 期货到期日 的本地化字符串。
+        ///   查找类似 标的到期日 的本地化字符串。
         /// </summary>
         internal static string FutureExp {
             get {
@@ -1317,6 +1317,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string GFD {
             get {
                 return ResourceManager.GetString("GFD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 希腊值 的本地化字符串。
+        /// </summary>
+        internal static string Greeks {
+            get {
+                return ResourceManager.GetString("Greeks", resourceCulture);
             }
         }
         

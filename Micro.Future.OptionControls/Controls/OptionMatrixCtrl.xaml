@@ -17,7 +17,7 @@
 
     <Grid ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.3*" AllowDrop="True" ScrollViewer.VerticalScrollBarVisibility="Visible"  ScrollViewer.CanContentScroll="True"/>
+            <ColumnDefinition Width="0.4*" AllowDrop="True" ScrollViewer.VerticalScrollBarVisibility="Visible"  ScrollViewer.CanContentScroll="True"/>
             <ColumnDefinition Width="3"/>
             <ColumnDefinition Width="*" AllowDrop="True" ScrollViewer.VerticalScrollBarVisibility="Visible"  ScrollViewer.CanContentScroll="True"/>
         </Grid.ColumnDefinitions>
@@ -65,7 +65,8 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn x:Name="contractHeader" DisplayMemberBinding="{Binding Contract}" Header="{lex:Loc Key=Contract}" />
-                            <GridViewColumn x:Name="expirationHeader" DisplayMemberBinding="{Binding Expiration}" Header="{lex:Loc Key=Expiration}" />
+                            <GridViewColumn x:Name="futureexpirationHeader" DisplayMemberBinding="{Binding FutureExpiration}" Header="{lex:Loc Key=FutureExp}" />
+                            <GridViewColumn x:Name="expirationHeader" DisplayMemberBinding="{Binding Expiration}" Header="{lex:Loc Key=OptionExp}" />
                             <GridViewColumn Header="{lex:Loc Key=Valuation}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
