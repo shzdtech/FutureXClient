@@ -39,7 +39,7 @@
                 </GroupBox>
             </WrapPanel>
 
-            <GroupBox x:Name="riskGB" Header="{lex:Loc Key=Risk}">
+            <GroupBox x:Name="riskGB" Header="{lex:Loc Key=GreeksGroupTitle}">
                 <StackPanel>
                     <RadioButton x:Name="deltaRadioButton" Checked="deltaRadioButton_Checked" Content="Delta" VerticalAlignment="Top"/>
                     <RadioButton x:Name="gammaRadioButton" Checked="gammaRadioButton_Checked" Content="Gamma" VerticalAlignment="Top"/>
@@ -85,9 +85,9 @@
             </GroupBox>
             <GroupBox x:Name="typeGB" Header="{lex:Loc Key=Type}">
                 <StackPanel>
-                    <CheckBox x:Name="callCheckBox" Content="Call" Checked="callCheckBox_Checked" Unchecked="callCheckBox_Unchecked"/>
-                    <CheckBox x:Name="putCheckBox" Content="Put" Checked="putCheckBox_Checked" Unchecked="putCheckBox_Unchecked"/>
-                    <CheckBox x:Name="futureCheckBox" Content="Future" Checked="futureCheckBox_Checked" Unchecked="futureCheckBox_Unchecked"/>
+                    <CheckBox x:Name="callCheckBox" Content="{lex:Loc Key=Call}" Checked="callCheckBox_Checked" Unchecked="callCheckBox_Unchecked"/>
+                    <CheckBox x:Name="putCheckBox" Content="{lex:Loc Key=Put}" Checked="putCheckBox_Checked" Unchecked="putCheckBox_Unchecked"/>
+                    <CheckBox x:Name="futureCheckBox" Content="{lex:Loc Key=Future}" Checked="futureCheckBox_Checked" Unchecked="futureCheckBox_Unchecked"/>
                 </StackPanel>
             </GroupBox>
             <WrapPanel>

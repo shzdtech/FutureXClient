@@ -26,7 +26,7 @@
                 <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
             </GroupBox>
             <WrapPanel>
-                <GroupBox x:Name="priceGB" Header="{lex:Loc Key=ContractPrice}">
+                <GroupBox x:Name="priceGB" Header="{lex:Loc Key=Price}">
                     <StackPanel>
                         <RadioButton x:Name="marketRadioButton" Content="{lex:Loc Key=Market}" VerticalAlignment="Top" Checked="marketRadioButton_Checked"/>
                         <RadioButton x:Name="settlementRadioButton" Content="{lex:Loc Key=YesterdaySettlement}" VerticalAlignment="Top" Checked="settlementRadioButton_Checked"/>
@@ -38,7 +38,7 @@
                     </WrapPanel>
                 </GroupBox>
             </WrapPanel>
-            <GroupBox x:Name="riskGB" Header="{lex:Loc Key=Risk}">
+            <GroupBox x:Name="riskGB" Header="{lex:Loc Key=GreeksGroupTitle}">
                 <WrapPanel>
                     <StackPanel>
                         <CheckBox Name="deltaCheckBox" Content="Delta" HorizontalAlignment="Left" Checked="deltaCheckBox_Checked" Unchecked="deltaCheckBox_Unchecked"/>
@@ -90,9 +90,9 @@
             <WrapPanel>
                 <GroupBox x:Name="typeGB" Header="{lex:Loc Key=Type}">
                     <StackPanel>
-                        <CheckBox x:Name="callCheckBox" Content="Call" Checked="callCheckBox_Checked" Unchecked="callCheckBox_Unchecked"/>
-                        <CheckBox x:Name="putCheckBox" Content="Put" Checked="putCheckBox_Checked" Unchecked="putCheckBox_Unchecked"/>
-                        <CheckBox x:Name="futureCheckBox" Content="Future" Checked="futureCheckBox_Checked" Unchecked="futureCheckBox_Unchecked"/>
+                        <CheckBox x:Name="callCheckBox" Content="{lex:Loc Key=Call}" Checked="callCheckBox_Checked" Unchecked="callCheckBox_Unchecked"/>
+                        <CheckBox x:Name="putCheckBox" Content="{lex:Loc Key=Put}" Checked="putCheckBox_Checked" Unchecked="putCheckBox_Unchecked"/>
+                        <CheckBox x:Name="futureCheckBox" Content="{lex:Loc Key=Future}" Checked="futureCheckBox_Checked" Unchecked="futureCheckBox_Unchecked"/>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox x:Name="displayGB" Header="{lex:Loc Key=DisplaySet}">

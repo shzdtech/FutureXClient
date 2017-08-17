@@ -1287,4 +1287,16 @@
   <data name="YesterdaySettlement" xml:space="preserve">
     <value>YesterdaySettlement</value>
   </data>
+  <data name="Call" xml:space="preserve">
+    <value>Call</value>
+  </data>
+  <data name="Future" xml:space="preserve">
+    <value>Future</value>
+  </data>
+  <data name="GreeksGroupTitle" xml:space="preserve">
+    <value>Greeks</value>
+  </data>
+  <data name="Put" xml:space="preserve">
+    <value>Put</value>
+  </data>
 </root>

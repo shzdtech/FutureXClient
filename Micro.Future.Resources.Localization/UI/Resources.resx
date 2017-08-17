@@ -1293,4 +1293,16 @@
   <data name="YesterdaySettlement" xml:space="preserve">
     <value>昨结算</value>
   </data>
+  <data name="Call" xml:space="preserve">
+    <value>看涨</value>
+  </data>
+  <data name="Future" xml:space="preserve">
+    <value>期货</value>
+  </data>
+  <data name="GreeksGroupTitle" xml:space="preserve">
+    <value>希腊值</value>
+  </data>
+  <data name="Put" xml:space="preserve">
+    <value>看跌</value>
+  </data>
 </root>

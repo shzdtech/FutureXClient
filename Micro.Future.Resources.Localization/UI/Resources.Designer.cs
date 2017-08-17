@@ -403,6 +403,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 看涨 的本地化字符串。
+        /// </summary>
+        internal static string Call {
+            get {
+                return ResourceManager.GetString("Call", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 看涨(卖价) 的本地化字符串。
         /// </summary>
         internal static string CallAsk {
@@ -1276,6 +1285,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 期货 的本地化字符串。
+        /// </summary>
+        internal static string Future {
+            get {
+                return ResourceManager.GetString("Future", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 期货1 的本地化字符串。
         /// </summary>
         internal static string Future1 {
@@ -1335,6 +1353,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Greeks {
             get {
                 return ResourceManager.GetString("Greeks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 希腊值 的本地化字符串。
+        /// </summary>
+        internal static string GreeksGroupTitle {
+            get {
+                return ResourceManager.GetString("GreeksGroupTitle", resourceCulture);
             }
         }
         
@@ -2550,6 +2577,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string PUpperLimitPrice {
             get {
                 return ResourceManager.GetString("PUpperLimitPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 看跌 的本地化字符串。
+        /// </summary>
+        internal static string Put {
+            get {
+                return ResourceManager.GetString("Put", resourceCulture);
             }
         }
         

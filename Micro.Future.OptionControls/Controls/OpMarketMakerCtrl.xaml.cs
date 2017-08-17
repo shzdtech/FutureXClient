@@ -809,7 +809,29 @@ namespace Micro.Future.UI
 
         private void orderCondition_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (CallPutTDOptionVMCollection != null)
+            {
+                foreach (var vm in CallPutTDOptionVMCollection)
+                {
+                    if (vm.CallStrategyVM != null)
+                    {
+                        if(orderConditionCombo.SelectedValue!=null)
+                        {
+                            vm.CallStrategyVM.ConditionType = (OrderConditionType)orderConditionCombo.SelectedValue;
+                            vm.CallStrategyVM.UpdateStrategy(true);
+                        }
+                    }
+                    if (vm.PutStrategyVM != null)
+                    {
+                        if (orderConditionCombo.SelectedValue != null)
+                        {
+                            vm.PutStrategyVM.ConditionType = (OrderConditionType)orderConditionCombo.SelectedValue;
+                            vm.PutStrategyVM.UpdateStrategy(true);
+                        }
 
+                    }
+                }
+            }
         }
     }
 }

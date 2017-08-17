@@ -94,7 +94,7 @@ namespace Micro.Future.UI
                 var strategySymbolList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
                     .Select(c => new { StrategyName = c.StrategySym }).Distinct().ToList();
                 strategyListView.ItemsSource = strategySymbolList;
-                hedgeListView.ItemsSource = portfolioVM.HedgeContractParams.OrderBy(c=>c.Contract);
+                hedgeListView.ItemsSource = portfolioVM.HedgeContractParams.OrderByDescending(c=>c.Contract);
                 //var portfolioDataContext = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection
                 //    .Where(c => c.Name == portfolio).Distinct();
                 DelayTxt.DataContext = portfolioVM;
