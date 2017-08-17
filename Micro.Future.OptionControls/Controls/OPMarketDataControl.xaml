@@ -20,7 +20,7 @@
             <ListView Name="quoteListView" Grid.Row="0" SelectionChanged="quoteListView_SelectionChanged" GridViewColumnHeader.Click="quoteListView_Click" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=Contract1}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
                         <GridViewColumn Header="{lex:Loc Key=QuoteVolume}" Width="auto">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

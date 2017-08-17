@@ -2,6 +2,7 @@
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
+using Micro.Future.Utility;
 using Micro.Future.ViewModel;
 using OxyPlot.Series;
 using System;
@@ -561,6 +562,14 @@ namespace Micro.Future.UI
         private void futureCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             ReloadDataCallback();
+        }
+        private void quoteListView_Click(object sender, RoutedEventArgs e)
+        {
+            var head = e.OriginalSource as GridViewColumnHeader;
+            if (head != null)
+            {
+                GridViewUtility.Sort(head.Column, expirationLV.Items);
+            }
         }
         //private void IntSpinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
         //{

@@ -461,8 +461,8 @@ namespace Micro.Future.UI
                 }
             }
 
-            queryvaluation.Interest = interestUP.Value;
-            queryvaluation.DaysRemain = expIUP.Value;
+            //queryvaluation.Interest = interestUP.Value;
+            //queryvaluation.DaysRemain = expIUP.Value;
             //queryvaluationzero.Interest = 0;
             //queryvaluationzero.DaysRemain = 0;
 
@@ -1007,7 +1007,14 @@ namespace Micro.Future.UI
         {
             ReloadDataCallback();
         }
-
+        private void quoteListView_Click(object sender, RoutedEventArgs e)
+        {
+            var head = e.OriginalSource as GridViewColumnHeader;
+            if (head != null)
+            {
+                GridViewUtility.Sort(head.Column, expirationLV.Items);
+            }
+        }
         //private void refreshsSizeIUP_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         //{
         //    var updownctrl = sender as IntegerUpDown;
