@@ -367,7 +367,8 @@ namespace Micro.Future.UI
                                 CountertextBox.DataContext = strategyVM;
                                 AutoMaxTradeUpdate((int)CountertextBox.Value);
                                 TickSizeIUD.DataContext = strategyVM;
-                                orderConditionCombo.SelectedItem = OrderConditionType.LIMIT;
+                                orderConditionCombo.SelectedValue = OrderConditionType.LIMIT;
+                                orderConditionSelectionChanged(OrderConditionType.LIMIT);
                                 var modelVM = pricingModelCB.SelectedItem as ModelParamsVM;
                                 if (modelVM != null)
                                 {
@@ -817,31 +818,6 @@ namespace Micro.Future.UI
                     {
                         if(orderConditionCombo.SelectedValue!=null)
                         {
-                            vm.CallStrategyVM.ConditionType = (OrderConditionType)orderConditionCombo.SelectedItem;
-                            vm.CallStrategyVM.UpdateStrategy(true);
-                        }
-                    }
-                    if (vm.PutStrategyVM != null)
-                    {
-                        if (orderConditionCombo.SelectedValue != null)
-                        {
-                            vm.PutStrategyVM.ConditionType = (OrderConditionType)orderConditionCombo.SelectedItem;
-                            vm.PutStrategyVM.UpdateStrategy(true);
-                        }
-                    }
-                }
-            }
-        }
-        private void orderConditionSelectionChanged()
-        {
-            if (CallPutTDOptionVMCollection != null)
-            {
-                foreach (var vm in CallPutTDOptionVMCollection)
-                {
-                    if (vm.CallStrategyVM != null)
-                    {
-                        if (orderConditionCombo.SelectedValue != null)
-                        {
                             vm.CallStrategyVM.ConditionType = (OrderConditionType)orderConditionCombo.SelectedValue;
                             vm.CallStrategyVM.UpdateStrategy(true);
                         }
@@ -851,6 +827,31 @@ namespace Micro.Future.UI
                         if (orderConditionCombo.SelectedValue != null)
                         {
                             vm.PutStrategyVM.ConditionType = (OrderConditionType)orderConditionCombo.SelectedValue;
+                            vm.PutStrategyVM.UpdateStrategy(true);
+                        }
+                    }
+                }
+            }
+        }
+        private void orderConditionSelectionChanged(OrderConditionType ordertype)
+        {
+            if (CallPutTDOptionVMCollection != null)
+            {
+                foreach (var vm in CallPutTDOptionVMCollection)
+                {
+                    if (vm.CallStrategyVM != null)
+                    {
+                        if (orderConditionCombo.SelectedValue != null)
+                        {
+                            vm.CallStrategyVM.ConditionType = ordertype;
+                            vm.CallStrategyVM.UpdateStrategy(true);
+                        }
+                    }
+                    if (vm.PutStrategyVM != null)
+                    {
+                        if (orderConditionCombo.SelectedValue != null)
+                        {
+                            vm.PutStrategyVM.ConditionType = ordertype;
                             vm.PutStrategyVM.UpdateStrategy(true);
                         }
 
