@@ -257,6 +257,7 @@ namespace Micro.Future.UI
                 _otcOptionHandler.NewWingModelInstance(volModelSettingsWin.VolModelTabTitle);
                 var modelparamsVM = await _otcOptionHandler.QueryModelParamsAsync(volModelSettingsWin.VolModelTabTitle);
                 optionModelCtrl.WMSettingsLV.DataContext = modelparamsVM;
+                optionModelCtrl.OpMarketDataGetContractInfo();
             }
         }
 
@@ -274,9 +275,10 @@ namespace Micro.Future.UI
 
         private void Add_VolModel_Click(object sender, RoutedEventArgs e)
         {
-            var title = WPFUtility.GetLocalizedString("Model", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var title = WPFUtility.GetLocalizedString("VolModel", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var modelWin = new OptionModelCtrl();
             optionModelPane.AddContent(modelWin).Title = title;
+            modelWin.OpMarketDataGetContractInfo();
         }
 
         private void Add_MarketMaker_Click(object sender, RoutedEventArgs e)
@@ -284,6 +286,7 @@ namespace Micro.Future.UI
             var title = WPFUtility.GetLocalizedString("MarketMaker", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var marketmakerWin = new OpMarketMakerCtrl();
             optionModelPane.AddContent(marketmakerWin).Title = title;
+            marketmakerWin.GetContractInfo();
         }
 
         private void OpMarketMaker_Closed(object sender, EventArgs e)

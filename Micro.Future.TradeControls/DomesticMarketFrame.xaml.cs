@@ -95,6 +95,7 @@ namespace Micro.Future.UI
             MarketDataControl.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
             PositionControl.OnPositionSelected += FastOrderCtl.OnPositionSelected;
             marketDataLV.AnchorablePane = quotePane;
+
             executionWindow.AnchorablePane = executionPane;
             tradeWindow.AnchorablePane = tradePane;
             positionsWindow.AnchorablePane = positionPane;

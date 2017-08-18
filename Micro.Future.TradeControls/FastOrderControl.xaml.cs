@@ -118,6 +118,7 @@ namespace Micro.Future.UI
                 OrderVM.LimitPrice = quoteVM.LastPrice;
                 var contractInfo = ClientDbContext.FindContract(OrderVM.Contract);
                 LimitTxt.Increment = contractInfo == null ? 1 : contractInfo.PriceTick;
+                checkBox.IsChecked = true;
                 if (radioButtonBuy.IsChecked.Value)
                 {
                     if (LabelAskPrice.Content != null)
@@ -191,6 +192,7 @@ namespace Micro.Future.UI
                                 stackPanelPrices.DataContext = item;
                                 var contractInfo = ClientDbContext.FindContract(quote);
                                 LimitTxt.Increment = contractInfo == null ? 1 : contractInfo.PriceTick;
+                                checkBox.IsChecked = true;
                                 if (radioButtonBuy.IsChecked.Value)
                                 {
                                     if (LabelAskPrice.Content != null)

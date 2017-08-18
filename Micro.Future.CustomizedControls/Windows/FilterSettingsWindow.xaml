@@ -10,23 +10,38 @@
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
         mc:Ignorable="d"    
-        Title="{lex:Loc Key=FilterSettings}" Height="284.619" Width="300" WindowStyle="ToolWindow">
+        Title="{lex:Loc Key=FilterSettings}" Height="300" Width="300" WindowStyle="ToolWindow">
     <Grid>
         <StackPanel>
-            <Label Content="{lex:Loc Key=WindowTitle}"/>
-            <TextBox x:Name="titleCombo" Height="23" />
+            <GroupBox Header="{lex:Loc Key=WindowTitle}">
+                <StackPanel>
+                    <TextBox x:Name="titleCombo"/>
+                </StackPanel>
+            </GroupBox>
             <!--<ComboBox x:Name="titleCombo" SelectionChanged="titleCombo_SelectionChanged" IsEditable="True"  />-->
-            <Label Content="{lex:Loc Key=Exchange}"/>
-            <TextBox x:Name="exchangecombo"/>
+            <GroupBox Header="{lex:Loc Key=Exchange}">
+                <StackPanel>
+                    <TextBox x:Name="exchangecombo"/>
+                </StackPanel>
+            </GroupBox>
             <!--<ComboBox x:Name="exchangecombo" SelectedIndex="0" IsEditable="True"/>-->
             <!--<Label Content="{lex:Loc Key=Portfolio}"/>
             <TextBox x:Name="portfolioTxt"/>-->
-            <Label Content="{lex:Loc Key=Underlying}"/>
-            <TextBox x:Name="underlyingTxt"/>
-            <Label Content="{lex:Loc Key=Contract}"/>
-            <TextBox x:Name="contractTxt"/>
-            <Label Content="{lex:Loc Key=Portfolio}"/>
-            <TextBox x:Name="portfolioTxt"/>
+            <GroupBox Header="{lex:Loc Key=Underlying}">
+                <StackPanel>
+                    <TextBox x:Name="underlyingTxt"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{lex:Loc Key=Contract}">
+                <StackPanel>
+                    <TextBox x:Name="contractTxt"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{lex:Loc Key=Portfolio}">
+                <StackPanel>
+                    <TextBox x:Name="portfolioTxt"/>
+                </StackPanel>
+            </GroupBox>
             <Button x:Name="OkBtn" Content="{lex:Loc Key=Enter}" IsDefault="True" Click="OkBtn_Click" Margin="35,0,53,0"/>
             <Button x:Name="ResetBtn" Content="{lex:Loc Key=Reset}" IsDefault="False" Click="ResetBtn_Click" Height="23" RenderTransformOrigin="0.478,-0.65" Margin="35,0,53,0" />
         </StackPanel>
