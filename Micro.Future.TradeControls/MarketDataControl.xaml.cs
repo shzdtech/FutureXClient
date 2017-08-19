@@ -166,6 +166,7 @@ namespace Micro.Future.UI
             {
                 var marketdatactrl = new MarketDataControl(PersistanceId, fs.Id, MarketDataHandler);
                 AnchorablePane.AddContent(marketdatactrl).Title = fs.Title;
+                marketdatactrl.GetContractInfo();
                 marketdatactrl.LoadUserContracts();
                 marketdatactrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
                 if (fs.Id == DEFAULT_ID)

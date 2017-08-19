@@ -43,7 +43,6 @@ namespace Micro.Future.UI
             WMSettingsLV.setReferenceBtn.Click += SetCurrentBtn_Click;
             OpMarketControl.adjustment2.ValueChanged += Adjustment2_ValueChanged;
             OpMarketControl.contract2.SelectionChanged += Contract2CB1_SelectionChanged;
-
         }
         public void OpMarketDataGetContractInfo()
         {

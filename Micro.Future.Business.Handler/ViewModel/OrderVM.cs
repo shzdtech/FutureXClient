@@ -184,7 +184,6 @@ namespace Micro.Future.ViewModel
             }
         }
 
-
         private string _insertTime;
         public string InsertTime
         {

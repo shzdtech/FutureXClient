@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -342,7 +343,6 @@ namespace Micro.Future.UI
                         underlyingEX1.ItemsSource = null;
                         underlyingCB1.ItemsSource = null;
                         orderConditionCombo.SelectedValue = null;
-
                         underlyingContractCB1.ItemsSource = null;
                         underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
                         pricingModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("pm");
@@ -368,6 +368,7 @@ namespace Micro.Future.UI
                                 AutoMaxTradeUpdate((int)CountertextBox.Value);
                                 TickSizeIUD.DataContext = strategyVM;
                                 orderConditionCombo.SelectedValue = OrderConditionType.LIMIT;
+                                orderConditionSelectionChanged(OrderConditionType.LIMIT);
                                 var modelVM = pricingModelCB.SelectedItem as ModelParamsVM;
                                 if (modelVM != null)
                                 {
@@ -828,10 +829,36 @@ namespace Micro.Future.UI
                             vm.PutStrategyVM.ConditionType = (OrderConditionType)orderConditionCombo.SelectedValue;
                             vm.PutStrategyVM.UpdateStrategy(true);
                         }
+                    }
+                }
+            }
+        }
+        private void orderConditionSelectionChanged(OrderConditionType ordertype)
+        {
+            if (CallPutTDOptionVMCollection != null)
+            {
+                foreach (var vm in CallPutTDOptionVMCollection)
+                {
+                    if (vm.CallStrategyVM != null)
+                    {
+                        if (orderConditionCombo.SelectedValue != null)
+                        {
+                            vm.CallStrategyVM.ConditionType = ordertype;
+                            vm.CallStrategyVM.UpdateStrategy(true);
+                        }
+                    }
+                    if (vm.PutStrategyVM != null)
+                    {
+                        if (orderConditionCombo.SelectedValue != null)
+                        {
+                            vm.PutStrategyVM.ConditionType = ordertype;
+                            vm.PutStrategyVM.UpdateStrategy(true);
+                        }
 
                     }
                 }
             }
         }
+
     }
 }

@@ -130,6 +130,7 @@ namespace Micro.Future.UI
                 }
                 if (checkBox.IsChecked.Value)
                     LimitTxt.Increment = null;
+                checkBox.IsChecked = true;
             }
         }
 
@@ -203,6 +204,7 @@ namespace Micro.Future.UI
                                 }
                                 if (checkBox.IsChecked.Value)
                                     LimitTxt.Increment = null;
+                                checkBox.IsChecked = true;
                             });
                         }
                     });
@@ -369,6 +371,20 @@ namespace Micro.Future.UI
             //else
             //    checkBox.IsEnabled = false;
         }
+        private void checkBoxChecked()
+        {
+            if (OrderVM.Direction == DirectionType.BUY)
+            {
+                LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("AskPrice.Value") { Mode = BindingMode.OneWay });
+                LimitTxt.Increment = null;
+            }
+            else if (OrderVM.Direction == DirectionType.SELL)
+            {
+                LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("BidPrice.Value") { Mode = BindingMode.OneWay });
+                LimitTxt.Increment = null;
+            }
+        }
+
 
         private void BuyChecked(object sender, RoutedEventArgs e)
         {

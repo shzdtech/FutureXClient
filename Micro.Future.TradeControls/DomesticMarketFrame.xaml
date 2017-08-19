@@ -19,8 +19,8 @@
         <x:Array Type="{x:Type MenuItem}" x:Key="exMenuItems">
             <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=DomesticTradingMarket}">
                 <MenuItem Header="{lex:Loc Key=AddWindow}">
-                    <MenuItem Header="{lex:Loc Key=AccountControl}" Click="MenuItem_Click_AccountCtrl">
-                    </MenuItem>
+                    <!--<MenuItem Header="{lex:Loc Key=AccountControl}" Click="MenuItem_Click_AccountCtrl">
+                    </MenuItem>-->
                     <MenuItem Header="{lex:Loc Key=QuoteWindow}" Click="MenuItem_Click_Contract">
                     </MenuItem>
                     <MenuItem Header="{lex:Loc Key=ExecutionWindow}">
@@ -74,7 +74,7 @@
             <avalonDock:LayoutPanel Orientation="Vertical">
                 <avalonDock:LayoutPanel DockHeight="0.15*">
                     <avalonDock:LayoutAnchorablePane x:Name="fundPane">
-                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Fund}" ContentId="FundContent">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Fund}" CanClose="False" CanHide="False" ContentId="FundContent">
                             <c:AccountInfoControl x:Name="clientFundLV"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
