@@ -10,8 +10,7 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "Microsoft.EntityFrameworkCore.Design": "1.1.0",
-    "Microsoft.EntityFrameworkCore.Sqlite": "1.1.0"
+    "Microsoft.EntityFrameworkCore.Sqlite": "1.1.2"
   },
   "tools": {
     "Microsoft.EntityFrameworkCore.Tools": "1.1.0-preview4-final"
