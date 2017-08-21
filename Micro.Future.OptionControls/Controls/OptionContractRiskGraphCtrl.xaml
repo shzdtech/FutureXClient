@@ -9,6 +9,7 @@
              xmlns:lex="http://wpflocalizeextension.codeplex.com" 
              xmlns:oxy="http://oxyplot.org/wpf"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:utility="clr-namespace:Micro.Future.Utility;assembly=Micro.Future.Utility"
              lex:LocalizeDictionary.DesignCulture="zh_CN"
              lex:LocalizeDictionary.OutputMissingKeys="True"
              lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
@@ -50,38 +51,40 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox x:Name="expirationGB" Header="{lex:Loc Key=MarketData}" Width="Auto">
-                <ListView x:Name="expirationLV" ScrollViewer.VerticalScrollBarVisibility="Auto" GridViewColumnHeader.Click="quoteListView_Click" ScrollViewer.HorizontalScrollBarVisibility="Visible" Width="Auto">
-                    <ListView.View>
-                        <GridView>
-                            <!--<GridViewColumn x:Name="contract" Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.BidVol,StringFormat=P2}" />-->
-                            <GridViewColumn>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox Name="expCheckBox" HorizontalAlignment="Center" Checked="exCheckBox_Checked" Unchecked="exCheckBox_UnChecked" IsChecked="{Binding Selected}" ></CheckBox>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn x:Name="contractHeader" DisplayMemberBinding="{Binding Contract}" Header="{lex:Loc Key=Contract1}" />
-                            <GridViewColumn x:Name="futureexpirationHeader" DisplayMemberBinding="{Binding FutureExpiration}" Header="{lex:Loc Key=FutureExp}" />
-                            <GridViewColumn x:Name="expirationHeader" DisplayMemberBinding="{Binding Expiration}" Header="{lex:Loc Key=OptionExp}" />
-                            <GridViewColumn Header="{lex:Loc Key=Valuation}">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <xctk:DoubleUpDown x:Name="valuationUpDown" HorizontalAlignment="Stretch" Value="{Binding Valuation}" KeyUp="OnKeyDown" Tag="{Binding Valuation}" ShowButtonSpinner="False" Width="70"></xctk:DoubleUpDown>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn x:Name="lastpriceHeader" Header="{lex:Loc Key=LastPrice}" Width="auto">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Value}" DataContext="{Binding MktVM.LastPrice}" Style="{DynamicResource DoubleChangeStyle}" Width="auto"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn x:Name="settlepriceHeader" DisplayMemberBinding="{Binding MktVM.PreSettlePrice}" Header="{lex:Loc Key=PreSettlePrice}" />
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <utility:GridLineDecorator GridLineBrush="LightGray">
+                    <ListView x:Name="expirationLV" ScrollViewer.VerticalScrollBarVisibility="Auto" GridViewColumnHeader.Click="quoteListView_Click" ScrollViewer.HorizontalScrollBarVisibility="Visible" Width="Auto">
+                        <ListView.View>
+                            <GridView>
+                                <!--<GridViewColumn x:Name="contract" Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding PutOptionVM.ImpliedVolVM.BidVol,StringFormat=P2}" />-->
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Name="expCheckBox" HorizontalAlignment="Center" Checked="exCheckBox_Checked" Unchecked="exCheckBox_UnChecked" IsChecked="{Binding Selected}" ></CheckBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn x:Name="contractHeader" DisplayMemberBinding="{Binding Contract}" Header="{lex:Loc Key=Contract1}" />
+                                <GridViewColumn x:Name="futureexpirationHeader" DisplayMemberBinding="{Binding FutureExpiration}" Header="{lex:Loc Key=FutureExp}" />
+                                <GridViewColumn x:Name="expirationHeader" DisplayMemberBinding="{Binding Expiration}" Header="{lex:Loc Key=OptionExp}" />
+                                <GridViewColumn Header="{lex:Loc Key=Valuation}">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <xctk:DoubleUpDown x:Name="valuationUpDown" HorizontalAlignment="Stretch" Value="{Binding Valuation}" KeyUp="OnKeyDown" Tag="{Binding Valuation}" ShowButtonSpinner="False" Width="70"></xctk:DoubleUpDown>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn x:Name="lastpriceHeader" Header="{lex:Loc Key=LastPrice}" Width="auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Value}" DataContext="{Binding MktVM.LastPrice}" Style="{DynamicResource DoubleChangeStyle}" Width="auto"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn x:Name="settlepriceHeader" DisplayMemberBinding="{Binding MktVM.PreSettlePrice}" Header="{lex:Loc Key=PreSettlePrice}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </utility:GridLineDecorator>
             </GroupBox>
             <GroupBox x:Name="typeGB" Header="{lex:Loc Key=Type}">
                 <StackPanel>

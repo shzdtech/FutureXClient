@@ -23,9 +23,15 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private int _position;
         public int Position
         {
-            get { return YdPosition + TodayPosition; }
+            get { return _position; }
+            set
+            {
+                _position = value;
+                OnPropertyChanged(nameof(Position));
+            }
         }
 
         ///上日持仓

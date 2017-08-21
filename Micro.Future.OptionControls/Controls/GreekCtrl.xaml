@@ -7,6 +7,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"    
              xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+             xmlns:utility="clr-namespace:Micro.Future.Utility;assembly=Micro.Future.Utility"
              lex:LocalizeDictionary.DesignCulture="zh_CN"
              lex:LocalizeDictionary.OutputMissingKeys="True"
              lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
@@ -20,12 +21,10 @@
                 <Style x:Name="N2Format" TargetType="DataGrid">
                     <Setter Property="ItemStringFormat" Value="N2"/>
                 </Style>
-
                 <xcdg:DataGridCollectionViewSource x:Key="cvsGreeks" Source="{Binding Path=RiskVMCollection}">
                     <xcdg:DataGridCollectionViewSource.GroupDescriptions>
                         <xcdg:DataGridGroupDescription PropertyName="Underlying" />
                     </xcdg:DataGridCollectionViewSource.GroupDescriptions>
-
                     <!-- Every StatFunction that will eventually be used with this data source HAS 
                  to be declared here. StatFunctions are only supported by the 
                  DataGridCollectionView and DataGridCollectionViewSource classes.-->
@@ -45,7 +44,6 @@
                 </xcdg:DataGridCollectionViewSource>
             </ResourceDictionary>
         </Grid.Resources>
-        
         <xcdg:DataGridControl x:Name="GreekListView" AutoCreateColumns="False" ItemsSource="{Binding Source={StaticResource cvsGreeks}}">
             <xcdg:DataGridControl.View>
                 <xcdg:TableView></xcdg:TableView>

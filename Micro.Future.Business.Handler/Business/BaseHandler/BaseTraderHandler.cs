@@ -185,6 +185,7 @@ namespace Micro.Future.Message
                             Profit = rsp.Profit,
                             CloseProfit = rsp.CloseProfit,
                             UseMargin = rsp.UseMargin,
+                            Position = rsp.YdPosition+rsp.TdPosition,
                         };
 
                         PositionVMCollection.Add(positionVM);
@@ -204,6 +205,7 @@ namespace Micro.Future.Message
                         {
                             positionVM.TodayPosition = rsp.TdPosition;
                             positionVM.YdPosition = rsp.YdPosition;
+                            positionVM.Position = rsp.YdPosition + rsp.TdPosition;
                             OnPositionUpdated?.Invoke(positionVM);
                         }
                     }

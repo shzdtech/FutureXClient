@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Micro.Future.Utility;assembly=Micro.Future.Utility"
              xmlns:view="clr-namespace:Micro.Future.ViewModel"
-             xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             xmlns:utility="clr-namespace:Micro.Future.Utility;assembly=Micro.Future.Utility"
              lex:LocalizeDictionary.DesignCulture="zh_CN"
              lex:LocalizeDictionary.OutputMissingKeys="True"
              lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
@@ -27,38 +28,39 @@
             <RadioButton GroupName="executionClass"  Content="平仓记录" Checked="RadioButton_Checked_1" />
 
         </StackPanel>-->
-        <ListView Name="TradeTreeView" Grid.Row="1" GridViewColumnHeader.Click="TradeTreeView_Click" ItemsSource="{Binding TradeVMCollection}">
-            <ListView.View>
-                <GridView AllowsColumnReorder="True">
-                    <GridViewColumn Header="{lex:Loc Key=TradeID}" DisplayMemberBinding="{Binding TradeID}" Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=OpenClose}" DisplayMemberBinding="{Binding Path=OpenClose, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=MatchPrice}" DisplayMemberBinding="{Binding Price}" Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=QuoteVolume}" DisplayMemberBinding="{Binding Volume}" Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=TradeDate}" DisplayMemberBinding="{Binding TradeDate}" Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=TradeTime}" DisplayMemberBinding="{Binding TradeTime}" Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=OrderSysID}" DisplayMemberBinding="{Binding OrderSysID}" Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=TradingType}" DisplayMemberBinding="{Binding Path=TradingType, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=HedgeFlag}" DisplayMemberBinding="{Binding Path=HedgeFlag, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=Commission}" DisplayMemberBinding="{Binding Commission}" Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>
-                </GridView>
-            </ListView.View>
-            <ListView.ContextMenu>
-                <ContextMenu StaysOpen="True">
-                    <!--<MenuItem Header="修改订单" />-->
-                    <!--<MenuItem Header="{lex:Loc Key=CancelOrder}" Click="MenuItem_Click_CancelOrder" />
+        <utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="0" >
+            <ListView Name="TradeTreeView" Grid.Row="1" GridViewColumnHeader.Click="TradeTreeView_Click" ItemsSource="{Binding TradeVMCollection}">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="True">
+                        <GridViewColumn Header="{lex:Loc Key=TradeID}" DisplayMemberBinding="{Binding TradeID}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=OpenClose}" DisplayMemberBinding="{Binding Path=OpenClose, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=MatchPrice}" DisplayMemberBinding="{Binding Price}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=QuoteVolume}" DisplayMemberBinding="{Binding Volume}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=TradeDate}" DisplayMemberBinding="{Binding TradeDate}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=TradeTime}" DisplayMemberBinding="{Binding TradeTime}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=OrderSysID}" DisplayMemberBinding="{Binding OrderSysID}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=TradingType}" DisplayMemberBinding="{Binding Path=TradingType, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=HedgeFlag}" DisplayMemberBinding="{Binding Path=HedgeFlag, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=Commission}" DisplayMemberBinding="{Binding Commission}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>
+                    </GridView>
+                </ListView.View>
+                <ListView.ContextMenu>
+                    <ContextMenu StaysOpen="True">
+                        <!--<MenuItem Header="修改订单" />-->
+                        <!--<MenuItem Header="{lex:Loc Key=CancelOrder}" Click="MenuItem_Click_CancelOrder" />
                     <Separator />-->
-                    <MenuItem Header="{lex:Loc Key=AddFilter}" Click="MenuItem_Click_AllTrade" />
-                    <Separator />
-                    <MenuItem Header="{lex:Loc Key=FilterSettings}" Click="MenuItem_Click_Settings" />
-                    <Separator />
-                    <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItem_Click_Columns" />
-                    <MenuItem Header="{lex:Loc Key=DeleteWindow}" Click="MenuItem_Click_DeleteWindow" />
-                    <Separator></Separator>
-                    <!--
+                        <MenuItem Header="{lex:Loc Key=AddFilter}" Click="MenuItem_Click_AllTrade" />
+                        <Separator />
+                        <MenuItem Header="{lex:Loc Key=FilterSettings}" Click="MenuItem_Click_Settings" />
+                        <Separator />
+                        <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItem_Click_Columns" />
+                        <MenuItem Header="{lex:Loc Key=DeleteWindow}" Click="MenuItem_Click_DeleteWindow" />
+                        <Separator></Separator>
+                        <!--
                     <Separator />
                     <MenuItem Header="{lex:Loc Key=Traded_Open}" Click="MenuItem_Click_OpenTrade" />
                     <Separator />
@@ -66,10 +68,11 @@
                     <Separator />
                     <MenuItem Header="{lex:Loc Key=AllTraded}" Click="MenuItem_Click_AllTrade" />
                     -->
-                    
-                    <Separator></Separator>
-                </ContextMenu>
-            </ListView.ContextMenu>
-        </ListView>
+
+                        <Separator></Separator>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+        </utility:GridLineDecorator>
     </Grid>
 </UserControl>

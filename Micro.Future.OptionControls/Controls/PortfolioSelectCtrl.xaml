@@ -7,6 +7,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:lex="http://wpflocalizeextension.codeplex.com" 
              xmlns:wpf="http://wpfcontrols.com/"
+             xmlns:utility="clr-namespace:Micro.Future.Utility;assembly=Micro.Future.Utility"
              lex:LocalizeDictionary.DesignCulture="zh_CN"
              lex:LocalizeDictionary.OutputMissingKeys="True"
              lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
@@ -27,13 +28,15 @@
                 <GroupBox x:Name="portforlioGB" Header="{lex:Loc Key=Portfolio}" >
                     <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
                 </GroupBox>
-                <ListView Name="strategyListView" Grid.Row="1" Grid.Column="0" Width="Auto" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="{lex:Loc Key=Strategy}" DisplayMemberBinding="{Binding StrategyName}" Width="auto" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="1" Grid.Column="0" >
+                    <ListView Name="strategyListView" Width="Auto" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="{lex:Loc Key=Strategy}" DisplayMemberBinding="{Binding StrategyName}" Width="auto" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </utility:GridLineDecorator>
             </StackPanel>
             <StackPanel>
                 <WrapPanel>
@@ -52,29 +55,30 @@
                         <xctk:DoubleUpDown x:Name="ThresholdTxt" UpdateValueOnEnterKey="True" Minimum="0" Increment="1" Value="{Binding Threshold}" Spinned="Spinned" ValueChanged="ThresholdValueChanged"/>
                     </GroupBox>
                 </WrapPanel>
-                <ListView Name="hedgeListView" Grid.Row="1" Grid.Column="1" Width="Auto" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn x:Name="HedgeExchange" Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" />
-                            <GridViewColumn x:Name="HedgeUnderlying" Header="{lex:Loc Key=Underlying}" DisplayMemberBinding="{Binding Underlying}"/>
-                            <!--<GridViewColumn Header="{lex:Loc Key=Contract}">
+                <utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="1" Grid.Column="1" >
+                    <ListView Name="hedgeListView" Width="Auto" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn x:Name="HedgeExchange" Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" />
+                                <GridViewColumn x:Name="HedgeUnderlying" Header="{lex:Loc Key=Underlying}" DisplayMemberBinding="{Binding Underlying}"/>
+                                <!--<GridViewColumn Header="{lex:Loc Key=Contract}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <wpf:AutoCompleteTextBox x:Name="HedgeContractTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" KeyUp="HedgeContract_KeyUp" MouseLeftButtonUp="HedgeContract_MouseLeftButtonUp" Focusable="False" Loaded="HedgeContractTextBox_Loaded" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>-->
-                            <GridViewColumn x:Name="contractComboHead" Header="{lex:Loc Key=Contract}">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <ComboBox x:Name="comboBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Focusable="False" Loaded="HedgeContractComboBox_Loaded" SelectionChanged="HedgeContract_SelectionChanged"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-
+                                <GridViewColumn x:Name="contractComboHead" Header="{lex:Loc Key=Contract}">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox x:Name="comboBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Focusable="False" Loaded="HedgeContractComboBox_Loaded" SelectionChanged="HedgeContract_SelectionChanged"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </utility:GridLineDecorator>
             </StackPanel>
         </WrapPanel>
 
