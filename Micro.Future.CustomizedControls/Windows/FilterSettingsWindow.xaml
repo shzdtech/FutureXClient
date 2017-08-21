@@ -10,7 +10,7 @@
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
         mc:Ignorable="d"    
-        Title="{lex:Loc Key=FilterSettings}" Height="300" Width="300" WindowStyle="ToolWindow">
+        Title="{lex:Loc Key=FilterSettings}" Height="310" Width="300" WindowStyle="ToolWindow">
     <Grid>
         <StackPanel>
             <GroupBox Header="{lex:Loc Key=WindowTitle}">

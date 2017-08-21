@@ -132,13 +132,13 @@ namespace Micro.Future.Message
                 if (mktVM == null)
                 {
                     var contractInfo = ClientDbContext.FindContract(md.Contract);
-                        mktVM = new MarketDataVM
+                    mktVM = new MarketDataVM
 
                     {
                         Exchange = md.Exchange,
-                        Contract = md.Contract,                            
+                        Contract = md.Contract,
                         Multiple = contractInfo != null ? contractInfo.VolumeMultiple : 1
-                        };
+                    };
                     MarketDataMap[md.Contract] = new WeakReference<MarketDataVM>(mktVM);
                 }
 
@@ -211,7 +211,10 @@ namespace Micro.Future.Message
             mktVM.CloseValue = md.CloseValue;
             mktVM.Turnover = md.Turnover;
             mktVM.MidPrice = (mktVM.BidPrice + mktVM.AskPrice) / 2;
-            mktVM.AveragePriceMultiplier = mktVM.AveragePrice / mktVM.Multiple;
+            if (md.Exchange != "CZCE")
+                mktVM.AveragePriceMultiplier = mktVM.AveragePrice / mktVM.Multiple;
+            else
+                mktVM.AveragePriceMultiplier = mktVM.AveragePrice;
             mktVM.UpdateTime = string.Format("{0:D2}:{1:D2}:{2:D2}", md.UpdateTime / 3600, (md.UpdateTime / 60) % 60, md.UpdateTime % 60);
         }
 

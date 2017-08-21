@@ -216,7 +216,8 @@ namespace Micro.Future.UI
                                         orderVM.Volume = positionVM.YdPosition;
                                         orderVM.Direction = DirectionType.SELL;
                                         orderVM.LimitPrice = mktdataVM.BidPrice;
-                                        orderVM.TIF = OrderTIFType.GFD;
+                                        orderVM.TIF = OrderTIFType.IOC;
+                                        orderVM.VolCondition = OrderVolType.ANYVOLUME;
                                         orderVM.ExecType = OrderExecType.LIMIT;
                                         if (positionVM.Portfolio != null)
                                             orderVM.Portfolio = positionVM.Portfolio;
@@ -235,7 +236,8 @@ namespace Micro.Future.UI
                                         orderVM.Volume = positionVM.TodayPosition;
                                         orderVM.Direction = DirectionType.SELL;
                                         orderVM.LimitPrice = mktdataVM.BidPrice;
-                                        orderVM.TIF = OrderTIFType.GFD;
+                                        orderVM.TIF = OrderTIFType.IOC;
+                                        orderVM.VolCondition = OrderVolType.ANYVOLUME;
                                         orderVM.ExecType = OrderExecType.LIMIT;
                                         if (positionVM.Portfolio != null)
                                             orderVM.Portfolio = positionVM.Portfolio;
@@ -254,7 +256,8 @@ namespace Micro.Future.UI
                                         orderVM.Volume = positionVM.YdPosition;
                                         orderVM.Direction = DirectionType.SELL;
                                         orderVM.LimitPrice = mktdataVM.BidPrice;
-                                        orderVM.TIF = OrderTIFType.GFD;
+                                        orderVM.TIF = OrderTIFType.IOC;
+                                        orderVM.VolCondition = OrderVolType.ANYVOLUME;
                                         orderVM.ExecType = OrderExecType.LIMIT;
                                         orderVM.SendOrder();
                                         orderVM.OpenClose = OrderOpenCloseType.CLOSETODAY;
@@ -288,7 +291,8 @@ namespace Micro.Future.UI
                                         orderVM.Volume = positionVM.YdPosition;
                                         orderVM.Direction = DirectionType.BUY;
                                         orderVM.LimitPrice = mktdataVM.AskPrice;
-                                        orderVM.TIF = OrderTIFType.GFD;
+                                        orderVM.TIF = OrderTIFType.IOC;
+                                        orderVM.VolCondition = OrderVolType.ANYVOLUME;
                                         orderVM.ExecType = OrderExecType.LIMIT;
                                         if (positionVM.Portfolio != null)
                                             orderVM.Portfolio = positionVM.Portfolio;
@@ -307,7 +311,8 @@ namespace Micro.Future.UI
                                         orderVM.Volume = positionVM.TodayPosition;
                                         orderVM.Direction = DirectionType.BUY;
                                         orderVM.LimitPrice = mktdataVM.AskPrice;
-                                        orderVM.TIF = OrderTIFType.GFD;
+                                        orderVM.TIF = OrderTIFType.IOC;
+                                        orderVM.VolCondition = OrderVolType.ANYVOLUME;
                                         orderVM.ExecType = OrderExecType.LIMIT;
                                         if (positionVM.Portfolio != null)
                                             orderVM.Portfolio = positionVM.Portfolio;
@@ -326,7 +331,8 @@ namespace Micro.Future.UI
                                         orderVM.Volume = positionVM.YdPosition;
                                         orderVM.Direction = DirectionType.BUY;
                                         orderVM.LimitPrice = mktdataVM.AskPrice;
-                                        orderVM.TIF = OrderTIFType.GFD;
+                                        orderVM.TIF = OrderTIFType.IOC;
+                                        orderVM.VolCondition = OrderVolType.ANYVOLUME;
                                         orderVM.ExecType = OrderExecType.LIMIT;
                                         orderVM.SendOrder();
                                         orderVM.OpenClose = OrderOpenCloseType.CLOSETODAY;

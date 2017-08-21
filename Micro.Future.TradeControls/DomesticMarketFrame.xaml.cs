@@ -216,6 +216,7 @@ namespace Micro.Future.UI
             marketDataWin.FilterSettingsWin.FilterTabTitle = title;
             quotePane.AddContent(marketDataWin).Title = title;
             marketDataWin.FilterSettingsWin.Save();
+            marketDataWin.GetContractInfo();
         }
 
 

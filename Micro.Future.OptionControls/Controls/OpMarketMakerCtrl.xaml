@@ -150,7 +150,10 @@
                         <Setter Property="Background" Value="Red" />
                         <Setter Property="Foreground" Value="White"/>
                     </Style>
-
+                    <Style TargetType="{x:Type ListViewItem}" x:Key="StrikePriceStyle">
+                        <Setter Property="Background" Value="Gray" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
                 </ListView.Resources>
                 <!--<ListView.Items>
                 <Style x:Name="ListViewItemStyle" TargetType="{x:Type ListViewItem}">
@@ -470,11 +473,13 @@
                         </GridViewColumn>
                         <!--<GridViewColumn x:Name="PutContract" Header="PutContract" DisplayMemberBinding="{Binding PutOptionVM.Contract,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>-->
                         <!--<GridViewColumn x:Name="Strike" Header="Strike" DisplayMemberBinding="{Binding StrikePrice}"/>-->
-                        <GridViewColumn x:Name="Strike" Header="{lex:Loc Key=Strike}" >
+                        <GridViewColumn x:Name="Strike" Header="{lex:Loc Key=Strike}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding StrikePrice}" TextAlignment="Center" Width="auto"/>
-                                </DataTemplate>
+                                    <Grid Background="Gray" HorizontalAlignment="Stretch">
+                                    <TextBlock Text="{Binding StrikePrice}" TextAlignment="Center" Width="auto" Foreground="White" HorizontalAlignment="Stretch"/>
+                                    </Grid>
+                                </DataTemplate>                                    
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <!--<GridViewColumn x:Name="Callcontract" Header="CallContract" DisplayMemberBinding="{Binding CallOptionVM.Contract,StringFormat=N2}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}"/>-->

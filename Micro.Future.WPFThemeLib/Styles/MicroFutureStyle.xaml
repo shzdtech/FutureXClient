@@ -34,7 +34,7 @@
             <DataTrigger Binding="{Binding Direction}" Value="1">
                 <Setter Property="Background">
                     <Setter.Value>
-                        <SolidColorBrush Color="Red"/>
+                        <SolidColorBrush Color="#FFF08989"/>
                     </Setter.Value>
                 </Setter>
                 <DataTrigger.EnterActions>
@@ -76,7 +76,7 @@
             <DataTrigger Binding="{Binding PutOptionVM.TheoDataVM.Askdirection}" Value = "2">
                 <Setter Property="Background">
                     <Setter.Value>
-                        <SolidColorBrush Color="Red"/>
+                        <SolidColorBrush Color="#FFF08989"/>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
@@ -109,7 +109,7 @@
             <DataTrigger Binding="{Binding PutOptionVM.TheoDataVM.Biddirection}" Value = "2">
                 <Setter Property="Background">
                     <Setter.Value>
-                        <SolidColorBrush Color="Red"/>
+                        <SolidColorBrush Color="#FFF08989"/>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
@@ -142,7 +142,7 @@
             <DataTrigger Binding="{Binding CallOptionVM.TheoDataVM.Askdirection}" Value = "2">
                 <Setter Property="Background">
                     <Setter.Value>
-                        <SolidColorBrush Color="Red"/>
+                        <SolidColorBrush Color="#FFF08989"/>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
@@ -175,7 +175,7 @@
             <DataTrigger Binding="{Binding CallOptionVM.TheoDataVM.Biddirection}" Value = "2">
                 <Setter Property="Background">
                     <Setter.Value>
-                        <SolidColorBrush Color="Red"/>
+                        <SolidColorBrush Color="#FFF08989"/>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
