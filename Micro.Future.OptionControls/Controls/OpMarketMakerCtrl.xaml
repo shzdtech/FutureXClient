@@ -140,7 +140,7 @@
             </GroupBox>
         </WrapPanel>
         <utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="1" Grid.Column="0" >
-            <ListView x:Name="option_priceLV" ScrollViewer.HorizontalScrollBarVisibility="Visible" SelectionChanged="option_priceLV_SelectionChanged" >
+            <ListView x:Name="option_priceLV" ScrollViewer.HorizontalScrollBarVisibility="Visible" SelectionChanged="option_priceLV_SelectionChanged" HorizontalContentAlignment="Stretch">
                 <ListView.Resources>
                     <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="GreenHeaderStyle">
                         <Setter Property="Background" Value="Blue"/>
@@ -476,9 +476,7 @@
                         <GridViewColumn x:Name="Strike" Header="{lex:Loc Key=Strike}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Grid Background="Gray" HorizontalAlignment="Stretch">
-                                    <TextBlock Text="{Binding StrikePrice}" TextAlignment="Center" Width="auto" Foreground="White" HorizontalAlignment="Stretch"/>
-                                    </Grid>
+                                    <TextBlock Text="{Binding StrikePrice}" TextAlignment="Center" Width="auto" Background="Black" Foreground="White" HorizontalAlignment="Stretch"/>
                                 </DataTemplate>                                    
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
