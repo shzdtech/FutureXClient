@@ -88,6 +88,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddTradeRecordWindow.xaml.cs">
+      <DependentUpon>AddTradeRecordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RoleSectionHandler.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="UI\ForeignControls\ForeignFastOrderWindow.xaml.cs">
@@ -138,6 +141,10 @@
     <Compile Include="UI\TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddTradeRecordWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\ForeignControls\ForeignFastOrderWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

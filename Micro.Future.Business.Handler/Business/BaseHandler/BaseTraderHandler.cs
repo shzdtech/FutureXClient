@@ -37,6 +37,10 @@ namespace Micro.Future.Message
         {
             get;
         } = new ObservableCollection<PositionVM>();
+        public ObservableCollection<PositionDifferVM> PositionDifferVMCollection
+        {
+            get;
+        } = new ObservableCollection<PositionDifferVM>();
 
         public ISet<string> PositionContractSet { get; } = new HashSet<string>();
 
@@ -130,7 +134,18 @@ namespace Micro.Future.Message
         }
         private void OnQueryPositionDiffer(PBPositionCompareList pb)
         {
-
+            PositionDifferVMCollection.Clear();
+            foreach (var positionDiffer in pb.Positions)
+            {
+                PositionDifferVMCollection.Add(new PositionDifferVM{ Contract = positionDiffer.Contract, Position = positionDiffer.DbPosition, Direction = (PositionDirectionType)positionDiffer.Direction, SysPosition = positionDiffer.SysPosition});
+            }
+        }
+        public void SyncPosition()
+        {
+            var sst = new StringMap();
+            sst.Header = new DataHeader();
+            sst.Header.SerialId = NextSerialId;
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_SYNC_POSITION, sst);
         }
         private void OnQueryPosition(PBPosition rsp)
         {
@@ -447,7 +462,18 @@ namespace Micro.Future.Message
             sendobjBld.OrderSysID = orderVM.OrderSysID;
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, sendobjBld);
         }
-
+        public void AddTrade(TradeVM tradeVM)
+        {
+            var tradeInfo = new PBTradeInfo();
+            tradeInfo.Exchange = tradeVM.Exchange;
+            tradeInfo.Contract = tradeVM.Contract;
+            tradeInfo.Volume = tradeVM.Volume;
+            tradeInfo.Price = tradeVM.Price;
+            tradeInfo.Portfolio = tradeVM.Portfolio;
+            tradeInfo.Direction = (int)tradeVM.Direction;
+            tradeInfo.Openclose = (int)tradeVM.OpenClose;
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ADD_MANUAL_TRADE, tradeInfo);
+        }
         public void ModifyOrder(OrderVM orderVM)
         {
             CancelOrder(orderVM);

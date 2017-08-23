@@ -10,7 +10,6 @@
         lex:LocalizeDictionary.OutputMissingKeys="True"
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-
         mc:Ignorable="d"
         Title="{lex:Loc Key=Portfolio}" Height="105" Width="180">
     <DockPanel>

@@ -1299,4 +1299,22 @@
   <data name="Put" xml:space="preserve">
     <value>Put</value>
   </data>
+  <data name="AddTrade" xml:space="preserve">
+    <value>AddTrade</value>
+  </data>
+  <data name="DeleteTrade" xml:space="preserve">
+    <value>DeleteTrade</value>
+  </data>
+  <data name="ModifyTrade" xml:space="preserve">
+    <value>ModifyTrade</value>
+  </data>
+  <data name="PositionSync" xml:space="preserve">
+    <value>PositionSync</value>
+  </data>
+  <data name="SysPosition" xml:space="preserve">
+    <value>SysPosition</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
 </root>

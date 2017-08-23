@@ -122,7 +122,7 @@ namespace Micro.Future.UI
                 if (e.Key == Key.Enter)
                 {
                     //portfolioVM.Delay = DelayTxt.;
-                    portfolioVM.UpdatePortfolio();
+                    portfolioVM.UpdatePortfolioAsync();
                 }
             }
         }
@@ -144,7 +144,7 @@ namespace Micro.Future.UI
                 {
                     int hedgeVolume = (int)e.NewValue;
                     portfolioVM.HedgeVolume = hedgeVolume;
-                    portfolioVM.UpdatePortfolio();
+                    portfolioVM.UpdatePortfolioAsync();
                 }
             }
         }
@@ -158,7 +158,7 @@ namespace Micro.Future.UI
                 {
                     int delay = (int)e.NewValue;
                     portfolioVM.Delay = delay;
-                    portfolioVM.UpdatePortfolio();
+                    portfolioVM.UpdatePortfolioAsync();
                 }
             }
         }
@@ -172,7 +172,7 @@ namespace Micro.Future.UI
                 {
                     double threshold = (double)e.NewValue;
                     portfolioVM.Threshold = threshold;
-                    portfolioVM.UpdatePortfolio();
+                    portfolioVM.UpdatePortfolioAsync();
                 }
             }
         }
@@ -287,7 +287,7 @@ namespace Micro.Future.UI
             if (portfolioVM != null)
             {
                 portfolioVM.Hedging = autoStatus;
-                portfolioVM.UpdatePortfolio();
+                portfolioVM.UpdatePortfolioAsync();
             }
         }
 

@@ -78,9 +78,9 @@ namespace Micro.Future.ViewModel
         {
             get;
         } = new ObservableCollection<HedgeVM>();
-        public void UpdatePortfolio()
+        public void UpdatePortfolioAsync()
         {
-            OTCHandler.UpdatePortfolio(this);
+            OTCHandler.UpdatePortfolioAsync(this).Wait();
         }
 
         RelayCommand _updateCommand;
@@ -91,7 +91,7 @@ namespace Micro.Future.ViewModel
                 if (_updateCommand == null)
                 {
                     _updateCommand = new RelayCommand(
-                            param => UpdatePortfolio()
+                            param => UpdatePortfolioAsync()
                         );
                 }
                 return _updateCommand;

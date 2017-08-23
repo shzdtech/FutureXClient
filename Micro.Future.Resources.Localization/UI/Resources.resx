@@ -1305,4 +1305,22 @@
   <data name="Put" xml:space="preserve">
     <value>看跌</value>
   </data>
+  <data name="AddTrade" xml:space="preserve">
+    <value>添加成交</value>
+  </data>
+  <data name="DeleteTrade" xml:space="preserve">
+    <value>删除成交</value>
+  </data>
+  <data name="ModifyTrade" xml:space="preserve">
+    <value>修改成交</value>
+  </data>
+  <data name="PositionSync" xml:space="preserve">
+    <value>仓位同步</value>
+  </data>
+  <data name="SysPosition" xml:space="preserve">
+    <value>系统仓位</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>确认</value>
+  </data>
 </root>

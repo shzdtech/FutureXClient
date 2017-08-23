@@ -48,6 +48,12 @@ namespace Micro.Future.UI
             await mktHandler.SyncContractInfoAsync(true);
             MessageBox.Show(Application.Current.MainWindow, "合约已刷新，请重新启动应用！");
         }
+
+        private void MenuItem_SyncPosition_Click(object sender, RoutedEventArgs e)
+        {
+            PositionDifferWindow win = new PositionDifferWindow();
+            win.Show();
+        }
         private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)
         {
             if (args != null)
@@ -245,6 +251,12 @@ namespace Micro.Future.UI
 
             win.ShowDialog();
 
+        }
+
+        private void MenuItem_AddTrade_Click(object sender, RoutedEventArgs e)
+        {
+            AddTradeRecordWindow win = new AddTradeRecordWindow();
+            win.Show();
         }
     }
 }

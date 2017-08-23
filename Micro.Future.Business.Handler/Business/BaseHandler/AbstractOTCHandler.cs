@@ -89,8 +89,8 @@ namespace Micro.Future.Message
                       ((uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO, OnQueryPortfolioSuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBPortfolio, ExceptionMessage>
                      ((uint)BusinessMessageID.MSG_ID_PORTFOLIO_NEW, OnPortfolioUpdated, OnErrorAction);
-            MessageWrapper.RegisterAction<PBPortfolio, ExceptionMessage>
-                     ((uint)BusinessMessageID.MSG_ID_MODIFY_PORTFOLIO, OnPortfolioUpdated, OnErrorAction);
+            //MessageWrapper.RegisterAction<PBPortfolio, ExceptionMessage>
+            //         ((uint)BusinessMessageID.MSG_ID_MODIFY_PORTFOLIO, OnPortfolioUpdated, OnErrorAction);
             MessageWrapper.RegisterAction<PBPortfolio, ExceptionMessage>
                      ((uint)BusinessMessageID.MSG_ID_HEDGE_CONTRACT_UPDATE, OnPortfolioHedgeContracts, OnErrorAction);
             MessageWrapper.RegisterAction<PBStrategyList, ExceptionMessage>
@@ -406,8 +406,31 @@ namespace Micro.Future.Message
         }
 
 
-        public void UpdatePortfolio(PortfolioVM pVM)
+        public Task<int> UpdatePortfolioAsync(PortfolioVM pVM, int timeout = 10000)
         {
+            var tcs = new TimeoutTaskCompletionSource<int>(timeout);
+            var serialId = NextSerialId;
+
+            #region callback
+            MessageWrapper.RegisterAction<PBPortfolio, ExceptionMessage>
+            ((uint)BusinessMessageID.MSG_ID_MODIFY_PORTFOLIO,
+            (resp) =>
+            {
+                if (resp.Header?.SerialId == serialId)
+                {
+                    OnPortfolioUpdated(resp);
+                    tcs.TrySetResult(0);
+                }
+            },
+            (bizErr) =>
+            {
+                if (bizErr.SerialId == serialId)
+                    tcs.TrySetException(new MessageException(bizErr.MessageId, ErrorType.BIZ_ERROR, bizErr.Errorcode, bizErr.Description.ToStringUtf8()));
+            }
+            );
+            #endregion
+
+
             var portfolio = new PBPortfolio();
             portfolio.Name = pVM.Name;
             portfolio.HedgeDelay = pVM.Delay;
@@ -416,6 +439,8 @@ namespace Micro.Future.Message
             portfolio.HedgeVolume = pVM.HedgeVolume;
 
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_PORTFOLIO, portfolio);
+            return tcs.Task;
+
         }
 
 

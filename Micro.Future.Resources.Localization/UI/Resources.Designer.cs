@@ -214,6 +214,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 添加成交 的本地化字符串。
+        /// </summary>
+        internal static string AddTrade {
+            get {
+                return ResourceManager.GetString("AddTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 添加波动率模型 的本地化字符串。
         /// </summary>
         internal static string AddVolModel {
@@ -1033,6 +1042,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 删除成交 的本地化字符串。
+        /// </summary>
+        internal static string DeleteTrade {
+            get {
+                return ResourceManager.GetString("DeleteTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 删除窗口 的本地化字符串。
         /// </summary>
         internal static string DeleteWindow {
@@ -1686,6 +1704,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string ModelSelect {
             get {
                 return ResourceManager.GetString("ModelSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 修改成交 的本地化字符串。
+        /// </summary>
+        internal static string ModifyTrade {
+            get {
+                return ResourceManager.GetString("ModifyTrade", resourceCulture);
             }
         }
         
@@ -2401,6 +2428,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 仓位同步 的本地化字符串。
+        /// </summary>
+        internal static string PositionSync {
+            get {
+                return ResourceManager.GetString("PositionSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 持仓 的本地化字符串。
         /// </summary>
         internal static string PositionWindow {
@@ -3076,6 +3112,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 系统仓位 的本地化字符串。
+        /// </summary>
+        internal static string SysPosition {
+            get {
+                return ResourceManager.GetString("SysPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 系统 的本地化字符串。
         /// </summary>
         internal static string System {
@@ -3603,6 +3648,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string YdPosition {
             get {
                 return ResourceManager.GetString("YdPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确认 的本地化字符串。
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
         
