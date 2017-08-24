@@ -12,7 +12,7 @@
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
         mc:Ignorable="d"
-        Title="{lex:Loc Key=AddTrade}" Height="150" Width="180">
+        Title="{lex:Loc Key=AddTrade}" Height="200" Width="300">
     <Window.Resources>
         <local:EnumBooleanConverter x:Key="enumBooleanConverter"/>
     </Window.Resources>
@@ -20,6 +20,9 @@
         <Grid>
             <StackPanel>
                 <WrapPanel>
+                    <GroupBox Header="{lex:Loc Key=Exchange}">
+                        <ComboBox x:Name="exchangeCB"  Height="22"/>
+                    </GroupBox>
                     <GroupBox Header="{lex:Loc Key=Contract}">
                         <wpf:AutoCompleteTextBox Name="FastOrderContract" Width="100" VerticalAlignment="Center" KeyUp="FastOrderContract_KeyUp" MouseLeftButtonUp="FastOrderContract_MouseLeftButtonUp"/>
                     </GroupBox>
@@ -29,7 +32,7 @@
                 </WrapPanel>
                 <WrapPanel>
                     <GroupBox Header="{lex:Loc Key=Price}">
-                        <TextBox Name="LimitTxt" Width="100" VerticalAlignment="Center"/>
+                        <xctk:DoubleUpDown Name="LimitTxt" Width="100" Value="{Binding Price}" VerticalAlignment="Center" ShowButtonSpinner="False"/>
                     </GroupBox>
                     <GroupBox Header="{lex:Loc Key=OrderVolume}">
                         <xctk:IntegerUpDown x:Name="SizeTxt" Width="100"  FormatString="N0"  VerticalAlignment="Center" Maximum="100000" Minimum="1"/>

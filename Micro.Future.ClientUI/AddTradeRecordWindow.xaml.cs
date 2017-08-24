@@ -49,8 +49,10 @@ namespace Micro.Future.UI
         public AddTradeRecordWindow()
         {
             InitializeComponent();
-            TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            //TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             DataContext = TradeInfoVM;
+            GetContractInfo();
+            exchangeCB.ItemsSource = FutureContractList.Select(c => c.Exchange).Distinct();
             portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             radioButtonBuy.IsChecked = true;
             RadioA.IsChecked = true;
@@ -90,12 +92,14 @@ namespace Micro.Future.UI
             var contract = FastOrderContract.SelectedItem == null ? FastOrderContract.Filter : FastOrderContract.SelectedItem.ToString();
             if (LimitTxt.Text != null & !string.IsNullOrEmpty(contract) & SizeTxt != null)
             {
-                //TradeInfoVM.Price = LimitTxt.Text;
+                TradeInfoVM.Exchange = exchangeCB.SelectedItem.ToString();
+                TradeInfoVM.Price = LimitTxt.Value.Value;
                 TradeInfoVM.Contract = contract;
                 TradeInfoVM.Volume = (int)SizeTxt.Value;
                 TradeInfoVM.Portfolio = portofolioCB.SelectedValue?.ToString();
             }
-            TradeHandler.AddTrade(TradeInfoVM);
+            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().AddTrade(TradeInfoVM);
+            this.Close();
         }
 
     }
