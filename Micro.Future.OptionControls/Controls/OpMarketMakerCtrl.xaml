@@ -139,8 +139,8 @@
                 <Button x:Name="RefreshCounter_button" Content="{lex:Loc Key=Refresh}" VerticalAlignment="Center" Width="75" Click="RefreshCounter_Click"/>
             </GroupBox>
         </WrapPanel>
-        <utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="1" Grid.Column="0" >
-            <ListView x:Name="option_priceLV" ScrollViewer.HorizontalScrollBarVisibility="Visible" SelectionChanged="option_priceLV_SelectionChanged" HorizontalContentAlignment="Stretch">
+        <!--<utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="1" Grid.Column="0" >-->
+            <ListView x:Name="option_priceLV" Grid.Row="1" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Visible" SelectionChanged="option_priceLV_SelectionChanged" HorizontalContentAlignment="Stretch">
                 <ListView.Resources>
                     <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="GreenHeaderStyle">
                         <Setter Property="Background" Value="Blue"/>
@@ -172,7 +172,9 @@
                         <GridViewColumn x:Name="PBidQT" Header="{lex:Loc Key=PBidQTEnable}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
+                                <Border BorderBrush="#FF000000" BorderThickness="1,1,0,0">
                                     <CheckBox IsChecked="{Binding PutStrategyVM.BidEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}" Tag="{Binding PutStrategyVM.Contract}" HorizontalAlignment="Center"></CheckBox>
+                                </Border>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -772,6 +774,6 @@
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>
-        </utility:GridLineDecorator>
+        <!--</utility:GridLineDecorator>-->
     </Grid>
 </UserControl>

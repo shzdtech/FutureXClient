@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Micro.Future.Utility;
 using System.Threading;
 using Micro.Future.Message;
+using System.Windows;
 
 namespace Micro.Future.Message
 {
@@ -290,6 +291,7 @@ namespace Micro.Future.Message
                         TradingType = (TradingType)rsp.TradingType,
                         Active = rsp.Active,
                         Status = (OrderStatus)rsp.OrderStatus,
+
                         OpenClose = (OrderOpenCloseType)rsp.Openclose,
                         InsertTime = rsp.InsertTime,
                         UpdateTime = rsp.UpdateTime,
@@ -305,6 +307,11 @@ namespace Micro.Future.Message
                         //rsp.StopPrice
                         //rsp.TradingDay
                     };
+                    if (rsp.OrderStatus == 4 || rsp.OrderStatus==5 || rsp.OrderStatus==13)
+                    {
+                        string msg = string.Format("{0}", Encoding.UTF8.GetString(rsp.Message.ToByteArray()));
+                        MessageBoxResult dr = System.Windows.MessageBox.Show(msg, " ", MessageBoxButton.OK, MessageBoxImage.Question);
+                    }
 
                     OrderVMCollection.Add(orderVM);
                 }

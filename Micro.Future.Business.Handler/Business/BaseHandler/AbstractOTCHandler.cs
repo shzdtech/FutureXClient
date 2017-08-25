@@ -410,7 +410,6 @@ namespace Micro.Future.Message
         {
             var tcs = new TimeoutTaskCompletionSource<int>(timeout);
             var serialId = NextSerialId;
-
             #region callback
             MessageWrapper.RegisterAction<PBPortfolio, ExceptionMessage>
             ((uint)BusinessMessageID.MSG_ID_MODIFY_PORTFOLIO,
@@ -432,6 +431,8 @@ namespace Micro.Future.Message
 
 
             var portfolio = new PBPortfolio();
+            portfolio.Header = new DataHeader { SerialId = serialId };
+
             portfolio.Name = pVM.Name;
             portfolio.HedgeDelay = pVM.Delay;
             portfolio.Threshold = pVM.Threshold;

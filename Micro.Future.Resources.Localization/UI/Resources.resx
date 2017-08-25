@@ -835,7 +835,7 @@
     <value>情景分析</value>
   </data>
   <data name="StrikePrice" xml:space="preserve">
-    <value>执行价格</value>
+    <value>执行价</value>
   </data>
   <data name="Tick_Count" xml:space="preserve">
     <value>步数</value>

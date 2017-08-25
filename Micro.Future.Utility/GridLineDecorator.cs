@@ -240,6 +240,7 @@ namespace Micro.Future.Utility
             _target.Loaded += OnTargetLoaded;
             _target.Unloaded += OnTargetUnloaded;
             _target.SizeChanged += OnTargetSizeChanged;
+            _target.DragEnter += OnDragLeaveChanged;
         }
 
         private void Detach()
@@ -265,7 +266,10 @@ namespace Micro.Future.Utility
         {
             DrawGridLines();
         }
-
+        private void OnDragLeaveChanged(object sender, DragEventArgs e)
+        {
+            DrawGridLines();
+        }
         private void OnScrollChanged(object sender, RoutedEventArgs e)
         {
             DrawGridLines();
