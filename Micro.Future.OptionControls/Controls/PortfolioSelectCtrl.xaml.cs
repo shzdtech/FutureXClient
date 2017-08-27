@@ -94,7 +94,7 @@ namespace Micro.Future.UI
                 var strategySymbolList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
                     .Select(c => new { StrategyName = c.StrategySym }).Distinct().ToList();
                 strategyListView.ItemsSource = strategySymbolList;
-                hedgeListView.ItemsSource = portfolioVM.HedgeContractParams.OrderByDescending(c=>c.Contract);
+                hedgeListView.ItemsSource = portfolioVM.HedgeContractParams.OrderByDescending(c => c.Contract);
                 //var portfolioDataContext = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection
                 //    .Where(c => c.Name == portfolio).Distinct();
                 DelayTxt.DataContext = portfolioVM;
@@ -113,19 +113,6 @@ namespace Micro.Future.UI
 
         }
 
-        private void Delay_KeyUp(object sender, KeyEventArgs e)
-        {
-            Control ctrl = sender as Control;
-            if (ctrl != null)
-            {
-                var portfolioVM = DelayTxt.DataContext as PortfolioVM;
-                if (e.Key == Key.Enter)
-                {
-                    //portfolioVM.Delay = DelayTxt.;
-                    portfolioVM.UpdatePortfolioAsync();
-                }
-            }
-        }
         private void Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
         {
             var updownctrl = sender as IntegerUpDown;
@@ -142,12 +129,16 @@ namespace Micro.Future.UI
                 var portfolioVM = updownctrl.DataContext as PortfolioVM;
                 if (portfolioVM != null)
                 {
-                    int hedgeVolume = (int)e.NewValue;
-                    portfolioVM.HedgeVolume = hedgeVolume;
-                    portfolioVM.UpdatePortfolioAsync();
+                    lock (this)
+                    {
+                        int hedgeVolume = (int)e.NewValue;
+                        portfolioVM.HedgeVolume = hedgeVolume;
+                        portfolioVM.UpdatePortfolioAsync().WaitAsync();
+                    }
                 }
             }
         }
+
         private void DelayValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var updownctrl = sender as IntegerUpDown;
@@ -156,9 +147,12 @@ namespace Micro.Future.UI
                 var portfolioVM = updownctrl.DataContext as PortfolioVM;
                 if (portfolioVM != null)
                 {
-                    int delay = (int)e.NewValue;
-                    portfolioVM.Delay = delay;
-                    portfolioVM.UpdatePortfolioAsync();
+                    lock (this)
+                    {
+                        int delay = (int)e.NewValue;
+                        portfolioVM.Delay = delay;
+                        portfolioVM.UpdatePortfolioAsync().WaitAsync();
+                    }
                 }
             }
         }
@@ -170,9 +164,12 @@ namespace Micro.Future.UI
                 var portfolioVM = updownctrl.DataContext as PortfolioVM;
                 if (portfolioVM != null)
                 {
-                    double threshold = (double)e.NewValue;
-                    portfolioVM.Threshold = threshold;
-                    portfolioVM.UpdatePortfolioAsync();
+                    lock (this)
+                    {
+                        double threshold = (double)e.NewValue;
+                        portfolioVM.Threshold = threshold;
+                        portfolioVM.UpdatePortfolioAsync().WaitAsync();
+                    }
                 }
             }
         }
@@ -286,8 +283,11 @@ namespace Micro.Future.UI
             var portfolioVM = _otcOptionHandler.PortfolioVMCollection.FirstOrDefault(c => c.Name == PortfolioIndex);
             if (portfolioVM != null)
             {
-                portfolioVM.Hedging = autoStatus;
-                portfolioVM.UpdatePortfolioAsync();
+                lock (this)
+                {
+                    portfolioVM.Hedging = autoStatus;
+                    portfolioVM.UpdatePortfolioAsync().WaitAsync();
+                }
             }
         }
 

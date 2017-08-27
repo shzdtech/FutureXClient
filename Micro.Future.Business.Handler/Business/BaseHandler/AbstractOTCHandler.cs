@@ -406,9 +406,9 @@ namespace Micro.Future.Message
         }
 
 
-        public Task<int> UpdatePortfolioAsync(PortfolioVM pVM, int timeout = 10000)
+        public Task<bool> UpdatePortfolioAsync(PortfolioVM pVM, int timeout = 10000)
         {
-            var tcs = new TimeoutTaskCompletionSource<int>(timeout);
+            var tcs = new TimeoutTaskCompletionSource<bool>(timeout);
             var serialId = NextSerialId;
             #region callback
             MessageWrapper.RegisterAction<PBPortfolio, ExceptionMessage>
@@ -418,7 +418,7 @@ namespace Micro.Future.Message
                 if (resp.Header?.SerialId == serialId)
                 {
                     OnPortfolioUpdated(resp);
-                    tcs.TrySetResult(0);
+                    tcs.TrySetResult(true);
                 }
             },
             (bizErr) =>
