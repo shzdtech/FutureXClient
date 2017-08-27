@@ -144,16 +144,16 @@ namespace Micro.Future.UI
             var updownctrl = sender as IntegerUpDown;
             if (updownctrl != null && e.OldValue != null && e.NewValue != null)
             {
+                updownctrl.IsEnabled = false;
                 var portfolioVM = updownctrl.DataContext as PortfolioVM;
                 if (portfolioVM != null)
                 {
-                    lock (this)
-                    {
+
                         int delay = (int)e.NewValue;
                         portfolioVM.Delay = delay;
                         portfolioVM.UpdatePortfolioAsync().WaitAsync();
-                    }
                 }
+                updownctrl.IsEnabled = true;
             }
         }
         private void ThresholdValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -161,16 +161,15 @@ namespace Micro.Future.UI
             var updownctrl = sender as DoubleUpDown;
             if (updownctrl != null && e.OldValue != null && e.NewValue != null)
             {
+                updownctrl.IsEnabled = false;
                 var portfolioVM = updownctrl.DataContext as PortfolioVM;
                 if (portfolioVM != null)
                 {
-                    lock (this)
-                    {
                         double threshold = (double)e.NewValue;
                         portfolioVM.Threshold = threshold;
                         portfolioVM.UpdatePortfolioAsync().WaitAsync();
-                    }
                 }
+                updownctrl.IsEnabled = true;
             }
         }
 

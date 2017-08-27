@@ -37,6 +37,7 @@ namespace Micro.Future.CustomizedControls.Windows
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
             TradeHandler.SyncPosition();
+            MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>().SyncPosition();
             this.Close();
         }
     }
