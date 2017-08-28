@@ -3652,6 +3652,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 昨仓同步 的本地化字符串。
+        /// </summary>
+        internal static string YDPositionSync {
+            get {
+                return ResourceManager.GetString("YDPositionSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 确认 的本地化字符串。
         /// </summary>
         internal static string Yes {

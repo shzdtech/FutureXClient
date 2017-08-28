@@ -138,7 +138,9 @@ namespace Micro.Future.Message
             PositionDifferVMCollection.Clear();
             foreach (var positionDiffer in pb.Positions)
             {
-                PositionDifferVMCollection.Add(new PositionDifferVM{ Contract = positionDiffer.Contract, Position = positionDiffer.DbPosition, Direction = (PositionDirectionType)positionDiffer.Direction, SysPosition = positionDiffer.SysPosition});
+                PositionDifferVMCollection.
+                    Add(new PositionDifferVM{ Contract = positionDiffer.Contract, Position = positionDiffer.DbPosition,
+                        Direction = (PositionDirectionType)positionDiffer.Direction, SysPosition = positionDiffer.SysPosition});
             }
         }
         public void SyncPosition()

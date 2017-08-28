@@ -19,7 +19,7 @@
     <DockPanel>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
+                <RowDefinition />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <GroupBox Grid.Row="0" HorizontalAlignment="Stretch">

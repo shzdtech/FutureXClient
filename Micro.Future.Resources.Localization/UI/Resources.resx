@@ -1323,4 +1323,7 @@
   <data name="Yes" xml:space="preserve">
     <value>确认</value>
   </data>
+  <data name="YDPositionSync" xml:space="preserve">
+    <value>昨仓同步</value>
+  </data>
 </root>

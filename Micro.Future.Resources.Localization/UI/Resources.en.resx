@@ -1317,4 +1317,7 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="YDPositionSync" xml:space="preserve">
+    <value>YDPositionSync</value>
+  </data>
 </root>
