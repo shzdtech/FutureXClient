@@ -172,9 +172,7 @@
                         <GridViewColumn x:Name="PBidQT" Header="{lex:Loc Key=PBidQTEnable}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                <Border BorderBrush="#FF000000" BorderThickness="1,1,0,0">
                                     <CheckBox IsChecked="{Binding PutStrategyVM.BidEnabled}" Command="{Binding PutStrategyVM.UpdateCommand}" Tag="{Binding PutStrategyVM.Contract}" HorizontalAlignment="Center"></CheckBox>
-                                </Border>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

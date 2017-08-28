@@ -12,7 +12,7 @@
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
         mc:Ignorable="d"
-        Title="{lex:Loc Key=AddTrade}" Height="200" Width="300">
+        Title="{lex:Loc Key=AddTrade}" Height="250" Width="240">
     <Window.Resources>
         <local:EnumBooleanConverter x:Key="enumBooleanConverter"/>
     </Window.Resources>
@@ -20,9 +20,9 @@
         <Grid>
             <StackPanel>
                 <WrapPanel>
-                    <GroupBox Header="{lex:Loc Key=Exchange}">
+                    <!--<GroupBox Header="{lex:Loc Key=Exchange}">
                         <ComboBox x:Name="exchangeCB"  Height="22"/>
-                    </GroupBox>
+                    </GroupBox>-->
                     <GroupBox Header="{lex:Loc Key=Contract}">
                         <wpf:AutoCompleteTextBox Name="FastOrderContract" Width="100" VerticalAlignment="Center" KeyUp="FastOrderContract_KeyUp" MouseLeftButtonUp="FastOrderContract_MouseLeftButtonUp"/>
                     </GroupBox>
@@ -32,29 +32,36 @@
                 </WrapPanel>
                 <WrapPanel>
                     <GroupBox Header="{lex:Loc Key=Price}">
-                        <xctk:DoubleUpDown Name="LimitTxt" Width="100" Value="{Binding Price}" VerticalAlignment="Center" ShowButtonSpinner="False"/>
+                        <xctk:DoubleUpDown Name="LimitTxt" Width="88" Value="{Binding Price}" VerticalAlignment="Center"/>
                     </GroupBox>
                     <GroupBox Header="{lex:Loc Key=OrderVolume}">
-                        <xctk:IntegerUpDown x:Name="SizeTxt" Width="100"  FormatString="N0"  VerticalAlignment="Center" Maximum="100000" Minimum="1"/>
+                        <xctk:IntegerUpDown x:Name="SizeTxt" Width="88"  FormatString="N0"  VerticalAlignment="Center" Maximum="100000" Minimum="1"/>
                     </GroupBox>
                 </WrapPanel>
-                <WrapPanel>
-                    <RadioButton Name="radioButtonBuy" Content="{lex:Loc Key=Buy}" IsEnabled="True"
+                <GroupBox Header="{lex:Loc Key=Direction}" Width="200" HorizontalAlignment="Left">
+                    <WrapPanel>
+                        <RadioButton Name="radioButtonBuy" Content="{lex:Loc Key=Buy}" 
                              IsChecked= "{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=BUY}"
-                             VerticalAlignment="Center" GroupName="BuySellGroup" Width="42.4" Height="16" HorizontalAlignment="Left"/>
-                    <RadioButton Name="radioButtonSell" Content="{lex:Loc Key=Sell}"
+                             VerticalAlignment="Center" Width="42.4" Height="16" HorizontalAlignment="Left"/>
+                        <RadioButton Name="radioButtonSell" Content="{lex:Loc Key=Sell}"
                              IsChecked="{Binding Path=Direction,Converter={StaticResource enumBooleanConverter}, ConverterParameter=SELL}" 
-                             VerticalAlignment="Center" GroupName="BuySellGroup" Width="42.4" Height="16" HorizontalAlignment="Left"/>
-                </WrapPanel>
-                <WrapPanel>
-                    <RadioButton Name="RadioA" GroupName="orderType"  Content="{lex:Loc Key=Open}" 
+                             VerticalAlignment="Center"  Width="42.4" Height="16" HorizontalAlignment="Left"/>
+                    </WrapPanel>
+                </GroupBox>
+                <GroupBox Header="{lex:Loc Key=OpenClose}" Width="200" HorizontalAlignment="Left">
+                    <WrapPanel>
+                        <RadioButton Name="RadioA" GroupName="orderType"  Content="{lex:Loc Key=Open}" 
                              IsChecked="{Binding Path=OpenClose,Converter={StaticResource enumBooleanConverter}, ConverterParameter=OPEN}" VerticalAlignment="Center" Width="42.4" HorizontalAlignment="Left"/>
-                    <RadioButton Name="RadioB" GroupName="orderType" Content="{lex:Loc Key=Close}"
+                        <RadioButton Name="RadioB" GroupName="orderType" Content="{lex:Loc Key=Close}"
                              IsChecked="{Binding Path=OpenClose,Converter={StaticResource enumBooleanConverter}, ConverterParameter=CLOSE}" VerticalAlignment="Center" Width="42.4" HorizontalAlignment="Left"/>
-                    <RadioButton Name="RadioC"  GroupName="orderType" Content="{lex:Loc Key=CloseToday}" 
+                        <RadioButton Name="RadioC"  GroupName="orderType" Content="{lex:Loc Key=CloseToday}" 
                              IsChecked="{Binding Path=OpenClose,Converter={StaticResource enumBooleanConverter}, ConverterParameter=CLOSETODAY}" VerticalAlignment="Center" Width="42.4" Height="16" HorizontalAlignment="Left" />
+                    </WrapPanel>
+                </GroupBox>
+                <WrapPanel>
+                    <Button x:Name="AddButton" Content="{lex:Loc Key=Add}" MinWidth="100" Click="AddButton_Click" />
+                    <Button x:Name="CancelButton" Content="{lex:Loc Key=Cancel}" MinWidth="100" Click="CancelButton_Click" />
                 </WrapPanel>
-                <Button x:Name="AddButton" Content="{lex:Loc Key=Add}" MinWidth="100" Click="AddButton_Click" />
             </StackPanel>
         </Grid>
     </DockPanel>

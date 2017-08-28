@@ -474,7 +474,7 @@ namespace Micro.Future.Message
         public void AddTrade(TradeVM tradeVM)
         {
             var tradeInfo = new PBTradeInfo();
-            tradeInfo.Exchange = tradeVM.Exchange;
+            //tradeInfo.Exchange = tradeVM.Exchange;
             tradeInfo.Contract = tradeVM.Contract;
             tradeInfo.Volume = tradeVM.Volume;
             tradeInfo.Price = tradeVM.Price;

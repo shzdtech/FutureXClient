@@ -19,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfControls;
+using Xceed.Wpf.Toolkit;
 
 namespace Micro.Future.UI
 {
@@ -52,10 +53,11 @@ namespace Micro.Future.UI
             //TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             DataContext = TradeInfoVM;
             GetContractInfo();
-            exchangeCB.ItemsSource = FutureContractList.Select(c => c.Exchange).Distinct();
+            //exchangeCB.ItemsSource = FutureContractList.Select(c => c.Exchange).Distinct();
             portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             radioButtonBuy.IsChecked = true;
             RadioA.IsChecked = true;
+            SizeTxt.Value = 1;
         }
         public void GetContractInfo()
         {
@@ -65,11 +67,28 @@ namespace Micro.Future.UI
             FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK));
             FastOrderContract.Provider = new SuggestionProvider((string c) => { return FutureContractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
         }
-        private void LoadContract()
+        private async void LoadContract()
         {
             if (FastOrderContract.SelectedItem == null)
             {
                 FastOrderContract.SelectedItem = FastOrderContract.Filter ?? string.Empty;
+            }
+            var contract = FastOrderContract.SelectedItem.ToString();
+            if (FutureContractList.Any(c => c.Contract == contract))
+            {
+                TradeInfoVM.Contract = contract;
+                var quote = TradeInfoVM.Contract;
+                var item = await MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().SubMarketDataAsync(quote);
+                if (item != null)
+                {
+                    var contractInfo = ClientDbContext.FindContract(quote);
+                    LimitTxt.Increment = contractInfo == null ? 1 : contractInfo.PriceTick;
+                    radioButtonBuy.IsChecked = true;
+                    RadioA.IsChecked = true;
+                    //LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("AskPrice.Value") { Mode = BindingMode.OneWay });
+                    LimitTxt.Value = item.LastPrice;
+                    SizeTxt.Value = 1;
+                }
             }
         }
 
@@ -92,7 +111,7 @@ namespace Micro.Future.UI
             var contract = FastOrderContract.SelectedItem == null ? FastOrderContract.Filter : FastOrderContract.SelectedItem.ToString();
             if (LimitTxt.Text != null & !string.IsNullOrEmpty(contract) & SizeTxt != null)
             {
-                TradeInfoVM.Exchange = exchangeCB.SelectedItem.ToString();
+                //TradeInfoVM.Exchange = exchangeCB.SelectedItem.ToString();
                 TradeInfoVM.Price = LimitTxt.Value.Value;
                 TradeInfoVM.Contract = contract;
                 TradeInfoVM.Volume = (int)SizeTxt.Value;
@@ -102,5 +121,9 @@ namespace Micro.Future.UI
             this.Close();
         }
 
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
