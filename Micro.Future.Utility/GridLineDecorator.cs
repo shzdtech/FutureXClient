@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 
@@ -240,9 +242,36 @@ namespace Micro.Future.Utility
             _target.Loaded += OnTargetLoaded;
             _target.Unloaded += OnTargetUnloaded;
             _target.SizeChanged += OnTargetSizeChanged;
-            _target.DragEnter += OnDragLeaveChanged;
+            _target.TouchMove += _target_TouchMove;
+            _target.TouchUp += _target_TouchUp;
+            _target.DragLeave += _target_DragLeave;
         }
 
+        private void Items_CurrentChanged(object sender, EventArgs e)
+        {
+            DrawGridLines();
+        }
+
+        private void _target_DragLeave(object sender, DragEventArgs e)
+        {
+            DrawGridLines();
+        }
+
+        private void _target_TouchUp(object sender, TouchEventArgs e)
+        {
+            DrawGridLines();
+
+        }
+
+        private void _target_TouchMove(object sender, TouchEventArgs e)
+        {
+            DrawGridLines();
+        }
+
+        private void _target_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+            DrawGridLines();
+        }
         private void Detach()
         {
             _target.Loaded -= OnTargetLoaded;
