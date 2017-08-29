@@ -115,7 +115,6 @@ namespace Micro.Future.UI
                 MD5Round = 2,
                 AddressCollection = _config.Content["ACCOUNTSERVER.FRONT"].Values.ToList(),
                 NameCollection = _config.Content["ACCOUNTSERVER.FRONTNAME"].Values.ToList()
-
             };
             _currentLoginWindow.Closed += _currentLoginWindow_Closed;
             _currentLoginWindow.OnLogged += LoginWindow_OnLogged;
@@ -195,9 +194,10 @@ namespace Micro.Future.UI
                     }
                 }
             }
-
-            txtblkUserName.Text = userInfo.Name;
-            txtblkTime.Text = DateTime.Now.ToLongTimeString();
+            string msg = string.Format("IP：{0}，用户名：{1}，登录时间：{2}", _accountSignIner.SignInOptions.FrontServer.Split(':').FirstOrDefault(), userInfo.Name, DateTime.Now.ToLongTimeString());
+            //txtblkServerIP.Text = _accountSignIner.SignInOptions.FrontServer.Split(':').FirstOrDefault();
+            txtblkUserName.Text = msg;
+            //txtblkTime.Text = DateTime.Now.ToLongTimeString();
             foreach (var menuitem in SysMenus)
                 mainMenu.Items.Add(menuitem);
 

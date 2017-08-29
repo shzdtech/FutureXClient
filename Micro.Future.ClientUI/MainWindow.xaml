@@ -54,9 +54,10 @@
             </Grid.ColumnDefinitions>
             <StatusBar x:Name="statusBar" Grid.Column="0">
             </StatusBar>
-            <StatusBar x:Name="statusBarLogin" Grid.Column="1">
+            <StatusBar x:Name="statusBarLogin" HorizontalAlignment="Right" Margin="0,0,-0.4,0.4" Width="286" Grid.ColumnSpan="2">
+                <!--<TextBlock x:Name="txtblkServerIP"></TextBlock>-->
                 <TextBlock x:Name="txtblkUserName"></TextBlock>
-                <TextBlock x:Name="txtblkTime"></TextBlock>
+                <!--<TextBlock x:Name="txtblkTime"></TextBlock>-->
             </StatusBar>
         </Grid>
     </Grid>
