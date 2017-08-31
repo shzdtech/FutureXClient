@@ -367,8 +367,9 @@ namespace Micro.Future.UI
                 //var unshowContracts = positionList.Except(strategyContractList.Select(s => s.Contract));
                 var unshowRiskContracts = hedgeContractList.Except(strategyContractList.Select(s => s.OptionContract));
                 //strategyContractList.AddRange(unshowRiskContracts.Select(c => new StrategyBaseVM { Contract = c }));
-                var ContractList = strategyContractList.Union(strategyUnderlyingContractList.Select(c => new StrategyBaseVM { Contract = c }));
-                foreach (var vm in ContractList)
+                var contractList = strategyContractList.Union(strategyUnderlyingContractList.Select(c => new StrategyBaseVM { Contract = c }));
+                contractList = contractList.GroupBy(c => c.Contract).Select(c => c.FirstOrDefault()).ToList();
+                foreach (var vm in contractList)
                 {
                     if (vm.OptionContract != null)
                     {
@@ -390,7 +391,7 @@ namespace Micro.Future.UI
                     }
                 }
 
-                expirationLV.ItemsSource = ContractList;
+                expirationLV.ItemsSource = contractList;
 
 
                 var baseContractSet = new SortedSet<string>();
@@ -458,7 +459,7 @@ namespace Micro.Future.UI
                 {
                     if (vm.BaseContract != null)
                     {
-                            _riskSet.Remove(vm.BaseContract);
+                        _riskSet.Remove(vm.BaseContract);
                     }
                 }
                 ReloadDataCallback();

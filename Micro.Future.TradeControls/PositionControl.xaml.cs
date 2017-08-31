@@ -156,9 +156,9 @@ namespace Micro.Future.UI
         private async void LoadMarketData(string contract)
         {
 
-            if (MarketDataHandler.MessageWrapper.HasSignIn)
+            if (MarketDataHandler.MessageWrapper != null && MarketDataHandler.MessageWrapper.HasSignIn)
             {
-                    _marketDataList.Add(await MarketDataHandler.SubMarketDataAsync(contract));
+                _marketDataList.Add(await MarketDataHandler.SubMarketDataAsync(contract));
                 //await Task.Run(async () =>
                 // {
                 //     _marketDataList.Add(await MarketDataHandler.SubMarketDataAsync(contract));
@@ -481,7 +481,7 @@ namespace Micro.Future.UI
 
             TradeHandler.PositionVMCollection.CollectionChanged += PositionCollectionChanged;
             MarketDataHandler.OnNewMarketData += OnNewMarketData;
-            FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User.Id;
+            FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User?.Id;
         }
 
         public bool ShowCloseAll

@@ -161,7 +161,8 @@ namespace Micro.Future.UI
         public void ReloadData()
         {
             Initialize();
-            var layoutInfo = ClientDbContext.GetLayout(_otcHandler.MessageWrapper.User.Id, optionmodelDM.Uid);
+
+            var layoutInfo = ClientDbContext.GetLayout(_otcHandler.MessageWrapper.User?.Id, optionmodelDM.Uid);
             //if (layoutInfo != null)
             //{
             //    XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(optionmodelDM);
