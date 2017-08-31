@@ -28,8 +28,8 @@
             <RadioButton GroupName="executionClass"  Content="已撤销单"  Checked="RadioButton_Checked_CanceledOrder"/>
             <RadioButton GroupName="executionClass" Content="已拒绝单" Checked="RadioButton_Checked_RejectedOrder"/>
         </StackPanel>-->
-        <utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="0" >
-            <ListView Name="ExecutionTreeView" GridViewColumnHeader.Click="ExecutionTreeView_Click" ItemsSource="{Binding OrderVMCollection}">
+        <!--<utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="0" >-->
+            <ListView Name="ExecutionTreeView" Grid.Row="0" GridViewColumnHeader.Click="ExecutionTreeView_Click" ItemsSource="{Binding OrderVMCollection}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="{lex:Loc Key=OrderID}" DisplayMemberBinding="{Binding OrderID}" Width="auto"/>
@@ -72,6 +72,6 @@
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>
-        </utility:GridLineDecorator>
+        <!--</utility:GridLineDecorator>-->
     </Grid>
 </UserControl>

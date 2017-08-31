@@ -13,7 +13,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="200" Width="auto">
     <Grid>
-        <utility:GridLineDecorator GridLineBrush="LightGray">
+        <!--<utility:GridLineDecorator GridLineBrush="LightGray">-->
             <ListView Name="FundListView">
                 <ListView.View>
                     <GridView>
@@ -111,6 +111,6 @@
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>
-        </utility:GridLineDecorator>
+        <!--</utility:GridLineDecorator>-->
     </Grid>
 </UserControl>

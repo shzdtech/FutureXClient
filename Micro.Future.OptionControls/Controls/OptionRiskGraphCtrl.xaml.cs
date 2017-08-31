@@ -218,6 +218,7 @@ namespace Micro.Future.UI
 
         private async void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            BarItemCollection.Clear();
             if (portfolioCB.SelectedValue != null)
             {
                 var portfolio = portfolioCB.SelectedValue?.ToString();

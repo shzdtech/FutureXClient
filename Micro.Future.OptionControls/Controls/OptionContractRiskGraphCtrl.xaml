@@ -50,7 +50,7 @@
                     <RadioButton x:Name="pnlRadioButton" Checked="pnlRadioButton_Checked" Content="Pnl" VerticalAlignment="Top"/>
                 </StackPanel>
             </GroupBox>
-            <GroupBox x:Name="expirationGB" Header="{lex:Loc Key=MarketData}" Width="Auto">
+            <GroupBox x:Name="expirationGB" Header="{lex:Loc Key=MarketData}" Width="Auto" Height="300">
                 <utility:GridLineDecorator GridLineBrush="LightGray">
                     <ListView x:Name="expirationLV" ScrollViewer.VerticalScrollBarVisibility="Auto" GridViewColumnHeader.Click="quoteListView_Click" ScrollViewer.HorizontalScrollBarVisibility="Visible" Width="Auto">
                         <ListView.View>

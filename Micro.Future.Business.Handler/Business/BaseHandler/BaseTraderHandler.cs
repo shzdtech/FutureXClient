@@ -42,6 +42,11 @@ namespace Micro.Future.Message
         {
             get;
         } = new ObservableCollection<PositionDifferVM>();
+        public ObservableCollection<PositionDifferVM> PositionSyncVMCollection
+        {
+            get;
+        } = new ObservableCollection<PositionDifferVM>();
+        public List<string> PositionSyncList { get; } = new List<string>();
 
         public ISet<string> PositionContractSet { get; } = new HashSet<string>();
 
@@ -139,13 +144,23 @@ namespace Micro.Future.Message
             foreach (var positionDiffer in pb.Positions)
             {
                 PositionDifferVMCollection.
-                    Add(new PositionDifferVM{ Contract = positionDiffer.Contract, Position = positionDiffer.DbPosition,
-                        Direction = (PositionDirectionType)positionDiffer.Direction, SysPosition = positionDiffer.SysPosition});
+                    Add(new PositionDifferVM
+                    {
+                        Contract = positionDiffer.Contract,
+                        Position = positionDiffer.DbPosition,
+                        Direction = (PositionDirectionType)positionDiffer.Direction,
+                        SysPosition = positionDiffer.SysPosition
+                    });
             }
         }
-        public void SyncPosition()
+        public void SyncPosition(List<PositionDifferVM> positiondiffervmList)
         {
-            var sst = new StringMap();
+
+            var sst = new PBPositionCompareList();
+            foreach (var positiondiffervm in positiondiffervmList)
+            {
+                sst.Positions.Add(new PBPositionCompare { Contract = positiondiffervm.Contract, Direction = (int)positiondiffervm.Direction });
+            }
             sst.Header = new DataHeader();
             sst.Header.SerialId = NextSerialId;
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_SYNC_POSITION, sst);
@@ -203,7 +218,7 @@ namespace Micro.Future.Message
                             Profit = rsp.Profit,
                             CloseProfit = rsp.CloseProfit,
                             UseMargin = rsp.UseMargin,
-                            Position = rsp.YdPosition+rsp.TdPosition,
+                            Position = rsp.YdPosition + rsp.TdPosition,
                         };
 
                         PositionVMCollection.Add(positionVM);
@@ -302,14 +317,14 @@ namespace Micro.Future.Message
                         Contract = rsp.Contract,
                         Message = Encoding.UTF8.GetString(rsp.Message.ToByteArray()),
                         InvestorID = rsp.InvestorID,
-                        
+
                         //rsp.InsertDate
                         //rsp.Message
                         //rsp.OrderType
                         //rsp.StopPrice
                         //rsp.TradingDay
                     };
-                    if (rsp.OrderStatus == 4 || rsp.OrderStatus==5 || rsp.OrderStatus==13)
+                    if (rsp.OrderStatus == 4 || rsp.OrderStatus == 5 || rsp.OrderStatus == 13)
                     {
                         string msg = string.Format("{0}", Encoding.UTF8.GetString(rsp.Message.ToByteArray()));
                         MessageBoxResult dr = System.Windows.MessageBox.Show(msg, " ", MessageBoxButton.OK, MessageBoxImage.Question);

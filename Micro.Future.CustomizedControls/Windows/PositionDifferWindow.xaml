@@ -26,6 +26,13 @@
                 <ListView Name="PositionListView">
                     <ListView.View>
                         <GridView>
+                            <GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Name="positionCheckBox" Checked="positionCheckBox_Checked" Unchecked="positionCheckBox_Unchecked"></CheckBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                             <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
                             <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
                             <GridViewColumn Header="{lex:Loc Key=Position}" DisplayMemberBinding="{Binding Position}" Width="auto"/>

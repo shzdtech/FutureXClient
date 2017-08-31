@@ -40,6 +40,7 @@ namespace Micro.Future.UI
         //    set;
         //}
         private IList<ContractInfo> _futurecontractList;
+
         public List<ColumnItem> BarItemCollection
         {
             get;
@@ -326,6 +327,7 @@ namespace Micro.Future.UI
         //}
         private async void portfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            BarItemCollection.Clear();
             if (portfolioCB.SelectedValue != null)
             {
                 var portfolio = portfolioCB.SelectedValue?.ToString();
@@ -341,11 +343,32 @@ namespace Micro.Future.UI
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
                 var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
                                     .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
+                var strategyPricingContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio)
+                                    .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
+                List<string> strategyUnderlyingList = new List<string>();
+                List<string> strategyUnderlyingContractList = new List<string>();
+
+                if (strategyPricingContractList != null)
+                {
+                    foreach (var contract in strategyPricingContractList)
+                    {
+                        strategyUnderlyingList.AddRange(_futurecontractList.Where(c => c.Contract == contract).Select(c => c.ProductID));
+                    }
+                }
+                var UnderlyingList = strategyUnderlyingList.Distinct();
+                if (UnderlyingList != null)
+                {
+                    foreach (var underlying in UnderlyingList)
+                    {
+                        strategyUnderlyingContractList.AddRange(_futurecontractList.Where(c => c.ProductID == underlying).Select(c => c.Contract));
+                    }
+                }
                 var strategyVMList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract)).ToList();
-                var unshowContracts = positionList.Except(strategyContractList.Select(s => s.Contract));
+                //var unshowContracts = positionList.Except(strategyContractList.Select(s => s.Contract));
                 var unshowRiskContracts = hedgeContractList.Except(strategyContractList.Select(s => s.OptionContract));
-                strategyContractList.AddRange(unshowRiskContracts.Select(c => new StrategyBaseVM { Contract = c }));
-                foreach (var vm in strategyContractList)
+                //strategyContractList.AddRange(unshowRiskContracts.Select(c => new StrategyBaseVM { Contract = c }));
+                var ContractList = strategyContractList.Union(strategyUnderlyingContractList.Select(c => new StrategyBaseVM { Contract = c }));
+                foreach (var vm in ContractList)
                 {
                     if (vm.OptionContract != null)
                     {
@@ -367,7 +390,7 @@ namespace Micro.Future.UI
                     }
                 }
 
-                expirationLV.ItemsSource = strategyContractList;
+                expirationLV.ItemsSource = ContractList;
 
 
                 var baseContractSet = new SortedSet<string>();
@@ -415,7 +438,9 @@ namespace Micro.Future.UI
                 foreach (var vm in strategyVMList)
                 {
                     if (vm.BaseContract != null)
+                    {
                         _riskSet.Add(vm.BaseContract);
+                    }
                 }
                 ReloadDataCallback();
             }
@@ -432,7 +457,9 @@ namespace Micro.Future.UI
                 foreach (var vm in strategyVMList)
                 {
                     if (vm.BaseContract != null)
-                        _riskSet.Remove(vm.BaseContract);
+                    {
+                            _riskSet.Remove(vm.BaseContract);
+                    }
                 }
                 ReloadDataCallback();
             }
