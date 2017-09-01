@@ -183,7 +183,8 @@ namespace Micro.Future.UI
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
             await tradeHandler.SyncContractInfoAsync();
             FastOrderCtl.GetContractInfo();
-            marketDataLV.GetContractInfo();
+            marketDataLV.ReloadData();
+            //marketDataLV.GetContractInfo();
             Thread.Sleep(1000);
             clientFundLV.ReloadData();
             Thread.Sleep(1000);
@@ -212,11 +213,11 @@ namespace Micro.Future.UI
             //quotePane.AddContent(new MarketDataControl()).Title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             var marketDataWin = new MarketDataControl(marketDataLV.PersistanceId, Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>());
+            marketDataWin.GetContractInfo();
             marketDataWin.FilterSettingsWin.Title += "(" + title + ")";
             marketDataWin.FilterSettingsWin.FilterTabTitle = title;
             quotePane.AddContent(marketDataWin).Title = title;
             marketDataWin.FilterSettingsWin.Save();
-            marketDataWin.GetContractInfo();
         }
 
 

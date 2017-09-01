@@ -79,7 +79,7 @@ namespace Micro.Future.UI
             _viewSource.Source = QuoteVMCollection;
             quoteListView.ItemsSource = _viewSource.View;
             mColumns = ColumnObject.GetColumns(quoteListView);
-            FilterSettingsWin.UserID = MarketDataHandler.MessageWrapper?.User.Id;
+            FilterSettingsWin.UserID = MarketDataHandler.MessageWrapper?.User?.Id;
             //FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
             //FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
 
@@ -160,7 +160,7 @@ namespace Micro.Future.UI
             if (defaultTab != null)
                 AnchorablePane.Children.Add(defaultTab);
             // MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().ResubMarketData();
-            var filtersettings = ClientDbContext.GetFilterSettings(MarketDataHandler.MessageWrapper.User.Id, PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(MarketDataHandler.MessageWrapper.User?.Id, PersistanceId);
             bool found = false;
             foreach (var fs in filtersettings)
             {

@@ -40,7 +40,6 @@ namespace Micro.Future.UI
         //    set;
         //}
         private IList<ContractInfo> _futurecontractList;
-
         public List<ColumnItem> BarItemCollection
         {
             get;
@@ -347,7 +346,6 @@ namespace Micro.Future.UI
                                     .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
                 List<string> strategyUnderlyingList = new List<string>();
                 List<string> strategyUnderlyingContractList = new List<string>();
-
                 if (strategyPricingContractList != null)
                 {
                     foreach (var contract in strategyPricingContractList)
@@ -395,19 +393,19 @@ namespace Micro.Future.UI
 
 
                 var baseContractSet = new SortedSet<string>();
-                foreach (var vm in strategyVMList)
+                foreach (var vm in contractList)
                 {
-                    if (vm.BaseContract != null)
-                        baseContractSet.Add(vm.BaseContract);
+                    if (vm.Contract != null)
+                        baseContractSet.Add(vm.Contract);
                 }
 
                 var baseContractList = baseContractSet.ToList();
                 baseContractAxis.ItemsSource = baseContractList;
-                foreach (var vm in strategyVMList)
+                foreach (var vm in contractList)
                 {
-                    if (vm.BaseContract != null)
+                    if (vm.Contract != null)
                     {
-                        _riskDict[vm.BaseContract] = baseContractList.FindIndex(s => s == vm.BaseContract);
+                        _riskDict[vm.Contract] = baseContractList.FindIndex(s => s == vm.Contract);
                     }
                 }
                 // set x-axis using strikeList;
@@ -436,16 +434,31 @@ namespace Micro.Future.UI
                 StrategyBaseVM strategyBaseVM = ctrl.DataContext as StrategyBaseVM;
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
                 var strategyVMList = strategyVMCollection.Where(s => s.BaseContract == strategyBaseVM.Contract);
-                foreach (var vm in strategyVMList)
+                //var strategyBaseContractList = strategyVMList.Select(s=>s.BaseContract).ToList();
+                //var expireFutureContractList = strategyUnderlyingContractList.Except(strategyBaseContractList);
+                //ObservableCollection<StrategyVM> underlyingContractVMCollection = new ObservableCollection<StrategyVM>();
+                //foreach(var contract in expireFutureContractList)
+                //{
+                //    underlyingContractVMCollection.Add(new StrategyVM(null){ Contract= contract});
+                //}
+                //var newStrategyVMList =  strategyVMList.Union(underlyingContractVMCollection);
+                if(strategyVMList.Any())
                 {
-                    if (vm.BaseContract != null)
+                    foreach (var vm in strategyVMList)
                     {
-                        _riskSet.Add(vm.BaseContract);
+                        if (vm.BaseContract != null)
+                        {
+                            _riskSet.Add(vm.BaseContract);
+                        }
+                        else
+                        {
+                            _riskSet.Add(vm.Contract);
+                        }
                     }
-                    else
-                    {
-                        _riskSet.Add(vm.Contract);
-                    }
+                }
+                else
+                {
+                    _riskSet.Add(strategyBaseVM.Contract);
                 }
                 ReloadDataCallback();
             }

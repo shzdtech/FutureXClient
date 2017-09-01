@@ -364,7 +364,7 @@ namespace Micro.Future.UI
             mColumns = ColumnObject.GetColumns(TradeTreeView);
             TradeHandler.TradeVMCollection.Clear();
             TradeHandler.QueryTrade();
-            FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User.Id;
+            FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User?.Id;
         }
     }
 }
