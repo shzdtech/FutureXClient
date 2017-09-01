@@ -442,6 +442,10 @@ namespace Micro.Future.UI
                     {
                         _riskSet.Add(vm.BaseContract);
                     }
+                    else
+                    {
+                        _riskSet.Add(vm.Contract);
+                    }
                 }
                 ReloadDataCallback();
             }
@@ -461,6 +465,8 @@ namespace Micro.Future.UI
                     {
                         _riskSet.Remove(vm.BaseContract);
                     }
+                    else
+                        _riskSet.Remove(vm.Contract);
                 }
                 ReloadDataCallback();
             }

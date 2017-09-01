@@ -135,7 +135,7 @@ namespace Micro.Future.UI
                 AnchorablePane.Children.Add(defaultTab);
 
 
-            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User?.Id, PersistanceId);
 
             bool found = false;
 
