@@ -28,15 +28,15 @@
                 <GroupBox x:Name="portforlioGB" Header="{lex:Loc Key=Portfolio}" >
                     <ComboBox x:Name="portfolioCB"  VerticalAlignment="Center" SelectionChanged="portfolioCB_SelectionChanged" HorizontalAlignment="Left"/>
                 </GroupBox>
-                <utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="1" Grid.Column="0" >
-                    <ListView Name="strategyListView" Width="Auto" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <!--<utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="1" Grid.Column="0" >-->
+                <ListView Name="strategyListView" Grid.Row="1" Grid.Column="0" Width="Auto" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="{lex:Loc Key=Strategy}" DisplayMemberBinding="{Binding StrategyName}" Width="auto" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </utility:GridLineDecorator>
+                <!--</utility:GridLineDecorator>-->
             </StackPanel>
             <StackPanel>
                 <WrapPanel>
@@ -55,8 +55,8 @@
                         <xctk:DoubleUpDown x:Name="ThresholdTxt" UpdateValueOnEnterKey="True" Minimum="0" Increment="1" Value="{Binding Threshold}" Spinned="Spinned" ValueChanged="ThresholdValueChanged"/>
                     </GroupBox>
                 </WrapPanel>
-                <utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="1" Grid.Column="1" >
-                    <ListView Name="hedgeListView" Width="Auto" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <!--<utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="1" Grid.Column="1" >-->
+                    <ListView Name="hedgeListView" Grid.Row="1" Grid.Column="1" Width="Auto" GridViewColumnHeader.Click="strategyListView_Click" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn x:Name="HedgeExchange" Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" />
@@ -78,7 +78,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </utility:GridLineDecorator>
+                <!--</utility:GridLineDecorator>-->
             </StackPanel>
         </WrapPanel>
 

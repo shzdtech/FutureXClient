@@ -28,7 +28,7 @@
             <RadioButton GroupName="executionClass"  Content="平仓记录" Checked="RadioButton_Checked_1" />
 
         </StackPanel>-->
-        <utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="0" >
+        <!--<utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="0" >-->
             <ListView Name="TradeTreeView" Grid.Row="1" GridViewColumnHeader.Click="TradeTreeView_Click" ItemsSource="{Binding TradeVMCollection}">
                 <ListView.View>
                     <GridView AllowsColumnReorder="True">
@@ -73,6 +73,6 @@
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>
-        </utility:GridLineDecorator>
+        <!--</utility:GridLineDecorator>-->
     </Grid>
 </UserControl>

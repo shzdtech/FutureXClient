@@ -149,7 +149,8 @@ namespace Micro.Future.Message
                         Contract = positionDiffer.Contract,
                         Position = positionDiffer.DbPosition,
                         Direction = (PositionDirectionType)positionDiffer.Direction,
-                        SysPosition = positionDiffer.SysPosition
+                        SysPosition = positionDiffer.SysPosition,
+                        Portfolio = positionDiffer.Portfolio,
                     });
             }
         }
@@ -159,7 +160,7 @@ namespace Micro.Future.Message
             var sst = new PBPositionCompareList();
             foreach (var positiondiffervm in positiondiffervmList)
             {
-                sst.Positions.Add(new PBPositionCompare { Contract = positiondiffervm.Contract, Direction = (int)positiondiffervm.Direction });
+                sst.Positions.Add(new PBPositionCompare { Contract = positiondiffervm.Contract, Direction = (int)positiondiffervm.Direction, Portfolio = positiondiffervm.Portfolio });
             }
             sst.Header = new DataHeader();
             sst.Header.SerialId = NextSerialId;
@@ -608,6 +609,7 @@ namespace Micro.Future.Message
                     //ContractKey = contractinfo.UnderlyingContract
                 });
             }
+            //riskList.Add(new RiskVM { Contract="test",Underlying="m",Delta=0.2,Gamma=0.3,Theta=0.4,Vega=0.5,Rho=0.6,Position=3,Portfolio="DCE-M_O"});
 
             return riskList;
         }

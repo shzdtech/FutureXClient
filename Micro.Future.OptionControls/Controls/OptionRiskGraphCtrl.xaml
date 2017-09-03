@@ -50,7 +50,7 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox x:Name="expirationGB" Header="{lex:Loc Key=MarketData}" Width="Auto">
-                <utility:GridLineDecorator GridLineBrush="LightGray">
+                <!--<utility:GridLineDecorator GridLineBrush="LightGray">-->
                     <ListView x:Name="expirationLV" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Visible" GridViewColumnHeader.Click="quoteListView_Click" Width="Auto">
                         <ListView.View>
                             <GridView>
@@ -84,7 +84,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </utility:GridLineDecorator>
+                <!--</utility:GridLineDecorator>-->
             </GroupBox>
             <GroupBox x:Name="typeGB" Header="{lex:Loc Key=Type}">
                 <StackPanel>

@@ -24,7 +24,7 @@
                 <wpf:AutoCompleteTextBox x:Name="contractTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" KeyUp="AddQuote_KeyUp" MouseLeftButtonUp="contractTextBox_MouseLeftButtonUp" Focusable="False" />
                 <Button Content="{lex:Loc Key=Add}" Click="Button_Click_Add"/>
             </WrapPanel>
-            <utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="1" >
+            <!--<utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="1" >-->
                 <ListView Name="quoteListView" SelectionChanged="quoteListView_SelectionChanged" GridViewColumnHeader.Click="quoteListView_Click" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
                     <ListView.View>
                         <GridView>
@@ -179,7 +179,7 @@
                         </ContextMenu>
                     </ListView.ContextMenu>
                 </ListView>
-            </utility:GridLineDecorator>
+            <!--</utility:GridLineDecorator>-->
         </Grid>
     </DockPanel>
 </UserControl>

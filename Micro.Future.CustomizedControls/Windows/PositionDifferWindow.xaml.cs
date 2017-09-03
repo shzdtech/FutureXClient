@@ -35,6 +35,7 @@ namespace Micro.Future.CustomizedControls.Windows
             TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             TradeHandler.QueryPositionDiffer();
             PositionListView.ItemsSource = TradeHandler.PositionDifferVMCollection;
+
         }
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
@@ -51,7 +52,7 @@ namespace Micro.Future.CustomizedControls.Windows
             if (ctrl != null)
             {
                 PositionDifferVM positionDifferVM = ctrl.DataContext as PositionDifferVM;
-                PositionSyncList.Add(new PositionDifferVM { Contract = positionDifferVM.Contract, Direction = positionDifferVM.Direction });
+                PositionSyncList.Add(positionDifferVM);
             }
         }
 
@@ -61,11 +62,7 @@ namespace Micro.Future.CustomizedControls.Windows
             if (ctrl != null)
             {
                 PositionDifferVM positionDifferVM = ctrl.DataContext as PositionDifferVM;
-                foreach(var vm in PositionSyncList)
-                {
-                    if (vm.Contract == positionDifferVM.Contract && vm.Direction == positionDifferVM.Direction)
-                        PositionSyncList.Remove(vm);
-                }
+                PositionSyncList.Remove(positionDifferVM);
             }
         }
     }

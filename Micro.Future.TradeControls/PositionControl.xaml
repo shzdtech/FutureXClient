@@ -18,7 +18,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <utility:GridLineDecorator GridLineBrush="LightGray">
+        <!--<utility:GridLineDecorator GridLineBrush="LightGray">-->
             <ListView Name="PositionListView" GridViewColumnHeader.Click = "PositionListView_Click"  SelectionChanged="PositionListView_SelectionChanged">
                 <ListView.View>
                     <GridView>
@@ -75,6 +75,6 @@
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>
-        </utility:GridLineDecorator>
+        <!--</utility:GridLineDecorator>-->
     </Grid>
 </UserControl>

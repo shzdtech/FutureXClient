@@ -12,7 +12,7 @@
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
         mc:Ignorable="d"
-        Title="{lex:Loc Key=PositionSync}" Height="600" Width="300">
+        Title="{lex:Loc Key=PositionSync}" Height="600" Width="350">
     <Window.Resources>
         <local1:EnumToFriendlyNameConverter x:Key="enumItemsConverter"/>
     </Window.Resources>    
@@ -36,6 +36,7 @@
                             <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
                             <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
                             <GridViewColumn Header="{lex:Loc Key=Position}" DisplayMemberBinding="{Binding Position}" Width="auto"/>
+                            <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>
                             <GridViewColumn Header="{lex:Loc Key=SysPosition}" DisplayMemberBinding="{Binding SysPosition}" Width="auto"/>
                         </GridView>
                     </ListView.View>

@@ -56,6 +56,7 @@ namespace Micro.Future.UI
         private void Initialize()
         {
             portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
+            //portofolioCB.Items.Add(string.Empty);
             radioButtonBuy.IsChecked = true;
             RadioA.IsChecked = true;
             //FuturecontractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
