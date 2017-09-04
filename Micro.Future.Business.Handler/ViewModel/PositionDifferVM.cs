@@ -10,21 +10,7 @@ namespace Micro.Future.ViewModel
 {
     //报价
     public class PositionDifferVM : ContractKeyVM
-    {
-        private string _portfolio;
-        public string Portfolio
-        {
-            get
-            {
-                return _portfolio;
-            }
-            set
-            {
-                _portfolio = value;
-                OnPropertyChanged(nameof(Portfolio));
-            }
-        }
-        ///持仓多空方向
+    {        ///持仓多空方向
         private PositionDirectionType _direction;
         public PositionDirectionType Direction
         {

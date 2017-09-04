@@ -41,8 +41,8 @@ namespace Micro.Future.CustomizedControls.Windows
         {
             if (PositionSyncList != null)
             {
-                MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>().SyncPosition(PositionSyncList);
-                this.Close();
+                TradeHandler.SyncPosition(PositionSyncList);
+                Close();
             }
         }
 
