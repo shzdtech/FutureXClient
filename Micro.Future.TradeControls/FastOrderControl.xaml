@@ -12,11 +12,11 @@
     lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"         
     mc:Ignorable="d" 
-    d:DesignHeight="180" d:DesignWidth="300" HorizontalAlignment="Left">
+    d:DesignHeight="180" d:DesignWidth="330" HorizontalAlignment="Left">
     <UserControl.Resources>
         <local:EnumBooleanConverter x:Key="enumBooleanConverter"/>
     </UserControl.Resources>
-    <Grid Name="FastOrderGrid" Width="300">
+    <Grid Name="FastOrderGrid" Width="Auto">
         <Grid.Resources>
             <local:EnumBooleanConverter x:Key="enumBooleanConverter"/>
         </Grid.Resources>
@@ -33,6 +33,14 @@
             <Label Content="    " HorizontalAlignment="Center" Margin="0,8,0,0"/>
             <Label Content="{lex:Loc Key=Portfolio}" Margin="0,8,0,0"/>
             <ComboBox x:Name="portofolioCB" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,4">
+                <ComboBox.Resources>
+                    <CollectionViewSource x:Key="Items" Source="{Binding PortfolioCollection}" />
+                </ComboBox.Resources>
+                <ComboBox.ItemsSource>
+                    <CompositeCollection>
+                        <CollectionContainer Collection="{Binding Source={StaticResource Items}}"/>
+                    </CompositeCollection>
+                </ComboBox.ItemsSource>
             </ComboBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Width="300" Height="30">
@@ -74,14 +82,14 @@
 
         </Grid>
 
-        <StackPanel  x:Name="stackPanelPrices" Grid.Row="4" Orientation="Horizontal" Height="60">
+        <StackPanel  x:Name="stackPanelPrices" Grid.Row="4" Orientation="Horizontal" Height="60" Width="auto">
             <Label Content="{lex:Loc Key=Price}" VerticalAlignment="Center"/>
             <xctk:DoubleUpDown Name="LimitTxt" Width="100" Value="{Binding LimitPrice}" VerticalAlignment="Center"/>
             <StackPanel MinWidth="40" >
-                <Label x:Name="LabelUpperPrice" Content="{Binding UpperLimitPrice}"  MouseDown="labelupperprice_MouseDown" BorderBrush="Black" BorderThickness="5"/>
-                <Label x:Name="LabelAskPrice" Content="{Binding AskPrice.Value}"  MouseDown="LabelAskPrice_MouseDown" ContentStringFormat="N2"/>
-                <Label x:Name="LabelBidPrice" Content="{Binding BidPrice.Value}"  MouseDown="LabelBidPrice_MouseDown" ContentStringFormat="N2"/>
-                <Label x:Name="LabelLowerPrice" Content="{Binding LowerLimitPrice}" MouseDown="labellowerprice_MouseDown"/>
+                <Label x:Name="LabelUpperPrice" Content="{Binding UpperLimitPrice}" ContentStringFormat="N3"  MouseDown="labelupperprice_MouseDown" BorderBrush="Black" BorderThickness="5"/>
+                <Label x:Name="LabelAskPrice" Content="{Binding AskPrice}" ContentStringFormat="N3"  MouseDown="LabelAskPrice_MouseDown"/>
+                <Label x:Name="LabelBidPrice" Content="{Binding BidPrice}" ContentStringFormat="N3"  MouseDown="LabelBidPrice_MouseDown"/>
+                <Label x:Name="LabelLowerPrice" Content="{Binding LowerLimitPrice}" ContentStringFormat="N3" MouseDown="labellowerprice_MouseDown"/>
             </StackPanel>
             <StackPanel MinWidth="13">
                 <Label x:Name="Null1" Content=" "/>
@@ -95,7 +103,7 @@
                 </WrapPanel>
                 <Label x:Name="Null2" Content=" "/>
             </StackPanel>
-            <Button x:Name="BuySummitButton" Content="{lex:Loc Key=Order}" MinWidth="100" Click="SendOrder" />
+            <Button x:Name="BuySummitButton" Content="{lex:Loc Key=Order}" MinWidth="80" Click="SendOrder" />
         </StackPanel>
     </Grid>
 </UserControl>

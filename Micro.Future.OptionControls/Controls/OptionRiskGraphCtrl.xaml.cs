@@ -233,15 +233,35 @@ namespace Micro.Future.UI
                 var hedgeContractList = portfolioVM.HedgeContractParams.Select(c => c.Contract).Distinct().ToList();
                 var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
                                     .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
-
+                var strategyPricingContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio)
+                    .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
+                List<string> strategyUnderlyingList = new List<string>();
+                List<string> strategyUnderlyingContractList = new List<string>();
+                if (strategyPricingContractList != null)
+                {
+                    foreach (var contract in strategyPricingContractList)
+                    {
+                        strategyUnderlyingList.AddRange(_futurecontractList.Where(c => c.Contract == contract).Select(c => c.ProductID));
+                    }
+                }
+                var UnderlyingList = strategyUnderlyingList.Distinct();
+                if (UnderlyingList != null)
+                {
+                    foreach (var underlying in UnderlyingList)
+                    {
+                        strategyUnderlyingContractList.AddRange(_futurecontractList.Where(c => c.ProductID == underlying).Select(c => c.Contract));
+                    }
+                }
                 var strategyVMList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract)).ToList();
 
                 var unshowContracts = positionList.Except(strategyContractList.Select(s => s.Contract));
                 var unshowRiskContracts = hedgeContractList.Except(strategyContractList.Select(s => s.Contract));
-
                 strategyContractList.AddRange(unshowContracts.Select(c => new StrategyBaseVM { Contract = c }));
 
-                foreach (var vm in strategyContractList)
+                var contractList = strategyContractList.Union(strategyUnderlyingContractList.Select(c => new StrategyBaseVM { Contract = c }));
+                contractList = contractList.GroupBy(c => c.Contract).Select(c => c.FirstOrDefault()).ToList();
+
+                foreach (var vm in contractList)
                 {
                     if (vm.OptionContract != null)
                     {
@@ -263,7 +283,7 @@ namespace Micro.Future.UI
                     }
                 }
 
-                expirationLV.ItemsSource = strategyContractList;
+                expirationLV.ItemsSource = contractList;
 
 
                 var strikeSet = new SortedSet<double>();

@@ -82,7 +82,7 @@ namespace Micro.Future.UI
             FilterSettingsWin.UserID = MarketDataHandler.MessageWrapper?.User?.Id;
             //FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
             //FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
-
+            GetContractInfo();
             QuoteChanged = _viewSource.View as ICollectionViewLiveShaping;
             if (QuoteChanged.CanChangeLiveFiltering)
             {

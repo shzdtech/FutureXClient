@@ -39,6 +39,7 @@ namespace Micro.Future.UI
         //    get;
         //    set;
         //}
+        private IList<ContractInfo> _futurecontractList;
 
         private IDictionary<string, int> _riskDict = new Dictionary<string, int>();
 
@@ -506,6 +507,7 @@ namespace Micro.Future.UI
         public OptionMatrixCtrl()
         {
             InitializeComponent();
+            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             //_tradeExHandler.OnPositionUpdated += OnPositionUpdated;
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
@@ -550,8 +552,28 @@ namespace Micro.Future.UI
                 var strategyVMList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract)).ToList();
                 var unshowRiskContracts = hedgeContractList.Except(strategyContractList.Select(s => s.Contract));
                 strategyContractList.AddRange(unshowRiskContracts.Select(c => new StrategyBaseVM { Contract = c }));
-
-                foreach (var vm in strategyContractList)
+                var strategyPricingContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio)
+                    .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
+                List<string> strategyUnderlyingList = new List<string>();
+                List<string> strategyUnderlyingContractList = new List<string>();
+                if (strategyPricingContractList != null)
+                {
+                    foreach (var contract in strategyPricingContractList)
+                    {
+                        strategyUnderlyingList.AddRange(_futurecontractList.Where(c => c.Contract == contract).Select(c => c.ProductID));
+                    }
+                }
+                var UnderlyingList = strategyUnderlyingList.Distinct();
+                if (UnderlyingList != null)
+                {
+                    foreach (var underlying in UnderlyingList)
+                    {
+                        strategyUnderlyingContractList.AddRange(_futurecontractList.Where(c => c.ProductID == underlying).Select(c => c.Contract));
+                    }
+                }
+                var contractList = strategyContractList.Union(strategyUnderlyingContractList.Select(c => new StrategyBaseVM { Contract = c }));
+                contractList = contractList.GroupBy(c => c.Contract).Select(c => c.FirstOrDefault()).ToList();
+                foreach (var vm in contractList)
                 {
                     if (vm.OptionContract != null)
                     {
@@ -573,7 +595,7 @@ namespace Micro.Future.UI
                     }
                 }
 
-                expirationLV.ItemsSource = strategyContractList;
+                expirationLV.ItemsSource = contractList;
                 priceSizeIUP.Value = 10;
                 volSizeIUP.Value = 1;
                 volCntIUP.Value = 1;

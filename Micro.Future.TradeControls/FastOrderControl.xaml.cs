@@ -15,6 +15,7 @@ using Xceed.Wpf.Toolkit;
 using System.Threading.Tasks;
 using Micro.Future.Utility;
 using System.Globalization;
+using System.Collections.ObjectModel;
 
 namespace Micro.Future.UI
 {
@@ -28,6 +29,10 @@ namespace Micro.Future.UI
         {
             get;
         } = new List<ContractInfo>();
+        public ObservableCollection<PortfolioVM> PortfolioCollection
+        {
+            get { return MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection; }
+        }
         public BaseTraderHandler TradeHandler
         {
             get
@@ -47,6 +52,7 @@ namespace Micro.Future.UI
 
         public FastOrderControl()
         {
+            DataContext = this;
             InitializeComponent();
             //To bound data for portolioCB          
             //MessageBox.Show(MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>().PortfolioVMCollection.ToString());  
@@ -55,7 +61,8 @@ namespace Micro.Future.UI
 
         private void Initialize()
         {
-            portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
+
+            //portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             //portofolioCB.Items.Add(string.Empty);
             radioButtonBuy.IsChecked = true;
             RadioA.IsChecked = true;

@@ -32,6 +32,62 @@ namespace Micro.Future.UI
     public partial class OptionRiskCtrl : UserControl, ILayoutAnchorableControl, IReloadData
 
     {
+        public class StrategyBaseVM
+        {
+            public string OptionContract
+            {
+                get;
+                set;
+            }
+            public string Contract
+            {
+                get;
+                set;
+            }
+            public string Expiration
+            {
+                get;
+                set;
+            }
+            public string FutureExpiration
+            {
+                get;
+                set;
+            }
+            public bool RiskGraphEnable
+            {
+                get;
+                set;
+            }
+            public double Valuation
+            {
+                get;
+                set;
+            }
+            public bool Selected
+            {
+                get;
+                set;
+            }
+            public double LastPrice
+            {
+                get;
+                set;
+            }
+            public double SettlePrice
+            {
+                get;
+                set;
+            }
+            public MarketDataVM MktVM
+            {
+                get;
+                set;
+            }
+
+        }
+        private IList<ContractInfo> _futurecontractList;
+
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
         private Timer _timer;
@@ -45,6 +101,7 @@ namespace Micro.Future.UI
             InitializeComponent();
             portfolioLayout.CanClose = false;
             portfolioLayout.CanHide = false;
+            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
             var otcmarketdataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
             var domesticTradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
@@ -85,20 +142,43 @@ namespace Micro.Future.UI
             {
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
                 var portfolioVM = _otcOptionHandler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
-                var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
-                        .Select(c => c.BaseContract).Distinct().ToList();
-                var pricingContractList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
-                    .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
-                var hedgeContractList = portfolioVM.HedgeContractParams
-                    .Select(c => c.Contract).Distinct().ToList();
-                var mixed1ContractList = basecontractsList.Union(pricingContractList).ToList();
-                var mixedContractList = mixed1ContractList.Union(hedgeContractList).ToList();
-                QuoteVMCollection.Clear();
-                foreach (var contract in mixedContractList)
+                //var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
+                //        .Select(c => c.BaseContract).Distinct().ToList();
+                //var pricingContractList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
+                //    .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
+                //var hedgeContractList = portfolioVM.HedgeContractParams
+                //    .Select(c => c.Contract).Distinct().ToList();
+                //var mixed1ContractList = basecontractsList.Union(pricingContractList).ToList();
+                //var mixedContractList = mixed1ContractList.Union(hedgeContractList).ToList();
+                var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
+                    .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
+                var strategyPricingContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio)
+                                    .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
+                List<string> strategyUnderlyingList = new List<string>();
+                List<string> strategyUnderlyingContractList = new List<string>();
+                if (strategyPricingContractList != null)
                 {
-                    if (!string.IsNullOrEmpty(contract))
+                    foreach (var contract in strategyPricingContractList)
                     {
-                        var mktDataVM = await marketDataLV.MarketDataHandler.SubMarketDataAsync(contract);
+                        strategyUnderlyingList.AddRange(_futurecontractList.Where(c => c.Contract == contract).Select(c => c.ProductID));
+                    }
+                }
+                var UnderlyingList = strategyUnderlyingList.Distinct();
+                if (UnderlyingList != null)
+                {
+                    foreach (var underlying in UnderlyingList)
+                    {
+                        strategyUnderlyingContractList.AddRange(_futurecontractList.Where(c => c.ProductID == underlying).Select(c => c.Contract));
+                    }
+                }
+                var contractList = strategyContractList.Union(strategyUnderlyingContractList.Select(c => new StrategyBaseVM { Contract = c }));
+                contractList = contractList.GroupBy(c => c.Contract).Select(c => c.FirstOrDefault()).ToList();
+                QuoteVMCollection.Clear();
+                foreach (var vm in contractList)
+                {
+                    if (!string.IsNullOrEmpty(vm.Contract))
+                    {
+                        var mktDataVM = await marketDataLV.MarketDataHandler.SubMarketDataAsync(vm.Contract);
                         if (mktDataVM != null)
                         {
                             QuoteVMCollection.Add(mktDataVM);

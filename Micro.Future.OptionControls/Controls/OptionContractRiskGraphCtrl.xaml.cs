@@ -361,12 +361,12 @@ namespace Micro.Future.UI
                         strategyUnderlyingContractList.AddRange(_futurecontractList.Where(c => c.ProductID == underlying).Select(c => c.Contract));
                     }
                 }
+                var contractList = strategyContractList.Union(strategyUnderlyingContractList.Select(c => new StrategyBaseVM { Contract = c }));
+                contractList = contractList.GroupBy(c => c.Contract).Select(c => c.FirstOrDefault()).ToList();
                 var strategyVMList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract)).ToList();
                 //var unshowContracts = positionList.Except(strategyContractList.Select(s => s.Contract));
                 var unshowRiskContracts = hedgeContractList.Except(strategyContractList.Select(s => s.OptionContract));
                 //strategyContractList.AddRange(unshowRiskContracts.Select(c => new StrategyBaseVM { Contract = c }));
-                var contractList = strategyContractList.Union(strategyUnderlyingContractList.Select(c => new StrategyBaseVM { Contract = c }));
-                contractList = contractList.GroupBy(c => c.Contract).Select(c => c.FirstOrDefault()).ToList();
                 foreach (var vm in contractList)
                 {
                     if (vm.OptionContract != null)
