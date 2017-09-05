@@ -97,6 +97,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 账户持仓 的本地化字符串。
+        /// </summary>
+        internal static string AccountPosition {
+            get {
+                return ResourceManager.GetString("AccountPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 是否活跃 的本地化字符串。
         /// </summary>
         internal static string Active {
@@ -3121,7 +3130,16 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 系统仓位 的本地化字符串。
+        ///   查找类似 同步 的本地化字符串。
+        /// </summary>
+        internal static string Sync {
+            get {
+                return ResourceManager.GetString("Sync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 系统持仓 的本地化字符串。
         /// </summary>
         internal static string SysPosition {
             get {

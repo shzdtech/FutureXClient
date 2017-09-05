@@ -1318,7 +1318,7 @@
     <value>仓位同步</value>
   </data>
   <data name="SysPosition" xml:space="preserve">
-    <value>系统仓位</value>
+    <value>系统持仓</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>确认</value>
@@ -1328,5 +1328,11 @@
   </data>
   <data name="YDPositionSync" xml:space="preserve">
     <value>昨仓同步</value>
+  </data>
+  <data name="AccountPosition" xml:space="preserve">
+    <value>账户持仓</value>
+  </data>
+  <data name="Sync" xml:space="preserve">
+    <value>同步</value>
   </data>
 </root>
