@@ -1,4 +1,5 @@
 ﻿using Micro.Future.CustomizedControls;
+using Micro.Future.CustomizedControls.Windows;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
@@ -266,7 +267,16 @@ namespace Micro.Future.UI
             var riskMatrixCtrl = new OptionMatrixCtrl();
             optionRiskPane.AddContent(riskMatrixCtrl).Title = title;
         }
-
+        private void MenuItem_AddTrade_Click(object sender, RoutedEventArgs e)
+        {
+            AddTradeRecordWindow win = new AddTradeRecordWindow();
+            win.Show();
+        }
+        private void MenuItem_SyncPosition_Click(object sender, RoutedEventArgs e)
+        {
+            PositionDifferWindow win = new PositionDifferWindow();
+            win.Show();
+        }
     }
 }
 

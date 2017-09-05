@@ -19,6 +19,10 @@
     <UserControl.Resources>
         <x:Array Type="{x:Type MenuItem}" x:Key="exMenuItems">
             <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=OptionRisk}">
+                <MenuItem Header="{lex:Loc Key=AddTrade}" Click="MenuItem_AddTrade_Click">
+                </MenuItem>
+                <MenuItem Header="{lex:Loc Key=YDPositionSync}" Click="MenuItem_SyncPosition_Click">
+                </MenuItem>
                 <MenuItem x:Name="refreshAll" Header="{lex:Loc Key=RefreshAll}" Click="refreshAll_Click" >
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=AddRiskAnalysisGraph}" Click="Add_RiskAnalysisGraph_Click">

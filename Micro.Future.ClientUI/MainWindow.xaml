@@ -16,10 +16,10 @@
     <Window.Resources>
         <x:Array Type="{x:Type MenuItem}" x:Key="sysMenuItems">
             <MenuItem x:Name="sysMenuItem" Header="{lex:Loc Key=System}">
-                <MenuItem Header="{lex:Loc Key=AddTrade}" Click="MenuItem_AddTrade_Click">
+                <!--<MenuItem Header="{lex:Loc Key=AddTrade}" Click="MenuItem_AddTrade_Click">
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=YDPositionSync}" Click="MenuItem_SyncPosition_Click">
-                </MenuItem>
+                </MenuItem>-->
                 <MenuItem Header="{lex:Loc Key=RefreshContracts}" Click="MenuItem_RefreshContracts_Click">
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=ResetPassword}" Click="MenuItem_Click_ResetPassword">
