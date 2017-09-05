@@ -29,10 +29,14 @@ namespace Micro.Future.UI
         {
             get;
         } = new List<ContractInfo>();
-        public ObservableCollection<PortfolioVM> PortfolioCollection
+        public ObservableCollection<PortfolioVM> Portfolio
         {
             get { return MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection; }
         }
+        public ObservableCollection<PortfolioVM> PortfolioCollection   //portfolioVMCollection
+        {
+            get;
+        } = new ObservableCollection<PortfolioVM>();
         public BaseTraderHandler TradeHandler
         {
             get
@@ -61,8 +65,17 @@ namespace Micro.Future.UI
 
         private void Initialize()
         {
-
-            portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
+            var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
+            //PortfolioCollection.Add(new PortfolioVM(null) { });
+            if(portfolioVMCollection.Count!=0)
+            {
+                foreach (var vm in portfolioVMCollection)
+                {
+                    PortfolioCollection.Add(vm);
+                }
+            }
+            portofolioCB.ItemsSource = portfolioVMCollection;
+            //portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             //portofolioCB.Items.Add(string.Empty);
             radioButtonBuy.IsChecked = true;
             RadioA.IsChecked = true;
