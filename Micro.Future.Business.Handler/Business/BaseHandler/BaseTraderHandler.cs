@@ -154,7 +154,7 @@ namespace Micro.Future.Message
                     });
             }
         }
-        public void SyncPosition(List<PositionDifferVM> positiondiffervmList)
+        public void SyncPosition(IEnumerable<PositionDifferVM> positiondiffervmList)
         {
 
             var sst = new PBPositionCompareList();
