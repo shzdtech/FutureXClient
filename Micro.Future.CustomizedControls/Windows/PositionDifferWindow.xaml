@@ -15,6 +15,7 @@
         Title="{lex:Loc Key=YDPositionSync}" Height="600" Width="350">
     <Window.Resources>
         <local1:EnumToFriendlyNameConverter x:Key="enumItemsConverter"/>
+        <CollectionViewSource x:Key="PortfolioViewSource" Source="{Binding PortfolioCollection}"/>
     </Window.Resources>    
     <DockPanel>
         <Grid>
@@ -36,6 +37,15 @@
                             <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
                             <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
                             <GridViewColumn Header="{lex:Loc Key=AccountPosition}" DisplayMemberBinding="{Binding Position}" Width="auto"/>
+                            <GridViewColumn x:Name="Portfolio" Header="{lex:Loc Key=Portfolio}" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox x:Name="portfolioCB" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,4" 
+                                                  ItemsSource="{Binding Path=PortfolioCollection}" SelectedItem="{Binding Name}">
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                             <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>
                             <GridViewColumn Header="{lex:Loc Key=SysPosition}" DisplayMemberBinding="{Binding SysPosition}" Width="auto"/>
                         </GridView>

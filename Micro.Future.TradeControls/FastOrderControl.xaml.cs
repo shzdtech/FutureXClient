@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using Micro.Future.Utility;
 using System.Globalization;
 using System.Collections.ObjectModel;
+using System.Threading;
 
 namespace Micro.Future.UI
 {
@@ -67,13 +68,11 @@ namespace Micro.Future.UI
         {
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             //PortfolioCollection.Add(new PortfolioVM(null) { });
-            if(portfolioVMCollection.Count!=0)
+            foreach (var vm in portfolioVMCollection)
             {
-                foreach (var vm in portfolioVMCollection)
-                {
-                    PortfolioCollection.Add(vm);
-                }
+                PortfolioCollection.Add(vm);
             }
+
             portofolioCB.ItemsSource = portfolioVMCollection;
             //portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             //portofolioCB.Items.Add(string.Empty);

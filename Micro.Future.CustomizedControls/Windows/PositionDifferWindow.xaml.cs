@@ -28,14 +28,21 @@ namespace Micro.Future.CustomizedControls.Windows
     {
         public BaseTraderHandler TradeHandler { get; set; }
         public List<PositionDifferVM> PositionSyncList { get; } = new List<PositionDifferVM>();
-
+        public ObservableCollection<PortfolioVM> PortfolioCollection
+        {
+            get {return MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection; }
+        }
+        public List<String> PortfolioNameCollection
+        {
+            get;
+        }
         public PositionDifferWindow()
         {
             InitializeComponent();
             TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            PortfolioNameCollection = PortfolioCollection.Select(c => c.Name).ToList();
             TradeHandler.QueryPositionDiffer();
             PositionListView.ItemsSource = TradeHandler.PositionDifferVMCollection;
-
         }
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
@@ -45,7 +52,6 @@ namespace Micro.Future.CustomizedControls.Windows
                 Close();
             }
         }
-
         private void positionCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             Control ctrl = sender as Control;
@@ -55,7 +61,6 @@ namespace Micro.Future.CustomizedControls.Windows
                 PositionSyncList.Add(positionDifferVM);
             }
         }
-
         private void positionCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             Control ctrl = sender as Control;

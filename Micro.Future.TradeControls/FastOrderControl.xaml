@@ -15,15 +15,14 @@
     d:DesignHeight="180" d:DesignWidth="330" HorizontalAlignment="Left">
     <UserControl.Resources>
         <local:EnumBooleanConverter x:Key="enumBooleanConverter"/>
-        
+        <CollectionViewSource x:Key="PortfolioViewSource" Source="{Binding Portfolio}"/>
+        <CompositeCollection x:Key="CombinedCollection">
+            <CollectionContainer Collection="{Binding Source={StaticResource PortfolioViewSource}}" />
+        </CompositeCollection>
     </UserControl.Resources>
     <Grid Name="FastOrderGrid" Width="Auto">
         <Grid.Resources>
             <local:EnumBooleanConverter x:Key="enumBooleanConverter"/>
-            <CollectionViewSource x:Key="PortfolioViewSource" Source="{Binding Portfolio}"/>
-            <CompositeCollection x:Key="CombinedCollection">
-                <CollectionContainer Collection="{Binding Source={StaticResource PortfolioViewSource}}" />
-            </CompositeCollection>
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
