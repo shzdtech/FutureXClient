@@ -12,7 +12,7 @@
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
         mc:Ignorable="d"
-        Title="{lex:Loc Key=YDPositionSync}" Height="600" Width="350">
+        Title="{lex:Loc Key=YDPositionSync}" Height="600" Width="400">
     <Window.Resources>
         <local1:EnumToFriendlyNameConverter x:Key="enumItemsConverter"/>
     </Window.Resources>    
@@ -39,12 +39,13 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox x:Name="portfolioCB" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                  ItemsSource="{Binding Mode=OneWay, Path=PortfolioCollection, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                                                  ItemsSource="{Binding Mode=OneWay, Path=PortfolioCollection, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                              SelectedValuePath="Name" SelectedValue="{Binding Portfolio}">
                                     </ComboBox>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>
+                        <!--<GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>-->
                         <GridViewColumn Header="{lex:Loc Key=SysPosition}" DisplayMemberBinding="{Binding SysPosition}" Width="auto"/>
                     </GridView>
                 </ListView.View>
