@@ -31,17 +31,24 @@ namespace Micro.Future.CustomizedControls.Windows
         public List<PositionDifferVM> PositionSyncList { get; } = new List<PositionDifferVM>();
         public ObservableCollection<PortfolioVM> PortfolioCollection
         {
-            get {return MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection; }
+            get
+            {
+                return OTCTradingDeskHandler.PortfolioVMCollection;
+            }
         }
-        public List<String> PortfolioNameCollection
+
+        public OTCOptionTradingDeskHandler OTCTradingDeskHandler
         {
-            get;
+            get
+            {
+                return MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+            }
         }
+
         public PositionDifferWindow()
         {
             InitializeComponent();
             TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
-            PortfolioNameCollection = PortfolioCollection.Select(c => c.Name).ToList();
             TradeHandler.QueryPositionDiffer();
             PositionListView.ItemsSource = TradeHandler.PositionDifferVMCollection;
         }

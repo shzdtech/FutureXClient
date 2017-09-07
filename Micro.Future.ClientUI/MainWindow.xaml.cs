@@ -252,11 +252,5 @@ namespace Micro.Future.UI
             win.ShowDialog();
 
         }
-
-        private void MenuItem_AddTrade_Click(object sender, RoutedEventArgs e)
-        {
-            AddTradeRecordWindow win = new AddTradeRecordWindow();
-            win.Show();
-        }
     }
 }
