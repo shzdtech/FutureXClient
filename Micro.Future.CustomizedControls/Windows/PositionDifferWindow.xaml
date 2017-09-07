@@ -15,7 +15,6 @@
         Title="{lex:Loc Key=YDPositionSync}" Height="600" Width="350">
     <Window.Resources>
         <local1:EnumToFriendlyNameConverter x:Key="enumItemsConverter"/>
-        <CollectionViewSource x:Key="PortfolioViewSource" Source="{Binding PortfolioCollection}"/>
     </Window.Resources>    
     <DockPanel>
         <Grid>
@@ -51,7 +50,6 @@
                 </ListView.View>
             </ListView>
             <Button Grid.Row="1" Content="{lex:Loc Key=Sync}" Click="Button_Click_Add" IsDefault="True" HorizontalAlignment="Stretch"/>
-            </ComboBox>
         </Grid>
     </DockPanel>
 </Window>
