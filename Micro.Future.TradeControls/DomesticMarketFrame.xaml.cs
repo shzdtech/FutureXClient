@@ -182,7 +182,6 @@ namespace Micro.Future.UI
         {
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
             await tradeHandler.SyncContractInfoAsync();
-            FastOrderCtl.GetContractInfo();
             marketDataLV.ReloadData();
             //marketDataLV.GetContractInfo();
             Thread.Sleep(1000);
@@ -217,7 +216,6 @@ namespace Micro.Future.UI
             marketDataWin.FilterSettingsWin.FilterTabTitle = title;
             quotePane.AddContent(marketDataWin).Title = title;
             marketDataWin.FilterSettingsWin.Save();
-            marketDataWin.GetContractInfo();
         }
 
 

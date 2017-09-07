@@ -24,7 +24,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <GroupBox Grid.Row="0" HorizontalAlignment="Stretch">
-                <ListView Name="PositionListView">
+                <ListView Name="PositionListView" GridViewColumnHeader.Click="PositionListView_Click">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn>
@@ -37,11 +37,12 @@
                             <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
                             <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
                             <GridViewColumn Header="{lex:Loc Key=AccountPosition}" DisplayMemberBinding="{Binding Position}" Width="auto"/>
-                            <GridViewColumn x:Name="Portfolio" Header="{lex:Loc Key=Portfolio}" >
+                            <GridViewColumn x:Name="PortfolioColumn" Header="{lex:Loc Key=Portfolio}" >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <ComboBox x:Name="portfolioCB" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,4" 
-                                                  ItemsSource="{Binding Path=PortfolioViewSource}" SelectedItem="{Binding Portfolio}">
+                                              ItemBindingGroup="{Binding Portfolio}"    >
+                                            <!--ItemsSource="{Binding Path=PortfolioViewSource}" SelectedItem="{Binding Portfolio}">-->
                                         </ComboBox>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>

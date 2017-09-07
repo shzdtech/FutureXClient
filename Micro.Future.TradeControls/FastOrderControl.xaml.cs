@@ -78,11 +78,12 @@ namespace Micro.Future.UI
             //portofolioCB.Items.Add(string.Empty);
             radioButtonBuy.IsChecked = true;
             RadioA.IsChecked = true;
-            //FuturecontractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
+            GetContractInfo();
+            //FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
 
-            //FuturecontractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
+            //FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
 
-            //FastOrderContract.Provider = new SuggestionProvider((string c) => { return FuturecontractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
+            //FastOrderContract.Provider = new SuggestionProvider((string c) => { return FutureContractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
         }
         public void GetContractInfo()
         {

@@ -2,6 +2,7 @@
 using Micro.Future.LocalStorage;
 using Micro.Future.Message;
 using Micro.Future.UI;
+using Micro.Future.Utility;
 using Micro.Future.ViewModel;
 using Micro.Future.Windows;
 using System;
@@ -68,6 +69,15 @@ namespace Micro.Future.CustomizedControls.Windows
             {
                 PositionDifferVM positionDifferVM = ctrl.DataContext as PositionDifferVM;
                 PositionSyncList.Remove(positionDifferVM);
+            }
+        }
+
+        private void PositionListView_Click(object sender, RoutedEventArgs e)
+        {
+            var head = e.OriginalSource as GridViewColumnHeader;
+            if (head != null)
+            {
+                GridViewUtility.Sort(head.Column, PositionListView.Items);
             }
         }
     }

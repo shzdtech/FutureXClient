@@ -80,9 +80,6 @@ namespace Micro.Future.UI
             quoteListView.ItemsSource = _viewSource.View;
             mColumns = ColumnObject.GetColumns(quoteListView);
             FilterSettingsWin.UserID = MarketDataHandler.MessageWrapper?.User?.Id;
-            //FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
-            //FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
-            GetContractInfo();
             QuoteChanged = _viewSource.View as ICollectionViewLiveShaping;
             if (QuoteChanged.CanChangeLiveFiltering)
             {
@@ -90,8 +87,8 @@ namespace Micro.Future.UI
                 QuoteChanged.LiveFilteringProperties.Add("Contract");
                 QuoteChanged.IsLiveFiltering = true;
             }
-
-
+            FutureOptionList.Clear();
+            GetContractInfo();
             //contractTextBox.Provider = new SuggestionProvider((string c) => { return FutureOptionList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
         }
         public void GetContractInfo()
@@ -166,7 +163,7 @@ namespace Micro.Future.UI
             {
                 var marketdatactrl = new MarketDataControl(PersistanceId, fs.Id, MarketDataHandler);
                 AnchorablePane.AddContent(marketdatactrl).Title = fs.Title;
-                marketdatactrl.GetContractInfo();
+                //marketdatactrl.GetContractInfo();
                 marketdatactrl.LoadUserContracts();
                 marketdatactrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
                 if (fs.Id == DEFAULT_ID)
