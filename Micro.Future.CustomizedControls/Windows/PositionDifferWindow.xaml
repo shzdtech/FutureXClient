@@ -15,7 +15,7 @@
         Title="{lex:Loc Key=YDPositionSync}" Height="600" Width="350">
     <Window.Resources>
         <local1:EnumToFriendlyNameConverter x:Key="enumItemsConverter"/>
-        <CollectionViewSource x:Key="PortfolioViewSource" Source="{Binding PortfolioCollection}"/>
+        <CollectionViewSource x:Key="PortfolioViewSource" Source="{Binding PortfolioNameCollection}"/>
     </Window.Resources>    
     <DockPanel>
         <Grid>
@@ -41,7 +41,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <ComboBox x:Name="portfolioCB" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,4" 
-                                                  ItemsSource="{Binding Path=PortfolioCollection}" SelectedItem="{Binding Name}">
+                                                  ItemsSource="{Binding Path=PortfolioViewSource}" SelectedItem="{Binding Portfolio}">
                                         </ComboBox>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
