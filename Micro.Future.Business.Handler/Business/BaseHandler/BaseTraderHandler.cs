@@ -178,7 +178,7 @@ namespace Micro.Future.Message
             var sst = new PBPositionCompareList();
             foreach (var positiondiffervm in positiondiffervmList)
             {
-                sst.Positions.Add(new PBPositionCompare { Contract = positiondiffervm.Contract, Direction = (int)positiondiffervm.Direction, Portfolio = positiondiffervm.Portfolio });
+                sst.Positions.Add(new PBPositionCompare { Contract = positiondiffervm.Contract, Direction = (int)positiondiffervm.Direction, Portfolio = positiondiffervm.Portfolio, DbPosition = positiondiffervm.Position, SysPosition = positiondiffervm.SysPosition });
             }
             sst.Header = new DataHeader();
             sst.Header.SerialId = NextSerialId;
