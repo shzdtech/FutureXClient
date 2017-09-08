@@ -143,15 +143,33 @@ namespace Micro.Future.Message
             PositionDifferVMCollection.Clear();
             foreach (var positionDiffer in pb.Positions)
             {
-                PositionDifferVMCollection.
-                    Add(new PositionDifferVM
-                    {
-                        Contract = positionDiffer.Contract,
-                        Position = positionDiffer.DbPosition,
-                        Direction = (PositionDirectionType)positionDiffer.Direction,
-                        SysPosition = positionDiffer.SysPosition,
-                        Portfolio = positionDiffer.Portfolio,
-                    });
+                if (!string.IsNullOrEmpty(positionDiffer.Portfolio))
+                    PositionDifferVMCollection.
+                        Add(new PositionDifferVM
+                        {
+                            Contract = positionDiffer.Contract,
+                            Position = positionDiffer.DbPosition,
+                            Direction = (PositionDirectionType)positionDiffer.Direction,
+                            SysPosition = positionDiffer.SysPosition,
+                            Portfolio = positionDiffer.Portfolio,
+                            Selected = false,
+                        });
+                if (string.IsNullOrEmpty(positionDiffer.Portfolio))
+                    PositionDifferVMCollection.
+                        Add(new PositionDifferVM
+                        {
+                            Contract = positionDiffer.Contract,
+                            Position = positionDiffer.DbPosition,
+                            Direction = (PositionDirectionType)positionDiffer.Direction,
+                            SysPosition = positionDiffer.SysPosition,
+                            Portfolio = positionDiffer.Portfolio,
+                            Selected = true,
+                        });
+            }
+            foreach (var vm in PositionDifferVMCollection)
+            {
+                if (vm.Position == vm.SysPosition && vm.Position == 0 && vm.SysPosition == 0)
+                    PositionDifferVMCollection.Remove(vm);
             }
         }
         public void SyncPosition(IEnumerable<PositionDifferVM> positiondiffervmList)
@@ -414,7 +432,7 @@ namespace Micro.Future.Message
             var sst = new StringMap();
             sst.Header = new DataHeader();
             sst.Header.SerialId = NextSerialId;
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_ORDER, sst);
+            MessageWrapper?.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_ORDER, sst);
 
         }
 

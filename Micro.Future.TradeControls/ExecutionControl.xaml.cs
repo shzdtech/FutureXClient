@@ -399,7 +399,6 @@ namespace Micro.Future.UI
             //var userId = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id;
             var userId = TradeHandler.MessageWrapper.User.Id;
             bool found = false;
-
             foreach (var fs in filtersettings)
             {
                 var executionctrl = new ExecutionControl(PersistanceId, fs.Id, TradeHandler, fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
@@ -436,7 +435,7 @@ namespace Micro.Future.UI
             }
             TradeHandler.OrderVMCollection.Clear();
             TradeHandler.QueryOrder();
-            FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User.Id;
+            FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User?.Id;
         }
     }
 }

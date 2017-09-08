@@ -100,7 +100,7 @@ namespace Micro.Future.UI
             tradeWindow.AnchorablePane = tradePane;
             positionsWindow.AnchorablePane = positionPane;
             quotePane.Children[0].Title = WPFUtility.GetLocalizedString("Quote", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            executionPane.Children[0].Title = WPFUtility.GetLocalizedString("ExecutionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            executionPane.Children[0].Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             tradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             positionPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
 
@@ -136,7 +136,6 @@ namespace Micro.Future.UI
             tradeWindow.TradeHandler = tradeHandler;
             positionsWindow.TradeHandler = tradeHandler;
             positionsWindow.MarketDataHandler = marketdataHandler;
-
         }
 
         private void _ctpMdSignIner_OnLogged(IUserInfo obj)
@@ -194,6 +193,20 @@ namespace Micro.Future.UI
             executionWindow.ReloadData();
 
             LoginTaskSource.TrySetResult(true);
+
+            var titleOpened = WPFUtility.GetLocalizedString("Opened", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var executionWinOpened = new ExecutionControl(executionWindow.PersistanceId, Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
+            executionWinOpened.FilterSettingsWin.Title += "(" + titleOpened + ")";
+            executionWinOpened.FilterSettingsWin.FilterTabTitle = titleOpened;
+            executionWinOpened.FilterByStatus(new List<OrderStatus> { OrderStatus.OPENED, OrderStatus.PARTIAL_TRADED, OrderStatus.PARTIAL_TRADING });
+            executionPane.AddContent(executionWinOpened).Title = titleOpened;
+
+            var titleTraded = WPFUtility.GetLocalizedString("TRADED", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var executionWinTraded = new ExecutionControl(executionWindow.PersistanceId, Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
+            executionWinTraded.FilterSettingsWin.Title += "(" + titleTraded + ")";
+            executionWinTraded.FilterSettingsWin.FilterTabTitle = titleTraded;
+            executionWinTraded.FilterByStatus(new List<OrderStatus> { OrderStatus.ALL_TRADED, OrderStatus.PARTIAL_TRADED });
+            executionPane.AddContent(executionWinTraded).Title = titleTraded;
 
             //var layoutInfo = ClientDbContext.GetLayout(tradeHandler.MessageWrapper.User.Id, domesticDM.Uid);
             //if (layoutInfo != null)
