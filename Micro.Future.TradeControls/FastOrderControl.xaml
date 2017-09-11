@@ -12,7 +12,7 @@
     lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"         
     mc:Ignorable="d" 
-    d:DesignHeight="180" d:DesignWidth="330" HorizontalAlignment="Left" >
+    d:DesignHeight="180" d:DesignWidth="330" MaxWidth="330" HorizontalAlignment="Left" >
     <UserControl.Resources>
         <local:EnumBooleanConverter x:Key="enumBooleanConverter"/>
         <CollectionViewSource x:Key="PortfolioViewSource" Source="{Binding Portfolio}"/>

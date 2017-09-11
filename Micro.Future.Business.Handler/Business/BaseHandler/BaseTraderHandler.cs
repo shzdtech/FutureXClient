@@ -153,7 +153,7 @@ namespace Micro.Future.Message
                             Direction = (PositionDirectionType)positionDiffer.Direction,
                             SysPosition = positionDiffer.SysPosition,
                             Portfolio = positionDiffer.Portfolio,
-                            Selected = !string.IsNullOrEmpty(positionDiffer.Portfolio)
+                            Selected = string.IsNullOrEmpty(positionDiffer.Portfolio)
                         });
                 }
             }
