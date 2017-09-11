@@ -143,7 +143,8 @@ namespace Micro.Future.Message
             PositionDifferVMCollection.Clear();
             foreach (var positionDiffer in pb.Positions)
             {
-                if (!string.IsNullOrEmpty(positionDiffer.Portfolio))
+                if (positionDiffer.DbPosition != 0 || positionDiffer.SysPosition != 0)
+                {
                     PositionDifferVMCollection.
                         Add(new PositionDifferVM
                         {
@@ -152,26 +153,12 @@ namespace Micro.Future.Message
                             Direction = (PositionDirectionType)positionDiffer.Direction,
                             SysPosition = positionDiffer.SysPosition,
                             Portfolio = positionDiffer.Portfolio,
-                            Selected = false,
+                            Selected = !string.IsNullOrEmpty(positionDiffer.Portfolio)
                         });
-                if (string.IsNullOrEmpty(positionDiffer.Portfolio))
-                    PositionDifferVMCollection.
-                        Add(new PositionDifferVM
-                        {
-                            Contract = positionDiffer.Contract,
-                            Position = positionDiffer.DbPosition,
-                            Direction = (PositionDirectionType)positionDiffer.Direction,
-                            SysPosition = positionDiffer.SysPosition,
-                            Portfolio = positionDiffer.Portfolio,
-                            Selected = true,
-                        });
-            }
-            foreach (var vm in PositionDifferVMCollection)
-            {
-                if (vm.Position == vm.SysPosition && vm.Position == 0 && vm.SysPosition == 0)
-                    PositionDifferVMCollection.Remove(vm);
+                }
             }
         }
+
         public void SyncPosition(IEnumerable<PositionDifferVM> positiondiffervmList)
         {
 

@@ -40,9 +40,9 @@ namespace Micro.Future.UI
             mColumns = ColumnObject.GetColumns(FundListView);           
         }
 
-        private void ReloadDataCallback(object state)
+        private void UpdateAccountInfoCallback(object state)
         {
-            ReloadData();
+            TradeHandler.QueryAccountInfo();
         }
 
         public void ReloadData()
@@ -53,8 +53,7 @@ namespace Micro.Future.UI
                 FundVMCollection.Clear();
                 FundVMCollection.Add(fund);
             });
-            _timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
-            TradeHandler.QueryAccountInfo();
+            _timer = new Timer(UpdateAccountInfoCallback, null, UpdateInterval, UpdateInterval); 
         }
 
         private void MenuItemColumns_Click(object sender, RoutedEventArgs e)
