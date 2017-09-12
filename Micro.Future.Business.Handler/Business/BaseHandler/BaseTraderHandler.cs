@@ -188,7 +188,7 @@ namespace Micro.Future.Message
                 PositionVM positionVM = PositionVMCollection.FirstOrDefault(p =>
                     p.Contract == rsp.Contract && (int)p.Direction == rsp.Direction && p.Portfolio == rsp.Portfolio);
 
-                if (rsp.TdPosition == 0 && rsp.YdPosition == 0)
+                if (rsp.TdPosition + rsp.YdPosition == 0)
                 {
                     if (positionVM != null)
                         PositionVMCollection.Remove(positionVM);
@@ -494,15 +494,19 @@ namespace Micro.Future.Message
         }
         public void AddTrade(TradeVM tradeVM)
         {
+
             var tradeInfo = new PBTradeInfo();
-            //tradeInfo.Exchange = tradeVM.Exchange;
-            tradeInfo.Contract = tradeVM.Contract;
-            tradeInfo.Volume = tradeVM.Volume;
-            tradeInfo.Price = tradeVM.Price;
-            tradeInfo.Portfolio = tradeVM.Portfolio;
-            tradeInfo.Direction = (int)tradeVM.Direction;
-            tradeInfo.Openclose = (int)tradeVM.OpenClose;
-            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ADD_MANUAL_TRADE, tradeInfo);
+            if (tradeVM.Contract != null && tradeVM.Volume != 0 && tradeVM.Price != 0 && tradeVM.Portfolio != null)
+            {
+                tradeInfo.Contract = tradeVM.Contract;
+                tradeInfo.Volume = tradeVM.Volume;
+                tradeInfo.Price = tradeVM.Price;
+                tradeInfo.Portfolio = tradeVM.Portfolio;
+                tradeInfo.Direction = (int)tradeVM.Direction;
+                tradeInfo.Openclose = (int)tradeVM.OpenClose;
+                MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ADD_MANUAL_TRADE, tradeInfo);
+            }
+
         }
         public void ModifyOrder(OrderVM orderVM)
         {

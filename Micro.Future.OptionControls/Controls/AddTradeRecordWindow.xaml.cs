@@ -115,7 +115,10 @@ namespace Micro.Future.UI
                 TradeInfoVM.Price = LimitTxt.Value.Value;
                 TradeInfoVM.Contract = contract;
                 TradeInfoVM.Volume = (int)SizeTxt.Value;
-                TradeInfoVM.Portfolio = portofolioCB.SelectedValue?.ToString();
+                if (portofolioCB.SelectedValue != null)
+                    TradeInfoVM.Portfolio = portofolioCB.SelectedValue?.ToString();
+                else
+                    TradeInfoVM.Portfolio = "";
             }
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().AddTrade(TradeInfoVM);
             this.Close();
