@@ -24,7 +24,7 @@
             <GroupBox Header="{lex:Loc Key=Login_Server}">
                 <ComboBox x:Name="LoginCombo" SelectedIndex="0" IsEditable="True"/>
             </GroupBox>
-            <GroupBox Header="{lex:Loc Key=BrokerId}" Visibility="Collapsed">
+            <GroupBox Header="{lex:Loc Key=BrokerId}">
                 <TextBox x:Name="userBroker" Visibility="Collapsed"/>
             </GroupBox>
             <GroupBox Header="{lex:Loc Key=UserName}">
