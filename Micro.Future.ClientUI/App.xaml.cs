@@ -52,6 +52,16 @@ namespace Micro.Future
                 MessageHandlerContainer.Register<TraderExHandler, TraderExHandler>(GenSignInOption(configDict));
             }
 
+            if (config.Content.TryGetValue("CTPETFMDSERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<CTPETFMDHandler, CTPETFMDHandler>(GenSignInOption(configDict));
+            }
+
+            if (config.Content.TryGetValue("CTPETFTRADESERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<CTPETFTradeHandler, CTPETFTradeHandler>(GenSignInOption(configDict));
+            }
+
             if (config.Content.TryGetValue("CTPOPTIONSERVER", out configDict))
             {
                 MessageHandlerContainer.Register<CTPOptionDataHandler, CTPOptionDataHandler>(GenSignInOption(configDict));

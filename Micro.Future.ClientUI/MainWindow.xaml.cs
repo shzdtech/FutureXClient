@@ -38,7 +38,7 @@ namespace Micro.Future.UI
             AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
             AutoUpdater.Start(Settings.Default.AutoUpdateAddress);
 
-            _splashScreen.Show(false, true);
+            _splashScreen.Show(false, false);
 
             Hide();
         }

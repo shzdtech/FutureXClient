@@ -59,6 +59,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ETFStockFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ETFOptionFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DomesticMarketFrame.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -90,6 +98,12 @@
     </Compile>
     <Compile Include="AdvancedMakeOrderWin.xaml.cs">
       <DependentUpon>AdvancedMakeOrderWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ETFStockFrame.xaml.cs">
+      <DependentUpon>ETFStockFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ETFOptionFrame.xaml.cs">
+      <DependentUpon>ETFOptionFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="DomesticMarketFrame.xaml.cs">
       <DependentUpon>DomesticMarketFrame.xaml</DependentUpon>
