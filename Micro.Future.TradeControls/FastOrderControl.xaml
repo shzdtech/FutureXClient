@@ -99,11 +99,11 @@
                 <Label x:Name="Null1" Content=" "/>
                 <WrapPanel>
                     <Label x:Name="Slash1" Content=" / "/>
-                    <Label x:Name="LabelAskPriceVol" Content="{Binding AskSize}" HorizontalAlignment="Center" Foreground="Gray" />
+                    <Label x:Name="LabelAskPriceVol" Content="{Binding AskSize}" HorizontalAlignment="Center" />
                 </WrapPanel>
                 <WrapPanel>
                     <Label x:Name="Slash2" Content=" / "/>
-                    <Label x:Name="LabelBidPriceVol" Content="{Binding BidSize}" HorizontalAlignment="Center" Foreground="Gray" />
+                    <Label x:Name="LabelBidPriceVol" Content="{Binding BidSize}" HorizontalAlignment="Center" />
                 </WrapPanel>
                 <Label x:Name="Null2" Content=" "/>
             </StackPanel>
