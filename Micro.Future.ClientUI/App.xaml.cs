@@ -52,6 +52,24 @@ namespace Micro.Future
                 MessageHandlerContainer.Register<TraderExHandler, TraderExHandler>(GenSignInOption(configDict));
             }
 
+            if (config.Content.TryGetValue("CTPETFMDSERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<CTPETFMDHandler, CTPETFMDHandler>(GenSignInOption(configDict));
+            }
+
+            if (config.Content.TryGetValue("CTPETFTRADESERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<CTPETFTraderHandler, CTPETFTraderHandler>(GenSignInOption(configDict));
+            }
+            if (config.Content.TryGetValue("CTPSTOCKMDSERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<CTPSTOCKMDHandler, CTPSTOCKMDHandler>(GenSignInOption(configDict));
+            }
+
+            if (config.Content.TryGetValue("CTPSTOCKTRADESERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<CTPSTOCKTraderHandler, CTPSTOCKTraderHandler>(GenSignInOption(configDict));
+            }
             if (config.Content.TryGetValue("CTPOPTIONSERVER", out configDict))
             {
                 MessageHandlerContainer.Register<CTPOptionDataHandler, CTPOptionDataHandler>(GenSignInOption(configDict));
@@ -77,9 +95,12 @@ namespace Micro.Future
 
         private SignInOptions GenSignInOption(IDictionary<string, string> configDict)
         {
+            string brokeId;
+            configDict.TryGetValue("BROKERID", out brokeId);
             return new SignInOptions
             {
                 FrontServer = configDict["ADDRESS"],
+                BrokerID = brokeId,
                 ReconnectTimeSpan = TimeSpan.Parse(configDict["RECONN_TIMESPAN"]),
                 EncryptPassword = configDict.ContainsKey("HASH_PASSWORD") ? bool.Parse(configDict["HASH_PASSWORD"]) : false
             };

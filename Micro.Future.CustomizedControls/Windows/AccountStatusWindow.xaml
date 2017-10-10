@@ -1,0 +1,69 @@
+﻿<Window x:Class="Micro.Future.CustomizedControls.Windows.AccountStatusWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Micro.Future.CustomizedControls.Windows"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"  
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+        lex:LocalizeDictionary.DesignCulture="zh_CN"
+        lex:LocalizeDictionary.OutputMissingKeys="True"
+        lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+        lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+        mc:Ignorable="d"
+        Title="{lex:Loc Key=AccountStatus}" Height="250" Width="300">
+    <DockPanel>
+        <Grid>
+            <StackPanel>
+                <WrapPanel>
+                    <Label Content="{lex:Loc Key=Future}"  Width="70"/>
+                    <GroupBox Header="{lex:Loc Key=MarketData}">
+                        <StatusBar x:Name="optionStatusBar"/>
+                    </GroupBox>
+                    <GroupBox Header="{lex:Loc Key=Trade1}">
+                        <WrapPanel>
+                            <GroupBox Header="{lex:Loc Key=UserName}">
+                                <TextBox x:Name="futureUserTxt"/>
+                            </GroupBox>
+                            <GroupBox Header="{lex:Loc Key=PassWord}">
+                                <PasswordBox x:Name="futurePasswordTxt"/>
+                            </GroupBox>
+                        </WrapPanel>
+                    </GroupBox>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="{lex:Loc Key=Stock}"  Width="70"/>
+                    <GroupBox Header="{lex:Loc Key=MarketData}">
+                        <StatusBar x:Name="stockStatusBar"/>
+                    </GroupBox>
+                    <GroupBox Header="{lex:Loc Key=Trade1}">
+                        <WrapPanel>
+                            <GroupBox Header="{lex:Loc Key=UserName}">
+                                <TextBox x:Name="stockUserTxt"/>
+                            </GroupBox>
+                            <GroupBox Header="{lex:Loc Key=PassWord}">
+                                <PasswordBox x:Name="stockPasswordTxt"/>
+                            </GroupBox>
+                        </WrapPanel>
+                    </GroupBox>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="{lex:Loc Key=ETFOption}" Width="70"/>
+                    <GroupBox Header="{lex:Loc Key=MarketData}">
+                        <StatusBar x:Name="etfStatusBar"/>
+                    </GroupBox>
+                    <GroupBox Header="{lex:Loc Key=Trade1}">
+                        <WrapPanel>
+                            <GroupBox Header="{lex:Loc Key=UserName}">
+                                <TextBox x:Name="etfUserTxt"/>
+                            </GroupBox>
+                            <GroupBox Header="{lex:Loc Key=PassWord}">
+                                <PasswordBox x:Name="etfPasswordTxt"/>
+                            </GroupBox>
+                        </WrapPanel>
+                    </GroupBox>
+                </WrapPanel>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</Window>

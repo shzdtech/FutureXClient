@@ -20,6 +20,8 @@
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=YDPositionSync}" Click="MenuItem_SyncPosition_Click">
                 </MenuItem>-->
+                <MenuItem Header="{lex:Loc Key=Login}" Click="MenuItem_Click_Login">
+                </MenuItem>
                 <MenuItem Header="{lex:Loc Key=RefreshContracts}" Click="MenuItem_RefreshContracts_Click">
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=ResetPassword}" Click="MenuItem_Click_ResetPassword">
@@ -31,7 +33,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="55"/>
         </Grid.RowDefinitions>
         <Menu x:Name="mainMenu" Grid.Row="0" IsMainMenu="True">
         </Menu>
@@ -45,20 +47,39 @@
                     <avalonDock:LayoutAnchorablePane x:Name="mainPane" >
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
-            </avalonDock:LayoutRoot>
+            </avalonDock:LayoutRoot>    
         </avalonDock:DockingManager>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <StatusBar x:Name="statusBar" Grid.Column="0">
-            </StatusBar>
-            <StatusBar x:Name="statusBarLogin" HorizontalAlignment="Right" Margin="0,0,-0.4,0.4" Width="286" Grid.ColumnSpan="2">
+            <Expander x:Name="expander" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" ExpandDirection="Up" AllowDrop="True">
+                <Expander.Content>
+                    <!--<Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <RadioButton Grid.Row="0">基本资料</RadioButton>
+                        <RadioButton Grid.Row="1">往来单位</RadioButton>
+                        <RadioButton Grid.Row="2">上游供应商</RadioButton>
+                    </Grid>-->
+                    <StatusBar x:Name="statusBar" Height="20">
+                    </StatusBar>
+                </Expander.Content>
+            </Expander>
+            <!--<StatusBar x:Name="statusBar" Grid.Column="1">
+            </StatusBar>-->
+            
+            <StatusBar x:Name="statusBarLogin" HorizontalAlignment="Right" VerticalAlignment="Top" Width="286" Grid.ColumnSpan="2" Height="20">
                 <!--<TextBlock x:Name="txtblkServerIP"></TextBlock>-->
                 <TextBlock x:Name="txtblkUserName"></TextBlock>
                 <!--<TextBlock x:Name="txtblkTime"></TextBlock>-->
             </StatusBar>
+
+
         </Grid>
     </Grid>
 </Window>

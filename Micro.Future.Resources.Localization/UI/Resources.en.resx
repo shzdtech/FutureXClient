@@ -1329,4 +1329,19 @@
   <data name="Sync" xml:space="preserve">
     <value>Sync</value>
   </data>
+  <data name="Account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="AccountStatus" xml:space="preserve">
+    <value>AccountStatus</value>
+  </data>
+  <data name="ETFOption" xml:space="preserve">
+    <value>ETFOption</value>
+  </data>
+  <data name="Stock" xml:space="preserve">
+    <value>Stock</value>
+  </data>
+  <data name="Trade1" xml:space="preserve">
+    <value>Trade</value>
+  </data>
 </root>

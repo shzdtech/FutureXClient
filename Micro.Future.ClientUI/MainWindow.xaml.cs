@@ -82,22 +82,6 @@ namespace Micro.Future.UI
             }
         }
 
-        private void _currentLoginWindow_Closed(object sender, EventArgs e)
-        {
-            if (!_logged)
-            {
-                MessageBoxResult dr = MessageBox.Show("是否退出", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-                if (dr == MessageBoxResult.OK)
-                {
-                    Application.Current.Shutdown();
-                }
-                else
-                {
-                    Login();
-                }
-            }
-        }
-
         public void Initialize()
         {
             _splashScreen.Close(TimeSpan.FromSeconds(1));
@@ -120,7 +104,21 @@ namespace Micro.Future.UI
             _currentLoginWindow.OnLogged += LoginWindow_OnLogged;
             _currentLoginWindow.ShowDialog();
         }
-
+        private void _currentLoginWindow_Closed(object sender, EventArgs e)
+        {
+            if (!_logged)
+            {
+                MessageBoxResult dr = MessageBox.Show("是否退出", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                if (dr == MessageBoxResult.OK)
+                {
+                    Application.Current.Shutdown();
+                }
+                else
+                {
+                    Login();
+                }
+            }
+        }
         private async void LoginWindow_OnLogged(LoginWindow sender, IUserInfo userInfo)
         {
             MessageHandlerContainer.DefaultInstance.Get<AccountHandler>().RegisterMessageWrapper(_accountSignIner.MessageWrapper);
@@ -168,10 +166,10 @@ namespace Micro.Future.UI
                                 {
                                     if (!string.IsNullOrEmpty(statusbaritem.Uid))
                                     {
-                                        if (statusBarIdSet.Contains(statusbaritem.Uid))
-                                        {
-                                            continue;
-                                        }
+                                        //if (statusBarIdSet.Contains(statusbaritem.Uid))
+                                        //{
+                                        //    continue;
+                                        //}
                                         statusBarIdSet.Add(statusbaritem.Uid);
                                     }
                                     statusBar.Items.Add(statusbaritem);
@@ -251,6 +249,12 @@ namespace Micro.Future.UI
 
             win.ShowDialog();
 
+        }
+
+        private void MenuItem_Click_Login(object sender, RoutedEventArgs e)
+        {
+            AccountStatusWindow win = new AccountStatusWindow();
+            win.ShowDialog();
         }
     }
 }

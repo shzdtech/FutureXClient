@@ -72,6 +72,15 @@ namespace Micro.Future.Resources.Localization.UI {
         /// <summary>
         ///   查找类似 账户 的本地化字符串。
         /// </summary>
+        internal static string Account {
+            get {
+                return ResourceManager.GetString("Account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 账户 的本地化字符串。
+        /// </summary>
         internal static string AccountControl {
             get {
                 return ResourceManager.GetString("AccountControl", resourceCulture);
@@ -102,6 +111,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string AccountPosition {
             get {
                 return ResourceManager.GetString("AccountPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 账户状态 的本地化字符串。
+        /// </summary>
+        internal static string AccountStatus {
+            get {
+                return ResourceManager.GetString("AccountStatus", resourceCulture);
             }
         }
         
@@ -1155,6 +1173,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 个股期权 的本地化字符串。
+        /// </summary>
+        internal static string ETFOption {
+            get {
+                return ResourceManager.GetString("ETFOption", resourceCulture);
             }
         }
         
@@ -3103,6 +3130,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 证券 的本地化字符串。
+        /// </summary>
+        internal static string Stock {
+            get {
+                return ResourceManager.GetString("Stock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 策略 的本地化字符串。
         /// </summary>
         internal static string Strategy {
@@ -3324,6 +3360,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Trade {
             get {
                 return ResourceManager.GetString("Trade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 交易 的本地化字符串。
+        /// </summary>
+        internal static string Trade1 {
+            get {
+                return ResourceManager.GetString("Trade1", resourceCulture);
             }
         }
         

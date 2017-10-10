@@ -307,10 +307,10 @@ namespace Micro.Future.LocalStorage
         }
         public static LayoutInfo GetLayout(string userId, string frameID)
         {
-            using (var clientCtx = new ClientDbContext())
-            {
-                return clientCtx.LayoutInfo.FirstOrDefault(u => u.UserID == userId && u.FrameID == frameID);
-            }
+                using (var clientCtx = new ClientDbContext())
+                {
+                    return clientCtx.LayoutInfo.FirstOrDefault(u => u.UserID == userId && u.FrameID == frameID);
+                }
         }
         public static void DeleteLayoutInfo(string userID, string frameID)
         {
@@ -341,7 +341,7 @@ namespace Micro.Future.LocalStorage
                     layoutInfo.LayoutCFG = layoutCFG;
                 }
                 clientCtx.SaveChanges();
-                
+
             }
         }
 

@@ -48,12 +48,12 @@
 
                     </GridView>
                 </ListView.View>
-                <ListView.ContextMenu>
-                    <ContextMenu StaysOpen="True">
-                        <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItemColumns_Click" />
-                    </ContextMenu>
-                </ListView.ContextMenu>
-            </ListView>
+            <ListView.ContextMenu>
+                <ContextMenu StaysOpen="True">
+                    <MenuItem Header="{lex:Loc Key=ColumnSettings}" Click="MenuItemColumns_Click" />
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
         <!--</utility:GridLineDecorator>-->
     </Grid>
 </UserControl>

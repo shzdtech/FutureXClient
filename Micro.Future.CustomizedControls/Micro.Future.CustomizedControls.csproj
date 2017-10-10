@@ -70,6 +70,9 @@
     <Compile Include="Windows\PositionDifferWindow.xaml.cs">
       <DependentUpon>PositionDifferWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\AccountStatusWindow.xaml.cs">
+      <DependentUpon>AccountStatusWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ResetPasswordWindow.xaml.cs">
       <DependentUpon>ResetPasswordWindow.xaml</DependentUpon>
     </Compile>
@@ -103,6 +106,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\PositionDifferWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\AccountStatusWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

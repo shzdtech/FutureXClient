@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Micro.Future.UI.DomesticMarketFrame"
+﻿<UserControl x:Class="Micro.Future.UI.StockFrame"
       xmlns:Controls="clr-namespace:Micro.Future.CustomizedControls;assembly=Micro.Future.CustomizedControls"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
@@ -17,12 +17,10 @@
     <!--Frame Body-->
     <UserControl.Resources>
         <x:Array Type="{x:Type MenuItem}" x:Key="exMenuItems">
-            <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=DomesticTradingMarket}">
+            <MenuItem x:Name="frameMenu" Header="{lex:Loc Key=Stock}">
                 <MenuItem Header="{lex:Loc Key=Login}" Click="MenuItem_Click_Login">
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=AddWindow}">
-                    <!--<MenuItem Header="{lex:Loc Key=AccountControl}" Click="MenuItem_Click_AccountCtrl">
-                    </MenuItem>-->
                     <MenuItem Header="{lex:Loc Key=QuoteWindow}" Click="MenuItem_Click_Contract">
                     </MenuItem>
                     <MenuItem Header="{lex:Loc Key=ExecutionWindow}">

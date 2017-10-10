@@ -54,7 +54,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="FrameLoginWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AdvancedMakeOrderWin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StockFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ETFOptionFrame.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -87,8 +99,17 @@
     <Compile Include="AccountInfoControl.xaml.cs">
       <DependentUpon>AccountInfoControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FrameLoginWindow.xaml.cs">
+      <DependentUpon>FrameLoginWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdvancedMakeOrderWin.xaml.cs">
       <DependentUpon>AdvancedMakeOrderWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StockFrame.xaml.cs">
+      <DependentUpon>StockFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ETFOptionFrame.xaml.cs">
+      <DependentUpon>ETFOptionFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="DomesticMarketFrame.xaml.cs">
       <DependentUpon>DomesticMarketFrame.xaml</DependentUpon>
