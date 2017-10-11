@@ -75,6 +75,28 @@ namespace Micro.Future
                 MessageHandlerContainer.Register<CTPOptionDataHandler, CTPOptionDataHandler>(GenSignInOption(configDict));
             }
 
+
+
+            if (config.Content.TryGetValue("OTCETFTRADESERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<OTCETFTradeHandler, OTCETFTradeHandler>(GenSignInOption(configDict));
+            }
+            if (config.Content.TryGetValue("OTCETFMDSERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<ETFOTCOptionDataHandler, ETFOTCOptionDataHandler>(GenSignInOption(configDict));
+            }
+
+            if (config.Content.TryGetValue("OTCSTOCKTRADESERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<OTCStockTradeHandler, OTCStockTradeHandler>(GenSignInOption(configDict));
+            }
+            if (config.Content.TryGetValue("OTCSTOCKMDSERVER", out configDict))
+            {
+                MessageHandlerContainer.Register<StockOTCOptionDataHandler, StockOTCOptionDataHandler>(GenSignInOption(configDict));
+            }
+
+
+
             if (config.Content.TryGetValue("CTSMDSERVER", out configDict))
             {
                 MessageHandlerContainer.Register<CTSMarketDataHandler, CTSMarketDataHandler>(GenSignInOption(configDict));

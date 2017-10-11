@@ -110,6 +110,7 @@ namespace Micro.Future.UI
             _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
             _ctpMdSignIner.OnLogged += _ctpMdSignIner_OnLogged;
             _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
+            _ctpMdSignIner.OnLoginError += _ctpMdSignIner_OnLoggedError;
             msgWrapper.MessageClient.OnDisconnected += ctpLoginStatus.OnDisconnected;
             MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKMDHandler>().RegisterMessageWrapper(msgWrapper);
 
@@ -137,15 +138,23 @@ namespace Micro.Future.UI
             positionsWindow.MarketDataHandler = marketdataHandler;
         }
 
-        private void _ctpMdSignIner_OnLogged(IUserInfo obj)
+        private async void _ctpMdSignIner_OnLogged(IUserInfo obj)
+        {
+            marketDataLV.ReloadData();
+            LoginTaskSource.TrySetResult(true);
+            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKMDHandler>();
+            await tradeHandler.SyncContractInfoAsync();
+            marketDataLV.ReloadData();
+        }
+        private void _ctpMdSignIner_OnLoggedError(object obj)
         {
             marketDataLV.ReloadData();
             LoginTaskSource.TrySetResult(true);
         }
-
         private void _ctpTradeSignIner_OnLoginError(MessageException obj)
         {
             LoginTaskSource.TrySetException(obj);
+            LoginTaskSource.TrySetResult(true);
         }
 
         private void MarketDataServerLogin()
@@ -191,11 +200,11 @@ namespace Micro.Future.UI
             //    }
             //}
         }
-        private async void _ctpTradeSignInerOnLogged()
+        private void _ctpTradeSignInerOnLogged()
         {
-            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKMDHandler>();
-            await tradeHandler.SyncContractInfoAsync();
-            marketDataLV.ReloadData();
+            //var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKMDHandler>();
+            //await tradeHandler.SyncContractInfoAsync();
+            //marketDataLV.ReloadData();
             //marketDataLV.GetContractInfo();
             Thread.Sleep(1000);
             clientFundLV.ReloadData();

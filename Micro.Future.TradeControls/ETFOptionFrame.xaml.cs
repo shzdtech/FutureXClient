@@ -136,15 +136,19 @@ namespace Micro.Future.UI
             positionsWindow.MarketDataHandler = marketdataHandler;
         }
 
-        private void _ctpMdSignIner_OnLogged(IUserInfo obj)
+        private async void _ctpMdSignIner_OnLogged(IUserInfo obj)
         {
+            var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFMDHandler>();
             marketDataLV.ReloadData();
             LoginTaskSource.TrySetResult(true);
+            await marketdataHandler.SyncContractInfoAsync();
+            marketDataLV.LoadUserContracts();
         }
 
         private void _ctpTradeSignIner_OnLoginError(MessageException obj)
         {
             LoginTaskSource.TrySetException(obj);
+            LoginTaskSource.TrySetResult(true);
         }
 
         private void MarketDataServerLogin()
@@ -190,10 +194,10 @@ namespace Micro.Future.UI
             //    }
             //}
         }
-        private async void _ctpTradeSignInerOnLogged()
+        private void _ctpTradeSignInerOnLogged()
         {
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFMDHandler>();
-            await tradeHandler.SyncContractInfoAsync();
+            //await tradeHandler.SyncContractInfoAsync();
             marketDataLV.ReloadData();
             //marketDataLV.GetContractInfo();
             Thread.Sleep(1000);
