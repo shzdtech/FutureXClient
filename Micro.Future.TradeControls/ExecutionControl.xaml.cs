@@ -27,7 +27,7 @@ namespace Micro.Future.UI
     public partial class ExecutionControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
         private IList<ColumnObject> mColumns;
-        private const string DEFAULT_ID = "394B67D4-87AA-47DB-B1DD-5A213714D02E";
+        private const string EXECUTION_DEFAULT_ID = "394B67D4-87AA-47DB-B1DD-5A213714D02A";
 
         public BaseTraderHandler TradeHandler { get; set; }
         public BaseMarketDataHandler MarketDataHandler { get; set; }
@@ -42,12 +42,19 @@ namespace Micro.Future.UI
             get;
             set;
         }
+        public string DEFAULT_ID
+        {
+            get;
+            set;
+        }
         public IEnumerable<OrderStatus> OrderStatuses { get; set; }
 
         public ExecutionControl(string persisitentId, string filterId, BaseTraderHandler tradeHander, string tabTitle = null, string exchange = null, string underlying = null, string contract = null, string portfolio = null)
         {
             InitializeComponent();
             TradeHandler = tradeHander;
+            DEFAULT_ID = EXECUTION_DEFAULT_ID;
+
             if (TradeHandler != null)
                 Initialize();
             PersistanceId = persisitentId;
@@ -64,7 +71,7 @@ namespace Micro.Future.UI
         public ExecutionControl()
         {
             InitializeComponent();
-
+            DEFAULT_ID = EXECUTION_DEFAULT_ID;
             FilterSettingsWin.OnFiltering += _executionSettingsWin_OnFiltering;
             FilterSettingsWin.PersistanceId = PersistanceId;
             FilterSettingsWin.FilterId = DEFAULT_ID;

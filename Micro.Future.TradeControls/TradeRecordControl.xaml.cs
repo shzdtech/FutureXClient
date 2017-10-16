@@ -25,7 +25,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class TradeRecordControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
-        private const string DEFAULT_ID = "E0FD10D9-8D28-4DDE-B2BC-96FAC72992C8";
+        private const string TRADE_DEFAULT_ID = "E0FD10D9-8D28-4DDE-B2BC-96FAC72992C8";
         private IList<ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public FilterSettingsWindow FilterSettingsWin
@@ -36,13 +36,17 @@ namespace Micro.Future.UI
             get;
             set;
         }
-
+        public string DEFAULT_ID
+        {
+            get;
+            set;
+        }
         public LayoutAnchorablePane AnchorablePane { get; set; }
 
         public TradeRecordControl(string persisitentId, string filterId, BaseTraderHandler tradeHander = null)
         {
             InitializeComponent();
-
+            DEFAULT_ID = TRADE_DEFAULT_ID;
             TradeHandler = tradeHander;
             if (TradeHandler != null)
                 Initialize();
@@ -54,9 +58,10 @@ namespace Micro.Future.UI
             FilterSettingsWin.FilterId = filterId;
         }
 
-        public TradeRecordControl() : this(DEFAULT_ID, null)
+        public TradeRecordControl() : this(TRADE_DEFAULT_ID, null)
         {
             InitializeComponent();
+            DEFAULT_ID = TRADE_DEFAULT_ID;
             FilterSettingsWin.OnFiltering += FilterSettingsWin_OnFiltering;
             FilterSettingsWin.PersistanceId = PersistanceId;
             FilterSettingsWin.FilterId = DEFAULT_ID;

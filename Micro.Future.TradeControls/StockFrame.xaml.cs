@@ -26,6 +26,7 @@ namespace Micro.Future.UI
         private AbstractSignInManager _ctpTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPSTOCKTraderHandler>());
         private PBSignInManager _accountSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AccountHandler>());
         private bool _logged;
+        private const string DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33D";
 
         public string Title
         {
@@ -143,11 +144,12 @@ namespace Micro.Future.UI
             LoginTaskSource.TrySetResult(true);
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKMDHandler>();
             await tradeHandler.SyncContractInfoAsync();
+            marketDataLV.DEFAULT_ID = DEFAULT_ID;
             marketDataLV.ReloadData();
         }
-        private void _ctpMdSignIner_OnLoggedError(object obj)
+        private void _ctpMdSignIner_OnLoggedError(MessageException obj)
         {
-            marketDataLV.ReloadData();
+            LoginTaskSource.TrySetException(obj);
             LoginTaskSource.TrySetResult(true);
         }
         private void _ctpTradeSignIner_OnLoginError(MessageException obj)
@@ -205,6 +207,8 @@ namespace Micro.Future.UI
             //await tradeHandler.SyncContractInfoAsync();
             //marketDataLV.ReloadData();
             //marketDataLV.GetContractInfo();
+            marketDataLV.DEFAULT_ID = DEFAULT_ID;
+            marketDataLV.ReloadData();
             Thread.Sleep(1000);
             clientFundLV.ReloadData();
             Thread.Sleep(1000);
