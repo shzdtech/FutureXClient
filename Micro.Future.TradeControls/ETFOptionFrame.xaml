@@ -88,26 +88,26 @@
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="quotePane">
                             <avalonDock:LayoutAnchorable ContentId="MDContent">
-                                <c:MarketDataControl x:Name="marketDataLV" PersistanceId="Domestic:MarketDataControl" />
+                                <c:MarketDataControl x:Name="marketDataLV" PersistanceId="ETF:MarketDataControl" />
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>
                     <avalonDock:LayoutPanel Orientation="Vertical">
                         <avalonDock:LayoutAnchorablePane x:Name="executionPane">
                             <avalonDock:LayoutAnchorable ContentId="ExecutionContent">
-                                <c:ExecutionControl  x:Name="executionWindow" PersistanceId="Domestic:ExecutionControl"/>
+                                <c:ExecutionControl  x:Name="executionWindow" PersistanceId="ETF:ExecutionControl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>
                     <avalonDock:LayoutPanel Orientation="Horizontal">
                         <avalonDock:LayoutAnchorablePane x:Name="tradePane">
                             <avalonDock:LayoutAnchorable ContentId="TradeContent">
-                                <c:TradeRecordControl x:Name="tradeWindow" PersistanceId="Domestic:TradeRecordControl"/>
+                                <c:TradeRecordControl x:Name="tradeWindow" PersistanceId="ETF:TradeRecordControl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
                             <avalonDock:LayoutAnchorable Closing="ClosingPositionPane" ContentId="PositionContent">
-                                <c:PositionControl x:Name="positionsWindow" PersistanceId="Domestic:PositionControl"/>
+                                <c:PositionControl x:Name="positionsWindow" PersistanceId="ETF:PositionControl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>

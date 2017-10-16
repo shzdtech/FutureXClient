@@ -28,7 +28,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class OPMarketDataControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
-        private const string DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33A";
+        private const string DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33B";
         private IList< ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public BaseMarketDataHandler MarketDataHandler { get; set; }

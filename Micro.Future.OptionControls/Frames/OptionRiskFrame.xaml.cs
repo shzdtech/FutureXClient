@@ -113,7 +113,7 @@ namespace Micro.Future.UI
                 _ctpTdSignIner.MessageWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
                 _traderexHandler.RegisterMessageWrapper(_ctpTdSignIner.MessageWrapper);
 
-                TradingServerLogin();
+                //TradingServerLogin();
             }
 
             return LoginTaskSource.Task;

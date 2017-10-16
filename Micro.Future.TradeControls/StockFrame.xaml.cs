@@ -140,7 +140,6 @@ namespace Micro.Future.UI
 
         private async void _ctpMdSignIner_OnLogged(IUserInfo obj)
         {
-            marketDataLV.ReloadData();
             LoginTaskSource.TrySetResult(true);
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKMDHandler>();
             await tradeHandler.SyncContractInfoAsync();

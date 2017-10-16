@@ -28,7 +28,7 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class MarketDataControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
-        private const string DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33A";
+        private const string MARKETDATA_DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33A";
         private IList<ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public BaseMarketDataHandler MarketDataHandler { get; set; }
@@ -47,6 +47,11 @@ namespace Micro.Future.UI
             get;
             set;
         }
+        public string DEFAULT_ID
+        {
+            get;
+            set;
+        }
 
         public ObservableCollection<MarketDataVM> QuoteVMCollection
         {
@@ -57,6 +62,7 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             MarketDataHandler = marketDataHandler;
+            DEFAULT_ID = MARKETDATA_DEFAULT_ID;
             if (MarketDataHandler != null)
                 Initialize();
 
@@ -71,6 +77,7 @@ namespace Micro.Future.UI
             InitializeComponent();
             FilterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
             FilterSettingsWin.PersistanceId = PersistanceId;
+            DEFAULT_ID = MARKETDATA_DEFAULT_ID;
             FilterSettingsWin.FilterId = DEFAULT_ID;
         }
 
@@ -78,6 +85,7 @@ namespace Micro.Future.UI
         {
             _viewSource.Source = QuoteVMCollection;
             quoteListView.ItemsSource = _viewSource.View;
+            FilterSettingsWin.FilterId = DEFAULT_ID;
             mColumns = ColumnObject.GetColumns(quoteListView);
             FilterSettingsWin.UserID = MarketDataHandler.MessageWrapper?.User?.Id;
             QuoteChanged = _viewSource.View as ICollectionViewLiveShaping;

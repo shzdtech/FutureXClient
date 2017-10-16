@@ -14,6 +14,7 @@ using Micro.Future.LocalStorage;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using System.IO;
 using System.Text;
+using Micro.Future.Windows;
 
 namespace Micro.Future.UI
 {
@@ -26,7 +27,7 @@ namespace Micro.Future.UI
         private AbstractSignInManager _ctpTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPETFTraderHandler>());
         private PBSignInManager _accountSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AccountHandler>());
         private bool _logged;
-
+        private const string DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33C";
         public string Title
         {
             get
@@ -108,6 +109,7 @@ namespace Micro.Future.UI
             _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
             _ctpMdSignIner.OnLogged += _ctpMdSignIner_OnLogged;
             _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
+            _ctpMdSignIner.OnLoginError += _ctpMdSignIner_OnLoginError;
             msgWrapper.MessageClient.OnDisconnected += ctpLoginStatus.OnDisconnected;
             MessageHandlerContainer.DefaultInstance.Get<CTPETFMDHandler>().RegisterMessageWrapper(msgWrapper);
 
@@ -139,13 +141,21 @@ namespace Micro.Future.UI
         private async void _ctpMdSignIner_OnLogged(IUserInfo obj)
         {
             var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFMDHandler>();
-            marketDataLV.ReloadData();
             LoginTaskSource.TrySetResult(true);
             await marketdataHandler.SyncContractInfoAsync();
-            marketDataLV.LoadUserContracts();
+            //marketDataLV.FilterSettingsWin.FilterId = DEFAULT_ID;
+            marketDataLV.DEFAULT_ID = DEFAULT_ID;
+            marketDataLV.ReloadData();
+            //marketDataLV.GetContractInfo();
+            //marketDataLV.LoadUserContracts();
         }
 
         private void _ctpTradeSignIner_OnLoginError(MessageException obj)
+        {
+            LoginTaskSource.TrySetException(obj);
+            LoginTaskSource.TrySetResult(true);
+        }
+        private void _ctpMdSignIner_OnLoginError(MessageException obj)
         {
             LoginTaskSource.TrySetException(obj);
             LoginTaskSource.TrySetResult(true);
@@ -198,8 +208,11 @@ namespace Micro.Future.UI
         {
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFMDHandler>();
             //await tradeHandler.SyncContractInfoAsync();
+            //marketDataLV.FilterSettingsWin.FilterId = DEFAULT_ID;
+            marketDataLV.DEFAULT_ID = DEFAULT_ID;
             marketDataLV.ReloadData();
             //marketDataLV.GetContractInfo();
+            //marketDataLV.LoadUserContracts();
             Thread.Sleep(1000);
             clientFundLV.ReloadData();
             Thread.Sleep(1000);
