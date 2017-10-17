@@ -104,7 +104,7 @@ namespace Micro.Future.UI
             quotePane.Children[0].Title = WPFUtility.GetLocalizedString("Quote", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             executionPane.Children[0].Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             tradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-
+            positionPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             // Initialize Market Data
             var msgWrapper = _ctpMdSignIner.MessageWrapper;
 
@@ -141,11 +141,11 @@ namespace Micro.Future.UI
 
         private async void _ctpMdSignIner_OnLogged(IUserInfo obj)
         {
-            LoginTaskSource.TrySetResult(true);
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKMDHandler>();
             await tradeHandler.SyncContractInfoAsync();
             marketDataLV.DEFAULT_ID = DEFAULT_ID;
             marketDataLV.ReloadData();
+            LoginTaskSource.TrySetResult(true);
         }
         private void _ctpMdSignIner_OnLoggedError(MessageException obj)
         {
@@ -205,17 +205,18 @@ namespace Micro.Future.UI
         {
             //var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKMDHandler>();
             //await tradeHandler.SyncContractInfoAsync();
-            //marketDataLV.ReloadData();
-            //marketDataLV.GetContractInfo();
             marketDataLV.DEFAULT_ID = DEFAULT_ID;
             marketDataLV.ReloadData();
             Thread.Sleep(1000);
             clientFundLV.ReloadData();
             Thread.Sleep(1000);
+            positionsWindow.DEFAULT_ID = DEFAULT_ID;
             positionsWindow.ReloadData();
             Thread.Sleep(1000);
+            tradeWindow.DEFAULT_ID = DEFAULT_ID;
             tradeWindow.ReloadData();
             Thread.Sleep(1000);
+            executionWindow.DEFAULT_ID = DEFAULT_ID;
             executionWindow.ReloadData();
 
             //LoginTaskSource.TrySetResult(true);

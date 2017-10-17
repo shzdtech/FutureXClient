@@ -47,10 +47,18 @@ namespace Micro.Future.UI
             get;
             set;
         }
+        private string _defaultId;
         public string DEFAULT_ID
         {
-            get;
-            set;
+            get
+            {
+                return _defaultId;
+            }
+            set
+            {
+                _defaultId = value;
+                FilterSettingsWin.FilterId = value;
+            }
         }
 
         public ObservableCollection<MarketDataVM> QuoteVMCollection

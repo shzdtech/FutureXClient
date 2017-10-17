@@ -36,10 +36,19 @@ namespace Micro.Future.UI
             get;
             set;
         }
+
+        private string _defaultId;
         public string DEFAULT_ID
         {
-            get;
-            set;
+            get
+            {
+                return _defaultId;
+            }
+            set
+            {
+                _defaultId = value;
+                FilterSettingsWin.FilterId = value;
+            }
         }
         public LayoutAnchorablePane AnchorablePane { get; set; }
 
@@ -337,7 +346,7 @@ namespace Micro.Future.UI
             Initialize();
             //while (AnchorablePane.ChildrenCount > 1)
             //    AnchorablePane.Children.RemoveAt(1);
-            LayoutAnchorable defaultTab = 
+            LayoutAnchorable defaultTab =
                 AnchorablePane.Children.FirstOrDefault(pane => ((TradeRecordControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
 
             AnchorablePane.Children.Clear();
