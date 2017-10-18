@@ -1,4 +1,5 @@
 ﻿using Micro.Future.Business.Handler.Business;
+using Micro.Future.Business.Handler.Router;
 using Micro.Future.Message;
 using Micro.Future.Properties;
 using Micro.Future.Utility;
@@ -40,6 +41,10 @@ namespace Micro.Future
                 MessageHandlerContainer.Register<OTCOptionTradingDeskHandler, OTCOptionTradingDeskHandler>(GenSignInOption(configDict));
                 MessageHandlerContainer.Register<OTCOptionDataHandler, OTCOptionDataHandler>(GenSignInOption(configDict));
                 MessageHandlerContainer.Register<OTCOptionTradeHandler, OTCOptionTradeHandler>(GenSignInOption(configDict));
+
+                var handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+                OTCTradeHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_OPTIONS, handler);
+                OTCTradeHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_OTC_OPTION, handler);
             }
 
             if (config.Content.TryGetValue("CTPMDSERVER", out configDict))

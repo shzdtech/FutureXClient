@@ -77,6 +77,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Business\TradeHandler\OTCOptionTradingDeskHandler.cs" />
+    <Compile Include="Router\MessageHandlerRouter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="protos\PBMsgAlgo.cs" />
     <Compile Include="protos\PBMsgBusiness.cs" />
@@ -85,6 +86,9 @@
     <Compile Include="protos\PBMsgMDA.cs" />
     <Compile Include="protos\PBMsgOG.cs" />
     <Compile Include="protos\PBMsgTrader.cs" />
+    <Compile Include="Router\MarketDataHandlerRouter.cs" />
+    <Compile Include="Router\TradeExHandlerRouter.cs" />
+    <Compile Include="Router\OTCTradeHandlerRouter.cs" />
     <Compile Include="ViewModel\AddOrderViewModel.cs" />
     <Compile Include="ViewModel\CallPutOptionVM.cs" />
     <Compile Include="ViewModel\ContractVM.cs" />
