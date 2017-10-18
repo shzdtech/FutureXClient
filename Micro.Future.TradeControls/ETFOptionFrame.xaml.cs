@@ -102,7 +102,7 @@ namespace Micro.Future.UI
             quotePane.Children[0].Title = WPFUtility.GetLocalizedString("Quote", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             executionPane.Children[0].Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             tradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-
+            positionPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             // Initialize Market Data
             var msgWrapper = _ctpMdSignIner.MessageWrapper;
 
@@ -206,20 +206,20 @@ namespace Micro.Future.UI
         }
         private void _ctpTradeSignInerOnLogged()
         {
-            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFMDHandler>();
+            //var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFMDHandler>();
             //await tradeHandler.SyncContractInfoAsync();
-            //marketDataLV.FilterSettingsWin.FilterId = DEFAULT_ID;
             marketDataLV.DEFAULT_ID = DEFAULT_ID;
             marketDataLV.ReloadData();
-            //marketDataLV.GetContractInfo();
-            //marketDataLV.LoadUserContracts();
             Thread.Sleep(1000);
             clientFundLV.ReloadData();
             Thread.Sleep(1000);
+            positionsWindow.DEFAULT_ID = DEFAULT_ID;
             positionsWindow.ReloadData();
             Thread.Sleep(1000);
+            tradeWindow.DEFAULT_ID = DEFAULT_ID;
             tradeWindow.ReloadData();
             Thread.Sleep(1000);
+            executionWindow.DEFAULT_ID = DEFAULT_ID;
             executionWindow.ReloadData();
 
             //LoginTaskSource.TrySetResult(true);
