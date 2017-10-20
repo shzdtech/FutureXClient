@@ -24,6 +24,8 @@ namespace Micro.Future.UI
     {
         private AbstractSignInManager _ctpMdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPSTOCKMDHandler>());
         private AbstractSignInManager _ctpTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPSTOCKTraderHandler>());
+        private AbstractSignInManager _otcTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCStockTradeHandler>());
+
         private PBSignInManager _accountSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AccountHandler>());
         private bool _logged;
         private const string DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33D";
@@ -53,6 +55,9 @@ namespace Micro.Future.UI
             entries = _ctpTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _ctpTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+            entries = _otcTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            if (server != null && entries.Length < 2)
+                _otcTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
             MarketDataServerLogin();
             //TradingServerLogin();
@@ -127,6 +132,10 @@ namespace Micro.Future.UI
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKTraderHandler>();
             tradeHandler.RegisterMessageWrapper(msgWrapper);
             var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKMDHandler>();
+
+            msgWrapper = _otcTradeSignIner.MessageWrapper;
+            var otctradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+            otctradeHandler.RegisterMessageWrapper(msgWrapper);
 
             clientFundLV.TradeHandler = tradeHandler;
             marketDataLV.MarketDataHandler = marketdataHandler;
@@ -360,7 +369,7 @@ namespace Micro.Future.UI
 
         private void MenuItem_Click_Login(object sender, RoutedEventArgs e)
         {
-            FrameLoginWindow win = new FrameLoginWindow(_ctpTradeSignIner);
+            FrameLoginWindow win = new FrameLoginWindow(_ctpTradeSignIner, _otcTradeSignIner);
             win.Closed += _currentLoginWindow_Closed;
             win.OnLogged += LoginWindow_OnLogged;
             win.ShowDialog();

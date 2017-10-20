@@ -37,8 +37,6 @@ namespace Micro.Future.UI
         private AbstractOTCHandler _abstractOTCHandler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
         private MarketDataHandler _marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
 
-
-
         private IList<ContractInfo> _contractList;
         private IList<ContractInfo> _futurecontractList;
         private IEnumerable<ContractKeyVM> _subbedContracts;

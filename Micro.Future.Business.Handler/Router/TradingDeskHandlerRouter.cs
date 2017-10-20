@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.Business.Handler.Router
 {
-    public class MarketDataHandlerRouter : MessageHandlerRouter<BaseMarketDataHandler>
+    public class TradingDeskHandlerRouter : MessageHandlerRouter<BaseTradingDeskHandler>
     {
-        public static MarketDataHandlerRouter DefaultInstance { get; } = new MarketDataHandlerRouter();
+        public static TradingDeskHandlerRouter DefaultInstance { get; } = new TradingDeskHandlerRouter();
     }
 }

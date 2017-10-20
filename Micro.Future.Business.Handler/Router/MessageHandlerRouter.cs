@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.Business.Handler.Router
 {
-    public class MessageHandlerRouter<TMessageHandler> where TMessageHandler : BaseTraderHandler
+    public class MessageHandlerRouter<TMessageHandler> where TMessageHandler : AbstractMessageHandler
     {
         private IDictionary<ProductType, TMessageHandler> _handlerMap = new Dictionary<ProductType, TMessageHandler>();
 
@@ -27,7 +27,6 @@ namespace Micro.Future.Business.Handler.Router
             {
                 _handlerMap.TryGetValue((ProductType)contractInfo.ProductType, out msgHdl);
             }
-
             return msgHdl;
         }
 

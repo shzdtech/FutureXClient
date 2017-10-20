@@ -43,6 +43,7 @@
     <Compile Include="Business\BaseHandler\AbstractOTCHandler.cs" />
     <Compile Include="Business\BaseHandler\BaseTraderHandler.cs" />
     <Compile Include="Business\BaseHandler\BaseMarketDataHandler.cs" />
+    <Compile Include="Business\BaseHandler\BaseTradingDeskHandler.cs" />
     <Compile Include="Business\TradeHandler\CTPSTOCKTraderHandler.cs" />
     <Compile Include="Business\MarketDataHandler\CTPSTOCKMDHandler.cs" />
     <Compile Include="Business\MarketDataHandler\CTPETFMDHandler.cs" />
@@ -77,6 +78,8 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Business\TradeHandler\OTCOptionTradingDeskHandler.cs" />
+    <Compile Include="Router\TradingDeskHandlerRouter.cs" />
+    <Compile Include="Router\OTCMarketDataHandlerRouter.cs" />
     <Compile Include="Router\MessageHandlerRouter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="protos\PBMsgAlgo.cs" />

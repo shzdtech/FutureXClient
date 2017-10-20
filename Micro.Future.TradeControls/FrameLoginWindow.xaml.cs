@@ -29,7 +29,10 @@ namespace Micro.Future.CustomizedControls.Windows
         {
             get; protected set;
         }
-
+        public AbstractSignInManager TDSignInManager
+        {
+            get; protected set;
+        }
         private HashEncoder<HashEncoderOption> _hashEncoder =
             new HashEncoder<HashEncoderOption>(MD5.Create(),
                (md5, byteArray) =>
@@ -43,16 +46,19 @@ namespace Micro.Future.CustomizedControls.Windows
             get;
             set;
         }
-        public FrameLoginWindow(AbstractSignInManager signInMgr)
+        public FrameLoginWindow(AbstractSignInManager signInMgr, AbstractSignInManager tdSignInMgr)
         {
             SignInManager = signInMgr;
             SignInManager.OnLogged += OnLogSuccess;
             SignInManager.OnLoginError += OnLoginError;
 
+            TDSignInManager = tdSignInMgr;
+            TDSignInManager.OnLogged += OnLogSuccess;
+            TDSignInManager.OnLoginError += OnLoginError;
+
             InitializeComponent();
 
             var userInfo = signInMgr.SignInOptions;
-
             userTxt.Text = userInfo.UserName;
             passwordTxt.Password = userInfo.Password;
         }
@@ -89,8 +95,23 @@ namespace Micro.Future.CustomizedControls.Windows
 
             SignInManager.SignIn();
 
-            loginBtn.IsEnabled = false;
+            if (
+                    TDSignInManager.SignInOptions.UserName != uid ||
+                    TDSignInManager.SignInOptions.Password != password)
+            {
+                TDSignInManager.SignInOptions.UserName = uid;
+                if (TDSignInManager.SignInOptions.EncryptPassword)
+                {
+                    _hashEncoder.Option.Iteration = MD5Round;
+                    password = _hashEncoder.Encode(password);
+                }
 
+                TDSignInManager.SignInOptions.Password = password;
+            }
+
+            TDSignInManager.SignIn();
+
+            loginBtn.IsEnabled = false;
         }
     }
 }

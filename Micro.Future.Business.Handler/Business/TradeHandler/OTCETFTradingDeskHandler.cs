@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.Message
 {
-    public class OTCETFTradingDeskHandler : OTCOptionTradingDeskHandler
+    public class OTCETFTradingDeskHandler : BaseTradingDeskHandler
     {
 
     }

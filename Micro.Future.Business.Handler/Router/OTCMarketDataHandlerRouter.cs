@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Micro.Future.Business.Handler.Router
 {
-    public class MarketDataHandlerRouter : MessageHandlerRouter<BaseMarketDataHandler>
+    public class OTCMarketDataHandlerRouter : MessageHandlerRouter<BaseMarketDataHandler>
     {
-        public static MarketDataHandlerRouter DefaultInstance { get; } = new MarketDataHandlerRouter();
+        public static OTCMarketDataHandlerRouter DefaultInstance { get; } = new OTCMarketDataHandlerRouter();
     }
 }
