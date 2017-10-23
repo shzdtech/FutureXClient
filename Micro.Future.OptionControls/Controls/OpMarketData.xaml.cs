@@ -20,6 +20,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using Micro.Future.CustomizedControls;
 using Xceed.Wpf.Toolkit;
+using Micro.Future.Business.Handler.Router;
 
 namespace Micro.Future.UI
 {
@@ -154,20 +155,20 @@ namespace Micro.Future.UI
                 SelectedContract = (from c in _contractList
                                       where c.Exchange == exchange && c.UnderlyingContract == uc && c.ExpireDate == ed
                                       select c.Contract).FirstOrDefault();
-
-                SubbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList);
+                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                SubbedContracts = await _handler.SubTradingDeskDataAsync(optionList);
                 exchange1.ItemsSource = null;
                 underlying1.ItemsSource = null;
                 contract1.ItemsSource = null;
                 volModelCB.ItemsSource = null;
                 adjustment1.Value = null;
                 exchange1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
-                volModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("ivm");
+                volModelCB.ItemsSource = _handler.GetModelParamsVMCollection("ivm");
                 var contract = SubbedContracts?.FirstOrDefault();
                 if (contract != null)
                 {
                     var strategy =
-                        _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                        _handler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
                     if (strategy != null)
                     {
                         var pricingContract = strategy.IVMContractParams?.FirstOrDefault();
@@ -267,20 +268,23 @@ namespace Micro.Future.UI
                 var optionList = (from c in _contractList
                                   where c.Exchange == exchange && c.UnderlyingContract == uc && c.ExpireDate == ed
                                   select new ContractKeyVM(c.Exchange, c.Contract)).ToList();
-
-                SubbedContracts2 = await _otcOptionHandler.SubTradingDeskDataAsync(optionList);
+                SelectedContract = (from c in _contractList
+                                    where c.Exchange == exchange && c.UnderlyingContract == uc && c.ExpireDate == ed
+                                    select c.Contract).FirstOrDefault();
+                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                SubbedContracts2 = await _handler.SubTradingDeskDataAsync(optionList);
                 exchange2.ItemsSource = null;
                 underlying2.ItemsSource = null;
                 contract2.ItemsSource = null;
                 volModelCB1.ItemsSource = null;
                 adjustment2.Value = null;
                 exchange2.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
-                volModelCB1.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("vm");
+                volModelCB1.ItemsSource = _handler.GetModelParamsVMCollection("vm");
                 var contract = SubbedContracts2?.FirstOrDefault();
                 if (contract != null)
                 {
                     var strategy =
-                        _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                        _handler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
                     var pricingContract = strategy?.VMContractParams.FirstOrDefault();
                     if (pricingContract != null)
                     {
@@ -356,7 +360,7 @@ namespace Micro.Future.UI
             {
                 var uexchange = exchange1.SelectedValue?.ToString();
                 var uc = contract1.SelectedItem?.ToString();
-                var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+                var handler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(uc);
                 QuoteVMCollection1.Clear();
 
                 var mktDataVM = await handler.SubMarketDataAsync(uc);
