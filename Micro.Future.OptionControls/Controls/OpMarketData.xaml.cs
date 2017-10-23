@@ -31,6 +31,8 @@ namespace Micro.Future.UI
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private IList<ContractInfo> _contractList;
         private IList<ContractInfo> _futurecontractList;
+        private IList<ContractInfo> _optioncontractList;
+        private IList<ContractInfo> _etfcontractList;
 
         public OpMarketData()
         {
@@ -43,7 +45,11 @@ namespace Micro.Future.UI
             get;
             private set;
         }
-
+        public string SelectedContract
+        {
+            get;
+            private set;
+        }
         public IEnumerable<ContractKeyVM> SubbedContracts2
         {
             get;
@@ -81,7 +87,12 @@ namespace Micro.Future.UI
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
             var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
-            _contractList = options.Union(otcOptions).ToList();
+            var etfOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION);
+            var otcETFOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_ETFOPTION);
+            _optioncontractList = options.Union(otcOptions).ToList();
+            _etfcontractList = etfOptions.Union(otcETFOptions).ToList();
+            _contractList = _optioncontractList.Union(_etfcontractList).ToList();
+
             underlyingEX.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             underlyingEX1.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             exchange1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
@@ -140,6 +151,9 @@ namespace Micro.Future.UI
                 var optionList = (from c in _contractList
                                   where c.Exchange == exchange && c.UnderlyingContract == uc && c.ExpireDate == ed
                                   select new ContractKeyVM(c.Exchange, c.Contract)).ToList();
+                SelectedContract = (from c in _contractList
+                                      where c.Exchange == exchange && c.UnderlyingContract == uc && c.ExpireDate == ed
+                                      select c.Contract).FirstOrDefault();
 
                 SubbedContracts = await _otcOptionHandler.SubTradingDeskDataAsync(optionList);
                 exchange1.ItemsSource = null;

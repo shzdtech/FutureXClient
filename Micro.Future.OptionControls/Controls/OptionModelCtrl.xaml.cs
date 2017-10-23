@@ -1,4 +1,5 @@
-﻿using Micro.Future.CustomizedControls.Controls;
+﻿using Micro.Future.Business.Handler.Router;
+using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
@@ -31,7 +32,6 @@ namespace Micro.Future.UI
 
     {
         private OTCOptionTradingDeskHandler _otcHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
-
         public OptionModelCtrl()
         {
             InitializeComponent();
@@ -122,7 +122,8 @@ namespace Micro.Future.UI
             var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
             if (volModel != null)
             {
-                await _otcHandler.QueryModelParamsAsync(volModel.ToString());
+                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(OpMarketControl.SelectedContract);
+                await _handler.QueryModelParamsAsync(volModel.ToString());
                 WMSettingsLV.DataContext = null;
                 WMSettingsLV.DataContext = volModel;
             }
@@ -144,7 +145,8 @@ namespace Micro.Future.UI
             if (volModel != null)
             {
                 WMSettingsLV.DataContext = null;
-                var modelparamsVM = await _otcHandler.QueryModelParamsAsync(volModel.ToString());
+                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(OpMarketControl.SelectedContract);
+                var modelparamsVM = await _handler.QueryModelParamsAsync(volModel.ToString());
                 WMSettingsLV.DataContext = modelparamsVM;
             }
         }

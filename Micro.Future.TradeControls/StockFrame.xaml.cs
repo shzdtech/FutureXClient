@@ -25,6 +25,7 @@ namespace Micro.Future.UI
         private AbstractSignInManager _ctpMdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPSTOCKMDHandler>());
         private AbstractSignInManager _ctpTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPSTOCKTraderHandler>());
         private AbstractSignInManager _otcTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCStockTradeHandler>());
+        private AbstractSignInManager _otcTradingDeskSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
 
         private PBSignInManager _accountSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AccountHandler>());
         private bool _logged;
@@ -58,6 +59,15 @@ namespace Micro.Future.UI
             entries = _otcTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _otcTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
+            _otcTradingDeskSignIner.SignInOptions.BrokerID = brokerId;
+            _otcTradingDeskSignIner.SignInOptions.UserName = usernname;
+            _otcTradingDeskSignIner.SignInOptions.Password = password;
+            entries = _otcTradingDeskSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            if (server != null && entries.Length < 2)
+                _otcTradingDeskSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
+            TradingDeskServerLogin();
 
             MarketDataServerLogin();
             //TradingServerLogin();
@@ -167,6 +177,14 @@ namespace Micro.Future.UI
             LoginTaskSource.TrySetResult(true);
         }
 
+        private void TradingDeskServerLogin()
+        {
+            if (!_otcTradingDeskSignIner.MessageWrapper.HasSignIn)
+            {
+                //ctpLoginStatus.Prompt = "正在连接CTP行情服务器...";
+                _otcTradingDeskSignIner.SignIn();
+            }
+        }
         private void MarketDataServerLogin()
         {
             if (!_ctpMdSignIner.MessageWrapper.HasSignIn)
