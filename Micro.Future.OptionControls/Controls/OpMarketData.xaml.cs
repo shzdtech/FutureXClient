@@ -51,6 +51,11 @@ namespace Micro.Future.UI
             get;
             private set;
         }
+        public string SelectedVolContract
+        {
+            get;
+            private set;
+        }
         public IEnumerable<ContractKeyVM> SubbedContracts2
         {
             get;
@@ -268,10 +273,10 @@ namespace Micro.Future.UI
                 var optionList = (from c in _contractList
                                   where c.Exchange == exchange && c.UnderlyingContract == uc && c.ExpireDate == ed
                                   select new ContractKeyVM(c.Exchange, c.Contract)).ToList();
-                SelectedContract = (from c in _contractList
+                SelectedVolContract = (from c in _contractList
                                     where c.Exchange == exchange && c.UnderlyingContract == uc && c.ExpireDate == ed
                                     select c.Contract).FirstOrDefault();
-                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedVolContract);
                 SubbedContracts2 = await _handler.SubTradingDeskDataAsync(optionList);
                 exchange2.ItemsSource = null;
                 underlying2.ItemsSource = null;
@@ -372,8 +377,9 @@ namespace Micro.Future.UI
                 var contract = SubbedContracts?.FirstOrDefault();
                 if (contract != null)
                 {
+                    var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                     var strategy =
-                        _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                        _handler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
                     var pricingContract = strategy.IVMContractParams.FirstOrDefault();
                     if (pricingContract != null && pricingContract.Exchange == uexchange && pricingContract.Contract == uc)
                         return;
@@ -385,7 +391,7 @@ namespace Micro.Future.UI
                     }
                     pricingContract.Exchange = uexchange;
                     pricingContract.Contract = uc;
-                    _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.IVM);
+                    _handler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.IVM);
                 }
             }
         }
@@ -432,8 +438,9 @@ namespace Micro.Future.UI
                 var contract = SubbedContracts2?.FirstOrDefault();
                 if (contract != null)
                 {
+                    var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedVolContract);
                     var strategy =
-                        _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                        _handler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
                     var pricingContract = strategy.VMContractParams.FirstOrDefault();
                     if (pricingContract != null && pricingContract.Exchange == uexchange && pricingContract.Contract == uc)
                         return;
@@ -445,7 +452,7 @@ namespace Micro.Future.UI
                     }
                     pricingContract.Exchange = uexchange;
                     pricingContract.Contract = uc;
-                    _otcOptionHandler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.VM);
+                    _handler.UpdateStrategyPricingContracts(strategy, StrategyVM.Model.VM);
                 }
             }
         }
@@ -456,14 +463,15 @@ namespace Micro.Future.UI
             {
                 riskFree_Interest.DataContext = modelParam;
                 var contract = SubbedContracts?.FirstOrDefault();
+                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                 if (contract != null)
                 {
                     var strategy =
-                        _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                        _handler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
                     if (strategy != null && strategy.IVModel != modelParam.InstanceName)
                     {
                         strategy.IVModel = modelParam.InstanceName;
-                        _otcOptionHandler.UpdateStrategyModel(strategy, StrategyVM.Model.IVM);
+                        _handler.UpdateStrategyModel(strategy, StrategyVM.Model.IVM);
                     }
                 }
             }
@@ -475,14 +483,15 @@ namespace Micro.Future.UI
             if (modelParam != null)
             {
                 var contract = SubbedContracts2?.FirstOrDefault();
+                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedVolContract);
                 if (contract != null)
                 {
                     var strategy =
-                        _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
+                        _handler.StrategyVMCollection.FirstOrDefault(s => s.Exchange == contract.Exchange && s.Contract == contract.Contract);
                     if (strategy != null && strategy.VolModel != modelParam.InstanceName)
                     {
                         strategy.VolModel = modelParam.InstanceName;
-                        _otcOptionHandler.UpdateStrategyModel(strategy, StrategyVM.Model.VM);
+                        _handler.UpdateStrategyModel(strategy, StrategyVM.Model.VM);
                     }
                 }
             }
@@ -493,9 +502,10 @@ namespace Micro.Future.UI
             if (e.OldValue != null && e.NewValue != null)
             {
                 var contract = SubbedContracts?.FirstOrDefault();
+                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                 if (contract != null)
                 {
-                    UpdateStrategyAdjustment(contract, StrategyVM.Model.IVM, (double)e.NewValue);
+                    UpdateStrategyAdjustment(contract, StrategyVM.Model.IVM, (double)e.NewValue, _handler);
                 }
             }
         }
@@ -505,15 +515,16 @@ namespace Micro.Future.UI
             if (e.OldValue != null && e.NewValue != null)
             {
                 var contract = SubbedContracts2?.FirstOrDefault();
+                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedVolContract);
                 if (contract != null)
                 {
-                    UpdateStrategyAdjustment(contract, StrategyVM.Model.VM, (double)e.NewValue);
+                    UpdateStrategyAdjustment(contract, StrategyVM.Model.VM, (double)e.NewValue, _handler);
                 }
             }
         }
-        private void UpdateStrategyAdjustment(ContractKeyVM contract, StrategyVM.Model model, double adjust)
+        private void UpdateStrategyAdjustment(ContractKeyVM contract, StrategyVM.Model model, double adjust, BaseTradingDeskHandler handler)
         {
-            var strategy = _otcOptionHandler.StrategyVMCollection.FirstOrDefault(s => s.Equals(contract));
+            var strategy = handler.StrategyVMCollection.FirstOrDefault(s => s.Equals(contract));
             if (strategy != null)
             {
                 PricingContractParamVM pricingContract = null;
@@ -533,7 +544,7 @@ namespace Micro.Future.UI
                 if (pricingContract != null)
                 {
                     pricingContract.Adjust = adjust;
-                    _otcOptionHandler.UpdateStrategyPricingContracts(strategy, model);
+                    handler.UpdateStrategyPricingContracts(strategy, model);
                 }
             }
         }
@@ -545,8 +556,9 @@ namespace Micro.Future.UI
                 var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
                 if (modelParamsVM != null)
                 {
+                    var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                     var key = updownctrl.Tag.ToString();
-                    _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, key, updownctrl.Value.Value);
+                    _handler.UpdateModelParams(modelParamsVM.InstanceName, key, updownctrl.Value.Value);
                 }
             }
         }

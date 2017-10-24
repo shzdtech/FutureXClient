@@ -1,4 +1,5 @@
-﻿using Micro.Future.CustomizedControls.Controls;
+﻿using Micro.Future.Business.Handler.Router;
+using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
@@ -36,7 +37,11 @@ namespace Micro.Future.UI
         private IList<ContractInfo> _contractList;
         private IDictionary<ContractKeyVM, ContractInfo> _strategySet;
         private WingsReturnVM _wingsReturnVM = new WingsReturnVM();
-
+        public string SelectedContract
+        {
+            get;
+            set;
+        }
         public WMSettingsCtrl()
         {
             InitializeComponent();
@@ -53,7 +58,7 @@ namespace Micro.Future.UI
 
             _contractList = options.ToList();
 
-            _otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
+            //_otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
         }
 
         private void OnTradingDeskOptionParamsReceived(TradingDeskOptionVM tdOptionVM)
@@ -81,7 +86,8 @@ namespace Micro.Future.UI
                     var key = updownctrl.Tag.ToString();
                     double value = (double)e.NewValue;
                     TempSettings[key] = value;
-                    _otcOptionHandler.UpdateTempModelParams(modelParamsVM.InstanceName, key, value);
+                    var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                    _handler.UpdateTempModelParams(modelParamsVM.InstanceName, key, value);
                 }
             }
         }
@@ -98,8 +104,9 @@ namespace Micro.Future.UI
                 var modelParamsVM = DataContext as ModelParamsVM;
                 if (modelParamsVM != null)
                 {
-                    _otcOptionHandler.UpdateModelParams(modelParamsVM.InstanceName, TempSettings);
-                    _otcOptionHandler.RemoveTempModel(modelParamsVM.InstanceName);
+                    var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                    _handler.UpdateModelParams(modelParamsVM.InstanceName, TempSettings);
+                    _handler.RemoveTempModel(modelParamsVM.InstanceName);
                     DeleteTempSettings();
                 }
             }
@@ -119,7 +126,8 @@ namespace Micro.Future.UI
             if (modelParamsVM != null)
             {
                 DeleteTempSettings();
-                _otcOptionHandler.RemoveTempModel(modelParamsVM.InstanceName);
+                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                _handler.RemoveTempModel(modelParamsVM.InstanceName);
             }
         }
 
@@ -135,6 +143,8 @@ namespace Micro.Future.UI
 
         public void SelectOption(string exchange, string contract, string expiredate)
         {
+            var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+            _handler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
             _strategySet = _contractList.Where(c =>
                 c.UnderlyingContract == contract && c.ExpireDate == expiredate && c.Exchange == exchange)
                 .ToDictionary(c => new ContractKeyVM(c.Exchange, c.Contract), c => c);

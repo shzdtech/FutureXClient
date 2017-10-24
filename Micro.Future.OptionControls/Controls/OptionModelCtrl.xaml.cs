@@ -93,10 +93,10 @@ namespace Micro.Future.UI
             var exchange = OpMarketControl.underlyingEX.SelectedValue;
             var uc = OpMarketControl.underlyingContractCB.SelectedValue;
             var ed = OpMarketControl.expireDateCB.SelectedValue;
-
+            var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(OpMarketControl.SelectedContract);
             if (exchange != null && uc != null && ed != null)
             {
-                VolCurvLV.SelectOptionImpl(exchange.ToString(), uc.ToString(), ed.ToString());
+                VolCurvLV.SelectOptionImpl(exchange.ToString(), uc.ToString(), ed.ToString(), _handler);
             }
         }
         private void ExpireDateCB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -104,10 +104,12 @@ namespace Micro.Future.UI
             var exchange = OpMarketControl.underlyingEX1.SelectedValue;
             var uc = OpMarketControl.underlyingContractCB1.SelectedValue;
             var ed = OpMarketControl.expireDateCB1.SelectedValue;
+            var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(OpMarketControl.SelectedVolContract);
 
             if (exchange != null && uc != null && ed != null)
             {
-                VolCurvLV.SelectOption(exchange.ToString(), uc.ToString(), ed.ToString());
+                VolCurvLV.SelectOption(exchange.ToString(), uc.ToString(), ed.ToString(), _handler);
+                WMSettingsLV.SelectedContract = OpMarketControl.SelectedVolContract;
                 WMSettingsLV.SelectOption(exchange.ToString(), uc.ToString(), ed.ToString());
             }
         }
@@ -122,7 +124,7 @@ namespace Micro.Future.UI
             var volModel = OpMarketControl.volModelCB1.SelectedItem as ModelParamsVM;
             if (volModel != null)
             {
-                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(OpMarketControl.SelectedContract);
+                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(OpMarketControl.SelectedVolContract);
                 await _handler.QueryModelParamsAsync(volModel.ToString());
                 WMSettingsLV.DataContext = null;
                 WMSettingsLV.DataContext = volModel;

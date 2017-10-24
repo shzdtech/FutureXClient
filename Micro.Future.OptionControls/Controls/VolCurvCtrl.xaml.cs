@@ -83,8 +83,8 @@ namespace Micro.Future.UI
             internalAskSS = theoCallAskSC.CreateModel() as OxyPlot.Series.ScatterSeries;
             internalAskSS.MouseDown += CallAskScatter_MouseDown;
 
-            _otcHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
-            _otcHandler.OnStrategyUpdated += _otcHandler_OnStrategyUpdated;
+            //_otcHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
+            //_otcHandler.OnStrategyUpdated += _otcHandler_OnStrategyUpdated;
         }
         private void _otcHandler_OnStrategyUpdated(StrategyVM strategyVM)
         {
@@ -297,8 +297,10 @@ namespace Micro.Future.UI
             }
         }
 
-        public void SelectOptionImpl(string exchange, string contract, string expiredate)
+        public void SelectOptionImpl(string exchange, string contract, string expiredate, BaseTradingDeskHandler handler)
         {
+            handler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
+            handler.OnStrategyUpdated += _otcHandler_OnStrategyUpdated;
             var optionList = (from c in _contractList
                               where c.Exchange == exchange && c.UnderlyingContract == contract && c.ExpireDate == expiredate
                               select c).ToList();
@@ -321,7 +323,7 @@ namespace Micro.Future.UI
             CallPutTDOptionVMCollection1.Clear();
             _optionCallVMList.Clear();
             _optionPutVMList.Clear();
-            var retList = _otcHandler.MakeCallPutTDOptionData(strikeList, callList, putList);
+            var retList = handler.MakeCallPutTDOptionData(strikeList, callList, putList);
             foreach (var vm in retList)
             {
                 CallPutTDOptionVMCollection1.Add(vm);
@@ -336,7 +338,7 @@ namespace Micro.Future.UI
             }
         }
 
-        public void SelectOption(string exchange, string contract, string expiredate)
+        public void SelectOption(string exchange, string contract, string expiredate, BaseTradingDeskHandler handler)
         {
             var optionList = (from c in _contractList
                               where c.Exchange == exchange && c.UnderlyingContract == contract && c.ExpireDate == expiredate
@@ -360,7 +362,7 @@ namespace Micro.Future.UI
             CallPutTDOptionVMCollection.Clear();
             _optionTheoCallVMList.Clear();
             _optionTheoPutVMList.Clear();
-            var retList = _otcHandler.MakeCallPutTDOptionData(strikeList, callList, putList);
+            var retList = handler.MakeCallPutTDOptionData(strikeList, callList, putList);
             foreach (var vm in retList)
             {
                 CallPutTDOptionVMCollection.Add(vm);
