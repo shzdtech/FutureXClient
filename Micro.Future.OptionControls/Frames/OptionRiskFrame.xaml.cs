@@ -152,7 +152,7 @@ namespace Micro.Future.UI
 
         private void _tdSignIner_OnLogged(IUserInfo obj)
         {
-            _otcOptionTradeHandler.RegisterMessageWrapper(_otcOptionHandler.MessageWrapper);
+            _otcOptionTradeHandler.RegisterMessageWrapper(_otcOptionTradeHandler.MessageWrapper);
             _otcOptionHandler.QueryPortfolio();
             Thread.Sleep(2000);
             LoginTaskSource.TrySetResult(true);

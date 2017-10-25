@@ -73,7 +73,8 @@ namespace Micro.Future.CustomizedControls.Windows
 
         private void OnLogSuccess(IUserInfo userinfo)
         {
-            OnLogged?.Invoke(this, userinfo);
+            if (SignInManager.MessageWrapper.HasSignIn && TDSignInManager.MessageWrapper.HasSignIn)
+                OnLogged?.Invoke(this, userinfo);
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -84,11 +85,11 @@ namespace Micro.Future.CustomizedControls.Windows
                     SignInManager.SignInOptions.Password != password)
             {
                 SignInManager.SignInOptions.UserName = uid;
-                if (SignInManager.SignInOptions.EncryptPassword)
-                {
-                    _hashEncoder.Option.Iteration = MD5Round;
-                    password = _hashEncoder.Encode(password);
-                }
+                //if (SignInManager.SignInOptions.EncryptPassword)
+                //{
+                //    _hashEncoder.Option.Iteration = MD5Round;
+                //    password = _hashEncoder.Encode(password);
+                //}
 
                 SignInManager.SignInOptions.Password = password;
             }
@@ -100,12 +101,7 @@ namespace Micro.Future.CustomizedControls.Windows
                     TDSignInManager.SignInOptions.Password != password)
             {
                 TDSignInManager.SignInOptions.UserName = uid;
-                if (TDSignInManager.SignInOptions.EncryptPassword)
-                {
-                    _hashEncoder.Option.Iteration = MD5Round;
-                    password = _hashEncoder.Encode(password);
-                }
-
+                
                 TDSignInManager.SignInOptions.Password = password;
             }
 

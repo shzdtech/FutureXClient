@@ -144,7 +144,7 @@ namespace Micro.Future.UI
             var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKMDHandler>();
 
             msgWrapper = _otcTradeSignIner.MessageWrapper;
-            var otctradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+            var otctradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradeHandler>();
             otctradeHandler.RegisterMessageWrapper(msgWrapper);
 
             clientFundLV.TradeHandler = tradeHandler;

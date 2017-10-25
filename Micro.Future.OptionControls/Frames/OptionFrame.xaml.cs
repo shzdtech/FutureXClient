@@ -36,9 +36,13 @@ namespace Micro.Future.UI
     {
         private AbstractSignInManager _ctpMdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<MarketDataHandler>());
         private AbstractSignInManager _otcOptionSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
+        private AbstractSignInManager _otcOptionDataSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionDataHandler>());
+
         private MarketDataHandler _mdHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+        private OTCOptionDataHandler _otcOptionDataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
+
 
         public IStatusCollector StatusReporter
         {
@@ -102,6 +106,18 @@ namespace Micro.Future.UI
 
                 TDServerLogin();
             }
+            if (!_otcOptionDataHandler.MessageWrapper.HasSignIn)
+            {
+                _otcOptionDataSignIner.SignInOptions.BrokerID = brokerId;
+                _otcOptionDataSignIner.SignInOptions.UserName = usernname;
+                _otcOptionDataSignIner.SignInOptions.Password = password;
+
+                var entries = _otcOptionDataSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                if (server != null && entries.Length < 2)
+                    _otcOptionDataSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
+                OptionDataServerLogin();
+            }
             else
             {
                 return Task.FromResult(true);
@@ -124,7 +140,7 @@ namespace Micro.Future.UI
         {
             // Initialize Market Data
 
-            if(_mdHandler.MessageWrapper == null)
+            if (_mdHandler.MessageWrapper == null)
             {
                 _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
                 _ctpMdSignIner.OnLoginError += _ctpMdSignIner_OnLoginError;
@@ -142,6 +158,10 @@ namespace Micro.Future.UI
                 _otcOptionSignIner.MessageWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
                 _otcOptionHandler.RegisterMessageWrapper(_otcOptionSignIner.MessageWrapper);
             }
+            if (_otcOptionDataHandler.MessageWrapper == null)
+            {
+                _otcOptionDataHandler.RegisterMessageWrapper(_otcOptionDataSignIner.MessageWrapper);
+            }
         }
 
         private void _tdSignIner_OnLoginError(MessageException obj)
@@ -151,11 +171,11 @@ namespace Micro.Future.UI
 
         private async void _tdSignIner_OnLogged(IUserInfo obj)
         {
-            _otcOptionTradeHandler.RegisterMessageWrapper(_otcOptionHandler.MessageWrapper);
+            _otcOptionTradeHandler.RegisterMessageWrapper(_otcOptionTradeHandler.MessageWrapper);
             StrategyVM.MaxLimitOrder = await _otcOptionHandler.QueryMaxLimitOrderAsync();
             await _otcOptionHandler.QueryStrategyAsync();
             await _otcOptionHandler.QueryAllModelParamsAsync();
-            await _otcOptionTradeHandler.SyncContractInfoAsync();
+            await _otcOptionDataHandler.SyncContractInfoAsync();
             optionModelCtrl.ReloadData();
             optionModelCtrl.OpMarketDataGetContractInfo();
             OpMarketMakerLV.GetContractInfo();
@@ -193,6 +213,18 @@ namespace Micro.Future.UI
             {
                 _tdSignIner_OnLogged(_otcOptionSignIner.LoggedUser);
             }
+        }
+        private void OptionDataServerLogin()
+        {
+            if (!_otcOptionDataSignIner.MessageWrapper.HasSignIn)
+            {
+                //OptionLoginStatus.Prompt = "正在连接TradingDesk服务器...";
+                _otcOptionDataSignIner.SignIn();
+            }
+            //else
+            //{
+            //    _tdSignIner_OnLogged(_otcOptionSignIner.LoggedUser);
+            //}
         }
 
 

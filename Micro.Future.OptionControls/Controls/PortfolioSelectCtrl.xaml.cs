@@ -5,6 +5,7 @@ using Micro.Future.Utility;
 using Micro.Future.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +33,16 @@ namespace Micro.Future.UI
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private IList<ContractInfo> _contractList;
         private IList<ContractInfo> _futurecontractList;
-
+        public string SelectedContract
+        {
+            get;
+            set;
+        }
+        public ObservableCollection<PortfolioVM> PortfolioVMCollection
+        {
+            get;
+            set;
+        }
         ~PortfolioSelectCtrl()
         {
             AutoHedgeUpdate(false);
@@ -41,6 +51,17 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
+            foreach (var vm in MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection)
+            {
+                if (vm != null)
+                    portfolioVMCollection.Add(vm);
+            }
+            foreach (var vm in MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection)
+            {
+                if (vm != null)
+                    portfolioVMCollection.Add(vm);
+            }
+            PortfolioVMCollection = portfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
@@ -88,6 +109,8 @@ namespace Micro.Future.UI
             if (portfolioCB.SelectedValue != null)
             {
                 var portfolio = portfolioCB.SelectedValue.ToString();
+                var hedgeVM = PortfolioVMCollection.Where(c =>c.Name== portfolioCB.SelectedValue.ToString()).Select(c=>c.HedgeContractParams).FirstOrDefault();
+                SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
                 var portfolioVMCollection = _otcOptionHandler?.PortfolioVMCollection;
                 var portfolioVM = portfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
@@ -149,9 +172,9 @@ namespace Micro.Future.UI
                 if (portfolioVM != null)
                 {
 
-                        int delay = (int)e.NewValue;
-                        portfolioVM.Delay = delay;
-                        portfolioVM.UpdatePortfolioAsync().WaitAsync();
+                    int delay = (int)e.NewValue;
+                    portfolioVM.Delay = delay;
+                    portfolioVM.UpdatePortfolioAsync().WaitAsync();
                 }
                 updownctrl.IsEnabled = true;
             }
@@ -165,9 +188,9 @@ namespace Micro.Future.UI
                 var portfolioVM = updownctrl.DataContext as PortfolioVM;
                 if (portfolioVM != null)
                 {
-                        double threshold = (double)e.NewValue;
-                        portfolioVM.Threshold = threshold;
-                        portfolioVM.UpdatePortfolioAsync().WaitAsync();
+                    double threshold = (double)e.NewValue;
+                    portfolioVM.Threshold = threshold;
+                    portfolioVM.UpdatePortfolioAsync().WaitAsync();
                 }
                 updownctrl.IsEnabled = true;
             }

@@ -54,17 +54,15 @@ namespace Micro.Future.UI
             entries = _ctpTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _ctpTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
-            entries = _otcTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            if (server != null && entries.Length < 2)
-                _otcTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
-
             _otcTradingDeskSignIner.SignInOptions.BrokerID = brokerId;
             _otcTradingDeskSignIner.SignInOptions.UserName = usernname;
             _otcTradingDeskSignIner.SignInOptions.Password = password;
             entries = _otcTradingDeskSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _otcTradingDeskSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
-
+            entries = _otcTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            if (server != null && entries.Length < 2)
+                _otcTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
             TradingDeskServerLogin();
             MarketDataServerLogin();
             //TradingServerLogin();
@@ -126,6 +124,7 @@ namespace Micro.Future.UI
             msgWrapper.MessageClient.OnDisconnected += ctpLoginStatus.OnDisconnected;
             MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().RegisterMessageWrapper(msgWrapper);
             _otcTradingDeskSignIner.OnLogged += _otcTradingDeskSignIner_Onlogged;
+            //_otcTradeSignIner.OnLogged += _otcTradeSignIner_Onlogged;
             // Initialize Trading Server
             msgWrapper = _ctpTradeSignIner.MessageWrapper;
 
@@ -162,9 +161,15 @@ namespace Micro.Future.UI
         }
         private void _otcTradingDeskSignIner_Onlogged(IUserInfo obj)
         {
-            var test = 1;
         }
+        private void _otcTradeSignIner_Onlogged(IUserInfo obj)
+        {
+            _otcTradeSignIner_Onlogged();
+        }
+        private void _otcTradeSignIner_Onlogged()
+        {
 
+        }
         private void _ctpTradeSignIner_OnLoginError(MessageException obj)
         {
             LoginTaskSource.TrySetException(obj);
@@ -186,6 +191,7 @@ namespace Micro.Future.UI
                 _otcTradingDeskSignIner.SignIn();
             }
         }
+
         private void ctpMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
         {
             MarketDataServerLogin();
