@@ -1,4 +1,5 @@
-﻿using Micro.Future.CustomizedControls.Controls;
+﻿using Micro.Future.Business.Handler.Router;
+using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
@@ -46,7 +47,16 @@ namespace Micro.Future.UI
         } = new List<ColumnItem>();
 
         private HashSet<string> _riskSet = new HashSet<string>();
-
+        public string SelectedContract
+        {
+            get;
+            set;
+        }
+        public ObservableCollection<PortfolioVM> PortfolioVMCollection
+        {
+            get;
+            set;
+        }
         //private int UpdateInterval = 1000;
         public MarketDataVM MarketDataVM
         {
@@ -115,7 +125,11 @@ namespace Micro.Future.UI
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private async void PnLIndex(string portfolio)
         {
-            var positions = _tradeExHandler.PositionVMCollection.Where(p => p.Portfolio == portfolio);
+            var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
+            SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
+            var _handler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+            var positions = _handler.PositionVMCollection.Where(p => p.Portfolio == portfolio);
+            var _markethandler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
 
             foreach (var vm in positions)
             {
@@ -129,7 +143,7 @@ namespace Micro.Future.UI
                     }
                     else
                         basecontract = contractinfo.Contract;
-                    MarketDataVM = await _marketDataHandler.SubMarketDataAsync(basecontract);
+                    MarketDataVM = await _markethandler.SubMarketDataAsync(basecontract);
                 }
                 if (_riskSet.Contains(basecontract))
                 {
@@ -277,9 +291,9 @@ namespace Micro.Future.UI
         {
             Dispatcher.Invoke(() =>
            {
-               var positionCollection = _tradeExHandler.PositionVMCollection;
+               //var positionCollection = _tradeExHandler.PositionVMCollection;
                var portfolio = portfolioCB.SelectedValue?.ToString();
-               var positions = _tradeExHandler.PositionVMCollection.Where(p => p.Portfolio == portfolio);
+               //var positions = _tradeExHandler.PositionVMCollection.Where(p => p.Portfolio == portfolio);
                //var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
                lock (BarItemCollection)
                {
@@ -301,7 +315,11 @@ namespace Micro.Future.UI
             InitializeComponent();
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
-            portfolioCB.ItemsSource = portfolioVMCollection;
+            portfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
+            portfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
+            PortfolioVMCollection = portfolioVMCollection;
+            var portfolioList = portfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c=>c.Name).ToList();
+            portfolioCB.ItemsSource = portfolioList;
             //_timer = new Timer(PositionUpdateCallback, null, UpdateInterval, UpdateInterval);
             //_tradeExHandler.OnPositionUpdated += OnPositionUpdated;
             //refreshsSizeIUP.Value = 0;
@@ -336,7 +354,12 @@ namespace Micro.Future.UI
                 var riskVMList = riskVMCollection.Select(s => s.Contract).Distinct();
                 var portfolioVM = _otcOptionHandler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
                 var hedgeContractList = portfolioVM.HedgeContractParams.Select(c => c.Contract).Distinct().ToList();
-                var positionList = _tradeExHandler?.PositionVMCollection.Where(s => s.Portfolio == portfolio).Select(s => s.Contract).Distinct();
+
+                var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
+                SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
+                var _handler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+
+                var positionList = _handler?.PositionVMCollection.Where(s => s.Portfolio == portfolio).Select(s => s.Contract).Distinct();
                 positionList = positionList.Intersect(_futurecontractList.Select(c => c.Contract));
 
                 var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
@@ -367,6 +390,8 @@ namespace Micro.Future.UI
                 //var unshowContracts = positionList.Except(strategyContractList.Select(s => s.Contract));
                 var unshowRiskContracts = hedgeContractList.Except(strategyContractList.Select(s => s.OptionContract));
                 //strategyContractList.AddRange(unshowRiskContracts.Select(c => new StrategyBaseVM { Contract = c }));
+                var _markethandler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+
                 foreach (var vm in contractList)
                 {
                     if (vm.OptionContract != null)
@@ -375,7 +400,7 @@ namespace Micro.Future.UI
                         if (contractinfo != null)
                         {
                             vm.Expiration = contractinfo.ExpireDate;
-                            vm.MktVM = await _marketDataHandler.SubMarketDataAsync(vm.Contract);
+                            vm.MktVM = await _markethandler.SubMarketDataAsync(vm.Contract);
                         }
                     }
                     if (vm.Contract != null)
@@ -384,7 +409,7 @@ namespace Micro.Future.UI
                         if (futurecontractinfo != null)
                         {
                             vm.FutureExpiration = futurecontractinfo.ExpireDate;
-                            vm.MktVM = await _marketDataHandler.SubMarketDataAsync(vm.Contract);
+                            vm.MktVM = await _markethandler.SubMarketDataAsync(vm.Contract);
                         }
                     }
                 }

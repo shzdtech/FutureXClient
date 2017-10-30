@@ -1,4 +1,5 @@
-﻿using Micro.Future.LocalStorage;
+﻿using Micro.Future.Business.Handler.Router;
+using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
 using Micro.Future.Utility;
@@ -38,6 +39,11 @@ namespace Micro.Future.UI
             get;
             set;
         }
+        public string SelectedOptionContract
+        {
+            get;
+            set;
+        }
         public ObservableCollection<PortfolioVM> PortfolioVMCollection
         {
             get;
@@ -62,7 +68,7 @@ namespace Micro.Future.UI
                     portfolioVMCollection.Add(vm);
             }
             PortfolioVMCollection = portfolioVMCollection;
-            portfolioCB.ItemsSource = portfolioVMCollection;
+            portfolioCB.ItemsSource = PortfolioVMCollection;
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
             options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
@@ -70,8 +76,6 @@ namespace Micro.Future.UI
             options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION));
             _contractList = options.ToList();
         }
-
-
 
         public string PersistanceIdcomboBox
         {
@@ -109,10 +113,13 @@ namespace Micro.Future.UI
             if (portfolioCB.SelectedValue != null)
             {
                 var portfolio = portfolioCB.SelectedValue.ToString();
-                var hedgeVM = PortfolioVMCollection.Where(c =>c.Name== portfolioCB.SelectedValue.ToString()).Select(c=>c.HedgeContractParams).FirstOrDefault();
+                var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
                 SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
-                var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
-                var portfolioVMCollection = _otcOptionHandler?.PortfolioVMCollection;
+                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var strategyVMCollection = _handler?.StrategyVMCollection;
+                var strategyVM = strategyVMCollection.FirstOrDefault();
+                SelectedOptionContract = strategyVM.Contract;
+                var portfolioVMCollection = _handler?.PortfolioVMCollection;
                 var portfolioVM = portfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
                 var strategySymbolList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
                     .Select(c => new { StrategyName = c.StrategySym }).Distinct().ToList();
@@ -217,7 +224,13 @@ namespace Micro.Future.UI
                         if (portfolio != null)
                         {
                             hedgeVM.Contract = quote;
-                            _otcOptionHandler.UpdateHedgeContracts(hedgeVM, portfolio);
+                            if (portfolioCB.SelectedValue != null)
+                            {
+                                var selectedHedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
+                                SelectedContract = selectedHedgeVM.Select(c => c.Contract).FirstOrDefault();
+                                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                                _handler.UpdateHedgeContracts(hedgeVM, portfolio);
+                            }
                         }
                     }
                 }
@@ -288,7 +301,13 @@ namespace Micro.Future.UI
                         if (portfolio != null)
                         {
                             hedgeVM.Contract = quote;
-                            _otcOptionHandler.UpdateHedgeContracts(hedgeVM, portfolio);
+                            if (portfolioCB.SelectedValue != null)
+                            {
+                                var selectedHedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
+                                SelectedContract = selectedHedgeVM.Select(c => c.Contract).FirstOrDefault();
+                                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                                _handler.UpdateHedgeContracts(hedgeVM, portfolio);
+                            }
                         }
                     }
                 }
@@ -302,13 +321,19 @@ namespace Micro.Future.UI
         }
         public void AutoHedgeUpdate(bool autoStatus)
         {
-            var portfolioVM = _otcOptionHandler.PortfolioVMCollection.FirstOrDefault(c => c.Name == PortfolioIndex);
-            if (portfolioVM != null)
+            var selectedHedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
+            SelectedContract = selectedHedgeVM.Select(c => c.Contract).FirstOrDefault();
+            var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+            if (_handler != null)
             {
-                lock (this)
+                var portfolioVM = _handler.PortfolioVMCollection.FirstOrDefault(c => c.Name == PortfolioIndex);
+                if (portfolioVM != null)
                 {
-                    portfolioVM.Hedging = autoStatus;
-                    portfolioVM.UpdatePortfolioAsync().WaitAsync();
+                    lock (this)
+                    {
+                        portfolioVM.Hedging = autoStatus;
+                        portfolioVM.UpdatePortfolioAsync().WaitAsync();
+                    }
                 }
             }
         }

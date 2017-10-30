@@ -26,6 +26,8 @@ namespace Micro.Future.UI
         private AbstractSignInManager _ctpTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<TraderExHandler>());
         private AbstractSignInManager _otcTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradeHandler>());
         private AbstractSignInManager _otcTradingDeskSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
+        private AbstractSignInManager _otcOptionDataSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionDataHandler>());
+
 
         private PBSignInManager _accountSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AccountHandler>());
         private bool _logged;
@@ -60,11 +62,20 @@ namespace Micro.Future.UI
             entries = _otcTradingDeskSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _otcTradingDeskSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
+            _otcOptionDataSignIner.SignInOptions.BrokerID = brokerId;
+            _otcOptionDataSignIner.SignInOptions.UserName = usernname;
+            _otcOptionDataSignIner.SignInOptions.Password = password;
+            entries = _otcOptionDataSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            if (server != null && entries.Length < 2)
+                _otcOptionDataSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
             entries = _otcTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _otcTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
             TradingDeskServerLogin();
             MarketDataServerLogin();
+            OTCOptionDataServerLogin();
             //TradingServerLogin();
 
             return LoginTaskSource.Task;
@@ -142,6 +153,14 @@ namespace Micro.Future.UI
             var otctradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
             otctradeHandler.RegisterMessageWrapper(msgWrapper);
 
+            msgWrapper = _otcOptionDataSignIner.MessageWrapper;
+            var otcoptiondataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
+            otcoptiondataHandler.RegisterMessageWrapper(msgWrapper);
+
+            msgWrapper = _otcTradingDeskSignIner.MessageWrapper;
+            var otcoptiontradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+            otcoptiontradingdeskHandler.RegisterMessageWrapper(msgWrapper);
+
             clientFundLV.TradeHandler = tradeHandler;
             marketDataLV.MarketDataHandler = marketdataHandler;
             FastOrderCtl.TradeHandler = tradeHandler;
@@ -174,7 +193,14 @@ namespace Micro.Future.UI
         {
             LoginTaskSource.TrySetException(obj);
         }
-
+        private void OTCOptionDataServerLogin()
+        {
+            if (!_otcOptionDataSignIner.MessageWrapper.HasSignIn)
+            {
+                //ctpLoginStatus.Prompt = "正在连接CTP行情服务器...";
+                _otcOptionDataSignIner.SignIn();
+            }
+        }
         private void MarketDataServerLogin()
         {
             if (!_ctpMdSignIner.MessageWrapper.HasSignIn)

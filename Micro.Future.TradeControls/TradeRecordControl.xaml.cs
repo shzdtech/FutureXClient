@@ -168,20 +168,24 @@ namespace Micro.Future.UI
             }
 
             ICollectionView view = CollectionViewSource.GetDefaultView(TradeTreeView.ItemsSource);
-            view.Filter = delegate (object o)
+            if(view!=null)
             {
-                if (portfolio == null)
-                    return true;
-
-                TradeVM tvm = o as TradeVM;
-
-                if (tvm.Portfolio.Contains(portfolio))
+                view.Filter = delegate (object o)
                 {
-                    return true;
-                }
+                    if (portfolio == null)
+                        return true;
 
-                return false;
-            };
+                    TradeVM tvm = o as TradeVM;
+
+                    if (tvm.Portfolio.Contains(portfolio))
+                    {
+                        return true;
+                    }
+
+                    return false;
+                };
+
+            }
         }
 
         public void FilterByContract(string contract)

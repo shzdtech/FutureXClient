@@ -1,4 +1,5 @@
-﻿using Micro.Future.CustomizedControls.Controls;
+﻿using Micro.Future.Business.Handler.Router;
+using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
@@ -96,6 +97,16 @@ namespace Micro.Future.UI
         {
             get;
         } = new ObservableCollection<MarketDataVM>();
+        public string SelectedContract
+        {
+            get;
+            set;
+        }
+        public string SelectedOptionContract
+        {
+            get;
+            set;
+        }
         public OptionRiskCtrl()
         {
             InitializeComponent();
@@ -124,24 +135,44 @@ namespace Micro.Future.UI
             otcTradeWindow.AnchorablePane = otcTradePane;
             otcTradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             portfolioCtl.portfolioCB.SelectionChanged += PortfolioCB_SelectionChanged;
+            domesticTradeHandler.MessageWrapper.SignInManager.OnLogged += SignInManager_OnLogged;
+            otcTradeHandler.MessageWrapper.SignInManager.OnLogged += OTCSignInManager_OnLogged;
         }
+
+        private void OTCSignInManager_OnLogged(IUserInfo obj)
+        {
+            otcPositionsWindow.ReloadData();
+        }
+
+        private void SignInManager_OnLogged(IUserInfo obj)
+        {
+            domesticPositionsWindow.ReloadData();
+        }
+
         private void ReloadDataCallback(object state)
         {
             Dispatcher.Invoke(async () =>
              {
                  var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
                  //await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
-                 var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
-                 greeksControl.BindingToSource(riskVMlist);
+                 var _handler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                 if (_handler != null)
+                 {
+                     var riskVMlist = await _handler.QueryRiskAsync(portfolio);
+                     greeksControl.BindingToSource(riskVMlist);
+                 }
              });
         }
         private async void PortfolioCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            SelectedContract = portfolioCtl.SelectedContract;
+            SelectedOptionContract = portfolioCtl.SelectedOptionContract;
             var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
             if (portfolio != null)
             {
-                var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
-                var portfolioVM = _otcOptionHandler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
+                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var strategyVMCollection = _handler?.StrategyVMCollection;
+                var portfolioVM = _handler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
                 //var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
                 //        .Select(c => c.BaseContract).Distinct().ToList();
                 //var pricingContractList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
@@ -186,14 +217,20 @@ namespace Micro.Future.UI
                     }
                 }
                 marketDataLV.quoteListView.ItemsSource = QuoteVMCollection;
-                var riskVMlist = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
-                greeksControl.BindingToSource(riskVMlist);
+
+                var _otcoptiontradehandler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedOptionContract);
+                if (_otcoptiontradehandler != null)
+                {
+                    var riskVMlist = await _otcoptiontradehandler.QueryRiskAsync(portfolio);
+                    greeksControl.BindingToSource(riskVMlist);
+                }
                 domesticPositionsWindow.FilterByPortfolio(portfolio);
                 otcPositionsWindow.FilterByPortfolio(portfolio);
                 domesticTradeWindow.FilterByPortfolio(portfolio);
                 otcTradeWindow.FilterByPortfolio(portfolio);
 
                 _timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
+
             }
         }
 
@@ -210,7 +247,9 @@ namespace Micro.Future.UI
             domesticTradeWindow.ReloadData();
             domesticPositionsWindow.ShowCloseAll = false;
             otcPositionsWindow.ShowCloseAll = false;
-            var layoutInfo = ClientDbContext.GetLayout(_otcOptionTradeHandler.MessageWrapper.User.Id, optionRiskCtrlDM.Uid);
+            var _handler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+
+            var layoutInfo = ClientDbContext.GetLayout(_handler.MessageWrapper.User.Id, optionRiskCtrlDM.Uid);
             if (layoutInfo != null)
             {
                 XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(optionRiskCtrlDM);

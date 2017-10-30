@@ -26,7 +26,9 @@ namespace Micro.Future.UI
         private AbstractSignInManager _ctpMdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPETFMDHandler>());
         private AbstractSignInManager _ctpTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPETFTraderHandler>());
         private AbstractSignInManager _otcTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCETFTradeHandler>());
-        private AbstractSignInManager _otcTradingDeskSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
+        private AbstractSignInManager _otcTradingDeskSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCETFTradingDeskHandler>());
+        private AbstractSignInManager _otcETFDataSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<ETFOTCOptionDataHandler>());
+
 
         private PBSignInManager _accountSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AccountHandler>());
         private bool _logged;
@@ -67,8 +69,16 @@ namespace Micro.Future.UI
             if (server != null && entries.Length < 2)
                 _otcTradingDeskSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
+            _otcETFDataSignIner.SignInOptions.BrokerID = brokerId;
+            _otcETFDataSignIner.SignInOptions.UserName = usernname;
+            _otcETFDataSignIner.SignInOptions.Password = password;
+            entries = _otcETFDataSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            if (server != null && entries.Length < 2)
+                _otcETFDataSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
             TradingDeskServerLogin();
             MarketDataServerLogin();
+            OTCETFDataServerLogin();
             //TradingServerLogin();
 
             return LoginTaskSource.Task;
@@ -144,6 +154,14 @@ namespace Micro.Future.UI
             var otctradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradeHandler>();
             otctradeHandler.RegisterMessageWrapper(msgWrapper);
 
+            msgWrapper = _otcETFDataSignIner.MessageWrapper;
+            var otcetfdataHandler = MessageHandlerContainer.DefaultInstance.Get<ETFOTCOptionDataHandler>();
+            otcetfdataHandler.RegisterMessageWrapper(msgWrapper);
+
+            msgWrapper = _otcTradingDeskSignIner.MessageWrapper;
+            var otcetftradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>();
+            otcetftradingdeskHandler.RegisterMessageWrapper(msgWrapper);
+
             clientFundLV.TradeHandler = tradeHandler;
             marketDataLV.MarketDataHandler = marketdataHandler;
             FastOrderCtl.TradeHandler = tradeHandler;
@@ -177,7 +195,13 @@ namespace Micro.Future.UI
             LoginTaskSource.TrySetException(obj);
             LoginTaskSource.TrySetResult(true);
         }
-
+        private void OTCETFDataServerLogin()
+        {
+            if (!_otcETFDataSignIner.MessageWrapper.HasSignIn)
+            {
+                _otcETFDataSignIner.SignIn();
+            }
+        }
         private void MarketDataServerLogin()
         {
             if (!_ctpMdSignIner.MessageWrapper.HasSignIn)

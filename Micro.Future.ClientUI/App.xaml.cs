@@ -46,6 +46,7 @@ namespace Micro.Future
                 var tradingdeskhandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
                 TradingDeskHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_OTC_OPTION, tradingdeskhandler);
                 TradingDeskHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_OPTIONS, tradingdeskhandler);
+                TradingDeskHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_FUTURE, tradingdeskhandler);
             }
 
             if (config.Content.TryGetValue("OTCOPTIONTDSERVER", out configDict))

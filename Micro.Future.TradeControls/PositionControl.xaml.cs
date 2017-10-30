@@ -461,20 +461,23 @@ namespace Micro.Future.UI
             }
 
             ICollectionView view = _viewSource.View;
-            view.Filter = delegate (object o)
+            if(view!=null)
             {
-                if (portfolio == null)
-                    return true;
-
-                PositionVM pvm = o as PositionVM;
-
-                if (portfolio == pvm.Portfolio)
+                view.Filter = delegate (object o)
                 {
-                    return true;
-                }
+                    if (portfolio == null)
+                        return true;
 
-                return false;
-            };
+                    PositionVM pvm = o as PositionVM;
+
+                    if (portfolio == pvm.Portfolio)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                };
+            }
         }
 
         private void PositionListView_Click(object sender, RoutedEventArgs e)
