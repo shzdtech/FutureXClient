@@ -1350,4 +1350,22 @@
   <data name="Trade1" xml:space="preserve">
     <value>交易</value>
   </data>
+  <data name="Server_OTCOPTION_MD_Connected" xml:space="preserve">
+    <value>OTC期权行情服务器已连接</value>
+  </data>
+  <data name="Server_OTCOPTION_MD_Unconnected" xml:space="preserve">
+    <value>OTC期权行情服务器未连接</value>
+  </data>
+  <data name="Server_OTCOPTION_TD_Connected" xml:space="preserve">
+    <value>OTC期权交易服务器已连接</value>
+  </data>
+  <data name="Server_OTCOPTION_TD_Unconnected" xml:space="preserve">
+    <value>OTC期权交易服务器未连接</value>
+  </data>
+  <data name="Server_OTCOPTION_TRADINGDESK_Connected" xml:space="preserve">
+    <value>OTC期权TradingDesk服务器已连接</value>
+  </data>
+  <data name="Server_OTCOPTION_TRADINGDESK_Unconnected" xml:space="preserve">
+    <value>OTC期权TradingDesk服务器未连接</value>
+  </data>
 </root>

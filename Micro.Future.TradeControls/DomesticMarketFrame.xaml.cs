@@ -56,12 +56,12 @@ namespace Micro.Future.UI
             entries = _ctpTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _ctpTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
-            _otcTradingDeskSignIner.SignInOptions.BrokerID = brokerId;
-            _otcTradingDeskSignIner.SignInOptions.UserName = usernname;
-            _otcTradingDeskSignIner.SignInOptions.Password = password;
-            entries = _otcTradingDeskSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            if (server != null && entries.Length < 2)
-                _otcTradingDeskSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+            //_otcTradingDeskSignIner.SignInOptions.BrokerID = brokerId;
+            //_otcTradingDeskSignIner.SignInOptions.UserName = usernname;
+            //_otcTradingDeskSignIner.SignInOptions.Password = password;
+            //entries = _otcTradingDeskSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            //if (server != null && entries.Length < 2)
+            //    _otcTradingDeskSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
             _otcOptionDataSignIner.SignInOptions.BrokerID = brokerId;
             _otcOptionDataSignIner.SignInOptions.UserName = usernname;
@@ -73,7 +73,7 @@ namespace Micro.Future.UI
             entries = _otcTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _otcTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
-            TradingDeskServerLogin();
+            //TradingDeskServerLogin();
             MarketDataServerLogin();
             OTCOptionDataServerLogin();
             //TradingServerLogin();
@@ -143,6 +143,7 @@ namespace Micro.Future.UI
             _ctpTradeSignIner.OnLoginError += _ctpTradeSignIner_OnLoginError;
             _ctpTradeSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
             _ctpTradeSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
+
             msgWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
 
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
@@ -153,11 +154,13 @@ namespace Micro.Future.UI
             var otctradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
             otctradeHandler.RegisterMessageWrapper(msgWrapper);
 
+            _otcOptionDataSignIner.OnLogged += _otcOptionDataSignIner_OnLogged;
+
             msgWrapper = _otcOptionDataSignIner.MessageWrapper;
             var otcoptiondataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
             otcoptiondataHandler.RegisterMessageWrapper(msgWrapper);
 
-            msgWrapper = _otcTradingDeskSignIner.MessageWrapper;
+            //msgWrapper = _otcTradingDeskSignIner.MessageWrapper;
             var otcoptiontradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
             otcoptiontradingdeskHandler.RegisterMessageWrapper(msgWrapper);
 
@@ -170,6 +173,15 @@ namespace Micro.Future.UI
             tradeWindow.TradeHandler = tradeHandler;
             positionsWindow.TradeHandler = tradeHandler;
             positionsWindow.MarketDataHandler = marketdataHandler;
+        }
+
+        private async void _otcOptionDataSignIner_OnLogged(IUserInfo obj)
+        {
+            var otcoptiontradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+            otcoptiontradingdeskHandler.QueryStrategy();
+            await otcoptiontradingdeskHandler.QueryAllModelParamsAsync();
+            var otcoptiondataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
+            await otcoptiondataHandler.SyncContractInfoAsync();
         }
 
         private void _ctpMdSignIner_OnLogged(IUserInfo obj)
@@ -217,11 +229,6 @@ namespace Micro.Future.UI
                 _otcTradingDeskSignIner.SignIn();
             }
         }
-
-        private void ctpMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
-        {
-            MarketDataServerLogin();
-        }
         private void TradingServerLogin()
         {
             if (!_ctpTradeSignIner.MessageWrapper.HasSignIn)
@@ -230,7 +237,10 @@ namespace Micro.Future.UI
                 _ctpTradeSignIner.SignIn();
             }
         }
-
+        private void ctpMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
+        {
+            MarketDataServerLogin();
+        }
 
         private void ctpTradingLoginStatus_OnConnButtonClick(object sender, EventArgs e)
         {

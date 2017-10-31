@@ -30,6 +30,9 @@ namespace Micro.Future.UI
     public partial class VolCurvCtrl : UserControl
     {
         private IList<ContractInfo> _contractList;
+        private IList<ContractInfo> _futurecontractList;
+        private IList<ContractInfo> _optioncontractList;
+        private IList<ContractInfo> _etfcontractList;
         private AbstractOTCHandler _abstractOTCHandler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
         private OTCOptionTradingDeskHandler _otcHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
 
@@ -59,11 +62,26 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
+            //var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
+            //options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
+            //options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK));
+            //options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION));
+            //options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_ETFOPTION));
+            //options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_STOCK));
+            //_contractList = options.ToList();            
+            _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
-            options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
-            options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK));
-            options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION));
-            _contractList = options.ToList();            //VegaPosition.Model = _otcHandler.OptionOxyVM.PlotModelBar;
+            var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
+            var etfOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION);
+            var otcETFOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_ETFOPTION);
+            var stocks = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK);
+            var otcStocks = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_STOCK);
+            _optioncontractList = options.Union(otcOptions).ToList();
+            _etfcontractList = etfOptions.Union(otcETFOptions).ToList();
+            _contractList = _optioncontractList.Union(_etfcontractList).ToList();
+            _contractList = _contractList.Union(_futurecontractList).ToList();
+            _contractList = _contractList.Union(stocks).ToList();
+            _contractList = _contractList.Union(otcStocks).ToList();
             volPlot.DataContext = VolatilityModelVM;
             //theoAskLS1.ItemsSource = VolatilityModelVM1.TheoAskVolLine;
             //theoBidLS1.ItemsSource = VolatilityModelVM1.TheoBidVolLine;

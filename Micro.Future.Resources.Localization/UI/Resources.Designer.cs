@@ -2977,6 +2977,60 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 OTC期权行情服务器已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCOPTION_MD_Connected {
+            get {
+                return ResourceManager.GetString("Server_OTCOPTION_MD_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTC期权行情服务器未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCOPTION_MD_Unconnected {
+            get {
+                return ResourceManager.GetString("Server_OTCOPTION_MD_Unconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTC期权交易服务器已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCOPTION_TD_Connected {
+            get {
+                return ResourceManager.GetString("Server_OTCOPTION_TD_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTC期权交易服务器未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCOPTION_TD_Unconnected {
+            get {
+                return ResourceManager.GetString("Server_OTCOPTION_TD_Unconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTC期权TradingDesk服务器已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCOPTION_TRADINGDESK_Connected {
+            get {
+                return ResourceManager.GetString("Server_OTCOPTION_TRADINGDESK_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTC期权TradingDesk服务器未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCOPTION_TRADINGDESK_Unconnected {
+            get {
+                return ResourceManager.GetString("Server_OTCOPTION_TRADINGDESK_Unconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 TradingDesk已连接 的本地化字符串。
         /// </summary>
         internal static string Server_TradingDesk_Connected {

@@ -95,14 +95,19 @@ namespace Micro.Future.UI
             var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
             var etfOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION);
             var otcETFOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_ETFOPTION);
+            var stocks = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK);
+            var otcStocks = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_STOCK);
             _optioncontractList = options.Union(otcOptions).ToList();
             _etfcontractList = etfOptions.Union(otcETFOptions).ToList();
             _contractList = _optioncontractList.Union(_etfcontractList).ToList();
+            _contractList = _contractList.Union(_futurecontractList).ToList();
+            _contractList = _contractList.Union(stocks).ToList();
+            _contractList = _contractList.Union(otcStocks).ToList();
 
             underlyingEX.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             underlyingEX1.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
-            exchange1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
-            exchange2.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
+            exchange1.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
+            exchange2.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
         }
         private void underlyingEX_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -167,7 +172,7 @@ namespace Micro.Future.UI
                 contract1.ItemsSource = null;
                 volModelCB.ItemsSource = null;
                 adjustment1.Value = null;
-                exchange1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
+                exchange1.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
                 volModelCB.ItemsSource = _handler.GetModelParamsVMCollection("ivm");
                 var contract = SubbedContracts?.FirstOrDefault();
                 if (contract != null)
@@ -181,7 +186,7 @@ namespace Micro.Future.UI
                         {
                             var futureexchange = pricingContract.Exchange;
                             var futurecontract = pricingContract.Contract;
-                            var futureunderlying = _futurecontractList.FirstOrDefault(c => c.Exchange == futureexchange && c.Contract == futurecontract)?.ProductID;
+                            var futureunderlying = _contractList.FirstOrDefault(c => c.Exchange == futureexchange && c.Contract == futurecontract)?.ProductID;
                             var volmodel = strategy.IVModel;
                             var adjust = pricingContract.Adjust;
                             volModelCB.SelectedValue = volmodel;
@@ -189,7 +194,7 @@ namespace Micro.Future.UI
                             var exchangeTemp = exchange1.SelectedValue?.ToString();
                             if (exchangeTemp != null)
                             {
-                                var productID = (from c in _futurecontractList
+                                var productID = (from c in _contractList
                                                  where c.Exchange == exchange.ToString()
                                                  orderby c.ProductID ascending
                                                  select c.ProductID).Distinct().ToList();
@@ -202,7 +207,7 @@ namespace Micro.Future.UI
 
                             if (productIdTemp != null)
                             {
-                                var underlyingContracts = (from c in _futurecontractList
+                                var underlyingContracts = (from c in _contractList
                                                            where c.ProductID == productIdTemp.ToString()
                                                            select c.Contract).Distinct().ToList();
                                 contract1.ItemsSource = underlyingContracts;

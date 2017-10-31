@@ -1344,4 +1344,22 @@
   <data name="Trade1" xml:space="preserve">
     <value>Trade</value>
   </data>
+  <data name="Server_OTCOPTION_MD_Connected" xml:space="preserve">
+    <value>OTC Option MarketData Connected</value>
+  </data>
+  <data name="Server_OTCOPTION_MD_Unconnected" xml:space="preserve">
+    <value>OTC Option MarketData Disconnected</value>
+  </data>
+  <data name="Server_OTCOPTION_TD_Connected" xml:space="preserve">
+    <value>OTC Option Trading Connected</value>
+  </data>
+  <data name="Server_OTCOPTION_TD_Unconnected" xml:space="preserve">
+    <value>OTC Option Trading Disconnected</value>
+  </data>
+  <data name="Server_OTCOPTION_TRADINGDESK_Connected" xml:space="preserve">
+    <value>OTC Option TradingDesk Connected</value>
+  </data>
+  <data name="Server_OTCOPTION_TRADINGDESK_Unconnected" xml:space="preserve">
+    <value>OTC Option TradingDesk Disconnected</value>
+  </data>
 </root>

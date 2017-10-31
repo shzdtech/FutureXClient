@@ -220,6 +220,7 @@ namespace Micro.Future.UI
             {
                 layoutSerializer.Serialize(writer);
             }
+            if(_otcOptionTradeHandler.MessageWrapper.User!=null)
             ClientDbContext.SaveLayoutInfo(_otcOptionTradeHandler.MessageWrapper.User.Id, optionRiskDM.Uid, strBuilder.ToString());
         }
 
