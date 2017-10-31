@@ -56,6 +56,7 @@ namespace Micro.Future
                 var tdhandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
                 OTCTradeHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_OPTIONS, tdhandler);
                 OTCTradeHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_OTC_OPTION, tdhandler);
+                OTCTradeHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_FUTURE, tdhandler);
             }
 
             if (config.Content.TryGetValue("CTPMDSERVER", out configDict))

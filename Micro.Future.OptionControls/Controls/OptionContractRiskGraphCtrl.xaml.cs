@@ -205,7 +205,10 @@ namespace Micro.Future.UI
 
                     }
                 }
-                var riskVMlist = await _otcOptionTradeHandler.QueryValuationRiskAsync(queryvaluation, portfolio);
+                var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolio).Select(c => c.HedgeContractParams).FirstOrDefault();
+                SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
+                var _handler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var riskVMlist = await _handler?.QueryValuationRiskAsync(queryvaluation, portfolio);
                 foreach (var vm in riskVMlist)
                 {
                     var contractinfo = ClientDbContext.FindContract(vm.Contract);
@@ -315,11 +318,12 @@ namespace Micro.Future.UI
             InitializeComponent();
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
+            portfolioCB.ItemsSource = portfolioVMCollection;
             portfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
             portfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
             PortfolioVMCollection = portfolioVMCollection;
             var portfolioList = portfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c=>c.Name).ToList();
-            portfolioCB.ItemsSource = portfolioList;
+            //portfolioCB.ItemsSource = portfolioList;
             //_timer = new Timer(PositionUpdateCallback, null, UpdateInterval, UpdateInterval);
             //_tradeExHandler.OnPositionUpdated += OnPositionUpdated;
             //refreshsSizeIUP.Value = 0;
@@ -350,19 +354,22 @@ namespace Micro.Future.UI
                 var portfolio = portfolioCB.SelectedValue?.ToString();
                 deltaRadioButton.IsChecked = true;
                 marketRadioButton.IsChecked = true;
-                var riskVMCollection = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
-                var riskVMList = riskVMCollection.Select(s => s.Contract).Distinct();
-                var portfolioVM = _otcOptionHandler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
-                var hedgeContractList = portfolioVM.HedgeContractParams.Select(c => c.Contract).Distinct().ToList();
+                //var riskVMCollection = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+                //var riskVMList = riskVMCollection.Select(s => s.Contract).Distinct();
+
 
                 var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
                 SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
                 var _handler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var _tradingdeskhandler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+
+                var portfolioVM = _tradingdeskhandler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
+                var hedgeContractList = portfolioVM.HedgeContractParams.Select(c => c.Contract).Distinct().ToList();
 
                 var positionList = _handler?.PositionVMCollection.Where(s => s.Portfolio == portfolio).Select(s => s.Contract).Distinct();
                 positionList = positionList.Intersect(_futurecontractList.Select(c => c.Contract));
 
-                var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+                var strategyVMCollection = _tradingdeskhandler?.StrategyVMCollection;
                 var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
                                     .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
                 var strategyPricingContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio)
@@ -457,7 +464,8 @@ namespace Micro.Future.UI
             if (ctrl != null)
             {
                 StrategyBaseVM strategyBaseVM = ctrl.DataContext as StrategyBaseVM;
-                var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+                var _tradingdeskhandler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var strategyVMCollection = _tradingdeskhandler?.StrategyVMCollection;
                 var strategyVMList = strategyVMCollection.Where(s => s.BaseContract == strategyBaseVM.Contract);
                 //var strategyBaseContractList = strategyVMList.Select(s=>s.BaseContract).ToList();
                 //var expireFutureContractList = strategyUnderlyingContractList.Except(strategyBaseContractList);
@@ -495,7 +503,8 @@ namespace Micro.Future.UI
             if (ctrl != null)
             {
                 StrategyBaseVM strategyBaseVM = ctrl.DataContext as StrategyBaseVM;
-                var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+                var _tradingdeskhandler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var strategyVMCollection = _tradingdeskhandler?.StrategyVMCollection;
                 var strategyVMList = strategyVMCollection.Where(s => s.BaseContract == strategyBaseVM.Contract);
                 foreach (var vm in strategyVMList)
                 {

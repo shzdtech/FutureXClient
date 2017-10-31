@@ -118,7 +118,7 @@ namespace Micro.Future.UI
             expireDateCB.ItemsSource = null;
             var exchange = underlyingEX.SelectedValue.ToString();
             var productID = (from c in _optionList
-                             where c.Exchange == exchange.ToString()
+                             where c.Exchange == exchange.ToString() && c.Contract!=c.ProductID
                              orderby c.ProductID ascending
                              select c.ProductID).Distinct().ToList();
             //underlyingCB.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
@@ -235,7 +235,7 @@ namespace Micro.Future.UI
             expireDateCB1.ItemsSource = null;
             var exchange = underlyingEX1.SelectedValue.ToString();
             var productID = (from c in _optionList
-                             where c.Exchange == exchange.ToString()
+                             where c.Exchange == exchange.ToString() && c.Contract != c.ProductID
                              orderby c.ProductID ascending
                              select c.ProductID).Distinct().ToList();
             //underlyingCB1.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
