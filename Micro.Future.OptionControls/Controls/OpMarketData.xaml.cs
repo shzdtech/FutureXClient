@@ -34,6 +34,8 @@ namespace Micro.Future.UI
         private IList<ContractInfo> _futurecontractList;
         private IList<ContractInfo> _optioncontractList;
         private IList<ContractInfo> _etfcontractList;
+        private IList<ContractInfo> _optionList;
+
 
         public OpMarketData()
         {
@@ -103,7 +105,7 @@ namespace Micro.Future.UI
             _contractList = _contractList.Union(_futurecontractList).ToList();
             _contractList = _contractList.Union(stocks).ToList();
             _contractList = _contractList.Union(otcStocks).ToList();
-
+            _optionList = _optioncontractList.Union(_etfcontractList).ToList();
             underlyingEX.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             underlyingEX1.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
             exchange1.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
@@ -115,7 +117,7 @@ namespace Micro.Future.UI
             underlyingContractCB.ItemsSource = null;
             expireDateCB.ItemsSource = null;
             var exchange = underlyingEX.SelectedValue.ToString();
-            var productID = (from c in _contractList
+            var productID = (from c in _optionList
                              where c.Exchange == exchange.ToString()
                              orderby c.ProductID ascending
                              select c.ProductID).Distinct().ToList();
@@ -232,7 +234,7 @@ namespace Micro.Future.UI
             underlyingContractCB1.ItemsSource = null;
             expireDateCB1.ItemsSource = null;
             var exchange = underlyingEX1.SelectedValue.ToString();
-            var productID = (from c in _contractList
+            var productID = (from c in _optionList
                              where c.Exchange == exchange.ToString()
                              orderby c.ProductID ascending
                              select c.ProductID).Distinct().ToList();
@@ -288,7 +290,7 @@ namespace Micro.Future.UI
                 contract2.ItemsSource = null;
                 volModelCB1.ItemsSource = null;
                 adjustment2.Value = null;
-                exchange2.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
+                exchange2.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
                 volModelCB1.ItemsSource = _handler.GetModelParamsVMCollection("vm");
                 var contract = SubbedContracts2?.FirstOrDefault();
                 if (contract != null)
@@ -300,7 +302,7 @@ namespace Micro.Future.UI
                     {
                         var futureexchange = pricingContract.Exchange;
                         var futurecontract = pricingContract.Contract;
-                        var futureunderlying = _futurecontractList.FirstOrDefault(c => c.Exchange == futureexchange && c.Contract == futurecontract)?.ProductID;
+                        var futureunderlying = _contractList.FirstOrDefault(c => c.Exchange == futureexchange && c.Contract == futurecontract)?.ProductID;
                         var volmodel = strategy.VolModel;
                         var adjust = pricingContract.Adjust;
                         volModelCB1.SelectedValue = volmodel;
@@ -308,7 +310,7 @@ namespace Micro.Future.UI
                         var exchangeTemp = exchange2.SelectedValue?.ToString();
                         if (exchangeTemp != null)
                         {
-                            var productID = (from c in _futurecontractList
+                            var productID = (from c in _contractList
                                              where c.Exchange == exchange.ToString()
                                              orderby c.ProductID ascending
                                              select c.ProductID).Distinct().ToList();
@@ -321,7 +323,7 @@ namespace Micro.Future.UI
 
                         if (productIdTemp != null)
                         {
-                            var underlyingContracts = (from c in _futurecontractList
+                            var underlyingContracts = (from c in _contractList
                                                        where c.ProductID == productIdTemp.ToString()
                                                        select c.Contract).Distinct().ToList();
                             contract2.ItemsSource = underlyingContracts;
