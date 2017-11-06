@@ -29,7 +29,7 @@ namespace Micro.Future.UI
         private AbstractSignInManager _otcStockDataSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<StockOTCOptionDataHandler>());
 
         private PBSignInManager _accountSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AccountHandler>());
-        private bool _logged;
+
         private const string DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33D";
 
         public string Title

@@ -47,7 +47,7 @@ namespace Micro.Future.Message
                 {
                     if (positionVM == null)
                     {
-                        PositionVMCollection.Add(positionVM);
+                        PositionVMCollection.Add(position);
                         PositionContractSet.Add(position.Contract);
                     }
                     else

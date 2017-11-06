@@ -31,7 +31,7 @@ namespace Micro.Future.UI
 
 
         private PBSignInManager _accountSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AccountHandler>());
-        private bool _logged;
+
         private const string DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33C";
         public string Title
         {
