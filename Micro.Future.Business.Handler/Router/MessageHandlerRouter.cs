@@ -10,12 +10,15 @@ namespace Micro.Future.Business.Handler.Router
 {
     public class MessageHandlerRouter<TMessageHandler> where TMessageHandler : AbstractMessageHandler
     {
-        private IDictionary<ProductType, TMessageHandler> _handlerMap = new Dictionary<ProductType, TMessageHandler>();
+        private IDictionary<ProductType, TMessageHandler> HandlerMap
+        {
+            get;
+        } = new Dictionary<ProductType, TMessageHandler>();
 
         public virtual TMessageHandler GetMessageHandler(ProductType productType)
         {
             TMessageHandler msgHdl;
-            _handlerMap.TryGetValue(productType, out msgHdl);
+            HandlerMap.TryGetValue(productType, out msgHdl);
             return msgHdl;
         }
 
@@ -25,14 +28,14 @@ namespace Micro.Future.Business.Handler.Router
             var contractInfo = ClientDbContext.FindContract(contract);
             if (contractInfo != null)
             {
-                _handlerMap.TryGetValue((ProductType)contractInfo.ProductType, out msgHdl);
+                HandlerMap.TryGetValue((ProductType)contractInfo.ProductType, out msgHdl);
             }
             return msgHdl;
         }
 
         public virtual void RegisterHandler(ProductType productType, TMessageHandler msgHandler)
         {
-            _handlerMap[productType] = msgHandler;
+            HandlerMap[productType] = msgHandler;
         }
     }
 }

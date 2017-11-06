@@ -159,7 +159,7 @@ namespace Micro.Future.Message
             }
         }
 
-        public void SyncPosition(IEnumerable<PositionDifferVM> positiondiffervmList)
+        public virtual void SyncPosition(IEnumerable<PositionDifferVM> positiondiffervmList)
         {
 
             var sst = new PBPositionCompareList();
@@ -181,7 +181,7 @@ namespace Micro.Future.Message
             UpdatePosition(rsp);
         }
 
-        private void UpdatePosition(PBPosition rsp)
+        protected void UpdatePosition(PBPosition rsp)
         {
             lock (PositionVMCollection)
             {
@@ -191,7 +191,10 @@ namespace Micro.Future.Message
                 if (rsp.TdPosition + rsp.YdPosition == 0)
                 {
                     if (positionVM != null)
+                    {
                         PositionVMCollection.Remove(positionVM);
+                        OnPositionUpdated?.Invoke(positionVM);
+                    }
 
                     if (!PositionVMCollection.Any(p => p.Contract == rsp.Contract))
                     {
@@ -361,35 +364,41 @@ namespace Micro.Future.Message
                 }
             }
         }
+
+        public event Action<TradeVM> OnTraded;
+
         private void OnReturnTrade(PBTradeInfo rsp)
         {
+            var trade = new TradeVM()
+            {
+                OrderID = rsp.OrderID,
+                Exchange = rsp.Exchange,
+                Contract = rsp.Contract,
+                TradeID = rsp.TradeID,
+                OrderSysID = rsp.OrderSysID,
+                Portfolio = rsp.Portfolio,
+                Direction = (DirectionType)rsp.Direction,
+                Price = rsp.Price,
+                Volume = rsp.Volume,
+                TradingType = (TradingType)rsp.TradeType,
+                TradeDate = rsp.TradeDate,
+                TradeTime = rsp.TradeTime,
+                OpenClose = (OrderOpenCloseType)rsp.Openclose,
+                Commission = rsp.Commission,
+            };
+
+            OnTraded?.Invoke(trade);
+
             lock (TradeVMCollection)
             {
-                if (!TradeVMCollection.Any(trade => trade.TradeID == rsp.TradeID))
+                if (!TradeVMCollection.Any(t => t.TradeID == rsp.TradeID))
                 {
-                    TradeVMCollection.Add(
-                        new TradeVM()
-                        {
-                            OrderID = rsp.OrderID,
-                            Exchange = rsp.Exchange,
-                            Contract = rsp.Contract,
-                            TradeID = rsp.TradeID,
-                            OrderSysID = rsp.OrderSysID,
-                            Portfolio = rsp.Portfolio,
-                            Direction = (DirectionType)rsp.Direction,
-                            Price = rsp.Price,
-                            Volume = rsp.Volume,
-                            TradingType = (TradingType)rsp.TradeType,
-                            TradeDate = rsp.TradeDate,
-                            TradeTime = rsp.TradeTime,
-                            OpenClose = (OrderOpenCloseType)rsp.Openclose,
-                            Commission = rsp.Commission,
-                        });
+                    TradeVMCollection.Add(trade);
                 }
             }
         }
 
-        public void QueryAccountInfo()
+        public virtual void QueryAccountInfo()
         {
             var sst = new StringMap();
             sst.Header = new DataHeader();
@@ -398,7 +407,7 @@ namespace Micro.Future.Message
 
         }
 
-        public void QueryPosition()
+        public virtual void QueryPosition()
         {
             var sst = new StringMap();
             sst.Header = new DataHeader();
@@ -414,7 +423,7 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_POSITION_DIFFER, sst);
 
         }
-        public void QueryOrder()
+        public virtual void QueryOrder()
         {
             var sst = new StringMap();
             sst.Header = new DataHeader();
@@ -423,16 +432,15 @@ namespace Micro.Future.Message
 
         }
 
-        public void QueryTrade()
+        public virtual void QueryTrade()
         {
             var sst = new StringMap();
             sst.Header = new DataHeader();
             sst.Header.SerialId = NextSerialId;
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_TRADE, sst);
-
         }
 
-        public void CreateOrder(OrderVM orderVM)
+        public virtual void CreateOrder(OrderVM orderVM)
         {
             if (orderVM == null)
             {
@@ -483,7 +491,7 @@ namespace Micro.Future.Message
         }
 
 
-        public void CancelOrder(OrderVM orderVM)
+        public virtual void CancelOrder(OrderVM orderVM)
         {
             var sendobjBld = new PBOrderRequest();
             sendobjBld.Exchange = orderVM.Exchange;
@@ -492,7 +500,7 @@ namespace Micro.Future.Message
             sendobjBld.OrderSysID = orderVM.OrderSysID;
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, sendobjBld);
         }
-        public void AddTrade(TradeVM tradeVM)
+        public virtual void AddTrade(TradeVM tradeVM)
         {
 
             var tradeInfo = new PBTradeInfo();
@@ -508,14 +516,14 @@ namespace Micro.Future.Message
             }
 
         }
-        public void ModifyOrder(OrderVM orderVM)
+        public virtual void ModifyOrder(OrderVM orderVM)
         {
             CancelOrder(orderVM);
             CreateOrder(orderVM);
         }
 
 
-        public Task<ObservableCollection<RiskVM>> QueryValuationRiskAsync(QueryValuation queryValuation, string portfolio, int timeout = 10000)
+        public virtual Task<ObservableCollection<RiskVM>> QueryValuationRiskAsync(QueryValuation queryValuation, string portfolio, int timeout = 10000)
         {
             var sst = new PBValuationRisk();
             var msgId = (uint)BusinessMessageID.MSG_ID_QUERY_VALUATION_RISK;
@@ -565,7 +573,7 @@ namespace Micro.Future.Message
         }
 
 
-        public Task<ObservableCollection<RiskVM>> QueryRiskAsync(string portfolio, int timeout = 10000)
+        public virtual Task<ObservableCollection<RiskVM>> QueryRiskAsync(string portfolio, int timeout = 10000)
         {
             var sst = new StringMap();
             var msgId = (uint)BusinessMessageID.MSG_ID_QUERY_RISK;
@@ -623,7 +631,7 @@ namespace Micro.Future.Message
             return riskList;
         }
 
-        public Task<bool> SyncContractInfoAsync(bool forced = false)
+        public virtual Task<bool> SyncContractInfoAsync(bool forced = false)
         {
             var today = DateTime.Now.Date.ToShortDateString();
             var key = string.Format("{0}:{1}", nameof(ContractInfo), GetType().Name);
