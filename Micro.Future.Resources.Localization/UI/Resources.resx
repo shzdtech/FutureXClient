@@ -298,10 +298,10 @@
     <value>行情</value>
   </data>
   <data name="Server_CTP_MD_Connected" xml:space="preserve">
-    <value>CTP行情服务器已连接</value>
+    <value>CTP期货期权行情服务器已连接</value>
   </data>
   <data name="Server_CTP_MD_Unconnected" xml:space="preserve">
-    <value>CTP行情服务器未连接</value>
+    <value>CTP期货期权行情服务器未连接</value>
   </data>
   <data name="SHFE" xml:space="preserve">
     <value>上海期货</value>
@@ -526,16 +526,16 @@
     <value>开仓</value>
   </data>
   <data name="Server_CTP_TD_Connected" xml:space="preserve">
-    <value>CTP交易服务器已连接</value>
+    <value>CTP期货期权交易服务器已连接</value>
   </data>
   <data name="Server_CTP_TD_Unconnected" xml:space="preserve">
-    <value>CTP交易服务器未连接</value>
+    <value>CTP期货期权交易服务器未连接</value>
   </data>
   <data name="Server_OTC_Connected" xml:space="preserve">
-    <value>OTC服务器已连接</value>
+    <value>OTC期权服务器已连接</value>
   </data>
   <data name="Server_OTC_Unconnected" xml:space="preserve">
-    <value>OTC服务器未连接</value>
+    <value>OTC期权服务器未连接</value>
   </data>
   <data name="TradingStrategy" xml:space="preserve">
     <value>高级策略</value>
@@ -1327,7 +1327,7 @@
     <value>取消</value>
   </data>
   <data name="YDPositionSync" xml:space="preserve">
-    <value>昨仓同步</value>
+    <value>期货期权昨仓同步</value>
   </data>
   <data name="AccountPosition" xml:space="preserve">
     <value>账户持仓</value>
@@ -1367,5 +1367,71 @@
   </data>
   <data name="Server_OTCOPTION_TRADINGDESK_Unconnected" xml:space="preserve">
     <value>OTC期权TradingDesk服务器未连接</value>
+  </data>
+  <data name="Server_CTP_ETF_MD_Connected" xml:space="preserve">
+    <value>CTPETF行情已连接</value>
+  </data>
+  <data name="Server_CTP_ETF_MD_Disconnected" xml:space="preserve">
+    <value>CTPETF行情未连接</value>
+  </data>
+  <data name="Server_CTP_ETF_TD_Connected" xml:space="preserve">
+    <value>CTPETF交易已连接</value>
+  </data>
+  <data name="Server_CTP_ETF_TD_Disconnected" xml:space="preserve">
+    <value>CTPETF交易未连接</value>
+  </data>
+  <data name="Server_CTP_STOCK_MD_Connected" xml:space="preserve">
+    <value>CTP证券行情已连接</value>
+  </data>
+  <data name="Server_CTP_STOCK_MD_Disconnected" xml:space="preserve">
+    <value>CTP证券行情未连接</value>
+  </data>
+  <data name="Server_CTP_STOCK_TD_Connected" xml:space="preserve">
+    <value>CTP证券交易已连接</value>
+  </data>
+  <data name="Server_CTP_STOCK_TD_Disconnected" xml:space="preserve">
+    <value>CTP证券交易未连接</value>
+  </data>
+  <data name="Server_OTCETF_MD_Connected" xml:space="preserve">
+    <value>OTCETF行情已连接</value>
+  </data>
+  <data name="Server_OTCETF_MD_Disconnected" xml:space="preserve">
+    <value>OTCETF行情未连接</value>
+  </data>
+  <data name="Server_OTCETF_TD_Connected" xml:space="preserve">
+    <value>OTCETF交易已连接</value>
+  </data>
+  <data name="Server_OTCETF_TD_Disconnected" xml:space="preserve">
+    <value>OTCETF交易未连接</value>
+  </data>
+  <data name="Server_OTCETF_TRADINGDESK_Connected" xml:space="preserve">
+    <value>OTCETFTD已连接</value>
+  </data>
+  <data name="Server_OTCETF_TRADINGDESK_Disconnected" xml:space="preserve">
+    <value>OTCETFTD未连接</value>
+  </data>
+  <data name="Server_OTCSTOCK_MD_Connected" xml:space="preserve">
+    <value>OTC证券行情已连接</value>
+  </data>
+  <data name="Server_OTCSTOCK_MD_Disconnected" xml:space="preserve">
+    <value>OTC证券行情未连接</value>
+  </data>
+  <data name="Server_OTCSTOCK_TD_Connected" xml:space="preserve">
+    <value>OTC证券交易已连接</value>
+  </data>
+  <data name="Server_OTCSTOCK_TD_Disconnected" xml:space="preserve">
+    <value>OTC证券交易未连接</value>
+  </data>
+  <data name="Server_OTCSTOCK_TRADINGDESK_Connected" xml:space="preserve">
+    <value>OTCETF交易已连接</value>
+  </data>
+  <data name="Server_OTCSTOCK_TRADINGDESK_Disconnected" xml:space="preserve">
+    <value>OTCETF交易未连接</value>
+  </data>
+  <data name="YDETFPositionSync" xml:space="preserve">
+    <value>ETF昨仓同步</value>
+  </data>
+  <data name="YDStockPositionSync" xml:space="preserve">
+    <value>证券昨仓同步</value>
   </data>
 </root>

@@ -117,6 +117,8 @@ namespace Micro.Future
                 MessageHandlerContainer.Register<OTCETFTradeHandler, OTCETFTradeHandler>(GenSignInOption(configDict));
                 var tdhandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradeHandler>();
                 OTCTradeHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_OTC_ETFOPTION, tdhandler);
+                OTCTradeHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_ETFOPTION, tdhandler);
+
             }
             if (config.Content.TryGetValue("OTCETFMDSERVER", out configDict))
             {
@@ -135,6 +137,8 @@ namespace Micro.Future
                 MessageHandlerContainer.Register<OTCStockTradeHandler, OTCStockTradeHandler>(GenSignInOption(configDict));
                 var tdhandler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradeHandler>();
                 OTCTradeHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_OTC_STOCK, tdhandler);
+                OTCTradeHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_STOCK, tdhandler);
+
             }
             if (config.Content.TryGetValue("OTCSTOCKMDSERVER", out configDict))
             {

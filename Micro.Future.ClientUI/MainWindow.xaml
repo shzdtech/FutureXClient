@@ -54,9 +54,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <Expander x:Name="expander" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" ExpandDirection="Up" AllowDrop="True">
+            <!--<Expander x:Name="expander" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" ExpandDirection="Up" AllowDrop="True">
                 <Expander.Content>
-                    <!--<Grid>
+                    --><!--<Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
@@ -65,13 +65,11 @@
                         <RadioButton Grid.Row="0">基本资料</RadioButton>
                         <RadioButton Grid.Row="1">往来单位</RadioButton>
                         <RadioButton Grid.Row="2">上游供应商</RadioButton>
-                    </Grid>-->
-                    <StatusBar x:Name="statusBar" Height="20">
-                    </StatusBar>
+                    </Grid>--><!--
                 </Expander.Content>
-            </Expander>
-            <!--<StatusBar x:Name="statusBar" Grid.Column="1">
-            </StatusBar>-->
+            </Expander>-->
+            <StatusBar x:Name="statusBar" >
+            </StatusBar>
             
             <StatusBar x:Name="statusBarLogin" HorizontalAlignment="Right" VerticalAlignment="Top" Width="286" Grid.ColumnSpan="2" Height="20">
                 <!--<TextBlock x:Name="txtblkServerIP"></TextBlock>-->

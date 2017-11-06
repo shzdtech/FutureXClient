@@ -123,7 +123,6 @@ namespace Micro.Future.UI
             var userId = MarketDataHandler.MessageWrapper?.User?.Id;
             if (userId == null)
                 return;
-
             var contracts = ClientDbContext.GetUserContracts(userId, FilterSettingsWin.FilterId).Select(c => new ContractKeyVM(string.Empty, c));
             if (contracts.Any())
             {
@@ -132,7 +131,8 @@ namespace Micro.Future.UI
                     var list = await MarketDataHandler.SubMarketDataAsync(contracts);
                     foreach (var mktVM in list)
                     {
-                        Dispatcher.Invoke(() => QuoteVMCollection.Add(mktVM));
+                        if (!QuoteVMCollection.Any(c => c.Contract == mktVM.Contract))
+                            Dispatcher.Invoke(() => QuoteVMCollection.Add(mktVM));
                     }
                 }
                 catch

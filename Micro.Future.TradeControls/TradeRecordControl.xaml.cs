@@ -357,27 +357,28 @@ namespace Micro.Future.UI
             if (defaultTab != null)
                 AnchorablePane.Children.Add(defaultTab);
 
-            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler?.MessageWrapper.User.Id, PersistanceId);
+                var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler?.MessageWrapper.User.Id, PersistanceId);
 
-            bool found = false;
+                bool found = false;
 
-            foreach (var fs in filtersettings)
-            {
-                var traderecordctrl = new TradeRecordControl(PersistanceId, fs.Id, TradeHandler);
-                AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
-                traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract, fs.Portfolio);
+                foreach (var fs in filtersettings)
+                {
+                    var traderecordctrl = new TradeRecordControl(PersistanceId, fs.Id, TradeHandler);
+                    AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
+                    traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract, fs.Portfolio);
 
-                if (fs.Id == DEFAULT_ID)
-                    found = true;
-            }
+                    if (fs.Id == DEFAULT_ID)
+                        found = true;
+                }
 
-            if (found)
-                AnchorablePane.Children.Remove(defaultTab);
+                if (found)
+                    AnchorablePane.Children.Remove(defaultTab);
+
         }
 
         public void Initialize()
         {
-            _viewSource.Source = TradeHandler?.TradeVMCollection;
+            _viewSource.Source = TradeHandler.TradeVMCollection;
             TradeTreeView.ItemsSource = _viewSource.View;
             mColumns = ColumnObject.GetColumns(TradeTreeView);
             TradeHandler.TradeVMCollection.Clear();

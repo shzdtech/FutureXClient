@@ -217,7 +217,7 @@ namespace Micro.Future.UI
         {
             if (!_ctpMdSignIner.MessageWrapper.HasSignIn)
             {
-                ctpLoginStatus.Prompt = "正在连接CTP行情服务器...";
+                ctpLoginStatus.Prompt = "正在连接CTPETF行情服务器...";
                 _ctpMdSignIner.SignIn();
             }
         }

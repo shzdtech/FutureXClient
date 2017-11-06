@@ -118,10 +118,14 @@ namespace Micro.Future.UI
 
         }
 
-        private TraderExHandler _tradeExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
-        private MarketDataHandler _marketDataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
-
+        private TraderExHandler _ctpoptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+        private CTPETFTraderHandler _ctpetfTradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFTraderHandler>();
+        private CTPSTOCKTraderHandler _ctpstockTradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKTraderHandler>();
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+        private OTCETFTradeHandler _otcETFHandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradeHandler>();
+        private OTCStockTradeHandler _otcStockHandler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradeHandler>();
+
+        private MarketDataHandler _marketDataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private async void PnLIndex(string portfolio)
         {
@@ -207,8 +211,21 @@ namespace Micro.Future.UI
                 }
                 var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolio).Select(c => c.HedgeContractParams).FirstOrDefault();
                 SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
-                var _handler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
-                var riskVMlist = await _handler?.QueryValuationRiskAsync(queryvaluation, portfolio);
+                //var _handler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                //var riskVMlist = await _handler?.QueryValuationRiskAsync(queryvaluation, portfolio);
+                var riskVMlist = new ObservableCollection<RiskVM>();
+                if (_otcOptionTradeHandler.MessageWrapper.HasSignIn)
+                {
+                    riskVMlist = await _otcOptionTradeHandler.QueryValuationRiskAsync(queryvaluation, portfolio);
+                }
+                else if (_otcETFHandler.MessageWrapper.HasSignIn)
+                {
+                    riskVMlist = await _otcETFHandler.QueryRiskAsync(portfolio);
+                }
+                else if (_otcStockHandler.MessageWrapper.HasSignIn)
+                {
+                    riskVMlist = await _otcStockHandler.QueryRiskAsync(portfolio);
+                }
                 foreach (var vm in riskVMlist)
                 {
                     var contractinfo = ClientDbContext.FindContract(vm.Contract);
