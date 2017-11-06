@@ -1,4 +1,5 @@
-﻿using Micro.Future.CustomizedControls.Controls;
+﻿using Micro.Future.Business.Handler.Router;
+using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
@@ -46,6 +47,16 @@ namespace Micro.Future.UI
         private HashSet<string> _riskSet = new HashSet<string>();
 
         //private int UpdateInterval = 1000;
+        public ObservableCollection<PortfolioVM> PortfolioVMCollection
+        {
+            get;
+            set;
+        }
+        public string SelectedContract
+        {
+            get;
+            set;
+        }
         public double Price
         {
             get;
@@ -238,8 +249,12 @@ namespace Micro.Future.UI
             get;
             set;
         }
-        private TraderExHandler _tradeExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+        private TraderExHandler _ctpoptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+        private CTPETFTraderHandler _ctpetfTradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFTraderHandler>();
+        private CTPSTOCKTraderHandler _ctpstockTradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKTraderHandler>();
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+        private OTCETFTradeHandler _otcETFHandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradeHandler>();
+        private OTCStockTradeHandler _otcStockHandler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradeHandler>();
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private MarketDataHandler _marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
         private AbstractOTCHandler _abstractOTCHandler = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>();
@@ -275,7 +290,10 @@ namespace Micro.Future.UI
             var queryvaluation = new QueryValuation();
             var queryvaluationzero = new QueryValuation();
             var portfolio = portfolioCB.SelectedValue?.ToString();
-            var positions = _tradeExHandler.PositionVMCollection.Where(p => p.Portfolio == portfolio);
+            var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
+            SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
+            var _handler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+            var positions = _handler.PositionVMCollection.Where(p => p.Portfolio == portfolio);
             var riskset = new RiskSet();
 
             queryvaluation.Interest = interestUP.Value;
@@ -314,11 +332,39 @@ namespace Micro.Future.UI
 
                 }
             }
+            //var _otctradehandler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+            //var riskVMlist = await _otctradehandler.QueryValuationRiskAsync(queryvaluation, portfolio);
+            //var riskzeroVMlist = await _otctradehandler.QueryValuationRiskAsync(queryvaluationzero, portfolio);
+            var riskVMlist = new ObservableCollection<RiskVM>();
+            var riskzeroVMlist = new ObservableCollection<RiskVM>();
 
-            var riskVMlist = await _otcOptionTradeHandler.QueryValuationRiskAsync(queryvaluation, portfolio);
-            var riskzeroVMlist = await _otcOptionTradeHandler.QueryValuationRiskAsync(queryvaluationzero, portfolio);
+            if (_otcOptionTradeHandler.MessageWrapper.HasSignIn)
+            {
+                riskVMlist = await _otcOptionTradeHandler.QueryValuationRiskAsync(queryvaluation, portfolio);
+            }
+            else if (_otcETFHandler.MessageWrapper.HasSignIn)
+            {
+                riskVMlist = await _otcETFHandler.QueryValuationRiskAsync(queryvaluation, portfolio);
+            }
+            else if (_otcStockHandler.MessageWrapper.HasSignIn)
+            {
+                riskVMlist = await _otcStockHandler.QueryValuationRiskAsync(queryvaluation, portfolio);
+            }
+
+            if (_otcOptionTradeHandler.MessageWrapper.HasSignIn)
+            {
+                riskzeroVMlist = await _otcOptionTradeHandler.QueryValuationRiskAsync(queryvaluationzero, portfolio);
+            }
+            else if (_otcETFHandler.MessageWrapper.HasSignIn)
+            {
+                riskzeroVMlist = await _otcETFHandler.QueryValuationRiskAsync(queryvaluationzero, portfolio);
+            }
+            else if (_otcStockHandler.MessageWrapper.HasSignIn)
+            {
+                riskzeroVMlist = await _otcStockHandler.QueryValuationRiskAsync(queryvaluationzero, portfolio);
+            }
+
             //riskVMlist.Add(new RiskVM { Contract = "m1709", Delta = 0.3, Gamma = 0.2 });
-
             //if (riskMatrixTable.RowGroups.Count != 0)
             double zeropnl = 0;
             foreach (var vm in riskzeroVMlist)
@@ -433,7 +479,10 @@ namespace Micro.Future.UI
         {
             if (string.IsNullOrEmpty(portfolio))
                 return;
-            var positions = _tradeExHandler.PositionVMCollection.Where(p => p.Portfolio == portfolio);
+            var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
+            SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
+            var _handler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+            var positions = _handler.PositionVMCollection.Where(p => p.Portfolio == portfolio);
             var queryvaluation = new QueryValuation();
             var queryvaluationzero = new QueryValuation();
             selectedWrapPanel.Children.Clear();
@@ -511,6 +560,9 @@ namespace Micro.Future.UI
             //_tradeExHandler.OnPositionUpdated += OnPositionUpdated;
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
+            portfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
+            portfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
+            PortfolioVMCollection = portfolioVMCollection;
             //_timer = new Timer(PositionUpdateCallback, null, UpdateInterval, UpdateInterval);
             //_tradeExHandler.OnPositionUpdated += OnPositionUpdated;
             //refreshsSizeIUP.Value = 0;
@@ -542,11 +594,29 @@ namespace Micro.Future.UI
                 deltaCheckBox.IsChecked = true;
                 marketRadioButton.IsChecked = true;
                 absoluteRadioButton.IsChecked = true;
-                var riskVMCollection = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+                var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
+                SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
+                //var _handler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                //var riskVMCollection = await _handler.QueryRiskAsync(portfolio);
+                var riskVMCollection = new ObservableCollection<RiskVM>();
+                if (_otcOptionTradeHandler.MessageWrapper.HasSignIn)
+                {
+                    riskVMCollection = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+                }
+                else if (_otcETFHandler.MessageWrapper.HasSignIn)
+                {
+                    riskVMCollection = await _otcETFHandler.QueryRiskAsync(portfolio);
+                }
+                else if (_otcStockHandler.MessageWrapper.HasSignIn)
+                {
+                    riskVMCollection = await _otcStockHandler.QueryRiskAsync(portfolio);
+                }
                 var riskVMList = riskVMCollection.Select(s => s.Contract).Distinct();
-                var portfolioVM = _otcOptionHandler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
+                var _tradingdeskhandler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var _marketDatashandler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var portfolioVM = _tradingdeskhandler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
                 var hedgeContractList = portfolioVM.HedgeContractParams.Select(c => c.Contract).Distinct().ToList();
-                var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+                var strategyVMCollection = _tradingdeskhandler?.StrategyVMCollection;
                 var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
                     .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
                 var strategyVMList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract)).ToList();
@@ -581,7 +651,7 @@ namespace Micro.Future.UI
                         if (contractinfo != null)
                         {
                             vm.Expiration = contractinfo.ExpireDate;
-                            vm.MktVM = await _marketdataHandler.SubMarketDataAsync(vm.Contract);
+                            vm.MktVM = await _marketDatashandler.SubMarketDataAsync(vm.Contract);
                         }
                     }
                     if (vm.Contract != null)
@@ -590,7 +660,7 @@ namespace Micro.Future.UI
                         if (futurecontractinfo != null)
                         {
                             vm.FutureExpiration = futurecontractinfo.ExpireDate;
-                            vm.MktVM = await _marketdataHandler.SubMarketDataAsync(vm.Contract);
+                            vm.MktVM = await _marketDatashandler.SubMarketDataAsync(vm.Contract);
                         }
                     }
                 }
@@ -606,7 +676,8 @@ namespace Micro.Future.UI
                 VolSize = (int)volSizeIUP.Value;
                 PriceCnt = (int)priceCntIUP.Value;
                 PriceSize = (int)priceSizeIUP.Value;
-                var tradingday = _tradeExHandler.FundVM.TradingDay;
+                var _tradehandler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var tradingday = _tradehandler.FundVM.TradingDay;
                 var tradingdatetime = DateTime.ParseExact(tradingday.ToString(),
                                         "yyyyMMdd",
                                         CultureInfo.InvariantCulture);
@@ -679,8 +750,12 @@ namespace Micro.Future.UI
                 //    string msg = string.Format("  {0}: {1:N2}", basecontract, strategyBaseVM.Valuation);
                 //    selectedWrapPanel.Children.Add(new Label { Content = msg });
                 //}
-                MarketData = await _marketdataHandler.SubMarketDataAsync(basecontract);
-                var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+                var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
+                SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
+                var _tradingdeskhandler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var _marketdatashandler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                MarketData = await _marketdatashandler.SubMarketDataAsync(basecontract);
+                var strategyVMCollection = _tradingdeskhandler?.StrategyVMCollection;
                 var strategyVMList = strategyVMCollection.Where(s => s.BaseContract == strategyBaseVM.Contract);
                 foreach (var vm in strategyVMList)
                 {
@@ -713,7 +788,10 @@ namespace Micro.Future.UI
                 {
                     //SelectedContractVMCollection.Remove(new SelectedContractVM { Contract = basecontract, Price = strategyBaseVM.Valuation });
                 }
-                var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+                var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
+                SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
+                var _tradingdeskhandler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var strategyVMCollection = _tradingdeskhandler?.StrategyVMCollection;
                 var strategyVMList = strategyVMCollection.Where(s => s.BaseContract == basecontract);
                 foreach (var vm in strategyVMList)
                 {
@@ -822,7 +900,10 @@ namespace Micro.Future.UI
             {
                 Expiration = (int)e.NewValue;
                 ReloadDataCallback();
-                var tradingday = _tradeExHandler.FundVM.TradingDay;
+                var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
+                SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
+                var _handler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var tradingday = _handler.FundVM.TradingDay;
                 var tradingdatetime = DateTime.ParseExact(tradingday.ToString(),
                                         "yyyyMMdd",
                                         CultureInfo.InvariantCulture);

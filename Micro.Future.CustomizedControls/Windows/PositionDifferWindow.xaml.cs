@@ -29,11 +29,12 @@ namespace Micro.Future.CustomizedControls.Windows
     {
         public BaseTraderHandler TradeHandler { get; set; }
         public List<PositionDifferVM> PositionSyncList { get; } = new List<PositionDifferVM>();
+        public BaseTradingDeskHandler TradingDeskHandler { get; set; }
         public ObservableCollection<PortfolioVM> PortfolioCollection
         {
             get
             {
-                return OTCTradingDeskHandler.PortfolioVMCollection;
+                return TradingDeskHandler.PortfolioVMCollection;
             }
         }
 
@@ -48,7 +49,7 @@ namespace Micro.Future.CustomizedControls.Windows
         public PositionDifferWindow()
         {
             InitializeComponent();
-            TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            //TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             TradeHandler.QueryPositionDiffer();
             PositionListView.ItemsSource = TradeHandler.PositionDifferVMCollection;
         }

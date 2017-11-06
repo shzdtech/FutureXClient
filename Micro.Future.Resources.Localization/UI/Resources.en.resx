@@ -517,10 +517,10 @@
     <value>Open</value>
   </data>
   <data name="Server_CTP_MD_Connected" xml:space="preserve">
-    <value>CTP MarketData Connected</value>
+    <value>CTP Future and Option MarketData Connected</value>
   </data>
   <data name="Server_CTP_MD_Unconnected" xml:space="preserve">
-    <value>CTP MarketData Disconnected</value>
+    <value>CTP Future and Option MarketData Disconnected</value>
   </data>
   <data name="Server_CTP_TD_Connected" xml:space="preserve">
     <value>CTP Trading Connected</value>
@@ -529,10 +529,10 @@
     <value>CTP Trading Disconnected</value>
   </data>
   <data name="Server_OTC_Connected" xml:space="preserve">
-    <value>OTC Server Connected</value>
+    <value>OTC Option Server Connected</value>
   </data>
   <data name="Server_OTC_Unconnected" xml:space="preserve">
-    <value>OTC Server Disonnected</value>
+    <value>OTC Option Server Disonnected</value>
   </data>
   <data name="TradingStrategy" xml:space="preserve">
     <value>TradingStrategy</value>
@@ -550,10 +550,10 @@
     <value>Forgein Market</value>
   </data>
   <data name="Server_TradingDesk_Connected" xml:space="preserve">
-    <value>TradingDesk Disconnected</value>
+    <value>Future&amp;Option TradingDesk Connected</value>
   </data>
   <data name="Server_TradingDesk_DisConnected" xml:space="preserve">
-    <value>TradingDesk Connected</value>
+    <value>Future&amp;Option TradingDesk Disconnected</value>
   </data>
   <data name="Server_OptionServer_Connected" xml:space="preserve">
     <value>Option Server Connected</value>
@@ -1285,7 +1285,7 @@
     <value>Greeks</value>
   </data>
   <data name="YesterdaySettlement" xml:space="preserve">
-    <value>YesterdaySettlement</value>
+    <value>Yesterday Settlement</value>
   </data>
   <data name="Call" xml:space="preserve">
     <value>Call</value>
@@ -1321,7 +1321,7 @@
     <value>Cancel</value>
   </data>
   <data name="YDPositionSync" xml:space="preserve">
-    <value>YDPositionSync</value>
+    <value>Future&amp;Option YDPositionSync</value>
   </data>
   <data name="AccountPosition" xml:space="preserve">
     <value>AccountPosition</value>
@@ -1361,5 +1361,71 @@
   </data>
   <data name="Server_OTCOPTION_TRADINGDESK_Unconnected" xml:space="preserve">
     <value>OTC Option TradingDesk Disconnected</value>
+  </data>
+  <data name="Server_CTP_ETF_MD_Connected" xml:space="preserve">
+    <value>CTP ETF MarketData Connected</value>
+  </data>
+  <data name="Server_CTP_ETF_MD_Disconnected" xml:space="preserve">
+    <value>CTP ETF MarketData Disconnected</value>
+  </data>
+  <data name="Server_CTP_ETF_TD_Connected" xml:space="preserve">
+    <value>CTP ETF Trading Connected</value>
+  </data>
+  <data name="Server_CTP_ETF_TD_Disconnected" xml:space="preserve">
+    <value>CTP ETF Trading Disconnected</value>
+  </data>
+  <data name="Server_CTP_STOCK_MD_Connected" xml:space="preserve">
+    <value>CTP Stock MarketData Connected</value>
+  </data>
+  <data name="Server_CTP_STOCK_MD_Disconnected" xml:space="preserve">
+    <value>CTP Stock MarketData Disconnected</value>
+  </data>
+  <data name="Server_CTP_STOCK_TD_Connected" xml:space="preserve">
+    <value>CTP Stock Trading Connected</value>
+  </data>
+  <data name="Server_CTP_STOCK_TD_Disconnected" xml:space="preserve">
+    <value>CTP Stock Trading Disconnected</value>
+  </data>
+  <data name="Server_OTCETF_MD_Connected" xml:space="preserve">
+    <value>OTC ETF MarketData Connected</value>
+  </data>
+  <data name="Server_OTCETF_MD_Disconnected" xml:space="preserve">
+    <value>OTC ETF MarketData Disconnected</value>
+  </data>
+  <data name="Server_OTCETF_TD_Connected" xml:space="preserve">
+    <value>OTC ETF Trading Connected</value>
+  </data>
+  <data name="Server_OTCETF_TD_Disconnected" xml:space="preserve">
+    <value>OTC ETF Trading Disconnected</value>
+  </data>
+  <data name="Server_OTCETF_TRADINGDESK_Connected" xml:space="preserve">
+    <value>OTC ETF TradingDesk Connected</value>
+  </data>
+  <data name="Server_OTCETF_TRADINGDESK_Disconnected" xml:space="preserve">
+    <value>OTC ETF TradingDesk Disconnected</value>
+  </data>
+  <data name="Server_OTCSTOCK_MD_Connected" xml:space="preserve">
+    <value>OTC Stock MarketData Connected</value>
+  </data>
+  <data name="Server_OTCSTOCK_MD_Disconnected" xml:space="preserve">
+    <value>OTC Stock MarketData Disconnected</value>
+  </data>
+  <data name="Server_OTCSTOCK_TD_Connected" xml:space="preserve">
+    <value>OTC Stock Trading Connected</value>
+  </data>
+  <data name="Server_OTCSTOCK_TD_Disconnected" xml:space="preserve">
+    <value>OTC Stock Trading Disconnected</value>
+  </data>
+  <data name="Server_OTCSTOCK_TRADINGDESK_Connected" xml:space="preserve">
+    <value>OTC Stock TradingDesk Connected</value>
+  </data>
+  <data name="Server_OTCSTOCK_TRADINGDESK_Disconnected" xml:space="preserve">
+    <value>OTC Stock TradingDesk Disconnected</value>
+  </data>
+  <data name="YDETFPositionSync" xml:space="preserve">
+    <value>ETF Yesterday Settlement</value>
+  </data>
+  <data name="YDStockPositionSync" xml:space="preserve">
+    <value>Stock Yesterday Settlement</value>
   </data>
 </root>

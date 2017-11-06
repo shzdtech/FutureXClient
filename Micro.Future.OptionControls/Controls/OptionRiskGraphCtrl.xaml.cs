@@ -1,4 +1,5 @@
-﻿using Micro.Future.CustomizedControls.Controls;
+﻿using Micro.Future.Business.Handler.Router;
+using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
@@ -41,7 +42,25 @@ namespace Micro.Future.UI
         //    get;
         //    set;
         //}
-
+        public List<ContractInfo> OptionList
+        {
+            get;
+        } = new List<ContractInfo>();
+        public string SelectedContract
+        {
+            get;
+            set;
+        }
+        public string SelectedOptionContract
+        {
+            get;
+            set;
+        }
+        public ObservableCollection<PortfolioVM> PortfolioVMCollection
+        {
+            get;
+            set;
+        }
         public List<ColumnItem> BarItemCollection
         {
             get;
@@ -105,10 +124,15 @@ namespace Micro.Future.UI
             }
         }
 
-        private TraderExHandler _tradeExHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+        private TraderExHandler _ctpoptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+        private CTPETFTraderHandler _ctpetfTradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFTraderHandler>();
+        private CTPSTOCKTraderHandler _ctpstockTradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKTraderHandler>();
         private OTCOptionTradeHandler _otcOptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+        private OTCETFTradeHandler _otcETFHandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradeHandler>();
+        private OTCStockTradeHandler _otcStockHandler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradeHandler>();
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
         private MarketDataHandler _marketDataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+        private OTCETFTradingDeskHandler _otcETFTradingDeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>();
 
 
         //private void ReloadDataCallback(object state)
@@ -143,7 +167,23 @@ namespace Micro.Future.UI
 
                     }
                 }
-                var riskVMlist = await _otcOptionTradeHandler.QueryValuationRiskAsync(queryvaluation, portfolio);
+                var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolio).Select(c => c.HedgeContractParams).FirstOrDefault();
+                SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
+                //var _handler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                //var riskVMlist = await _handler.QueryValuationRiskAsync(queryvaluation, portfolio);
+                var riskVMlist = new ObservableCollection<RiskVM>();
+                if (_otcOptionTradeHandler.MessageWrapper.HasSignIn)
+                {
+                    riskVMlist = await _otcOptionTradeHandler.QueryValuationRiskAsync(queryvaluation, portfolio);
+                }
+                else if (_otcETFHandler.MessageWrapper.HasSignIn)
+                {
+                    riskVMlist = await _otcETFHandler.QueryValuationRiskAsync(queryvaluation, portfolio);
+                }
+                else if (_otcStockHandler.MessageWrapper.HasSignIn)
+                {
+                    riskVMlist = await _otcStockHandler.QueryValuationRiskAsync(queryvaluation, portfolio);
+                }
                 lock (BarItemCollection)
                 {
                     foreach (var baritem in BarItemCollection)
@@ -192,7 +232,12 @@ namespace Micro.Future.UI
             InitializeComponent();
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             portfolioCB.ItemsSource = portfolioVMCollection;
+            portfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
+            portfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
+            PortfolioVMCollection = portfolioVMCollection;
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
+            OptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
+            OptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
             //_timer = new Timer(PositionUpdateCallback, null, UpdateInterval, UpdateInterval);
             //_tradeExHandler.OnPositionUpdated += OnPositionUpdated;
             //refreshsSizeIUP.Value = 0;
@@ -224,12 +269,35 @@ namespace Micro.Future.UI
                 var portfolio = portfolioCB.SelectedValue?.ToString();
                 deltaRadioButton.IsChecked = true;
                 marketRadioButton.IsChecked = true;
-                var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
-                var riskVMCollection = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+                var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
+                SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
+                SelectedOptionContract = OptionList.Where(c => c.UnderlyingContract == SelectedContract).Select(c => c.Contract).FirstOrDefault();
+                var _tradingdeskhandler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedOptionContract);
+                var _handler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var _marketdatashandler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedOptionContract);
+                var positionList = _handler?.PositionVMCollection.Where(s => s.Portfolio == portfolio).Select(s => s.Contract).Distinct();
+                var strategyVMCollection = _tradingdeskhandler?.StrategyVMCollection;
+                //var strategyVMCollection = _otcETFTradingDeskHandler?.StrategyVMCollection;
+                //var _otctradehandler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                //var riskVMCollection = await _otctradehandler.QueryRiskAsync(portfolio);
+                var riskVMCollection = new ObservableCollection<RiskVM>();
+                if (_otcOptionTradeHandler.MessageWrapper.HasSignIn)
+                {
+                    riskVMCollection = await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
+                }
+                else if (_otcETFHandler.MessageWrapper.HasSignIn)
+                {
+                    riskVMCollection = await _otcETFHandler.QueryRiskAsync(portfolio);
+                }
+                else if (_otcStockHandler.MessageWrapper.HasSignIn)
+                {
+                    riskVMCollection = await _otcStockHandler.QueryRiskAsync(portfolio);
+                }
+
                 var riskVMList = riskVMCollection.Select(s => s.Contract).Distinct();
-                var positionList = _tradeExHandler?.PositionVMCollection.Where(s => s.Portfolio == portfolio).Select(s => s.Contract).Distinct();
                 positionList = positionList.Intersect(_futurecontractList.Select(c => c.Contract));
-                var portfolioVM = _otcOptionHandler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
+                //var portfolioVM = _otcETFTradingDeskHandler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
+                var portfolioVM = _tradingdeskhandler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
                 var hedgeContractList = portfolioVM.HedgeContractParams.Select(c => c.Contract).Distinct().ToList();
                 var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
                                     .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
@@ -269,7 +337,7 @@ namespace Micro.Future.UI
                         if (contractinfo != null)
                         {
                             vm.Expiration = contractinfo.ExpireDate;
-                            vm.MktVM = await _marketDataHandler.SubMarketDataAsync(vm.Contract);
+                            vm.MktVM = await _marketdatashandler.SubMarketDataAsync(vm.Contract);
                         }
                     }
                     if (vm.Contract != null)
@@ -278,7 +346,7 @@ namespace Micro.Future.UI
                         if (futurecontractinfo != null)
                         {
                             vm.FutureExpiration = futurecontractinfo.ExpireDate;
-                            vm.MktVM = await _marketDataHandler.SubMarketDataAsync(vm.Contract);
+                            vm.MktVM = await _marketdatashandler.SubMarketDataAsync(vm.Contract);
                         }
                     }
                 }
@@ -335,7 +403,10 @@ namespace Micro.Future.UI
             if (ctrl != null)
             {
                 StrategyBaseVM strategyBaseVM = ctrl.DataContext as StrategyBaseVM;
-                var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+                var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
+                SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
+                var _tradingdeskhandler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var strategyVMCollection = _tradingdeskhandler?.StrategyVMCollection;
                 var strategyVMList = strategyVMCollection.Where(s => s.BaseContract == strategyBaseVM.Contract);
                 foreach (var vm in strategyVMList)
                 {
@@ -353,7 +424,10 @@ namespace Micro.Future.UI
             if (ctrl != null)
             {
                 StrategyBaseVM strategyBaseVM = ctrl.DataContext as StrategyBaseVM;
-                var strategyVMCollection = _otcOptionHandler?.StrategyVMCollection;
+                var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
+                SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
+                var _tradingdeskhandler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                var strategyVMCollection = _tradingdeskhandler?.StrategyVMCollection;
                 var strategyVMList = strategyVMCollection.Where(s => s.BaseContract == strategyBaseVM.Contract);
                 foreach (var vm in strategyVMList)
                 {

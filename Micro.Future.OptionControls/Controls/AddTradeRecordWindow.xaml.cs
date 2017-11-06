@@ -1,4 +1,5 @@
-﻿using Micro.Future.CustomizedControls.Controls;
+﻿using Micro.Future.Business.Handler.Router;
+using Micro.Future.CustomizedControls.Controls;
 using Micro.Future.LocalStorage;
 using Micro.Future.LocalStorage.DataObject;
 using Micro.Future.Message;
@@ -120,7 +121,8 @@ namespace Micro.Future.UI
                 else
                     TradeInfoVM.Portfolio = "";
             }
-            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().AddTrade(TradeInfoVM);
+            var _handler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(contract);
+            _handler.AddTrade(TradeInfoVM);
             this.Close();
         }
 

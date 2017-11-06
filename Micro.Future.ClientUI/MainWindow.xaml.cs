@@ -46,6 +46,10 @@ namespace Micro.Future.UI
         {
             var mktHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
             await mktHandler.SyncContractInfoAsync(true);
+            var etfMktHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFMDHandler>();
+            await etfMktHandler.SyncContractInfoAsync(true);
+            var stockMktHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKMDHandler>();
+            await stockMktHandler.SyncContractInfoAsync(true);
             MessageBox.Show(Application.Current.MainWindow, "合约已刷新，请重新启动应用！");
         }
 

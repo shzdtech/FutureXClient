@@ -32,6 +32,7 @@ namespace Micro.Future.UI
     {
         public LayoutContent LayoutContent { get; set; }
         private OTCOptionTradingDeskHandler _otcOptionHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+        private OTCETFTradingDeskHandler _otcETFTradingDeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>();
         private IList<ContractInfo> _contractList;
         private IList<ContractInfo> _futurecontractList;
         public string SelectedContract
@@ -118,26 +119,29 @@ namespace Micro.Future.UI
                 var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                 var strategyVMCollection = _handler?.StrategyVMCollection;
                 var strategyVM = strategyVMCollection.FirstOrDefault();
-                SelectedOptionContract = strategyVM.Contract;
-                var portfolioVMCollection = _handler?.PortfolioVMCollection;
-                var portfolioVM = portfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
-                var strategySymbolList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
-                    .Select(c => new { StrategyName = c.StrategySym }).Distinct().ToList();
-                strategyListView.ItemsSource = strategySymbolList;
-                hedgeListView.ItemsSource = portfolioVM.HedgeContractParams.OrderByDescending(c => c.Contract);
-                //var portfolioDataContext = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection
-                //    .Where(c => c.Name == portfolio).Distinct();
-                DelayTxt.DataContext = portfolioVM;
-                Threshold.DataContext = portfolioVM;
-                HedgeVolumeIUD.DataContext = portfolioVM;
-                AutoHedge_CheckBox.DataContext = portfolioVM;
-                var basecontractsList = strategyVMCollection.Select(c => c.BaseContract).Distinct().ToList();
-                foreach (var sVM in strategyVMCollection)
+                if(strategyVM!=null)
                 {
-                    var _pricingcontractList = sVM.PricingContractParams.Select(c => c.Contract).Distinct().ToList();
+                    SelectedOptionContract = strategyVM.Contract;
+                    var portfolioVMCollection = _handler?.PortfolioVMCollection;
+                    var portfolioVM = portfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
+                    var strategySymbolList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
+                        .Select(c => new { StrategyName = c.StrategySym }).Distinct().ToList();
+                    strategyListView.ItemsSource = strategySymbolList;
+                    hedgeListView.ItemsSource = portfolioVM.HedgeContractParams.OrderByDescending(c => c.Contract);
+                    //var portfolioDataContext = MessageHandlerContainer.DefaultInstance.Get<AbstractOTCHandler>()?.PortfolioVMCollection
+                    //    .Where(c => c.Name == portfolio).Distinct();
+                    DelayTxt.DataContext = portfolioVM;
+                    Threshold.DataContext = portfolioVM;
+                    HedgeVolumeIUD.DataContext = portfolioVM;
+                    AutoHedge_CheckBox.DataContext = portfolioVM;
+                    var basecontractsList = strategyVMCollection.Select(c => c.BaseContract).Distinct().ToList();
+                    foreach (var sVM in strategyVMCollection)
+                    {
+                        var _pricingcontractList = sVM.PricingContractParams.Select(c => c.Contract).Distinct().ToList();
+                    }
+                    PortfolioIndex = portfolioCB.SelectedValue.ToString();
+                    HedgeVolumeIUD.Value = 1;
                 }
-                PortfolioIndex = portfolioCB.SelectedValue.ToString();
-                HedgeVolumeIUD.Value = 1;
                 //var mixcontractList = basecontractsList.Union(_pricingcontractList).ToList();
             }
 

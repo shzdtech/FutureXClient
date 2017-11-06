@@ -276,6 +276,22 @@ namespace Micro.Future.UI
         private void MenuItem_SyncPosition_Click(object sender, RoutedEventArgs e)
         {
             PositionDifferWindow win = new PositionDifferWindow();
+            win.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            win.TradingDeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+            win.Show();
+        }
+        private void MenuItem_SyncStockPosition_Click(object sender, RoutedEventArgs e)
+        {
+            PositionDifferWindow win = new PositionDifferWindow();
+            win.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKTraderHandler>();
+            win.TradingDeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>();
+            win.Show();
+        }
+        private void MenuItem_SyncETFPosition_Click(object sender, RoutedEventArgs e)
+        {
+            PositionDifferWindow win = new PositionDifferWindow();
+            win.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFTraderHandler>();
+            win.TradingDeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>();
             win.Show();
         }
     }

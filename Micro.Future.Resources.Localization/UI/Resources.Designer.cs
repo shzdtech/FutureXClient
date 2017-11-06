@@ -2905,7 +2905,43 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CTP行情服务器已连接 的本地化字符串。
+        ///   查找类似 CTPETF行情已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_CTP_ETF_MD_Connected {
+            get {
+                return ResourceManager.GetString("Server_CTP_ETF_MD_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CTPETF行情未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_CTP_ETF_MD_Disconnected {
+            get {
+                return ResourceManager.GetString("Server_CTP_ETF_MD_Disconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CTPETF交易已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_CTP_ETF_TD_Connected {
+            get {
+                return ResourceManager.GetString("Server_CTP_ETF_TD_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CTPETF交易未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_CTP_ETF_TD_Disconnected {
+            get {
+                return ResourceManager.GetString("Server_CTP_ETF_TD_Disconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CTP期货期权行情服务器已连接 的本地化字符串。
         /// </summary>
         internal static string Server_CTP_MD_Connected {
             get {
@@ -2914,7 +2950,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CTP行情服务器未连接 的本地化字符串。
+        ///   查找类似 CTP期货期权行情服务器未连接 的本地化字符串。
         /// </summary>
         internal static string Server_CTP_MD_Unconnected {
             get {
@@ -2923,7 +2959,43 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CTP交易服务器已连接 的本地化字符串。
+        ///   查找类似 CTP证券行情已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_CTP_STOCK_MD_Connected {
+            get {
+                return ResourceManager.GetString("Server_CTP_STOCK_MD_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CTP证券行情未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_CTP_STOCK_MD_Disconnected {
+            get {
+                return ResourceManager.GetString("Server_CTP_STOCK_MD_Disconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CTP证券交易已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_CTP_STOCK_TD_Connected {
+            get {
+                return ResourceManager.GetString("Server_CTP_STOCK_TD_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CTP证券交易未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_CTP_STOCK_TD_Disconnected {
+            get {
+                return ResourceManager.GetString("Server_CTP_STOCK_TD_Disconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CTP期货期权交易服务器已连接 的本地化字符串。
         /// </summary>
         internal static string Server_CTP_TD_Connected {
             get {
@@ -2932,7 +3004,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CTP交易服务器未连接 的本地化字符串。
+        ///   查找类似 CTP期货期权交易服务器未连接 的本地化字符串。
         /// </summary>
         internal static string Server_CTP_TD_Unconnected {
             get {
@@ -2959,7 +3031,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTC服务器已连接 的本地化字符串。
+        ///   查找类似 OTC期权服务器已连接 的本地化字符串。
         /// </summary>
         internal static string Server_OTC_Connected {
             get {
@@ -2968,11 +3040,65 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTC服务器未连接 的本地化字符串。
+        ///   查找类似 OTC期权服务器未连接 的本地化字符串。
         /// </summary>
         internal static string Server_OTC_Unconnected {
             get {
                 return ResourceManager.GetString("Server_OTC_Unconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTCETF行情已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCETF_MD_Connected {
+            get {
+                return ResourceManager.GetString("Server_OTCETF_MD_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTCETF行情未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCETF_MD_Disconnected {
+            get {
+                return ResourceManager.GetString("Server_OTCETF_MD_Disconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTCETF交易已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCETF_TD_Connected {
+            get {
+                return ResourceManager.GetString("Server_OTCETF_TD_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTCETF交易未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCETF_TD_Disconnected {
+            get {
+                return ResourceManager.GetString("Server_OTCETF_TD_Disconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTCETFTD已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCETF_TRADINGDESK_Connected {
+            get {
+                return ResourceManager.GetString("Server_OTCETF_TRADINGDESK_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTCETFTD未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCETF_TRADINGDESK_Disconnected {
+            get {
+                return ResourceManager.GetString("Server_OTCETF_TRADINGDESK_Disconnected", resourceCulture);
             }
         }
         
@@ -3027,6 +3153,60 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string Server_OTCOPTION_TRADINGDESK_Unconnected {
             get {
                 return ResourceManager.GetString("Server_OTCOPTION_TRADINGDESK_Unconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTC证券行情已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCSTOCK_MD_Connected {
+            get {
+                return ResourceManager.GetString("Server_OTCSTOCK_MD_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTC证券行情未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCSTOCK_MD_Disconnected {
+            get {
+                return ResourceManager.GetString("Server_OTCSTOCK_MD_Disconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTC证券交易已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCSTOCK_TD_Connected {
+            get {
+                return ResourceManager.GetString("Server_OTCSTOCK_TD_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTC证券交易未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCSTOCK_TD_Disconnected {
+            get {
+                return ResourceManager.GetString("Server_OTCSTOCK_TD_Disconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTCETF交易已连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCSTOCK_TRADINGDESK_Connected {
+            get {
+                return ResourceManager.GetString("Server_OTCSTOCK_TRADINGDESK_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OTCETF交易未连接 的本地化字符串。
+        /// </summary>
+        internal static string Server_OTCSTOCK_TRADINGDESK_Disconnected {
+            get {
+                return ResourceManager.GetString("Server_OTCSTOCK_TRADINGDESK_Disconnected", resourceCulture);
             }
         }
         
@@ -3769,6 +3949,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 ETF昨仓同步 的本地化字符串。
+        /// </summary>
+        internal static string YDETFPositionSync {
+            get {
+                return ResourceManager.GetString("YDETFPositionSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 昨日持仓 的本地化字符串。
         /// </summary>
         internal static string YdPosition {
@@ -3778,11 +3967,20 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 昨仓同步 的本地化字符串。
+        ///   查找类似 期货期权昨仓同步 的本地化字符串。
         /// </summary>
         internal static string YDPositionSync {
             get {
                 return ResourceManager.GetString("YDPositionSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 证券昨仓同步 的本地化字符串。
+        /// </summary>
+        internal static string YDStockPositionSync {
+            get {
+                return ResourceManager.GetString("YDStockPositionSync", resourceCulture);
             }
         }
         
