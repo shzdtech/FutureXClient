@@ -94,6 +94,10 @@ namespace Micro.Future.UI
         private TraderExHandler _ctpoptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
         private CTPETFTraderHandler _ctpetfTradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFTraderHandler>();
         private CTPSTOCKTraderHandler _ctpstockTradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKTraderHandler>();
+        private OTCOptionTradeHandler _otcoptionTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+        private OTCETFTradeHandler _otcetfTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradeHandler>();
+        private OTCStockTradeHandler _otcstockTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradeHandler>();
+
 
         private Timer _timer;
         private const int UpdateInterval = 1000;
@@ -121,11 +125,11 @@ namespace Micro.Future.UI
             var otcmarketdataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
             var domesticTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
             var otcTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
-            domesticPositionsWindow.TradeHandler = domesticTradeHandler;
-            domesticPositionsWindow.MarketDataHandler = marketdataHandler;
+            var compositeTradeHandler = CompositeTradeExHandler.DefaultInstance;
+            domesticPositionsWindow.TradeHandler = compositeTradeHandler;
             otcPositionsWindow.TradeHandler = otcTradeHandler;
             otcPositionsWindow.MarketDataHandler = otcmarketdataHandler;
-            domesticTradeWindow.TradeHandler = domesticTradeHandler;
+            domesticTradeWindow.TradeHandler = compositeTradeHandler;
             otcTradeWindow.TradeHandler = otcTradeHandler;
             marketDataLV.MarketDataHandler = marketdataHandler;
             marketDataLV.AnchorablePane = quotePane;
@@ -165,19 +169,19 @@ namespace Micro.Future.UI
                  //    var riskVMlist = await _handler.QueryRiskAsync(portfolio);
                  //    greeksControl.BindingToSource(riskVMlist);
                  //}
-                 if(_ctpoptionTradeHandler.MessageWrapper.HasSignIn)
+                 if(_otcoptionTradeHandler.MessageWrapper.HasSignIn)
                  {
-                     var riskVMlist = await _ctpoptionTradeHandler.QueryRiskAsync(portfolio);
+                     var riskVMlist = await _otcoptionTradeHandler.QueryRiskAsync(portfolio);
                      greeksControl.BindingToSource(riskVMlist);
                  }
-                 else if(_ctpetfTradeHandler.MessageWrapper.HasSignIn)
+                 else if(_otcetfTradeHandler.MessageWrapper.HasSignIn)
                  {
-                     var riskVMlist = await _ctpetfTradeHandler.QueryRiskAsync(portfolio);
+                     var riskVMlist = await _otcetfTradeHandler.QueryRiskAsync(portfolio);
                      greeksControl.BindingToSource(riskVMlist);
                  }
-                 else if(_ctpstockTradeHandler.MessageWrapper.HasSignIn)
+                 else if(_otcstockTradeHandler.MessageWrapper.HasSignIn)
                  {
-                     var riskVMlist = await _ctpstockTradeHandler.QueryRiskAsync(portfolio);
+                     var riskVMlist = await _otcstockTradeHandler.QueryRiskAsync(portfolio);
                      greeksControl.BindingToSource(riskVMlist);
                  }
              });
@@ -243,19 +247,19 @@ namespace Micro.Future.UI
                 //    var riskVMlist = await _otcoptiontradehandler.QueryRiskAsync(portfolio);
                 //    greeksControl.BindingToSource(riskVMlist);
                 //}
-                if (_ctpoptionTradeHandler.MessageWrapper.HasSignIn)
+                if (_otcoptionTradeHandler.MessageWrapper.HasSignIn)
                 {
-                    var riskVMlist = await _ctpoptionTradeHandler.QueryRiskAsync(portfolio);
+                    var riskVMlist = await _otcoptionTradeHandler.QueryRiskAsync(portfolio);
                     greeksControl.BindingToSource(riskVMlist);
                 }
-                else if (_ctpetfTradeHandler.MessageWrapper.HasSignIn)
+                else if (_otcetfTradeHandler.MessageWrapper.HasSignIn)
                 {
-                    var riskVMlist = await _ctpetfTradeHandler.QueryRiskAsync(portfolio);
+                    var riskVMlist = await _otcetfTradeHandler.QueryRiskAsync(portfolio);
                     greeksControl.BindingToSource(riskVMlist);
                 }
-                else if (_ctpstockTradeHandler.MessageWrapper.HasSignIn)
+                else if (_otcstockTradeHandler.MessageWrapper.HasSignIn)
                 {
-                    var riskVMlist = await _ctpstockTradeHandler.QueryRiskAsync(portfolio);
+                    var riskVMlist = await _otcstockTradeHandler.QueryRiskAsync(portfolio);
                     greeksControl.BindingToSource(riskVMlist);
                 }
                 domesticPositionsWindow.FilterByPortfolio(portfolio);

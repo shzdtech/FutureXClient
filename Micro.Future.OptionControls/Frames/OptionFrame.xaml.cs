@@ -163,7 +163,11 @@ namespace Micro.Future.UI
                 _otcOptionDataHandler.RegisterMessageWrapper(_otcOptionDataSignIner.MessageWrapper);
             }
             else
+            {
                 optionModelCtrl.OpMarketDataGetContractInfo();
+                OpMarketMakerLV.GetContractInfo();
+            }
+
         }
 
         private void _tdSignIner_OnLoginError(MessageException obj)

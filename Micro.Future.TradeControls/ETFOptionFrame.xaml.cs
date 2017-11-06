@@ -175,10 +175,13 @@ namespace Micro.Future.UI
             positionsWindow.TradeHandler = tradeHandler;
             positionsWindow.MarketDataHandler = marketdataHandler;
         }
+
+
         private async void _otcETFDataSignIner_OnLogged(IUserInfo obj)
         {
             var otcetftradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>();
             otcetftradingdeskHandler.QueryStrategy();
+            otcetftradingdeskHandler.QueryPortfolio();
             await otcetftradingdeskHandler.QueryAllModelParamsAsync();
             var otcoptiondataHandler = MessageHandlerContainer.DefaultInstance.Get<ETFOTCOptionDataHandler>();
             await otcoptiondataHandler.SyncContractInfoAsync();

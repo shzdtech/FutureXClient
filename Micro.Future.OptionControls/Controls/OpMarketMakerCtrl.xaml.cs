@@ -243,7 +243,12 @@ namespace Micro.Future.UI
             underlyingContractCB.ItemsSource = null;
             expireDateCB.ItemsSource = null;
             var exchange = exchangeCB.SelectedValue.ToString();
-            underlyingCB.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+            var productID = (from c in _contractList
+                             where c.Exchange == exchange.ToString() && c.Contract != c.ProductID
+                             orderby c.ProductID ascending
+                             select c.ProductID).Distinct().ToList();
+            underlyingCB.ItemsSource = productID;
+            //underlyingCB.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
         }
 
         private void underlyingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)

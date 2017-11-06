@@ -40,7 +40,7 @@
                 <avalonDock:LayoutPanel Orientation="Vertical" >
                     <avalonDock:LayoutAnchorablePane x:Name="domesticPositionPane" >
                         <avalonDock:LayoutAnchorable Title="{lex:Loc Key=DomesticPosition}" CanClose="False" CanHide="False">
-                            <c:PositionControl x:Name="domesticPositionsWindow" PersistanceId="OptionRisk:DomesticPositionControl"/>
+                            <c:PositionCompositeControl x:Name="domesticPositionsWindow" PersistanceId="OptionRisk:DomesticPositionControl"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                     <avalonDock:LayoutAnchorablePane x:Name="otcPositionPane" >

@@ -155,6 +155,8 @@ namespace Micro.Future.UI
             var otctradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradeHandler>();
             otctradeHandler.RegisterMessageWrapper(msgWrapper);
 
+            _otcStockDataSignIner.OnLogged += _otcStockDataSignIner_OnLogged;
+
             msgWrapper = _otcStockDataSignIner.MessageWrapper;
             var otcstockdataHandler = MessageHandlerContainer.DefaultInstance.Get<StockOTCOptionDataHandler>();
             otcstockdataHandler.RegisterMessageWrapper(msgWrapper);
@@ -172,6 +174,16 @@ namespace Micro.Future.UI
             tradeWindow.TradeHandler = tradeHandler;
             positionsWindow.TradeHandler = tradeHandler;
             positionsWindow.MarketDataHandler = marketdataHandler;
+        }
+
+        private async void _otcStockDataSignIner_OnLogged(IUserInfo obj)
+        {
+            var otcstocktradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>();
+            otcstocktradingdeskHandler.QueryStrategy();
+            otcstocktradingdeskHandler.QueryPortfolio();
+            await otcstocktradingdeskHandler.QueryAllModelParamsAsync();
+            var otcoptiondataHandler = MessageHandlerContainer.DefaultInstance.Get<StockOTCOptionDataHandler>();
+            await otcoptiondataHandler.SyncContractInfoAsync();
         }
 
         private async void _ctpMdSignIner_OnLogged(IUserInfo obj)
