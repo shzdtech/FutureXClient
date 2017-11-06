@@ -75,6 +75,9 @@ namespace Micro.Future
                 MessageHandlerContainer.Register<TraderExHandler, TraderExHandler>(GenSignInOption(configDict));
 
                 var tdhandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+
+                CompositeTradeExHandler.DefaultInstance.RegisterHandler(tdhandler);
+
                 TradeExHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_FUTURE, tdhandler);
                 TradeExHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_OPTIONS, tdhandler);
                 TradeExHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_COMBINATION, tdhandler);
@@ -92,6 +95,9 @@ namespace Micro.Future
             {
                 MessageHandlerContainer.Register<CTPETFTraderHandler, CTPETFTraderHandler>(GenSignInOption(configDict));
                 var tdhandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFTraderHandler>();
+
+                CompositeTradeExHandler.DefaultInstance.RegisterHandler(tdhandler);
+
                 TradeExHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_ETFOPTION, tdhandler);
             }
             if (config.Content.TryGetValue("CTPSTOCKMDSERVER", out configDict))
@@ -105,8 +111,12 @@ namespace Micro.Future
             {
                 MessageHandlerContainer.Register<CTPSTOCKTraderHandler, CTPSTOCKTraderHandler>(GenSignInOption(configDict));
                 var tdhandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKTraderHandler>();
+
+                CompositeTradeExHandler.DefaultInstance.RegisterHandler(tdhandler);
+
                 TradeExHandlerRouter.DefaultInstance.RegisterHandler(ProductType.PRODUCT_STOCK, tdhandler);
             }
+
             if (config.Content.TryGetValue("CTPOPTIONSERVER", out configDict))
             {
                 MessageHandlerContainer.Register<CTPOptionDataHandler, CTPOptionDataHandler>(GenSignInOption(configDict));
