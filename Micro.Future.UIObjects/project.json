@@ -10,7 +10,7 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "WpfLocalizeExtension": "2.3.2"
+    "WPFLocalizeExtension": "3.0.1"
   },
   "frameworks": {
     "net461": {
