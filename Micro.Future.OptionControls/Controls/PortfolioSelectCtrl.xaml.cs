@@ -119,7 +119,7 @@ namespace Micro.Future.UI
                 var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                 var strategyVMCollection = _handler?.StrategyVMCollection;
                 var strategyVM = strategyVMCollection.FirstOrDefault();
-                if(strategyVM!=null)
+                if (strategyVM != null)
                 {
                     SelectedOptionContract = strategyVM.Contract;
                     var portfolioVMCollection = _handler?.PortfolioVMCollection;
@@ -325,7 +325,9 @@ namespace Micro.Future.UI
         }
         public void AutoHedgeUpdate(bool autoStatus)
         {
-            var selectedHedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
+            string selectedPortfolio = null;
+            Dispatcher.Invoke(() => selectedPortfolio = portfolioCB.SelectedValue.ToString());
+            var selectedHedgeVM = PortfolioVMCollection.Where(c => c.Name == selectedPortfolio).Select(c => c.HedgeContractParams).FirstOrDefault();
             SelectedContract = selectedHedgeVM.Select(c => c.Contract).FirstOrDefault();
             var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
             if (_handler != null)

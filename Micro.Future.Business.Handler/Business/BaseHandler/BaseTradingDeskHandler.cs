@@ -104,35 +104,36 @@ namespace Micro.Future.Message
                         MidVol = tradingDeskOption.TheoDataTemp.MidVolatility,
                     };
                 }
-                if (tradingDeskOption.TheoData.BidPrice >= tradingDeskOption.MarketData?.AskPrice)
-                    quote.TheoDataVM.Biddirection = 2;
-                else
+                if (tradingDeskOption.TheoData != null && tradingDeskOption.MarketData != null)
                 {
-                    if (tradingDeskOption.TheoData.BidPrice >= tradingDeskOption.MarketData?.BidPrice)
-                        quote.TheoDataVM.Biddirection = 1;
-                    else if (tradingDeskOption.TheoData.BidPrice < tradingDeskOption.MarketData?.AskPrice)
-                        quote.TheoDataVM.Biddirection = -1;
-                    else if (tradingDeskOption.TheoData.BidPrice < tradingDeskOption.MarketData?.AskPrice)
-                        quote.TheoDataVM.Biddirection = -2;
+                    if (tradingDeskOption.TheoData.BidPrice >= tradingDeskOption.MarketData.AskPrice)
+                        quote.TheoDataVM.Biddirection = 2;
+                    else
+                    {
+                        if (tradingDeskOption.TheoData.BidPrice >= tradingDeskOption.MarketData?.BidPrice)
+                            quote.TheoDataVM.Biddirection = 1;
+                        else if (tradingDeskOption.TheoData.BidPrice < tradingDeskOption.MarketData?.AskPrice)
+                            quote.TheoDataVM.Biddirection = -1;
+                        else if (tradingDeskOption.TheoData.BidPrice < tradingDeskOption.MarketData?.AskPrice)
+                            quote.TheoDataVM.Biddirection = -2;
+                    }
+                    if (tradingDeskOption.TheoData.AskPrice <= tradingDeskOption.MarketData.BidPrice)
+                        quote.TheoDataVM.Askdirection = 2;
+                    else
+                    {
+                        if (tradingDeskOption.TheoData.AskPrice <= tradingDeskOption.MarketData.AskPrice)
+                            quote.TheoDataVM.Askdirection = 1;
+                        else if (tradingDeskOption.TheoData.AskPrice > tradingDeskOption.MarketData.AskPrice)
+                            quote.TheoDataVM.Askdirection = -1;
+                        else if (tradingDeskOption.TheoData.AskPrice > tradingDeskOption.MarketData.BidPrice)
+                            quote.TheoDataVM.Askdirection = -2;
+                    }
                 }
-
-                if (tradingDeskOption.TheoData.AskPrice <= tradingDeskOption.MarketData?.BidPrice)
-                    quote.TheoDataVM.Askdirection = 2;
-                else
-                {
-                    if (tradingDeskOption.TheoData.AskPrice <= tradingDeskOption.MarketData?.AskPrice)
-                        quote.TheoDataVM.Askdirection = 1;
-                    else if (tradingDeskOption.TheoData.AskPrice > tradingDeskOption.MarketData?.AskPrice)
-                        quote.TheoDataVM.Askdirection = -1;
-                    else if (tradingDeskOption.TheoData.AskPrice > tradingDeskOption.MarketData?.BidPrice)
-                        quote.TheoDataVM.Askdirection = -2;
-                }
-                    OnTradingDeskOptionParamsReceived?.Invoke(quote);
+                OnTradingDeskOptionParamsReceived?.Invoke(quote);
             }
             else
             {
-                UnsubTradingDeskData(new[] { quote
-    });
+                UnsubTradingDeskData(new[] { quote });
             }
         }
 

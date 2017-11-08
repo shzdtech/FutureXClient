@@ -253,6 +253,7 @@ namespace Micro.Future.Message
                 return Task.FromResult(true);
             }
 
+
             var sst = new StringMap();
             sst.Header = new DataHeader();
             sst.Header.SerialId = NextSerialId;
