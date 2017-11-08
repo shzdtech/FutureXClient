@@ -38,6 +38,11 @@ namespace Micro.Future.UI
             get;
         } = new List<ContractInfo>();
 
+        public List<ProductType> ProductTypeList
+        {
+            get;
+        } = new List<ProductType>();
+
         protected readonly MarketContract _userContractDbCtx;
         public FilterSettingsWindow FilterSettingsWin { get; } =
             new FilterSettingsWindow() { CancelClosing = true };
@@ -109,12 +114,18 @@ namespace Micro.Future.UI
         }
         public void GetContractInfo()
         {
-            FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
-            FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
-            FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
-            FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK));
-            contractTextBox.Provider = new SuggestionProvider((string c) => { return FutureOptionList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
-
+            //FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
+            //FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
+            //FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
+            //FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK));
+            if (ProductTypeList != null)
+            {
+                foreach (var producttype in ProductTypeList)
+                {
+                    FutureOptionList.AddRange(ClientDbContext.GetContractFromCache((int)producttype));
+                }
+                contractTextBox.Provider = new SuggestionProvider((string c) => { return FutureOptionList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
+            }
         }
         public ICollectionViewLiveShaping QuoteChanged { get; set; }
 

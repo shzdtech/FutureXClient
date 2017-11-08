@@ -167,6 +167,7 @@ namespace Micro.Future.UI
 
             clientFundLV.TradeHandler = tradeHandler;
             marketDataLV.MarketDataHandler = marketdataHandler;
+            marketDataLV.ProductTypeList.Add(ProductType.PRODUCT_STOCK);
             FastOrderCtl.TradeHandler = tradeHandler;
             FastOrderCtl.MarketDataHandler = marketdataHandler;
             executionWindow.TradeHandler = tradeHandler;

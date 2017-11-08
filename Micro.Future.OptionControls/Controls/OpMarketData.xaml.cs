@@ -435,7 +435,7 @@ namespace Micro.Future.UI
             {
                 var uexchange = exchange2.SelectedValue?.ToString();
                 var uc = contract2.SelectedItem?.ToString();
-                var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+                var handler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(uc);
                 QuoteVMCollection2.Clear();
                 var mktDataVM = await handler.SubMarketDataAsync(uc);
                 if (mktDataVM != null)
