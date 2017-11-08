@@ -40,8 +40,10 @@ namespace Micro.Future.UI
 
         private IList<ContractInfo> _optioncontractList;
         private IList<ContractInfo> _etfcontractList;
+        private IList<ContractInfo> _stockcontractList;
         private IList<ContractInfo> _contractList;
         private IList<ContractInfo> _futurecontractList;
+        private IList<ContractInfo> _futurestockcontractList;
         private IEnumerable<ContractKeyVM> _subbedContracts;
 
         private IList<ColumnObject> _optionColumns;
@@ -79,13 +81,15 @@ namespace Micro.Future.UI
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
             var otcOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_OPTION);
             var etfOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION);
+            var stocks = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK);
             var otcETFOptions = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OTC_ETFOPTION);
             _optioncontractList = options.Union(otcOptions).ToList();
             _etfcontractList = etfOptions.Union(otcETFOptions).ToList();
             _contractList = _optioncontractList.Union(_etfcontractList).ToList();
+            _futurestockcontractList = _futurecontractList.Union(stocks).ToList();
 
             exchangeCB.ItemsSource = _contractList.Select(c => c.Exchange).Distinct();
-            underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
+            underlyingEX1.ItemsSource = _futurestockcontractList.Select(c => c.Exchange).Distinct();
             pricingModelCB.ItemsSource = _otcOptionHandler.GetModelParamsVMCollection("pm");
         }
         public void Initialize()
@@ -365,7 +369,7 @@ namespace Micro.Future.UI
                         underlyingCB1.ItemsSource = null;
                         orderConditionCombo.SelectedValue = null;
                         underlyingContractCB1.ItemsSource = null;
-                        underlyingEX1.ItemsSource = _futurecontractList.Select(c => c.Exchange).Distinct();
+                        underlyingEX1.ItemsSource = _futurestockcontractList.Select(c => c.Exchange).Distinct();
                         pricingModelCB.ItemsSource = _handler.GetModelParamsVMCollection("pm");
                         if (strategyVM != null)
                         {
@@ -374,7 +378,7 @@ namespace Micro.Future.UI
                             {
                                 var futureexchange = pricingContractParamVM.Exchange;
                                 var futurecontract = pricingContractParamVM.Contract;
-                                var futureunderlying = _futurecontractList.FirstOrDefault(c => c.Exchange == futureexchange && c.Contract == futurecontract)?.ProductID;
+                                var futureunderlying = _futurestockcontractList.FirstOrDefault(c => c.Exchange == futureexchange && c.Contract == futurecontract)?.ProductID;
                                 var adjust = pricingContractParamVM.Adjust;
                                 var pricingmodel = strategyVM.PricingModel;
                                 var volmodel = strategyVM.VolModel;
@@ -490,7 +494,7 @@ namespace Micro.Future.UI
             var exchange = underlyingEX1.SelectedItem?.ToString();
             if (exchange != null)
             {
-                var underlying = (from c in _futurecontractList
+                var underlying = (from c in _futurestockcontractList
                                   where c.Exchange == exchange.ToString()
                                   orderby c.ProductID ascending
                                   select c.ProductID).Distinct().ToList();
@@ -505,7 +509,7 @@ namespace Micro.Future.UI
 
             if (productId != null)
             {
-                var underlyingContracts = (from c in _futurecontractList
+                var underlyingContracts = (from c in _futurestockcontractList
                                            where c.ProductID == productId
                                            orderby c.Contract ascending
                                            select c.Contract).Distinct().ToList();
@@ -519,7 +523,7 @@ namespace Micro.Future.UI
             var uexchange = underlyingEX1.SelectedItem?.ToString();
             if (uc != null)
             {
-                var handler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+                var handler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(uc);
                 QuoteVMCollection1.Clear();
                 var mktDataVM = await handler.SubMarketDataAsync(uc);
                 if (mktDataVM != null)
