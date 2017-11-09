@@ -277,7 +277,8 @@ namespace Micro.Future.UI
                 var hedgeVM = hedgeContract.DataContext as HedgeVM;
                 if (hedgeVM != null)
                 {
-                    var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying).Select(c => c.Contract);
+                    var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying).Select(c => c.Contract)
+                                                .Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying).Select(c => c.Contract));
                     hedgeContract.ItemsSource = list;
                     hedgeContract.SelectedItem = hedgeVM.Contract;
                 }
@@ -292,7 +293,8 @@ namespace Micro.Future.UI
                 if (hedgeVM != null)
                 {
                     string quote = hedgeContract.SelectedItem.ToString();
-                    var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying);
+                    var list = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying)
+                        .Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK).Where(c => c.Exchange == hedgeVM.Exchange && c.ProductID == hedgeVM.Underlying));
                     if (!list.Any((c) => string.Compare(c.Contract, quote, true) == 0))
                     {
                         System.Windows.MessageBox.Show("输入合约" + quote + "不存在");

@@ -859,6 +859,10 @@ namespace Micro.Future.UI
                     {
                         if(orderConditionCombo.SelectedValue!=null)
                         {
+                            if((OrderConditionType)orderConditionCombo.SelectedValue == OrderConditionType.FAK|| (OrderConditionType)orderConditionCombo.SelectedValue == OrderConditionType.FOK)
+                            {
+                                vm.CallStrategyVM.UpdateStrategy(false);
+                            }
                             vm.CallStrategyVM.ConditionType = (OrderConditionType)orderConditionCombo.SelectedValue;
                             vm.CallStrategyVM.UpdateStrategy(true);
                         }
@@ -867,6 +871,10 @@ namespace Micro.Future.UI
                     {
                         if (orderConditionCombo.SelectedValue != null)
                         {
+                            if ((OrderConditionType)orderConditionCombo.SelectedValue == OrderConditionType.FAK || (OrderConditionType)orderConditionCombo.SelectedValue == OrderConditionType.FOK)
+                            {
+                                vm.PutStrategyVM.UpdateStrategy(false);
+                            }
                             vm.PutStrategyVM.ConditionType = (OrderConditionType)orderConditionCombo.SelectedValue;
                             vm.PutStrategyVM.UpdateStrategy(true);
                         }

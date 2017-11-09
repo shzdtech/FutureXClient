@@ -139,7 +139,7 @@ namespace Micro.Future.UI
             msgWrapper.MessageClient.OnDisconnected += ctpLoginStatus.OnDisconnected;
             MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().RegisterMessageWrapper(msgWrapper);
             _otcTradingDeskSignIner.OnLogged += _otcTradingDeskSignIner_Onlogged;
-            //_otcTradeSignIner.OnLogged += _otcTradeSignIner_Onlogged;
+            _otcTradeSignIner.OnLogged += _otcTradeSignIner_Onlogged;
             // Initialize Trading Server
             msgWrapper = _ctpTradeSignIner.MessageWrapper;
 

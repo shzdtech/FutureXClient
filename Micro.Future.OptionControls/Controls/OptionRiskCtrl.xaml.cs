@@ -121,7 +121,7 @@ namespace Micro.Future.UI
             portfolioLayout.CanClose = false;
             portfolioLayout.CanHide = false;
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
+            //var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
             var otcmarketdataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
             var domesticTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
             var otcTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
@@ -131,7 +131,7 @@ namespace Micro.Future.UI
             otcPositionsWindow.MarketDataHandler = otcmarketdataHandler;
             domesticTradeWindow.TradeHandler = compositeTradeHandler;
             otcTradeWindow.TradeHandler = otcTradeHandler;
-            marketDataLV.MarketDataHandler = marketdataHandler;
+            //marketDataLV.MarketDataHandler = marketdataHandler;
             marketDataLV.AnchorablePane = quotePane;
             quotePane.Children[0].Title = WPFUtility.GetLocalizedString("Quote", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             domesticPositionsWindow.AnchorablePane = domesticPositionPane;
@@ -227,6 +227,8 @@ namespace Micro.Future.UI
                 }
                 var contractList = strategyContractList.Union(strategyUnderlyingContractList.Select(c => new StrategyBaseVM { Contract = c }));
                 contractList = contractList.GroupBy(c => c.Contract).Select(c => c.FirstOrDefault()).ToList();
+                var selectedContract = contractList.Select(c=>c.Contract).First();
+                marketDataLV.MarketDataHandler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(selectedContract);
                 QuoteVMCollection.Clear();
                 foreach (var vm in contractList)
                 {
