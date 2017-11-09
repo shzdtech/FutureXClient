@@ -126,7 +126,11 @@ namespace Micro.Future.UI
             tradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             positionPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             // Initialize Market Data
-            ctpLoginStatus.Prompt = "未连接CTP行情服务器...";
+            ctpLoginStatus.Prompt = "CTP行情未连";
+            ctpTradeLoginStatus.Prompt = "CTP交易未连";
+            otcOptionMarketLoginStatus.Prompt = "场外期权行情未连";
+            otcOptionTradeLoginStatus.Prompt = "场外期权交易未连";
+            otcOptionTradingDeskStatus.Prompt = "场外期权TD未连";
             var msgWrapper = _ctpMdSignIner.MessageWrapper;
             _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
             _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;

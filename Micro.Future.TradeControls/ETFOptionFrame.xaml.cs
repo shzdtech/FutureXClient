@@ -78,6 +78,7 @@ namespace Micro.Future.UI
 
             //TradingDeskServerLogin();
             MarketDataServerLogin();
+            //OTCETFDataServer和OTCETFTradingDeskServer共享登录
             OTCETFDataServerLogin();
             //TradingServerLogin();
 
