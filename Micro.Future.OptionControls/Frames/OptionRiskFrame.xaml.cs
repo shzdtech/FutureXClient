@@ -278,6 +278,7 @@ namespace Micro.Future.UI
             PositionDifferWindow win = new PositionDifferWindow();
             win.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             win.TradingDeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+            win.QueryPositionDiffer();
             win.Show();
         }
         private void MenuItem_SyncStockPosition_Click(object sender, RoutedEventArgs e)
@@ -285,6 +286,7 @@ namespace Micro.Future.UI
             PositionDifferWindow win = new PositionDifferWindow();
             win.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKTraderHandler>();
             win.TradingDeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>();
+            win.QueryPositionDiffer();
             win.Show();
         }
         private void MenuItem_SyncETFPosition_Click(object sender, RoutedEventArgs e)
@@ -292,6 +294,7 @@ namespace Micro.Future.UI
             PositionDifferWindow win = new PositionDifferWindow();
             win.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFTraderHandler>();
             win.TradingDeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>();
+            win.QueryPositionDiffer();
             win.Show();
         }
     }

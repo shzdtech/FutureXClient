@@ -50,6 +50,11 @@ namespace Micro.Future.CustomizedControls.Windows
         {
             InitializeComponent();
             //TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+                    
+        }
+        public void QueryPositionDiffer()
+        {
+            if(TradeHandler!=null)
             TradeHandler.QueryPositionDiffer();
             PositionListView.ItemsSource = TradeHandler.PositionDifferVMCollection;
         }
