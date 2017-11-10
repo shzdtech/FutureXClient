@@ -400,11 +400,8 @@ namespace Micro.Future.Message
                 strategy.BidCounter = -1;
                 strategy.AskCounter = -1;
             }
-
-
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }
-
 
         public Task<bool> UpdatePortfolioAsync(PortfolioVM pVM, int timeout = 10000)
         {
