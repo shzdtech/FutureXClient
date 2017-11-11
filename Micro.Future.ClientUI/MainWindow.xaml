@@ -71,7 +71,7 @@
             <StatusBar x:Name="statusBar" >
             </StatusBar>
             
-            <StatusBar x:Name="statusBarLogin" HorizontalAlignment="Right" VerticalAlignment="Top" Width="286" Grid.ColumnSpan="2" Height="20">
+            <StatusBar x:Name="statusBarLogin" HorizontalAlignment="Right" VerticalAlignment="Top" Width="320" Grid.ColumnSpan="2" Height="20">
                 <!--<TextBlock x:Name="txtblkServerIP"></TextBlock>-->
                 <TextBlock x:Name="txtblkUserName"></TextBlock>
                 <!--<TextBlock x:Name="txtblkTime"></TextBlock>-->

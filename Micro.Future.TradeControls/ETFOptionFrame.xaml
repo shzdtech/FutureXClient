@@ -50,11 +50,20 @@
         </x:Array>
         <x:Array Type="{x:Type StatusBarItem}" x:Key="exStatusBarItems">
             <StatusBarItem Uid ="ctpLogin">
-                <Controls:LoginStatus x:Name="ctpLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_CTP_ETF_MD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_CTP_ETF_MD_Disconnected}" Connected="False" OnConnButtonClick="ctpMdLoginStatus_OnConnButtonClick"/>
+                <Controls:LoginStatus x:Name="ctpLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_CTP_ETF_MD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_CTP_ETF_MD_Disconnected}" Connected="False" OnConnButtonClick="ctpMdLoginStatus_OnConnButtonClick" FontSize="8"/>
             </StatusBarItem >
             <StatusBarItem Uid ="ctpTrade">
-                <Controls:LoginStatus x:Name="ctpTradeLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_CTP_ETF_TD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_CTP_ETF_TD_Disconnected}" Connected="False" OnConnButtonClick="ctpTradingLoginStatus_OnConnButtonClick"/>
+                <Controls:LoginStatus x:Name="ctpTradeLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_CTP_ETF_TD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_CTP_ETF_TD_Disconnected}" Connected="False" OnConnButtonClick="ctpTradingLoginStatus_OnConnButtonClick" FontSize="8"/>
             </StatusBarItem>
+            <StatusBarItem Uid ="otcETFMarket">
+                <Controls:LoginStatus x:Name="otcETFMarketLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OTCETF_MD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OTCETF_MD_Disconnected}" Connected="False" OnConnButtonClick="otcMdLoginStatus_OnConnButtonClick" FontSize="8"/>
+            </StatusBarItem >
+            <StatusBarItem Uid ="otcETFTrade">
+                <Controls:LoginStatus x:Name="otcETFTradeLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OTCETF_TD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OTCETF_TD_Disconnected}" Connected="False" OnConnButtonClick="otcTradeLoginStatus_OnConnButtonClick" FontSize="8"/>
+            </StatusBarItem>
+            <StatusBarItem Uid ="otcETFTradingDesk">
+                <Controls:LoginStatus x:Name="otcETFTradingDeskStatus" ConnectedPrompt="{lex:Loc Key=Server_OTCETF_TRADINGDESK_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OTCETF_TRADINGDESK_Disconnected}" Connected="False" OnConnButtonClick="otcTradingDeskLoginStatus_OnConnButtonClick" FontSize="8"/>
+            </StatusBarItem >
         </x:Array>
     </UserControl.Resources>
     <avalonDock:DockingManager x:Name="domesticDM" Uid="domesticDMUID">

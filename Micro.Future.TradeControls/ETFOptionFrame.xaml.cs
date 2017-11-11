@@ -25,9 +25,9 @@ namespace Micro.Future.UI
     {
         private AbstractSignInManager _ctpMdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPETFMDHandler>());
         private AbstractSignInManager _ctpTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPETFTraderHandler>());
+        private AbstractSignInManager _otcETFDataSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<ETFOTCOptionDataHandler>());
         private AbstractSignInManager _otcTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCETFTradeHandler>());
         private AbstractSignInManager _otcTradingDeskSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCETFTradingDeskHandler>());
-        private AbstractSignInManager _otcETFDataSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<ETFOTCOptionDataHandler>());
 
 
         private PBSignInManager _accountSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AccountHandler>());
@@ -128,9 +128,13 @@ namespace Micro.Future.UI
             executionPane.Children[0].Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             tradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             positionPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            ctpLoginStatus.Prompt = "CTPETF行情未连";
+            ctpTradeLoginStatus.Prompt = "CTPETF交易未连";
+            otcETFMarketLoginStatus.Prompt = "OTCETF行情未连";
+            otcETFTradeLoginStatus.Prompt = "OTCETF交易未连";
+            otcETFTradingDeskStatus.Prompt = "ETFTD未连";
             // Initialize Market Data
             var msgWrapper = _ctpMdSignIner.MessageWrapper;
-
             _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
             _ctpMdSignIner.OnLogged += _ctpMdSignIner_OnLogged;
             _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
@@ -151,17 +155,22 @@ namespace Micro.Future.UI
             tradeHandler.RegisterMessageWrapper(msgWrapper);
             var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFMDHandler>();
 
+            _otcTradeSignIner.OnLogged += otcETFTradeLoginStatus.OnLogged;
+            _otcTradeSignIner.OnLoginError += otcETFTradeLoginStatus.OnDisconnected;
             msgWrapper = _otcTradeSignIner.MessageWrapper;
             var otctradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradeHandler>();
             otctradeHandler.RegisterMessageWrapper(msgWrapper);
 
             _otcETFDataSignIner.OnLogged += _otcETFDataSignIner_OnLogged;
-
+            _otcETFDataSignIner.OnLogged += otcETFMarketLoginStatus.OnLogged;
+            _otcETFDataSignIner.OnLoginError += otcETFMarketLoginStatus.OnDisconnected;
 
             msgWrapper = _otcETFDataSignIner.MessageWrapper;
             var otcetfdataHandler = MessageHandlerContainer.DefaultInstance.Get<ETFOTCOptionDataHandler>();
             otcetfdataHandler.RegisterMessageWrapper(msgWrapper);
 
+            _otcTradingDeskSignIner.OnLogged += otcETFTradingDeskStatus.OnLogged;
+            _otcTradingDeskSignIner.OnLoginError += otcETFTradingDeskStatus.OnDisconnected;
             //msgWrapper = _otcTradingDeskSignIner.MessageWrapper;
             var otcetftradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>();
             otcetftradingdeskHandler.RegisterMessageWrapper(msgWrapper);
@@ -217,45 +226,67 @@ namespace Micro.Future.UI
         {
             if (!_otcETFDataSignIner.MessageWrapper.HasSignIn)
             {
+                otcETFMarketLoginStatus.Prompt = "连OTCETF行情中";
                 _otcETFDataSignIner.SignIn();
+            }
+        }
+        private void OTCOptionTradeServerLogin()
+        {
+            if (!_otcTradeSignIner.MessageWrapper.HasSignIn)
+            {
+                otcETFTradeLoginStatus.Prompt = "连OTCETF交易中";
+                _otcTradeSignIner.SignIn();
             }
         }
         private void MarketDataServerLogin()
         {
             if (!_ctpMdSignIner.MessageWrapper.HasSignIn)
             {
-                ctpLoginStatus.Prompt = "正在连接CTPETF行情服务器...";
+                ctpLoginStatus.Prompt = "连CTPETF行情中";
                 _ctpMdSignIner.SignIn();
             }
+        }
+        private void _otcTradingDeskSignIner_Onlogged(IUserInfo obj)
+        {
+
         }
         private void TradingDeskServerLogin()
         {
             if (!_otcTradingDeskSignIner.MessageWrapper.HasSignIn)
             {
-                //ctpLoginStatus.Prompt = "正在连接CTP行情服务器...";
+                otcETFTradingDeskStatus.Prompt = "连ETFTD中";
                 _otcTradingDeskSignIner.SignIn();
             }
         }
         private void ctpMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
         {
-            MarketDataServerLogin();
+               MarketDataServerLogin();
         }
         private void TradingServerLogin()
         {
             if (!_ctpTradeSignIner.MessageWrapper.HasSignIn)
             {
-                ctpTradeLoginStatus.Prompt = "正在连接CTP交易服务器...";
+                ctpTradeLoginStatus.Prompt = "连CTPETF交易中";
                 _ctpTradeSignIner.SignIn();
             }
         }
-
 
         private void ctpTradingLoginStatus_OnConnButtonClick(object sender, EventArgs e)
         {
             TradingServerLogin();
         }
-
-
+        private void otcMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
+        {
+            OTCETFDataServerLogin();
+        }
+        private void otcTradeLoginStatus_OnConnButtonClick(object sender, EventArgs e)
+        {
+            OTCOptionTradeServerLogin();
+        }
+        private void otcTradingDeskLoginStatus_OnConnButtonClick(object sender, EventArgs e)
+        {
+            TradingDeskServerLogin();
+        }
         private void _ctpTradeSignIner_OnLogged(IUserInfo obj)
         {
             _ctpTradeSignInerOnLogged();

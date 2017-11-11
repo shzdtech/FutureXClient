@@ -2905,7 +2905,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CTPETF行情已连接 的本地化字符串。
+        ///   查找类似 CTPETF行情已连 的本地化字符串。
         /// </summary>
         internal static string Server_CTP_ETF_MD_Connected {
             get {
@@ -2914,7 +2914,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CTPETF行情未连接 的本地化字符串。
+        ///   查找类似 CTPETF行情未连 的本地化字符串。
         /// </summary>
         internal static string Server_CTP_ETF_MD_Disconnected {
             get {
@@ -2932,7 +2932,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CTPETF交易未连接 的本地化字符串。
+        ///   查找类似 CTPETF交易未连 的本地化字符串。
         /// </summary>
         internal static string Server_CTP_ETF_TD_Disconnected {
             get {
@@ -2941,7 +2941,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CTP期货期权行情服务器已连接 的本地化字符串。
+        ///   查找类似 CTP期权行情已连 的本地化字符串。
         /// </summary>
         internal static string Server_CTP_MD_Connected {
             get {
@@ -2950,7 +2950,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CTP期货期权行情服务器未连接 的本地化字符串。
+        ///   查找类似 CTP期权行情未连 的本地化字符串。
         /// </summary>
         internal static string Server_CTP_MD_Unconnected {
             get {
@@ -2959,7 +2959,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CTP证券行情已连接 的本地化字符串。
+        ///   查找类似 CTP证券行情已连 的本地化字符串。
         /// </summary>
         internal static string Server_CTP_STOCK_MD_Connected {
             get {
@@ -2968,7 +2968,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CTP证券行情未连接 的本地化字符串。
+        ///   查找类似 CTP证券行情未连 的本地化字符串。
         /// </summary>
         internal static string Server_CTP_STOCK_MD_Disconnected {
             get {
@@ -2977,7 +2977,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CTP证券交易已连接 的本地化字符串。
+        ///   查找类似 CTP证券交易已连 的本地化字符串。
         /// </summary>
         internal static string Server_CTP_STOCK_TD_Connected {
             get {
@@ -2986,7 +2986,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CTP证券交易未连接 的本地化字符串。
+        ///   查找类似 CTP证券交易未连 的本地化字符串。
         /// </summary>
         internal static string Server_CTP_STOCK_TD_Disconnected {
             get {
@@ -2995,7 +2995,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CTP期货期权交易服务器已连接 的本地化字符串。
+        ///   查找类似 CTP期权交易已连 的本地化字符串。
         /// </summary>
         internal static string Server_CTP_TD_Connected {
             get {
@@ -3004,7 +3004,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 CTP期货期权交易服务器未连接 的本地化字符串。
+        ///   查找类似 CTP期权交易未连 的本地化字符串。
         /// </summary>
         internal static string Server_CTP_TD_Unconnected {
             get {
@@ -3031,7 +3031,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTC期权服务器已连接 的本地化字符串。
+        ///   查找类似 OTC期权已连 的本地化字符串。
         /// </summary>
         internal static string Server_OTC_Connected {
             get {
@@ -3040,7 +3040,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTC期权服务器未连接 的本地化字符串。
+        ///   查找类似 OTC期权未连 的本地化字符串。
         /// </summary>
         internal static string Server_OTC_Unconnected {
             get {
@@ -3049,7 +3049,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTCETF行情已连接 的本地化字符串。
+        ///   查找类似 OTCETF行情已连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCETF_MD_Connected {
             get {
@@ -3058,7 +3058,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTCETF行情未连接 的本地化字符串。
+        ///   查找类似 OTCETF行情未连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCETF_MD_Disconnected {
             get {
@@ -3067,7 +3067,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTCETF交易已连接 的本地化字符串。
+        ///   查找类似 OTCETF交易已连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCETF_TD_Connected {
             get {
@@ -3076,7 +3076,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTCETF交易未连接 的本地化字符串。
+        ///   查找类似 OTCETF交易未连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCETF_TD_Disconnected {
             get {
@@ -3085,7 +3085,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTCETFTD已连接 的本地化字符串。
+        ///   查找类似 OTCETFTD已连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCETF_TRADINGDESK_Connected {
             get {
@@ -3094,7 +3094,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTCETFTD未连接 的本地化字符串。
+        ///   查找类似 OTCETFTD未连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCETF_TRADINGDESK_Disconnected {
             get {
@@ -3103,7 +3103,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTC期权行情服务器已连接 的本地化字符串。
+        ///   查找类似 OTC期权行情已连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCOPTION_MD_Connected {
             get {
@@ -3112,7 +3112,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTC期权行情服务器未连接 的本地化字符串。
+        ///   查找类似 OTC期权行情未连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCOPTION_MD_Unconnected {
             get {
@@ -3121,7 +3121,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTC期权交易服务器已连接 的本地化字符串。
+        ///   查找类似 OTC期权交易已连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCOPTION_TD_Connected {
             get {
@@ -3130,7 +3130,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTC期权交易服务器未连接 的本地化字符串。
+        ///   查找类似 OTC期权交易未连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCOPTION_TD_Unconnected {
             get {
@@ -3139,7 +3139,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTC期权TradingDesk服务器已连接 的本地化字符串。
+        ///   查找类似 OTC期权TD已连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCOPTION_TRADINGDESK_Connected {
             get {
@@ -3148,7 +3148,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTC期权TradingDesk服务器未连接 的本地化字符串。
+        ///   查找类似 OTC期权TD未连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCOPTION_TRADINGDESK_Unconnected {
             get {
@@ -3157,7 +3157,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTC证券行情已连接 的本地化字符串。
+        ///   查找类似 OTC证券行情已连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCSTOCK_MD_Connected {
             get {
@@ -3166,7 +3166,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTC证券行情未连接 的本地化字符串。
+        ///   查找类似 OTC证券行情未连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCSTOCK_MD_Disconnected {
             get {
@@ -3175,7 +3175,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTC证券交易已连接 的本地化字符串。
+        ///   查找类似 OTC证券交易已连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCSTOCK_TD_Connected {
             get {
@@ -3184,7 +3184,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTC证券交易未连接 的本地化字符串。
+        ///   查找类似 OTC证券交易未连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCSTOCK_TD_Disconnected {
             get {
@@ -3193,7 +3193,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTCETF交易已连接 的本地化字符串。
+        ///   查找类似 OTCETF交易已连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCSTOCK_TRADINGDESK_Connected {
             get {
@@ -3202,7 +3202,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 OTCETF交易未连接 的本地化字符串。
+        ///   查找类似 OTCETF交易未连 的本地化字符串。
         /// </summary>
         internal static string Server_OTCSTOCK_TRADINGDESK_Disconnected {
             get {
@@ -3211,7 +3211,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 TradingDesk已连接 的本地化字符串。
+        ///   查找类似 TradingDesk已连 的本地化字符串。
         /// </summary>
         internal static string Server_TradingDesk_Connected {
             get {
@@ -3220,7 +3220,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 TradingDesk未连接 的本地化字符串。
+        ///   查找类似 TradingDesk未连 的本地化字符串。
         /// </summary>
         internal static string Server_TradingDesk_DisConnected {
             get {

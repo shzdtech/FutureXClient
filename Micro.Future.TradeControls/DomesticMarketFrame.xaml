@@ -58,13 +58,13 @@
                 <Controls:LoginStatus x:Name="ctpTradeLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_CTP_TD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_CTP_TD_Unconnected}" Connected="False" OnConnButtonClick="ctpTradingLoginStatus_OnConnButtonClick" FontSize="8"/>
             </StatusBarItem>
             <StatusBarItem Uid ="otcOptionMarket">
-                <Controls:LoginStatus x:Name="otcOptionMarketLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OTCOPTION_MD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OTCOPTION_MD_Unconnected}" Connected="False" OnConnButtonClick="ctpMdLoginStatus_OnConnButtonClick" FontSize="8"/>
+                <Controls:LoginStatus x:Name="otcOptionMarketLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OTCOPTION_MD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OTCOPTION_MD_Unconnected}" Connected="False" OnConnButtonClick="otcMdLoginStatus_OnConnButtonClick" FontSize="8"/>
             </StatusBarItem >
             <StatusBarItem Uid ="otcOptionTrade">
-                <Controls:LoginStatus x:Name="otcOptionTradeLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OTCOPTION_TD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OTCOPTION_TD_Unconnected}" Connected="False" OnConnButtonClick="ctpTradingLoginStatus_OnConnButtonClick" FontSize="8"/>
+                <Controls:LoginStatus x:Name="otcOptionTradeLoginStatus" ConnectedPrompt="{lex:Loc Key=Server_OTCOPTION_TD_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OTCOPTION_TD_Unconnected}" Connected="False" OnConnButtonClick="otcTradeLoginStatus_OnConnButtonClick" FontSize="8"/>
             </StatusBarItem>
             <StatusBarItem Uid ="otcOptionTradingDesk">
-                <Controls:LoginStatus x:Name="otcOptionTradingDeskStatus" ConnectedPrompt="{lex:Loc Key=Server_OTCOPTION_TRADINGDESK_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OTCOPTION_TRADINGDESK_Unconnected}" Connected="False" OnConnButtonClick="ctpMdLoginStatus_OnConnButtonClick" FontSize="8"/>
+                <Controls:LoginStatus x:Name="otcOptionTradingDeskStatus" ConnectedPrompt="{lex:Loc Key=Server_OTCOPTION_TRADINGDESK_Connected}" DisconnectedPrompt="{lex:Loc Key=Server_OTCOPTION_TRADINGDESK_Unconnected}" Connected="False" OnConnButtonClick="otcTradingDeskLoginStatus_OnConnButtonClick" FontSize="8"/>
             </StatusBarItem >
         </x:Array>
     </UserControl.Resources>

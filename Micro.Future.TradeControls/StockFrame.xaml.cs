@@ -24,9 +24,9 @@ namespace Micro.Future.UI
     {
         private AbstractSignInManager _ctpMdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPSTOCKMDHandler>());
         private AbstractSignInManager _ctpTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<CTPSTOCKTraderHandler>());
+        private AbstractSignInManager _otcStockDataSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<StockOTCOptionDataHandler>());
         private AbstractSignInManager _otcTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCStockTradeHandler>());
         private AbstractSignInManager _otcTradingDeskSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCStockTradingDeskHandler>());
-        private AbstractSignInManager _otcStockDataSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<StockOTCOptionDataHandler>());
 
         private PBSignInManager _accountSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AccountHandler>());
 
@@ -128,6 +128,12 @@ namespace Micro.Future.UI
             executionPane.Children[0].Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             tradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             positionPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            ctpLoginStatus.Prompt = "CTP证券行情未连";
+            ctpTradeLoginStatus.Prompt = "CTP证券交易未连";
+            otcStockMarketLoginStatus.Prompt = "场外证券行情未连";
+            otcStockTradeLoginStatus.Prompt = "场外证券交易未连";
+            otcStockTradingDeskStatus.Prompt = "场外证券TD未连";
+
             // Initialize Market Data
             var msgWrapper = _ctpMdSignIner.MessageWrapper;
 
@@ -151,15 +157,22 @@ namespace Micro.Future.UI
             tradeHandler.RegisterMessageWrapper(msgWrapper);
             var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKMDHandler>();
 
+            _otcTradeSignIner.OnLogged += otcStockTradeLoginStatus.OnLogged;
+            _otcTradeSignIner.OnLoginError += otcStockTradeLoginStatus.OnDisconnected;
             msgWrapper = _otcTradeSignIner.MessageWrapper;
             var otctradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradeHandler>();
             otctradeHandler.RegisterMessageWrapper(msgWrapper);
 
             _otcStockDataSignIner.OnLogged += _otcStockDataSignIner_OnLogged;
+            _otcStockDataSignIner.OnLogged += otcStockMarketLoginStatus.OnLogged;
+            _otcStockDataSignIner.OnLoginError += otcStockMarketLoginStatus.OnDisconnected;
 
             msgWrapper = _otcStockDataSignIner.MessageWrapper;
             var otcstockdataHandler = MessageHandlerContainer.DefaultInstance.Get<StockOTCOptionDataHandler>();
             otcstockdataHandler.RegisterMessageWrapper(msgWrapper);
+
+            _otcTradingDeskSignIner.OnLogged += otcStockTradingDeskStatus.OnLogged;
+            _otcTradingDeskSignIner.OnLoginError += otcStockTradingDeskStatus.OnDisconnected;
 
             msgWrapper = _otcTradingDeskSignIner.MessageWrapper;
             var otcstocktradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>();
@@ -213,14 +226,23 @@ namespace Micro.Future.UI
         {
             if (!_otcStockDataSignIner.MessageWrapper.HasSignIn)
             {
+                otcStockMarketLoginStatus.Prompt = "连OTC证券行情中";
                 _otcStockDataSignIner.SignIn();
+            }
+        }
+        private void OTCStockTradeServerLogin()
+        {
+            if (!_otcTradeSignIner.MessageWrapper.HasSignIn)
+            {
+                otcStockTradeLoginStatus.Prompt = "连OTC证券交易中";
+                _otcTradeSignIner.SignIn();
             }
         }
         private void TradingDeskServerLogin()
         {
             if (!_otcTradingDeskSignIner.MessageWrapper.HasSignIn)
             {
-                //ctpLoginStatus.Prompt = "正在连接CTP行情服务器...";
+                otcStockTradingDeskStatus.Prompt = "连证券TD中";
                 _otcTradingDeskSignIner.SignIn();
             }
         }
@@ -228,7 +250,7 @@ namespace Micro.Future.UI
         {
             if (!_ctpMdSignIner.MessageWrapper.HasSignIn)
             {
-                ctpLoginStatus.Prompt = "正在连接CTP行情服务器...";
+                ctpLoginStatus.Prompt = "连CTP证券行情中";
                 _ctpMdSignIner.SignIn();
             }
         }
@@ -241,18 +263,26 @@ namespace Micro.Future.UI
         {
             if (!_ctpTradeSignIner.MessageWrapper.HasSignIn)
             {
-                ctpTradeLoginStatus.Prompt = "正在连接CTP交易服务器...";
+                ctpTradeLoginStatus.Prompt = "连CTP证券交易中";
                 _ctpTradeSignIner.SignIn();
             }
         }
-
-
         private void ctpTradingLoginStatus_OnConnButtonClick(object sender, EventArgs e)
         {
             TradingServerLogin();
         }
-
-
+        private void otcMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)
+        {
+            OTCStockDataServerLogin();
+        }
+        private void otcTradeLoginStatus_OnConnButtonClick(object sender, EventArgs e)
+        {
+            OTCStockTradeServerLogin();
+        }
+        private void otcTradingDeskLoginStatus_OnConnButtonClick(object sender, EventArgs e)
+        {
+            TradingDeskServerLogin();
+        }
         private void _ctpTradeSignIner_OnLogged(IUserInfo obj)
         {
             _ctpTradeSignInerOnLogged();
