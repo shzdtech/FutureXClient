@@ -172,7 +172,7 @@ namespace Micro.Future.UI
         private async void _tdSignIner_OnLogged(IUserInfo obj)
         {
             _otcOptionTradeHandler.RegisterMessageWrapper(_otcOptionTradeHandler.MessageWrapper);
-            StrategyVM.MaxLimitOrder = await _otcOptionHandler.QueryMaxLimitOrderAsync();
+            //StrategyVM.MaxLimitOrder = await _otcOptionHandler.QueryMaxLimitOrderAsync();
             await _otcOptionHandler.QueryStrategyAsync();
             await _otcOptionHandler.QueryAllModelParamsAsync();
             await _otcOptionDataHandler.SyncContractInfoAsync();

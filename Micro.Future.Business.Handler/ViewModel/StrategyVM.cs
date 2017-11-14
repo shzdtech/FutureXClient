@@ -208,11 +208,21 @@ namespace Micro.Future.ViewModel
             }
         }
 
-        public static int MaxLimitOrder
+        private int _maxLimitOrder;
+        public int MaxLimitOrder
         {
-            get;
-            set;
+            get { return _maxLimitOrder; }
+            set
+            {
+                _maxLimitOrder = value;
+                OnPropertyChanged(nameof(MaxLimitOrder));
+            }
         }
+        //public static int MaxLimitOrder
+        //{
+        //    get;
+        //    set;
+        //}
 
         private int _orderCounterDirection;
         public int OrderCounterDirection

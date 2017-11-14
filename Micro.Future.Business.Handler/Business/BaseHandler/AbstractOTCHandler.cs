@@ -331,6 +331,7 @@ namespace Micro.Future.Message
             {
                 strategyVM.Hedging = strategy.Hedging;
                 strategyVM.Depth = strategy.Depth;
+                strategyVM.MaxLimitOrder = strategy.MaxLimitOrder;
                 strategyVM.BidEnabled = strategy.BidEnabled;
                 strategyVM.AskEnabled = strategy.AskEnabled;
                 strategyVM.BidQV = strategy.BidQV;
@@ -350,7 +351,7 @@ namespace Micro.Future.Message
                     strategyVM.CounterBidDirection = 1;
                 else
                     strategyVM.CounterBidDirection = -1;
-                if (strategyVM.OrderCounter >= StrategyVM.MaxLimitOrder && strategyVM.TIF == OrderTIFType.GFD && strategy.VolCond == (int)OrderVolType.ANYVOLUME)
+                if (strategyVM.OrderCounter >= strategyVM.MaxLimitOrder && strategyVM.TIF == OrderTIFType.GFD && strategy.VolCond == (int)OrderVolType.ANYVOLUME)
                     strategyVM.OrderCounterDirection = 1;
                 else
                     strategyVM.OrderCounterDirection = -1;
@@ -383,6 +384,7 @@ namespace Micro.Future.Message
             strategy.Exchange = sVM.Exchange;
             strategy.Contract = sVM.Contract;
             strategy.Symbol = sVM.StrategySym;
+            strategy.MaxLimitOrder = sVM.MaxLimitOrder;
             strategy.Depth = sVM.Depth;
             strategy.BidQV = sVM.BidQV;
             strategy.AskQV = sVM.AskQV;
@@ -644,6 +646,7 @@ namespace Micro.Future.Message
                 strategyVM.Contract = strategy.Contract;
                 strategyVM.Hedging = strategy.Hedging;
                 strategyVM.Underlying = strategy.Underlying;
+                strategyVM.MaxLimitOrder = strategy.MaxLimitOrder;
                 strategyVM.StrategySym = strategy.Symbol;
                 strategyVM.Depth = strategy.Depth;
                 strategyVM.AskEnabled = strategy.AskEnabled;

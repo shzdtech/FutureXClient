@@ -386,6 +386,8 @@ namespace Micro.Future.UI
                                 underlyingEX1.SelectedValue = futureexchange;
                                 underlyingCB1.SelectedValue = futureunderlying;
                                 underlyingContractCB1.SelectedValue = futurecontract;
+                                var contractInfo = ClientDbContext.FindContract(futurecontract);
+                                adjustment.Increment = contractInfo == null ? 1 : contractInfo.PriceTick;
                                 volModelLB.Content = volmodel;
                                 adjustment.Value = adjust;
                                 AutoOrder_CheckBox.DataContext = strategyVM;
