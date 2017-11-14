@@ -220,7 +220,7 @@ namespace Micro.Future.UI
         {
             if (!_otcOptionDataSignIner.MessageWrapper.HasSignIn)
             {
-                otcOptionMarketLoginStatus.Prompt = "连OTC期权行情中";
+                otcOptionMarketLoginStatus.Prompt = "连场外期权行情中";
                 _otcOptionDataSignIner.SignIn();
             }
         }
@@ -228,7 +228,7 @@ namespace Micro.Future.UI
         {
             if (!_otcTradeSignIner.MessageWrapper.HasSignIn)
             {
-                otcOptionTradeLoginStatus.Prompt = "连OTC期权交易中";
+                otcOptionTradeLoginStatus.Prompt = "连场外期权交易中";
                 _otcTradeSignIner.SignIn();
             }
         }

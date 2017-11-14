@@ -11,14 +11,14 @@
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
         mc:Ignorable="d"
-        Title="{lex:Loc Key=AccountStatus}" Height="100" Width="350">
+        Title="{lex:Loc Key=AccountStatus}" Height="100" Width="280">
     <DockPanel>
         <Grid>
             <StackPanel>
                 <WrapPanel>
-                    <GroupBox Header="{lex:Loc Key=MarketData}">
+                    <!--<GroupBox Header="{lex:Loc Key=MarketData}">
                         <StatusBar x:Name="optionStatusBar" MinWidth="70"/>
-                    </GroupBox>
+                    </GroupBox>-->
                     <WrapPanel>
                         <GroupBox Header="{lex:Loc Key=UserName}">
                             <TextBox x:Name="userTxt" MinWidth="70"/>

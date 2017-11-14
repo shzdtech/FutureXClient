@@ -86,11 +86,7 @@ namespace Micro.Future.UI
         public Task<bool> LoginAsync(string brokerId, string usernname, string password, string server)
         {
             var msgWrapper = _otcOptionSignIner.MessageWrapper;
-            msgWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
-
-            _otcOptionSignIner.OnLogged += OptionLoginStatus.OnLogged;
             _otcOptionSignIner.OnLoginError += _tdSignIner_OnLoginError;
-            _otcOptionSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
             _otcOptionSignIner.OnLogged += _tdSignIner_OnLogged;
 
             _otcOptionHandler.RegisterMessageWrapper(msgWrapper);
@@ -107,10 +103,7 @@ namespace Micro.Future.UI
             if (_traderexHandler.MessageWrapper == null)
             {
                 _ctpTdSignIner.OnLogged += _ctpTdSignIner_OnLogged;
-                _ctpTdSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
                 _ctpTdSignIner.OnLoginError += _tdSignIner_OnLoginError;
-                _ctpTdSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
-                _ctpTdSignIner.MessageWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
                 _traderexHandler.RegisterMessageWrapper(_ctpTdSignIner.MessageWrapper);
 
                 //TradingServerLogin();
@@ -134,7 +127,6 @@ namespace Micro.Future.UI
         {
             if (!_ctpTdSignIner.MessageWrapper.HasSignIn)
             {
-                ctpTradeLoginStatus.Prompt = "正在连接CTP交易服务器...";
                 _ctpTdSignIner.SignIn();
             }
         }
@@ -172,7 +164,6 @@ namespace Micro.Future.UI
         {
             if (!_otcOptionSignIner.MessageWrapper.HasSignIn)
             {
-                OptionLoginStatus.Prompt = "正在连接TradingDesk服务器...";
                 _otcOptionSignIner.SignIn();
             }
            else

@@ -186,7 +186,7 @@ namespace Micro.Future.UI
             if (_ctpetfMDHandler.MessageWrapper != null && _ctpetfMDHandler.MessageWrapper.HasSignIn)
             {
                 var subbedETFMD = await _ctpetfMDHandler.SubMarketDataAsync(contract);
-                if (subbedETFMD != null)
+                if (subbedETFMD != null)    
                     _marketDataList.Add(subbedETFMD);
             }
             if (_ctpstockMDHandler.MessageWrapper != null && _ctpstockMDHandler.MessageWrapper.HasSignIn)

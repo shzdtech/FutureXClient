@@ -226,7 +226,7 @@ namespace Micro.Future.UI
         {
             if (!_otcStockDataSignIner.MessageWrapper.HasSignIn)
             {
-                otcStockMarketLoginStatus.Prompt = "连OTC证券行情中";
+                otcStockMarketLoginStatus.Prompt = "连场外证券行情中";
                 _otcStockDataSignIner.SignIn();
             }
         }
@@ -234,7 +234,7 @@ namespace Micro.Future.UI
         {
             if (!_otcTradeSignIner.MessageWrapper.HasSignIn)
             {
-                otcStockTradeLoginStatus.Prompt = "连OTC证券交易中";
+                otcStockTradeLoginStatus.Prompt = "连场外证券交易中";
                 _otcTradeSignIner.SignIn();
             }
         }

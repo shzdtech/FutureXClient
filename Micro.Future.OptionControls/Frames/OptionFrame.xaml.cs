@@ -142,20 +142,14 @@ namespace Micro.Future.UI
 
             if (_mdHandler.MessageWrapper == null)
             {
-                _ctpMdSignIner.OnLogged += ctpLoginStatus.OnLogged;
                 _ctpMdSignIner.OnLoginError += _ctpMdSignIner_OnLoginError;
-                _ctpMdSignIner.OnLoginError += ctpLoginStatus.OnDisconnected;
-                _ctpMdSignIner.MessageWrapper.MessageClient.OnDisconnected += ctpLoginStatus.OnDisconnected;
                 _mdHandler.RegisterMessageWrapper(_ctpMdSignIner.MessageWrapper);
             }
 
             if (_otcOptionHandler.MessageWrapper == null)
             {
-                _otcOptionSignIner.OnLogged += OptionLoginStatus.OnLogged;
                 _otcOptionSignIner.OnLoginError += _tdSignIner_OnLoginError;
-                _otcOptionSignIner.OnLoginError += OptionLoginStatus.OnDisconnected;
                 _otcOptionSignIner.OnLogged += _tdSignIner_OnLogged;
-                _otcOptionSignIner.MessageWrapper.MessageClient.OnDisconnected += OptionLoginStatus.OnDisconnected;
                 _otcOptionHandler.RegisterMessageWrapper(_otcOptionSignIner.MessageWrapper);
             }
             if (_otcOptionDataHandler.MessageWrapper == null)
@@ -203,7 +197,6 @@ namespace Micro.Future.UI
         {
             if (!_ctpMdSignIner.MessageWrapper.HasSignIn)
             {
-                ctpLoginStatus.Prompt = "正在连接CTP行情服务器...";
                 _ctpMdSignIner.SignIn();
             }
         }
@@ -212,7 +205,6 @@ namespace Micro.Future.UI
         {
             if (!_otcOptionSignIner.MessageWrapper.HasSignIn)
             {
-                OptionLoginStatus.Prompt = "正在连接TradingDesk服务器...";
                 _otcOptionSignIner.SignIn();
             }
             else

@@ -1321,7 +1321,7 @@
     <value>Cancel</value>
   </data>
   <data name="YDPositionSync" xml:space="preserve">
-    <value>Future&amp;Option YDPositionSync</value>
+    <value>YDPositionSync</value>
   </data>
   <data name="AccountPosition" xml:space="preserve">
     <value>AccountPosition</value>

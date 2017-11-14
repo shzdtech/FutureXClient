@@ -130,8 +130,8 @@ namespace Micro.Future.UI
             positionPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             ctpLoginStatus.Prompt = "CTPETF行情未连";
             ctpTradeLoginStatus.Prompt = "CTPETF交易未连";
-            otcETFMarketLoginStatus.Prompt = "OTCETF行情未连";
-            otcETFTradeLoginStatus.Prompt = "OTCETF交易未连";
+            otcETFMarketLoginStatus.Prompt = "场外ETF行情未连";
+            otcETFTradeLoginStatus.Prompt = "场外ETF交易未连";
             otcETFTradingDeskStatus.Prompt = "ETFTD未连";
             // Initialize Market Data
             var msgWrapper = _ctpMdSignIner.MessageWrapper;
@@ -226,7 +226,7 @@ namespace Micro.Future.UI
         {
             if (!_otcETFDataSignIner.MessageWrapper.HasSignIn)
             {
-                otcETFMarketLoginStatus.Prompt = "连OTCETF行情中";
+                otcETFMarketLoginStatus.Prompt = "连场外ETF行情中";
                 _otcETFDataSignIner.SignIn();
             }
         }
@@ -234,7 +234,7 @@ namespace Micro.Future.UI
         {
             if (!_otcTradeSignIner.MessageWrapper.HasSignIn)
             {
-                otcETFTradeLoginStatus.Prompt = "连OTCETF交易中";
+                otcETFTradeLoginStatus.Prompt = "连场外ETF交易中";
                 _otcTradeSignIner.SignIn();
             }
         }
