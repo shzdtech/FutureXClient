@@ -45,6 +45,11 @@ namespace Micro.Future.UI
             get;
             set;
         }
+        public string SelectedPortfolio
+        {
+            get;
+            set;
+        }
         public ObservableCollection<PortfolioVM> PortfolioVMCollection
         {
             get;
@@ -114,6 +119,7 @@ namespace Micro.Future.UI
             if (portfolioCB.SelectedValue != null)
             {
                 var portfolio = portfolioCB.SelectedValue.ToString();
+                SelectedPortfolio = portfolioCB.SelectedValue.ToString();
                 var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
                 SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
                 var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
@@ -327,20 +333,23 @@ namespace Micro.Future.UI
         }
         public void AutoHedgeUpdate(bool autoStatus)
         {
-            string selectedPortfolio = null;
-            Dispatcher.Invoke(() => selectedPortfolio = portfolioCB.SelectedValue.ToString());
-            var selectedHedgeVM = PortfolioVMCollection.Where(c => c.Name == selectedPortfolio).Select(c => c.HedgeContractParams).FirstOrDefault();
-            SelectedContract = selectedHedgeVM.Select(c => c.Contract).FirstOrDefault();
-            var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
-            if (_handler != null)
+            //string selectedPortfolio = null;
+            //selectedPortfolio = portfolioCB.SelectedValue.ToString();
+            if (SelectedPortfolio != null)
             {
-                var portfolioVM = _handler.PortfolioVMCollection.FirstOrDefault(c => c.Name == PortfolioIndex);
-                if (portfolioVM != null)
+                var selectedHedgeVM = PortfolioVMCollection.Where(c => c.Name == SelectedPortfolio).Select(c => c.HedgeContractParams).FirstOrDefault();
+                SelectedContract = selectedHedgeVM.Select(c => c.Contract).FirstOrDefault();
+                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                if (_handler != null)
                 {
-                    lock (this)
+                    var portfolioVM = _handler.PortfolioVMCollection.FirstOrDefault(c => c.Name == PortfolioIndex);
+                    if (portfolioVM != null)
                     {
-                        portfolioVM.Hedging = autoStatus;
-                        portfolioVM.UpdatePortfolioAsync().WaitAsync();
+                        lock (this)
+                        {
+                            portfolioVM.Hedging = autoStatus;
+                            portfolioVM.UpdatePortfolioAsync().WaitAsync();
+                        }
                     }
                 }
             }

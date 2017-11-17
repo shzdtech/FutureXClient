@@ -34,7 +34,7 @@
                         </GridViewColumn>
                         <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
                         <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
-                        <GridViewColumn Header="{lex:Loc Key=AccountPosition}" DisplayMemberBinding="{Binding Position}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=SysPosition}" DisplayMemberBinding="{Binding Position}" Width="auto"/>
                         <GridViewColumn x:Name="PortfolioColumn" Header="{lex:Loc Key=Portfolio}" >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -46,7 +46,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <!--<GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>-->
-                        <GridViewColumn Header="{lex:Loc Key=SysPosition}" DisplayMemberBinding="{Binding SysPosition}" Width="auto"/>
+                        <GridViewColumn Header="{lex:Loc Key=AccountPosition}" DisplayMemberBinding="{Binding SysPosition}" Width="auto"/>
                     </GridView>
                 </ListView.View>
             </ListView>

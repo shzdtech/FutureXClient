@@ -120,9 +120,8 @@ namespace Micro.Future.UI
             }
             else
             {
-                return Task.FromResult(true);
+                signInerOnLogged();
             }
-
             return LoginTaskSource.Task;
         }
 
@@ -191,6 +190,16 @@ namespace Micro.Future.UI
             //        layoutSerializer.Deserialize(reader);
             //    }
             //}
+        }
+        private async void signInerOnLogged()
+        {
+            await _otcOptionHandler.QueryStrategyAsync();
+            await _otcOptionHandler.QueryAllModelParamsAsync();
+            await _otcOptionDataHandler.SyncContractInfoAsync();
+            optionModelCtrl.ReloadData();
+            optionModelCtrl.OpMarketDataGetContractInfo();
+            OpMarketMakerLV.GetContractInfo();
+            LoginTaskSource.TrySetResult(true);
         }
 
         private void MarketDataServerLogin()

@@ -252,7 +252,7 @@ namespace Micro.Future.Message
             }
             return quote;
         }
-        public static TradingDeskOptionVM UpdatePosition(this IEnumerable<CallPutTDOptionVM> collection, PositionVM newVM)
+        public static TradingDeskOptionVM UpdatePosition(this IEnumerable<CallPutTDOptionVM> collection, PositionVM newVM, int positionLong, int positionShort)
         {
             TradingDeskOptionVM quote = null;
             var cp = collection.FirstOrDefault((pb) => string.Compare(pb.PutOptionVM.Contract, newVM.Contract, true) == 0);
@@ -273,9 +273,15 @@ namespace Micro.Future.Message
             if (quote != null)
             {
                 if (newVM.Direction == PositionDirectionType.PD_LONG)
+                {
                     quote.LongPosition = newVM.Position;
+                    quote.ShortPosition = positionShort;
+                }
                 else if (newVM.Direction == PositionDirectionType.PD_SHORT)
+                {
                     quote.ShortPosition = newVM.Position;
+                    quote.LongPosition = positionLong;
+                }
                 quote.Position = quote.LongPosition - quote.ShortPosition;
             }
             if (cp != null)
