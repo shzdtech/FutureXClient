@@ -192,6 +192,8 @@ namespace Micro.Future.Message
                 {
                     if (positionVM != null)
                     {
+                        positionVM.TodayPosition = rsp.TdPosition;
+                        positionVM.YdPosition = rsp.YdPosition;
                         PositionVMCollection.Remove(positionVM);
                         OnPositionUpdated?.Invoke(positionVM);
                     }
