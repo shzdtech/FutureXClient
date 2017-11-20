@@ -30,6 +30,10 @@ namespace Micro.Future.UI
         {
             get;
         } = new List<ContractInfo>();
+        public List<ProductType> ProductTypeList
+        {
+            get;
+        } = new List<ProductType>();
         public ObservableCollection<PortfolioVM> Portfolio
         {
             get { return MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection; }
@@ -78,6 +82,7 @@ namespace Micro.Future.UI
             //portofolioCB.Items.Add(string.Empty);
             radioButtonBuy.IsChecked = true;
             RadioA.IsChecked = true;
+            FutureContractList.Clear();
             GetContractInfo();
             //FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
 
@@ -92,6 +97,14 @@ namespace Micro.Future.UI
             FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
             FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK));
             FastOrderContract.Provider = new SuggestionProvider((string c) => { return FutureContractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
+            //if (ProductTypeList != null)
+            //{
+            //    foreach (var producttype in ProductTypeList)
+            //    {
+            //        FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)producttype));
+            //    }
+            //    FastOrderContract.Provider = new SuggestionProvider((string c) => { return FutureContractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
+            //}
         }
 
 

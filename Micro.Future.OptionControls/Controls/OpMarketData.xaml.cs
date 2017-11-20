@@ -216,6 +216,8 @@ namespace Micro.Future.UI
 
                             }
                             contract1.SelectedValue = futurecontract;
+                            var contractInfo = ClientDbContext.FindContract(futurecontract);
+                            adjustment1.Increment = contractInfo == null ? 1 : contractInfo.PriceTick;
                             adjustment1.Value = adjust;
                             var modelVM = volModelCB.SelectedItem as ModelParamsVM;
                             if (modelVM != null)
@@ -330,6 +332,8 @@ namespace Micro.Future.UI
 
                         }
                         contract2.SelectedValue = futurecontract;
+                        var contractInfo = ClientDbContext.FindContract(futurecontract);
+                        adjustment2.Increment = contractInfo == null ? 1 : contractInfo.PriceTick;
                         adjustment2.Value = adjust;
                     }
                 }

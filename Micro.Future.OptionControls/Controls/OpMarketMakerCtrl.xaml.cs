@@ -394,6 +394,8 @@ namespace Micro.Future.UI
                                 underlyingContractCB1.SelectedValue = futurecontract;
                                 var contractInfo = ClientDbContext.FindContract(futurecontract);
                                 adjustment.Increment = contractInfo == null ? 1 : contractInfo.PriceTick;
+                                //if (contractInfo.PriceTick != 0)
+                                //    adjustment.Increment = contractInfo.PriceTick;
                                 volModelLB.Content = volmodel;
                                 adjustment.Value = adjust;
                                 AutoOrder_CheckBox.DataContext = strategyVM;
@@ -539,7 +541,7 @@ namespace Micro.Future.UI
                 var contract = _subbedContracts?.FirstOrDefault();
                 if (contract != null)
                 {
-                    if(SelectedContract!=null)
+                    if (SelectedContract != null)
                     {
                         var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                         var strategy =
@@ -865,9 +867,9 @@ namespace Micro.Future.UI
                 {
                     if (vm.CallStrategyVM != null)
                     {
-                        if(orderConditionCombo.SelectedValue!=null)
+                        if (orderConditionCombo.SelectedValue != null)
                         {
-                            if((OrderConditionType)orderConditionCombo.SelectedValue == OrderConditionType.FAK|| (OrderConditionType)orderConditionCombo.SelectedValue == OrderConditionType.FOK)
+                            if ((OrderConditionType)orderConditionCombo.SelectedValue == OrderConditionType.FAK || (OrderConditionType)orderConditionCombo.SelectedValue == OrderConditionType.FOK)
                             {
                                 vm.CallStrategyVM.UpdateStrategy(false);
                             }

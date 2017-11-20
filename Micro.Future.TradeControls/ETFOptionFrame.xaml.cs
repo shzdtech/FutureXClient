@@ -181,6 +181,8 @@ namespace Micro.Future.UI
             marketDataLV.ProductTypeList.Add(ProductType.PRODUCT_STOCK);
             FastOrderCtl.TradeHandler = tradeHandler;
             FastOrderCtl.MarketDataHandler = marketdataHandler;
+            FastOrderCtl.ProductTypeList.Add(ProductType.PRODUCT_ETFOPTION);
+            FastOrderCtl.ProductTypeList.Add(ProductType.PRODUCT_STOCK);
             FastOrderCtl.RadioC.Visibility = Visibility.Collapsed;
             executionWindow.TradeHandler = tradeHandler;
             executionWindow.MarketDataHandler = marketdataHandler;
