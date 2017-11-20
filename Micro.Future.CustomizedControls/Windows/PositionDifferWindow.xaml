@@ -15,42 +15,40 @@
         Title="{lex:Loc Key=YDPositionSync}" Height="600" Width="400">
     <Window.Resources>
         <local1:EnumToFriendlyNameConverter x:Key="enumItemsConverter"/>
-    </Window.Resources>    
-    <DockPanel>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <ListView Name="PositionListView" GridViewColumnHeader.Click="PositionListView_Click">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox Name="positionCheckBox" Checked="positionCheckBox_Checked" Unchecked="positionCheckBox_Unchecked"></CheckBox>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
-                        <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
-                        <GridViewColumn Header="{lex:Loc Key=SysPosition}" DisplayMemberBinding="{Binding Position}" Width="auto"/>
-                        <GridViewColumn x:Name="PortfolioColumn" Header="{lex:Loc Key=Portfolio}" >
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ComboBox x:Name="portfolioCB" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left"
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ListView Name="PositionListView" GridViewColumnHeader.Click="PositionListView_Click">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Name="positionCheckBox" Checked="positionCheckBox_Checked" Unchecked="positionCheckBox_Unchecked"></CheckBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=SysPosition}" DisplayMemberBinding="{Binding Position}" Width="auto"/>
+                    <GridViewColumn x:Name="PortfolioColumn" Header="{lex:Loc Key=Portfolio}" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox x:Name="portfolioCB" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left"
                                                   ItemsSource="{Binding Mode=OneWay, Path=PortfolioCollection, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                                               SelectedValuePath="Name" SelectedValue="{Binding Portfolio}" IsEnabled="{Binding Selected}">
-                                    </ComboBox>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <!--<GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>-->
-                        <GridViewColumn Header="{lex:Loc Key=AccountPosition}" DisplayMemberBinding="{Binding SysPosition}" Width="auto"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <Button x:Name="SyncButton" Grid.Row="1" Content="{lex:Loc Key=Sync}" Click="Button_Click_Add" IsDefault="True" HorizontalAlignment="Stretch"/>
-        </Grid>
-    </DockPanel>
+                                </ComboBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <!--<GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>-->
+                    <GridViewColumn Header="{lex:Loc Key=AccountPosition}" DisplayMemberBinding="{Binding SysPosition}" Width="auto"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="SyncButton" x:FieldModifier="public" Grid.Row="1" Content="{lex:Loc Key=Sync}" Click="Button_Click_Add" IsDefault="True" HorizontalAlignment="Stretch"/>
+    </Grid>
 </Window>

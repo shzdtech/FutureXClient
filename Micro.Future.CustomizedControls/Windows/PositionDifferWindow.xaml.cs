@@ -45,7 +45,6 @@ namespace Micro.Future.CustomizedControls.Windows
                 return MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
             }
         }
-
         public PositionDifferWindow()
         {
             InitializeComponent();

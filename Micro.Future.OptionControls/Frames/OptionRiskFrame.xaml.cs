@@ -276,6 +276,7 @@ namespace Micro.Future.UI
         private void MenuItem_SyncPosition_Click(object sender, RoutedEventArgs e)
         {
             PositionDifferWindow win = new PositionDifferWindow();
+            win.SyncButton.Click += AddButton_Click;
             win.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             win.TradingDeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
             win.QueryPositionDiffer();
