@@ -222,11 +222,14 @@ namespace Micro.Future.UI
             var PositionLong = 0;
             var PositionShort = 0;
             var _tradehandler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
-            var PositionVMLong = _tradehandler.PositionVMCollection.FirstOrDefault(c => c.Contract == vm.Contract && c.Direction == PositionDirectionType.PD_LONG);
-            var PositionVMShort = _tradehandler.PositionVMCollection.FirstOrDefault(c => c.Contract == vm.Contract && c.Direction == PositionDirectionType.PD_SHORT);
-            PositionLong = PositionVMLong.Position;
-            PositionShort = PositionVMShort.Position;
-            CallPutTDOptionVMCollection.UpdatePosition(vm, PositionLong, PositionShort);
+            if(_tradehandler!=null)
+            {
+                var PositionVMLong = _tradehandler.PositionVMCollection.FirstOrDefault(c => c.Contract == vm.Contract && c.Direction == PositionDirectionType.PD_LONG);
+                var PositionVMShort = _tradehandler.PositionVMCollection.FirstOrDefault(c => c.Contract == vm.Contract && c.Direction == PositionDirectionType.PD_SHORT);
+                PositionLong = PositionVMLong.Position;
+                PositionShort = PositionVMShort.Position;
+                CallPutTDOptionVMCollection.UpdatePosition(vm, PositionLong, PositionShort);
+            }
         }
         public OpMarketMakerCtrl()
         {
