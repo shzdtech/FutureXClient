@@ -166,7 +166,7 @@ namespace Micro.Future.UI
             {
                 _otcOptionSignIner.SignIn();
             }
-           else
+            else
             {
                 Reload();
             }
@@ -211,8 +211,8 @@ namespace Micro.Future.UI
             {
                 layoutSerializer.Serialize(writer);
             }
-            if(_otcOptionTradeHandler.MessageWrapper.User!=null)
-            ClientDbContext.SaveLayoutInfo(_otcOptionTradeHandler.MessageWrapper.User.Id, optionRiskDM.Uid, strBuilder.ToString());
+            if (_otcOptionTradeHandler.MessageWrapper.User != null)
+                ClientDbContext.SaveLayoutInfo(_otcOptionTradeHandler.MessageWrapper.User.Id, optionRiskDM.Uid, strBuilder.ToString());
         }
 
         public void OnClosing()
@@ -262,8 +262,17 @@ namespace Micro.Future.UI
         private void MenuItem_AddTrade_Click(object sender, RoutedEventArgs e)
         {
             AddTradeRecordWindow win = new AddTradeRecordWindow();
+            win.AddButton.Click += AddButton_Click;
             win.Show();
         }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            optionRiskGraphCtrl.ReloadDataCallback();
+            optionContractRiskGraphCtrl.ReloadDataCallback();
+            optionMatrixCtrl.ReloadDataCallback();
+        }
+
         private void MenuItem_SyncPosition_Click(object sender, RoutedEventArgs e)
         {
             PositionDifferWindow win = new PositionDifferWindow();

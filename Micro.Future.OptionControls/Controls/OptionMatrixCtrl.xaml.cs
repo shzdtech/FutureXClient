@@ -678,11 +678,14 @@ namespace Micro.Future.UI
                 PriceSize = (int)priceSizeIUP.Value;
                 var _tradehandler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                 var tradingday = _tradehandler.FundVM.TradingDay;
-                var tradingdatetime = DateTime.ParseExact(tradingday.ToString(),
-                                        "yyyyMMdd",
-                                        CultureInfo.InvariantCulture);
-                var datetime = tradingdatetime.AddDays((int)expIUP.Value);
-                LabelExpiredate.Content = datetime.ToString("yyyyMMdd");
+                if(tradingday!=0)
+                {
+                    var tradingdatetime = DateTime.ParseExact(tradingday.ToString(),
+                        "yyyyMMdd",
+                        CultureInfo.InvariantCulture);
+                    var datetime = tradingdatetime.AddDays((int)expIUP.Value);
+                    LabelExpiredate.Content = datetime.ToString("yyyyMMdd");
+                }
                 //var strikeSet = new SortedSet<double>();
                 //foreach (var vm in strategyVMList)
                 //{
