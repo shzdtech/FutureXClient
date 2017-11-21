@@ -221,12 +221,23 @@ namespace Micro.Future.UI
         {
             var PositionLong = 0;
             var PositionShort = 0;
+            //if(vm.Direction == PositionDirectionType.PD_LONG)
+            //{
+            //    PositionLong = vm.Position;
+            //}
+            //if(vm.Direction == PositionDirectionType.PD_SHORT)
+            //{
+            //    PositionShort = vm.Position;
+            //}
+            //CallPutTDOptionVMCollection.UpdatePosition(vm, PositionLong, PositionShort);
             var _tradehandler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
-            if(_tradehandler!=null)
+            if (_tradehandler != null)
             {
                 var PositionVMLong = _tradehandler.PositionVMCollection.FirstOrDefault(c => c.Contract == vm.Contract && c.Direction == PositionDirectionType.PD_LONG);
                 var PositionVMShort = _tradehandler.PositionVMCollection.FirstOrDefault(c => c.Contract == vm.Contract && c.Direction == PositionDirectionType.PD_SHORT);
+                if(PositionVMLong!=null)
                 PositionLong = PositionVMLong.Position;
+                if(PositionVMShort!=null)
                 PositionShort = PositionVMShort.Position;
                 CallPutTDOptionVMCollection.UpdatePosition(vm, PositionLong, PositionShort);
             }

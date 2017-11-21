@@ -409,8 +409,9 @@ namespace Micro.Future.UI
             AnchorablePane.Children.Clear();
             if (defaultTab != null)
                 AnchorablePane.Children.Add(defaultTab);
-
-            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, PersistanceId);
+            var accountHandler = MessageHandlerContainer.DefaultInstance.Get<AccountHandler>();
+            var filtersettings = ClientDbContext.GetFilterSettings(accountHandler.MessageWrapper.User.Id, PersistanceId);
+            //var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, PersistanceId);
             //var userId = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id;
             var userId = TradeHandler.MessageWrapper.User.Id;
             bool found = false;
@@ -420,7 +421,7 @@ namespace Micro.Future.UI
                 AnchorablePane.AddContent(executionctrl).Title = fs.Title;
                 if (fs.Id == DEFAULT_ID)
                     found = true;
-                var statuses = ClientDbContext.GetOrderStatus(userId, fs.Id);
+                var statuses = ClientDbContext.GetOrderStatus(accountHandler.MessageWrapper.User.Id, fs.Id);
                 executionctrl.FilterByStatus(statuses.Select(c => (OrderStatus)c));
                 if (statuses.Contains((int)OrderStatus.OPENED))
                 {

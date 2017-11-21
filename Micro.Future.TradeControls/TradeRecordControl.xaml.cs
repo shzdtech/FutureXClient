@@ -168,7 +168,7 @@ namespace Micro.Future.UI
             }
 
             ICollectionView view = CollectionViewSource.GetDefaultView(TradeTreeView.ItemsSource);
-            if(view!=null)
+            if (view != null)
             {
                 view.Filter = delegate (object o)
                 {
@@ -356,23 +356,22 @@ namespace Micro.Future.UI
             AnchorablePane.Children.Clear();
             if (defaultTab != null)
                 AnchorablePane.Children.Add(defaultTab);
+            var accountHandler = MessageHandlerContainer.DefaultInstance.Get<AccountHandler>();
+            var filtersettings = ClientDbContext.GetFilterSettings(accountHandler.MessageWrapper.User.Id, PersistanceId);
+            //var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler?.MessageWrapper.User.Id, PersistanceId);
+            bool found = false;
+            foreach (var fs in filtersettings)
+            {
+                var traderecordctrl = new TradeRecordControl(PersistanceId, fs.Id, TradeHandler);
+                AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
+                traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract, fs.Portfolio);
 
-                var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler?.MessageWrapper.User.Id, PersistanceId);
+                if (fs.Id == DEFAULT_ID)
+                    found = true;
+            }
 
-                bool found = false;
-
-                foreach (var fs in filtersettings)
-                {
-                    var traderecordctrl = new TradeRecordControl(PersistanceId, fs.Id, TradeHandler);
-                    AnchorablePane.AddContent(traderecordctrl).Title = fs.Title;
-                    traderecordctrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract, fs.Portfolio);
-
-                    if (fs.Id == DEFAULT_ID)
-                        found = true;
-                }
-
-                if (found)
-                    AnchorablePane.Children.Remove(defaultTab);
+            if (found)
+                AnchorablePane.Children.Remove(defaultTab);
 
         }
 
