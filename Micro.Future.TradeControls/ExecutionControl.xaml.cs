@@ -413,7 +413,7 @@ namespace Micro.Future.UI
             var filtersettings = ClientDbContext.GetFilterSettings(accountHandler.MessageWrapper.User.Id, PersistanceId);
             //var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User.Id, PersistanceId);
             //var userId = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().MessageWrapper.User.Id;
-            var userId = TradeHandler.MessageWrapper.User.Id;
+            var userId = accountHandler.MessageWrapper.User.Id;
             bool found = false;
             foreach (var fs in filtersettings)
             {
