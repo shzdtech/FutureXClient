@@ -74,7 +74,8 @@ namespace Micro.Future.UI
                     portfolioVMCollection.Add(vm);
             }
             PortfolioVMCollection = portfolioVMCollection;
-            portfolioCB.ItemsSource = PortfolioVMCollection;
+            var portfolioList = PortfolioVMCollection.Where(c=>!string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
+            portfolioCB.ItemsSource = portfolioList;
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
             options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));

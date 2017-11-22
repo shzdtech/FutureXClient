@@ -335,12 +335,11 @@ namespace Micro.Future.UI
             InitializeComponent();
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
-            portfolioCB.ItemsSource = portfolioVMCollection;
+            var portfolioList = portfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
+            portfolioCB.ItemsSource = portfolioList;
             portfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
             portfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
             PortfolioVMCollection = portfolioVMCollection;
-            var portfolioList = portfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c=>c.Name).ToList();
-            //portfolioCB.ItemsSource = portfolioList;
             //_timer = new Timer(PositionUpdateCallback, null, UpdateInterval, UpdateInterval);
             //_tradeExHandler.OnPositionUpdated += OnPositionUpdated;
             //refreshsSizeIUP.Value = 0;
