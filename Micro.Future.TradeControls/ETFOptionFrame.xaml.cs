@@ -170,6 +170,7 @@ namespace Micro.Future.UI
             otcetfdataHandler.RegisterMessageWrapper(msgWrapper);
 
             _otcTradingDeskSignIner.OnLogged += otcETFTradingDeskStatus.OnLogged;
+            _otcTradingDeskSignIner.OnLogged += _otcTradingDeskSignIner_OnLogged;
             _otcTradingDeskSignIner.OnLoginError += otcETFTradingDeskStatus.OnDisconnected;
             //msgWrapper = _otcTradingDeskSignIner.MessageWrapper;
             var otcetftradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>();
@@ -191,6 +192,10 @@ namespace Micro.Future.UI
             positionsWindow.MarketDataHandler = marketdataHandler;
         }
 
+        private void _otcTradingDeskSignIner_OnLogged(IUserInfo obj)
+        {
+            LoginTaskSource.TrySetResult(true);
+        }
 
         private async void _otcETFDataSignIner_OnLogged(IUserInfo obj)
         {
@@ -205,7 +210,7 @@ namespace Micro.Future.UI
         private async void _ctpMdSignIner_OnLogged(IUserInfo obj)
         {
             var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFMDHandler>();
-            LoginTaskSource.TrySetResult(true);
+            //LoginTaskSource.TrySetResult(true);
             await marketdataHandler.SyncContractInfoAsync();
             //marketDataLV.FilterSettingsWin.FilterId = DEFAULT_ID;
             marketDataLV.DEFAULT_ID = DEFAULT_ID;
@@ -217,12 +222,12 @@ namespace Micro.Future.UI
         private void _ctpTradeSignIner_OnLoginError(MessageException obj)
         {
             LoginTaskSource.TrySetException(obj);
-            LoginTaskSource.TrySetResult(true);
+            //LoginTaskSource.TrySetResult(true);
         }
         private void _ctpMdSignIner_OnLoginError(MessageException obj)
         {
             LoginTaskSource.TrySetException(obj);
-            LoginTaskSource.TrySetResult(true);
+            //LoginTaskSource.TrySetResult(true);
         }
         private void OTCETFDataServerLogin()
         {

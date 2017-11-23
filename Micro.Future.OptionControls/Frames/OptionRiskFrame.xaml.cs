@@ -85,31 +85,7 @@ namespace Micro.Future.UI
 
         public Task<bool> LoginAsync(string brokerId, string usernname, string password, string server)
         {
-            var msgWrapper = _otcOptionSignIner.MessageWrapper;
-            _otcOptionSignIner.OnLoginError += _tdSignIner_OnLoginError;
-            _otcOptionSignIner.OnLogged += _tdSignIner_OnLogged;
-
-            _otcOptionHandler.RegisterMessageWrapper(msgWrapper);
-            _otcOptionSignIner.SignInOptions.BrokerID = brokerId;
-            _otcOptionSignIner.SignInOptions.UserName = usernname;
-            _otcOptionSignIner.SignInOptions.Password = password;
-
-            var entries = _otcOptionSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            if (server != null && entries.Length < 2)
-                _otcOptionSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
-
-            TDServerLogin();
-
-            if (_traderexHandler.MessageWrapper == null)
-            {
-                _ctpTdSignIner.OnLogged += _ctpTdSignIner_OnLogged;
-                _ctpTdSignIner.OnLoginError += _tdSignIner_OnLoginError;
-                _traderexHandler.RegisterMessageWrapper(_ctpTdSignIner.MessageWrapper);
-
-                //TradingServerLogin();
-            }
-
-            return LoginTaskSource.Task;
+            return Task.FromResult(true);
         }
 
         public void Initialize()
@@ -137,10 +113,7 @@ namespace Micro.Future.UI
             TradingServerLogin();
         }
 
-        private void _tdSignIner_OnLoginError(MessageException obj)
-        {
-            LoginTaskSource.TrySetException(obj);
-        }
+
 
         private void _tdSignIner_OnLogged(IUserInfo obj)
         {

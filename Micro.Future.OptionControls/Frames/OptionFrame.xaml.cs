@@ -193,13 +193,13 @@ namespace Micro.Future.UI
         }
         private async void signInerOnLogged()
         {
+            LoginTaskSource.TrySetResult(true);
             await _otcOptionHandler.QueryStrategyAsync();
             await _otcOptionHandler.QueryAllModelParamsAsync();
             await _otcOptionDataHandler.SyncContractInfoAsync();
             optionModelCtrl.ReloadData();
             optionModelCtrl.OpMarketDataGetContractInfo();
-            OpMarketMakerLV.GetContractInfo();
-            LoginTaskSource.TrySetResult(true);
+            OpMarketMakerLV.GetContractInfo();         
         }
 
         private void MarketDataServerLogin()

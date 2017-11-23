@@ -163,26 +163,29 @@ namespace Micro.Future.UI
              {
                  var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
                  //await _otcOptionTradeHandler.QueryRiskAsync(portfolio);
-                 var _handler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
-                 //if (_handler != null)
-                 //{
-                 //    var riskVMlist = await _handler.QueryRiskAsync(portfolio);
-                 //    greeksControl.BindingToSource(riskVMlist);
-                 //}
-                 if(_otcoptionTradeHandler.MessageWrapper.HasSignIn)
+                 if (SelectedContract != null)
                  {
-                     var riskVMlist = await _otcoptionTradeHandler.QueryRiskAsync(portfolio);
-                     greeksControl.BindingToSource(riskVMlist);
-                 }
-                 else if(_otcetfTradeHandler.MessageWrapper.HasSignIn)
-                 {
-                     var riskVMlist = await _otcetfTradeHandler.QueryRiskAsync(portfolio);
-                     greeksControl.BindingToSource(riskVMlist);
-                 }
-                 else if(_otcstockTradeHandler.MessageWrapper.HasSignIn)
-                 {
-                     var riskVMlist = await _otcstockTradeHandler.QueryRiskAsync(portfolio);
-                     greeksControl.BindingToSource(riskVMlist);
+                     var _handler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                     //if (_handler != null)
+                     //{
+                     //    var riskVMlist = await _handler.QueryRiskAsync(portfolio);
+                     //    greeksControl.BindingToSource(riskVMlist);
+                     //}
+                     if (_otcoptionTradeHandler.MessageWrapper.HasSignIn)
+                     {
+                         var riskVMlist = await _otcoptionTradeHandler.QueryRiskAsync(portfolio);
+                         greeksControl.BindingToSource(riskVMlist);
+                     }
+                     else if (_otcetfTradeHandler.MessageWrapper.HasSignIn)
+                     {
+                         var riskVMlist = await _otcetfTradeHandler.QueryRiskAsync(portfolio);
+                         greeksControl.BindingToSource(riskVMlist);
+                     }
+                     else if (_otcstockTradeHandler.MessageWrapper.HasSignIn)
+                     {
+                         var riskVMlist = await _otcstockTradeHandler.QueryRiskAsync(portfolio);
+                         greeksControl.BindingToSource(riskVMlist);
+                     }
                  }
              });
         }
@@ -190,90 +193,109 @@ namespace Micro.Future.UI
         {
             SelectedContract = portfolioCtl.SelectedContract;
             SelectedOptionContract = portfolioCtl.SelectedOptionContract;
-            var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
-            if (portfolio != null)
+            if (SelectedContract != null)
             {
-                var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
-                var strategyVMCollection = _handler?.StrategyVMCollection;
-                var portfolioVM = _handler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
-                //var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
-                //        .Select(c => c.BaseContract).Distinct().ToList();
-                //var pricingContractList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
-                //    .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
-                //var hedgeContractList = portfolioVM.HedgeContractParams
-                //    .Select(c => c.Contract).Distinct().ToList();
-                //var mixed1ContractList = basecontractsList.Union(pricingContractList).ToList();
-                //var mixedContractList = mixed1ContractList.Union(hedgeContractList).ToList();
-                var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
-                    .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
-                var strategyPricingContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio)
-                                    .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
-                List<string> strategyUnderlyingList = new List<string>();
-                List<string> strategyUnderlyingContractList = new List<string>();
-                if (strategyPricingContractList != null)
+                var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
+                if (portfolio != null)
                 {
-                    foreach (var contract in strategyPricingContractList)
+                    var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                    var strategyVMCollection = _handler?.StrategyVMCollection;
+                    if (strategyVMCollection != null)
                     {
-                        strategyUnderlyingList.AddRange(_futurecontractList.Where(c => c.Contract == contract).Select(c => c.ProductID));
-                    }
-                }
-                var UnderlyingList = strategyUnderlyingList.Distinct();
-                if (UnderlyingList != null)
-                {
-                    foreach (var underlying in UnderlyingList)
-                    {
-                        strategyUnderlyingContractList.AddRange(_futurecontractList.Where(c => c.ProductID == underlying).Select(c => c.Contract));
-                    }
-                }
-                var contractList = strategyContractList.Union(strategyUnderlyingContractList.Select(c => new StrategyBaseVM { Contract = c }));
-                contractList = contractList.GroupBy(c => c.Contract).Select(c => c.FirstOrDefault()).ToList();
-                var selectedContract = contractList.Select(c=>c.Contract).First();
-                marketDataLV.MarketDataHandler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(selectedContract);
-                QuoteVMCollection.Clear();
-                foreach (var vm in contractList)
-                {
-                    if (!string.IsNullOrEmpty(vm.Contract))
-                    {
-                        var mktDataVM = await marketDataLV.MarketDataHandler.SubMarketDataAsync(vm.Contract);
-                        if (mktDataVM != null)
+                        var portfolioVM = _handler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
+                        //var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
+                        //        .Select(c => c.BaseContract).Distinct().ToList();
+                        //var pricingContractList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
+                        //    .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
+                        //var hedgeContractList = portfolioVM.HedgeContractParams
+                        //    .Select(c => c.Contract).Distinct().ToList();
+                        //var mixed1ContractList = basecontractsList.Union(pricingContractList).ToList();
+                        //var mixedContractList = mixed1ContractList.Union(hedgeContractList).ToList();
+                        var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
+                            .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
+                        var strategyPricingContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio)
+                                            .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
+                        List<string> strategyUnderlyingList = new List<string>();
+                        List<string> strategyUnderlyingContractList = new List<string>();
+                        if (strategyPricingContractList.Count != 0)
                         {
-                            QuoteVMCollection.Add(mktDataVM);
+                            foreach (var contract in strategyPricingContractList)
+                            {
+                                strategyUnderlyingList.AddRange(_futurecontractList.Where(c => c.Contract == contract).Select(c => c.ProductID));
+                            }
                         }
+                        var UnderlyingList = strategyUnderlyingList.Distinct();
+                        if (UnderlyingList != null)
+                        {
+                            foreach (var underlying in UnderlyingList)
+                            {
+                                strategyUnderlyingContractList.AddRange(_futurecontractList.Where(c => c.ProductID == underlying).Select(c => c.Contract));
+                            }
+                        }
+                        if (strategyContractList.Count != 0)
+                        {
+                            var contractList = strategyContractList.Union(strategyUnderlyingContractList.Select(c => new StrategyBaseVM { Contract = c }));
+                            contractList = contractList.GroupBy(c => c.Contract).Select(c => c.FirstOrDefault()).ToList();
+                            var selectedContract = contractList.Select(c => c.Contract).First();
+                            marketDataLV.MarketDataHandler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(selectedContract);
+                            QuoteVMCollection.Clear();
+                            foreach (var vm in contractList)
+                            {
+                                if (!string.IsNullOrEmpty(vm.Contract))
+                                {
+                                    var mktDataVM = await marketDataLV.MarketDataHandler.SubMarketDataAsync(vm.Contract);
+                                    if (mktDataVM != null)
+                                    {
+                                        QuoteVMCollection.Add(mktDataVM);
+                                    }
+                                }
+                            }
+                        }
+                        marketDataLV.quoteListView.ItemsSource = QuoteVMCollection;
                     }
-                }
-                marketDataLV.quoteListView.ItemsSource = QuoteVMCollection;
+                    //var _otcoptiontradehandler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedOptionContract);
+                    //if (_otcoptiontradehandler != null)
+                    //{
+                    //    var riskVMlist = await _otcoptiontradehandler.QueryRiskAsync(portfolio);
+                    //    greeksControl.BindingToSource(riskVMlist);
+                    //}
+                    if (_otcoptionTradeHandler.MessageWrapper.HasSignIn)
+                    {
+                        var riskVMlist = await _otcoptionTradeHandler.QueryRiskAsync(portfolio);
+                        greeksControl.BindingToSource(riskVMlist);
+                    }
+                    else if (_otcetfTradeHandler.MessageWrapper.HasSignIn)
+                    {
+                        var riskVMlist = await _otcetfTradeHandler.QueryRiskAsync(portfolio);
+                        greeksControl.BindingToSource(riskVMlist);
+                    }
+                    else if (_otcstockTradeHandler.MessageWrapper.HasSignIn)
+                    {
+                        var riskVMlist = await _otcstockTradeHandler.QueryRiskAsync(portfolio);
+                        greeksControl.BindingToSource(riskVMlist);
+                    }
+                    domesticPositionsWindow.FilterByPortfolio(portfolio);
+                    otcPositionsWindow.FilterByPortfolio(portfolio);
+                    domesticTradeWindow.FilterByPortfolio(portfolio);
+                    otcTradeWindow.FilterByPortfolio(portfolio);
 
-                //var _otcoptiontradehandler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedOptionContract);
-                //if (_otcoptiontradehandler != null)
-                //{
-                //    var riskVMlist = await _otcoptiontradehandler.QueryRiskAsync(portfolio);
-                //    greeksControl.BindingToSource(riskVMlist);
-                //}
-                if (_otcoptionTradeHandler.MessageWrapper.HasSignIn)
-                {
-                    var riskVMlist = await _otcoptionTradeHandler.QueryRiskAsync(portfolio);
-                    greeksControl.BindingToSource(riskVMlist);
+                    _timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
                 }
-                else if (_otcetfTradeHandler.MessageWrapper.HasSignIn)
-                {
-                    var riskVMlist = await _otcetfTradeHandler.QueryRiskAsync(portfolio);
-                    greeksControl.BindingToSource(riskVMlist);
-                }
-                else if (_otcstockTradeHandler.MessageWrapper.HasSignIn)
-                {
-                    var riskVMlist = await _otcstockTradeHandler.QueryRiskAsync(portfolio);
-                    greeksControl.BindingToSource(riskVMlist);
-                }
-                domesticPositionsWindow.FilterByPortfolio(portfolio);
-                otcPositionsWindow.FilterByPortfolio(portfolio);
-                domesticTradeWindow.FilterByPortfolio(portfolio);
-                otcTradeWindow.FilterByPortfolio(portfolio);
-
-                _timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
-
+                else
+                    ClearSource();
             }
+            else
+                ClearSource();
         }
-
+        public void ClearSource()
+        {
+            marketDataLV.quoteListView.ItemsSource = null;
+            greeksControl.RiskVMCollection.Clear();
+            domesticPositionsWindow.FilterByPortfolio(portfolioCtl.portfolioCB.SelectedValue?.ToString());
+            otcPositionsWindow.FilterByPortfolio(portfolioCtl.portfolioCB.SelectedValue?.ToString());
+            domesticTradeWindow.FilterByPortfolio(portfolioCtl.portfolioCB.SelectedValue?.ToString());
+            otcTradeWindow.FilterByPortfolio(portfolioCtl.portfolioCB.SelectedValue?.ToString());
+        }
         public void Initialize()
         {
             throw new NotImplementedException();

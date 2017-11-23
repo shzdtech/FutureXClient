@@ -96,7 +96,6 @@ namespace Micro.Future.LocalStorage
                         ContractDict[ret.Contract] = ret;
                 }
             }
-
             return ret;
         }
 

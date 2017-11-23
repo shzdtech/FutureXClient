@@ -28,7 +28,6 @@ namespace Micro.Future.UI
         private AbstractSignInManager _otcTradingDeskSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradingDeskHandler>());
         private AbstractSignInManager _otcOptionDataSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionDataHandler>());
 
-
         private PBSignInManager _accountSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<AccountHandler>());
 
         private const string DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33B";
@@ -56,12 +55,14 @@ namespace Micro.Future.UI
             entries = _ctpTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _ctpTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
-            //_otcTradingDeskSignIner.SignInOptions.BrokerID = brokerId;
-            //_otcTradingDeskSignIner.SignInOptions.UserName = usernname;
-            //_otcTradingDeskSignIner.SignInOptions.Password = password;
-            //entries = _otcTradingDeskSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            //if (server != null && entries.Length < 2)
-            //    _otcTradingDeskSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
+            //TradingDesk登录
+            _otcTradingDeskSignIner.SignInOptions.BrokerID = brokerId;
+            _otcTradingDeskSignIner.SignInOptions.UserName = usernname;
+            _otcTradingDeskSignIner.SignInOptions.Password = password;
+            entries = _otcTradingDeskSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            if (server != null && entries.Length < 2)
+                _otcTradingDeskSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
             _otcOptionDataSignIner.SignInOptions.BrokerID = brokerId;
             _otcOptionDataSignIner.SignInOptions.UserName = usernname;
@@ -73,7 +74,7 @@ namespace Micro.Future.UI
             entries = _otcTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _otcTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
-            //TradingDeskServerLogin();
+            TradingDeskServerLogin();
             MarketDataServerLogin();
             OTCOptionDataServerLogin();
             //TradingServerLogin();
@@ -191,6 +192,7 @@ namespace Micro.Future.UI
         {
             var otcoptiontradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
             otcoptiontradingdeskHandler.QueryStrategy();
+            otcoptiontradingdeskHandler.QueryPortfolio();
             await otcoptiontradingdeskHandler.QueryAllModelParamsAsync();
             var otcoptiondataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
             await otcoptiondataHandler.SyncContractInfoAsync();
@@ -200,11 +202,11 @@ namespace Micro.Future.UI
         {
             marketDataLV.DEFAULT_ID = DEFAULT_ID;
             marketDataLV.ReloadData();
-            LoginTaskSource.TrySetResult(true);
+            //LoginTaskSource.TrySetResult(true);
         }
         private void _otcTradingDeskSignIner_Onlogged(IUserInfo obj)
         {
-            
+            LoginTaskSource.TrySetResult(true);
         }
         private void _otcTradeSignIner_Onlogged(IUserInfo obj)
         {

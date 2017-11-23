@@ -172,6 +172,7 @@ namespace Micro.Future.UI
             otcstockdataHandler.RegisterMessageWrapper(msgWrapper);
 
             _otcTradingDeskSignIner.OnLogged += otcStockTradingDeskStatus.OnLogged;
+            _otcTradingDeskSignIner.OnLogged += _otcTradingDeskSignIner_OnLogged;
             _otcTradingDeskSignIner.OnLoginError += otcStockTradingDeskStatus.OnDisconnected;
 
             msgWrapper = _otcTradingDeskSignIner.MessageWrapper;
@@ -194,6 +195,11 @@ namespace Micro.Future.UI
             positionsWindow.MarketDataHandler = marketdataHandler;
         }
 
+        private void _otcTradingDeskSignIner_OnLogged(IUserInfo obj)
+        {
+            LoginTaskSource.TrySetResult(true);
+        }
+
         private async void _otcStockDataSignIner_OnLogged(IUserInfo obj)
         {
             var otcstocktradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>();
@@ -210,17 +216,17 @@ namespace Micro.Future.UI
             await tradeHandler.SyncContractInfoAsync();
             marketDataLV.DEFAULT_ID = DEFAULT_ID;
             marketDataLV.ReloadData();
-            LoginTaskSource.TrySetResult(true);
+            //LoginTaskSource.TrySetResult(true);
         }
         private void _ctpMdSignIner_OnLoggedError(MessageException obj)
         {
             LoginTaskSource.TrySetException(obj);
-            LoginTaskSource.TrySetResult(true);
+            //LoginTaskSource.TrySetResult(true);
         }
         private void _ctpTradeSignIner_OnLoginError(MessageException obj)
         {
             LoginTaskSource.TrySetException(obj);
-            LoginTaskSource.TrySetResult(true);
+            //LoginTaskSource.TrySetResult(true);
         }
 
         private void OTCStockDataServerLogin()
