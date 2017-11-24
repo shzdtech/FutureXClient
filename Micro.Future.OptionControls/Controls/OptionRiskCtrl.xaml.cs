@@ -200,7 +200,7 @@ namespace Micro.Future.UI
                 {
                     var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                     var strategyVMCollection = _handler?.StrategyVMCollection;
-                    if (strategyVMCollection != null)
+                    if (strategyVMCollection.Count != 0 && strategyVMCollection!=null)
                     {
                         var portfolioVM = _handler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
                         //var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
@@ -253,6 +253,8 @@ namespace Micro.Future.UI
                         }
                         marketDataLV.quoteListView.ItemsSource = QuoteVMCollection;
                     }
+                    else
+                        ClearSource();
                     //var _otcoptiontradehandler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedOptionContract);
                     //if (_otcoptiontradehandler != null)
                     //{

@@ -121,7 +121,7 @@ namespace Micro.Future.UI
             {
                 var portfolio = portfolioCB.SelectedValue.ToString();
                 SelectedPortfolio = portfolioCB.SelectedValue.ToString();
-                var portfolioVM = PortfolioVMCollection.FirstOrDefault(c => c.Name == SelectedPortfolio && c.HedgeContractParams!=null && c.HedgeContractParams.Count >0);
+                var portfolioVM = PortfolioVMCollection.FirstOrDefault(c => c.Name == SelectedPortfolio && c.HedgeContractParams != null && c.HedgeContractParams.Count > 0);
                 if (portfolioVM != null)
                 {
                     var hedgeVM = portfolioVM.HedgeContractParams.First();
@@ -156,7 +156,11 @@ namespace Micro.Future.UI
                                 PortfolioIndex = portfolioCB.SelectedValue.ToString();
                                 HedgeVolumeIUD.Value = 1;
                             }
+                            else
+                                clearSource();
                         }
+                        else
+                            clearSource();
                     }
                 }
                 //var mixcontractList = basecontractsList.Union(_pricingcontractList).ToList();
