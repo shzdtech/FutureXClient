@@ -163,6 +163,8 @@ namespace Micro.Future.UI
                             clearSource();
                     }
                 }
+                else
+                    clearSource();
                 //var mixcontractList = basecontractsList.Union(_pricingcontractList).ToList();
             }
         }

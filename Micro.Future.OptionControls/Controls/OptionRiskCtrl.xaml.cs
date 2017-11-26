@@ -199,59 +199,62 @@ namespace Micro.Future.UI
                 if (portfolio != null)
                 {
                     var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
-                    var strategyVMCollection = _handler?.StrategyVMCollection;
-                    if (strategyVMCollection.Count != 0 && strategyVMCollection!=null)
+                    if (_handler != null)
                     {
-                        var portfolioVM = _handler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
-                        //var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
-                        //        .Select(c => c.BaseContract).Distinct().ToList();
-                        //var pricingContractList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
-                        //    .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
-                        //var hedgeContractList = portfolioVM.HedgeContractParams
-                        //    .Select(c => c.Contract).Distinct().ToList();
-                        //var mixed1ContractList = basecontractsList.Union(pricingContractList).ToList();
-                        //var mixedContractList = mixed1ContractList.Union(hedgeContractList).ToList();
-                        var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
-                            .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
-                        var strategyPricingContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio)
-                                            .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
-                        List<string> strategyUnderlyingList = new List<string>();
-                        List<string> strategyUnderlyingContractList = new List<string>();
-                        if (strategyPricingContractList.Count != 0)
+                        var strategyVMCollection = _handler?.StrategyVMCollection;
+                        if (strategyVMCollection.Count != 0 && strategyVMCollection != null)
                         {
-                            foreach (var contract in strategyPricingContractList)
+                            var portfolioVM = _handler?.PortfolioVMCollection.FirstOrDefault(c => c.Name == portfolio);
+                            //var basecontractsList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
+                            //        .Select(c => c.BaseContract).Distinct().ToList();
+                            //var pricingContractList = strategyVMCollection.Where(c => c.Portfolio == portfolio)
+                            //    .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
+                            //var hedgeContractList = portfolioVM.HedgeContractParams
+                            //    .Select(c => c.Contract).Distinct().ToList();
+                            //var mixed1ContractList = basecontractsList.Union(pricingContractList).ToList();
+                            //var mixedContractList = mixed1ContractList.Union(hedgeContractList).ToList();
+                            var strategyContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio && !string.IsNullOrEmpty(s.BaseContract))
+                                .GroupBy(s => s.BaseContract).Select(c => new StrategyBaseVM { Contract = c.First().BaseContract, OptionContract = c.First().Contract }).ToList();
+                            var strategyPricingContractList = strategyVMCollection.Where(s => s.Portfolio == portfolio)
+                                                .SelectMany(c => c.PricingContractParams).Select(c => c.Contract).Distinct().ToList();
+                            List<string> strategyUnderlyingList = new List<string>();
+                            List<string> strategyUnderlyingContractList = new List<string>();
+                            if (strategyPricingContractList.Count != 0)
                             {
-                                strategyUnderlyingList.AddRange(_futurecontractList.Where(c => c.Contract == contract).Select(c => c.ProductID));
-                            }
-                        }
-                        var UnderlyingList = strategyUnderlyingList.Distinct();
-                        if (UnderlyingList != null)
-                        {
-                            foreach (var underlying in UnderlyingList)
-                            {
-                                strategyUnderlyingContractList.AddRange(_futurecontractList.Where(c => c.ProductID == underlying).Select(c => c.Contract));
-                            }
-                        }
-                        if (strategyContractList.Count != 0)
-                        {
-                            var contractList = strategyContractList.Union(strategyUnderlyingContractList.Select(c => new StrategyBaseVM { Contract = c }));
-                            contractList = contractList.GroupBy(c => c.Contract).Select(c => c.FirstOrDefault()).ToList();
-                            var selectedContract = contractList.Select(c => c.Contract).First();
-                            marketDataLV.MarketDataHandler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(selectedContract);
-                            QuoteVMCollection.Clear();
-                            foreach (var vm in contractList)
-                            {
-                                if (!string.IsNullOrEmpty(vm.Contract))
+                                foreach (var contract in strategyPricingContractList)
                                 {
-                                    var mktDataVM = await marketDataLV.MarketDataHandler.SubMarketDataAsync(vm.Contract);
-                                    if (mktDataVM != null)
+                                    strategyUnderlyingList.AddRange(_futurecontractList.Where(c => c.Contract == contract).Select(c => c.ProductID));
+                                }
+                            }
+                            var UnderlyingList = strategyUnderlyingList.Distinct();
+                            if (UnderlyingList != null)
+                            {
+                                foreach (var underlying in UnderlyingList)
+                                {
+                                    strategyUnderlyingContractList.AddRange(_futurecontractList.Where(c => c.ProductID == underlying).Select(c => c.Contract));
+                                }
+                            }
+                            QuoteVMCollection.Clear();
+                            if (strategyContractList.Count != 0)
+                            {
+                                var contractList = strategyContractList.Union(strategyUnderlyingContractList.Select(c => new StrategyBaseVM { Contract = c }));
+                                contractList = contractList.GroupBy(c => c.Contract).Select(c => c.FirstOrDefault()).ToList();
+                                var selectedContract = contractList.Select(c => c.Contract).First();
+                                marketDataLV.MarketDataHandler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(selectedContract);
+                                foreach (var vm in contractList)
+                                {
+                                    if (!string.IsNullOrEmpty(vm.Contract))
                                     {
-                                        QuoteVMCollection.Add(mktDataVM);
+                                        var mktDataVM = await marketDataLV.MarketDataHandler.SubMarketDataAsync(vm.Contract);
+                                        if (mktDataVM != null)
+                                        {
+                                            QuoteVMCollection.Add(mktDataVM);
+                                        }
                                     }
                                 }
                             }
+                            marketDataLV.quoteListView.ItemsSource = QuoteVMCollection;
                         }
-                        marketDataLV.quoteListView.ItemsSource = QuoteVMCollection;
                     }
                     else
                         ClearSource();
