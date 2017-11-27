@@ -143,19 +143,11 @@ namespace Micro.Future.UI
             otcTradeWindow.AnchorablePane = otcTradePane;
             otcTradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             portfolioCtl.portfolioCB.SelectionChanged += PortfolioCB_SelectionChanged;
-            domesticTradeHandler.MessageWrapper.SignInManager.OnLogged += SignInManager_OnLogged;
-            otcTradeHandler.MessageWrapper.SignInManager.OnLogged += OTCSignInManager_OnLogged;
-        }
-
-        private void OTCSignInManager_OnLogged(IUserInfo obj)
-        {
+            domesticPositionsWindow.BindingToListView(compositeTradeHandler);
             otcPositionsWindow.ReloadData();
         }
 
-        private void SignInManager_OnLogged(IUserInfo obj)
-        {
-            domesticPositionsWindow.ReloadData();
-        }
+
 
         private void ReloadDataCallback(object state)
         {

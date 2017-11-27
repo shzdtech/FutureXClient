@@ -149,14 +149,14 @@ namespace Micro.Future.UI
             Initialize();
 
             LayoutAnchorable defaultTab =
-                AnchorablePane.Children.FirstOrDefault(pane => ((PositionControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
+                AnchorablePane.Children.FirstOrDefault(pane => ((PositionCompositeControl)pane.Content).FilterSettingsWin.FilterId == DEFAULT_ID);
 
             AnchorablePane.Children.Clear();
             if (defaultTab != null)
                 AnchorablePane.Children.Add(defaultTab);
 
 
-            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User?.Id, PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(MessageHandlerContainer.DefaultInstance.Get<AccountHandler>().MessageWrapper.User?.Id, PersistanceId);
 
             bool found = false;
 
@@ -517,7 +517,11 @@ namespace Micro.Future.UI
             _ctpstockMDHandler.OnNewMarketData += OnNewMarketData;
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User?.Id;
         }
-
+        public void BindingToListView(BaseTraderHandler tradeHandler)
+        {
+            _viewSource.Source = tradeHandler.PositionVMCollection;
+            PositionListView.ItemsSource = _viewSource.View;
+        }
         public bool ShowCloseAll
         {
             set

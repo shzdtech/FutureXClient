@@ -75,14 +75,17 @@ namespace Micro.Future.UI
             if (server != null && entries.Length < 2)
                 _otcOptionDataSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
+            _otcTradeSignIner.SignInOptions.BrokerID = brokerId;
+            _otcTradeSignIner.SignInOptions.UserName = usernname;
+            _otcTradeSignIner.SignInOptions.Password = password;
             entries = _otcTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _otcTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
             TradingDeskServerLogin();
             MarketDataServerLogin();
             OTCOptionDataServerLogin();
-            //TradingServerLogin();
-
+            TradingServerLogin();
+            OTCTradeServerLogin();
             return LoginTaskSource.Task;
         }
 
@@ -262,6 +265,14 @@ namespace Micro.Future.UI
             {
                 ctpTradeLoginStatus.Prompt = "连CTP期权交易中";
                 _ctpTradeSignIner.SignIn();
+            }
+        }
+        private void OTCTradeServerLogin()
+        {
+            if (!_otcTradeSignIner.MessageWrapper.HasSignIn)
+            {
+                otcOptionTradeLoginStatus.Prompt = "连OTC期权交易中";
+                _otcTradeSignIner.SignIn();
             }
         }
         private void ctpMdLoginStatus_OnConnButtonClick(object sender, EventArgs e)

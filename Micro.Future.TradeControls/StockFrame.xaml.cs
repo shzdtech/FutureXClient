@@ -60,6 +60,10 @@ namespace Micro.Future.UI
             entries = _ctpTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _ctpTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
+            _otcTradeSignIner.SignInOptions.BrokerID = brokerId;
+            _otcTradeSignIner.SignInOptions.UserName = usernname;
+            _otcTradeSignIner.SignInOptions.Password = password;
             entries = _otcTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _otcTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
@@ -81,8 +85,8 @@ namespace Micro.Future.UI
             TradingDeskServerLogin();
             OTCStockDataServerLogin();
             MarketDataServerLogin();
-            //TradingServerLogin();
-
+            TradingServerLogin();
+            OTCTradeServerLogin();
             return LoginTaskSource.Task;
         }
 
@@ -275,6 +279,14 @@ namespace Micro.Future.UI
             {
                 ctpTradeLoginStatus.Prompt = "连CTP证券交易中";
                 _ctpTradeSignIner.SignIn();
+            }
+        }
+        private void OTCTradeServerLogin()
+        {
+            if (!_otcTradeSignIner.MessageWrapper.HasSignIn)
+            {
+                otcStockTradeLoginStatus.Prompt = "连OTC证券交易中";
+                _otcTradeSignIner.SignIn();
             }
         }
         private void ctpTradingLoginStatus_OnConnButtonClick(object sender, EventArgs e)

@@ -61,6 +61,10 @@ namespace Micro.Future.UI
             entries = _ctpTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _ctpTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
+            _otcTradeSignIner.SignInOptions.BrokerID = brokerId;
+            _otcTradeSignIner.SignInOptions.UserName = usernname;
+            _otcTradeSignIner.SignInOptions.Password = password;
             entries = _otcTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _otcTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
@@ -83,8 +87,8 @@ namespace Micro.Future.UI
             MarketDataServerLogin();
             //OTCETFDataServer和OTCETFTradingDeskServer共享登录
             OTCETFDataServerLogin();
-            //TradingServerLogin();
-
+            TradingServerLogin();
+            OTCTradeServerLogin();
             return LoginTaskSource.Task;
         }
 
@@ -281,7 +285,14 @@ namespace Micro.Future.UI
                 _ctpTradeSignIner.SignIn();
             }
         }
-
+        private void OTCTradeServerLogin()
+        {
+            if (!_otcTradeSignIner.MessageWrapper.HasSignIn)
+            {
+                otcETFTradeLoginStatus.Prompt = "连OTCETF交易中";
+                _otcTradeSignIner.SignIn();
+            }
+        }
         private void ctpTradingLoginStatus_OnConnButtonClick(object sender, EventArgs e)
         {
             TradingServerLogin();
