@@ -205,6 +205,7 @@ namespace Micro.Future.UI
             await otcetftradingdeskHandler.QueryAllModelParamsAsync();
             var otcoptiondataHandler = MessageHandlerContainer.DefaultInstance.Get<ETFOTCOptionDataHandler>();
             await otcoptiondataHandler.SyncContractInfoAsync();
+            LoginTaskSource.TrySetResult(true);
         }
 
         private async void _ctpMdSignIner_OnLogged(IUserInfo obj)
