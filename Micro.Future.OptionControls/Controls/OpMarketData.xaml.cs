@@ -346,7 +346,7 @@ namespace Micro.Future.UI
             var exchange = exchange1.SelectedItem?.ToString();
             if (exchange != null)
             {
-                var productID = (from c in _futurecontractList
+                var productID = (from c in _contractList
                                  where c.Exchange == exchange.ToString()
                                  orderby c.ProductID ascending
                                  select c.ProductID).Distinct().ToList();
@@ -361,7 +361,7 @@ namespace Micro.Future.UI
 
             if (productId != null)
             {
-                var underlyingContracts = (from c in _futurecontractList
+                var underlyingContracts = (from c in _contractList
                                            where c.ProductID == productId.ToString()
                                            orderby c.Contract ascending
                                            select c.Contract).Distinct().ToList();
@@ -413,7 +413,7 @@ namespace Micro.Future.UI
             //                 where c.Exchange == exchange.ToString()
             //                 orderby c.ProductID ascending
             //                 select c.ProductID).Distinct().ToList();
-            underlying2.ItemsSource = _futurecontractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
+            underlying2.ItemsSource = _contractList.Where(c => c.Exchange == exchange).Select(c => c.ProductID).Distinct();
             //underlying2.ItemsSource = productID;
             contract2.ItemsSource = null;
 
@@ -424,7 +424,7 @@ namespace Micro.Future.UI
 
             if (productId != null)
             {
-                var underlyingContracts = (from c in _futurecontractList
+                var underlyingContracts = (from c in _contractList
                                            where c.ProductID == productId.ToString()
                                            orderby c.Contract ascending
                                            select c.Contract).Distinct().ToList();

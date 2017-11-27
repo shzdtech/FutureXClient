@@ -764,8 +764,11 @@ namespace Micro.Future.UI
                 foreach (var vm in strategyVMList)
                 {
                     var contractinfo = ClientDbContext.FindContract(vm.Contract);
-                    if (contractinfo.ExpireDate == strategyBaseVM.Expiration)
-                        _riskSet.Add(vm.Contract);
+                    if(contractinfo!=null)
+                    {
+                        if (contractinfo.ExpireDate == strategyBaseVM.Expiration)
+                            _riskSet.Add(vm.Contract);
+                    }
                 }
                 ReloadDataCallback();
             }

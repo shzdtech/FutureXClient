@@ -52,6 +52,10 @@ namespace Micro.Future.UI
             var entries = _ctpMdSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _ctpMdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
+            _ctpTradeSignIner.SignInOptions.BrokerID = brokerId;
+            _ctpTradeSignIner.SignInOptions.UserName = usernname;
+            _ctpTradeSignIner.SignInOptions.Password = password;
             entries = _ctpTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _ctpTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
@@ -71,9 +75,6 @@ namespace Micro.Future.UI
             if (server != null && entries.Length < 2)
                 _otcOptionDataSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
-            //_otcTradeSignIner.SignInOptions.BrokerID = brokerId;
-            //_otcTradeSignIner.SignInOptions.UserName = usernname;
-            //_otcTradeSignIner.SignInOptions.Password = password;
             entries = _otcTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _otcTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];

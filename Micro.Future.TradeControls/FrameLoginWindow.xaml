@@ -11,24 +11,17 @@
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
         mc:Ignorable="d"
-        Title="{lex:Loc Key=AccountStatus}" Height="100" Width="280">
+        Title="{lex:Loc Key=AccountStatus}" Height="180" Width="280">
     <DockPanel>
         <Grid>
             <StackPanel>
-                <WrapPanel>
-                    <!--<GroupBox Header="{lex:Loc Key=MarketData}">
-                        <StatusBar x:Name="optionStatusBar" MinWidth="70"/>
-                    </GroupBox>-->
-                    <WrapPanel>
-                        <GroupBox Header="{lex:Loc Key=UserName}">
-                            <TextBox x:Name="userTxt" MinWidth="70"/>
-                        </GroupBox>
-                        <GroupBox Header="{lex:Loc Key=PassWord}">
-                            <PasswordBox x:Name="passwordTxt" MinWidth="70"/>
-                        </GroupBox>
-                        <Button Name="loginBtn" Content="{lex:Loc Key=Yes}" Click="Button_Click" Height="30" Width="60" VerticalAlignment="Bottom"></Button>
-                    </WrapPanel>
-                </WrapPanel>
+                <GroupBox Header="{lex:Loc Key=UserName}">
+                    <TextBox x:Name="userTxt" MinWidth="70"/>
+                </GroupBox>
+                <GroupBox Header="{lex:Loc Key=PassWord}">
+                    <PasswordBox x:Name="passwordTxt" MinWidth="70"/>
+                </GroupBox>
+                <Button Name="loginBtn" Content="{lex:Loc Key=Yes}" Click="Button_Click" Height="30" Width="60" VerticalAlignment="Bottom"></Button>
             </StackPanel>
         </Grid>
     </DockPanel>

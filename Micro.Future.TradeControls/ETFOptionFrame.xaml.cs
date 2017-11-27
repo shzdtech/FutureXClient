@@ -55,6 +55,9 @@ namespace Micro.Future.UI
             if (server != null && entries.Length < 2)
                 _ctpMdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
+            _ctpTradeSignIner.SignInOptions.BrokerID = brokerId;
+            _ctpTradeSignIner.SignInOptions.UserName = usernname;
+            _ctpTradeSignIner.SignInOptions.Password = password;
             entries = _ctpTradeSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (server != null && entries.Length < 2)
                 _ctpTradeSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
