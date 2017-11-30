@@ -727,7 +727,8 @@ namespace Micro.Future.UI
         private void AddSelectContractMsg(string basecontract, double price)
         {
 
-            string msg = string.Format("  Contract: {0}  Price: {1:N}  ", basecontract, price);
+            //string msg = string.Format("  Contract: {0}  Price: {1:N}  ", basecontract, price);
+            string msg = string.Format("{0} Price: {1:N} ", basecontract, price);
             selectedWrapPanel.Children.Add(new Label { Content = msg });
 
         }

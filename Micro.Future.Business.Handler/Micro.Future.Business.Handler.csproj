@@ -96,6 +96,7 @@
     <Compile Include="ViewModel\AddOrderViewModel.cs" />
     <Compile Include="ViewModel\CallPutOptionVM.cs" />
     <Compile Include="ViewModel\ContractVM.cs" />
+    <Compile Include="ViewModel\TradeDifferVM.cs" />
     <Compile Include="ViewModel\PositionDifferVM.cs" />
     <Compile Include="ViewModel\TradeInfoVM.cs" />
     <Compile Include="ViewModel\ValuationVM.cs" />

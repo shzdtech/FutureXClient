@@ -154,7 +154,6 @@ namespace Micro.Future.UI
 
             _ctpTradeSignIner.OnLogged += _ctpTradeSignIner_OnLogged;
             _ctpTradeSignIner.OnLoginError += _ctpTradeSignIner_OnLoginError;
-            _ctpTradeSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
             _ctpTradeSignIner.OnLoginError += ctpTradeLoginStatus.OnDisconnected;
             msgWrapper.MessageClient.OnDisconnected += ctpTradeLoginStatus.OnDisconnected;
 
@@ -485,6 +484,9 @@ namespace Micro.Future.UI
             FrameLoginWindow win = new FrameLoginWindow(_ctpTradeSignIner, _otcTradeSignIner);
             win.Closed += _currentLoginWindow_Closed;
             win.OnLogged += LoginWindow_OnLogged;
+            win.userTxt.Clear();
+            win.passwordTxt.Clear();
+            _ctpTradeSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;
             win.ShowDialog();
         }
     }

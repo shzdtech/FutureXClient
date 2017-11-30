@@ -97,6 +97,9 @@
     <Compile Include="Windows\FutureAccountInfo.xaml.cs">
       <DependentUpon>FutureAccountInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\TradeDifferWindow.xaml.cs">
+      <DependentUpon>TradeDifferWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\LoginStatus.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -153,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\FutureAccountInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TradeDifferWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

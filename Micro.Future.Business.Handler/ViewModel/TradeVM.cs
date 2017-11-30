@@ -70,9 +70,6 @@ namespace Micro.Future.ViewModel
             }
         }
 
-
-
-
         private TradingType _tradingType;
         public TradingType TradingType
         {

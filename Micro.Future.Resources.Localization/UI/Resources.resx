@@ -1434,4 +1434,13 @@
   <data name="YDStockPositionSync" xml:space="preserve">
     <value>证券昨仓同步</value>
   </data>
+  <data name="TradeSync" xml:space="preserve">
+    <value>成交同步</value>
+  </data>
+  <data name="SysTrade" xml:space="preserve">
+    <value>系统成交</value>
+  </data>
+  <data name="AccountTrade" xml:space="preserve">
+    <value>账户成交</value>
+  </data>
 </root>

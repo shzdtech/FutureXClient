@@ -16,10 +16,10 @@
         <Grid>
             <StackPanel>
                 <GroupBox Header="{lex:Loc Key=UserName}">
-                    <TextBox x:Name="userTxt" MinWidth="70"/>
+                    <TextBox x:Name="userTxt" x:FieldModifier="public" MinWidth="70"/>
                 </GroupBox>
                 <GroupBox Header="{lex:Loc Key=PassWord}">
-                    <PasswordBox x:Name="passwordTxt" MinWidth="70"/>
+                    <PasswordBox x:Name="passwordTxt" x:FieldModifier="public" MinWidth="70"/>
                 </GroupBox>
                 <Button Name="loginBtn" Content="{lex:Loc Key=Yes}" Click="Button_Click" Height="30" Width="60" VerticalAlignment="Bottom"></Button>
             </StackPanel>

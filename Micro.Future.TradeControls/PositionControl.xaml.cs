@@ -495,7 +495,7 @@ namespace Micro.Future.UI
             _viewSource.Source = TradeHandler.PositionVMCollection;
             PositionListView.ItemsSource = _viewSource.View;
             mColumns = ColumnObject.GetColumns(PositionListView);
-            //TradeHandler.PositionVMCollection.Clear();
+            TradeHandler.PositionVMCollection.Clear();
             TradeHandler.QueryPosition();
 
             TradeHandler.PositionVMCollection.CollectionChanged += PositionCollectionChanged;

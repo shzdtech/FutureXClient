@@ -23,10 +23,10 @@
                     <GroupBox Header="{lex:Loc Key=Trade1}">
                         <WrapPanel>
                             <GroupBox Header="{lex:Loc Key=UserName}">
-                                <TextBox x:Name="futureUserTxt"/>
+                                <TextBox x:Name="futureUserTxt" x:FieldModifier="public"/>
                             </GroupBox>
                             <GroupBox Header="{lex:Loc Key=PassWord}">
-                                <PasswordBox x:Name="futurePasswordTxt"/>
+                                <PasswordBox x:Name="futurePasswordTxt" x:FieldModifier="public"/>
                             </GroupBox>
                         </WrapPanel>
                     </GroupBox>

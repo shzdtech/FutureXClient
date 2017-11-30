@@ -9,7 +9,6 @@ using System.Windows.Input;
 
 namespace Micro.Future.ViewModel
 {
-    //报价
     public class PositionDifferVM : ContractKeyVM
     {        ///持仓多空方向
         private PositionDirectionType _direction;

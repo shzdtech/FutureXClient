@@ -1428,4 +1428,13 @@
   <data name="YDStockPositionSync" xml:space="preserve">
     <value>Stock Yesterday Settlement</value>
   </data>
+  <data name="TradeSync" xml:space="preserve">
+    <value>TradeSync</value>
+  </data>
+  <data name="SysTrade" xml:space="preserve">
+    <value>System TradeRecord</value>
+  </data>
+  <data name="AccountTrade" xml:space="preserve">
+    <value>Account TradeRecord</value>
+  </data>
 </root>

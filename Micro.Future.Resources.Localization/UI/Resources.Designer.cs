@@ -124,6 +124,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 账户成交 的本地化字符串。
+        /// </summary>
+        internal static string AccountTrade {
+            get {
+                return ResourceManager.GetString("AccountTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 是否活跃 的本地化字符串。
         /// </summary>
         internal static string Active {
@@ -3427,6 +3436,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 系统成交 的本地化字符串。
+        /// </summary>
+        internal static string SysTrade {
+            get {
+                return ResourceManager.GetString("SysTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 实际(卖价) 的本地化字符串。
         /// </summary>
         internal static string TheoAsk {
@@ -3675,6 +3693,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string TradePrice {
             get {
                 return ResourceManager.GetString("TradePrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 成交同步 的本地化字符串。
+        /// </summary>
+        internal static string TradeSync {
+            get {
+                return ResourceManager.GetString("TradeSync", resourceCulture);
             }
         }
         
