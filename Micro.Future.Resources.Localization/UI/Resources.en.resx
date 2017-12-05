@@ -1437,4 +1437,13 @@
   <data name="AccountTrade" xml:space="preserve">
     <value>Account TradeRecord</value>
   </data>
+  <data name="TradeETFSync" xml:space="preserve">
+    <value>ETF TradeSync</value>
+  </data>
+  <data name="TradeFutureSync" xml:space="preserve">
+    <value>Future&amp;Option TradeSync</value>
+  </data>
+  <data name="TradeStockSync" xml:space="preserve">
+    <value>Stock TradeSync</value>
+  </data>
 </root>

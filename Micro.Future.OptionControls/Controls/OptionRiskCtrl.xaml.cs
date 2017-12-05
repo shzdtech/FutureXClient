@@ -129,7 +129,7 @@ namespace Micro.Future.UI
             domesticPositionsWindow.TradeHandler = compositeTradeHandler;
             otcPositionsWindow.TradeHandler = otcTradeHandler;
             otcPositionsWindow.MarketDataHandler = otcmarketdataHandler;
-            domesticTradeWindow.TradeHandler = compositeTradeHandler;
+            domesticTradeWindow.TradeHandler = domesticTradeHandler;
             otcTradeWindow.TradeHandler = otcTradeHandler;
             //marketDataLV.MarketDataHandler = marketdataHandler;
             marketDataLV.AnchorablePane = quotePane;

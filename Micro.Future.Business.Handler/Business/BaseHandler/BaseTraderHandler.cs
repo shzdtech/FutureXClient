@@ -42,6 +42,10 @@ namespace Micro.Future.Message
         {
             get;
         } = new ObservableCollection<PositionDifferVM>();
+        public ObservableCollection<TradeDifferVM> TradeDifferVMCollection
+        {
+            get;
+        } = new ObservableCollection<TradeDifferVM>();
         public ObservableCollection<PositionDifferVM> PositionSyncVMCollection
         {
             get;
@@ -81,6 +85,8 @@ namespace Micro.Future.Message
                 ((uint)BusinessMessageID.MSG_ID_ORDER_UPDATE, OnUpdateOrder, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBTradeInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_TRADE, OnReturnTrade, ErrorMsgAction);
+            MessageWrapper.RegisterAction<PBTradeInfo, ExceptionMessage>
+                ((uint)BusinessMessageID.MSG_ID_QUERY_TRADE_DIFFER, OnQueryTradeDiffer, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBTradeInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_TRADE_RTN, OnReturnTrade, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
@@ -158,7 +164,35 @@ namespace Micro.Future.Message
                 }
             }
         }
+        private void OnQueryTradeDiffer(PBTradeInfo rsp)
+        {
+            var trade = new TradeDifferVM()
+            {
+                OrderID = rsp.OrderID,
+                Exchange = rsp.Exchange,
+                Contract = rsp.Contract,
+                TradeID = rsp.TradeID,
+                OrderSysID = rsp.OrderSysID,
+                Portfolio = rsp.Portfolio,
+                Direction = (DirectionType)rsp.Direction,
+                Price = rsp.Price,
+                Volume = rsp.Volume,
+                TradingType = (TradingType)rsp.TradeType,
+                TradeDate = rsp.TradeDate,
+                TradeTime = rsp.TradeTime,
+                OpenClose = (OrderOpenCloseType)rsp.Openclose,
+            };
 
+            //OnTraded?.Invoke(trade);
+
+            lock (TradeDifferVMCollection)
+            {
+                if (!TradeDifferVMCollection.Any(t => t.TradeID == rsp.TradeID))
+                {
+                    TradeDifferVMCollection.Add(trade);
+                }
+            }
+        }
         public virtual void SyncPosition(IEnumerable<PositionDifferVM> positiondiffervmList)
         {
 
@@ -170,6 +204,33 @@ namespace Micro.Future.Message
             sst.Header = new DataHeader();
             sst.Header.SerialId = NextSerialId;
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_SYNC_POSITION, sst);
+        }
+        public virtual Task<bool> SyncTradeAsync(TradeDifferVM tradediffervm)
+        {
+            var sst = new PBTradeInfo();
+            var msgId = (uint)BusinessMessageID.MSG_ID_SYNC_TRADE;
+            var tcs = new TaskCompletionSource<bool>();
+            var serialId = NextSerialId;
+            sst.Header = new DataHeader { SerialId = serialId };
+            sst.TradeID = tradediffervm.TradeID;
+            sst.OrderID = tradediffervm.OrderID;
+            MessageWrapper.RegisterAction<PBTradeInfo, ExceptionMessage>
+    (msgId,
+    (resp) =>
+    {
+        if (resp.Header?.SerialId == serialId)
+        {
+            tcs.TrySetResult(true);
+        }
+    },
+    (bizErr) =>
+    {
+        OnErrorAction(bizErr);
+        tcs.SetResult(false);
+    }
+    );
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_SYNC_TRADE, sst);
+            return tcs.Task;
         }
         private void OnQueryPosition(PBPosition rsp)
         {
@@ -425,6 +486,14 @@ namespace Micro.Future.Message
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_POSITION_DIFFER, sst);
 
         }
+        public void QueryTradeDiffer()
+        {
+            var sst = new StringMap();
+            sst.Header = new DataHeader();
+            sst.Header.SerialId = NextSerialId;
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_TRADE_DIFFER, sst);
+
+        }
         public virtual void QueryOrder()
         {
             var sst = new StringMap();
@@ -605,7 +674,6 @@ namespace Micro.Future.Message
 
             return tcs.Task;
         }
-
         private ObservableCollection<RiskVM> OnQueryRiskSuccessAction(PBRiskList rsp)
         {
             var riskList = new ObservableCollection<RiskVM>();

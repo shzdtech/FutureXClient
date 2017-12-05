@@ -273,6 +273,30 @@ namespace Micro.Future.UI
             win.QueryPositionDiffer();
             win.Show();
         }
+        private void MenuItem_TradeFutureSync_Click(object sender, RoutedEventArgs e)
+        {
+            TradeDifferWindow win = new TradeDifferWindow();
+            win.SyncButton.Click += AddButton_Click;
+            win.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            win.QueryTradeDiffer();
+            win.Show();
+        }
+        private void MenuItem_TradeETFSync_Click(object sender, RoutedEventArgs e)
+        {
+            TradeDifferWindow win = new TradeDifferWindow();
+            win.SyncButton.Click += AddButton_Click;
+            win.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFTraderHandler>();
+            win.QueryTradeDiffer();
+            win.Show();
+        }
+        private void MenuItem_TradeStockSync_Click(object sender, RoutedEventArgs e)
+        {
+            TradeDifferWindow win = new TradeDifferWindow();
+            win.SyncButton.Click += AddButton_Click;
+            win.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKTraderHandler>();
+            win.QueryTradeDiffer();
+            win.Show();
+        }
     }
 }
 

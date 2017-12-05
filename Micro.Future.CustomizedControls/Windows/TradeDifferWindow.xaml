@@ -21,13 +21,13 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ListView Name="TradeListView">
+        <ListView Name="TradeListView" GridViewColumnHeader.Click="TradeListView_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox Name="tradeCheckBox" ></CheckBox>
+                                <CheckBox Name="tradeCheckBox" Checked="tradeCheckBox_Checked" Unchecked="tradeCheckBox_Unchecked"></CheckBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -36,23 +36,14 @@
                     <GridViewColumn Header="{lex:Loc Key=OpenClose}" DisplayMemberBinding="{Binding Path=OpenClose, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=QuoteVolume}" DisplayMemberBinding="{Binding Volume}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=MatchPrice}" DisplayMemberBinding="{Binding Price}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=TradeDate}" DisplayMemberBinding="{Binding TradeDate}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=TradeTime}" DisplayMemberBinding="{Binding TradeTime}" Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=SysTrade}" Width="auto"/>
-                    <GridViewColumn x:Name="PortfolioColumn" Header="{lex:Loc Key=Portfolio}" >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <ComboBox x:Name="portfolioCB" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                  ItemsSource="{Binding Mode=OneWay, Path=PortfolioCollection, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                                              SelectedValuePath="Name" SelectedValue="{Binding Portfolio}" IsEnabled="{Binding Selected}">
-                                </ComboBox>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="{lex:Loc Key=AccountTrade}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=TradeID}" DisplayMemberBinding="{Binding TradeID}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=OrderSysID}" DisplayMemberBinding="{Binding OrderSysID}" Width="auto"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="SyncButton" x:FieldModifier="public" Grid.Row="1" Content="{lex:Loc Key=Sync}"  IsDefault="True" HorizontalAlignment="Stretch"/>
+        <Button x:Name="SyncButton" x:FieldModifier="public" Grid.Row="1" Content="{lex:Loc Key=Sync}" Click="Button_Click_Add" IsDefault="True" HorizontalAlignment="Stretch"/>
     </Grid>
 </Window>

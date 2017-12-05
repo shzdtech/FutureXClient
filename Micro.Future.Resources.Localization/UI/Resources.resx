@@ -1327,7 +1327,7 @@
     <value>取消</value>
   </data>
   <data name="YDPositionSync" xml:space="preserve">
-    <value>昨仓同步</value>
+    <value>期货期权昨仓同步</value>
   </data>
   <data name="AccountPosition" xml:space="preserve">
     <value>账户持仓</value>
@@ -1442,5 +1442,14 @@
   </data>
   <data name="AccountTrade" xml:space="preserve">
     <value>账户成交</value>
+  </data>
+  <data name="TradeETFSync" xml:space="preserve">
+    <value>ETF成交同步</value>
+  </data>
+  <data name="TradeFutureSync" xml:space="preserve">
+    <value>期货期权成交同步</value>
+  </data>
+  <data name="TradeStockSync" xml:space="preserve">
+    <value>证券成交同步</value>
   </data>
 </root>

@@ -22,9 +22,6 @@ using System.Windows.Shapes;
 
 namespace Micro.Future.CustomizedControls.Windows
 {
-    /// <summary>
-    /// Window1.xaml 的交互逻辑
-    /// </summary>
     public partial class PositionDifferWindow : Window
     {
         public BaseTraderHandler TradeHandler { get; set; }

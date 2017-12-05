@@ -3679,6 +3679,24 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 ETF成交同步 的本地化字符串。
+        /// </summary>
+        internal static string TradeETFSync {
+            get {
+                return ResourceManager.GetString("TradeETFSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 期货期权成交同步 的本地化字符串。
+        /// </summary>
+        internal static string TradeFutureSync {
+            get {
+                return ResourceManager.GetString("TradeFutureSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 成交编号 的本地化字符串。
         /// </summary>
         internal static string TradeID {
@@ -3693,6 +3711,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string TradePrice {
             get {
                 return ResourceManager.GetString("TradePrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 证券成交同步 的本地化字符串。
+        /// </summary>
+        internal static string TradeStockSync {
+            get {
+                return ResourceManager.GetString("TradeStockSync", resourceCulture);
             }
         }
         
@@ -3994,7 +4021,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 昨仓同步 的本地化字符串。
+        ///   查找类似 期货期权昨仓同步 的本地化字符串。
         /// </summary>
         internal static string YDPositionSync {
             get {
