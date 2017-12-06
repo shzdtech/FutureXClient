@@ -213,7 +213,7 @@ namespace Micro.Future.Message
             var serialId = NextSerialId;
             sst.Header = new DataHeader { SerialId = serialId };
             sst.TradeID = tradediffervm.TradeID;
-            sst.OrderID = tradediffervm.OrderID;
+            sst.OrderSysID = tradediffervm.OrderSysID;
             MessageWrapper.RegisterAction<PBTradeInfo, ExceptionMessage>
     (msgId,
     (resp) =>
