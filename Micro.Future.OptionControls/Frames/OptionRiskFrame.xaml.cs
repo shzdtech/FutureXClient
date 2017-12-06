@@ -278,6 +278,7 @@ namespace Micro.Future.UI
             TradeDifferWindow win = new TradeDifferWindow();
             win.SyncButton.Click += AddButton_Click;
             win.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            win.TradingDeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
             win.QueryTradeDiffer();
             win.Show();
         }
@@ -286,6 +287,7 @@ namespace Micro.Future.UI
             TradeDifferWindow win = new TradeDifferWindow();
             win.SyncButton.Click += AddButton_Click;
             win.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFTraderHandler>();
+            win.TradingDeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>();
             win.QueryTradeDiffer();
             win.Show();
         }
@@ -294,6 +296,7 @@ namespace Micro.Future.UI
             TradeDifferWindow win = new TradeDifferWindow();
             win.SyncButton.Click += AddButton_Click;
             win.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKTraderHandler>();
+            win.TradingDeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>();
             win.QueryTradeDiffer();
             win.Show();
         }

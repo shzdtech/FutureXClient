@@ -56,8 +56,8 @@ namespace Micro.Future.CustomizedControls.Windows
                 {
                     await TradeHandler.SyncTradeAsync(tradeDiffer);
                 }
-                TradeHandler.QueryTradeDiffer();
             }
+            QueryTradeDiffer();
         }
         private void tradeCheckBox_Checked(object sender, RoutedEventArgs e)
         {

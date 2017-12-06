@@ -213,6 +213,7 @@ namespace Micro.Future.Message
             var serialId = NextSerialId;
             sst.Header = new DataHeader { SerialId = serialId };
             sst.TradeID = tradediffervm.TradeID;
+            sst.Portfolio = tradediffervm.Portfolio;
             sst.OrderSysID = tradediffervm.OrderSysID;
             MessageWrapper.RegisterAction<PBTradeInfo, ExceptionMessage>
     (msgId,
@@ -488,11 +489,11 @@ namespace Micro.Future.Message
         }
         public void QueryTradeDiffer()
         {
+            //TradeDifferVMCollection.Clear();
             var sst = new StringMap();
             sst.Header = new DataHeader();
             sst.Header.SerialId = NextSerialId;
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_TRADE_DIFFER, sst);
-
         }
         public virtual void QueryOrder()
         {

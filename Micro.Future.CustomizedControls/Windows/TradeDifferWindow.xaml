@@ -36,7 +36,16 @@
                     <GridViewColumn Header="{lex:Loc Key=OpenClose}" DisplayMemberBinding="{Binding Path=OpenClose, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=QuoteVolume}" DisplayMemberBinding="{Binding Volume}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=MatchPrice}" DisplayMemberBinding="{Binding Price}" Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>
+                    <GridViewColumn x:Name="PortfolioColumn" Header="{lex:Loc Key=Portfolio}" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox x:Name="portfolioCB" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                  ItemsSource="{Binding Mode=OneWay, Path=PortfolioCollection, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                              SelectedValuePath="Name" SelectedValue="{Binding Portfolio}" IsEnabled="{Binding Selected}">
+                                </ComboBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="{lex:Loc Key=TradeDate}" DisplayMemberBinding="{Binding TradeDate}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=TradeTime}" DisplayMemberBinding="{Binding TradeTime}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=TradeID}" DisplayMemberBinding="{Binding TradeID}" Width="auto"/>
