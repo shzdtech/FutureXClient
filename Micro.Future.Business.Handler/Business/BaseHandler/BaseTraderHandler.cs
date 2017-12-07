@@ -489,7 +489,7 @@ namespace Micro.Future.Message
         }
         public void QueryTradeDiffer()
         {
-            //TradeDifferVMCollection.Clear();
+            TradeDifferVMCollection.Clear();
             var sst = new StringMap();
             sst.Header = new DataHeader();
             sst.Header.SerialId = NextSerialId;
