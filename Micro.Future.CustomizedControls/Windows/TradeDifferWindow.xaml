@@ -12,7 +12,7 @@
         lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
         mc:Ignorable="d"
-        Title="{lex:Loc Key=TradeSync}" Height="300" Width="300">
+        Title="{lex:Loc Key=TradeSync}" Height="300" Width="800">
     <Window.Resources>
         <local1:EnumToFriendlyNameConverter x:Key="enumItemsConverter"/>
     </Window.Resources>
@@ -21,7 +21,7 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ListView Name="TradeListView" GridViewColumnHeader.Click="TradeListView_Click">
+        <ListView Name="TradeListView" GridViewColumnHeader.Click="TradeListView_Click" Width="auto">
             <ListView.View>
                 <GridView>
                     <GridViewColumn>
