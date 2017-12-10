@@ -129,7 +129,7 @@ namespace Micro.Future.UI
             domesticPositionsWindow.TradeHandler = compositeTradeHandler;
             otcPositionsWindow.TradeHandler = otcTradeHandler;
             otcPositionsWindow.MarketDataHandler = otcmarketdataHandler;
-            //domesticTradeWindow.TradeHandler = domesticTradeHandler;
+            domesticTradeWindow.TradeHandler = compositeTradeHandler;
             otcTradeWindow.TradeHandler = otcTradeHandler;
             //marketDataLV.MarketDataHandler = marketdataHandler;
             marketDataLV.AnchorablePane = quotePane;
@@ -145,6 +145,7 @@ namespace Micro.Future.UI
             portfolioCtl.portfolioCB.SelectionChanged += PortfolioCB_SelectionChanged;
             domesticPositionsWindow.BindingToListView(compositeTradeHandler);
             otcPositionsWindow.ReloadData();
+            domesticTradeWindow.ReloadData();
         }
 
 
@@ -190,12 +191,6 @@ namespace Micro.Future.UI
                 var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
                 if (portfolio != null)
                 {
-                    var _tradehandler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
-                    if(_tradehandler!=null)
-                    {
-                        domesticTradeWindow.TradeHandler = _tradehandler;
-                        domesticTradeWindow.ReloadData();
-                    }
                     var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                     if (_handler != null)
                     {
