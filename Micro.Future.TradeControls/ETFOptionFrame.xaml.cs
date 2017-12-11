@@ -124,8 +124,8 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
-            MarketDataControl.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
-            PositionControl.OnPositionSelected += FastOrderCtl.OnPositionSelected;
+            marketDataLV.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
+            positionsWindow.OnPositionSelected += FastOrderCtl.OnPositionSelected;
             marketDataLV.AnchorablePane = quotePane;
 
             executionWindow.AnchorablePane = executionPane;
@@ -211,6 +211,7 @@ namespace Micro.Future.UI
             await otcetftradingdeskHandler.QueryAllModelParamsAsync();
             var otcoptiondataHandler = MessageHandlerContainer.DefaultInstance.Get<ETFOTCOptionDataHandler>();
             await otcoptiondataHandler.SyncContractInfoAsync();
+            FastOrderCtl.ReloadData();
             LoginTaskSource.TrySetResult(true);
         }
 

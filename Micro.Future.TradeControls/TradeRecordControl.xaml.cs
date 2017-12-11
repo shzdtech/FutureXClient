@@ -384,5 +384,10 @@ namespace Micro.Future.UI
             TradeHandler.QueryTrade();
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User?.Id;
         }
+        public void BindingToListView(BaseTraderHandler tradeHandler)
+        {
+            _viewSource.Source = tradeHandler.TradeVMCollection;
+            TradeTreeView.ItemsSource = _viewSource.View;
+        }
     }
 }

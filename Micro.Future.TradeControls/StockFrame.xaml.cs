@@ -124,8 +124,8 @@ namespace Micro.Future.UI
         {
             // Initailize UI events
 
-            MarketDataControl.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
-            PositionControl.OnPositionSelected += FastOrderCtl.OnPositionSelected;
+            marketDataLV.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
+            positionsWindow.OnPositionSelected += FastOrderCtl.OnPositionSelected;
             marketDataLV.AnchorablePane = quotePane;
 
             executionWindow.AnchorablePane = executionPane;
@@ -203,6 +203,7 @@ namespace Micro.Future.UI
 
         private void _otcTradingDeskSignIner_OnLogged(IUserInfo obj)
         {
+            FastOrderCtl.ReloadData();
             LoginTaskSource.TrySetResult(true);
         }
 

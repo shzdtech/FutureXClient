@@ -90,21 +90,25 @@ namespace Micro.Future.UI
 
             //FastOrderContract.Provider = new SuggestionProvider((string c) => { return FutureContractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
         }
+        public void ReloadData()
+        {
+            Initialize();
+        }
         public void GetContractInfo()
         {
-            FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
-            FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
-            FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
-            FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK));
-            FastOrderContract.Provider = new SuggestionProvider((string c) => { return FutureContractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
-            //if (ProductTypeList != null)
-            //{
-            //    foreach (var producttype in ProductTypeList)
-            //    {
-            //        FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)producttype));
-            //    }
-            //    FastOrderContract.Provider = new SuggestionProvider((string c) => { return FutureContractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
-            //}
+            //FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE));
+            //FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
+            //FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
+            //FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_STOCK));
+            //FastOrderContract.Provider = new SuggestionProvider((string c) => { return FutureContractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
+            if (ProductTypeList != null)
+            {
+                foreach (var producttype in ProductTypeList)
+                {
+                    FutureContractList.AddRange(ClientDbContext.GetContractFromCache((int)producttype));
+                }
+                FastOrderContract.Provider = new SuggestionProvider((string c) => { return FutureContractList.Where(ci => ci.Contract.StartsWith(c, true, null)).Select(cn => cn.Contract); });
+            }
         }
 
 

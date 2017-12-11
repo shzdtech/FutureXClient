@@ -136,7 +136,7 @@ namespace Micro.Future.UI
             Filter(tabTitle, exchange, underlying, contract, portfolio);
         }
 
-        public static event Action<PositionVM> OnPositionSelected;
+        public event Action<PositionVM> OnPositionSelected;
 
         public void ReloadData()
         {

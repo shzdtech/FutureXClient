@@ -144,8 +144,9 @@ namespace Micro.Future.UI
             otcTradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             portfolioCtl.portfolioCB.SelectionChanged += PortfolioCB_SelectionChanged;
             domesticPositionsWindow.BindingToListView(compositeTradeHandler);
+            domesticTradeWindow.BindingToListView(compositeTradeHandler);
             otcPositionsWindow.ReloadData();
-            domesticTradeWindow.ReloadData();
+            //domesticTradeWindow.ReloadData();
         }
 
 

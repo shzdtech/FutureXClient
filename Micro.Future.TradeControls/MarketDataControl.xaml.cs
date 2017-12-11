@@ -160,7 +160,7 @@ namespace Micro.Future.UI
             Filter(tabTitle, exchange, underlying, contract);
         }
 
-        public static event Action<MarketDataVM> OnQuoteSelected;
+        public event Action<MarketDataVM> OnQuoteSelected;
         private void MenuItem_Click_Delete(object sender, RoutedEventArgs e)
         {
             string userId = MarketDataHandler.MessageWrapper?.User?.Id;

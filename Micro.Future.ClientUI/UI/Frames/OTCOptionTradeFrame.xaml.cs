@@ -92,8 +92,8 @@ namespace Micro.Future.UI
         public void Initialize()
         {
             // Initailize UI events
-            MarketDataControl.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
-            PositionControl.OnPositionSelected += FastOrderCtl.OnPositionSelected;
+            marketDataLV.OnQuoteSelected += FastOrderCtl.OnQuoteSelected;
+            positionsWindow.OnPositionSelected += FastOrderCtl.OnPositionSelected;
             marketDataLV.AnchorablePane = quotePane;
             executionWindow.AnchorablePane = executionPane;
             tradeWindow.AnchorablePane = tradePane;
