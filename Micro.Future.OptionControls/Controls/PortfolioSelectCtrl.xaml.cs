@@ -124,11 +124,18 @@ namespace Micro.Future.UI
                 var portfolioVM = PortfolioVMCollection.FirstOrDefault(c => c.Name == SelectedPortfolio && c.HedgeContractParams != null && c.HedgeContractParams.Count > 0);
                 if (portfolioVM != null)
                 {
-                    var hedgeVM = portfolioVM.HedgeContractParams.First();
+                    var hedgeVM = portfolioVM.HedgeContractParams.Last();
                     SelectedContract = hedgeVM.Contract;
                     if (SelectedContract != null)
                     {
                         var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                        if (MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().MessageWrapper.HasSignIn)
+                            _handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+                        else if(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>().MessageWrapper.HasSignIn)
+                            _handler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>();
+                        else if (MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>().MessageWrapper.HasSignIn)
+                            _handler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>();
+
                         if (_handler != null)
                         {
                             var strategyVMCollection = _handler?.StrategyVMCollection;

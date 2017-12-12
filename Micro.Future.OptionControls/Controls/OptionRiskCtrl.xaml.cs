@@ -194,6 +194,12 @@ namespace Micro.Future.UI
                 if (portfolio != null)
                 {
                     var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                    if (MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().MessageWrapper.HasSignIn)
+                        _handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+                    else if (MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>().MessageWrapper.HasSignIn)
+                        _handler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>();
+                    else if (MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>().MessageWrapper.HasSignIn)
+                        _handler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>();
                     if (_handler != null)
                     {
                         var strategyVMCollection = _handler?.StrategyVMCollection;
