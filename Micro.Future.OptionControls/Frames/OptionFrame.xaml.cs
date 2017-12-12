@@ -170,6 +170,7 @@ namespace Micro.Future.UI
 
         private async void _tdSignIner_OnLogged(IUserInfo obj)
         {
+            LoginTaskSource.TrySetResult(true);
             _otcOptionTradeHandler.RegisterMessageWrapper(_otcOptionTradeHandler.MessageWrapper);
             //StrategyVM.MaxLimitOrder = await _otcOptionHandler.QueryMaxLimitOrderAsync();
             await _otcOptionHandler.QueryStrategyAsync();
@@ -178,8 +179,6 @@ namespace Micro.Future.UI
             optionModelCtrl.ReloadData();
             optionModelCtrl.OpMarketDataGetContractInfo();
             OpMarketMakerLV.GetContractInfo();
-            LoginTaskSource.TrySetResult(true);
-
             //var layoutInfo = ClientDbContext.GetLayout(_otcOptionTradeHandler.MessageWrapper.User.Id, optionDM.Uid);
             //if (layoutInfo != null)
             //{

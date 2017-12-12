@@ -187,6 +187,7 @@ namespace Micro.Future.UI
         {
             SelectedContract = portfolioCtl.SelectedContract;
             SelectedOptionContract = portfolioCtl.SelectedOptionContract;
+            QuoteVMCollection.Clear();
             if (SelectedContract != null)
             {
                 var portfolio = portfolioCtl.portfolioCB.SelectedValue?.ToString();
@@ -228,7 +229,7 @@ namespace Micro.Future.UI
                                     strategyUnderlyingContractList.AddRange(_futurecontractList.Where(c => c.ProductID == underlying).Select(c => c.Contract));
                                 }
                             }
-                            QuoteVMCollection.Clear();
+                            
                             if (strategyContractList.Count != 0)
                             {
                                 var contractList = strategyContractList.Union(strategyUnderlyingContractList.Select(c => new StrategyBaseVM { Contract = c }));

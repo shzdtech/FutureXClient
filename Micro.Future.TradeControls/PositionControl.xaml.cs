@@ -174,11 +174,11 @@ namespace Micro.Future.UI
 
             if (MarketDataHandler.MessageWrapper != null && MarketDataHandler.MessageWrapper.HasSignIn)
             {
-                //_marketDataList.Add(await MarketDataHandler.SubMarketDataAsync(contract));
-                await Task.Run(async () =>
-                 {
-                     _marketDataList.Add(await MarketDataHandler.SubMarketDataAsync(contract));
-                 });
+                _marketDataList.Add(await MarketDataHandler.SubMarketDataAsync(contract));
+                //await Task.Run(async () =>
+                // {
+                //     _marketDataList.Add(await MarketDataHandler.SubMarketDataAsync(contract));
+                // });
             }
 
 
