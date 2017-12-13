@@ -273,9 +273,15 @@ namespace Micro.Future.UI
                 var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
                 SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
                 SelectedOptionContract = OptionList.Where(c => c.UnderlyingContract == SelectedContract).Select(c => c.Contract).FirstOrDefault();
-                var _tradingdeskhandler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedOptionContract);
+                var _tradingdeskhandler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
+                if (MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().MessageWrapper.HasSignIn)
+                    _tradingdeskhandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+                else if (MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>().MessageWrapper.HasSignIn)
+                    _tradingdeskhandler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>();
+                else if (MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>().MessageWrapper.HasSignIn)
+                    _tradingdeskhandler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>();
                 var _handler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
-                var _marketdatashandler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedOptionContract);
+                var _marketdatashandler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                 var positionList = _handler?.PositionVMCollection.Where(s => s.Portfolio == portfolio).Select(s => s.Contract).Distinct();
                 var strategyVMCollection = _tradingdeskhandler?.StrategyVMCollection;
                 //var strategyVMCollection = _otcETFTradingDeskHandler?.StrategyVMCollection;

@@ -206,7 +206,8 @@ namespace Micro.Future.UI
                         }
                         AddSelectContractMsg(strategyvm.Contract, price);
                         queryvaluation.ContractParams[strategyvm.Contract] = new ValuationParam { Price = price, Volatitly = 0 };
-
+                        queryvaluation.Interest = 0;
+                        queryvaluation.DaysRemain = 0;
                     }
                 }
                 var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolio).Select(c => c.HedgeContractParams).FirstOrDefault();
