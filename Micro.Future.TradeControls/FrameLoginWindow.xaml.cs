@@ -33,6 +33,7 @@ namespace Micro.Future.CustomizedControls.Windows
         {
             get; protected set;
         }
+
         private HashEncoder<HashEncoderOption> _hashEncoder =
             new HashEncoder<HashEncoderOption>(MD5.Create(),
                (md5, byteArray) =>
@@ -58,9 +59,9 @@ namespace Micro.Future.CustomizedControls.Windows
 
             InitializeComponent();
 
-            var userInfo = signInMgr.SignInOptions;
-            userTxt.Text = userInfo.UserName;
-            passwordTxt.Password = userInfo.Password;
+            //var userInfo = signInMgr.SignInOptions;
+            //userTxt.Text = userInfo.UserName;
+            //passwordTxt.Password = userInfo.Password;
         }
         private void OnLoginError(MessageException ex)
         {
@@ -81,28 +82,28 @@ namespace Micro.Future.CustomizedControls.Windows
             string uid = userTxt.Text;
             string password = passwordTxt.Password;
             if (
-                    SignInManager.SignInOptions.UserName != uid ||
-                    SignInManager.SignInOptions.Password != password)
+                    SignInManager.SignInOptions.ExchangeUser != uid ||
+                    SignInManager.SignInOptions.ExchangePassword != password)
             {
-                SignInManager.SignInOptions.UserName = uid;
+                SignInManager.SignInOptions.ExchangeUser = uid;
                 //if (SignInManager.SignInOptions.EncryptPassword)
                 //{
                 //    _hashEncoder.Option.Iteration = MD5Round;
                 //    password = _hashEncoder.Encode(password);
                 //}
 
-                SignInManager.SignInOptions.Password = password;
+                SignInManager.SignInOptions.ExchangePassword = password;
             }
 
             SignInManager.SignIn();
 
             if (
-                    TDSignInManager.SignInOptions.UserName != uid ||
-                    TDSignInManager.SignInOptions.Password != password)
+                    TDSignInManager.SignInOptions.ExchangeUser != uid ||
+                    TDSignInManager.SignInOptions.ExchangePassword != password)
             {
-                TDSignInManager.SignInOptions.UserName = uid;
+                TDSignInManager.SignInOptions.ExchangeUser = uid;
                 
-                TDSignInManager.SignInOptions.Password = password;
+                TDSignInManager.SignInOptions.ExchangePassword = password;
             }
 
             TDSignInManager.SignIn();
