@@ -180,6 +180,21 @@ namespace Micro.Future.UI
             strategyListView.ItemsSource = null;
             hedgeListView.ItemsSource = null;
         }
+        private void OnKeyDownForColor(object sender, KeyEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                if (e.Key == Key.Enter)
+                {
+                    ctrl.Background = Brushes.White;
+                }
+                else
+                {
+                    ctrl.Background = Brushes.MistyRose;
+                }
+            }
+        }
 
         private void Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
         {

@@ -478,6 +478,50 @@ namespace Micro.Future.UI
                 }
             }
         }
+        private void OnKeyDownForColor(object sender, KeyEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                if (e.Key == Key.Enter)
+                {
+                    ctrl.Background = Brushes.White;
+                }
+                else
+                {
+                    ctrl.Background = Brushes.MistyRose;
+                }
+            }
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                if (e.Key == Key.Enter)
+                {
+
+                    StrategyVM strategyVM = ctrl.Tag as StrategyVM;
+                    if (strategyVM != null)
+                    {
+                        if (e.Key == Key.Enter)
+                            strategyVM.UpdateStrategy();
+                        else
+                        {
+                            ctrl.DataContext = null;
+                            ctrl.DataContext = strategyVM;
+                        }
+                    }
+                    ctrl.Background = Brushes.White;
+                }
+                else
+                {
+                    ctrl.Background = Brushes.MistyRose;
+                }
+            }
+        }
+
         public void TickSizeUpdate(int ticksize)
         {
             if (CallPutTDOptionVMCollection != null)
@@ -497,7 +541,6 @@ namespace Micro.Future.UI
                 }
             }
         }
-
         private void TickSizeValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var updownctrl = sender as IntegerUpDown;
@@ -609,33 +652,6 @@ namespace Micro.Future.UI
             }
         }
 
-        private void OnKeyDown(object sender, KeyEventArgs e)
-        {
-            Control ctrl = sender as Control;
-            if (ctrl != null)
-            {
-                if (e.Key == Key.Enter)
-                {
-
-                    StrategyVM strategyVM = ctrl.Tag as StrategyVM;
-                    if (strategyVM != null)
-                    {
-                        if (e.Key == Key.Enter)
-                            strategyVM.UpdateStrategy();
-                        else
-                        {
-                            ctrl.DataContext = null;
-                            ctrl.DataContext = strategyVM;
-                        }
-                    }
-                    ctrl.Background = Brushes.White;
-                }
-                else
-                {
-                    ctrl.Background = Brushes.MistyRose;
-                }
-            }
-        }
 
         private void PutBidCheckBox_Checked(object sender, RoutedEventArgs e)
         {

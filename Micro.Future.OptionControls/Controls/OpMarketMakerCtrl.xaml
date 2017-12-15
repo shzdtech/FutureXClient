@@ -46,7 +46,7 @@
                 <ComboBox x:Name="pricingModelCB" DisplayMemberPath="InstanceName" SelectionChanged="pricingModelCB_SelectionChanged" SelectedValuePath="InstanceName" Height="22"/>
             </GroupBox>
             <GroupBox x:Name="Interest" Header="{lex:Loc Key=Interest}">
-                <xctk:DoubleUpDown x:Name="riskFree_Interest" Tag="risk_free_rate" UpdateValueOnEnterKey="True" FormatString="F4" Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1" Increment="0.0001" ValueChanged="Risk_ValueChanged" Spinned="Spinned" VerticalAlignment="Center" Height="22"/>
+                <xctk:DoubleUpDown x:Name="riskFree_Interest" KeyUp="OnKeyDownForColor" Tag="risk_free_rate" UpdateValueOnEnterKey="True" FormatString="F4" Value="{Binding Path=[risk_free_rate].Value}"  Minimum="0" Maximum="1" Increment="0.0001" ValueChanged="Risk_ValueChanged" Spinned="Spinned" VerticalAlignment="Center" Height="22"/>
             </GroupBox>
             <GroupBox x:Name="Op_VolModel" Header="{lex:Loc Key=TheoVolModel}">
                 <Label x:Name="volModelLB" Content="" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -61,7 +61,7 @@
                 <ComboBox x:Name="underlyingContractCB1" SelectionChanged="underlyingContractCB1_SelectionChanged" Height="22"/>
             </GroupBox>
             <GroupBox x:Name="Adjustment" Header="{lex:Loc Key=Adjustment}">
-                <xctk:DoubleUpDown x:Name="adjustment" UpdateValueOnEnterKey="True" FormatString="F3" Minimum="-1000000" Maximum="1000000" ValueChanged="Adjustment_ValueChanged" Spinned="Spinned" Height="22"/>
+                <xctk:DoubleUpDown x:Name="adjustment" KeyUp="OnKeyDownForColor" UpdateValueOnEnterKey="True" FormatString="F3" Minimum="-1000000" Maximum="1000000" ValueChanged="Adjustment_ValueChanged" Spinned="Spinned" Height="22"/>
             </GroupBox>
 
             <ListView Name="quoteListView1">
@@ -130,10 +130,10 @@
             </GroupBox>-->
 
             <GroupBox x:Name="tickSize_GB" Header="{lex:Loc Key=TickSize}">
-                <xctk:IntegerUpDown x:Name="TickSizeIUD" UpdateValueOnEnterKey="True" Minimum="1" Value="{Binding TickSize}" Spinned="IntSpinned" ValueChanged="TickSizeValueChanged" Height="22"/>
+                <xctk:IntegerUpDown x:Name="TickSizeIUD" KeyUp="OnKeyDownForColor" UpdateValueOnEnterKey="True" Minimum="1" Value="{Binding TickSize}" Spinned="IntSpinned" ValueChanged="TickSizeValueChanged" Height="22"/>
             </GroupBox>
             <GroupBox x:Name="Counter_TxtBox" Header="{lex:Loc Key=Counter}">
-                <xctk:IntegerUpDown x:Name="CountertextBox" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding MaxAutoTrade}" Spinned="IntSpinned" ValueChanged="MaxAutoTradeValueChanged" Height="22"/>
+                <xctk:IntegerUpDown x:Name="CountertextBox" KeyUp="OnKeyDownForColor" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding MaxAutoTrade}" Spinned="IntSpinned" ValueChanged="MaxAutoTradeValueChanged" Height="22"/>
             </GroupBox>
             <GroupBox x:Name="RefreshCounter_GroupBox" Header="{lex:Loc Key=RefreshCounter}">
                 <Button x:Name="RefreshCounter_button" Content="{lex:Loc Key=Refresh}" VerticalAlignment="Center" Width="75" Click="RefreshCounter_Click"/>
@@ -186,7 +186,7 @@
                         <GridViewColumn x:Name="PAODepth" Header="{lex:Loc Key=PDepth}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <xctk:IntegerUpDown x:Name="pAODepthUpDown" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding PutStrategyVM.Depth}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" Minimum="0"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="pAODepthUpDown" UpdateValueOnEnterKey="True" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding PutStrategyVM.Depth}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" Minimum="0"></xctk:IntegerUpDown>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -200,14 +200,14 @@
                         <GridViewColumn x:Name="PBidQV" Header="{lex:Loc Key=PBidQV}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <xctk:IntegerUpDown x:Name="pBidQVTextBox" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding PutStrategyVM.BidQV}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" Minimum="0" ></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="pBidQVTextBox" UpdateValueOnEnterKey="True" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding PutStrategyVM.BidQV}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" Minimum="0" ></xctk:IntegerUpDown>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn x:Name="PAskQV" Header="{lex:Loc Key=PAskQV}" HeaderContainerStyle="{StaticResource GreenHeaderStyle}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <xctk:IntegerUpDown x:Name="pAskQVTextBox" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding PutStrategyVM.AskQV}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" Minimum="0"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="pAskQVTextBox" UpdateValueOnEnterKey="True" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding PutStrategyVM.AskQV}" KeyUp="OnKeyDown" Tag="{Binding PutStrategyVM}" Minimum="0"></xctk:IntegerUpDown>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -716,14 +716,14 @@
                         <GridViewColumn x:Name="CAskQV" Header="{lex:Loc Key=CAskQV}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <xctk:IntegerUpDown x:Name="cAskQVTextBox" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding CallStrategyVM.AskQV}" KeyUp="OnKeyDown" Tag="{Binding CallStrategyVM}" Minimum="0"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="cAskQVTextBox" UpdateValueOnEnterKey="True" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding CallStrategyVM.AskQV}" KeyUp="OnKeyDown" Tag="{Binding CallStrategyVM}" Minimum="0"></xctk:IntegerUpDown>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn x:Name="CBidQV" Header="{lex:Loc Key=CBidQV}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <xctk:IntegerUpDown x:Name="cBidQVTextBox" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding CallStrategyVM.BidQV}" KeyUp="OnKeyDown" Tag="{Binding CallStrategyVM}" Minimum="0"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="cBidQVTextBox" UpdateValueOnEnterKey="True" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding CallStrategyVM.BidQV}" KeyUp="OnKeyDown" Tag="{Binding CallStrategyVM}" Minimum="0"></xctk:IntegerUpDown>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -744,7 +744,7 @@
                         <GridViewColumn x:Name="CAODepth" Header="{lex:Loc Key=CDepth}" HeaderContainerStyle="{StaticResource RedHeaderStyle}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <xctk:IntegerUpDown x:Name="cAODepthUpDown" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding CallStrategyVM.Depth}" KeyUp="OnKeyDown" Minimum="0" Tag="{Binding CallStrategyVM}"></xctk:IntegerUpDown>
+                                <xctk:IntegerUpDown x:Name="cAODepthUpDown" UpdateValueOnEnterKey="True" Spinned="IntSpinned" ValueChanged="ValueChanged" HorizontalAlignment="Center" Value="{Binding CallStrategyVM.Depth}" KeyUp="OnKeyDown" Minimum="0" Tag="{Binding CallStrategyVM}"></xctk:IntegerUpDown>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

@@ -581,5 +581,21 @@ namespace Micro.Future.UI
                 Task.Run(() => { Task.Delay(100); Dispatcher.Invoke(() => updownctrl.CommitInput()); });
             }
         }
+        private void OnKeyDownForColor(object sender, KeyEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                if (e.Key == Key.Enter)
+                {
+                    ctrl.Background = Brushes.White;
+                }
+                else
+                {
+                    ctrl.Background = Brushes.MistyRose;
+                }
+            }
+        }
+
     }
 }

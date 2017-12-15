@@ -669,6 +669,22 @@ namespace Micro.Future.UI
                 GridViewUtility.Sort(head.Column, expirationLV.Items);
             }
         }
+        private void OnKeyDownForColor(object sender, KeyEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                if (e.Key == Key.Enter)
+                {
+                    ctrl.Background = Brushes.White;
+                }
+                else
+                {
+                    ctrl.Background = Brushes.MistyRose;
+                }
+            }
+        }
+
         //private void IntSpinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
         //{
         //    var updownctrl = sender as IntegerUpDown;

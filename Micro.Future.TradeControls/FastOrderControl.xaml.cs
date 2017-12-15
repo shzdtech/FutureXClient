@@ -452,5 +452,21 @@ namespace Micro.Future.UI
                     LimitTxt.Value = double.Parse(LabelBidPrice.Content.ToString());
             }
         }
+        private void OnKeyDownForColor(object sender, KeyEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                if (e.Key == Key.Enter)
+                {
+                    ctrl.Background = Brushes.White;
+                }
+                else
+                {
+                    ctrl.Background = Brushes.MistyRose;
+                }
+            }
+        }
+
     }
 }

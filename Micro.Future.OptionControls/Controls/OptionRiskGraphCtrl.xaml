@@ -68,7 +68,7 @@
                                 <GridViewColumn Header="{lex:Loc Key=Valuation}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <xctk:DoubleUpDown x:Name="valuationUpDown" HorizontalAlignment="Stretch" Value="{Binding Valuation}" KeyUp="OnKeyDown" Tag="{Binding Valuation}" ShowButtonSpinner="False" Width="70"></xctk:DoubleUpDown>
+                                        <xctk:DoubleUpDown x:Name="valuationUpDown" HorizontalAlignment="Stretch" Value="{Binding Valuation}" KeyUp="OnKeyDownForColor" Tag="{Binding Valuation}" ShowButtonSpinner="False" Width="70"></xctk:DoubleUpDown>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>

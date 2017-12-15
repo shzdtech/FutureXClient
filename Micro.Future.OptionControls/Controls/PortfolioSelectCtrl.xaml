@@ -44,15 +44,15 @@
                         <CheckBox Name="AutoHedge_CheckBox" IsChecked="{Binding Hedging}" Command="{Binding UpdateCommand}" Checked="AutoHedge_Checked" Unchecked="AutoHege_Unchecked" HorizontalAlignment="Center"/>
                     </GroupBox>
                     <GroupBox x:Name="hedgeOrder_GB" Header="{lex:Loc Key=HedgeVolume}">
-                        <xctk:IntegerUpDown x:Name="HedgeVolumeIUD" UpdateValueOnEnterKey="True" Minimum="1" Value="{Binding HedgeVolume}" Spinned="Spinned" ValueChanged="HedgeVolumeValueChanged"/>
+                        <xctk:IntegerUpDown x:Name="HedgeVolumeIUD" KeyUp="OnKeyDownForColor" UpdateValueOnEnterKey="True" Minimum="1" Value="{Binding HedgeVolume}" Spinned="Spinned" ValueChanged="HedgeVolumeValueChanged"/>
                     </GroupBox>
                     <GroupBox x:Name="Delay" Header="{lex:Loc Key=Delay}" Width="auto">
                         <!--<TextBox x:Name="DelayTxt" KeyUp="Delay_KeyUp" HorizontalAlignment="Left" Height="auto" TextWrapping="Wrap" Text="{Binding Delay, StringFormat={}{0:N}}" VerticalAlignment="Top" MinWidth="50"/>-->
-                        <xctk:IntegerUpDown x:Name="DelayTxt" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding Delay}" Spinned="Spinned" ValueChanged="DelayValueChanged"/>
+                        <xctk:IntegerUpDown x:Name="DelayTxt" KeyUp="OnKeyDownForColor" UpdateValueOnEnterKey="True" Minimum="0" Value="{Binding Delay}" Spinned="Spinned" ValueChanged="DelayValueChanged"/>
                     </GroupBox>
                     <GroupBox x:Name="Threshold" Header="{lex:Loc Key=Threshold}" Width="auto">
                         <!--<TextBox x:Name="ThresholdTxt"  HorizontalAlignment="Left" Height="auto" TextWrapping="Wrap" Text="{Binding Threshold, StringFormat={}{0:N}}" VerticalAlignment="Top" MinWidth="50" KeyUp="Threshold_KeyUp"/>-->
-                        <xctk:DoubleUpDown x:Name="ThresholdTxt" UpdateValueOnEnterKey="True" Minimum="0" Increment="1" Value="{Binding Threshold}" Spinned="Spinned" ValueChanged="ThresholdValueChanged"/>
+                        <xctk:DoubleUpDown x:Name="ThresholdTxt" KeyUp="OnKeyDownForColor" UpdateValueOnEnterKey="True" Minimum="0" Increment="1" Value="{Binding Threshold}" Spinned="Spinned" ValueChanged="ThresholdValueChanged"/>
                     </GroupBox>
                 </WrapPanel>
                 <!--<utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="1" Grid.Column="1" >-->
