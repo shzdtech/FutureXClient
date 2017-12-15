@@ -23,10 +23,10 @@
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=YDPositionSync}" Click="MenuItem_SyncPosition_Click">
                 </MenuItem>
-                <MenuItem Header="{lex:Loc Key=YDETFPositionSync}" Click="MenuItem_SyncETFPosition_Click">
+                <!--<MenuItem Header="{lex:Loc Key=YDETFPositionSync}" Click="MenuItem_SyncETFPosition_Click">
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=YDStockPositionSync}" Click="MenuItem_SyncStockPosition_Click">
-                </MenuItem>
+                </MenuItem>-->
                 <MenuItem Header="{lex:Loc Key=TradeFutureSync}" Click="MenuItem_TradeFutureSync_Click">
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=TradeETFSync}" Click="MenuItem_TradeETFSync_Click">

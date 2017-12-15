@@ -25,7 +25,12 @@ namespace Micro.Future.CustomizedControls.Windows
     public partial class PositionDifferWindow : Window
     {
         public BaseTraderHandler TradeHandler { get; set; }
+        public BaseTraderHandler ETFTradeHandler { get; set; }
+        public BaseTraderHandler StockTradeHandler { get; set; }
         public List<PositionDifferVM> PositionSyncList { get; } = new List<PositionDifferVM>();
+        public List<PositionDifferVM> ETFPositionSyncList { get; } = new List<PositionDifferVM>();
+        public List<PositionDifferVM> StockPositionSyncList { get; } = new List<PositionDifferVM>();
+
         public BaseTradingDeskHandler TradingDeskHandler { get; set; }
         public ObservableCollection<PortfolioVM> PortfolioCollection
         {
@@ -46,19 +51,41 @@ namespace Micro.Future.CustomizedControls.Windows
         {
             InitializeComponent();
             //TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
-                    
+
         }
         public void QueryPositionDiffer()
         {
-            if(TradeHandler!=null)
-            TradeHandler.QueryPositionDiffer();
+            if (TradeHandler != null)
+                TradeHandler.QueryPositionDiffer();
             PositionListView.ItemsSource = TradeHandler.PositionDifferVMCollection;
+            if (ETFTradeHandler != null)
+                ETFTradeHandler.QueryPositionDiffer();
+            ETFPositionListView.ItemsSource = ETFTradeHandler.PositionDifferVMCollection;
+            if (StockTradeHandler != null)
+                StockTradeHandler.QueryPositionDiffer();
+            StockPositionListView.ItemsSource = StockTradeHandler.PositionDifferVMCollection;
         }
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
             if (PositionSyncList != null)
             {
                 TradeHandler.SyncPosition(PositionSyncList);
+                Close();
+            }
+        }
+        private void ETFButton_Click_Add(object sender, RoutedEventArgs e)
+        {
+            if (ETFPositionSyncList != null)
+            {
+                ETFTradeHandler.SyncPosition(ETFPositionSyncList);
+                Close();
+            }
+        }
+        private void StockButton_Click_Add(object sender, RoutedEventArgs e)
+        {
+            if (StockPositionSyncList != null)
+            {
+                StockTradeHandler.SyncPosition(StockPositionSyncList);
                 Close();
             }
         }
@@ -71,6 +98,24 @@ namespace Micro.Future.CustomizedControls.Windows
                 PositionSyncList.Add(positionDifferVM);
             }
         }
+        private void etfpositionCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                PositionDifferVM positionDifferVM = ctrl.DataContext as PositionDifferVM;
+                ETFPositionSyncList.Add(positionDifferVM);
+            }
+        }
+        private void stockpositionCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                PositionDifferVM positionDifferVM = ctrl.DataContext as PositionDifferVM;
+                StockPositionSyncList.Add(positionDifferVM);
+            }
+        }
         private void positionCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             Control ctrl = sender as Control;
@@ -80,7 +125,24 @@ namespace Micro.Future.CustomizedControls.Windows
                 PositionSyncList.Remove(positionDifferVM);
             }
         }
-
+        private void etfpositionCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                PositionDifferVM positionDifferVM = ctrl.DataContext as PositionDifferVM;
+                ETFPositionSyncList.Remove(positionDifferVM);
+            }
+        }
+        private void stockpositionCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                PositionDifferVM positionDifferVM = ctrl.DataContext as PositionDifferVM;
+                StockPositionSyncList.Remove(positionDifferVM);
+            }
+        }
         private void PositionListView_Click(object sender, RoutedEventArgs e)
         {
             var head = e.OriginalSource as GridViewColumnHeader;
@@ -89,5 +151,22 @@ namespace Micro.Future.CustomizedControls.Windows
                 GridViewUtility.Sort(head.Column, PositionListView.Items);
             }
         }
+        private void ETFPositionListView_Click(object sender, RoutedEventArgs e)
+        {
+            var head = e.OriginalSource as GridViewColumnHeader;
+            if (head != null)
+            {
+                GridViewUtility.Sort(head.Column, ETFPositionListView.Items);
+            }
+        }
+        private void StockPositionListView_Click(object sender, RoutedEventArgs e)
+        {
+            var head = e.OriginalSource as GridViewColumnHeader;
+            if (head != null)
+            {
+                GridViewUtility.Sort(head.Column, StockPositionListView.Items);
+            }
+        }
+
     }
 }
