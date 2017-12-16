@@ -29,10 +29,10 @@
                 </MenuItem>-->
                 <MenuItem Header="{lex:Loc Key=TradeFutureSync}" Click="MenuItem_TradeFutureSync_Click">
                 </MenuItem>
-                <MenuItem Header="{lex:Loc Key=TradeETFSync}" Click="MenuItem_TradeETFSync_Click">
+                <!--<MenuItem Header="{lex:Loc Key=TradeETFSync}" Click="MenuItem_TradeETFSync_Click">
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=TradeStockSync}" Click="MenuItem_TradeStockSync_Click">
-                </MenuItem>
+                </MenuItem>-->
                 <MenuItem x:Name="refreshAll" Header="{lex:Loc Key=RefreshAll}" Click="refreshAll_Click" >
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=AddRiskAnalysisGraph}" Click="Add_RiskAnalysisGraph_Click">

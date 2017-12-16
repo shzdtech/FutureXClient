@@ -21,7 +21,13 @@ namespace Micro.Future.CustomizedControls.Windows
     public partial class TradeDifferWindow : Window
     {
         public BaseTraderHandler TradeHandler { get; set; }
+        public BaseTraderHandler ETFTradeHandler { get; set; }
+        public BaseTraderHandler StockTradeHandler { get; set; }
+
         public List<TradeDifferVM> TradeSyncList { get; } = new List<TradeDifferVM>();
+        public List<TradeDifferVM> ETFTradeSyncList { get; } = new List<TradeDifferVM>();
+        public List<TradeDifferVM> StockTradeSyncList { get; } = new List<TradeDifferVM>();
+
         public BaseTradingDeskHandler TradingDeskHandler { get; set; }
         public ObservableCollection<PortfolioVM> PortfolioCollection
         {
@@ -47,6 +53,12 @@ namespace Micro.Future.CustomizedControls.Windows
             if (TradeHandler != null)
                 TradeHandler.QueryTradeDiffer();
             TradeListView.ItemsSource = TradeHandler.TradeDifferVMCollection;
+            if (ETFTradeHandler != null)
+                ETFTradeHandler.QueryTradeDiffer();
+            ETFTradeListView.ItemsSource = ETFTradeHandler.TradeDifferVMCollection;
+            if (StockTradeHandler != null)
+                StockTradeHandler.QueryTradeDiffer();
+            StockTradeListView.ItemsSource = StockTradeHandler.TradeDifferVMCollection;
         }
         private async void Button_Click_Add(object sender, RoutedEventArgs e)
         {
@@ -55,6 +67,28 @@ namespace Micro.Future.CustomizedControls.Windows
                 foreach (var tradeDiffer in TradeSyncList)
                 {
                     await TradeHandler.SyncTradeAsync(tradeDiffer);
+                }
+            }
+            QueryTradeDiffer();
+        }
+        private async void ETFButton_Click_Add(object sender, RoutedEventArgs e)
+        {
+            if (ETFTradeSyncList != null)
+            {
+                foreach (var tradeDiffer in ETFTradeSyncList)
+                {
+                    await ETFTradeHandler.SyncTradeAsync(tradeDiffer);
+                }
+            }
+            QueryTradeDiffer();
+        }
+        private async void StockButton_Click_Add(object sender, RoutedEventArgs e)
+        {
+            if (StockTradeSyncList != null)
+            {
+                foreach (var tradeDiffer in StockTradeSyncList)
+                {
+                    await StockTradeHandler.SyncTradeAsync(tradeDiffer);
                 }
             }
             QueryTradeDiffer();
@@ -68,6 +102,24 @@ namespace Micro.Future.CustomizedControls.Windows
                 TradeSyncList.Add(tradeDifferVM);
             }
         }
+        private void etftradeCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                TradeDifferVM tradeDifferVM = ctrl.DataContext as TradeDifferVM;
+                ETFTradeSyncList.Add(tradeDifferVM);
+            }
+        }
+        private void stocktradeCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                TradeDifferVM tradeDifferVM = ctrl.DataContext as TradeDifferVM;
+                StockTradeSyncList.Add(tradeDifferVM);
+            }
+        }
         private void tradeCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             Control ctrl = sender as Control;
@@ -77,13 +129,46 @@ namespace Micro.Future.CustomizedControls.Windows
                 TradeSyncList.Remove(tradeDifferVM);
             }
         }
-
+        private void etftradeCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                TradeDifferVM tradeDifferVM = ctrl.DataContext as TradeDifferVM;
+                ETFTradeSyncList.Remove(tradeDifferVM);
+            }
+        }
+        private void stocktradeCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                TradeDifferVM tradeDifferVM = ctrl.DataContext as TradeDifferVM;
+                StockTradeSyncList.Remove(tradeDifferVM);
+            }
+        }
         private void TradeListView_Click(object sender, RoutedEventArgs e)
         {
             var head = e.OriginalSource as GridViewColumnHeader;
             if (head != null)
             {
                 GridViewUtility.Sort(head.Column, TradeListView.Items);
+            }
+        }
+        private void ETFTradeListView_Click(object sender, RoutedEventArgs e)
+        {
+            var head = e.OriginalSource as GridViewColumnHeader;
+            if (head != null)
+            {
+                GridViewUtility.Sort(head.Column, ETFTradeListView.Items);
+            }
+        }
+        private void StockTradeListView_Click(object sender, RoutedEventArgs e)
+        {
+            var head = e.OriginalSource as GridViewColumnHeader;
+            if (head != null)
+            {
+                GridViewUtility.Sort(head.Column, StockTradeListView.Items);
             }
         }
     }

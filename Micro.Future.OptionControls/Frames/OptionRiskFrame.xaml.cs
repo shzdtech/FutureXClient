@@ -282,6 +282,8 @@ namespace Micro.Future.UI
             TradeDifferWindow win = new TradeDifferWindow();
             win.SyncButton.Click += AddButton_Click;
             win.TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            win.ETFTradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFTraderHandler>();
+            win.StockTradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKTraderHandler>();
             win.TradingDeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
             win.QueryTradeDiffer();
             win.Show();
