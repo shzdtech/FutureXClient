@@ -450,7 +450,7 @@ namespace Micro.Future.UI
             Control ctrl = sender as Control;
             if (ctrl != null)
             {
-                if (e.Key == Key.Enter)
+                if (e.Key == Key.Enter || e.Key == Key.Down || e.Key == Key.Up)
                 {
 
                     //StrategyVM strategyVM = ctrl.Tag as StrategyVM;
@@ -562,7 +562,7 @@ namespace Micro.Future.UI
             Control ctrl = sender as Control;
             if (ctrl != null)
             {
-                if (e.Key == Key.Enter)
+                if (e.Key == Key.Enter || e.Key == Key.Down || e.Key == Key.Up)
                 {
                     ctrl.Background = Brushes.White;
                 }
