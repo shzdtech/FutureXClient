@@ -57,7 +57,10 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="SyncButton" x:FieldModifier="public" Grid.Row="2" Content="{lex:Loc Key=Sync}" Click="Button_Click_Add" IsDefault="True" HorizontalAlignment="Stretch"/>
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Stretch">
+            <Button x:Name="SyncButton" x:FieldModifier="public"  Content="{lex:Loc Key=Sync}" Click="Button_Click_Add" IsDefault="True" HorizontalAlignment="Stretch"/>
+            <Button x:Name="QueryButton" x:FieldModifier="public"  Content="{lex:Loc Key=Query}" Click="QueryButton_Click" IsDefault="True" HorizontalAlignment="Stretch"/>
+        </WrapPanel>
         <Label Content="ETF期权" Grid.Row="3"></Label>
         <ListView Name="ETFPositionListView" Grid.Row="4" GridViewColumnHeader.Click="ETFPositionListView_Click">
                 <ListView.View>
@@ -87,7 +90,10 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-        <Button x:Name="ETFSyncButton" x:FieldModifier="public" Grid.Row="5" Content="{lex:Loc Key=Sync}" Click="ETFButton_Click_Add" IsDefault="True" HorizontalAlignment="Stretch"/>
+        <WrapPanel Grid.Row="5" HorizontalAlignment="Stretch">
+            <Button x:Name="ETFSyncButton" x:FieldModifier="public"  Content="{lex:Loc Key=Sync}" Click="ETFButton_Click_Add" IsDefault="True" HorizontalAlignment="Stretch"/>
+            <Button x:Name="ETFQueryButton" x:FieldModifier="public"  Content="{lex:Loc Key=Query}" Click="ETFQueryButton_Click" IsDefault="True" HorizontalAlignment="Stretch"/>
+        </WrapPanel>
         <Label Content="证券" Grid.Row="6"></Label>
         <ListView Name="StockPositionListView" Grid.Row="7" GridViewColumnHeader.Click="StockPositionListView_Click">
                 <ListView.View>
@@ -117,6 +123,9 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-        <Button x:Name="StockSyncButton" x:FieldModifier="public" Grid.Row="8" Content="{lex:Loc Key=Sync}" Click="StockButton_Click_Add" IsDefault="True" HorizontalAlignment="Stretch"/>
+        <WrapPanel Grid.Row="8" HorizontalAlignment="Stretch">
+            <Button x:Name="StockSyncButton" x:FieldModifier="public" Content="{lex:Loc Key=Sync}" Click="StockButton_Click_Add" IsDefault="True" HorizontalAlignment="Stretch"/>
+            <Button x:Name="StockQueryButton" x:FieldModifier="public" Content="{lex:Loc Key=Query}" Click="StockQueryButton_Click" IsDefault="True" HorizontalAlignment="Stretch"/>
+        </WrapPanel>
     </Grid>
 </Window>

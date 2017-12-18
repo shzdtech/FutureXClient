@@ -257,6 +257,21 @@ namespace Micro.Future.UI
             win.StockTradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKTraderHandler>();
             win.TradingDeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
             win.QueryPositionDiffer();
+            if(win.TotalSysPosition==0 && win.TotalPosition!=0)
+            {
+                string msg = string.Format("大宗商品账户正在查询，请稍后重试");
+                MessageBoxResult dr = System.Windows.MessageBox.Show(msg);
+            }
+            if (win.TotalETFSysPosition == 0 && win.TotalETFPosition != 0)
+            {
+                string msg = string.Format("ETF期权账户正在查询，请稍后重试");
+                MessageBoxResult dr = System.Windows.MessageBox.Show(msg);
+            }
+            if (win.TotalStockSysPosition == 0 && win.TotalStockPosition != 0)
+            {
+                string msg = string.Format("证券账户正在查询，请稍后重试");
+                MessageBoxResult dr = System.Windows.MessageBox.Show(msg);
+            }
             win.Show();
         }
         //private void MenuItem_SyncStockPosition_Click(object sender, RoutedEventArgs e)

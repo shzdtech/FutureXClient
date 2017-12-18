@@ -2716,6 +2716,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 查询 的本地化字符串。
+        /// </summary>
+        internal static string Query {
+            get {
+                return ResourceManager.GetString("Query", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 行情 的本地化字符串。
         /// </summary>
         internal static string Quote {

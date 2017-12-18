@@ -1452,4 +1452,7 @@
   <data name="TradeStockSync" xml:space="preserve">
     <value>证券成交同步</value>
   </data>
+  <data name="Query" xml:space="preserve">
+    <value>查询</value>
+  </data>
 </root>

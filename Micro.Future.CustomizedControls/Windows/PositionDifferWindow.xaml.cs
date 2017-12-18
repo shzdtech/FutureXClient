@@ -30,7 +30,12 @@ namespace Micro.Future.CustomizedControls.Windows
         public List<PositionDifferVM> PositionSyncList { get; } = new List<PositionDifferVM>();
         public List<PositionDifferVM> ETFPositionSyncList { get; } = new List<PositionDifferVM>();
         public List<PositionDifferVM> StockPositionSyncList { get; } = new List<PositionDifferVM>();
-
+        public int TotalSysPosition { get; set; }
+        public int TotalPosition { get; set; }
+        public int TotalETFSysPosition { get; set; }
+        public int TotalETFPosition { get; set; }
+        public int TotalStockSysPosition { get; set; }
+        public int TotalStockPosition { get; set; }
         public BaseTradingDeskHandler TradingDeskHandler { get; set; }
         public ObservableCollection<PortfolioVM> PortfolioCollection
         {
@@ -53,17 +58,91 @@ namespace Micro.Future.CustomizedControls.Windows
             //TradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
 
         }
+        public void FutureQueryDiffer()
+        {
+            TotalSysPosition = 0;
+            TotalPosition = 0;
+            if (TradeHandler != null)
+            {
+                TradeHandler.QueryPositionDiffer();
+                TradeHandler.QueryPosition();
+                PositionListView.ItemsSource = TradeHandler.PositionDifferVMCollection;
+
+                foreach (var positiondiffer in TradeHandler.PositionDifferVMCollection)
+                {
+                    TotalSysPosition = TotalSysPosition + positiondiffer.SysPosition;
+                }
+                foreach (var position in TradeHandler.PositionVMCollection)
+                {
+                    TotalPosition = TotalPosition + position.Position;
+                }
+                if (TotalSysPosition == 0 && TotalPosition != 0)
+                {
+                    PositionListView.ItemsSource = null;
+                    SyncButton.IsEnabled = false;
+                }
+            }
+            else
+                SyncButton.IsEnabled = false;
+        }
+        public void ETFQueryDiffer()
+        {
+            TotalETFSysPosition = 0;
+            TotalETFPosition = 0;
+            if (ETFTradeHandler != null)
+            {
+                ETFTradeHandler.QueryPositionDiffer();
+                ETFTradeHandler.QueryPosition();
+                ETFPositionListView.ItemsSource = ETFTradeHandler.PositionDifferVMCollection;
+
+                foreach (var positiondiffer in ETFTradeHandler.PositionDifferVMCollection)
+                {
+                    TotalETFSysPosition = TotalETFSysPosition + positiondiffer.SysPosition;
+                }
+                foreach (var position in ETFTradeHandler.PositionVMCollection)
+                {
+                    TotalETFPosition = TotalETFPosition + position.Position;
+                }
+                if (TotalETFSysPosition == 0 && TotalETFPosition != 0)
+                {
+                    ETFPositionListView.ItemsSource = null;
+                    ETFSyncButton.IsEnabled = false;
+                }
+            }
+            ETFSyncButton.IsEnabled = false;
+        }
+        public void StockQueryDiffer()
+        {
+            TotalStockPosition = 0;
+            TotalStockSysPosition = 0;
+            if (StockTradeHandler != null)
+            {
+                StockTradeHandler.QueryPositionDiffer();
+                StockTradeHandler.QueryPosition();
+                StockPositionListView.ItemsSource = StockTradeHandler.PositionDifferVMCollection;
+
+                foreach (var positiondiffer in StockTradeHandler.PositionDifferVMCollection)
+                {
+                    TotalStockSysPosition = TotalStockSysPosition + positiondiffer.SysPosition;
+                }
+                foreach (var position in StockTradeHandler.PositionVMCollection)
+                {
+                    TotalStockPosition = TotalStockPosition + position.Position;
+                }
+                if (TotalStockSysPosition == 0 && TotalStockPosition != 0)
+                {
+                    StockPositionListView.ItemsSource = null;
+                    StockSyncButton.IsEnabled = false;
+                }
+            }
+            StockSyncButton.IsEnabled = false;
+        }
+
         public void QueryPositionDiffer()
         {
-            if (TradeHandler != null)
-                TradeHandler.QueryPositionDiffer();
-            PositionListView.ItemsSource = TradeHandler.PositionDifferVMCollection;
-            if (ETFTradeHandler != null)
-                ETFTradeHandler.QueryPositionDiffer();
-            ETFPositionListView.ItemsSource = ETFTradeHandler.PositionDifferVMCollection;
-            if (StockTradeHandler != null)
-                StockTradeHandler.QueryPositionDiffer();
-            StockPositionListView.ItemsSource = StockTradeHandler.PositionDifferVMCollection;
+            FutureQueryDiffer();
+            ETFQueryDiffer();
+            StockQueryDiffer();
         }
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
@@ -168,5 +247,17 @@ namespace Micro.Future.CustomizedControls.Windows
             }
         }
 
+        private void QueryButton_Click(object sender, RoutedEventArgs e)
+        {
+            FutureQueryDiffer();
+        }
+        private void ETFQueryButton_Click(object sender, RoutedEventArgs e)
+        {
+            ETFQueryDiffer();
+        }
+        private void StockQueryButton_Click(object sender, RoutedEventArgs e)
+        {
+            StockQueryDiffer();
+        }
     }
 }
