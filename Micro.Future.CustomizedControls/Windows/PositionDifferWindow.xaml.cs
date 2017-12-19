@@ -60,6 +60,7 @@ namespace Micro.Future.CustomizedControls.Windows
         }
         public void FutureQueryDiffer()
         {
+            SyncButton.IsEnabled = true;
             TotalSysPosition = 0;
             TotalPosition = 0;
             if (TradeHandler != null)
@@ -82,11 +83,10 @@ namespace Micro.Future.CustomizedControls.Windows
                     SyncButton.IsEnabled = false;
                 }
             }
-            else
-                SyncButton.IsEnabled = false;
         }
         public void ETFQueryDiffer()
         {
+            ETFSyncButton.IsEnabled = true;
             TotalETFSysPosition = 0;
             TotalETFPosition = 0;
             if (ETFTradeHandler != null)
@@ -109,10 +109,10 @@ namespace Micro.Future.CustomizedControls.Windows
                     ETFSyncButton.IsEnabled = false;
                 }
             }
-            ETFSyncButton.IsEnabled = false;
         }
         public void StockQueryDiffer()
         {
+            StockSyncButton.IsEnabled = true;
             TotalStockPosition = 0;
             TotalStockSysPosition = 0;
             if (StockTradeHandler != null)
@@ -135,7 +135,6 @@ namespace Micro.Future.CustomizedControls.Windows
                     StockSyncButton.IsEnabled = false;
                 }
             }
-            StockSyncButton.IsEnabled = false;
         }
 
         public void QueryPositionDiffer()
