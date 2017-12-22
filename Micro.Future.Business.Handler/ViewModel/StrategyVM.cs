@@ -400,6 +400,10 @@ namespace Micro.Future.ViewModel
         {
             OTCHandler.UpdateStrategy(this, resetCounter);
         }
+        public Task<bool> UpdateStrategyAsync(bool resetCounter = false)
+        {
+            return OTCHandler.UpdateStrategyAsync(this);
+        }
 
         RelayCommand _updateCommand;
         public ICommand UpdateCommand

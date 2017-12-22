@@ -404,6 +404,57 @@ namespace Micro.Future.Message
             }
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
         }
+        public Task<bool> UpdateStrategyAsync(StrategyVM sVM, bool resetCounter = false, int timeout = 10000)
+        {
+            var tcs = new TimeoutTaskCompletionSource<bool>(timeout);
+            var serialId = NextSerialId;
+            #region callback
+            MessageWrapper.RegisterAction<PBStrategy, ExceptionMessage>
+            ((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY,
+            (resp) =>
+            {
+                if (resp.Header?.SerialId == serialId)
+                {
+                    OnUpdateStrategySuccessAction(resp);
+                    tcs.TrySetResult(true);
+                }
+            },
+            (bizErr) =>
+            {
+                if (bizErr.SerialId == serialId)
+                    tcs.TrySetException(new MessageException(bizErr.MessageId, ErrorType.BIZ_ERROR, bizErr.Errorcode, bizErr.Description.ToStringUtf8()));
+            }
+            );
+            #endregion
+
+
+            var strategy = new PBStrategy();
+            strategy.Header = new DataHeader { SerialId = serialId };
+
+            strategy.Exchange = sVM.Exchange;
+            strategy.Contract = sVM.Contract;
+            strategy.Symbol = sVM.StrategySym;
+            strategy.MaxLimitOrder = sVM.MaxLimitOrder;
+            strategy.Depth = sVM.Depth;
+            strategy.BidQV = sVM.BidQV;
+            strategy.AskQV = sVM.AskQV;
+            strategy.Hedging = sVM.Hedging;
+            strategy.AskEnabled = sVM.AskEnabled;
+            strategy.BidEnabled = sVM.BidEnabled;
+            strategy.MaxAutoTrade = sVM.MaxAutoTrade;
+            strategy.BidNotCross = sVM.BidNotCross;
+            strategy.CloseMode = sVM.CloseMode;
+            strategy.Tif = (int)sVM.TIF;
+            strategy.VolCond = (int)sVM.VolCondition;
+            strategy.TickSizeMult = sVM.TickSize;
+            if (resetCounter)
+            {
+                strategy.BidCounter = -1;
+                strategy.AskCounter = -1;
+            }
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_MODIFY_STRATEGY, strategy);
+            return tcs.Task;
+        }
 
         public Task<bool> UpdatePortfolioAsync(PortfolioVM pVM, int timeout = 10000)
         {

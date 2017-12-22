@@ -399,7 +399,7 @@ namespace Micro.Future.Message
                     };
                     if (rsp.OrderStatus == 4 || rsp.OrderStatus == 5 || rsp.OrderStatus == 13)
                     {
-                        string msg = string.Format("{0}", Encoding.UTF8.GetString(rsp.Message.ToByteArray()));
+                        string msg = string.Format("{0} {1}", Encoding.UTF8.GetString(rsp.Message.ToByteArray()), rsp.Contract);
                         MessageBoxResult dr = System.Windows.MessageBox.Show(msg, " ", MessageBoxButton.OK, MessageBoxImage.Question);
                     }
 

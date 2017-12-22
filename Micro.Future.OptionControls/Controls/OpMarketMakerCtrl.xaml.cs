@@ -647,7 +647,10 @@ namespace Micro.Future.UI
                 StrategyVM strategyVM = updownctrl.Tag as StrategyVM;
                 if (strategyVM != null)
                 {
-                    strategyVM.UpdateStrategy();
+                    lock(this)
+                    {
+                        strategyVM.UpdateStrategyAsync().WaitAsync();
+                    }
                 }
             }
         }
