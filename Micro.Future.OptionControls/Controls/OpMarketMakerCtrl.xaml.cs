@@ -762,15 +762,22 @@ namespace Micro.Future.UI
                     {
                         vm.CallStrategyVM.ConditionType = orderCDSelectedValue;
                         vm.CallStrategyVM.Hedging = autoStatus;
-                        vm.CallStrategyVM.UpdateStrategy();
-
+                        lock (this)
+                        {
+                            vm.CallStrategyVM.UpdateStrategyAsync().WaitAsync();
+                        }
+                        //vm.CallStrategyVM.UpdateStrategy();
                     }
                     if (vm.PutStrategyVM != null)
                     {
                         vm.PutStrategyVM.ConditionType = orderCDSelectedValue;
 
                         vm.PutStrategyVM.Hedging = autoStatus;
-                        vm.PutStrategyVM.UpdateStrategy();
+                        lock (this)
+                        {
+                            vm.PutStrategyVM.UpdateStrategyAsync().WaitAsync();
+                        }
+                        //vm.PutStrategyVM.UpdateStrategy();
                     }
                 }
             }

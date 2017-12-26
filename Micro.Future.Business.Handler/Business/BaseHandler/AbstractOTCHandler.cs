@@ -426,8 +426,6 @@ namespace Micro.Future.Message
             }
             );
             #endregion
-
-
             var strategy = new PBStrategy();
             strategy.Header = new DataHeader { SerialId = serialId };
 

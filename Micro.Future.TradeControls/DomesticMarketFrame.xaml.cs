@@ -522,7 +522,7 @@ namespace Micro.Future.UI
         {
             SaveLayout();
         }
-       
+
         private void MenuItem_Click_Login(object sender, RoutedEventArgs e)
         {
             _ctpTradeSignIner.OnLogged += ctpTradeLoginStatus.OnLogged;

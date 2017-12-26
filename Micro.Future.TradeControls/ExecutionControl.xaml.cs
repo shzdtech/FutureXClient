@@ -440,6 +440,8 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
+            TradeHandler.OrderVMCollection.Clear();
+            TradeHandler.QueryOrder();
             _viewSource.Source = TradeHandler?.OrderVMCollection;
             ExecutionTreeView.ItemsSource = _viewSource.View;
             mColumns = ColumnObject.GetColumns(ExecutionTreeView);
@@ -449,8 +451,6 @@ namespace Micro.Future.UI
                 ExecutionChanged.LiveFilteringProperties.Add("Status");
                 ExecutionChanged.IsLiveFiltering = true;
             }
-            TradeHandler.OrderVMCollection.Clear();
-            TradeHandler.QueryOrder();
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User?.Id;
         }
     }
