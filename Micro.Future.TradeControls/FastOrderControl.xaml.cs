@@ -152,6 +152,12 @@ namespace Micro.Future.UI
                 OrderVM.LimitPrice = quoteVM.LastPrice;
                 var contractInfo = ClientDbContext.FindContract(OrderVM.Contract);
                 LimitTxt.Increment = contractInfo == null ? 1 : contractInfo.PriceTick;
+                var contentStringFormat = Math.Max(0, -Math.Floor(Math.Log10(contractInfo.PriceTick)));
+                string format = "N" + contentStringFormat;
+                LabelUpperPrice.ContentStringFormat = format;
+                LabelAskPrice.ContentStringFormat = format;
+                LabelBidPrice.ContentStringFormat = format;
+                LabelLowerPrice.ContentStringFormat = format;
                 if (radioButtonBuy.IsChecked.Value)
                 {
                     if (LabelAskPrice.Content != null)

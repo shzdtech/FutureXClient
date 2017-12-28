@@ -121,32 +121,30 @@ namespace Micro.Future.UI
             portfolioLayout.CanClose = false;
             portfolioLayout.CanHide = false;
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            //var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
             var otcmarketdataHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>();
             var domesticTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
             var otcTradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
             var compositeTradeHandler = CompositeTradeExHandler.DefaultInstance;
             domesticPositionsWindow.TradeHandler = compositeTradeHandler;
-            otcPositionsWindow.TradeHandler = otcTradeHandler;
-            otcPositionsWindow.MarketDataHandler = otcmarketdataHandler;
             domesticTradeWindow.TradeHandler = compositeTradeHandler;
-            otcTradeWindow.TradeHandler = otcTradeHandler;
-            //marketDataLV.MarketDataHandler = marketdataHandler;
             marketDataLV.AnchorablePane = quotePane;
             quotePane.Children[0].Title = WPFUtility.GetLocalizedString("Quote", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             domesticPositionsWindow.AnchorablePane = domesticPositionPane;
             domesticPositionPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            otcPositionsWindow.AnchorablePane = otcPositionPane;
-            otcPositionPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             domesticTradeWindow.AnchorablePane = domesticTradePane;
             domesticTradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            otcTradeWindow.AnchorablePane = otcTradePane;
-            otcTradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             portfolioCtl.portfolioCB.SelectionChanged += PortfolioCB_SelectionChanged;
             domesticPositionsWindow.BindingToListView(compositeTradeHandler);
             domesticTradeWindow.BindingToListView(compositeTradeHandler);
-            otcPositionsWindow.ReloadData();
-            //domesticTradeWindow.ReloadData();
+            //OTC pages
+            //otcPositionsWindow.TradeHandler = otcTradeHandler;
+            //otcPositionsWindow.MarketDataHandler = otcmarketdataHandler;
+            //otcTradeWindow.TradeHandler = otcTradeHandler;
+            //otcPositionsWindow.AnchorablePane = otcPositionPane;
+            //otcPositionPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            //otcTradeWindow.AnchorablePane = otcTradePane;
+            //otcTradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            //otcPositionsWindow.ReloadData();
         }
 
 
@@ -281,9 +279,10 @@ namespace Micro.Future.UI
                         greeksControl.BindingToSource(riskVMlist);
                     }
                     domesticPositionsWindow.FilterByPortfolio(portfolio);
-                    otcPositionsWindow.FilterByPortfolio(portfolio);
                     domesticTradeWindow.FilterByPortfolio(portfolio);
-                    otcTradeWindow.FilterByPortfolio(portfolio);
+                    //otc pages
+                    //otcPositionsWindow.FilterByPortfolio(portfolio);
+                    //otcTradeWindow.FilterByPortfolio(portfolio);
 
                     _timer = new Timer(ReloadDataCallback, null, UpdateInterval, UpdateInterval);
                 }
@@ -298,9 +297,10 @@ namespace Micro.Future.UI
             marketDataLV.quoteListView.ItemsSource = null;
             greeksControl.RiskVMCollection.Clear();
             domesticPositionsWindow.FilterByPortfolio(portfolioCtl.portfolioCB.SelectedValue?.ToString());
-            otcPositionsWindow.FilterByPortfolio(portfolioCtl.portfolioCB.SelectedValue?.ToString());
             domesticTradeWindow.FilterByPortfolio(portfolioCtl.portfolioCB.SelectedValue?.ToString());
-            otcTradeWindow.FilterByPortfolio(portfolioCtl.portfolioCB.SelectedValue?.ToString());
+            //otc pages
+            //otcPositionsWindow.FilterByPortfolio(portfolioCtl.portfolioCB.SelectedValue?.ToString());
+            //otcTradeWindow.FilterByPortfolio(portfolioCtl.portfolioCB.SelectedValue?.ToString());
         }
         public void Initialize()
         {
@@ -309,12 +309,14 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
-            otcTradeWindow.ReloadData();
+            //otc pages
+            //otcTradeWindow.ReloadData();
+            //otcPositionsWindow.ReloadData();
+            //otcPositionsWindow.ShowCloseAll = false;
+
             domesticPositionsWindow.ReloadData();
-            otcPositionsWindow.ReloadData();
             domesticTradeWindow.ReloadData();
             domesticPositionsWindow.ShowCloseAll = false;
-            otcPositionsWindow.ShowCloseAll = false;
             var _handler = OTCTradeHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
 
             var layoutInfo = ClientDbContext.GetLayout(_handler.MessageWrapper.User.Id, optionRiskCtrlDM.Uid);
