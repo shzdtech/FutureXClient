@@ -300,6 +300,11 @@ namespace Micro.Future.UI
             {
                 var title = WPFUtility.GetLocalizedString("Optional", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
                 var marketDataControl = new MarketDataControl(PersistanceId, Guid.NewGuid().ToString(), MarketDataHandler);
+                foreach(var item in ProductTypeList)
+                {
+                    marketDataControl.ProductTypeList.Add(item);
+                }
+                marketDataControl.GetContractInfo();
                 AnchorablePane.AddContent(marketDataControl).Title = title;
                 marketDataControl.FilterSettingsWin.FilterTabTitle = title;
                 marketDataControl.FilterSettingsWin.Save();

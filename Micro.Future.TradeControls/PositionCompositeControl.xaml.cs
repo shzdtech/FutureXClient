@@ -128,6 +128,7 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             DEFAULT_ID = POSITION_DEFAULT_ID;
+            mColumns = ColumnObject.GetColumns(PositionListView);
             FilterSettingsWin.OnFiltering += _filterSettingsWin_OnFiltering;
             FilterSettingsWin.PersistanceId = PersistanceId;
             FilterSettingsWin.FilterId = DEFAULT_ID;

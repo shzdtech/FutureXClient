@@ -56,6 +56,7 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             DEFAULT_ID = TRADE_DEFAULT_ID;
+            mColumns = ColumnObject.GetColumns(TradeTreeView);
             TradeHandler = tradeHander;
             if (TradeHandler != null)
                 Initialize();
@@ -71,6 +72,7 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             DEFAULT_ID = TRADE_DEFAULT_ID;
+            mColumns = ColumnObject.GetColumns(TradeTreeView);
             FilterSettingsWin.OnFiltering += FilterSettingsWin_OnFiltering;
             FilterSettingsWin.PersistanceId = PersistanceId;
             FilterSettingsWin.FilterId = DEFAULT_ID;
@@ -380,7 +382,7 @@ namespace Micro.Future.UI
             _viewSource.Source = TradeHandler.TradeVMCollection;
             TradeTreeView.ItemsSource = _viewSource.View;
             mColumns = ColumnObject.GetColumns(TradeTreeView);
-            TradeHandler.TradeVMCollection.Clear();
+            //TradeHandler.TradeVMCollection.Clear();
             TradeHandler.QueryTrade();
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User?.Id;
         }
