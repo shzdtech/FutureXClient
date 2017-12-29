@@ -316,7 +316,7 @@ namespace Micro.Future.UI
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
             await tradeHandler.SyncContractInfoAsync();
             marketDataLV.DEFAULT_ID = DEFAULT_ID;
-            marketDataLV.ReloadData();
+            //marketDataLV.ReloadData();
             //marketDataLV.GetContractInfo();
             Thread.Sleep(1000);
             clientFundLV.ReloadData();

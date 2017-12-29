@@ -328,7 +328,7 @@ namespace Micro.Future.UI
             //var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFMDHandler>();
             //await tradeHandler.SyncContractInfoAsync();
             marketDataLV.DEFAULT_ID = DEFAULT_ID;
-            marketDataLV.ReloadData();
+            //marketDataLV.ReloadData();
             Thread.Sleep(1000);
             clientFundLV.ReloadData();
             Thread.Sleep(1000);
