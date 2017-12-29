@@ -41,6 +41,7 @@ namespace Micro.Future.UI
         public List<ProductType> ProductTypeList
         {
             get;
+            set;
         } = new List<ProductType>();
 
         protected readonly MarketContract _userContractDbCtx;
@@ -78,7 +79,6 @@ namespace Micro.Future.UI
             DEFAULT_ID = MARKETDATA_DEFAULT_ID;
             if (MarketDataHandler != null)
                 Initialize();
-
             FilterSettingsWin.OnFiltering += _fiterSettingsWin_OnFiltering;
             PersistanceId = persisitentId;
             FilterSettingsWin.PersistanceId = persisitentId;
@@ -191,8 +191,12 @@ namespace Micro.Future.UI
             foreach (var fs in filtersettings)
             {
                 var marketdatactrl = new MarketDataControl(PersistanceId, fs.Id, MarketDataHandler);
+                foreach(var item in ProductTypeList)
+                {
+                    marketdatactrl.ProductTypeList.Add(item);
+                }
                 AnchorablePane.AddContent(marketdatactrl).Title = fs.Title;
-                //marketdatactrl.GetContractInfo();
+                marketdatactrl.GetContractInfo();
                 marketdatactrl.LoadUserContracts();
                 marketdatactrl.Filter(fs.Title, fs.Exchange, fs.Underlying, fs.Contract);
                 if (fs.Id == DEFAULT_ID)
