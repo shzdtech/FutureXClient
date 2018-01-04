@@ -306,12 +306,14 @@ namespace Micro.Future.Message
                         positionVM.OpenAmount = rsp.OpenAmount;
                         positionVM.CloseAmount = rsp.CloseAmount;
                         positionVM.OpenCost = rsp.OpenCost;
+                        positionVM.Profit = rsp.Profit;
 
                         if (positionVM.YdPosition != rsp.YdPosition || positionVM.TodayPosition != rsp.TdPosition)
                         {
                             positionVM.TodayPosition = rsp.TdPosition;
                             positionVM.YdPosition = rsp.YdPosition;
                             positionVM.Position = rsp.YdPosition + rsp.TdPosition;
+                            positionVM.Profit = rsp.Profit;
                             OnPositionUpdated?.Invoke(positionVM);
                         }
                     }

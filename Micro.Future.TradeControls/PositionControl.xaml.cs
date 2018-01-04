@@ -27,7 +27,8 @@ namespace Micro.Future.UI
     public partial class PositionControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
         private const string POSITION_DEFAULT_ID = "6210A109-5291-4CEF-866E-9CEC7EF3A602";
-        private const int UpdateInterval = 1000;
+        private Timer _timer;
+        private const int UpdateInterval = 2000;
         private IList<ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public FilterSettingsWindow FilterSettingsWin { get; }
@@ -167,6 +168,13 @@ namespace Micro.Future.UI
 
             if (found)
                 AnchorablePane.Children.Remove(defaultTab);
+
+            _timer = new Timer(UpdatePositionCallback, null, UpdateInterval, UpdateInterval);
+        }
+
+        private void UpdatePositionCallback(object state)
+        {
+            TradeHandler.QueryPosition();
         }
 
         private async void LoadMarketData(string contract)

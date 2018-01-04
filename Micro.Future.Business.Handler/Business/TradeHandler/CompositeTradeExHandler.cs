@@ -57,12 +57,14 @@ namespace Micro.Future.Message
                         positionVM.OpenAmount = position.OpenAmount;
                         positionVM.CloseAmount = position.CloseAmount;
                         positionVM.OpenCost = position.OpenCost;
+                        positionVM.Profit = position.Profit;
 
                         if (positionVM.YdPosition != position.YdPosition || positionVM.TodayPosition != position.TodayPosition)
                         {
                             positionVM.TodayPosition = position.TodayPosition;
                             positionVM.YdPosition = position.YdPosition;
                             positionVM.Position = position.YdPosition + position.TodayPosition;
+                            positionVM.Profit = position.Profit;
                         }
                     }
                 }
