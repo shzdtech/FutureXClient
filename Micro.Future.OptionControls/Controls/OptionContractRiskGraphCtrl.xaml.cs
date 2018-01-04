@@ -159,14 +159,14 @@ namespace Micro.Future.UI
                         var basecontractPosition = positions.Where(p => p.Contract == basecontract).FirstOrDefault();
                         if (basecontractPosition != null)
                         {
-                            if (basecontractPosition.Direction == PositionDirectionType.PD_LONG)
-                            {
-                                basecontractPosition.Profit = (MarketDataVM.LastPrice - basecontractPosition.MeanCost) * basecontractPosition.Position * basecontractPosition.Multiplier;
-                            }
-                            else if (basecontractPosition.Direction == PositionDirectionType.PD_SHORT)
-                            {
-                                basecontractPosition.Profit = (basecontractPosition.MeanCost - MarketDataVM.LastPrice) * basecontractPosition.Position * basecontractPosition.Multiplier;
-                            }
+                            //if (basecontractPosition.Direction == PositionDirectionType.PD_LONG)
+                            //{
+                            //    basecontractPosition.Profit = (MarketDataVM.LastPrice - basecontractPosition.MeanCost) * basecontractPosition.Position * basecontractPosition.Multiplier;
+                            //}
+                            //else if (basecontractPosition.Direction == PositionDirectionType.PD_SHORT)
+                            //{
+                            //    basecontractPosition.Profit = (basecontractPosition.MeanCost - MarketDataVM.LastPrice) * basecontractPosition.Position * basecontractPosition.Multiplier;
+                            //}
                             if (_riskDict.TryGetValue(basecontract, out index))
                             {
 

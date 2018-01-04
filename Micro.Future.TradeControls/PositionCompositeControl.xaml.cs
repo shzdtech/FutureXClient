@@ -96,33 +96,33 @@ namespace Micro.Future.UI
             }
         }
 
-        public void OnNewMarketData(MarketDataVM mktDataVM)
-        {
-            if (TradeHandler.PositionContractSet.Contains(mktDataVM.Contract))
-            {
-                Task.Run(() =>
-                {
-                    lock (TradeHandler.PositionVMCollection)
-                    {
-                        var positions = TradeHandler.PositionVMCollection.FindByContract(mktDataVM.Contract);
-                        if(positions!=null)
-                        {
-                            foreach (var positionVM in positions)
-                            {
-                                if (positionVM.Direction == PositionDirectionType.PD_LONG)
-                                {
-                                    positionVM.Profit = (mktDataVM.LastPrice - positionVM.MeanCost) * positionVM.Position * positionVM.Multiplier;
-                                }
-                                else if (positionVM.Direction == PositionDirectionType.PD_SHORT)
-                                {
-                                    positionVM.Profit = (positionVM.MeanCost - mktDataVM.LastPrice) * positionVM.Position * positionVM.Multiplier;
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-        }
+        //public void OnNewMarketData(MarketDataVM mktDataVM)
+        //{
+        //    if (TradeHandler.PositionContractSet.Contains(mktDataVM.Contract))
+        //    {
+        //        Task.Run(() =>
+        //        {
+        //            lock (TradeHandler.PositionVMCollection)
+        //            {
+        //                var positions = TradeHandler.PositionVMCollection.FindByContract(mktDataVM.Contract);
+        //                if(positions!=null)
+        //                {
+        //                    foreach (var positionVM in positions)
+        //                    {
+        //                        if (positionVM.Direction == PositionDirectionType.PD_LONG)
+        //                        {
+        //                            positionVM.Profit = (mktDataVM.LastPrice - positionVM.MeanCost) * positionVM.Position * positionVM.Multiplier;
+        //                        }
+        //                        else if (positionVM.Direction == PositionDirectionType.PD_SHORT)
+        //                        {
+        //                            positionVM.Profit = (positionVM.MeanCost - mktDataVM.LastPrice) * positionVM.Position * positionVM.Multiplier;
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        });
+        //    }
+        //}
 
         public PositionCompositeControl()
         {
@@ -512,9 +512,9 @@ namespace Micro.Future.UI
             TradeHandler.QueryPosition();
 
             TradeHandler.PositionVMCollection.CollectionChanged += PositionCollectionChanged;
-            _ctpoptionMDHandler.OnNewMarketData += OnNewMarketData;
-            _ctpstockMDHandler.OnNewMarketData += OnNewMarketData;
-            _ctpstockMDHandler.OnNewMarketData += OnNewMarketData;
+            //_ctpoptionMDHandler.OnNewMarketData += OnNewMarketData;
+            //_ctpstockMDHandler.OnNewMarketData += OnNewMarketData;
+            //_ctpstockMDHandler.OnNewMarketData += OnNewMarketData;
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User?.Id;
         }
         public void BindingToListView(BaseTraderHandler tradeHandler)
