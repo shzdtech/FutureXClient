@@ -292,6 +292,8 @@ namespace Micro.Future.Message
                             CloseProfit = rsp.CloseProfit,
                             UseMargin = rsp.UseMargin,
                             Position = rsp.YdPosition + rsp.TdPosition,
+                            AvgPrice = rsp.AvgPrice,
+                            LastPrice = rsp.LastPrice
                         };
 
                         PositionVMCollection.Add(positionVM);
@@ -307,6 +309,8 @@ namespace Micro.Future.Message
                         positionVM.CloseAmount = rsp.CloseAmount;
                         positionVM.OpenCost = rsp.OpenCost;
                         positionVM.Profit = rsp.Profit;
+                        positionVM.AvgPrice = rsp.AvgPrice;
+                        positionVM.LastPrice = rsp.LastPrice;
 
                         if (positionVM.YdPosition != rsp.YdPosition || positionVM.TodayPosition != rsp.TdPosition)
                         {
@@ -314,6 +318,8 @@ namespace Micro.Future.Message
                             positionVM.YdPosition = rsp.YdPosition;
                             positionVM.Position = rsp.YdPosition + rsp.TdPosition;
                             positionVM.Profit = rsp.Profit;
+                            positionVM.AvgPrice = rsp.AvgPrice;
+                            positionVM.LastPrice = rsp.LastPrice;
                             OnPositionUpdated?.Invoke(positionVM);
                         }
                     }

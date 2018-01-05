@@ -316,11 +316,25 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("PositionVega");
             }
         }
-        public double MeanCost
+
+        private double _avgPrice;
+        public double AvgPrice
         {
-            get
+            get { return _avgPrice; }
+            set
             {
-                return Cost / Position / Multiplier; ;
+                _avgPrice = value;
+                OnPropertyChanged("AvgPrice");
+            }
+        }
+        private double _lastPrice;
+        public double LastPrice
+        {
+            get { return _lastPrice; }
+            set
+            {
+                _lastPrice = value;
+                OnPropertyChanged("LastPrice");
             }
         }
 
