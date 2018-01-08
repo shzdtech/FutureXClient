@@ -43,8 +43,8 @@
                     <GridViewColumn Header="{lex:Loc Key=ShortFrozen}" DisplayMemberBinding="{Binding ShortFrozen}" Width="auto" />
                     <GridViewColumn Header="{lex:Loc Key=ShortFrozenAmount}" DisplayMemberBinding="{Binding ShortFrozenAmount}" Width="auto" />
                     <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}"  Width="auto"/>
-                    <GridViewColumn Header="{lex:Loc Key=MeanCost}" DisplayMemberBinding="{Binding AvgPrice}" Width="auto" />
-                    <GridViewColumn Header="{lex:Loc Key=LastPrice}" DisplayMemberBinding="{Binding LastPrice}" Width="auto" />
+                    <GridViewColumn Header="{lex:Loc Key=MeanCost}" DisplayMemberBinding="{Binding AvgPrice, StringFormat={}{0:N2}}" Width="auto" />
+                    <GridViewColumn Header="{lex:Loc Key=LastPrice}" DisplayMemberBinding="{Binding LastPrice, StringFormat={}{0:N2}}" Width="auto" />
 
 
                     <!--<GridViewColumn Header="上次占用保证金" DisplayMemberBinding="{Binding PreMargin}" />-->
