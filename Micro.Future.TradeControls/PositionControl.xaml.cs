@@ -33,7 +33,6 @@ namespace Micro.Future.UI
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public FilterSettingsWindow FilterSettingsWin { get; }
            = new FilterSettingsWindow() { PersistanceId = typeof(PositionControl).Name, CancelClosing = true };
-
         public BaseTraderHandler TradeHandler { get; set; }
         public BaseMarketDataHandler MarketDataHandler { get; set; }
 
@@ -470,7 +469,7 @@ namespace Micro.Future.UI
             }
 
             ICollectionView view = _viewSource.View;
-            if(view!=null)
+            if (view != null)
             {
                 view.Filter = delegate (object o)
                 {

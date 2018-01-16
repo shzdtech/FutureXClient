@@ -29,13 +29,14 @@ namespace Micro.Future.UI
         }
         private void column_checked(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void column_unchecked(object sender, RoutedEventArgs e)
         {
 
         }
+
     }
 
     public class ColumnObject : DependencyObject
@@ -55,10 +56,12 @@ namespace Micro.Future.UI
             if (isChecked)
             {
                 cobj.Restore();
+                //cobj.Save();
             }
             else
             {
                 cobj.Hide();
+                //cobj.Remove();
             }
 
             foreach (var c in cobj.Children)
@@ -113,7 +116,17 @@ namespace Micro.Future.UI
         public double Width { get; set; }
 
         public GridViewColumn Column { get; private set; }
+        public string ColumnId
+        {
+            get;
+            set;
+        }
 
+        public string UserID
+        {
+            get;
+            set;
+        }
         #endregion
 
         public ColumnObject(GridViewColumn column, int originalIdx = -1)
@@ -148,44 +161,47 @@ namespace Micro.Future.UI
             Column.Header = OriginalHeader;
         }
 
-        public void Save(string userid, string id)
+        public void Save()
         {
+
             if (OriginalIndex >= 0)
             {
-                ClientDbContext.SaveColumnSettings(userid, id, OriginalIndex);
+                ClientDbContext.SaveColumnSettings(UserID, ColumnId, OriginalIndex);
             }
         }
 
-        public static void SaveAll(IList<ColumnObject> cols, string userid, string id)
+        public void SaveAll(IList<ColumnObject> cols)
         {
-            ClientDbContext.DeleteAllColumnSettings(userid, id);
+
+            ClientDbContext.DeleteAllColumnSettings(UserID, ColumnId);
 
             foreach (var col in cols)
             {
-                if(!col.Visible)
+                if (!col.Visible)
                 {
-                    col.Save(userid, id);
+                    col.Save();
                 }
             }
         }
 
-        public static void RestoreAll(IList<ColumnObject> cols, string userid, string id)
+        public void RestoreAll(IList<ColumnObject> cols)
         {
-            var hidecols = ClientDbContext.GetColumnSettings(userid, id);
+
+            var hidecols = ClientDbContext.GetColumnSettings(UserID, ColumnId);
             foreach (var col in hidecols)
             {
-                if(col.ColumnIdx >=0 && col.ColumnIdx < cols.Count)
+                if (col.ColumnIdx >= 0 && col.ColumnIdx < cols.Count)
                 {
                     cols[col.ColumnIdx].Hide();
                 }
             }
         }
 
-        public void Remove(string userid, string id)
+        public void Remove()
         {
             if (OriginalIndex >= 0)
             {
-                ClientDbContext.DeleteColumnSettings(userid, id, OriginalIndex);
+                ClientDbContext.DeleteColumnSettings(UserID, ColumnId, OriginalIndex);
             }
         }
 

@@ -22,6 +22,17 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("Direction");
             }
         }
+        //成交买卖方向
+        private DirectionType _orderDirection;
+        public DirectionType OrderDirection
+        {
+            get { return _orderDirection; }
+            set
+            {
+                _orderDirection = value;
+                OnPropertyChanged("OrderDirection");
+            }
+        }
 
         private int _position;
         public int Position
@@ -47,7 +58,6 @@ namespace Micro.Future.ViewModel
         }
 
         private int _todayPosition;
-
         public int TodayPosition
         {
             get { return _todayPosition; }
@@ -342,6 +352,126 @@ namespace Micro.Future.ViewModel
         {
             get;
             set;
+        }
+        private int _tdBuyPosition;
+        public int TdBuyPosition
+        {
+            get { return _tdBuyPosition; }
+            set
+            {
+                _tdBuyPosition = value;
+                OnPropertyChanged("TdBuyPosition");
+            }
+        }
+        private int _tdSellPosition;
+        public int TdSellPosition
+        {
+            get { return _tdSellPosition; }
+            set
+            {
+                _tdSellPosition = value;
+                OnPropertyChanged("TdSellPosition");
+            }
+        }
+        private int _ydBuyPosition;
+        public int YdBuyPosition
+        {
+            get { return _ydBuyPosition; }
+            set
+            {
+                _ydBuyPosition = value;
+                OnPropertyChanged("YdBuyPosition");
+            }
+        }
+        private int _ydSellPosition;
+        public int YdSellPosition
+        {
+            get { return _ydSellPosition; }
+            set
+            {
+                _ydSellPosition = value;
+                OnPropertyChanged("YdSellPosition");
+            }
+        }
+        private int _tdBuyAmount;
+        public int TdBuyAmount
+        {
+            get { return _tdBuyAmount; }
+            set
+            {
+                _tdBuyAmount = value;
+                OnPropertyChanged("TdBuyAmount");
+            }
+        }
+        private int _tdSellAmount;
+        public int TdSellAmount
+        {
+            get { return _tdSellAmount; }
+            set
+            {
+                _tdSellAmount = value;
+                OnPropertyChanged("TdSellAmount");
+            }
+        }
+        private int _ydBuyAmount;
+        public int YdBuyAmount
+        {
+            get { return _ydBuyAmount; }
+            set
+            {
+                _ydBuyAmount = value;
+                OnPropertyChanged("YdBuyAmount");
+            }
+        }
+        private int _ydSellAmount;
+        public int YdSellAmount
+        {
+            get { return _ydSellAmount; }
+            set
+            {
+                _ydSellAmount = value;
+                OnPropertyChanged("YdSellAmount");
+            }
+        }
+        private double _buyProfit;
+        public double BuyProfit
+        {
+            get { return _buyProfit; }
+            set
+            {
+                _buyProfit = value;
+                OnPropertyChanged("BuyProfit");
+            }
+        }
+        private double _sellProfit;
+        public double SellProfit
+        {
+            get { return _sellProfit; }
+            set
+            {
+                _sellProfit = value;
+                OnPropertyChanged("SellProfit");
+            }
+        }
+        private double _avgBuyPrice;
+        public double AvgBuyPrice
+        {
+            get { return _avgBuyPrice; }
+            set
+            {
+                _avgBuyPrice = value;
+                OnPropertyChanged("AvgBuyPrice");
+            }
+        }
+        private double _avgSellPrice;
+        public double AvgSellPrice
+        {
+            get { return _avgSellPrice; }
+            set
+            {
+                _avgSellPrice = value;
+                OnPropertyChanged("AvgSellPrice");
+            }
         }
     }
 }

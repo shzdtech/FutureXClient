@@ -128,10 +128,13 @@ namespace Micro.Future.UI
             executionWindow.AnchorablePane = executionPane;
             tradeWindow.AnchorablePane = tradePane;
             positionsWindow.AnchorablePane = positionPane;
+            positionsProfitWindow.AnchorablePane = positionProfitPane;
             quotePane.Children[0].Title = WPFUtility.GetLocalizedString("Quote", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             executionPane.Children[0].Title = WPFUtility.GetLocalizedString("AllExecution", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             tradePane.Children[0].Title = WPFUtility.GetLocalizedString("TradeWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
             positionPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionWindow", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            positionProfitPane.Children[0].Title = WPFUtility.GetLocalizedString("PositionProfit", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+
             // Initialize Market Data
             ctpLoginStatus.Prompt = "CTP期权行情未连";
             ctpTradeLoginStatus.Prompt = "CTP期权交易未连";
@@ -191,6 +194,7 @@ namespace Micro.Future.UI
             tradeWindow.TradeHandler = tradeHandler;
             positionsWindow.TradeHandler = tradeHandler;
             positionsWindow.MarketDataHandler = marketdataHandler;
+            positionsProfitWindow.TradeHandler = tradeHandler;
         }
 
         private async void _otcOptionDataSignIner_OnLogged(IUserInfo obj)
@@ -323,6 +327,9 @@ namespace Micro.Future.UI
             Thread.Sleep(1000);
             positionsWindow.DEFAULT_ID = DEFAULT_ID;
             positionsWindow.ReloadData();
+            Thread.Sleep(1000);
+            positionsProfitWindow.DEFAULT_ID = DEFAULT_ID;
+            positionsProfitWindow.ReloadData();
             Thread.Sleep(1000);
             tradeWindow.DEFAULT_ID = DEFAULT_ID;
             tradeWindow.ReloadData();
@@ -467,6 +474,13 @@ namespace Micro.Future.UI
             positionWin.FilterSettingsWin.FilterTabTitle = title;
             positionPane.AddContent(positionWin).Title = title;
             positionWin.FilterSettingsWin.Save();
+
+            var titleprofit = WPFUtility.GetLocalizedString("PositionProfit", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
+            var positionProfitWin = new PositionProfitControl(positionsWindow.PersistanceId, Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
+            positionProfitWin.FilterSettingsWin.Title += "(" + title + ")";
+            positionProfitWin.FilterSettingsWin.FilterTabTitle = title;
+            positionProfitPane.AddContent(positionWin).Title = title;
+            positionProfitWin.FilterSettingsWin.Save();
         }
 
         private void MenuItem_Click_Portfolio(object sender, RoutedEventArgs e)

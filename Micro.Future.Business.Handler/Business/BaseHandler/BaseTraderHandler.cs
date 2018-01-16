@@ -38,6 +38,10 @@ namespace Micro.Future.Message
         {
             get;
         } = new ObservableCollection<PositionVM>();
+        public ObservableCollection<PositionVM> PositionProfitVMCollection
+        {
+            get;
+        } = new ObservableCollection<PositionVM>();
         public ObservableCollection<PositionDifferVM> PositionDifferVMCollection
         {
             get;
@@ -93,6 +97,8 @@ namespace Micro.Future.Message
                 ((uint)BusinessMessageID.MSG_ID_ORDER_CANCEL, OnUpdateOrder, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBPosition, ExceptionMessage>
                ((uint)BusinessMessageID.MSG_ID_POSITION_UPDATED, OnUpdatePosition, ErrorMsgAction);
+            MessageWrapper.RegisterAction<PBPositionPnL, ExceptionMessage>
+               ((uint)BusinessMessageID.MSG_ID_POSITIONPNL_UPDATED, OnUpdatePositionProfit, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBPosition, ExceptionMessage>
                ((uint)BusinessMessageID.MSG_ID_EXCHANGE_POSITION_UPDATED, OnExchangeUpdatePosition, ErrorMsgAction);
 
@@ -326,6 +332,37 @@ namespace Micro.Future.Message
                 }
             }
         }
+        protected void OnUpdatePositionProfit(PBPositionPnL rsp)
+        {
+            lock (PositionProfitVMCollection)
+            {
+                var positionVMCollection = PositionProfitVMCollection.Where(p =>
+                    p.Contract == rsp.Contract && p.Portfolio == rsp.Portfolio);
+
+                if (rsp.TdBuyPosition + rsp.TdSellPosition + rsp.YdBuyPosition + rsp.YdSellPosition != 0)
+                {
+                    if (positionVMCollection != null)
+                    {
+                        var buyPositionVM = positionVMCollection.Where(p => p.TdBuyPosition + p.YdBuyPosition != 0).FirstOrDefault();
+                        buyPositionVM.TdBuyPosition = rsp.TdBuyPosition;
+                        buyPositionVM.YdBuyPosition = rsp.YdBuyPosition;
+                        buyPositionVM.BuyProfit = rsp.BuyProfit;
+                        buyPositionVM.Profit = rsp.BuyProfit;
+                        buyPositionVM.TodayPosition = rsp.TdBuyPosition;
+                        buyPositionVM.YdPosition = rsp.YdBuyPosition;
+                        buyPositionVM.Position = rsp.TdBuyPosition + rsp.YdBuyPosition;
+                        var sellPositionVM = positionVMCollection.Where(p => p.TdSellPosition + p.YdSellPosition != 0).FirstOrDefault();
+                        sellPositionVM.TdSellPosition = rsp.TdSellPosition;
+                        sellPositionVM.YdSellPosition = rsp.YdSellPosition;
+                        sellPositionVM.SellProfit = rsp.SellProfit;
+                        sellPositionVM.Profit = rsp.SellProfit;
+                        sellPositionVM.TodayPosition = rsp.TdSellPosition;
+                        sellPositionVM.YdPosition = rsp.YdSellPosition;
+                        sellPositionVM.Position = rsp.TdSellPosition + rsp.YdSellPosition;
+                    }
+                }
+            }
+        }
 
         public event Action<PositionVM> OnPositionUpdated;
 
@@ -485,7 +522,13 @@ namespace Micro.Future.Message
             sst.Header = new DataHeader();
             sst.Header.SerialId = NextSerialId;
             MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_POSITION, sst);
-
+        }
+        public virtual void QueryPositionProfit()
+        {
+            var sst = new StringMap();
+            sst.Header = new DataHeader();
+            sst.Header.SerialId = NextSerialId;
+            MessageWrapper.SendMessage((uint)BusinessMessageID.MSG_ID_QUERY_POSITIONPNL, sst);
         }
         public void QueryPositionDiffer()
         {

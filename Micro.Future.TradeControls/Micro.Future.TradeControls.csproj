@@ -66,6 +66,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PositionProfitControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="StockFrame.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -111,6 +115,9 @@
     </Compile>
     <Compile Include="PositionCompositeControl.xaml.cs">
       <DependentUpon>PositionCompositeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PositionProfitControl.xaml.cs">
+      <DependentUpon>PositionProfitControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="StockFrame.xaml.cs">
       <DependentUpon>StockFrame.xaml</DependentUpon>

@@ -121,6 +121,11 @@
                                 <c:PositionControl x:Name="positionsWindow" PersistanceId="Domestic:PositionControl"/>
                             </avalonDock:LayoutAnchorable>
                         </avalonDock:LayoutAnchorablePane>
+                        <avalonDock:LayoutAnchorablePane x:Name="positionProfitPane" >
+                            <avalonDock:LayoutAnchorable Closing="ClosingPositionPane" ContentId="PositionContent">
+                                <c:PositionProfitControl x:Name="positionsProfitWindow" PersistanceId="Domestic:PositionProfitControl"/>
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
                     </avalonDock:LayoutPanel>
                 </avalonDock:LayoutPanel>
             </avalonDock:LayoutPanel>
