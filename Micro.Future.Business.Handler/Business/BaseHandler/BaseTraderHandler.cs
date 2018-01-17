@@ -348,6 +348,7 @@ namespace Micro.Future.Message
                     {
                         if (rsp.TdBuyPosition + rsp.YdBuyPosition != 0)
                         {
+                            buyPositionVM.Portfolio = rsp.Portfolio;
                             buyPositionVM.TdBuyPosition = rsp.TdBuyPosition;
                             buyPositionVM.YdBuyPosition = rsp.YdBuyPosition;
                             buyPositionVM.BuyProfit = rsp.BuyProfit;
@@ -390,6 +391,7 @@ namespace Micro.Future.Message
                     {
                         if (rsp.TdSellPosition + rsp.YdSellPosition != 0)
                         {
+                            sellPositionVM.Portfolio = rsp.Portfolio;
                             sellPositionVM.TdBuyPosition = rsp.TdSellPosition;
                             sellPositionVM.YdBuyPosition = rsp.YdSellPosition;
                             sellPositionVM.BuyProfit = rsp.SellProfit;

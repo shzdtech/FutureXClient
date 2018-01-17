@@ -158,7 +158,7 @@ namespace Micro.Future.UI
             if (found)
                 AnchorablePane.Children.Remove(defaultTab);
 
-            //_timer = new Timer(UpdatePositionCallback, null, UpdateInterval, UpdateInterval);
+            _timer = new Timer(UpdatePositionCallback, null, UpdateInterval, UpdateInterval);
         }
 
         private void UpdatePositionCallback(object state)

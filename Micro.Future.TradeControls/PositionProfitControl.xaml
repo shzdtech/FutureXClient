@@ -23,6 +23,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}"  Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=OrderDirection, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=Position}" DisplayMemberBinding="{Binding Position}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=TodayPosition}" DisplayMemberBinding="{Binding TodayPosition}" Width="auto"/>
