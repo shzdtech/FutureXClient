@@ -319,7 +319,11 @@ namespace Micro.Future.UI
                 GridViewUtility.Sort(head.Column, PositionListView.Items);
             }
         }
-
+        public void BindingToListView(BaseTraderHandler tradeHandler)
+        {
+            _viewSource.Source = tradeHandler.PositionProfitVMCollection;
+            PositionListView.ItemsSource = _viewSource.View;
+        }
         public void Initialize()
         {
             _viewSource.Source = TradeHandler.PositionProfitVMCollection;

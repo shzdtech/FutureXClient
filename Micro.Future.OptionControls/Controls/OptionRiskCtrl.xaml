@@ -37,10 +37,15 @@
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
-                <avalonDock:LayoutPanel x:Name="positionPane" Orientation="Vertical">
+                <avalonDock:LayoutPanel x:Name="positionPane" Orientation="Horizontal">
                     <avalonDock:LayoutAnchorablePane x:Name="domesticPositionPane" >
                         <avalonDock:LayoutAnchorable Title="{lex:Loc Key=DomesticPosition}" CanClose="False" CanHide="False">
                             <c:PositionCompositeControl x:Name="domesticPositionsWindow" PersistanceId="OptionRisk:DomesticPositionControl"/>
+                        </avalonDock:LayoutAnchorable>
+                    </avalonDock:LayoutAnchorablePane>
+                    <avalonDock:LayoutAnchorablePane x:Name="domesticPositionProfitPane" >
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=PositionProfit}" CanClose="False" CanHide="False">
+                            <c:PositionProfitControl x:Name="domesticPositionsProfitWindow" PersistanceId="OptionRisk:DomesticPositionProfitControl"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                     <!--<avalonDock:LayoutAnchorablePane x:Name="otcPositionPane">
