@@ -355,9 +355,11 @@ namespace Micro.Future.Message
                             buyPositionVM.TodayPosition = rsp.TdBuyPosition;
                             buyPositionVM.YdPosition = rsp.YdBuyPosition;
                             buyPositionVM.Position = rsp.TdBuyPosition + rsp.YdBuyPosition;
+                            OnPositionProfitUpdated?.Invoke(buyPositionVM);
                         }
                         else
                             PositionProfitVMCollection.Remove(buyPositionVM);
+                        OnPositionProfitUpdated?.Invoke(buyPositionVM);
                     }
                     else
                     {
@@ -378,6 +380,7 @@ namespace Micro.Future.Message
                                 Position = rsp.TdBuyPosition + rsp.YdBuyPosition,
                             };
                             PositionProfitVMCollection.Add(buypositionVM);
+                            OnPositionProfitUpdated?.Invoke(buypositionVM);
                         }
                     }
 
@@ -395,9 +398,13 @@ namespace Micro.Future.Message
                             sellPositionVM.TodayPosition = rsp.TdSellPosition;
                             sellPositionVM.YdPosition = rsp.YdSellPosition;
                             sellPositionVM.Position = rsp.TdSellPosition + rsp.YdSellPosition;
+                            OnPositionProfitUpdated?.Invoke(sellPositionVM);
+
                         }
                         else
                             PositionProfitVMCollection.Remove(sellPositionVM);
+                        OnPositionProfitUpdated?.Invoke(sellPositionVM);
+
                     }
                     else
                     {
@@ -418,6 +425,8 @@ namespace Micro.Future.Message
                                 Position = rsp.TdSellPosition + rsp.YdSellPosition,
                             };
                             PositionProfitVMCollection.Add(sellpositionVM);
+                            OnPositionProfitUpdated?.Invoke(sellPositionVM);
+
                         }
                     }
                 }
@@ -440,6 +449,8 @@ namespace Micro.Future.Message
                             Position = rsp.TdBuyPosition + rsp.YdBuyPosition,
                         };
                         PositionProfitVMCollection.Add(buypositionVM);
+                        OnPositionProfitUpdated?.Invoke(buypositionVM);
+
                     }
                     if (rsp.TdSellPosition + rsp.YdSellPosition != 0)
                     {
@@ -458,6 +469,8 @@ namespace Micro.Future.Message
                             Position = rsp.TdSellPosition + rsp.YdSellPosition,
                         };
                         PositionProfitVMCollection.Add(sellpositionVM);
+                        OnPositionProfitUpdated?.Invoke(sellpositionVM);
+
                     }
                 }
             }
@@ -472,6 +485,8 @@ namespace Micro.Future.Message
         }
 
         public event Action<PositionVM> OnPositionUpdated;
+        public event Action<PositionVM> OnPositionProfitUpdated;
+
 
         private void OnFund(PBAccountInfo rsp)
         {

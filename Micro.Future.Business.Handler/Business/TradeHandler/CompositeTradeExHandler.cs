@@ -22,8 +22,48 @@ namespace Micro.Future.Message
         {
             handler.OnTraded += OnReturnTraded;
             handler.OnPositionUpdated += OnSubPositionUpdated;
+            handler.OnPositionProfitUpdated += OnSubPositionProfitUpdated;
         }
 
+        private void OnSubPositionProfitUpdated(PositionVM position)
+        {
+            lock (PositionProfitVMCollection)
+            {
+                PositionVM positionVM = PositionVMCollection.FirstOrDefault(p =>
+                    p.Contract == position.Contract && p.OrderDirection == position.OrderDirection && p.Portfolio == position.Portfolio);
+
+                if (position.TodayPosition + position.YdPosition == 0)
+                {
+                    if (positionVM != null)
+                    {
+                        PositionProfitVMCollection.Remove(positionVM);
+                    }
+
+                    //if (!PositionProfitVMCollection.Any(p => p.Contract == position.Contract))
+                    //{
+                    //    PositionContractSet.Remove(position.Contract);
+                    //}
+                }
+                else
+                {
+                    if (positionVM == null)
+                    {
+                        PositionProfitVMCollection.Add(position);
+                        //PositionContractSet.Add(position.Contract);
+                    }
+                    else
+                    {
+                        if (positionVM.YdPosition != position.YdPosition || positionVM.TodayPosition != position.TodayPosition)
+                        {
+                            positionVM.TodayPosition = position.TodayPosition;
+                            positionVM.YdPosition = position.YdPosition;
+                            positionVM.Position = position.YdPosition + position.TodayPosition;
+                            positionVM.Profit = position.Profit;
+                        }
+                    }
+                }
+            }
+        }
         private void OnSubPositionUpdated(PositionVM position)
         {
             lock (PositionVMCollection)
@@ -75,6 +115,7 @@ namespace Micro.Future.Message
             }
         }
 
+
         private void OnReturnTraded(TradeVM tradeVM)
         {
             lock (TradeVMCollection)
@@ -101,6 +142,14 @@ namespace Micro.Future.Message
             {
                 if (hdl.MessageWrapper != null && hdl.MessageWrapper.HasSignIn)
                     hdl.QueryPosition();
+            }
+        }
+        public override void QueryPositionProfit()
+        {
+            foreach (var hdl in HandlerMap)
+            {
+                if (hdl.MessageWrapper != null && hdl.MessageWrapper.HasSignIn)
+                    hdl.QueryPositionProfit();
             }
         }
     }

@@ -323,6 +323,7 @@ namespace Micro.Future.UI
         {
             _viewSource.Source = tradeHandler.PositionProfitVMCollection;
             PositionListView.ItemsSource = _viewSource.View;
+            tradeHandler.QueryPositionProfit();
         }
         public void Initialize()
         {
