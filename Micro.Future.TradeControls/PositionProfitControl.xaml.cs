@@ -158,12 +158,12 @@ namespace Micro.Future.UI
             if (found)
                 AnchorablePane.Children.Remove(defaultTab);
 
-            _timer = new Timer(UpdatePositionCallback, null, UpdateInterval, UpdateInterval);
+            //_timer = new Timer(UpdatePositionCallback, null, UpdateInterval, UpdateInterval);
         }
 
         private void UpdatePositionCallback(object state)
         {
-            TradeHandler.QueryPosition();
+            TradeHandler.QueryPositionProfit();
         }
 
         //private async void LoadMarketData(string contract)
@@ -322,11 +322,11 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
-            _viewSource.Source = TradeHandler.PositionVMCollection;
+            _viewSource.Source = TradeHandler.PositionProfitVMCollection;
             PositionListView.ItemsSource = _viewSource.View;
             mColumns = ColumnObject.GetColumns(PositionListView);
-            TradeHandler.PositionVMCollection.Clear();
-            TradeHandler.QueryPosition();
+            TradeHandler.PositionProfitVMCollection.Clear();
+            TradeHandler.QueryPositionProfit();
 
             //TradeHandler.PositionVMCollection.CollectionChanged += PositionCollectionChanged;
             //MarketDataHandler.OnNewMarketData += OnNewMarketData;
