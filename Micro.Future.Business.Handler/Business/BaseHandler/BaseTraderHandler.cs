@@ -348,6 +348,9 @@ namespace Micro.Future.Message
                     {
                         if (rsp.TdBuyPosition + rsp.YdBuyPosition != 0)
                         {
+                            buyPositionVM.AvgBuyPrice = buyPositionVM.AvgPrice = rsp.AvgBuyPrice;
+                            buyPositionVM.TdBuyAmount = buyPositionVM.TdAmount = rsp.TdBuyAmount;
+                            buyPositionVM.LastPrice = rsp.LastPrice;
                             buyPositionVM.Portfolio = rsp.Portfolio;
                             buyPositionVM.TdBuyPosition = rsp.TdBuyPosition;
                             buyPositionVM.YdBuyPosition = rsp.YdBuyPosition;
@@ -371,8 +374,13 @@ namespace Micro.Future.Message
                                 Exchange = rsp.Exchange,
                                 Portfolio = rsp.Portfolio,
                                 OrderDirection = DirectionType.BUY,
+                                AvgBuyPrice = rsp.AvgBuyPrice,
+                                AvgPrice = rsp.AvgBuyPrice,
+                                TdBuyAmount = rsp.TdBuyAmount,
+                                TdAmount = rsp.TdBuyAmount,
                                 TdBuyPosition = rsp.TdBuyPosition,
                                 YdBuyPosition = rsp.YdBuyPosition,
+                                LastPrice = rsp.LastPrice,
                                 BuyProfit = rsp.BuyProfit,
                                 Profit = rsp.BuyProfit,
                                 TodayPosition = rsp.TdBuyPosition,
@@ -392,6 +400,8 @@ namespace Micro.Future.Message
                         if (rsp.TdSellPosition + rsp.YdSellPosition != 0)
                         {
                             sellPositionVM.Portfolio = rsp.Portfolio;
+                            sellPositionVM.AvgSellPrice = sellPositionVM.AvgPrice = rsp.AvgSellPrice;
+                            sellPositionVM.TdSellAmount = sellPositionVM.TdAmount = rsp.TdSellAmount;
                             sellPositionVM.TdBuyPosition = rsp.TdSellPosition;
                             sellPositionVM.YdBuyPosition = rsp.YdSellPosition;
                             sellPositionVM.BuyProfit = rsp.SellProfit;
@@ -399,6 +409,7 @@ namespace Micro.Future.Message
                             sellPositionVM.TodayPosition = rsp.TdSellPosition;
                             sellPositionVM.YdPosition = rsp.YdSellPosition;
                             sellPositionVM.Position = rsp.TdSellPosition + rsp.YdSellPosition;
+                            sellPositionVM.LastPrice = rsp.LastPrice;
                         }
                         else
                             PositionProfitVMCollection.Remove(sellPositionVM);
@@ -417,11 +428,16 @@ namespace Micro.Future.Message
                                 OrderDirection = DirectionType.SELL,
                                 TdSellPosition = rsp.TdSellPosition,
                                 YdSellPosition = rsp.YdSellPosition,
+                                AvgSellPrice = rsp.AvgSellPrice,
+                                AvgPrice = rsp.AvgSellPrice,
+                                TdSellAmount = rsp.TdSellAmount,
+                                TdAmount = rsp.TdSellAmount,
                                 SellProfit = rsp.SellProfit,
                                 Profit = rsp.SellProfit,
                                 TodayPosition = rsp.TdSellPosition,
                                 YdPosition = rsp.YdSellPosition,
                                 Position = rsp.TdSellPosition + rsp.YdSellPosition,
+                                LastPrice = rsp.LastPrice,
                             };
                             PositionProfitVMCollection.Add(sellpositionVM);
                             OnPositionProfitUpdated?.Invoke(sellPositionVM);
@@ -441,11 +457,16 @@ namespace Micro.Future.Message
                             OrderDirection = DirectionType.BUY,
                             TdBuyPosition = rsp.TdBuyPosition,
                             YdBuyPosition = rsp.YdBuyPosition,
+                            AvgBuyPrice = rsp.AvgBuyPrice,
+                            AvgPrice = rsp.AvgBuyPrice,
+                            TdBuyAmount = rsp.TdBuyAmount,
+                            TdAmount = rsp.TdBuyAmount,
                             BuyProfit = rsp.BuyProfit,
                             Profit = rsp.BuyProfit,
                             TodayPosition = rsp.TdBuyPosition,
                             YdPosition = rsp.YdBuyPosition,
                             Position = rsp.TdBuyPosition + rsp.YdBuyPosition,
+                            LastPrice = rsp.LastPrice,
                         };
                         PositionProfitVMCollection.Add(buypositionVM);
                         OnPositionProfitUpdated?.Invoke(buypositionVM);
@@ -461,11 +482,16 @@ namespace Micro.Future.Message
                             OrderDirection = DirectionType.SELL,
                             TdSellPosition = rsp.TdSellPosition,
                             YdSellPosition = rsp.YdSellPosition,
+                            AvgSellPrice = rsp.AvgSellPrice,
+                            AvgPrice = rsp.AvgSellPrice,
+                            TdSellAmount = rsp.TdSellAmount,
+                            TdAmount = rsp.TdSellAmount,
                             SellProfit = rsp.SellProfit,
                             Profit = rsp.SellProfit,
                             TodayPosition = rsp.TdSellPosition,
                             YdPosition = rsp.YdSellPosition,
                             Position = rsp.TdSellPosition + rsp.YdSellPosition,
+                            LastPrice = rsp.LastPrice,
                         };
                         PositionProfitVMCollection.Add(sellpositionVM);
                         OnPositionProfitUpdated?.Invoke(sellpositionVM);

@@ -393,8 +393,8 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("YdSellPosition");
             }
         }
-        private int _tdBuyAmount;
-        public int TdBuyAmount
+        private double _tdBuyAmount;
+        public double TdBuyAmount
         {
             get { return _tdBuyAmount; }
             set
@@ -403,8 +403,8 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("TdBuyAmount");
             }
         }
-        private int _tdSellAmount;
-        public int TdSellAmount
+        private double _tdSellAmount;
+        public double TdSellAmount
         {
             get { return _tdSellAmount; }
             set
@@ -413,8 +413,8 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("TdSellAmount");
             }
         }
-        private int _ydBuyAmount;
-        public int YdBuyAmount
+        private double _ydBuyAmount;
+        public double YdBuyAmount
         {
             get { return _ydBuyAmount; }
             set
@@ -423,8 +423,8 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("YdBuyAmount");
             }
         }
-        private int _ydSellAmount;
-        public int YdSellAmount
+        private double _ydSellAmount;
+        public double YdSellAmount
         {
             get { return _ydSellAmount; }
             set
@@ -473,5 +473,26 @@ namespace Micro.Future.ViewModel
                 OnPropertyChanged("AvgSellPrice");
             }
         }
+        private double _ydAmount;
+        public double YdAmount
+        {
+            get { return _ydAmount; }
+            set
+            {
+                _ydAmount = value;
+                OnPropertyChanged("YdAmount");
+            }
+        }
+        private double _tdAmount;
+        public double  TdAmount
+        {
+            get { return _tdAmount; }
+            set
+            {
+                _tdAmount = value;
+                OnPropertyChanged("TdAmount");
+            }
+        }
+
     }
 }

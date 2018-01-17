@@ -29,6 +29,8 @@
                     <GridViewColumn Header="{lex:Loc Key=TodayPosition}" DisplayMemberBinding="{Binding TodayPosition}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=YdPosition}" DisplayMemberBinding="{Binding YdPosition}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=PositionProfit}" DisplayMemberBinding="{Binding Profit, StringFormat={}{0:N}}" Width="auto" />
+                    <GridViewColumn Header="{lex:Loc Key=LastPrice}" DisplayMemberBinding="{Binding LastPrice, StringFormat={}{0:N2}}" Width="auto" />
+                    <GridViewColumn Header="{lex:Loc Key=MeanCost}" DisplayMemberBinding="{Binding AvgPrice, StringFormat={}{0:N2}}" Width="auto" />
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
