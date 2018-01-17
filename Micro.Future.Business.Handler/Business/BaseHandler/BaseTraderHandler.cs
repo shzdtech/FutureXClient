@@ -355,7 +355,6 @@ namespace Micro.Future.Message
                             buyPositionVM.TodayPosition = rsp.TdBuyPosition;
                             buyPositionVM.YdPosition = rsp.YdBuyPosition;
                             buyPositionVM.Position = rsp.TdBuyPosition + rsp.YdBuyPosition;
-                            OnPositionProfitUpdated?.Invoke(buyPositionVM);
                         }
                         else
                             PositionProfitVMCollection.Remove(buyPositionVM);
@@ -398,8 +397,6 @@ namespace Micro.Future.Message
                             sellPositionVM.TodayPosition = rsp.TdSellPosition;
                             sellPositionVM.YdPosition = rsp.YdSellPosition;
                             sellPositionVM.Position = rsp.TdSellPosition + rsp.YdSellPosition;
-                            OnPositionProfitUpdated?.Invoke(sellPositionVM);
-
                         }
                         else
                             PositionProfitVMCollection.Remove(sellPositionVM);
@@ -470,7 +467,6 @@ namespace Micro.Future.Message
                         };
                         PositionProfitVMCollection.Add(sellpositionVM);
                         OnPositionProfitUpdated?.Invoke(sellpositionVM);
-
                     }
                 }
             }

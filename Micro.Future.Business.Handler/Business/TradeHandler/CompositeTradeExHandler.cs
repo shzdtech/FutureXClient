@@ -29,7 +29,7 @@ namespace Micro.Future.Message
         {
             lock (PositionProfitVMCollection)
             {
-                PositionVM positionVM = PositionVMCollection.FirstOrDefault(p =>
+                PositionVM positionVM = PositionProfitVMCollection.FirstOrDefault(p =>
                     p.Contract == position.Contract && p.OrderDirection == position.OrderDirection && p.Portfolio == position.Portfolio);
 
                 if (position.TodayPosition + position.YdPosition == 0)
