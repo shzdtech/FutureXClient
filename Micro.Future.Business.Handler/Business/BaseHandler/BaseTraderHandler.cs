@@ -402,9 +402,9 @@ namespace Micro.Future.Message
                             sellPositionVM.Portfolio = rsp.Portfolio;
                             sellPositionVM.AvgSellPrice = sellPositionVM.AvgPrice = rsp.AvgSellPrice;
                             sellPositionVM.TdSellAmount = sellPositionVM.TdAmount = rsp.TdSellAmount;
-                            sellPositionVM.TdBuyPosition = rsp.TdSellPosition;
-                            sellPositionVM.YdBuyPosition = rsp.YdSellPosition;
-                            sellPositionVM.BuyProfit = rsp.SellProfit;
+                            sellPositionVM.TdSellPosition = rsp.TdSellPosition;
+                            sellPositionVM.YdSellPosition = rsp.YdSellPosition;
+                            sellPositionVM.SellProfit = rsp.SellProfit;
                             sellPositionVM.Profit = rsp.SellProfit;
                             sellPositionVM.TodayPosition = rsp.TdSellPosition;
                             sellPositionVM.YdPosition = rsp.YdSellPosition;
