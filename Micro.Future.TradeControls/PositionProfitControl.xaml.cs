@@ -40,7 +40,11 @@ namespace Micro.Future.UI
         public LayoutContent LayoutContent { get; set; }
 
         public LayoutAnchorablePane AnchorablePane { get; set; }
-
+        public double TotalProfit
+        {
+            get;
+            set;
+        }
         public string PersistanceId
         {
             get;
@@ -164,6 +168,17 @@ namespace Micro.Future.UI
         private void UpdatePositionCallback(object state)
         {
             TradeHandler.QueryPositionProfit();
+            TotalProfit = 0;
+            foreach (var vm in TradeHandler.PositionProfitVMCollection)
+            {
+                if (!double.IsNaN(vm.Profit))
+                    TotalProfit = TotalProfit + vm.Profit;
+            }
+            Dispatcher.Invoke(() =>
+            {
+
+                ttleprofitLabel.Content = TotalProfit;
+            });
         }
 
         //private async void LoadMarketData(string contract)
@@ -194,7 +209,7 @@ namespace Micro.Future.UI
             //_positionSettingsWin.ExchangeCollection = exchangeList;
             FilterSettingsWin.FilterTabTitle = AnchorablePane?.SelectedContent.Title;
             FilterSettingsWin.Show();
-        }   
+        }
         private void MenuItem_Click_Position(object sender, RoutedEventArgs e)
         {
             if (AnchorablePane != null)
@@ -292,7 +307,7 @@ namespace Micro.Future.UI
             }
 
             ICollectionView view = _viewSource.View;
-            if(view!=null)
+            if (view != null)
             {
                 view.Filter = delegate (object o)
                 {

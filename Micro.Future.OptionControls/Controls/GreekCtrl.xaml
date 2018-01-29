@@ -76,8 +76,13 @@
                 <xcdg:Column FieldName="Vega100" Title="Vega" Width="*" CellContentStringFormat="{}{0:N}" />
                 <xcdg:Column FieldName="Theta365" Title="Theta" Width="*" CellContentStringFormat="{}{0:N}"/>
                 <xcdg:Column FieldName="Rho100" Title="Rho" Width="*" CellContentStringFormat="{}{0:N}"/>
-
             </xcdg:DataGridControl.Columns>
+            <xcdg:DataGridControl.ContextMenu>
+                <ContextMenu Name="GreekContext" StaysOpen="True">
+                    <MenuItem Header="{lex:Loc Key=FilterSettings}" Click="MenuItem_Click_Settings" />
+                    <Separator />
+                </ContextMenu>
+            </xcdg:DataGridControl.ContextMenu>
         </xcdg:DataGridControl>
     </Grid>
 </UserControl>

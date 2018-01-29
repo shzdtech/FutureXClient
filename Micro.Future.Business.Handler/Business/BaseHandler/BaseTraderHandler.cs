@@ -343,15 +343,17 @@ namespace Micro.Future.Message
                 if (positionVMCollection != null)
                 {
 
-                    var buyPositionVM = positionVMCollection.Where(p => p.TdBuyPosition + p.YdBuyPosition != 0).FirstOrDefault();
+                    var buyPositionVM = positionVMCollection.Where(p => p.TdBuyPosition + p.YdBuyPosition + p.TdBuyAmount != 0).FirstOrDefault();
                     if (buyPositionVM != null)
                     {
-                        if (rsp.TdBuyPosition + rsp.YdBuyPosition != 0)
+                        if (rsp.TdBuyPosition + rsp.YdBuyPosition + rsp.TdBuyAmount != 0)
                         {
                             buyPositionVM.AvgBuyPrice = buyPositionVM.AvgPrice = rsp.AvgBuyPrice;
                             buyPositionVM.TdBuyAmount = buyPositionVM.TdAmount = rsp.TdBuyAmount;
                             buyPositionVM.LastPrice = rsp.LastPrice;
                             buyPositionVM.Portfolio = rsp.Portfolio;
+                            buyPositionVM.TdBuyAmount = rsp.TdBuyAmount;
+                            buyPositionVM.TdAmount = rsp.TdBuyAmount;
                             buyPositionVM.TdBuyPosition = rsp.TdBuyPosition;
                             buyPositionVM.YdBuyPosition = rsp.YdBuyPosition;
                             buyPositionVM.BuyProfit = rsp.BuyProfit;
@@ -366,7 +368,7 @@ namespace Micro.Future.Message
                     }
                     else
                     {
-                        if (rsp.TdBuyPosition + rsp.YdBuyPosition != 0)
+                        if (rsp.TdBuyPosition + rsp.YdBuyPosition + rsp.TdBuyAmount != 0)
                         {
                             var buypositionVM = new PositionVM
                             {
@@ -394,10 +396,10 @@ namespace Micro.Future.Message
 
 
 
-                    var sellPositionVM = positionVMCollection.Where(p => p.TdSellPosition + p.YdSellPosition != 0).FirstOrDefault();
+                    var sellPositionVM = positionVMCollection.Where(p => p.TdSellPosition + p.YdSellPosition + p.TdSellAmount != 0).FirstOrDefault();
                     if (sellPositionVM != null)
                     {
-                        if (rsp.TdSellPosition + rsp.YdSellPosition != 0)
+                        if (rsp.TdSellPosition + rsp.YdSellPosition + rsp.TdSellAmount != 0)
                         {
                             sellPositionVM.Portfolio = rsp.Portfolio;
                             sellPositionVM.AvgSellPrice = sellPositionVM.AvgPrice = rsp.AvgSellPrice;
@@ -418,7 +420,7 @@ namespace Micro.Future.Message
                     }
                     else
                     {
-                        if (rsp.TdSellPosition + rsp.YdSellPosition != 0)
+                        if (rsp.TdSellPosition + rsp.YdSellPosition + rsp.TdSellAmount != 0)
                         {
                             var sellpositionVM = new PositionVM
                             {
@@ -447,7 +449,7 @@ namespace Micro.Future.Message
                 }
                 else
                 {
-                    if (rsp.TdBuyPosition + rsp.YdBuyPosition != 0)
+                    if (rsp.TdBuyPosition + rsp.YdBuyPosition + rsp.TdBuyAmount != 0)
                     {
                         var buypositionVM = new PositionVM
                         {
@@ -472,7 +474,7 @@ namespace Micro.Future.Message
                         OnPositionProfitUpdated?.Invoke(buypositionVM);
 
                     }
-                    if (rsp.TdSellPosition + rsp.YdSellPosition != 0)
+                    if (rsp.TdSellPosition + rsp.YdSellPosition + rsp.TdSellAmount != 0)
                     {
                         var sellpositionVM = new PositionVM
                         {
@@ -546,6 +548,7 @@ namespace Micro.Future.Message
             FundVM.ExchangeDeliveryMargin = rsp.ExchangeDeliveryMargin;
             FundVM.ReserveBalance = rsp.ReserveBalance;
             FundVM.StaticBalance = rsp.PreBalance - rsp.PreCredit - rsp.PreCredit + rsp.Mortgage - rsp.Withdraw + rsp.Deposit;
+            FundVM.UserBalance = rsp.UserBalance;
         }
         private void OnReturnOrder(PBOrderInfo rsp)
         {

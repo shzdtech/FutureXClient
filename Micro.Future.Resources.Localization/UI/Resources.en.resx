@@ -1449,4 +1449,7 @@
   <data name="Query" xml:space="preserve">
     <value>Query</value>
   </data>
+  <data name="UserBalance" xml:space="preserve">
+    <value>UserBalance</value>
+  </data>
 </root>

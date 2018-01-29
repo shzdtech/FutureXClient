@@ -56,12 +56,12 @@ namespace Micro.Future.UI
             if (isChecked)
             {
                 cobj.Restore();
-                //cobj.Save();
+                cobj.Save();
             }
             else
             {
                 cobj.Hide();
-                //cobj.Remove();
+                cobj.Remove();
             }
 
             foreach (var c in cobj.Children)

@@ -1455,4 +1455,7 @@
   <data name="Query" xml:space="preserve">
     <value>查询</value>
   </data>
+  <data name="UserBalance" xml:space="preserve">
+    <value>客户权益</value>
+  </data>
 </root>

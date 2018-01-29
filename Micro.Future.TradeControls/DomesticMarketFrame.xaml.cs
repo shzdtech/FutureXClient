@@ -474,15 +474,16 @@ namespace Micro.Future.UI
             positionWin.FilterSettingsWin.FilterTabTitle = title;
             positionPane.AddContent(positionWin).Title = title;
             positionWin.FilterSettingsWin.Save();
-
+        }
+        private void MenuItem_Click_PositionProfit(object sender, RoutedEventArgs e)
+        {
             var titleprofit = WPFUtility.GetLocalizedString("PositionProfit", LocalizationInfo.ResourceFile, LocalizationInfo.AssemblyName);
-            var positionProfitWin = new PositionProfitControl(positionsWindow.PersistanceId, Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
-            positionProfitWin.FilterSettingsWin.Title += "(" + title + ")";
-            positionProfitWin.FilterSettingsWin.FilterTabTitle = title;
-            positionProfitPane.AddContent(positionWin).Title = title;
+            var positionProfitWin = new PositionProfitControl(positionsProfitWindow.PersistanceId, Guid.NewGuid().ToString(), MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>());
+            positionProfitWin.FilterSettingsWin.Title += "(" + titleprofit + ")";
+            positionProfitWin.FilterSettingsWin.FilterTabTitle = titleprofit;
+            positionProfitPane.AddContent(positionProfitWin).Title = titleprofit;
             positionProfitWin.FilterSettingsWin.Save();
         }
-
         private void MenuItem_Click_Portfolio(object sender, RoutedEventArgs e)
         {
             PortoforlioWindow win = new PortoforlioWindow();

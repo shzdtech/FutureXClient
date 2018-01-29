@@ -18,8 +18,13 @@
     </UserControl.Resources>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="3"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
         <!--<utility:GridLineDecorator GridLineBrush="LightGray">-->
-        <ListView Name="PositionListView" GridViewColumnHeader.Click = "PositionListView_Click"  SelectionChanged="PositionListView_SelectionChanged">
+        <ListView Name="PositionListView" Grid.Row="0" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" GridViewColumnHeader.Click = "PositionListView_Click"  SelectionChanged="PositionListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
@@ -47,5 +52,10 @@
             </ListView.ContextMenu>
         </ListView>
         <!--</utility:GridLineDecorator>-->
+        <GridSplitter Grid.Row="1" VerticalAlignment="Stretch" />
+        <DockPanel Grid.Row="2">
+            <Label  Content="持仓盈亏合计"/>
+            <Label Name="ttleprofitLabel" />
+        </DockPanel>
     </Grid>
 </UserControl>

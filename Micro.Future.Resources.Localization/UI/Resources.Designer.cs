@@ -3868,6 +3868,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 客户权益 的本地化字符串。
+        /// </summary>
+        internal static string UserBalance {
+            get {
+                return ResourceManager.GetString("UserBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 UFO 的本地化字符串。
         /// </summary>
         internal static string UserClient {
