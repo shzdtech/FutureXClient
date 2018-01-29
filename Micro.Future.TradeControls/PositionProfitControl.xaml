@@ -55,7 +55,7 @@
         <GridSplitter Grid.Row="1" VerticalAlignment="Stretch" />
         <DockPanel Grid.Row="2">
             <Label  Content="持仓盈亏合计"/>
-            <Label Name="ttleprofitLabel" />
+            <Label Name="ttleprofitLabel" ContentStringFormat="N2"/>
         </DockPanel>
     </Grid>
 </UserControl>
