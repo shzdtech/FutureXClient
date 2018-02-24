@@ -1458,4 +1458,10 @@
   <data name="UserBalance" xml:space="preserve">
     <value>客户权益</value>
   </data>
+  <data name="RiskControl" xml:space="preserve">
+    <value>风险控制</value>
+  </data>
+  <data name="RiskControlParams" xml:space="preserve">
+    <value>风控参数</value>
+  </data>
 </root>

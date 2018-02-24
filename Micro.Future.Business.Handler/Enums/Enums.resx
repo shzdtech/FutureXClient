@@ -234,4 +234,31 @@
   <data name="OrderVolType_ALLVOLUME" xml:space="preserve">
     <value>ALLVOLUME</value>
   </data>
+  <data name="ACTIONTYPE_NONE" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="ACTIONTYPE_STOPOPENORDER" xml:space="preserve">
+    <value>停开订单</value>
+  </data>
+  <data name="ACTIONTYPE_WARNING" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="ENABLETYPE_FALSE" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="ENABLETYPE_TRUE" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="MATCHTYPE_ALL" xml:space="preserve">
+    <value>所有</value>
+  </data>
+  <data name="MATCHTYPE_ANY" xml:space="preserve">
+    <value>任意</value>
+  </data>
+  <data name="TYPE_POSTTRADE" xml:space="preserve">
+    <value>交易后</value>
+  </data>
+  <data name="TYPE_PRETRADE" xml:space="preserve">
+    <value>交易前</value>
+  </data>
 </root>

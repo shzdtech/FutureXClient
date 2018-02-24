@@ -18,7 +18,7 @@
             <TreeView.ItemTemplate >
                 <HierarchicalDataTemplate ItemsSource="{Binding Children, Mode=OneTime}">
                     <StackPanel Orientation="Horizontal" >
-                        <CheckBox x:Name="columncheck" Focusable="False" IsChecked="{Binding IsVisible}" VerticalAlignment="Center" Checked="column_checked" Unchecked="column_unchecked" />
+                        <CheckBox x:Name="columncheck" Focusable="False" IsChecked="{Binding IsVisible}" VerticalAlignment="Center" />
                         <ContentPresenter Content="{Binding OriginalHeader, Mode=OneWay}" />
                     </StackPanel>
                 </HierarchicalDataTemplate>

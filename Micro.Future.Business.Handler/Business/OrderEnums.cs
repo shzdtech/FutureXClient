@@ -128,7 +128,6 @@ namespace Micro.Future.Message
 
     public enum Style
     {
-
         Vanilla = 0,
 
         Geometric = 1,
@@ -156,5 +155,17 @@ namespace Micro.Future.Message
         ///全部数量
         [LocalizableDescription(@"OrderSetType_FOK", typeof(Enums))]
         FOK = 2
+    };
+
+    public enum ActionType
+    {
+        [LocalizableDescription(@"ACTIONTYPE_NONE", typeof(Enums))]
+        None = 0,
+
+        [LocalizableDescription(@"ACTIONTYPE_WARNING", typeof(Enums))]
+        WARNING = 1,
+
+        [LocalizableDescription(@"ACTIONTYPE_STOPOPENORDER", typeof(Enums))]
+        StopOpenOrder = 1
     };
 }

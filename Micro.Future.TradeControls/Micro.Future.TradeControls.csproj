@@ -35,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -47,10 +49,23 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="Xceed.Wpf.AvalonDock, Version=3.3.17121.18230, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL" />
+    <Reference Include="Xceed.Wpf.Controls.v6.2.XmlSerializers, Version=6.2.17123.15050, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL" />
     <Reference Include="Xceed.Wpf.Toolkit, Version=3.3.17121.18230, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="RiskParamsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RiskAccountInfoControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AccountInfoControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CopyFrame.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -102,10 +117,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="RiskControlFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RiskParamsControl.xaml.cs">
+      <DependentUpon>RiskParamsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RiskAccountInfoControl.xaml.cs">
+      <DependentUpon>RiskAccountInfoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AccountInfoControl.xaml.cs">
       <DependentUpon>AccountInfoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CopyFrame.xaml.cs">
+      <DependentUpon>CopyFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="FrameLoginWindow.xaml.cs">
       <DependentUpon>FrameLoginWindow.xaml</DependentUpon>
@@ -156,6 +184,9 @@
     <Compile Include="TradeRecordControl.xaml.cs">
       <DependentUpon>TradeRecordControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RiskControlFrame.xaml.cs">
+      <DependentUpon>RiskControlFrame.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -204,6 +235,9 @@
       <Project>{fa8ba007-b5d3-478f-901c-46c5ed21aee2}</Project>
       <Name>Micro.Future.ViewModel.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

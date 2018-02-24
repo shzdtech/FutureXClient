@@ -205,7 +205,6 @@ namespace Micro.Future.UI
             //txtblkTime.Text = DateTime.Now.ToLongTimeString();
             foreach (var menuitem in SysMenus)
                 mainMenu.Items.Add(menuitem);
-
             sender.Close();
         }
 

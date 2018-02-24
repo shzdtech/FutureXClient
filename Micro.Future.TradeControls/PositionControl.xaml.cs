@@ -504,10 +504,21 @@ namespace Micro.Future.UI
             mColumns = ColumnObject.GetColumns(PositionListView);
             TradeHandler.PositionVMCollection.Clear();
             TradeHandler.QueryPosition();
-
             TradeHandler.PositionVMCollection.CollectionChanged += PositionCollectionChanged;
             //MarketDataHandler.OnNewMarketData += OnNewMarketData;
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User?.Id;
+            var userID = MessageHandlerContainer.DefaultInstance.Get<AccountHandler>().MessageWrapper.User.Id;
+            if (userID != null)
+            {
+                foreach (var column in mColumns)
+                {
+                    column.UserID = userID;
+                    column.PersistanceId = PersistanceId;
+                    column.ColumnId = FilterSettingsWin.FilterId;
+                    //column.RestoreAll(mColumns);
+                }
+            }
+
         }
 
         public bool ShowCloseAll
