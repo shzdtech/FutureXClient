@@ -183,6 +183,11 @@ namespace Micro.Future.UI
         {
             _otcTradingDeskSignIner.OnLogged += _otcTradingDeskSignIner_OnLogged;
 
+            MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().RegisterMessageWrapper(_ctpMdSignIner.MessageWrapper);
+            MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().RegisterMessageWrapper(_otcTradingDeskSignIner.MessageWrapper);
+            MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>().RegisterMessageWrapper(_otcOptionDataSignIner.MessageWrapper);
+            MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>().RegisterMessageWrapper(_otcTradeSignIner.MessageWrapper);
+
             _ctpMdSignIner.SignInOptions.BrokerID = brokerId;
             _ctpMdSignIner.SignInOptions.UserName = usernname;
             _ctpMdSignIner.SignInOptions.Password = password;
