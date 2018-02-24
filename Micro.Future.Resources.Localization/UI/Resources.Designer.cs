@@ -2878,6 +2878,24 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 风险控制 的本地化字符串。
+        /// </summary>
+        internal static string RiskControl {
+            get {
+                return ResourceManager.GetString("RiskControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 风控参数 的本地化字符串。
+        /// </summary>
+        internal static string RiskControlParams {
+            get {
+                return ResourceManager.GetString("RiskControlParams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 执行价结构 的本地化字符串。
         /// </summary>
         internal static string RiskGraph {
@@ -3864,6 +3882,15 @@ namespace Micro.Future.Resources.Localization.UI {
         internal static string UseMargin {
             get {
                 return ResourceManager.GetString("UseMargin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 客户权益 的本地化字符串。
+        /// </summary>
+        internal static string UserBalance {
+            get {
+                return ResourceManager.GetString("UserBalance", resourceCulture);
             }
         }
         

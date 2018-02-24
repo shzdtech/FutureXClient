@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Micro.Future.UI.RiskParamsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Micro.Future.UI"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"  
+             xmlns:utility="clr-namespace:Micro.Future.Utility;assembly=Micro.Future.Utility"
+             lex:LocalizeDictionary.DesignCulture="zh_CN"
+             lex:LocalizeDictionary.OutputMissingKeys="True"
+             lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" Width="auto">
+    <Grid>
+        <WrapPanel>
+            <StackPanel Name="RiskParamNameSP">
+            </StackPanel>
+            <StackPanel Name="RiskParamSP">
+            </StackPanel>
+        </WrapPanel>
+    </Grid>
+</UserControl>

@@ -61,6 +61,33 @@ namespace Micro.Future.Business.Handler.Enums {
         }
         
         /// <summary>
+        ///   查找类似 无 的本地化字符串。
+        /// </summary>
+        internal static string ACTIONTYPE_NONE {
+            get {
+                return ResourceManager.GetString("ACTIONTYPE_NONE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 停开订单 的本地化字符串。
+        /// </summary>
+        internal static string ACTIONTYPE_STOPOPENORDER {
+            get {
+                return ResourceManager.GetString("ACTIONTYPE_STOPOPENORDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 警告 的本地化字符串。
+        /// </summary>
+        internal static string ACTIONTYPE_WARNING {
+            get {
+                return ResourceManager.GetString("ACTIONTYPE_WARNING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 买 的本地化字符串。
         /// </summary>
         internal static string DirectionType_Buy {
@@ -84,6 +111,24 @@ namespace Micro.Future.Business.Handler.Enums {
         internal static string DirectionType_Sell {
             get {
                 return ResourceManager.GetString("DirectionType_Sell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 否 的本地化字符串。
+        /// </summary>
+        internal static string ENABLETYPE_FALSE {
+            get {
+                return ResourceManager.GetString("ENABLETYPE_FALSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是 的本地化字符串。
+        /// </summary>
+        internal static string ENABLETYPE_TRUE {
+            get {
+                return ResourceManager.GetString("ENABLETYPE_TRUE", resourceCulture);
             }
         }
         
@@ -129,6 +174,24 @@ namespace Micro.Future.Business.Handler.Enums {
         internal static string HEDGETYPE_SPECULATION {
             get {
                 return ResourceManager.GetString("HEDGETYPE_SPECULATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 所有 的本地化字符串。
+        /// </summary>
+        internal static string MATCHTYPE_ALL {
+            get {
+                return ResourceManager.GetString("MATCHTYPE_ALL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 任意 的本地化字符串。
+        /// </summary>
+        internal static string MATCHTYPE_ANY {
+            get {
+                return ResourceManager.GetString("MATCHTYPE_ANY", resourceCulture);
             }
         }
         
@@ -408,6 +471,24 @@ namespace Micro.Future.Business.Handler.Enums {
         internal static string TRADINGTYPE_QUOTE {
             get {
                 return ResourceManager.GetString("TRADINGTYPE_QUOTE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 交易后 的本地化字符串。
+        /// </summary>
+        internal static string TYPE_POSTTRADE {
+            get {
+                return ResourceManager.GetString("TYPE_POSTTRADE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 交易前 的本地化字符串。
+        /// </summary>
+        internal static string TYPE_PRETRADE {
+            get {
+                return ResourceManager.GetString("TYPE_PRETRADE", resourceCulture);
             }
         }
     }

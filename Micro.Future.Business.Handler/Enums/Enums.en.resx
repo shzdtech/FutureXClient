@@ -237,4 +237,31 @@
   <data name="OrderVolType_ALLVOLUME" xml:space="preserve">
     <value>ALLVOLUME</value>
   </data>
+  <data name="ACTIONTYPE_NONE" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="ACTIONTYPE_STOPOPENORDER" xml:space="preserve">
+    <value>StopOpenOrder</value>
+  </data>
+  <data name="ACTIONTYPE_WARNING" xml:space="preserve">
+    <value>WARNING</value>
+  </data>
+  <data name="ENABLETYPE_FALSE" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="ENABLETYPE_TRUE" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="MATCHTYPE_ALL" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="MATCHTYPE_ANY" xml:space="preserve">
+    <value>Any</value>
+  </data>
+  <data name="TYPE_POSTTRADE" xml:space="preserve">
+    <value>Post-Trade</value>
+  </data>
+  <data name="TYPE_PRETRADE" xml:space="preserve">
+    <value>Pre-Trade</value>
+  </data>
 </root>

@@ -128,6 +128,9 @@ namespace Micro.Future.UI
                 await _handler.QueryModelParamsAsync(volModel.ToString());
                 WMSettingsLV.DataContext = null;
                 WMSettingsLV.DataContext = volModel;
+                var itemsource = volModel;
+                WMSettingsLV.testmodellv.ItemsSource = itemsource.Params;
+
             }
 
             //var exchange = OpMarketControl.underlyingEX1.SelectedValue;

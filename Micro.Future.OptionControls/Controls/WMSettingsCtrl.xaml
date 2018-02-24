@@ -61,6 +61,26 @@
                     </GroupBox>
                     <Button x:Name="setReferenceBtn" Content="{lex:Loc Key=SetReference}" Click="SetReference_Click" />
                     <Button x:Name="revertCurrentBtn" Content="{lex:Loc Key=RevertCurrent}" Click="RevertCurrent_Click" />
+                    <ListView x:Name="testmodellv" x:FieldModifier="public">
+                        <ListView.View>
+                            <GridView x:Name="testmodelgv" x:FieldModifier="public">
+                                <GridViewColumn Header="paramlname">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn x:Name="valueColumn" x:FieldModifier="public" Header="value">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <xctk:DoubleUpDown Value="{Binding Value}" VerticalAlignment="Center" Height="22"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                     <!--<GroupBox x:Name="Contract_ExpirationMonth" Header="Contract ExpirationMonth">
                 <ComboBox x:Name="contractExpirationMonth" Tag="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" />
             </GroupBox>

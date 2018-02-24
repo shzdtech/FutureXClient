@@ -380,5 +380,16 @@
             }
         }
 
+        private double _userBalance;
+        public double UserBalance
+        {
+            get { return _userBalance; }
+            set
+            {
+                _userBalance = value;
+                OnPropertyChanged("UserBalance");
+            }
+        }
+
     }
 }

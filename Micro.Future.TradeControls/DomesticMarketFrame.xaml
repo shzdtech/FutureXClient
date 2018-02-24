@@ -38,8 +38,8 @@
                     <!--<MenuItem Header="{lex:Loc Key=FastOrderControl}" Click="MenuItem_Click_FastOrderCtrl">
                     </MenuItem>-->
                     <MenuItem Header="{lex:Loc Key=PositionWindow}" Click="MenuItem_Click_Position">
-                        <!--<MenuItem Header="{lex:Loc Key=Position}" Click="MenuItem_Click_Position">
-                        </MenuItem>-->
+                    </MenuItem>
+                    <MenuItem Header="{lex:Loc Key=PositionProfit}" Click="MenuItem_Click_PositionProfit">
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=AddPortfolio}" Click="MenuItem_Click_Portfolio">

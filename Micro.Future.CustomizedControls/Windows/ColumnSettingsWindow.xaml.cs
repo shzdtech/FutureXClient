@@ -27,15 +27,6 @@ namespace Micro.Future.UI
             _columns = columns;
             treeColumns.ItemsSource = columns;
         }
-        private void column_checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void column_unchecked(object sender, RoutedEventArgs e)
-        {
-
-        }
 
     }
 
@@ -56,12 +47,13 @@ namespace Micro.Future.UI
             if (isChecked)
             {
                 cobj.Restore();
-                //cobj.Save();
+                //cobj.Remove();
             }
             else
             {
                 cobj.Hide();
-                //cobj.Remove();
+                //cobj.Save();
+
             }
 
             foreach (var c in cobj.Children)
@@ -121,7 +113,11 @@ namespace Micro.Future.UI
             get;
             set;
         }
-
+        public string PersistanceId
+        {
+            get;
+            set;
+        }
         public string UserID
         {
             get;
@@ -188,6 +184,7 @@ namespace Micro.Future.UI
         {
 
             var hidecols = ClientDbContext.GetColumnSettings(UserID, ColumnId);
+
             foreach (var col in hidecols)
             {
                 if (col.ColumnIdx >= 0 && col.ColumnIdx < cols.Count)
