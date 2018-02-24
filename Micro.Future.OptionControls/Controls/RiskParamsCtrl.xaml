@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="Micro.Future.UI.RiskParamsCtrl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Micro.Future.UI"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"    
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+             xmlns:utility="clr-namespace:Micro.Future.Utility;assembly=Micro.Future.Utility"
+             lex:LocalizeDictionary.DesignCulture="zh_CN"
+             lex:LocalizeDictionary.OutputMissingKeys="True"
+             lex:ResxLocalizationProvider.DefaultAssembly="Micro.Future.Resources.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources"             
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid x:Name="gridFrame">
+        <Grid.Resources>
+            <ResourceDictionary>
+                <Style x:Name="N2Format" TargetType="DataGrid">
+                    <Setter Property="ItemStringFormat" Value="N2"/>
+                </Style>
+                <xcdg:DataGridCollectionViewSource x:Key="cvsGreeks" Source="{Binding Path=RiskVMCollection}">
+                    <xcdg:DataGridCollectionViewSource.GroupDescriptions>
+                        <xcdg:DataGridGroupDescription PropertyName="Underlying" />
+                    </xcdg:DataGridCollectionViewSource.GroupDescriptions>
+                    <!-- Every StatFunction that will eventually be used with this data source HAS 
+                 to be declared here. StatFunctions are only supported by the 
+                 DataGridCollectionView and DataGridCollectionViewSource classes.-->
+                    <xcdg:DataGridCollectionViewSource.StatFunctions>
+                        <xcdg:SumFunction ResultPropertyName="SumOfDelta"
+                                 SourcePropertyName="Delta" />
+                        <xcdg:SumFunction ResultPropertyName="SumOfGamma"
+                                 SourcePropertyName="Gamma" />
+                        <xcdg:SumFunction ResultPropertyName="SumOfVega100"
+                                 SourcePropertyName="Vega100" />
+                        <xcdg:SumFunction ResultPropertyName="SumOfTheta365"
+                                 SourcePropertyName="Theta365" />
+                        <xcdg:SumFunction ResultPropertyName="SumOfRho100"
+                                 SourcePropertyName="Rho100" />
+                    </xcdg:DataGridCollectionViewSource.StatFunctions>
+
+                </xcdg:DataGridCollectionViewSource>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <xcdg:DataGridControl x:Name="GreekListView" AutoCreateColumns="False" ItemsSource="{Binding Source={StaticResource cvsGreeks}}">
+            <xcdg:DataGridControl.View>
+                <xcdg:TableView></xcdg:TableView>
+            </xcdg:DataGridControl.View>
+            <xcdg:DataGridControl.DefaultGroupConfiguration>
+                <xcdg:GroupConfiguration>
+                    <xcdg:GroupConfiguration.Footers>
+                        <!-- The groups will contain a StatRow visible even when the group 
+                 is collapsed. -->
+                        <xcdg:GroupHeaderFooterItemTemplate>
+                            <DataTemplate>
+                                <xcdg:StatRow>
+                                    <xcdg:StatCell FieldName="Delta" ResultPropertyName="SumOfDelta"  ContentStringFormat="{}{0:N2}" />
+                                    <xcdg:StatCell FieldName="Gamma" ResultPropertyName="SumOfGamma" ContentStringFormat="{}{0:N4}"/>
+                                    <xcdg:StatCell FieldName="Vega100" ResultPropertyName="SumOfVega100" ContentStringFormat="{}{0:N2}"/>
+                                    <xcdg:StatCell FieldName="Theta365" ResultPropertyName="SumOfTheta365" ContentStringFormat="{}{0:N2}"/>
+                                    <xcdg:StatCell FieldName="Rho100" ResultPropertyName="SumOfRho100" ContentStringFormat="{}{0:N2}"/>
+                                </xcdg:StatRow>
+                            </DataTemplate>
+                        </xcdg:GroupHeaderFooterItemTemplate>
+                    </xcdg:GroupConfiguration.Footers>
+                </xcdg:GroupConfiguration>
+            </xcdg:DataGridControl.DefaultGroupConfiguration>
+
+            <xcdg:DataGridControl.Columns>
+                <xcdg:Column FieldName="Contract" Title="Contract" Width="*" />
+                <xcdg:Column FieldName="Underlying"  Title="Underlying" Width="*"/>
+                <xcdg:Column FieldName="Delta" Title="Delta" Width="*" CellContentStringFormat="{}{0:N}"/>
+                <xcdg:Column FieldName="Gamma" Title="Gamma" Width="*" CellContentStringFormat="{}{0:N4}" />
+                <xcdg:Column FieldName="Vega100" Title="Vega" Width="*" CellContentStringFormat="{}{0:N}" />
+                <xcdg:Column FieldName="Theta365" Title="Theta" Width="*" CellContentStringFormat="{}{0:N}"/>
+                <xcdg:Column FieldName="Rho100" Title="Rho" Width="*" CellContentStringFormat="{}{0:N}"/>
+            </xcdg:DataGridControl.Columns>
+            <xcdg:DataGridControl.ContextMenu>
+                <ContextMenu Name="GreekContext" StaysOpen="True">
+                    <MenuItem Header="{lex:Loc Key=FilterSettings}" Click="MenuItem_Click_Settings" />
+                    <Separator />
+                </ContextMenu>
+            </xcdg:DataGridControl.ContextMenu>
+        </xcdg:DataGridControl>
+    </Grid>
+</UserControl>
