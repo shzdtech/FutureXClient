@@ -21,7 +21,7 @@ namespace Micro.Future.Message
             get;
         } = new ConcurrentDictionary<ContractKeyVM, WeakReference<ContractKeyVM>>();
 
-        protected IDictionary<string, ObservableCollection<ModelParamsVM>> _modelDict = new Dictionary<string, ObservableCollection<ModelParamsVM>>();
+        public IDictionary<string, ObservableCollection<ModelParamsVM>> ModelParamsDict = new Dictionary<string, ObservableCollection<ModelParamsVM>>();
 
         protected void OnErrorAction(ExceptionMessage bizErr)
         {
@@ -44,10 +44,10 @@ namespace Micro.Future.Message
         public ObservableCollection<ModelParamsVM> GetModelParamsVMCollection(string modelAim = "pm")
         {
             ObservableCollection<ModelParamsVM> ret;
-            if (!_modelDict.TryGetValue(modelAim, out ret))
+            if (!ModelParamsDict.TryGetValue(modelAim, out ret))
             {
                 ret = new ObservableCollection<ModelParamsVM>();
-                _modelDict[modelAim] = ret;
+                ModelParamsDict[modelAim] = ret;
             }
 
             return ret;
@@ -159,7 +159,7 @@ namespace Micro.Future.Message
                     OnQueryModelParamsSuccess(resp);
 
                     if (resp.Header == null || !resp.Header.HasMore)
-                        tcs.TrySetResult(_modelDict);
+                        tcs.TrySetResult(ModelParamsDict);
                 }
             },
             (ExceptionMessage bizErr) =>

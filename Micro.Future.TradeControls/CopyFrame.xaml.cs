@@ -111,7 +111,10 @@ namespace Micro.Future.UI
                     Task.WaitAll(taskList.ToArray());
 
                     var tradingdeskHandler = msgContainer.Get<OTCOptionTradingDeskHandler>();
-                    tradingdeskHandler.QueryAllModelParamsAsync();
+                    tradingdeskHandler.QueryAllModelParamsAsync().Wait();
+                    var modelparams = tradingdeskHandler.ModelParamsDict;
+
+
                 });
             }
 
@@ -182,15 +185,12 @@ namespace Micro.Future.UI
             await tradeHandler.SyncContractInfoAsync();
             Thread.Sleep(1000);
             positionsWindow.DEFAULT_ID = DEFAULT_ID;
-            Dispatcher.Invoke(() =>
-            {
-                positionsWindow.ReloadData();
-                Thread.Sleep(1000);
-                tradeWindow.DEFAULT_ID = DEFAULT_ID;
-                tradeWindow.ReloadData();
-                Thread.Sleep(1000);
-                FastOrderCtl.ReloadData();
-            });
+            positionsWindow.Dispatcher.Invoke(() => positionsWindow.ReloadData());
+            Thread.Sleep(1000);
+            tradeWindow.DEFAULT_ID = DEFAULT_ID;
+            tradeWindow.Dispatcher.Invoke(() => tradeWindow.ReloadData());
+            Thread.Sleep(1000);
+            FastOrderCtl.Dispatcher.Invoke(() => FastOrderCtl.ReloadData());
         }
         private void _otcTradingDeskSignIner_OnLogged(IUserInfo obj)
         {
