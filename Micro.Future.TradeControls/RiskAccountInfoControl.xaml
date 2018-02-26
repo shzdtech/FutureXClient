@@ -17,7 +17,7 @@
         <ListView Name="FundListView" SelectionChanged="FundListView_SelectionChanged" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="{lex:Loc Key=AccountID}" DisplayMemberBinding="{Binding AccountID}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=AccountID}" DisplayMemberBinding="{Binding UserName}" Width="auto"/>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>

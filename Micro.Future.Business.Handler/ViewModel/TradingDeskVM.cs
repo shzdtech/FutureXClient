@@ -22,6 +22,34 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private string _username;
+        public string UserName
+        {
+            get
+            {
+                return _username;
+            }
+            set
+            {
+                _username = value;
+                OnPropertyChanged("UserName");
+            }
+        }
+
+        private string _userID;
+        public string UserID
+        {
+            get
+            {
+                return _userID;
+            }
+            set
+            {
+                _userID = value;
+                OnPropertyChanged("UserID");
+            }
+        }
+
         public string _contractNum;
         public string ContactNum
         {

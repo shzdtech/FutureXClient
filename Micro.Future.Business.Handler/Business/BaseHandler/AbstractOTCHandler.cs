@@ -372,12 +372,44 @@ namespace Micro.Future.Message
                 TradingDeskVMCollection.Add(new TradingDeskVM()
                 {
                     Name = userInfo.LastName + " " + userInfo.FirstName,
+                    UserName = userInfo.UserName,
+                    UserID = userInfo.UserId,
                     ContactNum = userInfo.ContactNum,
                     Email = userInfo.Email
                 });
             }
         }
+        public virtual Task<ObservableCollection<TradingDeskVM>> QueryTradingDeskAsync(int timeout = 10000)
+        {
+            var sst = new StringMap();
+            var msgId = (uint)BusinessMessageID.MSG_ID_QUERY_TRADINGDESK;
+            var tcs = new TaskCompletionSource<ObservableCollection<TradingDeskVM>>(new CancellationTokenSource(timeout));
 
+            var serialId = NextSerialId;
+            sst.Header = new DataHeader { SerialId = serialId };
+            sst.Entry.Add(string.Empty, string.Empty);
+
+            MessageWrapper.RegisterAction<PBUserInfoList, ExceptionMessage>
+                (msgId,
+                (resp) =>
+                {
+                    if (resp.Header?.SerialId == serialId)
+                    {
+                        OnQueryTradingDeskSuccessAction(resp);
+                        tcs.TrySetResult(TradingDeskVMCollection);
+                    }
+                },
+                (bizErr) =>
+                {
+                    OnErrorAction(bizErr);
+                    tcs.SetResult(null);
+                }
+                );
+
+            MessageWrapper.SendMessage(msgId, sst);
+
+            return tcs.Task;
+        }
         public void UpdateStrategy(StrategyVM sVM, bool resetCounter = false)
         {
             var strategy = new PBStrategy();
@@ -859,7 +891,6 @@ namespace Micro.Future.Message
 
             return tcs.Task;
         }
-
 
         public void SendMessage(uint serialId, uint msgId, IEnumerable<ContractKeyVM> instrIDList)
         {

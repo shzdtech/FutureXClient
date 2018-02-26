@@ -22,12 +22,13 @@ namespace Micro.Future.UI
         private AbstractSignInManager _ctpTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<TraderExHandler>());
         private AbstractSignInManager _otcTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<OTCOptionTradeHandler>());
 
-        public ObservableCollection<FundVM> FundVMCollection
+        public ObservableCollection<TradingDeskVM> TradingDeskVMCollection
         {
             get;
-        } = new ObservableCollection<FundVM>();
+            set;
+        } = new ObservableCollection<TradingDeskVM>();
 
-        public BaseTraderHandler TradeHandler { get; set; }
+        public AbstractOTCHandler TradeHandler { get; set; }
 
         public string PersistanceId
         {
@@ -38,31 +39,24 @@ namespace Micro.Future.UI
         public RiskAccountInfoControl()
         {
             InitializeComponent();
-            //var fund = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().FundVM;
-            FundListView.ItemsSource = FundVMCollection;
+            FundListView.ItemsSource = TradingDeskVMCollection;
             mColumns = ColumnObject.GetColumns(FundListView);           
         }
 
         private void UpdateAccountInfoCallback(object state)
         {
-            TradeHandler.QueryAccountInfo();
+            TradeHandler.QueryTradingDesk();
         }
 
         public void ReloadData()
         {
-            var fund = TradeHandler.FundVM;
-            Dispatcher.Invoke(() =>
-            {
-                FundVMCollection.Clear();
-                FundVMCollection.Add(fund);
-            });
             _timer = new Timer(UpdateAccountInfoCallback, null, UpdateInterval, UpdateInterval); 
         }
-        public event Action<FundVM> OnAccountSelected;
+        public event Action<TradingDeskVM> OnAccountSelected;
         private void FundListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            FundVM fundVM = FundListView.SelectedItem as FundVM;
-            OnAccountSelected?.Invoke(fundVM);
+            TradingDeskVM tradingdeskVM = FundListView.SelectedItem as TradingDeskVM;
+            OnAccountSelected?.Invoke(tradingdeskVM);
         }
 
         public void Initialize()
