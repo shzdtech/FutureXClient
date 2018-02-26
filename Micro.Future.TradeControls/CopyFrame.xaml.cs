@@ -59,24 +59,24 @@ namespace Micro.Future.UI
 
         public MessageHandlerContainer GetUserMessageContainer(string userName)
         {
-            MessageHandlerContainer ret;
-            if (!_userMsgContainer.TryGetValue(userName, out ret))
+            MessageHandlerContainer msgContainer;
+            if (!_userMsgContainer.TryGetValue(userName, out msgContainer))
             {
-                ret = new MessageHandlerContainer();
-                _userMsgContainer[userName] = ret;
+                msgContainer = new MessageHandlerContainer();
+                _userMsgContainer[userName] = msgContainer;
 
                 var ctpMdSignIner = new PBSignInManager(_ctpMdSignIner.SignInOptions);
-                ret.Get<MarketDataHandler>().RegisterMessageWrapper(ctpMdSignIner.MessageWrapper);
+                msgContainer.Get<MarketDataHandler>().RegisterMessageWrapper(ctpMdSignIner.MessageWrapper);
                 var ctpTradeSignIner = new PBSignInManager(_ctpTradeSignIner.SignInOptions);
-                ret.Get<TraderExHandler>().RegisterMessageWrapper(ctpTradeSignIner.MessageWrapper);
+                msgContainer.Get<TraderExHandler>().RegisterMessageWrapper(ctpTradeSignIner.MessageWrapper);
                 var otcTradeSignIner = new PBSignInManager(_otcTradeSignIner.SignInOptions);
-                ret.Get<OTCOptionTradeHandler>().RegisterMessageWrapper(otcTradeSignIner.MessageWrapper);
+                msgContainer.Get<OTCOptionTradeHandler>().RegisterMessageWrapper(otcTradeSignIner.MessageWrapper);
                 var otcTradingDeskSignIner = new PBSignInManager(_otcTradingDeskSignIner.SignInOptions);
-                ret.Get<OTCOptionTradingDeskHandler>().RegisterMessageWrapper(otcTradingDeskSignIner.MessageWrapper);
+                msgContainer.Get<OTCOptionTradingDeskHandler>().RegisterMessageWrapper(otcTradingDeskSignIner.MessageWrapper);
                 var otcOptionDataSignIner = new PBSignInManager(_otcOptionDataSignIner.SignInOptions);
-                ret.Get<OTCOptionDataHandler>().RegisterMessageWrapper(otcOptionDataSignIner.MessageWrapper);
+                msgContainer.Get<OTCOptionDataHandler>().RegisterMessageWrapper(otcOptionDataSignIner.MessageWrapper);
                 var accountSignIner = new PBSignInManager(_accountSignIner.SignInOptions);
-                ret.Get<AccountHandler>().RegisterMessageWrapper(otcOptionDataSignIner.MessageWrapper);
+                msgContainer.Get<AccountHandler>().RegisterMessageWrapper(otcOptionDataSignIner.MessageWrapper);
 
                 ctpTradeSignIner.OnLogged += _ctpTradeSignIner_OnLogged;
 
@@ -110,12 +110,12 @@ namespace Micro.Future.UI
 
                     Task.WaitAll(taskList.ToArray());
 
-                    var tradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+                    var tradingdeskHandler = msgContainer.Get<OTCOptionTradingDeskHandler>();
                     tradingdeskHandler.QueryAllModelParamsAsync();
                 });
             }
 
-            return ret;
+            return msgContainer;
         }
 
         public IEnumerable<StatusBarItem> StatusBarItems
