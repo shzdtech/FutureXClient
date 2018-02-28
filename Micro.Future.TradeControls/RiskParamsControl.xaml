@@ -15,6 +15,13 @@
     <Grid>
         <WrapPanel>
             <StackPanel Name="RiskParamNameSP">
+                <ListView Name="RiskParamNameListView" SelectionChanged="RiskParamNameListView_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding InstanceName}" Width="auto"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </StackPanel>
             <StackPanel Name="RiskParamSP">
             </StackPanel>

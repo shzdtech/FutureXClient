@@ -40,6 +40,11 @@ namespace Micro.Future.Message
             get;
         } = new ObservableCollection<StrategyVM>();
 
+        public ObservableCollection<ModelParamDefVM> ModelParamDefVMCollection
+        {
+            get;
+        } = new ObservableCollection<ModelParamDefVM>();
+
 
         public ObservableCollection<ModelParamsVM> GetModelParamsVMCollection(string modelAim = "pm")
         {
@@ -52,6 +57,18 @@ namespace Micro.Future.Message
 
             return ret;
         }
+        public ObservableCollection<ModelParamsVM> GetModelParamDefVMCollection(string modelAim = "risk")
+        {
+            ObservableCollection<ModelParamsVM> ret;
+            if (!ModelParamsDict.TryGetValue(modelAim, out ret))
+            {
+                ret = new ObservableCollection<ModelParamsVM>();
+                ModelParamsDict[modelAim] = ret;
+            }
+
+            return ret;
+        }
+
 
         public ObservableCollection<ContractParamVM> ContractParamVMCollection
         {
@@ -206,6 +223,79 @@ namespace Micro.Future.Message
 
             return ret;
         }
+        public Task<ModelParamDefVM> QueryModelParamsDefAsync(string modelname, int timeout = 10000)
+        {
+
+            var msgId = (uint)SystemMessageID.MSG_ID_QUERY_MODELPARAMDEF;
+
+            var tcs = new TaskCompletionSource<ModelParamDefVM>(new CancellationTokenSource(timeout));
+
+            var serialId = NextSerialId;
+
+            StringMap modelParams = new StringMap();
+            modelParams.Entry[modelname] = modelname;
+            modelParams.Header = new DataHeader() { SerialId = serialId };
+
+            #region callback
+            MessageWrapper.RegisterAction<ModelParamDef, ExceptionMessage>
+            (msgId,
+            (resp) =>
+            {
+                if (resp.Header?.SerialId == serialId)
+                {
+                    OnQueryModelParamDefSuccess(resp);
+
+                    if (resp.Header == null || !resp.Header.HasMore)
+                        tcs.TrySetResult(OnQueryModelParamDefSuccess(resp));
+                }
+            },
+            (ExceptionMessage bizErr) =>
+            {
+                OnErrorAction(bizErr);
+                tcs.SetResult(null);
+            }
+            );
+            #endregion
+
+            MessageWrapper.SendMessage(msgId, modelParams);
+
+            return tcs.Task;
+        }
+
+        protected ModelParamDefVM OnQueryModelParamDefSuccess(ModelParamDef resp)
+        {
+            //var modelParamsVMCollection = GetModelParamsVMCollection(resp.ModelName);
+            ModelParamDefVM ret = null;
+            if (!string.IsNullOrEmpty(resp.ModelName))
+            {
+                ret = ModelParamDefVMCollection.FirstOrDefault(c => c.InstanceName == resp.ModelName);
+                if (ret == null)
+                {
+                    ret = new ModelParamDefVM()
+                    {
+                        ModelName = resp.ModelName,
+                    };
+                    ModelParamDefVMCollection.Add(ret);
+                }
+
+                foreach (var param in resp.Params)
+                {
+                    ret[param.Key] = new ParamDefVM()
+                    {
+                        DataType = param.Value.DataType,
+                        DefaultVal = param.Value.DefaultVal,
+                        Enable = param.Value.Enable,
+                        MaxVal = param.Value.MaxVal,
+                        MinVal = param.Value.MinVal,
+                        Step = param.Value.Step,
+                        Visible = param.Value.Visible
+                    };
+                }
+            }
+
+            return ret;
+        }
+
 
 
         public void UpdateModelParams(string modelName, string paramName, double paramValue)

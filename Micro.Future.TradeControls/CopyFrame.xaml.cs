@@ -111,14 +111,36 @@ namespace Micro.Future.UI
                     Task.WaitAll(taskList.ToArray());
 
                     var tradingdeskHandler = msgContainer.Get<OTCOptionTradingDeskHandler>();
-                    tradingdeskHandler.QueryAllModelParamsAsync().Wait();
-                    var modelparams = tradingdeskHandler.ModelParamsDict;
+                    var task = tradingdeskHandler.QueryAllModelParamsAsync();
+                    task.Wait();
+                    var modelparams = task.Result;
 
+                    riskparamsControl.Dispatcher.Invoke(() => riskparamsControl.RiskParamNameListView.ItemsSource = modelparams["risk"]);
+                    riskparamsControl.OnModelSelected += RiskparamsControl_OnModelSelected;
+
+                    //foreach (var modelparam in modelparams)
+                    //{
+                    //    var modelnames = modelparam.Key;
+
+                    //    var deftask = tradingdeskHandler.QueryModelParamsDefAsync();
+                    //    task.Wait();
+                    //    var modelparamsdef = task.Result;
+                    //}
+                    //Xceed.Wpf.Toolkit.DoubleUpDown a = new Xceed.Wpf.Toolkit.DoubleUpDown() { Text = "test" };
+                    //riskparamsControl.RiskParamNameSP.Children.Add(new GroupBox() { Content = a, Header = "a" });
 
                 });
             }
 
             return msgContainer;
+        }
+
+        private void RiskparamsControl_OnModelSelected(ModelParamsVM obj)
+        {
+            var tradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+            var task = tradingdeskHandler.QueryModelParamsDefAsync(obj.InstanceName);
+            task.Wait();
+            var paramdef = task.Result;
         }
 
         public IEnumerable<StatusBarItem> StatusBarItems
@@ -200,7 +222,7 @@ namespace Micro.Future.UI
         {
             var tradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
             await tradingdeskHandler.QueryTradingDeskAsync();
-            clientFundLV.TradingDeskVMCollection = tradingdeskHandler.TradingDeskVMCollection;
+            //clientFundLV.TradingDeskVMCollection = tradingdeskHandler.TradingDeskVMCollection;
             clientFundLV.FundListView.ItemsSource = tradingdeskHandler.TradingDeskVMCollection;
         }
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)

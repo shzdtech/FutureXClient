@@ -39,7 +39,7 @@ namespace Micro.Future.UI
         public RiskAccountInfoControl()
         {
             InitializeComponent();
-            FundListView.ItemsSource = TradingDeskVMCollection;
+            //FundListView.ItemsSource = TradingDeskVMCollection;
             mColumns = ColumnObject.GetColumns(FundListView);           
         }
 

@@ -238,6 +238,20 @@ namespace Micro.Future.ViewModel
                 return _value;
             }
         }
+
+        private double _defvalue;
+        public double DefValue
+        {
+            set
+            {
+                _defvalue = value;
+                OnPropertyChanged(nameof(DefValue));
+            }
+            get
+            {
+                return _defvalue;
+            }
+        }
     }
 
     public class DoubleChange : ViewModelBase

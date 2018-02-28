@@ -31,33 +31,8 @@ namespace Micro.Future.UI
         public RiskParamsControl()
         {
             InitializeComponent();
-            Xceed.Wpf.Toolkit.DoubleUpDown a = new Xceed.Wpf.Toolkit.DoubleUpDown() {Text="test" };
-            a.ValueChanged += ValueChanged;
-            RiskParamNameSP.Children.Add(new GroupBox() {Content = a, Header = "a" });
-            RiskParamNameSP.Children.Add(new Label() {Content="1",Height=20 });
-            RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
-            RiskParamNameSP.Children.Add(new Label() { Content = "2222", Height = 20 });
-            RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
-            RiskParamNameSP.Children.Add(new Label() { Content = "3333333333333333333", Height = 20 });
-            RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
-            RiskParamNameSP.Children.Add(new Label() { Content = "1", Height = 20 });
-            RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
-            RiskParamNameSP.Children.Add(new Label() { Content = "2222", Height = 20 });
-            RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
-            RiskParamNameSP.Children.Add(new Label() { Content = "3333333333333333333", Height = 20 });
-            RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
-            RiskParamNameSP.Children.Add(new Label() { Content = "1", Height = 20 });
-            RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
-            RiskParamNameSP.Children.Add(new Label() { Content = "2222", Height = 20 });
-            RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
-            RiskParamNameSP.Children.Add(new Label() { Content = "3333333333333333333", Height = 20 });
-            RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
-            RiskParamNameSP.Children.Add(new Label() { Content = "1", Height = 20 });
-            RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
-            RiskParamNameSP.Children.Add(new Label() { Content = "2222", Height = 20 });
-            RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
-            RiskParamNameSP.Children.Add(new Label() { Content = "3333333333333333333", Height = 20 });
-            RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
+            //Xceed.Wpf.Toolkit.DoubleUpDown a = new Xceed.Wpf.Toolkit.DoubleUpDown() {Text="test" };
+            //RiskParamNameSP.Children.Add(new GroupBox() {Content = a, Header = "a" });
         }
 
         private void UpdateAccountInfoCallback(object state)
@@ -78,6 +53,14 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
+        }
+
+        public event Action<ModelParamsVM> OnModelSelected;
+
+        private void RiskParamNameListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ModelParamsVM modelparamsVM = RiskParamNameListView.SelectedItem as ModelParamsVM;
+            OnModelSelected?.Invoke(modelparamsVM);
         }
     }
 }
