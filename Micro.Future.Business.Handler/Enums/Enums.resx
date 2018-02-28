@@ -261,4 +261,10 @@
   <data name="TYPE_PRETRADE" xml:space="preserve">
     <value>交易前</value>
   </data>
+  <data name="ENABLED_FALSE" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="ENABLED_TRUE" xml:space="preserve">
+    <value>是</value>
+  </data>
 </root>

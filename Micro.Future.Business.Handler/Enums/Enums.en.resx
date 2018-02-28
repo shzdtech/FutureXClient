@@ -264,4 +264,10 @@
   <data name="TYPE_PRETRADE" xml:space="preserve">
     <value>Pre-Trade</value>
   </data>
+  <data name="ENABLED_FALSE" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="ENABLED_TRUE" xml:space="preserve">
+    <value>True</value>
+  </data>
 </root>

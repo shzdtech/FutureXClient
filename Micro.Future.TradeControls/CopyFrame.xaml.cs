@@ -16,6 +16,8 @@ using System.IO;
 using System.Text;
 using System.Collections.ObjectModel;
 using Micro.Future.ViewModel;
+using System.Linq;
+
 
 namespace Micro.Future.UI
 {
@@ -138,9 +140,42 @@ namespace Micro.Future.UI
         private void RiskparamsControl_OnModelSelected(ModelParamsVM obj)
         {
             var tradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
-            var task = tradingdeskHandler.QueryModelParamsDefAsync(obj.InstanceName);
+            var task = tradingdeskHandler.QueryModelParamsDefAsync(obj.Model);
             task.Wait();
             var paramdef = task.Result;
+            foreach (var def in paramdef.Params)
+            {
+                if (def.DataType == 2)
+                {
+                    if (def.Visible == true)
+                    {
+                        string msg = string.Format("F{0}", def.Digits);
+                        Xceed.Wpf.Toolkit.DoubleUpDown a = new Xceed.Wpf.Toolkit.DoubleUpDown()
+                        { DefaultValue = def.DefaultVal, Increment = def.Step, Minimum = def.MinVal, Maximum = def.MaxVal, FormatString = msg, IsEnabled = def.Enable };
+                        a.SetBinding(Xceed.Wpf.Toolkit.DoubleUpDown.ValueProperty, string.Format("[{0}].Value", def.Name));
+                        riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
+                    }
+                }
+                else if (def.DataType == 0)
+                {
+                    if (def.Visible == true)
+                    {
+                        Label a = new Label() { Content = string.Format("[{0}].Value", def.Name) };
+                        riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
+                    }
+                }
+                else if (def.DataType == 1)
+                {
+                    if (def.Visible == true)
+                    {
+                        ComboBox a = new ComboBox() { };
+                        riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
+                    }
+                }
+            }
+            var riskparams = tradingdeskHandler.GetModelParamsVMCollection("risk");
+            if (riskparams != null)
+                riskparamsControl.RiskParamSP.DataContext = riskparams.FirstOrDefault(c => c.InstanceName == paramdef.ModelName);
         }
 
         public IEnumerable<StatusBarItem> StatusBarItems

@@ -117,6 +117,24 @@ namespace Micro.Future.Business.Handler.Enums {
         /// <summary>
         ///   查找类似 否 的本地化字符串。
         /// </summary>
+        internal static string ENABLED_FALSE {
+            get {
+                return ResourceManager.GetString("ENABLED_FALSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是 的本地化字符串。
+        /// </summary>
+        internal static string ENABLED_TRUE {
+            get {
+                return ResourceManager.GetString("ENABLED_TRUE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 否 的本地化字符串。
+        /// </summary>
         internal static string ENABLETYPE_FALSE {
             get {
                 return ResourceManager.GetString("ENABLETYPE_FALSE", resourceCulture);
