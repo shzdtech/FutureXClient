@@ -282,13 +282,15 @@ namespace Micro.Future.Message
                 {
                     ret[param.Key] = new ParamDefVM()
                     {
+                        Name = param.Key,
                         DataType = param.Value.DataType,
                         DefaultVal = param.Value.DefaultVal,
                         Enable = param.Value.Enable,
                         MaxVal = param.Value.MaxVal,
                         MinVal = param.Value.MinVal,
                         Step = param.Value.Step,
-                        Visible = param.Value.Visible
+                        Visible = param.Value.Visible,
+                        
                     };
                 }
             }

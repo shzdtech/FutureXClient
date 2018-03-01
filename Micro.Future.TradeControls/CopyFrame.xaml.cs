@@ -84,6 +84,7 @@ namespace Micro.Future.UI
 
                 var taskList = new List<Task<TaskResult<IUserInfo, MessageException>>>();
 
+
                 Task.Run(() =>
                 {
                     taskList.Add(ServerLoginAsync(ctpMdSignIner));
@@ -112,13 +113,13 @@ namespace Micro.Future.UI
 
                     Task.WaitAll(taskList.ToArray());
 
-                    var tradingdeskHandler = msgContainer.Get<OTCOptionTradingDeskHandler>();
-                    var task = tradingdeskHandler.QueryAllModelParamsAsync();
-                    task.Wait();
-                    var modelparams = task.Result;
-
-                    riskparamsControl.Dispatcher.Invoke(() => riskparamsControl.RiskParamNameListView.ItemsSource = modelparams["risk"]);
-                    riskparamsControl.OnModelSelected += RiskparamsControl_OnModelSelected;
+                    Task.Run(() => 
+                    {
+                        var tradingdeskHandler = msgContainer.Get<OTCOptionTradingDeskHandler>();
+                        var task = tradingdeskHandler.QueryAllModelParamsAsync();
+                        task.Wait();
+                        riskparamsControl.Dispatcher.Invoke(() => riskparamsControl.RiskParamNameListView.ItemsSource = task.Result["risk"]);
+                    });
 
                     //foreach (var modelparam in modelparams)
                     //{
@@ -139,13 +140,14 @@ namespace Micro.Future.UI
 
         private void RiskparamsControl_OnModelSelected(ModelParamsVM obj)
         {
+            riskparamsControl.RiskParamSP.Children.Clear();
             var tradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
             var task = tradingdeskHandler.QueryModelParamsDefAsync(obj.Model);
             task.Wait();
             var paramdef = task.Result;
             foreach (var def in paramdef.Params)
             {
-                if (def.DataType == 2)
+                if (def.DataType == 2 || def.DataType == 1)
                 {
                     if (def.Visible == true)
                     {
@@ -164,18 +166,38 @@ namespace Micro.Future.UI
                         riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
                     }
                 }
-                else if (def.DataType == 1)
+                else if (def.Name == "_action_")
                 {
-                    if (def.Visible == true)
-                    {
-                        ComboBox a = new ComboBox() { };
-                        riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
-                    }
+                    ComboBox a = new ComboBox() { };
+                    a.ItemsSource = Enum.GetValues(typeof(ParamActionType)).Cast<ParamActionType>().ToList();
+                    //a.SetBinding(ComboBox.SelectedItemProperty, string.Format("[{0}].Value", def.Name));
+                    riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
+                }
+                else if (def.Name == "_enabled_")
+                {
+                    ComboBox a = new ComboBox() { };
+                    a.ItemsSource = Enum.GetValues(typeof(ParamEnableType)).Cast<ParamEnableType>().ToList();
+
+                    riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
+                }
+                else if (def.Name == "_match_")
+                {
+                    ComboBox a = new ComboBox() { };
+                    a.ItemsSource = Enum.GetValues(typeof(ParamMatchType)).Cast<ParamMatchType>().ToList();
+                    riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
+                }
+                else if (def.Name == "_type_")
+                {
+                    ComboBox a = new ComboBox() { };
+                    a.ItemsSource = Enum.GetValues(typeof(ParamRiskControlType)).Cast<ParamRiskControlType>().ToList();
+                    riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
                 }
             }
             var riskparams = tradingdeskHandler.GetModelParamsVMCollection("risk");
             if (riskparams != null)
-                riskparamsControl.RiskParamSP.DataContext = riskparams.FirstOrDefault(c => c.InstanceName == paramdef.ModelName);
+            {
+                riskparamsControl.RiskParamSP.DataContext = riskparams.FirstOrDefault(c => c.Model == paramdef.ModelName);
+            }
         }
 
         public IEnumerable<StatusBarItem> StatusBarItems
@@ -198,6 +220,7 @@ namespace Micro.Future.UI
                 InitializeComponent();
                 Initialize();
                 LoginTaskSource.TrySetResult(true);
+                riskparamsControl.OnModelSelected += RiskparamsControl_OnModelSelected;
             }
         }
 
