@@ -150,8 +150,8 @@ namespace Micro.Future.UI
                 AnchorablePane.Children.Add(defaultTab);
 
             var accountHandler = MessageHandlerContainer.DefaultInstance.Get<AccountHandler>();
-            var filtersettings = ClientDbContext.GetFilterSettings(accountHandler.MessageWrapper.User.Id, PersistanceId);
-            //var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User?.Id, PersistanceId);
+            //var filtersettings = ClientDbContext.GetFilterSettings(accountHandler.MessageWrapper.User.Id, PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler.MessageWrapper.User?.Id, PersistanceId);
 
             bool found = false;
 

@@ -359,8 +359,8 @@ namespace Micro.Future.UI
             if (defaultTab != null)
                 AnchorablePane.Children.Add(defaultTab);
             var accountHandler = MessageHandlerContainer.DefaultInstance.Get<AccountHandler>();
-            var filtersettings = ClientDbContext.GetFilterSettings(accountHandler.MessageWrapper.User.Id, PersistanceId);
-            //var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler?.MessageWrapper.User.Id, PersistanceId);
+            //var filtersettings = ClientDbContext.GetFilterSettings(accountHandler.MessageWrapper.User.Id, PersistanceId);
+            var filtersettings = ClientDbContext.GetFilterSettings(TradeHandler?.MessageWrapper.User.Id, PersistanceId);
             bool found = false;
             foreach (var fs in filtersettings)
             {

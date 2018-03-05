@@ -17,7 +17,9 @@ using System.Text;
 using System.Collections.ObjectModel;
 using Micro.Future.ViewModel;
 using System.Linq;
-
+using Xceed.Wpf.Toolkit;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Micro.Future.UI
 {
@@ -66,7 +68,6 @@ namespace Micro.Future.UI
             {
                 msgContainer = new MessageHandlerContainer();
                 _userMsgContainer[userName] = msgContainer;
-
                 var ctpMdSignIner = new PBSignInManager(_ctpMdSignIner.SignInOptions);
                 msgContainer.Get<MarketDataHandler>().RegisterMessageWrapper(ctpMdSignIner.MessageWrapper);
                 var ctpTradeSignIner = new PBSignInManager(_ctpTradeSignIner.SignInOptions);
@@ -113,24 +114,15 @@ namespace Micro.Future.UI
 
                     Task.WaitAll(taskList.ToArray());
 
-                    Task.Run(() => 
+                    Task.Run(() =>
                     {
                         var tradingdeskHandler = msgContainer.Get<OTCOptionTradingDeskHandler>();
                         var task = tradingdeskHandler.QueryAllModelParamsAsync();
                         task.Wait();
-                        riskparamsControl.Dispatcher.Invoke(() => riskparamsControl.RiskParamNameListView.ItemsSource = task.Result["risk"]);
+                        ObservableCollection<ModelParamsVM> modelparamsVMCollection;
+                        if (task.Result.TryGetValue("risk", out modelparamsVMCollection))
+                            riskparamsControl.Dispatcher.Invoke(() => riskparamsControl.RiskParamNameListView.ItemsSource = modelparamsVMCollection);
                     });
-
-                    //foreach (var modelparam in modelparams)
-                    //{
-                    //    var modelnames = modelparam.Key;
-
-                    //    var deftask = tradingdeskHandler.QueryModelParamsDefAsync();
-                    //    task.Wait();
-                    //    var modelparamsdef = task.Result;
-                    //}
-                    //Xceed.Wpf.Toolkit.DoubleUpDown a = new Xceed.Wpf.Toolkit.DoubleUpDown() { Text = "test" };
-                    //riskparamsControl.RiskParamNameSP.Children.Add(new GroupBox() { Content = a, Header = "a" });
 
                 });
             }
@@ -140,21 +132,42 @@ namespace Micro.Future.UI
 
         private void RiskparamsControl_OnModelSelected(ModelParamsVM obj)
         {
-            riskparamsControl.RiskParamSP.Children.Clear();
             var tradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+
+            riskparamsControl.RiskParamSP.Children.Clear();
             var task = tradingdeskHandler.QueryModelParamsDefAsync(obj.Model);
             task.Wait();
             var paramdef = task.Result;
+            var riskparam = tradingdeskHandler.GetModelParamsVMCollection("risk");
+            if (riskparam == null)
+            {
+                return;
+            }
+            var rparam = riskparam.FirstOrDefault(c => c.Model == paramdef.ModelName);
+            if (rparam == null)
+            {
+                return;
+            }
+
             foreach (var def in paramdef.Params)
             {
+                double val;
                 if (def.DataType == 2 || def.DataType == 1)
                 {
                     if (def.Visible == true)
                     {
                         string msg = string.Format("F{0}", def.Digits);
                         Xceed.Wpf.Toolkit.DoubleUpDown a = new Xceed.Wpf.Toolkit.DoubleUpDown()
-                        { DefaultValue = def.DefaultVal, Increment = def.Step, Minimum = def.MinVal, Maximum = def.MaxVal, FormatString = msg, IsEnabled = def.Enable };
-                        a.SetBinding(Xceed.Wpf.Toolkit.DoubleUpDown.ValueProperty, string.Format("[{0}].Value", def.Name));
+                        { Increment = def.Step, Minimum = def.MinVal, Maximum = def.MaxVal, FormatString = msg, IsEnabled = def.Enable };
+                        a.UpdateValueOnEnterKey = true;
+                        a.Spinned += A_Spinned;
+                        a.ValueChanged += A_ValueChanged;
+                        a.KeyUp += A_KeyUp;
+                        //a.SetBinding(Xceed.Wpf.Toolkit.DoubleUpDown.ValueProperty, string.Format("[{0}].Value", def.Name));
+                        a.Tag = def.Name;
+                        var modelParam = rparam[def.Name];
+                        if (modelParam != null)
+                            a.Value = modelParam.Value;
                         riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
                     }
                 }
@@ -166,37 +179,120 @@ namespace Micro.Future.UI
                         riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
                     }
                 }
-                else if (def.Name == "_action_")
+                else if (def.Name == "__action__")
                 {
                     ComboBox a = new ComboBox() { };
                     a.ItemsSource = Enum.GetValues(typeof(ParamActionType)).Cast<ParamActionType>().ToList();
-                    //a.SetBinding(ComboBox.SelectedItemProperty, string.Format("[{0}].Value", def.Name));
+                    a.SelectedValue = (ParamActionType)def.DefaultVal;
+                    var modelParam = rparam[def.Name];
+                    if (modelParam != null)
+                        a.SelectedValue = (ParamActionType)modelParam.Value;
+                    a.Tag = def.Name;
+                    a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
                     riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
+                    a.SelectionChanged += A_SelectionChanged;
                 }
-                else if (def.Name == "_enabled_")
+                else if (def.Name == "__enabled__")
                 {
                     ComboBox a = new ComboBox() { };
                     a.ItemsSource = Enum.GetValues(typeof(ParamEnableType)).Cast<ParamEnableType>().ToList();
-
+                    a.SelectedValue = (ParamEnableType)def.DefaultVal;
+                    var modelParam = rparam[def.Name];
+                    if (modelParam != null)
+                        a.SelectedValue = (ParamEnableType)modelParam.Value;
+                    a.Tag = def.Name;
+                    a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
                     riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
+                    a.SelectionChanged += A_SelectionChanged;
                 }
-                else if (def.Name == "_match_")
+                else if (def.Name == "__match__")
                 {
                     ComboBox a = new ComboBox() { };
                     a.ItemsSource = Enum.GetValues(typeof(ParamMatchType)).Cast<ParamMatchType>().ToList();
+                    a.SelectedValue = (ParamMatchType)def.DefaultVal;
+                    var modelParam = rparam[def.Name];
+                    if (modelParam != null)
+                        a.SelectedValue = (ParamMatchType)modelParam.Value;
+                    a.Tag = def.Name;
+                    a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
                     riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
+                    a.SelectionChanged += A_SelectionChanged;
                 }
-                else if (def.Name == "_type_")
+                else if (def.Name == "__type__")
                 {
                     ComboBox a = new ComboBox() { };
                     a.ItemsSource = Enum.GetValues(typeof(ParamRiskControlType)).Cast<ParamRiskControlType>().ToList();
+                    a.SelectedValue = (ParamRiskControlType)def.DefaultVal;
+                    var modelParam = rparam[def.Name];
+                    if (modelParam != null)
+                        a.SelectedValue = (ParamRiskControlType)modelParam.Value;
+                    a.Tag = def.Name;
+                    a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
                     riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
+                    a.SelectionChanged += A_SelectionChanged;
                 }
             }
             var riskparams = tradingdeskHandler.GetModelParamsVMCollection("risk");
             if (riskparams != null)
             {
                 riskparamsControl.RiskParamSP.DataContext = riskparams.FirstOrDefault(c => c.Model == paramdef.ModelName);
+            }
+        }
+
+        private void A_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            Control ctrl = sender as Control;
+            if (ctrl != null)
+            {
+                if (e.Key == Key.Enter || e.Key == Key.Down || e.Key == Key.Up)
+                {
+                    ctrl.Background = Brushes.White;
+                }
+                else
+                {
+                    ctrl.Background = Brushes.MistyRose;
+                }
+            }
+        }
+
+        private void A_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var combobox = sender as ComboBox;
+                var value = combobox.SelectedValue;
+            var key = combobox.Tag.ToString();
+            if(!string.IsNullOrEmpty(key))
+            {
+                var modelParamsVM = combobox.DataContext as ModelParamsVM;
+                if(modelParamsVM!=null)
+                {
+                    var _handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+                    //_handler.UpdateModelParams(modelParamsVM.InstanceName, key, value);
+                }
+            }
+        }
+
+        private void A_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var updownctrl = sender as DoubleUpDown;
+            if (updownctrl != null && e.OldValue != null && e.NewValue != null)
+            {
+                var modelParamsVM = updownctrl.DataContext as ModelParamsVM;
+                if (modelParamsVM != null)
+                {
+                    var key = updownctrl.Tag.ToString();
+                    double value = (double)e.NewValue;
+                    var _handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+                    _handler.UpdateModelParams(modelParamsVM.InstanceName, key, value);
+                }
+            }
+        }
+
+        private void A_Spinned(object sender, Xceed.Wpf.Toolkit.SpinEventArgs e)
+        {
+            var updownctrl = sender as DoubleUpDown;
+            if (updownctrl != null)
+            {
+                Task.Run(() => { Task.Delay(100); Dispatcher.Invoke(() => updownctrl.CommitInput()); });
             }
         }
 
@@ -228,11 +324,26 @@ namespace Micro.Future.UI
         {
             // Initailize UI events
             clientFundLV.OnAccountSelected += OnAccountSelected;
+            clientFundLV.OnClickLogin += OnClickLogin;
             tradeWindow.AnchorablePane = tradePane;
             positionsWindow.AnchorablePane = positionPane;
         }
+        public void OnClickLogin()
+        {
+            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            var otctradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();
+            FrameLoginWindow win = new FrameLoginWindow(tradeHandler.MessageWrapper.SignInManager, otctradeHandler.MessageWrapper.SignInManager);
+            win.userTxt.Clear();
+            win.passwordTxt.Clear();
+            win.ShowDialog();
+
+            FastOrderCtl.TradeHandler = tradeHandler;
+            FastOrderCtl.ReloadData();
+        }
         public void OnAccountSelected(TradingDeskVM tradingdeskVM)
         {
+            riskparamsControl.RiskParamNameListView.ItemsSource = null;
+            riskparamsControl.RiskParamSP.Children.Clear();
             if (tradingdeskVM.UserName != null)
             {
                 var ret = GetUserMessageContainer(tradingdeskVM.UserName);
@@ -250,6 +361,10 @@ namespace Micro.Future.UI
                 positionsWindow.DEFAULT_ID = DEFAULT_ID;
                 tradeWindow.DEFAULT_ID = DEFAULT_ID;
 
+                ObservableCollection<ModelParamsVM> modelparamsVMCollection;
+                if (tradingdeskHandler.ModelParamsDict.TryGetValue("risk", out modelparamsVMCollection))
+                    riskparamsControl.RiskParamNameListView.ItemsSource = modelparamsVMCollection;
+                controlReload();
                 //positionsWindow.ReloadData();
                 //tradeWindow.ReloadData();
                 //riskparamsControl.RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
@@ -259,10 +374,15 @@ namespace Micro.Future.UI
         {
             _ctpTradeSignInerOnLogged();
         }
-        private async void _ctpTradeSignInerOnLogged()
+        private void _ctpTradeSignInerOnLogged()
+        {
+            controlReload();
+        }
+
+        private void controlReload()
         {
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
-            await tradeHandler.SyncContractInfoAsync();
+            tradeHandler.SyncContractInfoAsync().Wait();
             Thread.Sleep(1000);
             positionsWindow.DEFAULT_ID = DEFAULT_ID;
             positionsWindow.Dispatcher.Invoke(() => positionsWindow.ReloadData());
@@ -296,24 +416,25 @@ namespace Micro.Future.UI
             _otcTradingDeskSignIner.OnLogged += _otcTradingDeskSignIner_OnLogged;
 
             MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().RegisterMessageWrapper(_ctpMdSignIner.MessageWrapper);
+            MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RegisterMessageWrapper(_ctpTradeSignIner.MessageWrapper);
             MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().RegisterMessageWrapper(_otcTradingDeskSignIner.MessageWrapper);
             MessageHandlerContainer.DefaultInstance.Get<OTCOptionDataHandler>().RegisterMessageWrapper(_otcOptionDataSignIner.MessageWrapper);
             MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>().RegisterMessageWrapper(_otcTradeSignIner.MessageWrapper);
             MessageHandlerContainer.DefaultInstance.Get<AccountHandler>().RegisterMessageWrapper(_accountSignIner.MessageWrapper);
 
-
-            _ctpMdSignIner.SignInOptions.BrokerID = brokerId;
-            _ctpMdSignIner.SignInOptions.UserName = usernname;
-            _ctpMdSignIner.SignInOptions.Password = password;
             var entries = _ctpMdSignIner.SignInOptions.FrontServer.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            if (server != null && entries.Length < 2)
-                _ctpMdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
             _accountSignIner.SignInOptions.BrokerID = brokerId;
             _accountSignIner.SignInOptions.UserName = usernname;
             _accountSignIner.SignInOptions.Password = password;
             if (server != null && entries.Length < 2)
                 _accountSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
+
+            _ctpMdSignIner.SignInOptions.BrokerID = brokerId;
+            _ctpMdSignIner.SignInOptions.UserName = usernname;
+            _ctpMdSignIner.SignInOptions.Password = password;
+            if (server != null && entries.Length < 2)
+                _ctpMdSignIner.SignInOptions.FrontServer = server + ':' + entries[0];
 
             _ctpTradeSignIner.SignInOptions.BrokerID = brokerId;
             _ctpTradeSignIner.SignInOptions.UserName = usernname;

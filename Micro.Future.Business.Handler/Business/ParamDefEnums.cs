@@ -12,7 +12,7 @@ namespace Micro.Future.Message
         WARNING = 1,
 
         [LocalizableDescription(@"ACTIONTYPE_STOPOPENORDER", typeof(Enums))]
-        StopOpenOrder = 1
+        StopOpenOrder = 2
     };
     public enum ParamEnableType
     {

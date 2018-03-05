@@ -100,8 +100,8 @@ namespace Micro.Future.Message
                        ((uint)BusinessMessageID.MSG_ID_MODIFY_CONTRACT_PARAM, OnUpdateSuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<Result, ExceptionMessage>
                        ((uint)BusinessMessageID.MSG_ID_MODIFY_USER_PARAM, OnUpdateSuccessAction, OnErrorAction);
-            MessageWrapper.RegisterAction<PBUserInfoList, ExceptionMessage>
-                      ((uint)BusinessMessageID.MSG_ID_QUERY_TRADINGDESK, OnQueryTradingDeskSuccessAction, OnErrorAction);
+            //MessageWrapper.RegisterAction<PBUserInfoList, ExceptionMessage>
+            //          ((uint)BusinessMessageID.MSG_ID_QUERY_TRADINGDESK, OnQueryTradingDeskSuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBPortfolioList, ExceptionMessage>
                       ((uint)BusinessMessageID.MSG_ID_QUERY_PORTFOLIO, OnQueryPortfolioSuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBPortfolio, ExceptionMessage>

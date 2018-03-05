@@ -53,6 +53,7 @@ namespace Micro.Future.UI
             _timer = new Timer(UpdateAccountInfoCallback, null, UpdateInterval, UpdateInterval); 
         }
         public event Action<TradingDeskVM> OnAccountSelected;
+        public event Action OnClickLogin;
         private void FundListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TradingDeskVM tradingdeskVM = FundListView.SelectedItem as TradingDeskVM;
@@ -64,6 +65,7 @@ namespace Micro.Future.UI
         }
         private void MenuItem_Click_Login(object sender, RoutedEventArgs e)
         {
+            OnClickLogin();
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             var otctradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();                      
             FrameLoginWindow win = new FrameLoginWindow(tradeHandler.MessageWrapper.SignInManager, otctradeHandler.MessageWrapper.SignInManager);

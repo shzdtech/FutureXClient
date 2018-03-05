@@ -42,7 +42,7 @@ namespace Micro.Future.UI
 
         public void ReloadData()
         {
-            _timer = new Timer(UpdateAccountInfoCallback, null, UpdateInterval, UpdateInterval); 
+            _timer = new Timer(UpdateAccountInfoCallback, null, UpdateInterval, UpdateInterval);
         }
 
         private void MenuItemColumns_Click(object sender, RoutedEventArgs e)
@@ -60,7 +60,8 @@ namespace Micro.Future.UI
         private void RiskParamNameListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ModelParamsVM modelparamsVM = RiskParamNameListView.SelectedItem as ModelParamsVM;
-            OnModelSelected?.Invoke(modelparamsVM);
+            if (modelparamsVM != null)
+                OnModelSelected?.Invoke(modelparamsVM);
         }
     }
 }
