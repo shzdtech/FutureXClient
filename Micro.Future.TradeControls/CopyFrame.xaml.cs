@@ -52,6 +52,11 @@ namespace Micro.Future.UI
             get; set;
         }
 
+        public string InstanceName
+        {
+            get; set;
+        }
+
 
         public IEnumerable<MenuItem> FrameMenus
         {
@@ -132,8 +137,8 @@ namespace Micro.Future.UI
 
         private void RiskparamsControl_OnModelSelected(ModelParamsVM obj)
         {
+            InstanceName = obj.InstanceName;
             var tradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
-
             riskparamsControl.RiskParamSP.Children.Clear();
             var task = tradingdeskHandler.QueryModelParamsDefAsync(obj.Model);
             task.Wait();
@@ -143,7 +148,7 @@ namespace Micro.Future.UI
             {
                 return;
             }
-            var rparam = riskparam.FirstOrDefault(c => c.Model == paramdef.ModelName);
+            var rparam = riskparam.FirstOrDefault(c => c.Model == paramdef.ModelName && c.InstanceName == obj.InstanceName);
             if (rparam == null)
             {
                 return;
@@ -151,7 +156,6 @@ namespace Micro.Future.UI
 
             foreach (var def in paramdef.Params)
             {
-                double val;
                 if (def.DataType == 2 || def.DataType == 1)
                 {
                     if (def.Visible == true)
@@ -188,7 +192,7 @@ namespace Micro.Future.UI
                     if (modelParam != null)
                         a.SelectedValue = (ParamActionType)modelParam.Value;
                     a.Tag = def.Name;
-                    a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
+                    //a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
                     riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
                     a.SelectionChanged += A_SelectionChanged;
                 }
@@ -201,7 +205,7 @@ namespace Micro.Future.UI
                     if (modelParam != null)
                         a.SelectedValue = (ParamEnableType)modelParam.Value;
                     a.Tag = def.Name;
-                    a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
+                    //a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
                     riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
                     a.SelectionChanged += A_SelectionChanged;
                 }
@@ -214,7 +218,7 @@ namespace Micro.Future.UI
                     if (modelParam != null)
                         a.SelectedValue = (ParamMatchType)modelParam.Value;
                     a.Tag = def.Name;
-                    a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
+                    //a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
                     riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
                     a.SelectionChanged += A_SelectionChanged;
                 }
@@ -227,7 +231,7 @@ namespace Micro.Future.UI
                     if (modelParam != null)
                         a.SelectedValue = (ParamRiskControlType)modelParam.Value;
                     a.Tag = def.Name;
-                    a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
+                    //a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
                     riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
                     a.SelectionChanged += A_SelectionChanged;
                 }
@@ -258,16 +262,12 @@ namespace Micro.Future.UI
         private void A_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var combobox = sender as ComboBox;
-                var value = combobox.SelectedValue;
+            var value = combobox.SelectedIndex;
             var key = combobox.Tag.ToString();
-            if(!string.IsNullOrEmpty(key))
+            if (!string.IsNullOrEmpty(key))
             {
-                var modelParamsVM = combobox.DataContext as ModelParamsVM;
-                if(modelParamsVM!=null)
-                {
-                    var _handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
-                    //_handler.UpdateModelParams(modelParamsVM.InstanceName, key, value);
-                }
+                var _handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+                _handler.UpdateModelParams(InstanceName, key, value);
             }
         }
 
@@ -335,11 +335,25 @@ namespace Micro.Future.UI
             FrameLoginWindow win = new FrameLoginWindow(tradeHandler.MessageWrapper.SignInManager, otctradeHandler.MessageWrapper.SignInManager);
             win.userTxt.Clear();
             win.passwordTxt.Clear();
+            win.OnLogged += Win_OnLogged;
             win.ShowDialog();
-
-            FastOrderCtl.TradeHandler = tradeHandler;
-            FastOrderCtl.ReloadData();
         }
+
+        private void Win_OnLogged(FrameLoginWindow sender, IUserInfo userInfo)
+        {
+            //var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            //FastOrderCtl.TradeHandler = tradeHandler;
+            //FastOrderCtl.ReloadData();
+            try
+            {
+                sender.Dispatcher.Invoke(() => sender.Close());
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message);
+            }
+        }
+
         public void OnAccountSelected(TradingDeskVM tradingdeskVM)
         {
             riskparamsControl.RiskParamNameListView.ItemsSource = null;

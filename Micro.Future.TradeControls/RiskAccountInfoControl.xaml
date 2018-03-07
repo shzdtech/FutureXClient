@@ -16,7 +16,7 @@
         <!--<utility:GridLineDecorator GridLineBrush="LightGray">-->
         <ListView Name="FundListView" SelectionChanged="FundListView_SelectionChanged" >
             <ListView.View>
-                <GridView>
+                <GridView> 
                     <GridViewColumn Header="{lex:Loc Key=AccountID}" DisplayMemberBinding="{Binding UserName}" Width="auto"/>
                 </GridView>
             </ListView.View>

@@ -66,12 +66,12 @@ namespace Micro.Future.UI
         private void MenuItem_Click_Login(object sender, RoutedEventArgs e)
         {
             OnClickLogin();
-            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
-            var otctradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();                      
-            FrameLoginWindow win = new FrameLoginWindow(tradeHandler.MessageWrapper.SignInManager, otctradeHandler.MessageWrapper.SignInManager);
-            win.userTxt.Clear();
-            win.passwordTxt.Clear();
-            win.ShowDialog();
+            //var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            //var otctradeHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradeHandler>();                      
+            //FrameLoginWindow win = new FrameLoginWindow(tradeHandler.MessageWrapper.SignInManager, otctradeHandler.MessageWrapper.SignInManager);
+            //win.userTxt.Clear();
+            //win.passwordTxt.Clear();
+            //win.ShowDialog();
         }
     }
 }
