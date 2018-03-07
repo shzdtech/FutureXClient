@@ -442,7 +442,7 @@ namespace Micro.Future.Message
                                 LastPrice = rsp.LastPrice,
                             };
                             PositionProfitVMCollection.Add(sellpositionVM);
-                            OnPositionProfitUpdated?.Invoke(sellPositionVM);
+                            OnPositionProfitUpdated?.Invoke(sellpositionVM);
 
                         }
                     }
