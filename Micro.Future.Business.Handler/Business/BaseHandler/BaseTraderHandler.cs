@@ -84,7 +84,7 @@ namespace Micro.Future.Message
             MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_QUERY_ORDER, OnReturnOrder, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
-                ((uint)BusinessMessageID.MSG_ID_ORDER_NEW, OnReturnOrder, ErrorMsgAction);
+                ((uint)BusinessMessageID.MSG_ID_ORDER_NEW, OnReturnOrder, ErrorOrderMsgAction);
             MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
                 ((uint)BusinessMessageID.MSG_ID_ORDER_UPDATE, OnUpdateOrder, ErrorMsgAction);
             MessageWrapper.RegisterAction<PBTradeInfo, ExceptionMessage>
@@ -145,6 +145,18 @@ namespace Micro.Future.Message
                     RaiseOnError(
                         new MessageException(bizErr.MessageId, ErrorType.UNSPECIFIED_ERROR, bizErr.Errorcode,
                         Encoding.UTF8.GetString(msg)));
+            }
+        }
+        private void ErrorOrderMsgAction(ExceptionMessage bizErr)
+        {
+            if (bizErr.Description != null)
+            {
+                var msg = bizErr.Description.ToByteArray();
+                if (msg.Length > 0)
+                    OnOrderError?.Invoke(
+                        new MessageException(bizErr.MessageId, ErrorType.UNSPECIFIED_ERROR, bizErr.Errorcode,
+                        Encoding.UTF8.GetString(msg)));
+
             }
         }
 

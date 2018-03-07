@@ -120,13 +120,14 @@ namespace Micro.Future.UI
                 System.Windows.MessageBox.Show(obj.Message);
                 FastOrderContract.Background = new SolidColorBrush(Colors.White);
             }
-            if (obj.Message.Equals("订单数量不正确"))
+            else if (obj.Message.Equals("订单数量不正确"))
             {
                 SizeTxt.Background = new SolidColorBrush(Colors.Red);
                 System.Windows.MessageBox.Show(obj.Message);
                 SizeTxt.Background = new SolidColorBrush(Colors.White);
             }
-
+            else
+                System.Windows.MessageBox.Show(obj.Message);
         }
 
         public bool SubmitEnabled
