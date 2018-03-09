@@ -124,7 +124,6 @@ namespace Micro.Future.UI
                         var tradingdeskHandler = msgContainer.Get<OTCOptionTradingDeskHandler>();                        
                         var taskportfolio = tradingdeskHandler.QueryPortfolioAsync();
                         taskportfolio.Wait();
-                        var result = taskportfolio.Result;
                         var task = tradingdeskHandler.QueryAllModelParamsAsync();
                         task.Wait();
                         ObservableCollection<ModelParamsVM> modelparamsVMCollection;
@@ -372,6 +371,11 @@ namespace Micro.Future.UI
                 var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
                 var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 var tradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+                if(!tradingdeskHandler.PortfolioVMCollection.Any())
+                {
+                    var taskportfolio = tradingdeskHandler.QueryPortfolioAsync();
+                    taskportfolio.Wait();
+                }
                 tradeWindow.TradeHandler = tradeHandler;
                 positionsWindow.TradeHandler = tradeHandler;
                 positionsWindow.MarketDataHandler = marketdataHandler;
