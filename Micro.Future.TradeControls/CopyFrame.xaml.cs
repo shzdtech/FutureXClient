@@ -121,7 +121,10 @@ namespace Micro.Future.UI
 
                     Task.Run(() =>
                     {
-                        var tradingdeskHandler = msgContainer.Get<OTCOptionTradingDeskHandler>();
+                        var tradingdeskHandler = msgContainer.Get<OTCOptionTradingDeskHandler>();                        
+                        var taskportfolio = tradingdeskHandler.QueryPortfolioAsync();
+                        taskportfolio.Wait();
+                        var result = taskportfolio.Result;
                         var task = tradingdeskHandler.QueryAllModelParamsAsync();
                         task.Wait();
                         ObservableCollection<ModelParamsVM> modelparamsVMCollection;
@@ -192,6 +195,7 @@ namespace Micro.Future.UI
                     if (modelParam != null)
                         a.SelectedValue = (ParamActionType)modelParam.Value;
                     a.Tag = def.Name;
+                    a.IsEnabled = def.Enable;
                     //a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
                     riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
                     a.SelectionChanged += A_SelectionChanged;
@@ -205,6 +209,7 @@ namespace Micro.Future.UI
                     if (modelParam != null)
                         a.SelectedValue = (ParamEnableType)modelParam.Value;
                     a.Tag = def.Name;
+                    a.IsEnabled = def.Enable;
                     //a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
                     riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
                     a.SelectionChanged += A_SelectionChanged;
@@ -218,6 +223,7 @@ namespace Micro.Future.UI
                     if (modelParam != null)
                         a.SelectedValue = (ParamMatchType)modelParam.Value;
                     a.Tag = def.Name;
+                    a.IsEnabled = def.Enable;
                     //a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
                     riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
                     a.SelectionChanged += A_SelectionChanged;
@@ -231,6 +237,7 @@ namespace Micro.Future.UI
                     if (modelParam != null)
                         a.SelectedValue = (ParamRiskControlType)modelParam.Value;
                     a.Tag = def.Name;
+                    a.IsEnabled = def.Enable;
                     //a.SetBinding(ComboBox.SelectedValuePathProperty, string.Format("[{0}].Value", def.Name));
                     riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
                     a.SelectionChanged += A_SelectionChanged;
@@ -378,7 +385,8 @@ namespace Micro.Future.UI
                 ObservableCollection<ModelParamsVM> modelparamsVMCollection;
                 if (tradingdeskHandler.ModelParamsDict.TryGetValue("risk", out modelparamsVMCollection))
                     riskparamsControl.RiskParamNameListView.ItemsSource = modelparamsVMCollection;
-                controlReload();
+                if (_ctpTradeSignIner.MessageWrapper.HasSignIn)
+                    controlReload();
                 //positionsWindow.ReloadData();
                 //tradeWindow.ReloadData();
                 //riskparamsControl.RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
