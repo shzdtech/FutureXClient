@@ -66,7 +66,7 @@ namespace Micro.Future.UI
             }
         }
 
-        public MessageHandlerContainer GetUserMessageContainer(string userName)
+        public async Task<MessageHandlerContainer> GetUserMessageContainer(string userName)
         {
             MessageHandlerContainer msgContainer;
             if (!_userMsgContainer.TryGetValue(userName, out msgContainer))
@@ -86,12 +86,12 @@ namespace Micro.Future.UI
                 var accountSignIner = new PBSignInManager(_accountSignIner.SignInOptions);
                 msgContainer.Get<AccountHandler>().RegisterMessageWrapper(otcOptionDataSignIner.MessageWrapper);
 
-                ctpTradeSignIner.OnLogged += _ctpTradeSignIner_OnLogged;
+                //ctpTradeSignIner.OnLogged += _ctpTradeSignIner_OnLogged;
 
                 var taskList = new List<Task<TaskResult<IUserInfo, MessageException>>>();
 
 
-                Task.Run(() =>
+                await Task.Run(async () =>
                 {
                     taskList.Add(ServerLoginAsync(ctpMdSignIner));
                     taskList.Add(ServerLoginAsync(ctpTradeSignIner));
@@ -119,15 +119,13 @@ namespace Micro.Future.UI
 
                     Task.WaitAll(taskList.ToArray());
 
-                    Task.Run(() =>
+                    await Task.Run(async () =>
                     {
-                        var tradingdeskHandler = msgContainer.Get<OTCOptionTradingDeskHandler>();                        
-                        var taskportfolio = tradingdeskHandler.QueryPortfolioAsync();
-                        taskportfolio.Wait();
-                        var task = tradingdeskHandler.QueryAllModelParamsAsync();
-                        task.Wait();
+                        var tradingdeskHandler = msgContainer.Get<OTCOptionTradingDeskHandler>();
+                        await tradingdeskHandler.QueryPortfolioAsync();
+                        var dict = await tradingdeskHandler.QueryAllModelParamsAsync();
                         ObservableCollection<ModelParamsVM> modelparamsVMCollection;
-                        if (task.Result.TryGetValue("risk", out modelparamsVMCollection))
+                        if (dict.TryGetValue("risk", out modelparamsVMCollection))
                             riskparamsControl.Dispatcher.Invoke(() => riskparamsControl.RiskParamNameListView.ItemsSource = modelparamsVMCollection);
                     });
 
@@ -360,22 +358,18 @@ namespace Micro.Future.UI
             }
         }
 
-        public void OnAccountSelected(TradingDeskVM tradingdeskVM)
+        public async void OnAccountSelected(TradingDeskVM tradingdeskVM)
         {
             riskparamsControl.RiskParamNameListView.ItemsSource = null;
             riskparamsControl.RiskParamSP.Children.Clear();
             if (tradingdeskVM.UserName != null)
             {
-                var ret = GetUserMessageContainer(tradingdeskVM.UserName);
+                var ret = await GetUserMessageContainer(tradingdeskVM.UserName);
                 MessageHandlerContainer.DefaultInstance = ret;
                 var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
                 var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 var tradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
-                if(!tradingdeskHandler.PortfolioVMCollection.Any())
-                {
-                    var taskportfolio = tradingdeskHandler.QueryPortfolioAsync();
-                    taskportfolio.Wait();
-                }
+
                 tradeWindow.TradeHandler = tradeHandler;
                 positionsWindow.TradeHandler = tradeHandler;
                 positionsWindow.MarketDataHandler = marketdataHandler;
