@@ -19,7 +19,7 @@ namespace Micro.Future
         {
             base.OnStartup(e);
 
-            DispatcherUnhandledException += AppGlobalDispatcherUnhandledException;
+            //DispatcherUnhandledException += AppGlobalDispatcherUnhandledException;
 
 
             // Initialize server configuration

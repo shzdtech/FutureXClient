@@ -26,6 +26,8 @@ namespace Micro.Future.UI
     public partial class TradeRecordControl : UserControl, IReloadData, ILayoutAnchorableControl
     {
         private const string TRADE_DEFAULT_ID = "E0FD10D9-8D28-4DDE-B2BC-96FAC72992C8";
+        private Timer _timer;
+        private const int UpdateInterval = 2000;
         private IList<ColumnObject> mColumns;
         private CollectionViewSource _viewSource = new CollectionViewSource();
         public FilterSettingsWindow FilterSettingsWin
@@ -375,8 +377,13 @@ namespace Micro.Future.UI
             if (found)
                 AnchorablePane.Children.Remove(defaultTab);
 
+            _timer = new Timer(UpdateTradeCallback, null, UpdateInterval, UpdateInterval);
         }
 
+        private void UpdateTradeCallback(object state)
+        {
+            TradeHandler.QueryTrade();
+        }
         public void Initialize()
         {
             _viewSource.Source = TradeHandler.TradeVMCollection;
@@ -385,6 +392,12 @@ namespace Micro.Future.UI
             //TradeHandler.TradeVMCollection.Clear();
             TradeHandler.QueryTrade();
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User?.Id;
+        }
+        
+        public void InitializeRisk()
+        {
+            TradeTreeView.ItemsSource = TradeHandler.TradeVMCollection;
+            TradeHandler.QueryTrade();
         }
         public void BindingToListView(BaseTraderHandler tradeHandler)
         {

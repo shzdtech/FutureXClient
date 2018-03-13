@@ -28,7 +28,9 @@ namespace Micro.Future.UI
     /// </summary>
     public partial class CopyFrame : UserControl, IUserFrame
     {
-        private const string DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33A";
+        private const string TRADE_DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D33A";
+        private const string POSITION_DEFAULT_ID = "D97F60E1-0433-4886-99E6-C4AD46A7D34A";
+
 
         private AbstractSignInManager _ctpMdSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<MarketDataHandler>());
         private AbstractSignInManager _ctpTradeSignIner = new PBSignInManager(MessageHandlerContainer.GetSignInOptions<TraderExHandler>());
@@ -370,6 +372,9 @@ namespace Micro.Future.UI
                 var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
                 var tradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
 
+                positionsWindow.DEFAULT_ID = POSITION_DEFAULT_ID;
+                tradeWindow.DEFAULT_ID = TRADE_DEFAULT_ID;
+
                 tradeWindow.TradeHandler = tradeHandler;
                 positionsWindow.TradeHandler = tradeHandler;
                 positionsWindow.MarketDataHandler = marketdataHandler;
@@ -377,13 +382,12 @@ namespace Micro.Future.UI
                 FastOrderCtl.MarketDataHandler = marketdataHandler;
                 FastOrderCtl.ProductTypeList.Add(ProductType.PRODUCT_FUTURE);
                 FastOrderCtl.ProductTypeList.Add(ProductType.PRODUCT_OPTIONS);
-                positionsWindow.DEFAULT_ID = DEFAULT_ID;
-                tradeWindow.DEFAULT_ID = DEFAULT_ID;
+
 
                 ObservableCollection<ModelParamsVM> modelparamsVMCollection;
                 if (tradingdeskHandler.ModelParamsDict.TryGetValue("risk", out modelparamsVMCollection))
                     riskparamsControl.RiskParamNameListView.ItemsSource = modelparamsVMCollection;
-                if (_ctpTradeSignIner.MessageWrapper.HasSignIn)
+                //if (_ctpTradeSignIner.MessageWrapper.HasSignIn)
                     controlReload();
                 //positionsWindow.ReloadData();
                 //tradeWindow.ReloadData();
@@ -396,21 +400,22 @@ namespace Micro.Future.UI
         }
         private void _ctpTradeSignInerOnLogged()
         {
-            controlReload();
+            //tradeHandler.SyncContractInfoAsync().Wait();
         }
 
         private void controlReload()
         {
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
-            tradeHandler.SyncContractInfoAsync().Wait();
-            Thread.Sleep(1000);
-            positionsWindow.DEFAULT_ID = DEFAULT_ID;
-            positionsWindow.Dispatcher.Invoke(() => positionsWindow.ReloadData());
-            Thread.Sleep(1000);
-            tradeWindow.DEFAULT_ID = DEFAULT_ID;
-            tradeWindow.Dispatcher.Invoke(() => tradeWindow.ReloadData());
-            Thread.Sleep(1000);
-            FastOrderCtl.Dispatcher.Invoke(() => FastOrderCtl.ReloadData());
+            tradeWindow.DEFAULT_ID = TRADE_DEFAULT_ID;
+            //tradeWindow.Dispatcher.Invoke(() => tradeWindow.ReloadData());
+            tradeWindow.ReloadData();
+
+            positionsWindow.DEFAULT_ID = POSITION_DEFAULT_ID;
+            //positionsWindow.Dispatcher.Invoke(() => positionsWindow.ReloadData());
+            positionsWindow.ReloadData();
+
+            //FastOrderCtl.Dispatcher.Invoke(() => FastOrderCtl.ReloadData());
+            FastOrderCtl.ReloadData();
         }
         private void _otcTradingDeskSignIner_OnLogged(IUserInfo obj)
         {
