@@ -295,7 +295,7 @@ namespace Micro.Future.UI
                     var key = updownctrl.Tag.ToString();
                     double value = (double)e.NewValue;
                     var _handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
-                    _handler.UpdateModelParams(modelParamsVM.InstanceName, key, value);
+                    _handler.UpdateModelParams(InstanceName, key, value);
                 }
             }
         }
