@@ -376,8 +376,8 @@ namespace Micro.Future.UI
 
             if (found)
                 AnchorablePane.Children.Remove(defaultTab);
-
-            _timer = new Timer(UpdateTradeCallback, null, UpdateInterval, UpdateInterval);
+            TradeHandler.QueryTrade();
+            //_timer = new Timer(UpdateTradeCallback, null, UpdateInterval, UpdateInterval);
         }
 
         private void UpdateTradeCallback(object state)
@@ -393,7 +393,7 @@ namespace Micro.Future.UI
             TradeHandler.QueryTrade();
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User?.Id;
         }
-        
+
         public void InitializeRisk()
         {
             TradeTreeView.ItemsSource = TradeHandler.TradeVMCollection;

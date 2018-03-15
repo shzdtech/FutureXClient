@@ -137,7 +137,7 @@ namespace Micro.Future.UI
             return msgContainer;
         }
 
-        private void RiskparamsControl_OnModelSelected(ModelParamsVM obj)
+        private async void RiskparamsControl_OnModelSelected(ModelParamsVM obj)
         {
             InstanceName = obj.InstanceName;
             var tradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
@@ -145,6 +145,13 @@ namespace Micro.Future.UI
             var task = tradingdeskHandler.QueryModelParamsDefAsync(obj.Model);
             task.Wait();
             var paramdef = task.Result;
+            await Task.Run(async () =>
+            {
+                var dict = await tradingdeskHandler.QueryAllModelParamsAsync();
+                ObservableCollection<ModelParamsVM> modelparamsVMCollection;
+                if (dict.TryGetValue("risk", out modelparamsVMCollection))
+                    riskparamsControl.Dispatcher.Invoke(() => riskparamsControl.RiskParamNameListView.ItemsSource = modelparamsVMCollection);
+            });
             var riskparam = tradingdeskHandler.GetModelParamsVMCollection("risk");
             if (riskparam == null)
             {
@@ -343,11 +350,12 @@ namespace Micro.Future.UI
             win.passwordTxt.Clear();
             win.OnLogged += Win_OnLogged;
             win.ShowDialog();
+
         }
 
         private void Win_OnLogged(FrameLoginWindow sender, IUserInfo userInfo)
         {
-            //var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             //FastOrderCtl.TradeHandler = tradeHandler;
             //FastOrderCtl.ReloadData();
             try
@@ -375,7 +383,7 @@ namespace Micro.Future.UI
                 positionsWindow.DEFAULT_ID = POSITION_DEFAULT_ID;
                 tradeWindow.DEFAULT_ID = TRADE_DEFAULT_ID;
 
-                tradeWindow.TradeHandler = tradeHandler;
+                tradeWindow.Dispatcher.Invoke(() => tradeWindow.TradeHandler = tradeHandler);
                 positionsWindow.TradeHandler = tradeHandler;
                 positionsWindow.MarketDataHandler = marketdataHandler;
                 FastOrderCtl.TradeHandler = tradeHandler;
@@ -387,8 +395,10 @@ namespace Micro.Future.UI
                 ObservableCollection<ModelParamsVM> modelparamsVMCollection;
                 if (tradingdeskHandler.ModelParamsDict.TryGetValue("risk", out modelparamsVMCollection))
                     riskparamsControl.RiskParamNameListView.ItemsSource = modelparamsVMCollection;
+                controlReload();
+                //tradeWindow.TradeHandler.QueryTrade();
+
                 //if (_ctpTradeSignIner.MessageWrapper.HasSignIn)
-                    controlReload();
                 //positionsWindow.ReloadData();
                 //tradeWindow.ReloadData();
                 //riskparamsControl.RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
@@ -400,6 +410,7 @@ namespace Micro.Future.UI
         }
         private void _ctpTradeSignInerOnLogged()
         {
+
             //tradeHandler.SyncContractInfoAsync().Wait();
         }
 
