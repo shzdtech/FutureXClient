@@ -383,7 +383,8 @@ namespace Micro.Future.UI
                 positionsWindow.DEFAULT_ID = POSITION_DEFAULT_ID;
                 tradeWindow.DEFAULT_ID = TRADE_DEFAULT_ID;
 
-                tradeWindow.Dispatcher.Invoke(() => tradeWindow.TradeHandler = tradeHandler);
+                tradeWindow.TradeHandler = tradeHandler;
+                //tradeWindow.Dispatcher.Invoke(() => tradeWindow.TradeHandler = tradeHandler);
                 positionsWindow.TradeHandler = tradeHandler;
                 positionsWindow.MarketDataHandler = marketdataHandler;
                 FastOrderCtl.TradeHandler = tradeHandler;
@@ -417,13 +418,14 @@ namespace Micro.Future.UI
         private void controlReload()
         {
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
-            tradeWindow.DEFAULT_ID = TRADE_DEFAULT_ID;
-            //tradeWindow.Dispatcher.Invoke(() => tradeWindow.ReloadData());
-            tradeWindow.ReloadData();
 
             positionsWindow.DEFAULT_ID = POSITION_DEFAULT_ID;
             //positionsWindow.Dispatcher.Invoke(() => positionsWindow.ReloadData());
             positionsWindow.ReloadData();
+
+            tradeWindow.DEFAULT_ID = TRADE_DEFAULT_ID;
+            //tradeWindow.Dispatcher.Invoke(() => tradeWindow.ReloadData());
+            tradeWindow.ReloadData();
 
             //FastOrderCtl.Dispatcher.Invoke(() => FastOrderCtl.ReloadData());
             FastOrderCtl.ReloadData();

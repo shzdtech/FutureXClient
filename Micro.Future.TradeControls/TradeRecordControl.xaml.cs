@@ -376,7 +376,7 @@ namespace Micro.Future.UI
 
             if (found)
                 AnchorablePane.Children.Remove(defaultTab);
-            TradeHandler.QueryTrade();
+            //TradeHandler.QueryTrade();
             //_timer = new Timer(UpdateTradeCallback, null, UpdateInterval, UpdateInterval);
         }
 

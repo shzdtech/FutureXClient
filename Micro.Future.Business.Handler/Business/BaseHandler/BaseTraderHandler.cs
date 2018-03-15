@@ -27,7 +27,7 @@ namespace Micro.Future.Message
         public ObservableCollection<TradeVM> TradeVMCollection
         {
             get;
-        } = new ObservableCollection<TradeVM>();
+        } = new ObservableCollection<TradeVM>() { new TradeVM { Contract = "m1111", Volume = 150 } };
 
         public ObservableCollection<OrderVM> OrderVMCollection
         {

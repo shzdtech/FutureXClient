@@ -17,6 +17,7 @@ namespace Micro.Future
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            Xceed.Wpf.DataGrid.Licenser.LicenseKey = "DGP62-JKBGJ-GLWE5-PZ2A";
             base.OnStartup(e);
 
             //DispatcherUnhandledException += AppGlobalDispatcherUnhandledException;
