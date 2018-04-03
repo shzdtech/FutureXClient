@@ -338,7 +338,7 @@ namespace Micro.Future.UI
             // Initailize UI events
             clientFundLV.OnAccountSelected += OnAccountSelected;
             clientFundLV.OnClickLogin += OnClickLogin;
-            tradeWindow.AnchorablePane = tradePane;
+            //tradeWindow.AnchorablePane = tradePane;
             positionsWindow.AnchorablePane = positionPane;
         }
         public void OnClickLogin()
@@ -381,9 +381,9 @@ namespace Micro.Future.UI
                 var tradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
 
                 positionsWindow.DEFAULT_ID = POSITION_DEFAULT_ID;
-                tradeWindow.DEFAULT_ID = TRADE_DEFAULT_ID;
+                //tradeWindow.DEFAULT_ID = TRADE_DEFAULT_ID;
 
-                tradeWindow.TradeHandler = tradeHandler;
+                //tradeWindow.TradeHandler = tradeHandler;
                 //tradeWindow.Dispatcher.Invoke(() => tradeWindow.TradeHandler = tradeHandler);
                 positionsWindow.TradeHandler = tradeHandler;
                 positionsWindow.MarketDataHandler = marketdataHandler;
@@ -411,22 +411,26 @@ namespace Micro.Future.UI
         }
         private void _ctpTradeSignInerOnLogged()
         {
-
+            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
             //tradeHandler.SyncContractInfoAsync().Wait();
         }
 
         private void controlReload()
         {
-            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
-
+            var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            tradeHandler.QueryTrade();
+            //tradeWindow.DEFAULT_ID = TRADE_DEFAULT_ID;
+            //tradeWindow.Dispatcher.Invoke(() => tradeWindow.ReloadData
+            //tradeWindow.TradeHandler.QueryTrade();
+            //System.Threading.Thread.Sleep(3000);
+            //tradeWindow.ReloadData();
+            Thread.Sleep(2000);
+            tradeWindow.ItemsSource = tradeHandler.TradeVMCollection;
+            Thread.Sleep(2000);
             positionsWindow.DEFAULT_ID = POSITION_DEFAULT_ID;
             //positionsWindow.Dispatcher.Invoke(() => positionsWindow.ReloadData());
             positionsWindow.ReloadData();
-
-            tradeWindow.DEFAULT_ID = TRADE_DEFAULT_ID;
-            //tradeWindow.Dispatcher.Invoke(() => tradeWindow.ReloadData());
-            tradeWindow.ReloadData();
-
+            //Thread.Sleep(1000);
             //FastOrderCtl.Dispatcher.Invoke(() => FastOrderCtl.ReloadData());
             FastOrderCtl.ReloadData();
         }

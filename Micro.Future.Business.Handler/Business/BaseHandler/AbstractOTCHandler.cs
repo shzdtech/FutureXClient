@@ -199,25 +199,28 @@ namespace Micro.Future.Message
             ModelParamsVM ret = null;
             if (!string.IsNullOrEmpty(resp.InstanceName))
             {
-                ret = modelParamsVMCollection.FirstOrDefault(c => c.InstanceName == resp.InstanceName);
-                if (ret == null)
+                lock(modelParamsVMCollection)
                 {
-                    ret = new ModelParamsVM()
+                    ret = modelParamsVMCollection.FirstOrDefault(c => c.InstanceName == resp.InstanceName);
+                    if (ret == null)
                     {
-                        InstanceName = resp.InstanceName,
-                        Model = resp.Model,
-                        ModelAim = resp.ModelAim
-                    };
-                    modelParamsVMCollection.Add(ret);
-                }
+                        ret = new ModelParamsVM()
+                        {
+                            InstanceName = resp.InstanceName,
+                            Model = resp.Model,
+                            ModelAim = resp.ModelAim
+                        };
+                        modelParamsVMCollection.Add(ret);
+                    }
 
-                foreach (var param in resp.Params)
-                {
-                    ret[param.Key] = new NamedParamVM()
+                    foreach (var param in resp.Params)
                     {
-                        Name = param.Key,
-                        Value = param.Value,
-                    };
+                        ret[param.Key] = new NamedParamVM()
+                        {
+                            Name = param.Key,
+                            Value = param.Value,
+                        };
+                    }
                 }
             }
 
@@ -268,30 +271,32 @@ namespace Micro.Future.Message
             ModelParamDefVM ret = null;
             if (!string.IsNullOrEmpty(resp.ModelName))
             {
-                ret = ModelParamDefVMCollection.FirstOrDefault(c => c.InstanceName == resp.ModelName);
-                if (ret == null)
+                lock(ModelParamDefVMCollection)
                 {
-                    ret = new ModelParamDefVM()
+                    ret = ModelParamDefVMCollection.FirstOrDefault(c => c.InstanceName == resp.ModelName);
+                    if (ret == null)
                     {
-                        ModelName = resp.ModelName,
-                    };
-                    ModelParamDefVMCollection.Add(ret);
-                }
+                        ret = new ModelParamDefVM()
+                        {
+                            ModelName = resp.ModelName,
+                        };
+                        ModelParamDefVMCollection.Add(ret);
+                    }
 
-                foreach (var param in resp.Params)
-                {
-                    ret[param.Key] = new ParamDefVM()
+                    foreach (var param in resp.Params)
                     {
-                        Name = param.Key,
-                        DataType = param.Value.DataType,
-                        DefaultVal = param.Value.DefaultVal,
-                        Enable = param.Value.Enable,
-                        MaxVal = param.Value.MaxVal,
-                        MinVal = param.Value.MinVal,
-                        Step = param.Value.Step,
-                        Visible = param.Value.Visible,
-                        
-                    };
+                        ret[param.Key] = new ParamDefVM()
+                        {
+                            Name = param.Key,
+                            DataType = param.Value.DataType,
+                            DefaultVal = param.Value.DefaultVal,
+                            Enable = param.Value.Enable,
+                            MaxVal = param.Value.MaxVal,
+                            MinVal = param.Value.MinVal,
+                            Step = param.Value.Step,
+                            Visible = param.Value.Visible,
+                        };
+                    }
                 }
             }
 

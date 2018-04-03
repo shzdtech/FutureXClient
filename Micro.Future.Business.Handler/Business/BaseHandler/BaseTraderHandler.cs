@@ -27,7 +27,7 @@ namespace Micro.Future.Message
         public ObservableCollection<TradeVM> TradeVMCollection
         {
             get;
-        } = new ObservableCollection<TradeVM>() { new TradeVM { Contract = "m1111", Volume = 150 } };
+        } = new ObservableCollection<TradeVM>();
 
         public ObservableCollection<OrderVM> OrderVMCollection
         {
@@ -657,15 +657,23 @@ namespace Micro.Future.Message
                 Commission = rsp.Commission,
             };
 
-            OnTraded?.Invoke(trade);
-
-            lock (TradeVMCollection)
+            try
             {
-                if (!TradeVMCollection.Any(t => t.TradeID == rsp.TradeID))
+                OnTraded?.Invoke(trade);
+
+                lock (TradeVMCollection)
                 {
-                    TradeVMCollection.Add(trade);
+                    if (!TradeVMCollection.Any(t => t.TradeID == rsp.TradeID))
+                    {
+                        TradeVMCollection.Add(trade);
+                    }
                 }
             }
+            catch(Exception exp)
+            {
+                MessageBox.Show(exp.Message);
+            }
+
         }
 
         public virtual void QueryAccountInfo()

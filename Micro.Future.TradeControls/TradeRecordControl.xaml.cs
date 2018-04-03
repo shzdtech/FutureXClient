@@ -390,6 +390,7 @@ namespace Micro.Future.UI
             TradeTreeView.ItemsSource = _viewSource.View;
             mColumns = ColumnObject.GetColumns(TradeTreeView);
             //TradeHandler.TradeVMCollection.Clear();
+            //Dispatcher.Invoke(() => TradeHandler.QueryTrade());
             TradeHandler.QueryTrade();
             FilterSettingsWin.UserID = TradeHandler.MessageWrapper?.User?.Id;
         }
