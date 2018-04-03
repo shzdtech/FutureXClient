@@ -663,10 +663,13 @@ namespace Micro.Future.Message
 
                 lock (TradeVMCollection)
                 {
-                    if (!TradeVMCollection.Any(t => t.TradeID == rsp.TradeID))
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
-                        TradeVMCollection.Add(trade);
-                    }
+                        if (!TradeVMCollection.Any(t => t.TradeID == rsp.TradeID))
+                        {
+                            TradeVMCollection.Add(trade);
+                        }
+                    });
                 }
             }
             catch(Exception exp)
