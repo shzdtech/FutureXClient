@@ -395,7 +395,10 @@ namespace Micro.Future.UI
 
                 ObservableCollection<ModelParamsVM> modelparamsVMCollection;
                 if (tradingdeskHandler.ModelParamsDict.TryGetValue("risk", out modelparamsVMCollection))
+                {
+                    riskparamsControl.RiskParamNameListView.ItemsSource = null;
                     riskparamsControl.RiskParamNameListView.ItemsSource = modelparamsVMCollection;
+                }
                 controlReload();
                 //tradeWindow.TradeHandler.QueryTrade();
 

@@ -63,11 +63,11 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <RadioButton Grid.Column="0" Name="RadioA" GroupName="orderType"  Content="{lex:Loc Key=Open}" 
-                             IsChecked="{Binding Path=OpenClose,Converter={StaticResource enumBooleanConverter}, ConverterParameter=OPEN}" VerticalAlignment="Center" Width="42.4" HorizontalAlignment="Left"/>
+                             IsChecked="{Binding Path=OpenClose,Converter={StaticResource enumBooleanConverter}, ConverterParameter=OPEN}" VerticalAlignment="Center" Width="42.4" HorizontalAlignment="Left" Checked="OpenChecked"/>
             <RadioButton Grid.Column="1" Name="RadioB" GroupName="orderType" Content="{lex:Loc Key=Close}"
-                             IsChecked="{Binding Path=OpenClose,Converter={StaticResource enumBooleanConverter}, ConverterParameter=CLOSE}" VerticalAlignment="Center" Width="42.4" HorizontalAlignment="Left"/>
+                             IsChecked="{Binding Path=OpenClose,Converter={StaticResource enumBooleanConverter}, ConverterParameter=CLOSE}" VerticalAlignment="Center" Width="42.4" HorizontalAlignment="Left" Checked="CloseChecked"/>
             <RadioButton Grid.Column="2" Name="RadioC"  GroupName="orderType" Content="{lex:Loc Key=CloseToday}" 
-                             IsChecked="{Binding Path=OpenClose,Converter={StaticResource enumBooleanConverter}, ConverterParameter=CLOSETODAY}" VerticalAlignment="Center" Width="42.4" Height="16" HorizontalAlignment="Left" />
+                             IsChecked="{Binding Path=OpenClose,Converter={StaticResource enumBooleanConverter}, ConverterParameter=CLOSETODAY}" VerticalAlignment="Center" Width="42.4" Height="16" HorizontalAlignment="Left" Checked="CloseTodayChecked"/>
         </Grid>
 
         <Grid Grid.Row="2" Height="30">

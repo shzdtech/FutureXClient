@@ -61,7 +61,7 @@
                     </GroupBox>
                     <Button x:Name="setReferenceBtn" Content="{lex:Loc Key=SetReference}" Click="SetReference_Click" />
                     <Button x:Name="revertCurrentBtn" Content="{lex:Loc Key=RevertCurrent}" Click="RevertCurrent_Click" />
-                    <ListView x:Name="testmodellv" x:FieldModifier="public">
+                    <!--<ListView x:Name="testmodellv" x:FieldModifier="public">
                         <ListView.View>
                             <GridView x:Name="testmodelgv" x:FieldModifier="public">
                                 <GridViewColumn Header="paramlname">
@@ -80,7 +80,7 @@
                                 </GridViewColumn>
                             </GridView>
                         </ListView.View>
-                    </ListView>
+                    </ListView>-->
                     <!--<GroupBox x:Name="Contract_ExpirationMonth" Header="Contract ExpirationMonth">
                 <ComboBox x:Name="contractExpirationMonth" Tag="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" />
             </GroupBox>

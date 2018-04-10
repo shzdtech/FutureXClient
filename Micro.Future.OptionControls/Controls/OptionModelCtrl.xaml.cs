@@ -129,8 +129,7 @@ namespace Micro.Future.UI
                 WMSettingsLV.DataContext = null;
                 WMSettingsLV.DataContext = volModel;
                 var itemsource = volModel;
-                WMSettingsLV.testmodellv.ItemsSource = itemsource.Params;
-
+                //WMSettingsLV.testmodellv.ItemsSource = itemsource.Params;
             }
 
             //var exchange = OpMarketControl.underlyingEX1.SelectedValue;

@@ -267,83 +267,86 @@ namespace Micro.Future.Message
         {
             lock (PositionVMCollection)
             {
-                PositionVM positionVM = PositionVMCollection.FirstOrDefault(p =>
-                    p.Contract == rsp.Contract && (int)p.Direction == rsp.Direction && p.Portfolio == rsp.Portfolio);
-
-                if (rsp.TdPosition + rsp.YdPosition == 0)
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    if (positionVM != null)
-                    {
-                        positionVM.TodayPosition = rsp.TdPosition;
-                        positionVM.YdPosition = rsp.YdPosition;
-                        PositionVMCollection.Remove(positionVM);
-                        OnPositionUpdated?.Invoke(positionVM);
-                    }
+                    PositionVM positionVM = PositionVMCollection.FirstOrDefault(p =>
+    p.Contract == rsp.Contract && (int)p.Direction == rsp.Direction && p.Portfolio == rsp.Portfolio);
 
-                    if (!PositionVMCollection.Any(p => p.Contract == rsp.Contract))
+                    if (rsp.TdPosition + rsp.YdPosition == 0)
                     {
-                        PositionContractSet.Remove(rsp.Contract);
-                    }
-                }
-                else
-                {
-                    if (positionVM == null)
-                    {
-                        var contractInfo = ClientDbContext.FindContract(rsp.Contract);
-                        positionVM = new PositionVM
-                        {
-                            Contract = rsp.Contract,
-                            Exchange = rsp.Exchange,
-                            Portfolio = rsp.Portfolio,
-                            Direction = (PositionDirectionType)rsp.Direction,
-                            HedgeFlag = (HedgeType)rsp.HedgeFlag,
-                            PositionDateFlag = (PositionDateFlagType)rsp.PositionDateFlag,
-                            Multiplier = contractInfo == null ? 1 : contractInfo.VolumeMultiple,
-                            TodayPosition = rsp.TdPosition,
-                            YdPosition = rsp.YdPosition,
-                            OpenVolume = rsp.OpenVolume,
-                            CloseVolume = rsp.CloseVolume,
-                            OpenAmount = rsp.OpenAmount,
-                            CloseAmount = rsp.CloseAmount,
-                            TdCost = rsp.TdCost,
-                            YdCost = rsp.YdCost,
-                            OpenCost = rsp.OpenCost,
-                            Profit = rsp.Profit,
-                            CloseProfit = rsp.CloseProfit,
-                            UseMargin = rsp.UseMargin,
-                            Position = rsp.YdPosition + rsp.TdPosition,
-                            AvgPrice = rsp.AvgPrice,
-                            LastPrice = rsp.LastPrice
-                        };
-
-                        PositionVMCollection.Add(positionVM);
-                        PositionContractSet.Add(rsp.Contract);
-
-                        OnPositionUpdated?.Invoke(positionVM);
-                    }
-                    else
-                    {
-                        positionVM.OpenVolume = rsp.OpenVolume;
-                        positionVM.CloseVolume = rsp.CloseVolume;
-                        positionVM.OpenAmount = rsp.OpenAmount;
-                        positionVM.CloseAmount = rsp.CloseAmount;
-                        positionVM.OpenCost = rsp.OpenCost;
-                        positionVM.Profit = rsp.Profit;
-                        positionVM.AvgPrice = rsp.AvgPrice;
-                        positionVM.LastPrice = rsp.LastPrice;
-
-                        if (positionVM.YdPosition != rsp.YdPosition || positionVM.TodayPosition != rsp.TdPosition)
+                        if (positionVM != null)
                         {
                             positionVM.TodayPosition = rsp.TdPosition;
                             positionVM.YdPosition = rsp.YdPosition;
-                            positionVM.Position = rsp.YdPosition + rsp.TdPosition;
+                            PositionVMCollection.Remove(positionVM);
+                            OnPositionUpdated?.Invoke(positionVM);
+                        }
+
+                        if (!PositionVMCollection.Any(p => p.Contract == rsp.Contract))
+                        {
+                            PositionContractSet.Remove(rsp.Contract);
+                        }
+                    }
+                    else
+                    {
+                        if (positionVM == null)
+                        {
+                            var contractInfo = ClientDbContext.FindContract(rsp.Contract);
+                            positionVM = new PositionVM
+                            {
+                                Contract = rsp.Contract,
+                                Exchange = rsp.Exchange,
+                                Portfolio = rsp.Portfolio,
+                                Direction = (PositionDirectionType)rsp.Direction,
+                                HedgeFlag = (HedgeType)rsp.HedgeFlag,
+                                PositionDateFlag = (PositionDateFlagType)rsp.PositionDateFlag,
+                                Multiplier = contractInfo == null ? 1 : contractInfo.VolumeMultiple,
+                                TodayPosition = rsp.TdPosition,
+                                YdPosition = rsp.YdPosition,
+                                OpenVolume = rsp.OpenVolume,
+                                CloseVolume = rsp.CloseVolume,
+                                OpenAmount = rsp.OpenAmount,
+                                CloseAmount = rsp.CloseAmount,
+                                TdCost = rsp.TdCost,
+                                YdCost = rsp.YdCost,
+                                OpenCost = rsp.OpenCost,
+                                Profit = rsp.Profit,
+                                CloseProfit = rsp.CloseProfit,
+                                UseMargin = rsp.UseMargin,
+                                Position = rsp.YdPosition + rsp.TdPosition,
+                                AvgPrice = rsp.AvgPrice,
+                                LastPrice = rsp.LastPrice
+                            };
+
+                            PositionVMCollection.Add(positionVM);
+                            PositionContractSet.Add(rsp.Contract);
+
+                            OnPositionUpdated?.Invoke(positionVM);
+                        }
+                        else
+                        {
+                            positionVM.OpenVolume = rsp.OpenVolume;
+                            positionVM.CloseVolume = rsp.CloseVolume;
+                            positionVM.OpenAmount = rsp.OpenAmount;
+                            positionVM.CloseAmount = rsp.CloseAmount;
+                            positionVM.OpenCost = rsp.OpenCost;
                             positionVM.Profit = rsp.Profit;
                             positionVM.AvgPrice = rsp.AvgPrice;
                             positionVM.LastPrice = rsp.LastPrice;
-                            OnPositionUpdated?.Invoke(positionVM);
+
+                            if (positionVM.YdPosition != rsp.YdPosition || positionVM.TodayPosition != rsp.TdPosition)
+                            {
+                                positionVM.TodayPosition = rsp.TdPosition;
+                                positionVM.YdPosition = rsp.YdPosition;
+                                positionVM.Position = rsp.YdPosition + rsp.TdPosition;
+                                positionVM.Profit = rsp.Profit;
+                                positionVM.AvgPrice = rsp.AvgPrice;
+                                positionVM.LastPrice = rsp.LastPrice;
+                                OnPositionUpdated?.Invoke(positionVM);
+                            }
                         }
                     }
-                }
+                });
             }
         }
         protected void UpdatePositionProfit(PBPositionPnL rsp)
@@ -672,7 +675,7 @@ namespace Micro.Future.Message
                     });
                 }
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 MessageBox.Show(exp.Message);
             }

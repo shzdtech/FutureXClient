@@ -52,7 +52,7 @@ namespace Micro.Future.UI
             {
                 OrderVM = new OrderVM(value);
                 OrderVM.Volume = 1;
-                DataContext = OrderVM;
+                Dispatcher.Invoke(() => DataContext = OrderVM);
                 value.OnOrderError += Callback_OnOrderError;
             }
         }
@@ -426,9 +426,26 @@ namespace Micro.Future.UI
             }
         }
 
+        private void OpenChecked(object sender, RoutedEventArgs e)
+        {
+            if (OrderVM != null)
+                OrderVM.OpenClose = OrderOpenCloseType.OPEN;
+        }
+        private void CloseChecked(object sender, RoutedEventArgs e)
+        {
+            if (OrderVM != null)
+                OrderVM.OpenClose = OrderOpenCloseType.CLOSE;
+        }
 
+        private void CloseTodayChecked(object sender, RoutedEventArgs e)
+        {
+            if (OrderVM != null)
+                OrderVM.OpenClose = OrderOpenCloseType.CLOSETODAY;
+        }
         private void BuyChecked(object sender, RoutedEventArgs e)
         {
+            if (OrderVM != null)
+                OrderVM.Direction = DirectionType.BUY;
             if (checkBox.IsChecked.Value)
                 LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("AskPrice.Value") { Mode = BindingMode.OneWay });
             else if (LabelAskPrice.Content != null)
@@ -437,6 +454,8 @@ namespace Micro.Future.UI
 
         private void SellChecked(object sender, RoutedEventArgs e)
         {
+            if (OrderVM != null)
+                OrderVM.Direction = DirectionType.SELL;
             if (checkBox.IsChecked.Value)
                 LimitTxt.SetBinding(DoubleUpDown.ValueProperty, new Binding("BidPrice.Value") { Mode = BindingMode.OneWay });
             else if (LabelBidPrice.Content != null)
