@@ -53,8 +53,7 @@ namespace Micro.Future.UI
         public ObservableCollection<PortfolioVM> PortfolioVMCollection
         {
             get;
-            set;
-        }
+        } = new ObservableCollection<PortfolioVM>();
         ~PortfolioSelectCtrl()
         {
             AutoHedgeUpdate(false);
@@ -63,17 +62,20 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().PortfolioVMCollection;
-            foreach (var vm in MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection)
-            {
-                if (vm != null)
-                    portfolioVMCollection.Add(vm);
-            }
-            foreach (var vm in MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection)
-            {
-                if (vm != null)
-                    portfolioVMCollection.Add(vm);
-            }
-            PortfolioVMCollection = portfolioVMCollection;
+            //foreach (var vm in MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection)
+            //{
+            //    if (vm != null)
+            //        portfolioVMCollection.Add(vm);
+            //}
+            //foreach (var vm in MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection)
+            //{
+            //    if (vm != null)
+            //        portfolioVMCollection.Add(vm);
+            //}
+            //PortfolioVMCollection = portfolioVMCollection;
+            PortfolioVMCollection.Union(portfolioVMCollection);
+            PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
+            PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
             var portfolioList = PortfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
             portfolioCB.ItemsSource = portfolioList;
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);

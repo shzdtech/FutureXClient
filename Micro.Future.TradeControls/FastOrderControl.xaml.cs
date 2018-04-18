@@ -72,10 +72,10 @@ namespace Micro.Future.UI
         {
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             //PortfolioCollection.Add(new PortfolioVM(null) { });
-            foreach (var vm in portfolioVMCollection)
-            {
-                PortfolioCollection.Add(vm);
-            }
+            //foreach (var vm in portfolioVMCollection)
+            //{
+            //    PortfolioCollection.Add(vm);
+            //}
 
             portofolioCB.ItemsSource = portfolioVMCollection;
             //portofolioCB.ItemsSource = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;

@@ -59,8 +59,7 @@ namespace Micro.Future.UI
         public ObservableCollection<PortfolioVM> PortfolioVMCollection
         {
             get;
-            set;
-        }
+        } = new ObservableCollection<PortfolioVM>();
         public List<ColumnItem> BarItemCollection
         {
             get;
@@ -233,9 +232,9 @@ namespace Micro.Future.UI
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             var portfolioList = portfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
             portfolioCB.ItemsSource = portfolioList;
-            portfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
-            portfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
-            PortfolioVMCollection = portfolioVMCollection;
+            PortfolioVMCollection.Union(portfolioVMCollection);
+            PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
+            PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             OptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
             OptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
