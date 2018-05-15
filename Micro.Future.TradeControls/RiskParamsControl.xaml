@@ -18,7 +18,7 @@
                 <ListView Name="RiskParamNameListView" SelectionChanged="RiskParamNameListView_SelectionChanged">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding InstanceName}" Width="auto"/>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding InstanceName}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

@@ -45,21 +45,24 @@
                 </avalonDock:LayoutPanel>
                 <avalonDock:LayoutPanel Orientation="Vertical">
                     <avalonDock:LayoutAnchorablePane x:Name="tradePane">
-                        <avalonDock:LayoutAnchorable ContentId="TradeContent">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Trade}" ContentId="TradeContent">
                             <!--<c:TradeRecordControl x:Name="tradeWindow" PersistanceId="Domestic:TradeRecordControl"/>-->
                             <ListView Name="tradeWindow">
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="True">
-                                        <GridViewColumn Header="{lex:Loc Key=TradeID}" DisplayMemberBinding="{Binding TradeID}" Width="auto"/>
                                         <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
+                                        <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>
                                         <GridViewColumn Header="{lex:Loc Key=MatchPrice}" DisplayMemberBinding="{Binding Price}" Width="auto"/>
                                         <GridViewColumn Header="{lex:Loc Key=QuoteVolume}" DisplayMemberBinding="{Binding Volume}" Width="auto"/>
                                         <GridViewColumn Header="{lex:Loc Key=TradeDate}" DisplayMemberBinding="{Binding TradeDate}" Width="auto"/>
                                         <GridViewColumn Header="{lex:Loc Key=TradeTime}" DisplayMemberBinding="{Binding TradeTime}" Width="auto"/>
                                         <GridViewColumn Header="{lex:Loc Key=OrderSysID}" DisplayMemberBinding="{Binding OrderSysID}" Width="auto"/>
+                                        <GridViewColumn Header="{lex:Loc Key=TradeID}" DisplayMemberBinding="{Binding TradeID}" Width="auto"/>
                                         <GridViewColumn Header="{lex:Loc Key=Commission}" DisplayMemberBinding="{Binding Commission}" Width="auto"/>
                                         <GridViewColumn Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" Width="auto"/>
-                                        <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>
+                                        <GridViewColumn Header="{lex:Loc Key=TradingType}" DisplayMemberBinding="{Binding TradingType}" Width="auto"/>
+                                        <GridViewColumn Header="{lex:Loc Key=HedgeFlag}" DisplayMemberBinding="{Binding HedgeFlag}" Width="auto"/>
+
                                     </GridView>
                                 </ListView.View>
                             </ListView>
@@ -67,8 +70,8 @@
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                     <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
-                        <avalonDock:LayoutAnchorable ContentId="PositionContent">
-                            <c:PositionControl x:Name="positionsWindow" PersistanceId="Domestic:PositionControl"/>
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Position}" ContentId="PositionContent">
+                            <c:PositionControl x:Name="positionsWindow" x:FieldModifier="public" PersistanceId="Domestic:PositionControl"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                     <avalonDock:LayoutAnchorablePane x:Name="fastorderPane" DockWidth="0.25*">

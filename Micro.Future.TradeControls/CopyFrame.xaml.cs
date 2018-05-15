@@ -340,6 +340,7 @@ namespace Micro.Future.UI
             clientFundLV.OnClickLogin += OnClickLogin;
             //tradeWindow.AnchorablePane = tradePane;
             positionsWindow.AnchorablePane = positionPane;
+            positionsWindow.ClosePositionClick.IsEnabled = false;
         }
         public void OnClickLogin()
         {
