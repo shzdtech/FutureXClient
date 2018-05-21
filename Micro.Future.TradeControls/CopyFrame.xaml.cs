@@ -392,6 +392,7 @@ namespace Micro.Future.UI
                 FastOrderCtl.MarketDataHandler = marketdataHandler;
                 FastOrderCtl.ProductTypeList.Add(ProductType.PRODUCT_FUTURE);
                 FastOrderCtl.ProductTypeList.Add(ProductType.PRODUCT_OPTIONS);
+                FastOrderCtl.ProductTypeList.Add(ProductType.PRODUCT_COMBINATION);
 
 
                 ObservableCollection<ModelParamsVM> modelparamsVMCollection;
