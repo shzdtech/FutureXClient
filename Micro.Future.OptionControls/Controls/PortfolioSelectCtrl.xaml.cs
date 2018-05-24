@@ -73,10 +73,15 @@ namespace Micro.Future.UI
             //        portfolioVMCollection.Add(vm);
             //}
             //PortfolioVMCollection = portfolioVMCollection;
-            PortfolioVMCollection.Union(portfolioVMCollection);
-            PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
-            PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
-            var portfolioList = PortfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
+            var p1 = PortfolioVMCollection.Union(portfolioVMCollection);
+            p1 = p1.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
+            p1 = p1.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
+            var portfolioList = p1.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
+            foreach(var vm in p1)
+            {
+                PortfolioVMCollection.Add(vm);
+            }
+            //var portfolioList = portfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
             portfolioCB.ItemsSource = portfolioList;
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
@@ -133,7 +138,7 @@ namespace Micro.Future.UI
                         var _handler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                         if (MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().MessageWrapper.HasSignIn)
                             _handler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
-                        else if(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>().MessageWrapper.HasSignIn)
+                        else if (MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>().MessageWrapper.HasSignIn)
                             _handler = MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>();
                         else if (MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>().MessageWrapper.HasSignIn)
                             _handler = MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>();

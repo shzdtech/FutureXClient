@@ -2005,7 +2005,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 下单类型 的本地化字符串。
+        ///   查找类似 类型 的本地化字符串。
         /// </summary>
         internal static string OrderCondition {
             get {
@@ -2428,7 +2428,7 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
-        ///   查找类似 持仓组合 的本地化字符串。
+        ///   查找类似 组合 的本地化字符串。
         /// </summary>
         internal static string Portfolio {
             get {

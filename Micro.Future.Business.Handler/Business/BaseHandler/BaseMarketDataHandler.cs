@@ -186,27 +186,32 @@ namespace Micro.Future.Message
         protected void UpdateMarketDataVM(MarketDataVM mktVM, PBMarketData md)
         {
             //var contractInfo = ClientDbContext.FindContract(md.Contract);
-
-            mktVM.LastPrice = md.MatchPrice;
+            if (md.MatchPrice < 1e16)
+                mktVM.LastPrice = md.MatchPrice;
             mktVM.BidPrice = md.BidPrice[0];
             mktVM.AskPrice = md.AskPrice[0];
             mktVM.BidSize = md.BidVolume[0];
             mktVM.AskSize = md.AskVolume[0];
-            mktVM.Volume = md.Volume;
+            if (md.Volume < 1e16)
+                mktVM.Volume = md.Volume;
             mktVM.OpenValue = md.OpenValue;
-            mktVM.PreCloseValue = md.PreCloseValue;
+            if (md.PreCloseValue < 1e16)
+                mktVM.PreCloseValue = md.PreCloseValue;
             mktVM.HighValue = md.HighValue;
             mktVM.LowValue = md.LowValue;
             mktVM.UpperLimitPrice = md.HighLimit;
             mktVM.LowerLimitPrice = md.LowLimit;
             mktVM.SettlePrice = md.SettlePrice;
-            mktVM.PreSettlePrice = md.PreSettlePrice;
+            if (md.PreSettlePrice < 1e16)
+                mktVM.PreSettlePrice = md.PreSettlePrice;
             mktVM.AveragePrice = md.AveragePrice;
             mktVM.HighLimint = md.HighLimit;
             mktVM.LowLimint = md.LowLimit;
-            mktVM.OpenInterest = md.OpenInterest;
+            if (md.OpenInterest < 1e16)
+                mktVM.OpenInterest = md.OpenInterest;
             mktVM.OpenValue = md.OpenValue;
-            mktVM.PreOpenInterest = md.PreOpenInterest;
+            if (md.PreOpenInterest < 1e16)
+                mktVM.PreOpenInterest = md.PreOpenInterest;
             mktVM.PriceChange = md.PriceChange;
             mktVM.CloseValue = md.CloseValue;
             mktVM.Turnover = md.Turnover;

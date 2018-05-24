@@ -592,7 +592,7 @@
     <value>委托单状态</value>
   </data>
   <data name="Portfolio" xml:space="preserve">
-    <value>持仓组合</value>
+    <value>组合</value>
   </data>
   <data name="AddModel" xml:space="preserve">
     <value>添加模型</value>
@@ -826,7 +826,7 @@
     <value>ALLVOLUME</value>
   </data>
   <data name="OrderCondition" xml:space="preserve">
-    <value>下单类型</value>
+    <value>类型</value>
   </data>
   <data name="TickSize" xml:space="preserve">
     <value>报价变动单位</value>
