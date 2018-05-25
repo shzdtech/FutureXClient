@@ -21,7 +21,7 @@
             </Grid.RowDefinitions>
             <WrapPanel Grid.Row="0">
                 <!--<Label Content="{lex:Loc Key=Contract}"></Label>-->
-                <wpf:AutoCompleteTextBox x:Name="contractTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" KeyUp="AddQuote_KeyUp" MouseLeftButtonUp="contractTextBox_MouseLeftButtonUp" Focusable="False" />
+                <wpf:AutoCompleteTextBox x:Name="contractTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" KeyUp="AddQuote_KeyUp" MouseLeftButtonUp="contractTextBox_MouseLeftButtonUp" Focusable="False" />
                 <Button Content="{lex:Loc Key=Add}" Click="Button_Click_Add"/>
             </WrapPanel>
             <!--<utility:GridLineDecorator GridLineBrush="LightGray" Grid.Row="1" >-->

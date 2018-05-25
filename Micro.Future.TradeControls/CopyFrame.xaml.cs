@@ -141,6 +141,7 @@ namespace Micro.Future.UI
         {
             InstanceName = obj.InstanceName;
             var tradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+            var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().PortfolioVMCollection;
             riskparamsControl.RiskParamSP.Children.Clear();
             var task = tradingdeskHandler.QueryModelParamsDefAsync(obj.Model);
             task.Wait();
@@ -189,6 +190,10 @@ namespace Micro.Future.UI
                     if (def.Visible == true)
                     {
                         Label a = new Label() { Content = string.Format("[{0}].Value", def.Name) };
+                        //ComboBox a = new ComboBox() { };
+                        //var portfolioList = portfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
+                        //a.ItemsSource = portfolioList;
+                        //a.SelectedValue = def.Name;
                         riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
                     }
                 }
