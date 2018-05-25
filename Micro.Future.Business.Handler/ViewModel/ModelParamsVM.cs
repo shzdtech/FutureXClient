@@ -59,6 +59,14 @@ namespace Micro.Future.ViewModel
             }
         }
 
+        private Dictionary<string,string> _paramsstring = new Dictionary<string, string>();
+        public Dictionary<string, string> ParamsString
+        {
+            get
+            {
+                return _paramsstring;
+            }
+        }
         public NamedParamVM this[string paramName]
         {
             get

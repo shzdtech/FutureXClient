@@ -189,7 +189,9 @@ namespace Micro.Future.UI
                 {
                     if (def.Visible == true)
                     {
-                        Label a = new Label() { Content = string.Format("[{0}].Value", def.Name) };
+                        string ps = null;
+                        rparam.ParamsString.TryGetValue(def.Name, out ps);
+                        Label a = new Label() { Content = string.Format("{0}", ps??string.Empty) };
                         //ComboBox a = new ComboBox() { };
                         //var portfolioList = portfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
                         //a.ItemsSource = portfolioList;

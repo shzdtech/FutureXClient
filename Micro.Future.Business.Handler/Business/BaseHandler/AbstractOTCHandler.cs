@@ -221,6 +221,10 @@ namespace Micro.Future.Message
                             Value = param.Value,
                         };
                     }
+                    foreach (var paramstring in resp.Paramstring)
+                    {
+                        ret.ParamsString[paramstring.Key] = paramstring.Value;
+                    }
                 }
             }
 
