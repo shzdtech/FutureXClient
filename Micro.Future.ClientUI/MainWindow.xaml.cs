@@ -45,14 +45,24 @@ namespace Micro.Future.UI
         private async void MenuItem_RefreshContracts_Click(object sender, RoutedEventArgs e)
         {
             var mktHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
-            if (mktHandler.MessageWrapper.HasSignIn)
-                await mktHandler.SyncContractInfoAsync(true);
+            if (mktHandler.MessageWrapper != null)
+            {
+                if (mktHandler.MessageWrapper.HasSignIn)
+                    await mktHandler.SyncContractInfoAsync(true);
+            }
             var etfMktHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFMDHandler>();
-            if (etfMktHandler.MessageWrapper.HasSignIn)
-                await etfMktHandler.SyncContractInfoAsync(true);
+            if (etfMktHandler.MessageWrapper != null)
+            {
+                if (etfMktHandler.MessageWrapper.HasSignIn)
+                    await etfMktHandler.SyncContractInfoAsync(true);
+            }
             var stockMktHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKMDHandler>();
-            if (stockMktHandler.MessageWrapper.HasSignIn)
-                await stockMktHandler.SyncContractInfoAsync(true);
+            if (stockMktHandler.MessageWrapper != null)
+            {
+                if (stockMktHandler.MessageWrapper.HasSignIn)
+                    await stockMktHandler.SyncContractInfoAsync(true);
+            }
+
             MessageBox.Show(Application.Current.MainWindow, "合约已刷新，请重新启动应用！");
         }
 
