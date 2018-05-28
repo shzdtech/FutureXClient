@@ -182,7 +182,8 @@ namespace Micro.Future.UI
                         var modelParam = rparam[def.Name];
                         if (modelParam != null)
                             a.Value = modelParam.Value;
-                        riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
+                        if (a.Value != null)
+                            riskparamsControl.RiskParamSP.Children.Add(new GroupBox() { Content = a, Header = def.Name });
                     }
                 }
                 else if (def.DataType == 0)
@@ -191,7 +192,7 @@ namespace Micro.Future.UI
                     {
                         string ps = null;
                         rparam.ParamsString.TryGetValue(def.Name, out ps);
-                        Label a = new Label() { Content = string.Format("{0}", ps??string.Empty) };
+                        Label a = new Label() { Content = string.Format("{0}", ps ?? string.Empty) };
                         //ComboBox a = new ComboBox() { };
                         //var portfolioList = portfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
                         //a.ItemsSource = portfolioList;
@@ -364,6 +365,8 @@ namespace Micro.Future.UI
         private void Win_OnLogged(FrameLoginWindow sender, IUserInfo userInfo)
         {
             var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
+            accountFundLV.TradeHandler = tradeHandler;
+            accountFundLV.ReloadData();
             //FastOrderCtl.TradeHandler = tradeHandler;
             //FastOrderCtl.ReloadData();
             try
@@ -442,6 +445,8 @@ namespace Micro.Future.UI
             positionsWindow.DEFAULT_ID = POSITION_DEFAULT_ID;
             //positionsWindow.Dispatcher.Invoke(() => positionsWindow.ReloadData());
             positionsWindow.ReloadData();
+            accountFundLV.TradeHandler = tradeHandler;
+            accountFundLV.ReloadData();
             //Thread.Sleep(1000);
             //FastOrderCtl.Dispatcher.Invoke(() => FastOrderCtl.ReloadData());
             FastOrderCtl.ReloadData();

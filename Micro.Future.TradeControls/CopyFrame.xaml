@@ -36,7 +36,13 @@
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
                 </avalonDock:LayoutPanel>
-                <avalonDock:LayoutPanel>
+                <avalonDock:LayoutPanel Orientation="Vertical">
+                    <avalonDock:LayoutAnchorablePane DockHeight="0.15*" x:Name="accountPane">
+                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Fund}" CanClose="False" CanHide="False" ContentId="FundContent">
+                            <c:AccountInfoControl x:Name="accountFundLV"/>
+                        </avalonDock:LayoutAnchorable>
+                    </avalonDock:LayoutAnchorablePane>
+
                     <avalonDock:LayoutAnchorablePane x:Name="riskparamsPane">
                         <avalonDock:LayoutAnchorable Title="{lex:Loc Key=RiskControlParams}" CanClose="False" CanHide="False" ContentId="RiskParamsContent">
                             <c:RiskParamsControl  x:Name="riskparamsControl"/>
