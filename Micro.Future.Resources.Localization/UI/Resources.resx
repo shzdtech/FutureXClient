@@ -1464,4 +1464,7 @@
   <data name="RiskControlParams" xml:space="preserve">
     <value>风控参数</value>
   </data>
+  <data name="RiskRatio" xml:space="preserve">
+    <value>风险率</value>
+  </data>
 </root>

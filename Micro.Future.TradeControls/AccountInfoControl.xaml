@@ -20,6 +20,7 @@
                     <GridViewColumn Header="{lex:Loc Key=BrokerID}" DisplayMemberBinding="{Binding BrokerID}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=AccountID}" DisplayMemberBinding="{Binding AccountID}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=UserBalance}" DisplayMemberBinding="{Binding UserBalance, StringFormat={}{0:N}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=RiskRatio}" DisplayMemberBinding="{Binding RiskRatio, StringFormat={}{0:N}}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=PreMortgage}" DisplayMemberBinding="{Binding PreMortgage, StringFormat={}{0:N}}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=PreCredit}" DisplayMemberBinding="{Binding PreCredit, StringFormat={}{0:N}}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=PreDeposit}" DisplayMemberBinding="{Binding PreDeposit, StringFormat={}{0:N}}" Width="auto"/>

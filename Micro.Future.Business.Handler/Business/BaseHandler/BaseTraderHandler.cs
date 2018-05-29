@@ -531,6 +531,7 @@ namespace Micro.Future.Message
 
         private void OnFund(PBAccountInfo rsp)
         {
+            FundVM.RiskRatio = rsp.RiskRatio;
             FundVM.Commission = rsp.Commission;
             FundVM.BrokerID = rsp.BrokerID;
             FundVM.AccountID = rsp.AccountID;

@@ -1458,4 +1458,7 @@
   <data name="RiskControlParams" xml:space="preserve">
     <value>Risk Control Params</value>
   </data>
+  <data name="RiskRatio" xml:space="preserve">
+    <value>RiskRatio</value>
+  </data>
 </root>

@@ -40,7 +40,16 @@
             }
         }
 
-
+        private double _riskratio;
+        public double RiskRatio
+        {
+            get { return _riskratio; }
+            set
+            {
+                _riskratio = value;
+                OnPropertyChanged("RiskRatio");
+            }
+        }
         private double _preMortgage;
         public double PreMortgage
         {

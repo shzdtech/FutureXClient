@@ -2914,6 +2914,15 @@ namespace Micro.Future.Resources.Localization.UI {
         }
         
         /// <summary>
+        ///   查找类似 风险率 的本地化字符串。
+        /// </summary>
+        internal static string RiskRatio {
+            get {
+                return ResourceManager.GetString("RiskRatio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 风险值 的本地化字符串。
         /// </summary>
         internal static string RiskValue {
