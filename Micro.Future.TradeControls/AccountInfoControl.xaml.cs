@@ -53,7 +53,7 @@ namespace Micro.Future.UI
                 FundVMCollection.Clear();
                 FundVMCollection.Add(fund);
             });
-            _timer = new Timer(UpdateAccountInfoCallback, null, UpdateInterval, UpdateInterval); 
+            //_timer = new Timer(UpdateAccountInfoCallback, null, UpdateInterval, UpdateInterval); 
         }
 
         private void MenuItemColumns_Click(object sender, RoutedEventArgs e)
