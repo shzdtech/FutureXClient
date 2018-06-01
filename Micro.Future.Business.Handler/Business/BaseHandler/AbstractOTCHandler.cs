@@ -292,6 +292,7 @@ namespace Micro.Future.Message
                         ret[param.Key] = new ParamDefVM()
                         {
                             Name = param.Key,
+                            Digits = param.Value.Digits,
                             DataType = param.Value.DataType,
                             DefaultVal = param.Value.DefaultVal,
                             Enable = param.Value.Enable,

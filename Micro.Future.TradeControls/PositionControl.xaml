@@ -24,6 +24,7 @@
                 <GridView>
                     <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Path=Direction, Converter={StaticResource enumItemsConverter}}" Width="auto"/>
+                    <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}"  Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=Position}" DisplayMemberBinding="{Binding Position}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=TodayPosition}" DisplayMemberBinding="{Binding TodayPosition}" Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=YdPosition}" DisplayMemberBinding="{Binding YdPosition}" Width="auto"/>
@@ -42,7 +43,6 @@
                     <GridViewColumn Header="{lex:Loc Key=LongFrozenAmount}" DisplayMemberBinding="{Binding LongFrozenAmount}" Width="auto" />
                     <GridViewColumn Header="{lex:Loc Key=ShortFrozen}" DisplayMemberBinding="{Binding ShortFrozen}" Width="auto" />
                     <GridViewColumn Header="{lex:Loc Key=ShortFrozenAmount}" DisplayMemberBinding="{Binding ShortFrozenAmount}" Width="auto" />
-                    <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}"  Width="auto"/>
                     <GridViewColumn Header="{lex:Loc Key=MeanCost}" DisplayMemberBinding="{Binding AvgPrice, StringFormat={}{0:N2}}" Width="auto" />
                     <GridViewColumn Header="{lex:Loc Key=LastPrice}" DisplayMemberBinding="{Binding LastPrice, StringFormat={}{0:N2}}" Width="auto" />
 
