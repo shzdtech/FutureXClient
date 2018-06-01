@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -61,7 +62,8 @@ namespace Micro.Future.UI
         public PortfolioSelectCtrl()
         {
             InitializeComponent();
-            var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().PortfolioVMCollection;
+            var otcoptiontradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+            var portfolioVMCollection = otcoptiontradingdeskHandler.PortfolioVMCollection;
             //foreach (var vm in MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection)
             //{
             //    if (vm != null)
@@ -81,8 +83,8 @@ namespace Micro.Future.UI
             {
                 PortfolioVMCollection.Add(vm);
             }
-            //var portfolioList = portfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
-            portfolioCB.ItemsSource = portfolioList;
+            portfolioCB.ItemsSource = portfolioVMCollection;
+            //portfolioCB.ItemsSource = portfolioList;
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var options = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS);
             options.Union(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));

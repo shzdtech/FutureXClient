@@ -90,7 +90,7 @@ namespace Micro.Future.UI
 
         public void Initialize()
         {
-            // Initialize Market Data
+            
         }
 
         private void _ctpTdSignIner_OnLogged(IUserInfo obj)
@@ -148,6 +148,7 @@ namespace Micro.Future.UI
         {
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
+                //_otcOptionHandler.QueryPortfolioAsync();
                 InitializeComponent();
                 Initialize();
             }
