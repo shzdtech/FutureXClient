@@ -28,67 +28,64 @@
             <avalonDock:GenericTheme/>
         </avalonDock:DockingManager.Theme>
         <avalonDock:LayoutRoot>
-            <avalonDock:LayoutPanel Orientation="Horizontal">
-                <avalonDock:LayoutPanel DockWidth="0.2*">
-                    <avalonDock:LayoutAnchorablePane x:Name="fundPane">
-                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Fund}" CanClose="False" CanHide="False" ContentId="FundContent">
-                            <c:RiskAccountInfoControl x:Name="clientFundLV"/>
-                        </avalonDock:LayoutAnchorable>
-                    </avalonDock:LayoutAnchorablePane>
-                </avalonDock:LayoutPanel>
-                <avalonDock:LayoutPanel Orientation="Vertical">
-                    <avalonDock:LayoutAnchorablePane DockHeight="0.15*" x:Name="accountPane">
-                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Fund}" CanClose="False" CanHide="False" ContentId="FundContent">
-                            <c:AccountInfoControl x:Name="accountFundLV"/>
-                        </avalonDock:LayoutAnchorable>
-                    </avalonDock:LayoutAnchorablePane>
-
+            <avalonDock:LayoutPanel Orientation="Vertical">
+                <avalonDock:LayoutAnchorablePane DockHeight="0.15*" x:Name="accountPane">
+                    <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Fund}" CanClose="False" CanHide="False" ContentId="FundContent">
+                        <c:AccountInfoControl x:Name="accountFundLV"/>
+                    </avalonDock:LayoutAnchorable>
+                </avalonDock:LayoutAnchorablePane>
+                <avalonDock:LayoutPanel Orientation="Horizontal">
+                    <avalonDock:LayoutPanel DockWidth="0.2*">
+                        <avalonDock:LayoutAnchorablePane x:Name="fundPane">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Fund}" CanClose="False" CanHide="False" ContentId="FundContent">
+                                <c:RiskAccountInfoControl x:Name="clientFundLV"/>
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                    </avalonDock:LayoutPanel>
                     <avalonDock:LayoutAnchorablePane x:Name="riskparamsPane">
                         <avalonDock:LayoutAnchorable Title="{lex:Loc Key=RiskControlParams}" CanClose="False" CanHide="False" ContentId="RiskParamsContent">
                             <c:RiskParamsControl  x:Name="riskparamsControl"/>
                         </avalonDock:LayoutAnchorable>
                     </avalonDock:LayoutAnchorablePane>
-                </avalonDock:LayoutPanel>
-                <avalonDock:LayoutPanel Orientation="Vertical">
-                    <avalonDock:LayoutAnchorablePane x:Name="tradePane">
-                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Trade}" ContentId="TradeContent">
-                            <!--<c:TradeRecordControl x:Name="tradeWindow" PersistanceId="Domestic:TradeRecordControl"/>-->
-                            <ListView Name="tradeWindow">
-                                <ListView.View>
-                                    <GridView AllowsColumnReorder="True">
-                                        <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
-                                        <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>
-                                        <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Direction}" Width="auto"/>
-                                        <GridViewColumn Header="{lex:Loc Key=MatchPrice}" DisplayMemberBinding="{Binding Price}" Width="auto"/>
-                                        <GridViewColumn Header="{lex:Loc Key=QuoteVolume}" DisplayMemberBinding="{Binding Volume}" Width="auto"/>
-                                        <GridViewColumn Header="{lex:Loc Key=TradeDate}" DisplayMemberBinding="{Binding TradeDate}" Width="auto"/>
-                                        <GridViewColumn Header="{lex:Loc Key=TradeTime}" DisplayMemberBinding="{Binding TradeTime}" Width="auto"/>
-                                        <GridViewColumn Header="{lex:Loc Key=OrderSysID}" DisplayMemberBinding="{Binding OrderSysID}" Width="auto"/>
-                                        <GridViewColumn Header="{lex:Loc Key=TradeID}" DisplayMemberBinding="{Binding TradeID}" Width="auto"/>
-                                        <GridViewColumn Header="{lex:Loc Key=Commission}" DisplayMemberBinding="{Binding Commission}" Width="auto"/>
-                                        <GridViewColumn Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" Width="auto"/>
-                                        <GridViewColumn Header="{lex:Loc Key=TradingType}" DisplayMemberBinding="{Binding TradingType}" Width="auto"/>
-                                        <GridViewColumn Header="{lex:Loc Key=HedgeFlag}" DisplayMemberBinding="{Binding HedgeFlag}" Width="auto"/>
+                    <avalonDock:LayoutPanel Orientation="Vertical">
+                        <avalonDock:LayoutAnchorablePane x:Name="tradePane">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Trade}" ContentId="TradeContent">
+                                <!--<c:TradeRecordControl x:Name="tradeWindow" PersistanceId="Domestic:TradeRecordControl"/>-->
+                                <ListView Name="tradeWindow">
+                                    <ListView.View>
+                                        <GridView AllowsColumnReorder="True">
+                                            <GridViewColumn Header="{lex:Loc Key=Contract}" DisplayMemberBinding="{Binding Contract}" Width="auto"/>
+                                            <GridViewColumn Header="{lex:Loc Key=Portfolio}" DisplayMemberBinding="{Binding Portfolio}" Width="auto"/>
+                                            <GridViewColumn Header="{lex:Loc Key=Direction}" DisplayMemberBinding="{Binding Direction}" Width="auto"/>
+                                            <GridViewColumn Header="{lex:Loc Key=MatchPrice}" DisplayMemberBinding="{Binding Price}" Width="auto"/>
+                                            <GridViewColumn Header="{lex:Loc Key=QuoteVolume}" DisplayMemberBinding="{Binding Volume}" Width="auto"/>
+                                            <GridViewColumn Header="{lex:Loc Key=TradeDate}" DisplayMemberBinding="{Binding TradeDate}" Width="auto"/>
+                                            <GridViewColumn Header="{lex:Loc Key=TradeTime}" DisplayMemberBinding="{Binding TradeTime}" Width="auto"/>
+                                            <GridViewColumn Header="{lex:Loc Key=OrderSysID}" DisplayMemberBinding="{Binding OrderSysID}" Width="auto"/>
+                                            <GridViewColumn Header="{lex:Loc Key=TradeID}" DisplayMemberBinding="{Binding TradeID}" Width="auto"/>
+                                            <GridViewColumn Header="{lex:Loc Key=Commission}" DisplayMemberBinding="{Binding Commission}" Width="auto"/>
+                                            <GridViewColumn Header="{lex:Loc Key=Exchange}" DisplayMemberBinding="{Binding Exchange}" Width="auto"/>
+                                            <GridViewColumn Header="{lex:Loc Key=TradingType}" DisplayMemberBinding="{Binding TradingType}" Width="auto"/>
+                                            <GridViewColumn Header="{lex:Loc Key=HedgeFlag}" DisplayMemberBinding="{Binding HedgeFlag}" Width="auto"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                        <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Position}" ContentId="PositionContent">
+                                <c:PositionControl x:Name="positionsWindow" x:FieldModifier="public" PersistanceId="Domestic:PositionControl"/>
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
+                        <avalonDock:LayoutAnchorablePane x:Name="fastorderPane" DockWidth="0.25*">
+                            <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}" CanClose="False" CanHide="False" ContentId="FastOrderContent">
+                                <c:FastOrderControl x:Name="FastOrderCtl"/>
+                            </avalonDock:LayoutAnchorable>
+                        </avalonDock:LayoutAnchorablePane>
 
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-
-                        </avalonDock:LayoutAnchorable>
-                    </avalonDock:LayoutAnchorablePane>
-                    <avalonDock:LayoutAnchorablePane x:Name="positionPane" >
-                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=Position}" ContentId="PositionContent">
-                            <c:PositionControl x:Name="positionsWindow" x:FieldModifier="public" PersistanceId="Domestic:PositionControl"/>
-                        </avalonDock:LayoutAnchorable>
-                    </avalonDock:LayoutAnchorablePane>
-                    <avalonDock:LayoutAnchorablePane x:Name="fastorderPane" DockWidth="0.25*">
-                        <avalonDock:LayoutAnchorable Title="{lex:Loc Key=FastOrder}" CanClose="False" CanHide="False" ContentId="FastOrderContent">
-                            <c:FastOrderControl x:Name="FastOrderCtl"/>
-                        </avalonDock:LayoutAnchorable>
-                    </avalonDock:LayoutAnchorablePane>
+                    </avalonDock:LayoutPanel>
                 </avalonDock:LayoutPanel>
             </avalonDock:LayoutPanel>
         </avalonDock:LayoutRoot>
     </avalonDock:DockingManager>
-
 </UserControl>

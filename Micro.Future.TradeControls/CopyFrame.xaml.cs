@@ -346,6 +346,7 @@ namespace Micro.Future.UI
             // Initailize UI events
             clientFundLV.OnAccountSelected += OnAccountSelected;
             clientFundLV.OnClickLogin += OnClickLogin;
+            positionsWindow.OnPositionSelected += FastOrderCtl.OnPositionSelected;
             //tradeWindow.AnchorablePane = tradePane;
             positionsWindow.AnchorablePane = positionPane;
             positionsWindow.ClosePositionClick.IsEnabled = false;

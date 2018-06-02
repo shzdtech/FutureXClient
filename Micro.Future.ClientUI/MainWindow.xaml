@@ -20,8 +20,8 @@
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=YDPositionSync}" Click="MenuItem_SyncPosition_Click">
                 </MenuItem>-->
-                <MenuItem Header="{lex:Loc Key=Login}" Click="MenuItem_Click_Login">
-                </MenuItem>
+                <!--<MenuItem Header="{lex:Loc Key=Login}" Click="MenuItem_Click_Login">
+                </MenuItem>-->
                 <MenuItem Header="{lex:Loc Key=RefreshContracts}" Click="MenuItem_RefreshContracts_Click">
                 </MenuItem>
                 <MenuItem Header="{lex:Loc Key=ResetPassword}" Click="MenuItem_Click_ResetPassword">
