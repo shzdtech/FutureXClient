@@ -53,6 +53,10 @@
     <Reference Include="Xceed.Wpf.Toolkit, Version=3.3.17121.18230, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="LoadingWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="RiskParamsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -127,6 +131,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LoadingWindow.xaml.cs">
+      <DependentUpon>LoadingWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RiskParamsControl.xaml.cs">
       <DependentUpon>RiskParamsControl.xaml</DependentUpon>
     </Compile>

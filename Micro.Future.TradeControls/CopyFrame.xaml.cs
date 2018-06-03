@@ -88,8 +88,6 @@ namespace Micro.Future.UI
                 var accountSignIner = new PBSignInManager(_accountSignIner.SignInOptions);
                 msgContainer.Get<AccountHandler>().RegisterMessageWrapper(otcOptionDataSignIner.MessageWrapper);
 
-                //ctpTradeSignIner.OnLogged += _ctpTradeSignIner_OnLogged;
-
                 var taskList = new List<Task<TaskResult<IUserInfo, MessageException>>>();
 
 
@@ -101,7 +99,6 @@ namespace Micro.Future.UI
                     taskList.Add(ServerLoginAsync(otcTradingDeskSignIner));
                     taskList.Add(ServerLoginAsync(otcOptionDataSignIner));
                     taskList.Add(ServerLoginAsync(accountSignIner));
-
 
                     Task.WaitAll(taskList.ToArray());
 
@@ -139,6 +136,9 @@ namespace Micro.Future.UI
 
         private async void RiskparamsControl_OnModelSelected(ModelParamsVM obj)
         {
+            ControlFalse();
+            //LoadingWindow win = new LoadingWindow();
+            //win.ShowDialog();
             InstanceName = obj.InstanceName;
             var tradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().PortfolioVMCollection;
@@ -262,6 +262,8 @@ namespace Micro.Future.UI
             {
                 riskparamsControl.RiskParamSP.DataContext = riskparams.FirstOrDefault(c => c.Model == paramdef.ModelName);
             }
+            ControlTrue();
+            //win.Close();
         }
 
         private void A_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -380,13 +382,39 @@ namespace Micro.Future.UI
             }
         }
 
+        public void ControlFalse()
+        {
+            accountFundLV.IsEnabled = false;
+            clientFundLV.IsEnabled = false;
+            riskparamsControl.IsEnabled = false;
+            tradeWindow.IsEnabled = false;
+            positionsWindow.IsEnabled = false;
+            FastOrderCtl.IsEnabled = false;
+        }
+
+        public void ControlTrue()
+        {
+            accountFundLV.IsEnabled = true;
+            clientFundLV.IsEnabled = true;
+            riskparamsControl.IsEnabled = true;
+            tradeWindow.IsEnabled = true;
+            positionsWindow.IsEnabled = true;
+            FastOrderCtl.IsEnabled = true;
+        }
         public async void OnAccountSelected(TradingDeskVM tradingdeskVM)
         {
+            //_otcTradeSignIner.OnLogged += _otcTradeSignIner_OnLogged;
+
+            ControlFalse();
+            //LoadingWindow win = new LoadingWindow();
+            //win.Show();
             riskparamsControl.RiskParamNameListView.ItemsSource = null;
             riskparamsControl.RiskParamSP.Children.Clear();
             if (tradingdeskVM.UserName != null)
             {
                 var ret = await GetUserMessageContainer(tradingdeskVM.UserName);
+                ControlTrue();
+                //win.Close();
                 MessageHandlerContainer.DefaultInstance = ret;
                 var tradeHandler = MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>();
                 var marketdataHandler = MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>();
@@ -394,7 +422,6 @@ namespace Micro.Future.UI
 
                 positionsWindow.DEFAULT_ID = POSITION_DEFAULT_ID;
                 //tradeWindow.DEFAULT_ID = TRADE_DEFAULT_ID;
-
                 //tradeWindow.TradeHandler = tradeHandler;
                 //tradeWindow.Dispatcher.Invoke(() => tradeWindow.TradeHandler = tradeHandler);
                 positionsWindow.TradeHandler = tradeHandler;
@@ -405,20 +432,14 @@ namespace Micro.Future.UI
                 FastOrderCtl.ProductTypeList.Add(ProductType.PRODUCT_OPTIONS);
                 FastOrderCtl.ProductTypeList.Add(ProductType.PRODUCT_COMBINATION);
 
-
                 ObservableCollection<ModelParamsVM> modelparamsVMCollection;
                 if (tradingdeskHandler.ModelParamsDict.TryGetValue("risk", out modelparamsVMCollection))
                 {
                     riskparamsControl.RiskParamNameListView.ItemsSource = null;
                     riskparamsControl.RiskParamNameListView.ItemsSource = modelparamsVMCollection;
                 }
-                controlReload();
-                //tradeWindow.TradeHandler.QueryTrade();
 
-                //if (_ctpTradeSignIner.MessageWrapper.HasSignIn)
-                //positionsWindow.ReloadData();
-                //tradeWindow.ReloadData();
-                //riskparamsControl.RiskParamSP.Children.Add(new Xceed.Wpf.Toolkit.DoubleUpDown());
+                controlReload();
             }
         }
         private void _ctpTradeSignIner_OnLogged(IUserInfo obj)
@@ -462,6 +483,7 @@ namespace Micro.Future.UI
             await tradingdeskHandler.QueryTradingDeskAsync();
             //clientFundLV.TradingDeskVMCollection = tradingdeskHandler.TradingDeskVMCollection;
             clientFundLV.FundListView.ItemsSource = tradingdeskHandler.TradingDeskVMCollection;
+
         }
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
@@ -474,7 +496,6 @@ namespace Micro.Future.UI
         public Task<bool> LoginAsync(string brokerId, string usernname, string password, string server)
         {
             _otcTradingDeskSignIner.OnLogged += _otcTradingDeskSignIner_OnLogged;
-
             MessageHandlerContainer.DefaultInstance.Get<MarketDataHandler>().RegisterMessageWrapper(_ctpMdSignIner.MessageWrapper);
             MessageHandlerContainer.DefaultInstance.Get<TraderExHandler>().RegisterMessageWrapper(_ctpTradeSignIner.MessageWrapper);
             MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().RegisterMessageWrapper(_otcTradingDeskSignIner.MessageWrapper);
@@ -532,6 +553,16 @@ namespace Micro.Future.UI
             OTCTradeServerLogin();
             AccountServerLogin();
             return LoginTaskSource.Task;
+        }
+
+        private void _otcTradeSignIner_OnLogged(IUserInfo obj)
+        {
+            accountFundLV.IsEnabled = true;
+            clientFundLV.IsEnabled = true;
+            riskparamsControl.IsEnabled = true;
+            tradeWindow.IsEnabled = true;
+            positionsWindow.IsEnabled = true;
+            FastOrderCtl.IsEnabled = true;
         }
 
         private Task<TaskResult<IUserInfo, MessageException>> ServerLoginAsync(AbstractSignInManager signiner)
