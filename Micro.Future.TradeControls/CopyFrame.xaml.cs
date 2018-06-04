@@ -109,11 +109,11 @@ namespace Micro.Future.UI
                     otcOptionDataSignIner.SignInOptions.UserName = userName;
 
                     taskList.Clear();
-                    taskList.Add(ServerLoginAsync(ctpMdSignIner));
+                    //taskList.Add(ServerLoginAsync(ctpMdSignIner));
                     taskList.Add(ServerLoginAsync(ctpTradeSignIner));
                     taskList.Add(ServerLoginAsync(otcTradeSignIner));
                     taskList.Add(ServerLoginAsync(otcTradingDeskSignIner));
-                    taskList.Add(ServerLoginAsync(otcOptionDataSignIner));
+                    //taskList.Add(ServerLoginAsync(otcOptionDataSignIner));
                     taskList.Add(ServerLoginAsync(accountSignIner));
 
                     Task.WaitAll(taskList.ToArray());

@@ -504,7 +504,7 @@ namespace Micro.Future.UI
             mColumns = ColumnObject.GetColumns(PositionListView);
             TradeHandler.PositionVMCollection.Clear();
             TradeHandler.QueryPosition();
-            //TradeHandler.PositionVMCollection.CollectionChanged += PositionCollectionChanged;
+            TradeHandler.PositionVMCollection.CollectionChanged += PositionCollectionChanged;
             //MarketDataHandler.OnNewMarketData += OnNewMarketData;
             //var userID = MessageHandlerContainer.DefaultInstance.Get<AccountHandler>().MessageWrapper.User.Id;
             var userID = TradeHandler.MessageWrapper?.User?.Id;
