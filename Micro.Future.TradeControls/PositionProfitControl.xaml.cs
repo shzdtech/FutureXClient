@@ -167,13 +167,16 @@ namespace Micro.Future.UI
 
         private void UpdatePositionCallback(object state)
         {
+
             TradeHandler.QueryPositionProfit();
             TotalProfit = 0;
+
             foreach (var vm in TradeHandler.PositionProfitVMCollection)
             {
                 if (!double.IsNaN(vm.Profit))
                     TotalProfit = TotalProfit + vm.Profit;
             }
+
             Dispatcher.Invoke(() =>
             {
 

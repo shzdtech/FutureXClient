@@ -16,6 +16,8 @@ namespace Micro.Future.Message
     public abstract class AbstractOTCHandler : AbstractMessageHandler
     {
         public event Action<StrategyVM> OnStrategyUpdated;
+        public event Action<Exception> OnOrderError;
+
         public ConcurrentDictionary<ContractKeyVM, WeakReference<ContractKeyVM>> TradingDeskDataMap
         {
             get;
@@ -114,6 +116,20 @@ namespace Micro.Future.Message
                       ((uint)BusinessMessageID.MSG_ID_MODIFY_PRICING_CONTRACT, OnQueryStrategySuccessAction, OnErrorAction);
             MessageWrapper.RegisterAction<PBInstrumentList, ExceptionMessage>
                       ((uint)BusinessMessageID.MSG_ID_UNSUB_TRADINGDESK_PRICING, UnsubTDSuccessAction, OnErrorAction);
+            MessageWrapper.RegisterAction<PBOrderInfo, ExceptionMessage>
+                ((uint)BusinessMessageID.MSG_ID_ORDER_NEW, null, ErrorOrderMsgAction);
+        }
+        private void ErrorOrderMsgAction(ExceptionMessage bizErr)
+        {
+            if (bizErr.Description != null)
+            {
+                var msg = bizErr.Description.ToByteArray();
+                if (msg.Length > 0)
+                    OnOrderError?.Invoke(
+                        new MessageException(bizErr.MessageId, ErrorType.UNSPECIFIED_ERROR, bizErr.Errorcode,
+                        Encoding.UTF8.GetString(msg)));
+
+            }
         }
 
         public Task<ModelParamsVM> QueryModelParamsAsync(string modelName, int timeout = 10000)

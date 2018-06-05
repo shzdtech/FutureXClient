@@ -343,6 +343,7 @@ namespace Micro.Future.UI
                     var _tradehandler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                     var _markethandler = MarketDataHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                     _handler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
+                    _handler.OnOrderError += Callback_OnOrderError;
                     _tradehandler.OnPositionUpdated += OnPositionUpdated;
                     var marketDataList = await _markethandler.SubMarketDataAsync(optionList.Select(c => new ContractKeyVM(c.Exchange, c.Contract)));
                     var retList = _handler.MakeCallPutTDOptionData(strikeList, callList, putList, marketDataList);
