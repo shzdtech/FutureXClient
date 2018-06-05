@@ -231,10 +231,11 @@ namespace Micro.Future.UI
             InitializeComponent();
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             var portfolioList = portfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
-            portfolioCB.ItemsSource = portfolioList;
-            PortfolioVMCollection.Union(portfolioVMCollection);
-            PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
-            PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
+            //portfolioCB.ItemsSource = portfolioList;
+            portfolioCB.ItemsSource = portfolioVMCollection;
+            //PortfolioVMCollection.Union(portfolioVMCollection);
+            //PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
+            //PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             OptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_OPTIONS));
             OptionList.AddRange(ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_ETFOPTION));
@@ -269,8 +270,12 @@ namespace Micro.Future.UI
                 var portfolio = portfolioCB.SelectedValue?.ToString();
                 deltaRadioButton.IsChecked = true;
                 marketRadioButton.IsChecked = true;
+                foreach(var vm in MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection)
+                {
+                    PortfolioVMCollection.Add(vm);
+                }
                 var hedgeVM = PortfolioVMCollection.Where(c => c.Name == portfolioCB.SelectedValue.ToString()).Select(c => c.HedgeContractParams).FirstOrDefault();
-                SelectedContract = hedgeVM.Select(c => c.Contract).FirstOrDefault();
+                SelectedContract = hedgeVM.Select(c => c.Contract).Last();
                 SelectedOptionContract = OptionList.Where(c => c.UnderlyingContract == SelectedContract).Select(c => c.Contract).FirstOrDefault();
                 var _tradingdeskhandler = TradingDeskHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                 if (MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().MessageWrapper.HasSignIn)

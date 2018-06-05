@@ -63,26 +63,16 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             var otcoptiontradingdeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
+            otcoptiontradingdeskHandler.QueryPortfolio();
             var portfolioVMCollection = otcoptiontradingdeskHandler.PortfolioVMCollection;
-            //foreach (var vm in MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection)
+            //var p1 = PortfolioVMCollection.Union(portfolioVMCollection);
+            //p1 = p1.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
+            //p1 = p1.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
+            //var portfolioList = p1.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
+            //foreach(var vm in p1)
             //{
-            //    if (vm != null)
-            //        portfolioVMCollection.Add(vm);
+            //    PortfolioVMCollection.Add(vm);
             //}
-            //foreach (var vm in MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection)
-            //{
-            //    if (vm != null)
-            //        portfolioVMCollection.Add(vm);
-            //}
-            //PortfolioVMCollection = portfolioVMCollection;
-            var p1 = PortfolioVMCollection.Union(portfolioVMCollection);
-            p1 = p1.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
-            p1 = p1.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
-            var portfolioList = p1.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
-            foreach(var vm in p1)
-            {
-                PortfolioVMCollection.Add(vm);
-            }
             portfolioCB.ItemsSource = portfolioVMCollection;
             //portfolioCB.ItemsSource = portfolioList;
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
@@ -130,6 +120,10 @@ namespace Micro.Future.UI
             {
                 var portfolio = portfolioCB.SelectedValue.ToString();
                 SelectedPortfolio = portfolioCB.SelectedValue.ToString();
+                foreach(var vm in MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>().PortfolioVMCollection)
+                {
+                    PortfolioVMCollection.Add(vm);
+                }
                 var portfolioVM = PortfolioVMCollection.FirstOrDefault(c => c.Name == SelectedPortfolio && c.HedgeContractParams != null && c.HedgeContractParams.Count > 0);
                 if (portfolioVM != null)
                 {

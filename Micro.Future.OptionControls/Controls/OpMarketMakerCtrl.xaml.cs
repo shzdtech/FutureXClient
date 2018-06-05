@@ -75,6 +75,10 @@ namespace Micro.Future.UI
             get;
             private set;
         }
+        private void Callback_OnOrderError(Exception obj)
+        {
+            System.Windows.MessageBox.Show(obj.Message);
+        }
         public void GetContractInfo()
         {
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
@@ -106,7 +110,6 @@ namespace Micro.Future.UI
             // Initialize Market Data
             quoteListView1.ItemsSource = QuoteVMCollection1;
             option_priceLV.ItemsSource = CallPutTDOptionVMCollection;
-
             //_otcOptionHandler.OnTradingDeskOptionParamsReceived += OnTradingDeskOptionParamsReceived;
             //_tradeExHandler.OnPositionUpdated += OnPositionUpdated;
 
@@ -235,10 +238,10 @@ namespace Micro.Future.UI
             {
                 var PositionVMLong = _tradehandler.PositionVMCollection.FirstOrDefault(c => c.Contract == vm.Contract && c.Direction == PositionDirectionType.PD_LONG);
                 var PositionVMShort = _tradehandler.PositionVMCollection.FirstOrDefault(c => c.Contract == vm.Contract && c.Direction == PositionDirectionType.PD_SHORT);
-                if(PositionVMLong!=null)
-                PositionLong = PositionVMLong.Position;
-                if(PositionVMShort!=null)
-                PositionShort = PositionVMShort.Position;
+                if (PositionVMLong != null)
+                    PositionLong = PositionVMLong.Position;
+                if (PositionVMShort != null)
+                    PositionShort = PositionVMShort.Position;
                 CallPutTDOptionVMCollection.UpdatePosition(vm, PositionLong, PositionShort);
             }
         }
@@ -647,7 +650,7 @@ namespace Micro.Future.UI
                 StrategyVM strategyVM = updownctrl.Tag as StrategyVM;
                 if (strategyVM != null)
                 {
-                    lock(this)
+                    lock (this)
                     {
                         strategyVM.UpdateStrategyAsync().WaitAsync();
                     }

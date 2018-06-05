@@ -335,14 +335,13 @@ namespace Micro.Future.UI
             InitializeComponent();
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
-            var portfolioList = portfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
-            portfolioCB.ItemsSource = portfolioList;
-            PortfolioVMCollection.Union(portfolioVMCollection);
-            PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
-            PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
-            //_timer = new Timer(PositionUpdateCallback, null, UpdateInterval, UpdateInterval);
-            //_tradeExHandler.OnPositionUpdated += OnPositionUpdated;
-            //refreshsSizeIUP.Value = 0;
+            //var portfolioList = portfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
+            //portfolioCB.ItemsSource = portfolioList;
+            portfolioCB.ItemsSource = portfolioVMCollection;
+            //PortfolioVMCollection.Union(portfolioVMCollection);
+            //PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
+            //PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
+
         }
         //private void PositionUpdateCallback(object state)
         //{
@@ -367,6 +366,10 @@ namespace Micro.Future.UI
             BarItemCollection.Clear();
             if (portfolioCB.SelectedValue != null)
             {
+                foreach(var vm in MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection)
+                {
+                    PortfolioVMCollection.Add(vm);
+                }
                 var portfolio = portfolioCB.SelectedValue?.ToString();
                 deltaRadioButton.IsChecked = true;
                 marketRadioButton.IsChecked = true;

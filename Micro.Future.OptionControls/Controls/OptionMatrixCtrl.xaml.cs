@@ -263,6 +263,11 @@ namespace Micro.Future.UI
             Dispatcher.Invoke(() =>
             {
                 var portfolio = portfolioCB.SelectedValue?.ToString();
+                PortfolioVMCollection.Clear();
+                foreach (var vm in MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection)
+                {
+                    PortfolioVMCollection.Add(vm);
+                }
                 //if (priceCntIUP.Value != null && priceSizeIUP.Value != null && volCntIUP.Value != null && volSizeIUP.Value != null)
                 //{
                 //    int volCount = 2 * VolCnt + 2;
@@ -556,16 +561,13 @@ namespace Micro.Future.UI
         {
             InitializeComponent();
             _futurecontractList = ClientDbContext.GetContractFromCache((int)ProductType.PRODUCT_FUTURE);
-            //_tradeExHandler.OnPositionUpdated += OnPositionUpdated;
             var portfolioVMCollection = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>()?.PortfolioVMCollection;
             var portfolioList = portfolioVMCollection.Where(c => !string.IsNullOrEmpty(c.Name)).Select(c => c.Name).Distinct().ToList();
-            portfolioCB.ItemsSource = portfolioList;
-            //portfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
-            //portfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
-            //PortfolioVMCollection = portfolioVMCollection;
-            PortfolioVMCollection.Union(portfolioVMCollection);
-            PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
-            PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
+            portfolioCB.ItemsSource = portfolioVMCollection;
+
+            //PortfolioVMCollection.Union(portfolioVMCollection);
+            //PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCETFTradingDeskHandler>()?.PortfolioVMCollection);
+            //PortfolioVMCollection.Union(MessageHandlerContainer.DefaultInstance.Get<OTCStockTradingDeskHandler>()?.PortfolioVMCollection);
             //_timer = new Timer(PositionUpdateCallback, null, UpdateInterval, UpdateInterval);
             //_tradeExHandler.OnPositionUpdated += OnPositionUpdated;
             //refreshsSizeIUP.Value = 0;
@@ -681,7 +683,7 @@ namespace Micro.Future.UI
                 PriceSize = (int)priceSizeIUP.Value;
                 var _tradehandler = TradeExHandlerRouter.DefaultInstance.GetMessageHandlerByContract(SelectedContract);
                 var tradingday = _tradehandler.FundVM.TradingDay;
-                if(tradingday!=0)
+                if (tradingday != 0)
                 {
                     var tradingdatetime = DateTime.ParseExact(tradingday.ToString(),
                         "yyyyMMdd",
@@ -767,7 +769,7 @@ namespace Micro.Future.UI
                 foreach (var vm in strategyVMList)
                 {
                     var contractinfo = ClientDbContext.FindContract(vm.Contract);
-                    if(contractinfo!=null)
+                    if (contractinfo != null)
                     {
                         if (contractinfo.ExpireDate == strategyBaseVM.Expiration)
                             _riskSet.Add(vm.Contract);
