@@ -63,6 +63,11 @@ namespace Micro.Future.Message
             get;
         } = new ObservableCollection<FundVM>();
 
+        public double TotalProfit
+        {
+            get;
+            set;
+        }
         //to add VMCollection for ContractName
         /*
         public ObservableCollection<ContractVM> ContractVMCollection
@@ -513,6 +518,13 @@ namespace Micro.Future.Message
                         PositionProfitVMCollection.Add(sellpositionVM);
                         OnPositionProfitUpdated?.Invoke(sellpositionVM);
                     }
+                }
+
+                TotalProfit = 0;
+                foreach (var vm in PositionProfitVMCollection)
+                {
+                    if (!double.IsNaN(vm.Profit))
+                        TotalProfit = vm.Profit + TotalProfit;
                 }
             }
         }

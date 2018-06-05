@@ -169,18 +169,18 @@ namespace Micro.Future.UI
         {
 
             TradeHandler.QueryPositionProfit();
-            TotalProfit = 0;
+            //TotalProfit = 0;
 
-            foreach (var vm in TradeHandler.PositionProfitVMCollection)
-            {
-                if (!double.IsNaN(vm.Profit))
-                    TotalProfit = TotalProfit + vm.Profit;
-            }
+            //foreach (var vm in TradeHandler.PositionProfitVMCollection)
+            //{
+            //    if (!double.IsNaN(vm.Profit))
+            //        TotalProfit = TotalProfit + vm.Profit;
+            //}
 
             Dispatcher.Invoke(() =>
             {
 
-                ttleprofitLabel.Content = TotalProfit;
+                ttleprofitLabel.Content = TradeHandler.TotalProfit;
             });
         }
 
