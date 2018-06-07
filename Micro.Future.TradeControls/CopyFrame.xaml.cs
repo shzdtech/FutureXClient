@@ -461,9 +461,9 @@ namespace Micro.Future.UI
             //tradeWindow.TradeHandler.QueryTrade();
             //System.Threading.Thread.Sleep(3000);
             //tradeWindow.ReloadData();
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             tradeWindow.ItemsSource = tradeHandler.TradeVMCollection;
-            Thread.Sleep(2000);
+            //Thread.Sleep(1000);
             positionsWindow.DEFAULT_ID = POSITION_DEFAULT_ID;
             //positionsWindow.Dispatcher.Invoke(() => positionsWindow.ReloadData());
             positionsWindow.ReloadData();
