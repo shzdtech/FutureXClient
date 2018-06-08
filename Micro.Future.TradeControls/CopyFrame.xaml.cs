@@ -118,15 +118,21 @@ namespace Micro.Future.UI
 
                     Task.WaitAll(taskList.ToArray());
 
-                    await Task.Run(async () =>
-                    {
-                        var tradingdeskHandler = msgContainer.Get<OTCOptionTradingDeskHandler>();
-                        await tradingdeskHandler.QueryPortfolioAsync();
-                        var dict = await tradingdeskHandler.QueryAllModelParamsAsync();
-                        ObservableCollection<ModelParamsVM> modelparamsVMCollection;
-                        if (dict.TryGetValue("risk", out modelparamsVMCollection))
-                            riskparamsControl.Dispatcher.Invoke(() => riskparamsControl.RiskParamNameListView.ItemsSource = modelparamsVMCollection);
-                    });
+                    //await Task.Run(async () =>
+                    //{
+                    //    var tradingdeskHandler = msgContainer.Get<OTCOptionTradingDeskHandler>();
+                    //    await tradingdeskHandler.QueryPortfolioAsync();
+                    //    var dict = await tradingdeskHandler.QueryAllModelParamsAsync();
+                    //    ObservableCollection<ModelParamsVM> modelparamsVMCollection;
+                    //    if (dict.TryGetValue("risk", out modelparamsVMCollection))
+                    //        riskparamsControl.Dispatcher.Invoke(() => riskparamsControl.RiskParamNameListView.ItemsSource = modelparamsVMCollection);
+                    //});
+                    var tradingdeskHandler = msgContainer.Get<OTCOptionTradingDeskHandler>();
+                    await tradingdeskHandler.QueryPortfolioAsync();
+                    var dict = await tradingdeskHandler.QueryAllModelParamsAsync();
+                    ObservableCollection<ModelParamsVM> modelparamsVMCollection;
+                    if (dict.TryGetValue("risk", out modelparamsVMCollection))
+                        riskparamsControl.Dispatcher.Invoke(() => riskparamsControl.RiskParamNameListView.ItemsSource = modelparamsVMCollection);
 
                 });
             }

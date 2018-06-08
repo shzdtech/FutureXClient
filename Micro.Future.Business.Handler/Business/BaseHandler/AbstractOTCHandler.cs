@@ -215,7 +215,7 @@ namespace Micro.Future.Message
             ModelParamsVM ret = null;
             if (!string.IsNullOrEmpty(resp.InstanceName))
             {
-                lock(modelParamsVMCollection)
+                lock (modelParamsVMCollection)
                 {
                     ret = modelParamsVMCollection.FirstOrDefault(c => c.InstanceName == resp.InstanceName);
                     if (ret == null)
@@ -291,7 +291,7 @@ namespace Micro.Future.Message
             ModelParamDefVM ret = null;
             if (!string.IsNullOrEmpty(resp.ModelName))
             {
-                lock(ModelParamDefVMCollection)
+                lock (ModelParamDefVMCollection)
                 {
                     ret = ModelParamDefVMCollection.FirstOrDefault(c => c.InstanceName == resp.ModelName);
                     if (ret == null)
