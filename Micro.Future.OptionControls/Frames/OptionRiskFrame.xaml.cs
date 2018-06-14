@@ -257,7 +257,8 @@ namespace Micro.Future.UI
             win.ETFTradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPETFTraderHandler>();
             win.StockTradeHandler = MessageHandlerContainer.DefaultInstance.Get<CTPSTOCKTraderHandler>();
             win.TradingDeskHandler = MessageHandlerContainer.DefaultInstance.Get<OTCOptionTradingDeskHandler>();
-            win.QueryPositionDiffer();
+            //win.QueryPositionDiffer();
+            win.FutureQueryDiffer();
             if(win.TotalSysPosition==0 && win.TotalPosition!=0)
             {
                 string msg = string.Format("大宗商品账户正在查询，请稍后重试");
